@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Samsung Channels</title>
+  <link href='https://fonts.googleapis.com/css?family=Barlow+Condensed' rel='stylesheet'>
+  <link href="https://unpkg.com/video.js@7/dist/video-js.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/video.js@7/dist/video.min.js"></script>
+  <style>
+    body {
+      background: dimgray;
+      color: white;
+      white-space: nowrap;
+      overflow: hidden;
+      font-family: 'Barlow Condensed', sans-serif;
+    }
+
+    select {
+      position: fixed;
+      bottom: 16px;
+      right: 10px;
+      display: flex;
+      background: dimgray;
+      color: white;
+      white-space: nowrap;
+      overflow: hidden;
+      border: 2px solid orange;
+      font-family: 'Barlow Condensed', sans-serif;
+    }
+
+    #channels-list {
+      max-height: 300px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin-top: 20px;
+    }
+
+    #channels-list button {
+      font-family: 'Barlow Condensed', sans-serif;
+      background: dimgray;
+      color: white;
+      display: block;
+      margin-bottom: 2px;
+      background-color: dimgray;
+    }
+
+    #channels-list button.active {
+      background-color: orange;
+      color: black;
+      /* Text per al botó actiu */
+    }
+
+    #navigation-buttons {
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: 10px;
+      background: rgba(0, 0, 0, 0.0);
+      padding: 10px;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+    }
+
+    .navigation-button {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid orange;
+      background: rgba(0, 0, 0, 0.05);
+      opacity: 0.1; 
+      background-color: #fff;
+      /* Fons blanc */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+
+    .navigation-button:hover {
+      background-color: #ddd;
+      /* Fons gris clar en hover */
+    }
+
+    /* Afegit estil per a pantalles més grans que alçada */
+    @media screen and (min-width: 768px) and (min-height: 480px) {
+      #videoInfo,
+      #channelLogo {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 10px;
+        background: rgba(0, 0, 0, 0.25);
+        padding: 10px;
+        display: flex;
+        align-items: center;
+      }
+
+      #navigation-buttons {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 10px;
+        background: rgba(0, 0, 0, 0.25);
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+      }
+
+      #channels-list {
+        position: absolute;
+        top: 0;
+        right: -300px;
+        /* Amaga inicialment la llista al lateral dret */
+        width: 300px;
+        background: rgba(0, 0, 0, 0.25);
+        padding: 10px;
+        transition: right 0.3s ease-in-out;
+        /* Afegida transició */
+      }
+
+      #channels-list.show {
+        right: 0;
+        /* Mostra la llista quan té la classe 'show' */
+      }
+    }
+  </style>
+</head>
+
+<body>
+ 
+
+  <video id="videoPlayer" autoplay class="video-js vjs-fluid vjs-default-skin vjs-big-play-centered" controls preload="auto" fluid="true" liveui="true" style="width: 100vw;height: calc(100vw * 9 / 16);"></video>
+  
+   <div id="videoInfo" style="display: none; align-items: center; margin-bottom: 10px;">
+    <img id="channelLogo" src="" alt="Channel Logo" style="width: 60px; height: 60px; margin-right: 10px;">
+    <h2 id="videoTitle"></h2>
+  </div>
+  
+  
+  <div id="channels-list">
+    <!-- Afegeix aquest codi a la teva pàgina HTML -->
+  </div>
+  <div id="navigation-buttons">
+
+    <select id="selectCountry"><option value="cat">Cat</option>
+ 
+      <option value="cooking">Catalunya</option>
+      <option value="es">Espanya</option>
+      <option value="news">Espanya Samsung</option>
+      <option value="gb">Regne Unit Samsung</option>
+      <option value="it">Itàlia</option>
+      <option value="fr1">Itàlia Samsunf</option>
+      <option value="fr">França</option>
+      <option value="fr1">França Samsung</option>
+      <option value="all">Tots els Canals</option>
+      <option value="sports">Esports</option>
+      <option value="mylist">Llista</option>
+    </select>
+
+    <div class="navigation-button" onclick="navigateChannel(-1)">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+        <path d="M14 7l-5 5 5 5V7z" />
+      </svg>
+    </div>
+    <div class="navigation-button" onclick="navigateChannel(1)">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+        <path d="M10 17l5-5-5-5v10z" />
+      </svg>
+    </div>
+  </div>
+
+  <script>
+    const videoPlayer = videojs('videoPlayer');
+    const channelsListContainer = document.getElementById('channels-list'); // Corregit l'ID aquí
+    const videoInfoContainer = document.getElementById('videoInfo');
+    const channelLogoElement = document.getElementById('channelLogo');
+    const videoTitleElement = document.getElementById('videoTitle');
+    let currentChannelIndex = 0;
+    let channels = [];
+
+    // Funció per obtenir l'arxiu M3U basat en l'opció seleccionada
+    function fetchM3UFile(selectedOption) {
+      const m3uURLs = {
+        'es': 'https://iptv-org.github.io/iptv/countries/es.m3u',
+        'gb': 'https://i.mjh.nz/SamsungTVPlus/gb.m3u8',
+        'it': 'https://iptv-org.github.io/iptv/countries/it.m3u',
+        'it1': 'https://i.mjh.nz/SamsungTVPlus/it.m3u8',
+        'fr': 'https://iptv-org.github.io/iptv/countries/fr.m3u',
+        'fr1': 'https://i.mjh.nz/SamsungTVPlus/fr.m3u8',
+        'news': 'https://i.mjh.nz/SamsungTVPlus/es.m3u8',
+         'cat': 'https://raw.githubusercontent.com/Xarxa-1/Xarxa-1/main/cat0014-.m3u',
+     
+        
+        'cooking': 'https://qhre57pp8mefmxdpd0t76q.on.drv.tw/web/public/web1/cat8.m3u',
+        'all': 'https://i.mjh.nz/SamsungTVPlus/all.m3u8',
+        'sports': 'https://raw.githubusercontent.com/jsosao/m3u/main/sports.m3u8',
+        'mylist': 'https://raw.githubusercontent.com/jsosao/m3u/main/mylist.m3u8',
+      };
+
+      const selectedURL = m3uURLs[selectedOption];
+
+      fetch(selectedURL)
+        .then(response => response.text())
+        .then(data => {
+          channelsListContainer.innerHTML = ''; // Buida la llista abans d'afegir els nous canals
+          const lines = data.split('\n');
+          let currentChannel = null;
+
+          lines.forEach(line => {
+            if (line.startsWith('#EXTINF:')) {
+              currentChannel = {
+                name: '',
+                url: '',
+                logo: ''
+              };
+              const nameMatch = line.match(/,(.+)/);
+              const logoMatch = line.match(/tvg-logo="([^"]+)"/);
+
+              if (nameMatch) {
+                currentChannel.name = nameMatch[1].trim();
+              }
+
+              if (logoMatch) {
+                currentChannel.logo = logoMatch[1].trim();
+              }
+            } else if (currentChannel && line.trim() !== '') {
+              currentChannel.url = line.trim();
+              channels.push(currentChannel);
+              currentChannel = null;
+            }
+          });
+
+          channels.forEach((channel, index) => {
+            const button = document.createElement('button');
+            button.textContent = channel.name;
+            button.addEventListener('click', () => playChannel(channel, index));
+            channelsListContainer.appendChild(button);
+          });
+
+          // Afegir la classe 'active' al primer botó
+          const firstButton = channelsListContainer.querySelector('button:first-child');
+          if (firstButton) {
+            firstButton.classList.add('active');
+          }
+
+          // Reproduir el primer canal immediatament
+          playChannel(channels[currentChannelIndex]);
+        })
+        .catch(error => console.error('Error al obtenir l\'arxiu M3U de Samsung TV Plus:', error));
+    }
+
+    // Afegit un listener per a quan canviïs l'opció seleccionada
+    document.getElementById('selectCountry').addEventListener('change', function () {
+      const selectedOption = this.value;
+      channels = []; // Esborra les dades dels canals per evitar duplicats
+      fetchM3UFile(selectedOption);
+    });
+
+    // Inicialitza amb l'opció predeterminada
+    fetchM3UFile(document.getElementById('selectCountry').value);
+
+    function playChannel(channel, index) {
+      videoInfoContainer.style.display = 'flex';
+      channelLogoElement.src = channel.logo;
+      videoTitleElement.textContent = channel.name;
+
+      videoPlayer.src(channel.url);
+
+      // Escolta l'event 'loadedmetadata' per assegurar-se que el vídeo estigui totalment carregat abans de reproduir-lo
+      videoPlayer.one('loadedmetadata', function () {
+        setTimeout(() => {
+          this.play();
+        }, 500); // Retard de 500ms abans de reproduir el vídeo
+      });
+
+      currentChannelIndex = index;
+      updateActiveButton();
+      scrollActiveButtonIntoView();
+    }
+
+    function navigateChannel(offset) {
+      const newIndex = currentChannelIndex + offset;
+
+      if (newIndex >= 0 && newIndex < channels.length) {
+        playChannel(channels[newIndex], newIndex);
+      }
+    }
+
+    function updateActiveButton() {
+      // Desactiva tots els botons
+      channelsListContainer.querySelectorAll('button').forEach(button => button.classList.remove('active'));
+
+      // Activa el botó actual
+      const activeButton = channelsListContainer.querySelector(`button:nth-child(${currentChannelIndex + 1})`);
+      if (activeButton) {
+        activeButton.classList.add('active');
+      }
+    }
+
+    function scrollActiveButtonIntoView() {
+      const activeButton = channelsListContainer.querySelector('.active');
+      if (activeButton) {
+        activeButton.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest'
+        });
+      }
+    }
+  </script>
+</body>
+
+</html>
