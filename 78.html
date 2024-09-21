@@ -1,0 +1,671 @@
+<!doctype html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="theme-color" content="#007bff">
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://mytuner-radio.com/static/icons/apple-touch-icon-144x144-precomposed.png"/><link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://mytuner-radio.com/static/icons/apple-touch-icon-120x120-precomposed.png"/><link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://mytuner-radio.com/static/icons/apple-touch-icon-114x114-precomposed.png"/><link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://mytuner-radio.com/static/icons/apple-touch-icon-72x72-precomposed.png"/><link rel="apple-touch-icon-precomposed" href="https://mytuner-radio.com/static/icons/apple-touch-icon-precomposed.png"/>
+<link rel="shortcut icon" href="https://mytuner-radio.com/static/icons/apple-touch-icon-144x144-precomposed.png" type="image/x-icon"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> 
+	
+    <title>R&agrave;dio</title>
+    <style>
+        /* Estilos CSS aquí */
+        @import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:300);
+
+        body {
+            font-family: 'Roboto Condensed', Arial, sans-serif;
+            font-size: 25px;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            color: #007bff;
+			background: black;
+       line-height: 28px; }
+
+        #audio-player {
+            margin: 20px;
+        }
+
+        #audio-info {
+            margin-top: 10px;
+        }
+
+        #playlist {
+            width: 190px;
+            height: 150px;
+            overflow-y: scroll;overflow-x: hidden;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: white;
+            background-image: linear-gradient(180deg, gray, white, gray);
+			text-align: left;
+            display: inline-block;
+
+
+        }
+
+        #volume-control {
+            width: 60px;
+            height: 150px;
+            overflow-y: scroll;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: white;
+            background-image: linear-gradient(180deg, gray, white, gray);
+            display: inline-block;
+
+        }
+
+               /* Estilos para el botón de menú flotante */
+        #floating-menu {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+
+        #floating-menu button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        #floating-menu button:hover {
+            background-color: darkblue;
+        }
+
+       
+audio::-webkit-media-controls-panel { background-color: gray }
+audio::-webkit-media-controls-mute-button { background-color: #007bff; border-radius: 50%; }
+audio::-webkit-media-controls-play-button { background-color: #007bff; border-radius: 50%; } audio::-webkit-media-controls-play-button:hover { background-color: blue; }
+audio::-webkit-media-controls-current-time-display { color: #fff; }
+audio::-webkit-media-controls-volume-slider { background-color: #B1D4E0; border-radius: 25px; padding-left: 8px; padding-right: 8px; }
+
+
+a {
+		text-decoration: none;
+  color: black;
+  line-height: 1;
+  margin-right: -0.30em;
+	text-align: left;
+ }
+.playlist{
+}
+ .enlace {
+    color: black; /* Color por defecto */
+    text-decoration: none; /* Quita el subrayado por defecto */
+}
+   .active-link::before {
+      content: "\25B6";
+      color: #007bff;
+      margin-right: 5px;
+    }
+    .inactive-link::before {
+      content: "\25B6";
+      color: transparent;
+      margin-right: 5px;
+    }
+    .link-group-1 .link {
+      text-decoration: none; /* Elimina el subrayado del grupo 1 */
+    }
+    .link-group-2 .link {
+      text-decoration: none; /* Elimina el subrayado del grupo 2 */
+    }
+    
+        #batteryLevel, #bateria {line-height: 2px;
+            font-size: 14px;
+            color: #007bff;
+        }
+  /* Estilos para el contador regresivo */
+        #countdown, #countdown {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background-color: #007bff;
+            color: white;
+            font-size: 18px;
+            padding: 10px;
+            display: none;
+        }
+       
+        
+	</style>
+
+</head>
+<body><h1 id="hora"></h1>
+<div id="bateria">Nivell bateria: <span id="batteryLevel">0%</span></div>
+
+    <script>
+        const batteryLevel = document.getElementById('batteryLevel');
+        navigator.getBattery().then(battery => {
+            const update = () => {
+                batteryLevel.textContent = `${Math.round(battery.level * 100)}%`;
+            }
+            update();
+            battery.addEventListener('levelchange', update)
+        });
+    </script>
+
+
+
+    <div id="audio-player">
+        <audio controls id="audio-element" autoplay>
+            Tu navegador no soporta el elemento de audio.
+        </audio>
+    </div><center>
+    <div id="audio-info">
+        <p><h2><span id="active-file">...</span></h2></p></center>
+    </div>
+    <div id="playlist">
+        <a href="#" onclick="loadAudio('https://25583.live.streamtheworld.com/RAC_1.mp3', 'RAC1');mostrarText('text1', this)" class="link-group-1 link inactive-link" id="enlace11">RAC1</a><br>
+ <a href="#" onclick="loadAudio('https://25633.live.streamtheworld.com/RAC_MES_1.mp3', 'RAC+1');mostrarText('text01', this)" class="link-group-1 link inactive-link" id="enlace011">RAC+1</a><br>
+        <a href="#" onclick="loadAudio('https://relay.stream.enacast-cloud.com:40319/esplugafmHD.mp3', 'EsplugaFMràdio');mostrarText('text2', this)" class="link-group-1 link inactive-link" id="enlace12">EsplugaFMRàdio</a><br>
+<a href="#" onclick="loadAudio('http://relay.stream.enacast-cloud.com:30045/radiomontblanc56.mp3', 'RàdioMontblanc');mostrarText('textmontblanc', this)" class="link-group-1 link inactive-link" id="enlacemon">Montblanc</a><br>  
+
+ <a href="#" onclick="loadAudio('https://streaming.enacast.com/radiovalls128.mp3', 'Hit103Valls');mostrarText('textv1', this)" class="link-group-1 link inactive-link" id="enlacev">Valls</a><br>
+        
+<a href="#" onclick="loadAudio('http://relay.stream.enacast-cloud.com:30007/tarragona56.mp3', 'TarragonaRàdio');mostrarText('tt', this)" class="link-group-1 link inactive-link" id="texttarragona">TarragonaRàdio</a><br>        
+
+         
+<a href="#" onclick="loadAudio('http://panel5.soydigital.fm/8032/stream', 'LleidaRàdioUa1');mostrarText('textll', this)" class="link-group-1 link inactive-link" id="textlle">LleidaRàdioUa1</a><br>        
+
+<a href="#" onclick="loadAudio('http://relay.stream.enacast-cloud.com:30305/radioponentSD.mp3', 'RàdioPonent');mostrarText('textpo3', this)" class="link-group-1 link inactive-link" id="enlace13">Mollerussa</a><br>
+
+<a href="#" onclick="loadAudio('https://stream.flaixfm.cat/icecast', 'FlaixFM');mostrarText('text3', this)" class="link-group-1 link inactive-link" id="enlace13">FlaixFM</a><br>
+<a href="#" onclick="loadAudio('https://stream.flaixbac.cat/icecast', 'Flaixbac');mostrarText('text4', this)" class="link-group-1 link inactive-link" id="enlace14">Flaixbac</a><br>
+<a href="#" onclick="loadAudio('http://22603.live.streamtheworld.com/RAC105.mp3', 'RAC105');mostrarText('textrac105', this)" class="link-group-1 link inactive-link" id="RAC105">RAC105</a><br>
+<a href="#" onclick="loadAudio('https://shoutcast.ccma.cat/ccma/catalunyaradioHD.mp3', 'CatRàdio');mostrarText('text6', this)" class="link-group-1 link inactive-link" id="enlace16">CatRàdio</a><br>
+<a href="#" onclick="loadAudio('https://shoutcast.ccma.cat/ccma/catalunyainformacioHD.mp3', 'CatInformació');mostrarText('text7', this)" class="link-group-1 link inactive-link" id="enlace17">CatInformació</a><br>
+<a href="#" onclick="loadAudio('https://shoutcast.ccma.cat/ccma/catalunyamusicaHD.mp3', 'CatMúsica');mostrarText('text8', this)" class="link-group-1 link inactive-link" id="enlace18">CatMúsica</a><br>
+<a href="#" onclick="loadAudio('https://shoutcast.ccma.cat/ccma/icatHD.mp3', 'iCatFM');mostrarText('text9', this)" class="link-group-1 link inactive-link" id="enlace19">iCatFM</a><br>
+<a href="#" onclick="loadAudio('http://agregadores-atres-live.atresmedia.com/tunein/live/europafm/bitrate_1.m3u8', 'EuropaFM');mostrarText('text10', this)" class="link-group-1 link inactive-link" id="EuropaFM">EuropaFM</a><br>
+<a href="#" onclick="loadAudio('https://adhandler.kissfmradio.cires21.com/get_link?url=https://bbhitfm.kissfmradio.cires21.com/bbhitfm.mp3', 'HitFM');mostrarText('text11', this)" class="link-group-1 link inactive-link" id="enlace21">HitFM</a><br>
+<a href="#" onclick="loadAudio('https://rockfm-cope.flumotion.com/playlist.m3u8', 'RockFM');mostrarText('text12', this)" class="link-group-1 link inactive-link" id="enlace22">RockFM</a><br>
+<a href="#" onclick="loadAudio('https://playerservices.streamtheworld.com/api/livestream-redirect/LOS40_CATAAC_SC?dist=los40', 'Los40');mostrarText('text13', this)" class="link-group-1 link inactive-link" id="enlace23">Los40</a><br>
+
+
+
+<a href="#" onclick="loadAudio('https://25553.live.streamtheworld.com/SER_CAT_SC', 'SER');mostrarText('text14', this)" class="link-group-1 link inactive-link" id="enlace24">SER</a><br>
+<a href="#" onclick="loadAudio('https://srv6021.dns-lcinternet.com:10244/stream', 'Estel');mostrarText('text15', this)" class="link-group-1 link inactive-link" id="enlace25">Estel</a><br>
+<a href="#" onclick="loadAudio('https://rtvelivestream.akamaized.net/rtvesec/rne/rne_r5_madrid_main.m3u8', 'RNERadio5');mostrarText('text16', this)" class="link-group-1 link inactive-link" id="enlace26">RNERadio5</a><br>
+<a href="#" onclick="loadAudio('https://dispatcher.rndfnk.com/crtve/rne5/main/mp3/high?aggregator=tunein', 'Radio5rne');mostrarText('textrne', this)" class="link-group-1 link inactive-link" id="enlacerne">Radio5rne</a><br>
+<a href="#" onclick="loadAudio('https://directes-tv-cat.ccma.cat/live-origin/tv3-hls/master.m3u8', 'TV3');mostrarText('text17', this)" class="link-group-1 link inactive-link" id="enlace27">TV3</a><br>
+<a href="#" onclick="loadAudio('https://directes-tv-int.ccma.cat/live-origin/tvi-hls/master.m3u8', 'TV3i');mostrarText('text18', this)" class="link-group-1 link inactive-link" id="enlace28">TV3i</a><br>
+<a href="#" onclick="loadAudio('https://directes-tv-es.ccma.cat/live-origin/canal324-hls/master.m3u8', '324');mostrarText('text110', this)" class="link-group-1 link inactive-link" id="enlace29">324</a><br>
+<a href="#" onclick="loadAudio('https://directes-tv-cat.ccma.cat/live-origin/esport3-hls/master.m3u8', 'Esport3');mostrarText('text20', this)" class="link-group-1 link inactive-link" id="enlace30">Esport3</a><br>
+<a href="#" onclick="loadAudio('https://ingest1-video.streaming-pro.com/tac12_ABR/stream/playlist.m3u8', 'TAC12');mostrarText('text21', this)" class="link-group-1 link inactive-link" id="enlace31">TAC12</a><br>
+<a href="#" onclick="loadAudio('https://ztnr.rtve.es/ztnr/5190066.m3u8', 'La1');mostrarText('text22', this)" class="link-group-1 link inactive-link" id="enlace32">La1</a><br>
+<a href="#" onclick="loadAudio('https://ztnr.rtve.es/ztnr/5468585.m3u8', 'La2');mostrarText('text23', this)" class="link-group-1 link inactive-link" id="enlace33">La2</a><br>
+<a href="#" onclick="loadAudio('https://ztnr.rtve.es/ztnr/1694255.m3u8', '24h');mostrarText('text24', this)" class="link-group-1 link inactive-link" id="enlace34">24h</a><br>
+<a href="#" onclick="loadAudio('http://stream.live.vc.bbcmedia.co.uk/bbc_world_service?s=1626288607&e=1626303007&h=c753830cabbef2a8b442e0f422712a42', 'BBCNews');mostrarText('text25', this)" class="link-group-1 link inactive-link" id="BBCNews">BBCNews</a> <br>
+        <br>
+
+    </div>
+    <div id="volume-control">
+        <a href="#" onclick="setVolume(0.1)" class="custom-link" id="enlace1">1</a><br>
+        <a href="#" onclick="setVolume(0.2)" class="custom-link" id="enlace2">2</a><br>
+        <a href="#" onclick="setVolume(0.3)" class="custom-link" id="enlace3">3</a><br>
+        <a href="#" onclick="setVolume(0.4)" class="custom-link" id="enlace4">4</a><br>
+        <a href="#" onclick="setVolume(0.5)" class="custom-link" id="enlace5">5</a><br>
+        <a href="#" onclick="setVolume(0.6)" class="custom-link" id="enlace6">6</a><br>
+        <a href="#" onclick="setVolume(0.7)" class="custom-link" id="enlace7">7</a><br>
+        <a href="#" onclick="setVolume(0.8)" class="custom-link" id="enlace9">8</a><br>
+        <a href="#" onclick="setVolume(0.9)" class="custom-link" id="enlace9">9</a><br>
+        <a href="#" onclick="setVolume(1.0)" class="custom-link" id="enlace10">10</a><br>
+    </div>
+<style>
+    
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    .custom-link {
+      text-decoration: none;
+      color: black;
+      position: relative;
+      padding-left: 40px;
+      margin-left: -20px;
+      display: inline-block;
+    }
+
+    .custom-link::before {
+      content: '\25B6'; /* Caràcter del triangle */
+      font-size: 24px; /* Ajusta la mida del triangle segons les teves preferències */
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      color: transparent; /* Triangle transparent per defecte */
+    }
+
+    .custom-link.active::before {
+      color: #007bff; /* Canvia el color del triangle per a l'enllaç actiu */
+    }
+  </style>    
+    
+<script>
+    // Afegir la classe 'active' a l'enllaç clicat
+    document.addEventListener('click', function (e) {
+      if (e.target.classList.contains('custom-link')) {
+        document.querySelectorAll('.custom-link').forEach(function (link) {
+          link.classList.remove('active');
+        });
+        e.target.classList.add('active');
+      }
+    });
+  </script>    
+    
+    
+    
+   <!-- <p>Volumen: <span id="current-volume">...</span></p>
+--><center><!-- 
+ <div id="text1" class="text" style="display: none"><div class="myplay-program-title" id="program-title">Títol del programa es mostrarà aquí.</div>
+    <div class="myplay-program-text" id="program-text">Text del programa es mostrarà aquí.</div></div>
+ <div id="text2" class="text" style="display: none"></div>
+ <div id="text3" class="text" style="display: none"><div id="song-info"><i>Títol: </i><span id="title1"></span>. <i>Artista: </i><span id="artist1"></span></p></div></div>
+ <div id="text4" class="text" style="display: none"><div id="song-info"><i>Títol: </i><span id="title"></span>. <i>Artista: </i><span id="artist"></span></p></div></div>
+ <div id="text5" class="text" style="display: none"> <span id="trackList"></span></div>
+ <div id="text6" class="text" style="display: none"></div>
+ <div id="text7" class="text" style="display: none"></div>
+ <div id="text8" class="text" style="display: none"></div>
+ <div id="text9" class="text" style="display: none"></div>
+ <div id="text10" class="text" style="display: none"><span id="trackListeuropa"></span></div>
+ <div id="text11" class="text" style="display: none"></div>
+ <div id="text12" class="text" style="display: none"><span id="trackListrock-fm"></span></div>
+ <div id="text13" class="text" style="display: none"></div>
+ <div id="text14" class="text" style="display: none"></div>
+ <div id="text15" class="text" style="display: none"><span id="trackListestel"></span></div>
+ <div id="text16" class="text" style="display: none"></div>
+ <div id="text16" class="text" style="display: none"></div>
+ <div id="text17" class="text" style="display: none"></div>
+ <div id="text18" class="text" style="display: none"></div>
+ <div id="text19" class="text" style="display: none"></div>
+ <div id="text20" class="text" style="display: none"></div>
+ <div id="text21" class="text" style="display: none"></div>
+ <div id="text22" class="text" style="display: none"></div>
+ <div id="text23" class="text" style="display: none"></div>
+ <div id="text24" class="text" style="display: none"></div>
+ <div id="text25" class="text" style="display: none"></div>
+
+
+</center> -->
+
+    <!-- Botón de menú flotante 
+    <div id="floating-menu">
+        
+    </div>
+<script>function showFloatingMenu() {
+    document.getElementById("floating-menu").hidden = false;
+}
+
+// Asociamos la función al evento onclick del botón
+document.querySelector("button[data-target='#floating-menu']").onclick = showFloatingMenu;
+</script>
+-->
+
+    <!-- Contador regresivo -->
+    <div id="countdown">
+        <span id="countdown-text"></span>
+        <span id="countdown-value">hh:mm:ss</span>
+        <span></span>
+    </div>
+
+<div id="dades"><div id="bateria"></div></div>
+
+
+    <script>
+        const audioElement = document.getElementById("audio-element");
+        const activeFileElement = document.getElementById("active-file");
+        const currentVolumeElement = document.getElementById("current-volume");
+        const countdownContainer = document.getElementById("countdown");
+        const countdownValue = document.getElementById("countdown-value");
+        let countdownTimer;
+
+        function loadAudio(audioSrc, fileName) {
+            audioElement.src = audioSrc;
+            audioElement.load();
+            audioElement.play();
+            activeFileElement.textContent = fileName;
+        }
+
+        function setVolume(volumeValue) {
+            audioElement.volume = volumeValue;
+     currentVolumeElement.textContent = volumeValue.toFixed(1);
+        }
+
+        function startCountdown(seconds) {
+            clearInterval(countdownTimer);
+            countdownContainer.style.display = "block";
+            countdownValue.textContent = seconds;
+
+            countdownTimer = setInterval(() => {
+                seconds--;
+                countdownValue.textContent = seconds;
+
+                if (seconds === 0) {
+                    clearInterval(countdownTimer);
+                    countdownContainer.style.display = "none";
+                    audioElement.pause();
+                }
+            }, 1000);
+        }
+        
+        
+function startCountdown(seconds) {
+    clearInterval(countdownTimer);
+    countdownContainer.style.display = "block";
+
+    updateCountdownValue(seconds);
+
+    countdownTimer = setInterval(() => {
+        seconds--;
+
+        if (seconds >= 0) {
+            updateCountdownValue(seconds);
+        } else {
+            clearInterval(countdownTimer);
+            countdownContainer.style.display = "none";
+            audioElement.pause();
+        }
+    }, 1000);
+}
+
+function updateCountdownValue(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+    countdownValue.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+}
+
+        
+        
+        
+   // Cargar el volumen por defecto al cargar la página
+        setVolume(0.3);
+    </script>
+	  <script>
+	  //funció mostrar text
+    var ultimoEnlaceClicado = null;
+
+    function mostrarText(id, enlace) {
+      if (ultimoEnlaceClicado !== null) {
+        ultimoEnlaceClicado.classList.remove('active-link');
+        ultimoEnlaceClicado.classList.add('inactive-link');
+      }
+
+      enlace.classList.remove('inactive-link');
+      enlace.classList.add('active-link');
+
+      ultimoEnlaceClicado = enlace;
+
+      var texts = document.getElementsByClassName('text');
+      for (var i = 0; i < texts.length; i++) {
+        texts[i].style.display = 'none';
+      }
+
+      var element = document.getElementById(id);
+      element.style.display = 'block';
+    }
+  </script>
+	<script>
+        // Funció per a realitzar web scraping
+        function performWebScraping() {
+            const url = 'https://api.audioteca.rac1.cat/piece/live?esi=true&site=xalok';
+
+            fetch(url)
+                .then(response => response.text())
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+
+                    // Extreu el contingut del camp <div class="myplay-program-title">
+                    const programTitle = doc.querySelector('.myplay-program-title').textContent;
+
+                    // Extreu el contingut del camp <div class="myplay-program-text">
+                    const programText = doc.querySelector('.myplay-program-text').textContent;
+
+                    // Mostra el contingut a la pàgina
+                    document.getElementById("program-title").textContent = programTitle;
+                    document.getElementById("program-text").textContent = programText;
+                })
+                .catch(error => {
+                    console.error('Error en obtenir les dades:', error);
+                });
+        }
+
+        // Crida a la funció de web scraping quan es carregui la pàgina
+        window.addEventListener("load", performWebScraping);
+
+        // Actualitza les dades cada 30 segons
+        setInterval(performWebScraping, 30000);
+    </script>
+	 <script>
+        // Función para hacer la solicitud a la API usando Fetch API
+        function fetchDataFromAPI() {
+            fetch('https://uub99833j1.execute-api.eu-central-1.amazonaws.com/prod/api/getCurrentSongs?phase=dev-bac-')
+                .then(response => response.json())
+                .then(data => {
+                    // Parsea el campo 'body' como JSON
+                    const responseBody = JSON.parse(data.body);
+                    const firstSong = responseBody[0]; // Tomamos la primera canción en el arreglo
+
+                    const titleElement = document.getElementById('title');
+                    const artistElement = document.getElementById('artist');
+                    const attachmentElement = document.getElementById('attachment');
+
+                    titleElement.textContent = firstSong.title;
+                    artistElement.textContent = firstSong.artist;
+                    attachmentElement.textContent = firstSong.cover.attachment;
+                    attachmentElement.href = firstSong.cover.attachment;
+                })
+                .catch(error => {
+                    console.error('Error al obtener los datos de la API:', error);
+                });
+        }
+
+        // Llama a la función para obtener los datos de la API cuando se carga la página
+        fetchDataFromAPI();
+
+        // Actualiza automáticamente cada 30 segundos
+        setInterval(fetchDataFromAPI, 30000); // 30,000 milisegundos = 30 segundos
+    </script>
+	 <script>
+        // Función para hacer la solicitud a la API usando Fetch API
+        function fetchDataFromAPI() {
+            fetch('https://uub99833j1.execute-api.eu-central-1.amazonaws.com/prod/api/getCurrentSongs?phase=dev-fm-')
+                .then(response => response.json())
+                .then(data => {
+                    // Parsea el campo 'body' como JSON
+                    const responseBody = JSON.parse(data.body);
+                    const firstSong = responseBody[0]; // Tomamos la primera canción en el arreglo
+
+                    const titleElement = document.getElementById('title1');
+                    const artistElement = document.getElementById('artist1');
+                    const attachmentElement = document.getElementById('attachment1');
+
+                    titleElement.textContent = firstSong.title;
+                    artistElement.textContent = firstSong.artist;
+                    attachmentElement.textContent = firstSong.cover.attachment;
+                    attachmentElement.href = firstSong.cover.attachment;
+                })
+                .catch(error => {
+                    console.error('Error al obtener los datos de la API:', error);
+                });
+        }
+
+        // Llama a la función para obtener los datos de la API cuando se carga la página
+        fetchDataFromAPI();
+
+        // Actualiza automáticamente cada 30 segundos
+        setInterval(fetchDataFromAPI, 30000); // 30,000 milisegundos = 30 segundos
+    </script>
+<script>
+// hora
+    function mostrarHora() {
+        var ahora = new Date();
+        var horas = ahora.getHours();
+        var minutos = ahora.getMinutes();
+        var segundos = ahora.getSeconds();
+
+        // Asegurarse de que siempre haya dos dígitos en horas, minutos y segundos
+        horas = (horas < 10) ? "0" + horas : horas;
+        minutos = (minutos < 10) ? "0" + minutos : minutos;
+        segundos = (segundos < 10) ? "0" + segundos : segundos;
+
+        var formatoHora = horas + ":" + minutos + ":" + segundos;
+        document.getElementById("hora").innerText = formatoHora;
+    }
+
+    // Actualizar la hora cada segundo
+    setInterval(mostrarHora, 1000);
+
+    // Mostrar la hora inicial
+    mostrarHora();
+</script>
+  <script> document.addEventListener('DOMContentLoaded', function () {
+      fetch('https://api.webrad.io/data/playlist/38/rac-105?_=1648941567588')
+        .then(response => response.json())
+        .then(data => {
+          const trackList = document.getElementById('trackList');
+
+          // Clear previous content
+          trackList.innerHTML = '';
+
+          // Iterate through results and create list items
+          for (let i = 0; i < 1; i++) {
+            const listItem = document.createElement('span');
+            listItem.innerHTML = `<strong>Titol: ${data.result[i].track_title}</strong><br>Artista: ${data.result[i].track_artist}.`;
+            trackList.appendChild(listItem);
+          }
+        })
+        .catch(error => console.error('Error fetching data:', error));
+    });
+  </script>
+  
+   <script> document.addEventListener('DOMContentLoaded', function () {
+      fetch('https://api.webrad.io/data/playlist/38/europa')
+        .then(response => response.json())
+        .then(data => {
+          const trackList = document.getElementById('trackListeuropa');
+
+          // Clear previous content
+          trackList.innerHTML = '';
+
+          // Iterate through results and create list items
+          for (let i = 0; i < 1; i++) {
+            const listItem = document.createElement('span');
+            listItem.innerHTML = `<strong>Titol: ${data.result[i].track_title}</strong><br>Artista: ${data.result[i].track_artist}.`;
+            trackList.appendChild(listItem);
+          }
+        })
+        .catch(error => console.error('Error fetching data:', error));
+    });
+  </script>
+<script> document.addEventListener('DOMContentLoaded', function () {
+      fetch('https://api.webrad.io/data/playlist/38/rock-fm')
+        .then(response => response.json())
+        .then(data => {
+          const trackList = document.getElementById('trackListrock-fm');
+
+          // Clear previous content
+          trackList.innerHTML = '';
+
+          // Iterate through results and create list items
+          for (let i = 0; i < 1; i++) {
+            const listItem = document.createElement('span');
+            listItem.innerHTML = `<strong>Titol: ${data.result[i].track_title}</strong><br>Artista: ${data.result[i].track_artist}.`;
+            trackList.appendChild(listItem);
+          }
+        })
+        .catch(error => console.error('Error fetching data:', error));
+    });
+  </script>
+<script> document.addEventListener('DOMContentLoaded', function () {
+      fetch('https://api.webrad.io/data/playlist/38/estel')
+        .then(response => response.json())
+        .then(data => {
+          const trackList = document.getElementById('trackListestel');
+
+          // Clear previous content
+          trackList.innerHTML = '';
+
+          // Iterate through results and create list items
+          for (let i = 0; i < 1; i++) {
+            const listItem = document.createElement('span');
+            listItem.innerHTML = `<strong>Titol: ${data.result[i].track_title}</strong><br>Artista: ${data.result[i].track_artist}.`;
+            trackList.appendChild(listItem);
+          }
+        })
+        .catch(error => console.error('Error fetching data:', error));
+    });
+  </script>
+
+
+  <style>
+    .grup-botons {
+      display: none;
+      
+      align: rigth;
+      
+      position: absolute;
+  right: 0px;
+  width: 120px;
+  border: 3px solid #007bff;
+  background-color: #007bff;
+  padding: 1px;
+  bottom: 4px;
+  right: 4px;
+    }
+ button {background-color: #007bff; border: 0px; color: white;}
+
+#btnA {position: fixed;bottom: 15px;
+  right: 20px;background-color: #007bff; border: 0px; color: white;
+  border: 20px solid #007bff;
+  border-left: 58px solid #007bff;}
+  </style>
+</head>
+<body>
+
+<button id="btnA" class="btnA" onclick="mostrarBotons()">
+<span style="font-family: 'Font Awesome 6 Free';">&#xf017;</span> 
+</button>
+
+<div id="grupBotons" class="grup-botons"><button>Aturar en:</button><br>
+<button onclick="amagarBotons()">Off</button><br>
+    <button onclick="startCountdown(10),amagarBotons()">10 s.</button>
+    <br><button onclick="startCountdown(60),amagarBotons()">1 m.</button>
+        <br><button onclick="startCountdown(90),amagarBotons()">1,5 m.</button>
+        <br><button onclick="startCountdown(1200),amagarBotons()">20 m.</button>
+        <br><button onclick="startCountdown(1800),amagarBotons()">30 m.</button>
+        <br><button onclick="startCountdown(3600),amagarBotons()">1 h.</button>
+ <br><button onclick="startCountdown(5400),amagarBotons()">1,5 h.</button>    
+  
+</div>
+
+<script>
+  function mostrarBotons() {
+    document.getElementById("grupBotons").style.display = "block";
+  }
+
+  function amagarBotons() {
+    document.getElementById("grupBotons").style.display = "none";
+  }
+</script>
+
+
+
+	</body>
+</html>
