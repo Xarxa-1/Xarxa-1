@@ -59,9 +59,8 @@ https://video3.lhdserver.es/empordatv2/live.m3u8
 https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master_1660.m3u8?xtreamiptv.m3u8
 #EXTINF:-1 tvg-id="Gol Play" tvg-name="Gol Play" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/GOL_PLAY.svg/250px-GOL_PLAY.svg.png" group-title="DEPORTES", no Gol Play
 https://spa-ha-p004.cdn.masmediatv.es/SVoriginOperatorEdge/smil:5_HD.smil/manifest.m3u8
-#EXTINF:-1 tvg-id="Cuatro" tvg-name="Cuatro" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Cuatro.svg/250px-Cuatro.svg.png" group-title="ESPA�A", Cuatro
-https://spa-ha-p004.cdn.masmediatv.es/SVoriginOperatorEdge/smil:9_HD.smil/manifest.m3u8
-#
+#EXTINF:-1 tvg-id="Cuatro.es" tvg-logo="https://i.imgur.com/NYLnABb.png" group-title="General",Cuatro (1080p)
+https://spa-ha-p002.cdn.masmediatv.es/SVoriginOperatorEdge/smil:9_HD.smil/index.m3u8
 #EXTINF:-1 tvg-id="ESP | 24 Horas tve" tvg-name="ESP | 24 horas tve" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Logo_TVE-24h.svg/125px-Logo_TVE-24h.svg.png" group-title="NOTICIAS E INFORMACION",24 horas tve
 https://ztnr.rtve.es/ztnr/1694255.m3u8
 #EXTINF:-1 tvg-id="elClubComedia" tvg-name="Club Comedia" tvg-logo="https://scontent-mad1-1.xx.fbcdn.net/v/t39.30808-1/352229405_6302949529803424_7951548584258728483_n.jpg?stp=dst-jpg_p200x200&_nc_cat=101&ccb=1-7&_nc_sid=9e7101&_nc_ohc=Bp94CNuUWCcAX9rmzEY&_nc_ht=scontent-mad1-1.xx&edm=AKsJ254EAAAA&oh=00_AfCrbXuKyudq6THyXAEk1pEvZIXFvJYcpEzT26igb_uiZw&oe=65AB4469", El Club Comedia
