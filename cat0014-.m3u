@@ -48,40 +48,27 @@ https://bcovlive-a.akamaihd.net/8499d938ef904e39b58a4adec2ddeada/eu-west-1/60579
 
 #EXTINF:-1 tvg-id="AragonTV" tvg-logo="https://i.imgur.com/6YSi1zW.png" group-title="Undefined",Arag�n TV
 https://cartv.streaming.aranova.es/hls/live/aragontv_canal1.m3u8
-#EXTINF:-1 tvg-id="TV4LaVall" tvg-logo="https://i.imgur.com/NqjFVHp.png" group-title="Undefined",TV4 La Vall
-https://limited09.todostreaming.es/live/tarson-livestream.m3u8
-#EXTINF:-1 tvg-id="�Hola!" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Revista_%C2%A1Hola%21_logo.svg/1024px-Revista_%C2%A1Hola%21_logo.svg.png" group-title="Undefined",�Hola! Play
+
+#EXTINF:-1 tvg-id="Hola!" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Revista_%C2%A1Hola%21_logo.svg/1024px-Revista_%C2%A1Hola%21_logo.svg.png" group-title="Undefined",Hola! Play
 https://rakuten-hola-2-es.samsung.wurl.tv/playlist.m3u8
-#EXTINF:-1 tvg-id="ElPaisTV" tvg-logo="https://i.imgur.com/JzAzsft.png" group-title="News",EL PA�S TV
+#EXTINF:-1 tvg-id="ElPaisTV" tvg-logo="https://i.imgur.com/JzAzsft.png" group-title="News",EL PA&Iacute;S TV
 https://d2xqbi89ghm9hh.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-79fx3huimw4xc-ssai-prd/fast-channel-el-pais.m3u8
 #EXTINF:-1 tvg-id="EmpordaTV" tvg-logo="https://i.imgur.com/jc0lUbX.png" group-title="General",Empord� TV
 https://video3.lhdserver.es/empordatv2/live.m3u8
 #EXTINF:-1 tvg-id="RED BULL" tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVU-oBd73EqgukfWA1UWxk9Nnvgo0BB3eGDw&usqp=CAU" group-title="DEPORTE",RED BULL TV
 https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master_1660.m3u8?xtreamiptv.m3u8
-#EXTINF:-1 tvg-id="Gol Play" tvg-name="Gol Play" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/GOL_PLAY.svg/250px-GOL_PLAY.svg.png" group-title="DEPORTES", Gol Play
+#EXTINF:-1 tvg-id="Gol Play" tvg-name="Gol Play" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/GOL_PLAY.svg/250px-GOL_PLAY.svg.png" group-title="DEPORTES", no Gol Play
 https://spa-ha-p004.cdn.masmediatv.es/SVoriginOperatorEdge/smil:5_HD.smil/manifest.m3u8
 #EXTINF:-1 tvg-id="Cuatro" tvg-name="Cuatro" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Cuatro.svg/250px-Cuatro.svg.png" group-title="ESPA�A", Cuatro
 https://spa-ha-p004.cdn.masmediatv.es/SVoriginOperatorEdge/smil:9_HD.smil/manifest.m3u8
-#EXTINF:-1 tvg-id="Neox" tvg-name="Neox" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Neox_2023_logo.svg/150px-Neox_2023_logo.svg.png" group-title="ESPA�A", Neox
-https://spa-ha-p004.cdn.masmediatv.es/SVoriginOperatorEdge/smil:13_HD.smil/manifest.m3u8
-#EXTINF:-1 tvg-id="Nova" tvg-name="Nova" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Nova.svg/200px-Nova.svg.png" group-title="ESPA�A", Nova
-https://spa-ha-p004.cdn.masmediatv.es/SVoriginOperatorEdge/smil:14_HD.smil/manifest.m3u8
-#EXTINF:-1 tvg-id="Divinity" tvg-name="Divinity" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Divinity.svg/125px-Divinity.svg.png" group-title="ESPA�A", Divinity
-https://spa-ha-p004.cdn.masmediatv.es/SVoriginOperatorEdge/smil:18_HD.smil/manifest.m3u8
-#EXTINF:-1 tvg-id="Mega" tvg-name="Mega" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/MEGA.svg/200px-MEGA.svg.png" group-title="ESPA�A", Mega
-https://spa-ha-p004.cdn.masmediatv.es/SVoriginOperatorEdge/smil:15_HD.smil/manifest.m3u8
-#EXTINF:-1 tvg-id="Energy" tvg-name="Energy" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Energy.svg/125px-Energy.svg.png" group-title="ESPA�A", Energy
-https://spa-ha-p004.cdn.masmediatv.es/SVoriginOperatorEdge/smil:19_HD.smil/manifest.m3u8
+#
 #EXTINF:-1 tvg-id="ESP | 24 Horas tve" tvg-name="ESP | 24 horas tve" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Logo_TVE-24h.svg/125px-Logo_TVE-24h.svg.png" group-title="NOTICIAS E INFORMACION",24 horas tve
 https://ztnr.rtve.es/ztnr/1694255.m3u8
 #EXTINF:-1 tvg-id="elClubComedia" tvg-name="Club Comedia" tvg-logo="https://scontent-mad1-1.xx.fbcdn.net/v/t39.30808-1/352229405_6302949529803424_7951548584258728483_n.jpg?stp=dst-jpg_p200x200&_nc_cat=101&ccb=1-7&_nc_sid=9e7101&_nc_ohc=Bp94CNuUWCcAX9rmzEY&_nc_ht=scontent-mad1-1.xx&edm=AKsJ254EAAAA&oh=00_AfCrbXuKyudq6THyXAEk1pEvZIXFvJYcpEzT26igb_uiZw&oe=65AB4469", El Club Comedia
 https://fast-channels.atresmedia.com/648f47f7a2ffb0e40aeff3ad/648f47f7a2ffb0e40aeff3ad.m3u8
-#EXTINF:-1 channel-id="samsung-USBC6000108Z" tvg-id="BBC Food us" tvg-logo="https://tvpnlogopus.samsungcloud.tv/platform/image/sourcelogo/vc/00/02/34/USBC6000108Z_20230627T214914SQUARE.png_20230627214915.png" tvg-chno="1229" group-title="United States" , BBC Food
-https://i.mjh.nz/SamsungTVPlus/USBC6000108Z.m3u8
-#EXTINF:-1 channel-id="samsung-DEBA1000010YG" tvg-id="BBC Food ge" tvg-logo="https://tvpnlogopeu.samsungcloud.tv/platform/image/sourcelogo/vc/00/02/34/DEBA1000010YG_20220713T034436SQUARE.png_20220713034437.png" tvg-chno="4435" group-title="Germany" , BBC Food
-https://i.mjh.nz/SamsungTVPlus/DEBA1000010YG.m3u8
-#EXTINF:-1 tvg-id="PlutoTVCocina" tvg-logo="https://i.imgur.com/LRtfQla.png" group-title="Cooking",Pluto TV Cocina
-http://stitcher-ipv4.pluto.tv/v1/stitch/embed/hls/channel/5dcde0657444a40009cd2422/master.m3u8?deviceType=samsung-tvplus&deviceMake=samsung&deviceModel=samsung&deviceVersion=unknown&appVersion=unknown&deviceLat=0&deviceLon=0&deviceDNT=%7BTARGETOPT%7D&deviceId=%7BPSID%7D&advertisingId=%7BPSID%7D&us_privacy=1YNY&samsung_app_domain=%7BAPP_DOMAIN%7D&samsung_app_name=%7BAPP_NAME%7D&profileLimit=&profileFloor=&embedPartner=samsung-tvplus
+
+
+
 #EXTINF:-1 tvg-id="Tastemade.us" tvg-logo="https://i.imgur.com/xP7Ehn8.png" group-title="Cooking",Tastemade
 https://tastemade-es16tm-samsung.amagi.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="TastemadeBrasil.br" tvg-logo="https://i.imgur.com/FPy4zF4.png" group-title="Cooking",Tastemade Brasil
