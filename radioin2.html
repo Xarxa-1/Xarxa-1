@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#007bff"><meta name="apple-mobile-web-app-capable" content="yes"> 
+    <meta name="mobile-web-app-capable" content="yes" /> 
+ <link rel="icon" sizes="192x192" href="https://htmlcolorcodes.com/assets/images/icons/icon-192x192.png">	<link rel="apple-touch-icon-precomposed" sizes="512x512" href="https://htmlcolorcodes.com/assets/images/icons/icon-512x512.png">	<link rel="apple-touch-icon-precomposed" sizes="384x384" href="https://htmlcolorcodes.com/assets/images/icons/icon-384x384.png">	<link rel="apple-touch-icon-precomposed" sizes="256x256" href="https://htmlcolorcodes.com/assets/images/icons/icon-256x256.png">	<link rel="apple-touch-icon-precomposed" sizes="192x192" href="https://htmlcolorcodes.com/assets/images/icons/icon-192x192.png">	<link rel="apple-touch-icon-precomposed" sizes="180x180" href="https://htmlcolorcodes.com/assets/images/icons/icon-180x180.png">	<link rel="apple-touch-icon-precomposed" sizes="167x167" href="https://htmlcolorcodes.com/assets/images/icons/icon-167x167.png">	<link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://htmlcolorcodes.com/assets/images/icons/icon-152x152.png">	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://htmlcolorcodes.com/assets/images/icons/icon-144x144.png">	<link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://htmlcolorcodes.com/assets/images/icons/icon-120x120.png">	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://htmlcolorcodes.com/assets/images/icons/icon-114x114.png">	<link rel="apple-touch-icon-precomposed" sizes="76x76" href="https://htmlcolorcodes.com/assets/images/icons/icon-76x76.png">	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://htmlcolorcodes.com/assets/images/icons/icon-72x72.png">	<link rel="apple-touch-icon-precomposed" href="https://htmlcolorcodes.com/assets/images/icons/icon-57x57.png">
+   
+    <title>Àudio</title><link href='https://fonts.googleapis.com/css?family=Antonio' rel='stylesheet'>
+    <style>
+        body {
+            font-family: 'Antonio', Arial, sans-serif;
+            background-color: #222;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .player-container {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            width: 400px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .player-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+        button {font-family: 'Antonio', Arial, sans-serif;
+            background-color: #444;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #555;
+        }
+        .volume-slider {
+            width: 100%;
+            margin-top: 10px;
+        }
+        .loading {
+            display: none;
+            color: #0f0;
+        }
+        .battery-status, .clock {
+            color: white;            
+            margin-bottom: 10px;
+        }
+        .stations-list {
+            background-color: #444;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            max-height: 150px; /* Ajust de l'altura màxima del requadre */
+            overflow-y: auto; /* Desplaçament vertical automàtic */
+            width: 100%;
+        }
+        .stations-list p {
+            cursor: pointer;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #555;
+            border-radius: 5px;
+            text-align: center;
+            color: #fff; /* Assegura que el text sigui blanc */
+        }
+        .stations-list p:hover {
+            background-color: #666;
+        }
+        /* Canvi de color per al canal actiu */
+        .active {
+            background-color: #ff9800; /* Color diferent per indicar el canal actiu */
+        }
+        .timer-select {font-family: 'Antonio', Arial, sans-serif;
+            background-color: #444;border-color: black;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            width: 100%;
+        }
+        #cancelTimerBtn {
+            display: none;
+            background-color: dimgray;
+            margin-top: 10px;
+        }
+        #timerStatus {
+            margin-top: 10px;
+            font-size: 14px;
+            color: white;
+        }
+        #currentStation { padding-width: 20px; word-break: break-all; }
+    </style>
+</head>
+<body>
+   <div class="clock" id="clock" style="font-size:50px;">00:00:00</div>
+    <div class="battery-status" id="batteryStatus">Bateria: %</div>
+ <div class="player-container">
+        <h2 id="stationName">Nom de l'emissora</h2>
+        <div class="controls">
+            <button id="prevBtn">Anterior</button>
+            <button id="playBtn">Play</button>
+            <button id="pauseBtn">Stop</button>
+            <button id="nextBtn">Següent</button>
+        </div>
+        <button id="stopBtn"></button>
+        <input type="range" id="volumeControl" class="volume-slider" min="0" max="1" step="0.1" value="0.5">
+        <div class="loading" id="loadingIndicator">Carregant...</div>
+        <p id="currentStation">URL actual: <span id="stationUrl"></span></p>
+
+        <!-- Requadre amb la llista de canals -->
+        <div class="stations-list" id="stationsList">
+            <!-- Els canals s'afegiran dinàmicament aquí -->
+        </div>
+
+        <!-- Menú desplegable per al countdown -->
+        <select id="timerSelect" class="timer-select">
+            <option value="0">Sense temporitzador</option>
+            <option value="5">5 segons</option>
+            <option value="300">5 minuts</option>
+            <option value="900">15 minuts</option>
+            <option value="1800">30 minuts</option>
+        </select>
+
+        <!-- Botó per cancel·lar el temporitzador -->
+        <button id="cancelTimerBtn">Cancel·lar temporitzador</button>
+
+        <!-- Estat del temporitzador -->
+        <p id="timerStatus"></p>
+    </div>
+
+    <script>
+        let stations = []; // Aquesta variable es carregarà amb dades del JSON
+        let currentStationIndex = 0;
+        let audio = new Audio();
+        let isPlaying = false;
+        let countdown;
+        let remainingTime = 0;
+        let hideTimerMessageTimeout; // Per amagar el missatge de cancel·lació
+
+        const playBtn = document.getElementById('playBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const volumeControl = document.getElementById('volumeControl');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const stationNameElem = document.getElementById('stationName');
+        const stationUrlElem = document.getElementById('stationUrl');
+        const stationsList = document.getElementById('stationsList');
+        const timerSelect = document.getElementById('timerSelect');
+        const timerStatus = document.getElementById('timerStatus');
+        const cancelTimerBtn = document.getElementById('cancelTimerBtn');
+
+        // Funció per carregar una emissora
+        function loadStation(index) {
+            audio.pause(); // Pausar la reproducció actual abans de carregar una nova emissora
+            audio.src = stations[index].url;
+            stationNameElem.textContent = stations[index].name;
+            stationUrlElem.textContent = stations[index].url;
+            isPlaying = false; // Assegura que no es reprodueix automàticament
+            
+            // Només eliminar la classe si l'element amb 'active' existeix
+            const activeElem = document.querySelector('.stations-list .active');
+            if (activeElem) activeElem.classList.remove('active');
+
+            // Afegir la classe 'active' a l'element actual i desplaçar-lo a la vista
+            const stationElems = stationsList.getElementsByTagName('p');
+            if (stationElems[index]) {
+                stationElems[index].classList.add('active');
+                stationElems[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        // Funció per començar la reproducció
+        function playAudio() {
+            audio.load();
+            loadingIndicator.style.display = 'block';
+            audio.volume = volumeControl.value;
+            audio.addEventListener('canplay', () => {
+                loadingIndicator.style.display = 'none';
+                audio.play();
+                audio.play();
+                isPlaying = true;
+            });
+        }
+
+        // Funció per aturar l'àudio (sense reiniciar-lo)
+        function stopAudio() {
+            audio.pause();
+            audio.currentTime = 0; // Reiniciar el temps a 0
+            isPlaying = false;
+        }
+
+        // Controls de reproducció
+        playBtn.addEventListener('click', () => {
+            if (!isPlaying) {
+                playAudio();
+            }
+        });
+
+        pauseBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+            }
+        });
+
+        stopBtn.addEventListener('click', () => {
+            stopAudio(); // Crida a la funció per aturar l'àudio
+            clearInterval(countdown); // Cancel·lar el temporitzador
+            timerStatus.textContent = "";
+            cancelTimerBtn.style.display = 'none'; // Amaga el botó de cancel·lació
+        });
+
+        prevBtn.addEventListener('click', () => {
+            currentStationIndex = (currentStationIndex - 1 + stations.length) % stations.length;
+            loadStation(currentStationIndex);
+            if (isPlaying) {
+                playAudio(); // Reproduir si està actualment activat
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentStationIndex = (currentStationIndex + 1) % stations.length;
+            loadStation(currentStationIndex);
+            if (isPlaying) {
+                playAudio(); // Reproduir si està actualment activat
+            }
+        });
+
+        // Control del volum
+        volumeControl.addEventListener('input', () => {
+            audio.volume = volumeControl.value;
+        });
+
+        // Carregar emissores del fitxer JSON amb fetch
+        fetch('https://xarxa-1.github.io/Xarxa-1/stations.json')
+            .then(response => response.json())
+            .then(data => {
+                stations = data;
+                loadStation(currentStationIndex); // Carregar la primera emissora
+                populateStationList(); // Afegir les emissores a la llista
+            })
+            .catch(error => console.error('Error carregant emissores:', error));
+
+        // Afegir les emissores a la llista HTML
+        function populateStationList() {
+            stations.forEach((station, index) => {
+                const stationElem = document.createElement('p');
+                stationElem.textContent = station.name;
+                stationElem.style.color = "#fff"; // Color del text explícit
+                stationElem.style.display = "block"; // Assegura que es mostri cada canal
+                stationElem.addEventListener('click', () => {
+                    currentStationIndex = index;
+                    loadStation(currentStationIndex);
+                    if (isPlaying) {
+                        playAudio();
+                    }
+                });
+                stationsList.appendChild(stationElem);
+            });
+        }
+
+        // Actualització de l'hora
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+        setInterval(updateClock, 1000);
+
+        // Percentatge de bateria
+        function updateBatteryStatus() {
+            navigator.getBattery().then(function(battery) {
+                const level = Math.round(battery.level * 100);
+                document.getElementById('batteryStatus').textContent = `Bateria: ${level}%`;
+            });
+        }
+        updateBatteryStatus();
+        setInterval(updateBatteryStatus, 60000); // Actualitzar cada minut
+
+        // Control del temporitzador
+        timerSelect.addEventListener('change', () => {
+            clearInterval(countdown); // Cancel·lar qualsevol temporitzador actiu
+            const selectedTime = parseInt(timerSelect.value);
+            if (selectedTime > 0) {
+                remainingTime = selectedTime;
+                timerStatus.textContent = `S'aturarà en ${selectedTime} segons`;
+                cancelTimerBtn.style.display = 'block'; // Mostrar el botó de cancel·lació
+
+                countdown = setInterval(() => {
+                    remainingTime--;
+                    if (remainingTime <= 0) {
+                        clearInterval(countdown);
+                        pauseAudio(); // Pausar l'àudio quan arribi a 0
+                        timerStatus.textContent = "Temporitzador finalitzat";
+                        cancelTimerBtn.style.display = 'none'; // Amaga el botó de cancel·lació
+                    } else {
+                        timerStatus.textContent = `Temps restant: ${remainingTime} segons`;
+                    }
+                }, 1000);
+            } else {
+                timerStatus.textContent = "";
+                cancelTimerBtn.style.display = 'none';
+            }
+        });
+
+        // Cancel·lació del temporitzador
+        cancelTimerBtn.addEventListener('click', () => {
+            clearInterval(countdown);
+            timerStatus.textContent = "Temporitzador cancel·lat.";
+            cancelTimerBtn.style.display = 'none';
+            hideTimerMessageTimeout = setTimeout(() => {
+                timerStatus.textContent = "";
+                timerSelect.value = "0"; // Restablir el select a "Sense temporitzador"
+            }, 10000); // Amaga el missatge després de 10 segons
+        });
+
+        function pauseAudio() {
+            audio.pause();
+            isPlaying = false;
+        }
+    </script>
+</body>
+</html>
