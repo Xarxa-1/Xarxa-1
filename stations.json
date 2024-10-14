@@ -1,7 +1,7 @@
 [
   { "name": "RAC1", "url": "https://20103.live.streamtheworld.com/RAC_1.mp3" },
   { "name": "RAC+1", "url": "https://25633.live.streamtheworld.com/RAC_MES_1.mp3" },
-  { "name": "Espluga FMRàdio", "url": "https://relay.stream.enacast-cloud.com:40319/esplugafmHD.mp3" },
+  { "name": "Espluga FM Ràdio", "url": "https://relay.stream.enacast-cloud.com:40319/esplugafmHD.mp3" },
   { "name": "Ràdio Montblanc", "url": "http://relay.stream.enacast-cloud.com:30045/radiomontblanc56.mp3" },
   { "name": "Hit103 Valls", "url": "https://streaming.enacast.com/radiovalls128.mp3" },
   { "name": "Tarragona Ràdio", "url": "http://relay.stream.enacast-cloud.com:30007/tarragona56.mp3" },
