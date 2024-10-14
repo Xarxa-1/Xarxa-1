@@ -6,6 +6,7 @@
   { "name": "Hit103Valls", "url": "https://streaming.enacast.com/radiovalls128.mp3" },
   { "name": "TarragonaRàdio", "url": "http://relay.stream.enacast-cloud.com:30007/tarragona56.mp3" },
   { "name": "LleidaRàdioUa1", "url": "http://panel5.soydigital.fm/8032/stream" },
+  { "name": "Ràdio Borges", "url": "http://188.164.198.121:8034/stream"},
   { "name": "RàdioPonent", "url": "http://relay.stream.enacast-cloud.com:30305/radioponentSD.mp3" },
   { "name": "FlaixFM", "url": "https://stream.flaixfm.cat/icecast" },
   { "name": "Flaixbac", "url": "https://stream.flaixbac.cat/icecast" },
