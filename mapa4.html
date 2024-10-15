@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa amb geolocalització i brúixola</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+
+        /* Estil per a la brúixola */
+        .leaflet-control-compass {
+            width: 80px;
+            height: 80px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            border: 2px solid #666;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .compass-arrow {
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 20px solid red;
+            position: absolute;
+            top: 10px;
+            transform-origin: center;
+            transition: transform 0.5s ease;
+        }
+
+        /* Estil del diàleg de confirmació */
+        #geo-dialog {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            z-index: 2000;
+            display: none;
+        }
+
+        #geo-dialog button {
+            margin: 5px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #geo-dialog button.no-btn {
+            background-color: #f44336;
+        }
+
+        /* Estil per a mostrar l'orientació de l'usuari */
+        #orientation-display {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Contenidor per al mapa -->
+    <div id="map"></div>
+
+    <!-- Diàleg de confirmació de geolocalització -->
+    <div id="geo-dialog">
+        <p>Vols permetre l'accés a la teva geolocalització?</p>
+        <button id="geo-yes">Sí</button>
+        <button class="no-btn" id="geo-no">No</button>
+    </div>
+
+    <!-- Mostrador d'orientació -->
+    <div id="orientation-display">Orientació: Desconeguda</div>
+
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <script>
+        // Crear el mapa centrat a l'Espluga de Francolí
+        var map = L.map('map').setView([41.3917, 1.0871], 13);
+
+        // Afegir la capa de satèl·lit
+        L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+
+        var userLocationMarker = null; // Variable per al marcador de la ubicació de l'usuari
+
+        // Mostrar el diàleg de geolocalització en obrir la pàgina
+        document.getElementById('geo-dialog').style.display = 'block';
+
+        // Funció per gestionar la geolocalització
+        function startGeolocation() {
+            if ('geolocation' in navigator) {
+                if (isSecureContext) {
+                    navigator.geolocation.watchPosition(
+                        function(position) {
+                            var lat = position.coords.latitude;
+                            var lng = position.coords.longitude;
+
+                            if (!userLocationMarker) {
+                                userLocationMarker = L.marker([lat, lng], { title: "Ubicació actual" }).addTo(map);
+                            } else {
+                                userLocationMarker.setLatLng([lat, lng]);
+                            }
+
+                            // Centrar el mapa en la ubicació de l'usuari
+                            map.setView([lat, lng], 15);
+                        },
+                        function(error) {
+                            switch(error.code) {
+                                case error.PERMISSION_DENIED:
+                                    alert('Permís de geolocalització denegat.');
+                                    break;
+                                case error.POSITION_UNAVAILABLE:
+                                    alert('Informació de la ubicació no disponible.');
+                                    break;
+                                case error.TIMEOUT:
+                                    alert('Temps d\'espera esgotat.');
+                                    break;
+                                default:
+                                    alert('Error de geolocalització.');
+                                    break;
+                            }
+                        },
+                        {
+                            enableHighAccuracy: true,
+                            timeout: 10000,
+                            maximumAge: 0
+                        }
+                    );
+                } else {
+                    alert('La geolocalització només està disponible en entorns segurs (HTTPS).');
+                }
+            } else {
+                alert('El teu navegador no suporta la geolocalització.');
+            }
+        }
+
+        // Si l'usuari accepta la geolocalització
+        document.getElementById('geo-yes').onclick = function() {
+            startGeolocation();
+            document.getElementById('geo-dialog').style.display = 'none'; // Tancar el diàleg
+        };
+
+        // Si l'usuari rebutja la geolocalització
+        document.getElementById('geo-no').onclick = function() {
+            alert('No s\'ha permès l\'accés a la geolocalització.');
+            document.getElementById('geo-dialog').style.display = 'none'; // Tancar el diàleg
+        };
+
+        // Brúixola
+        var compass = L.control({ position: 'topright' });
+        compass.onAdd = function() {
+            var div = L.DomUtil.create('div', 'leaflet-control-compass');
+            div.innerHTML = '<div class="compass-arrow"></div>';
+            return div;
+        };
+        compass.addTo(map);
+
+        // Funció per actualitzar la brúixola segons l'orientació del dispositiu
+        function updateCompassHeading(alpha) {
+            var arrow = document.querySelector('.compass-arrow');
+            arrow.style.transform = `rotate(${alpha}deg)`; // Girar la fletxa segons l'orientació
+        }
+
+        // Detectar l'orientació del dispositiu
+        if (window.DeviceOrientationEvent) {
+            window.addEventListener('deviceorientation', function(event) {
+                if (event.alpha !== null) {
+                    var heading = event.alpha; // Orientació en graus
+                    updateCompassHeading(heading);
+
+                    // Determinar si l'usuari està orientat cap al Nord, Sud, etc.
+                    var orientationText = '';
+                    if (heading < 45 || heading > 315) {
+                        orientationText = 'Nord';
+                    } else if (heading >= 45 && heading < 135) {
+                        orientationText = 'Est';
+                    } else if (heading >= 135 && heading < 225) {
+                        orientationText = 'Sud';
+                    } else if (heading >= 225 && heading < 315) {
+                        orientationText = 'Oest';
+                    }
+
+                    document.getElementById('orientation-display').innerText = 'Orientació: ' + orientationText;
+                }
+            });
+        } else {
+            document.getElementById('orientation-display').innerText = 'El teu dispositiu no suporta la detecció d\'orientació.';
+        }
+    </script>
+
+</body>
+</html>
