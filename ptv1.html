@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reproductor de Vídeo HLS</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        video {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        button {
+            margin: 0 5px;
+        }
+        .channel-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .channel-button {
+            display: flex;
+            align-items: center;
+            margin: 2px;
+        }
+        .channel-button img {
+            width: 10px;
+            height: 10px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <video id="videoPlayer" controls></video>
+    <div class="controls">
+        <button id="play">Play</button>
+        <button id="pause">Pause</button>
+        <button id="stop">Stop</button>
+        <button id="prevChannel">Canal Anterior</button>
+        <button id="nextChannel">Canal Següent</button>
+        <button id="mute">Mute</button>
+        <button id="volDown">Vol -</button>
+        <button id="volUp">Vol +</button>
+    </div>
+    <div class="channel-buttons" id="channelButtons"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script>
+        const video = document.getElementById('videoPlayer');
+        const playButton = document.getElementById('play');
+        const pauseButton = document.getElementById('pause');
+        const stopButton = document.getElementById('stop');
+        const prevChannelButton = document.getElementById('prevChannel');
+        const nextChannelButton = document.getElementById('nextChannel');
+        const muteButton = document.getElementById('mute');
+        const volDownButton = document.getElementById('volDown');
+        const volUpButton = document.getElementById('volUp');
+
+        let hls = new Hls();
+        let currentChannelIndex = 0;
+        let channels = [];
+
+        fetch('https://xarxa-1.github.io/Xarxa-1/cat17.m3u')
+            .then(response => response.text())
+            .then(data => {
+                const lines = data.split('\n');
+                for (let i = 0; i < lines.length; i++) {
+                    if (lines[i].startsWith('#EXTINF')) {
+                        const [info, url] = [lines[i], lines[i + 1]];
+                        const match = info.match(/tvg-logo="([^"]+)"/);
+                        const logo = match ? match[1] : '';
+                        const name = info.split(',')[1].trim();
+                        channels.push({ name, url, logo });
+                        i++; // Skip the URL line
+                    }
+                }
+                loadChannel(currentChannelIndex);
+                createChannelButtons();
+            });
+
+        function loadChannel(index) {
+            if (hls) {
+                hls.destroy();
+                hls = new Hls();
+            }
+            hls.loadSource(channels[index].url);
+            hls.attachMedia(video);
+            video.play();
+        }
+
+        function createChannelButtons() {
+            const channelButtonsDiv = document.getElementById('channelButtons');
+            channels.forEach((channel, index) => {
+                const button = document.createElement('div');
+                button.className = 'channel-button';
+                button.innerHTML = `<img src="${channel.logo}" alt="${channel.name} logo"> ${channel.name}`;
+                button.onclick = () => {
+                    currentChannelIndex = index;
+                    loadChannel(index);
+                };
+                channelButtonsDiv.appendChild(button);
+            });
+        }
+
+        playButton.onclick = () => video.play();
+        pauseButton.onclick = () => video.pause();
+        stopButton.onclick = () => {
+            video.pause();
+            video.currentTime = 0;
+        };
+
+        prevChannelButton.onclick = () => {
+            currentChannelIndex = (currentChannelIndex - 1 + channels.length) % channels.length;
+            loadChannel(currentChannelIndex);
+        };
+
+        nextChannelButton.onclick = () => {
+            currentChannelIndex = (currentChannelIndex + 1) % channels.length;
+            loadChannel(currentChannelIndex);
+        };
+
+        muteButton.onclick = () => video.muted = !video.muted;
+
+        volDownButton.onclick = () => video.volume = Math.max(0, video.volume - 0.1);
+
+        volUpButton.onclick = () => video.volume = Math.min(1, video.volume + 0.1);
+    </script>
+</body>
+</html>
