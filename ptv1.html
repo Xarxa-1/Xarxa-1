@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="ca">
 <head>
     <meta charset="UTF-8">
@@ -9,7 +9,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             height: 100vh;
             margin: 0;
         }
@@ -28,20 +28,21 @@
         }
         .channel-buttons-container {
             width: 100%;
-            max-height: 100px; /* Adjust height as needed */
+            flex-grow: 1;
             overflow-y: auto;
-            overflow-x: hidden;
-            margin-top: 10px;
             border-top: 1px solid #ccc; /* Optional styling */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
         }
         .channel-button {
             display: flex;
             align-items: center;
-            margin: 2px;
+            margin: 5px;
         }
         .channel-button img {
-            width: 10px;
-            height: 10px;
+            width: 30px;
+            height: 30px;
             margin-right: 5px;
         }
     </style>
@@ -142,4 +143,4 @@
         volUpButton.onclick = () => video.volume = Math.min(1, video.volume + 0.1);
     </script>
 </body>
-</html>  
+</html>
