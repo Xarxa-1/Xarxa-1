@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ca">
 <head>
     <meta charset="UTF-8">
@@ -39,11 +39,15 @@
             display: flex;
             align-items: center;
             margin: 5px;
+            padding: 5px;
         }
         .channel-button img {
             width: 30px;
             height: 30px;
             margin-right: 5px;
+        }
+        .active-channel {
+            background-color: #d3d3d3; /* Color de fons per al canal actiu */
         }
     </style>
 </head>
@@ -93,6 +97,7 @@
                 }
                 loadChannel(currentChannelIndex);
                 createChannelButtons();
+                highlightActiveChannel();
             });
 
         function loadChannel(index) {
@@ -103,6 +108,8 @@
             hls.loadSource(channels[index].url);
             hls.attachMedia(video);
             video.play();
+            
+            highlightActiveChannel();
         }
 
         function createChannelButtons() {
@@ -119,28 +126,50 @@
             });
         }
 
+        function highlightActiveChannel() {
+            const channelButtonsDivs = document.querySelectorAll('.channel-button');
+            
+            channelButtonsDivs.forEach((button, index) => {
+                if (index === currentChannelIndex) {
+                    button.classList.add('active-channel');
+                } else {
+                    button.classList.remove('active-channel');
+                }
+            });
+            
+           // Ensure the active channel is visible
+           channelButtonsDivs[currentChannelIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
         playButton.onclick = () => video.play();
+        
         pauseButton.onclick = () => video.pause();
+        
         stopButton.onclick = () => {
             video.pause();
             video.currentTime = 0;
         };
 
-        prevChannelButton.onclick = () => {
-            currentChannelIndex = (currentChannelIndex - 1 + channels.length) % channels.length;
-            loadChannel(currentChannelIndex);
-        };
+        
+         prevChannelButton.onclick = () => {
+             currentChannelIndex =
+                 (currentChannelIndex - 1 + channels.length) % channels.length;
+             loadChannel(currentChannelIndex);
+         };
 
-        nextChannelButton.onclick = () => {
-            currentChannelIndex = (currentChannelIndex + 1) % channels.length;
-            loadChannel(currentChannelIndex);
-        };
+         nextChannelButton.onclick = () => {
+             currentChannelIndex =
+                 (currentChannelIndex + 1) % channels.length;
+             loadChannel(currentChannelIndex);
+         };
 
-        muteButton.onclick = () => video.muted = !video.muted;
+         muteButton.onclick = () => (video.muted = !video.muted);
 
-        volDownButton.onclick = () => video.volume = Math.max(0, video.volume - 0.1);
+         volDownButton.onclick = () =>
+             (video.volume = Math.max(0, video.volume - 0.1));
 
-        volUpButton.onclick = () => video.volume = Math.min(1, video.volume + 0.1);
+         volUpButton.onclick = () =>
+             (video.volume = Math.min(1, video.volume + 0.1));
     </script>
 </body>
 </html>
