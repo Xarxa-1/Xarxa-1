@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ca">
 <head>
     <meta charset="UTF-8">
@@ -78,353 +78,131 @@
         const volUpButton = document.getElementById('volUp');
 
         let hls = new Hls();
-        let currentChannelIndex = 0;
-        let channels = [];
+        let currentChannelIndex = 0; // Index del canal actual
+        let channels = []; // Array per emmagatzemar els canals
 
+        // Funció per carregar els canals des del fitxer M3U
         fetch('https://xarxa-1.github.io/Xarxa-1/cat17.m3u')
             .then(response => response.text())
             .then(data => {
+                console.log("Dades M3U carregades:", data); // Comprovació de dades carregades
                 const lines = data.split('\n');
                 for (let i = 0; i < lines.length; i++) {
                     if (lines[i].startsWith('#EXTINF')) {
                         const [info, url] = [lines[i], lines[i + 1]];
-                        const match = info.match(/tvg-logo="([^"]+)"/);
-                        const logo = match ? match[1] : '';
-                        const name = info.split(',')[1].trim();
-                        channels.push({ name, url, logo });
-                        i++; // Skip the URL line
+                        if (url && url.startsWith('http')) { // Comprova que la URL sigui vàlida
+                            const match = info.match(/tvg-logo="([^"]+)"/);
+                            const logo = match ? match[1] : '';
+                            const name = info.split(',')[1].trim();
+                            channels.push({ name, url, logo });
+                            i++; // Skip the URL line
+                        } else {
+                            console.error("URL no vàlida trobada:", url);
+                        }
                     }
                 }
-                loadChannel(currentChannelIndex);
-                createChannelButtons();
-                highlightActiveChannel();
-            });
-
-        function loadChannel(index) {
-            if (hls) {
-                hls.destroy();
-                hls = new Hls();
-            }
-            hls.loadSource(channels[index].url);
-            hls.attachMedia(video);
-            video.play();
-            
-            highlightActiveChannel();
-        }
-
-        function createChannelButtons() {
-            const channelButtonsDiv = document.getElementById('channelButtons');
-            
-            channelButtonsDiv.innerHTML = ''; // Clear existing buttons
-            
-            channels.forEach((channel, index) => {
-                const button = document.createElement('div');
-                button.className = 'channel-button';
-                button.innerHTML = `<img src="${channel.logo}" alt="${channel.name} logo"> ${channel.name}`;
-                button.onclick = () => {
-                    currentChannelIndex = index;
-                    loadChannel(index);
-                };
-                channelButtonsDiv.appendChild(button);
-            });
-            
-           highlightActiveChannel(); // Ensure active channel is highlighted
-           
-           // Scroll to active channel
-           if (channels.length > 0) {
-               document.querySelectorAll('.channel-button')[currentChannelIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-           }
-            
-           
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-
-        
-
-
-        
-
-
-        
-
-
-        
-
-
-        
-
-
-        
-
-
-        
-
-
-        
-
-
-        
-
-
-        
-
-
-        
-
-
-        
-
-
-        
-
-
-        
-
-
-        
-
-
-        
-
-
-        
-
-
-        
-
-
-        
-
-
-        
-
-
-        
-
-
-        
-
-
-        
-
-
-        
-
-
-        
-
-
-        
-
-
-        
-
-
-        
-
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-}
-
-playButton.onclick = () => video.play();
-
-pauseButton.onclick = () => video.pause();
-
-stopButton.onclick = () => {
-    video.pause();
-    video.currentTime = 0;
-};
-
-prevChannelButton.onclick = () => {
-    currentChannelIndex =
-    (currentChannelIndex - 1 + channels.length) % channels.length;
-    loadChannel(currentChannelIndex);
-};
-
-nextChannelButton.onclick = () => {
-    currentChannelIndex =
-    (currentChannelIndex + 1) % channels.length;
-    loadChannel(currentChannelIndex);
-};
-
-muteButton.onclick = () => (video.muted = !video.muted);
-
-volDownButton.onclick = () =>
-(video.volume = Math.max(0, video.volume - 0.1));
-
-volUpButton.onclick = () =>
-(video.volume = Math.min(1, video.volume + 0.1));
-</script>
-
-
+                console.log("Canals processats:", channels); // Comprovació de canals processats
+                if (channels.length > 0) {
+                    loadChannel(currentChannelIndex);
+                    createChannelButtons();
+                    highlightActiveChannel();
+                } else {
+                    console.error("No s'han trobat canals.");
+                }
+                
+            })
+            .catch(error => console.error("Error carregant el fitxer M3U:", error));
+
+        
+         function loadChannel(index) {
+             if (hls) {
+                 hls.destroy();
+                 hls = new Hls();
+             }
+
+             // Comprova si l'índex és vàlid abans de carregar el canal
+             if (channels[index]) {
+                 hls.loadSource(channels[index].url);
+                 hls.attachMedia(video);
+                 video.play();
+                 highlightActiveChannel();
+             } else {
+                 console.error("Canal no vàlid:", index);
+             }
+         }
+
+         function createChannelButtons() {
+             const channelButtonsDiv =
+                 document.getElementById("channelButtons");
+
+             channelButtonsDiv.innerHTML = ""; // Neteja botons existents
+
+             channels.forEach((channel, index) => {
+                 const button = document.createElement("div");
+                 button.className = "channel-button";
+                 button.innerHTML =
+                     `<img src="${channel.logo}" alt="${channel.name} logo"> ${channel.name}`;
+                 button.onclick = () => {
+                     currentChannelIndex =
+                         index; // Actualitza l'índex del canal actual
+                     loadChannel(index); // Carrega el canal seleccionat
+                 };
+                 channelButtonsDiv.appendChild(button);
+             });
+
+             highlightActiveChannel(); // Assegura que el canal actiu estigui destacat
+
+             // Desplaça automàticament al canal actiu
+             if (channels.length > 0) {
+                 document.querySelectorAll(".channel-button")[
+                     currentChannelIndex
+                 ].scrollIntoView({ behavior: "smooth", block: "nearest" });
+             }
+         }
+
+         function highlightActiveChannel() {
+             const channelButtonsDivs =
+                 document.querySelectorAll(".channel-button");
+
+             channelButtonsDivs.forEach((button, index) => {
+                 if (index === currentChannelIndex) {
+                     button.classList.add(
+                         "active-channel"
+                     ); // Afegir classe al canal actiu
+                 } else {
+                     button.classList.remove(
+                         "active-channel"
+                     ); // Treure classe dels canals inactius
+                 }
+             });
+         }
+
+         playButton.onclick = () => video.play();
+         pauseButton.onclick = () => video.pause();
+         stopButton.onclick = () => {
+             video.pause();
+             video.currentTime = 0;
+         };
+
+         prevChannelButton.onclick = () => {
+             currentChannelIndex =
+                 (currentChannelIndex - 1 + channels.length) % channels.length; // Canal anterior
+             loadChannel(currentChannelIndex);
+         };
+
+         nextChannelButton.onclick = () => {
+             currentChannelIndex =
+                 (currentChannelIndex + 1) % channels.length; // Canal següent
+             loadChannel(currentChannelIndex);
+         };
+
+         muteButton.onclick = () => (video.muted = !video.muted); // Mutar
+
+         volDownButton.onclick = () =>
+             (video.volume = Math.max(0, video.volume - 0.1)); // Volum -
+
+         volUpButton.onclick = () =>
+             (video.volume = Math.min(1, video.volume + 0.1)); // Volum +
+    </script>
 </body>
-
 </html>
- 
