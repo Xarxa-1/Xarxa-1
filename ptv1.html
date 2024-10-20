@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ca">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reproductor de Vídeo HLS</title>
     <style>
-        body {
+        body { background: coral;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -59,7 +59,7 @@
         <button id="stop">Stop</button>
         <button id="prevChannel">Canal Anterior</button>
         <button id="nextChannel">Canal Següent</button>
-        <br><button id="mute">Mute</button>
+        <button id="mute">Mute</button>
         <button id="volDown">Vol -</button>
         <button id="volUp">Vol +</button>
     </div>
@@ -114,6 +114,9 @@
 
         function createChannelButtons() {
             const channelButtonsDiv = document.getElementById('channelButtons');
+            
+            channelButtonsDiv.innerHTML = ''; // Clear existing buttons
+            
             channels.forEach((channel, index) => {
                 const button = document.createElement('div');
                 button.className = 'channel-button';
@@ -124,52 +127,303 @@
                 };
                 channelButtonsDiv.appendChild(button);
             });
-        }
-
-        function highlightActiveChannel() {
-            const channelButtonsDivs = document.querySelectorAll('.channel-button');
             
-            channelButtonsDivs.forEach((button, index) => {
-                if (index === currentChannelIndex) {
-                    button.classList.add('active-channel');
-                } else {
-                    button.classList.remove('active-channel');
-                }
-            });
+           highlightActiveChannel(); // Ensure active channel is highlighted
+           
+           // Scroll to active channel
+           if (channels.length > 0) {
+               document.querySelectorAll('.channel-button')[currentChannelIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+           }
             
-           // Ensure the active channel is visible
-           channelButtonsDivs[currentChannelIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-
-        playButton.onclick = () => video.play();
+           
+            
         
-        pauseButton.onclick = () => video.pause();
+            
         
-        stopButton.onclick = () => {
-            video.pause();
-            video.currentTime = 0;
-        };
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
 
         
-         prevChannelButton.onclick = () => {
-             currentChannelIndex =
-                 (currentChannelIndex - 1 + channels.length) % channels.length;
-             loadChannel(currentChannelIndex);
-         };
 
-         nextChannelButton.onclick = () => {
-             currentChannelIndex =
-                 (currentChannelIndex + 1) % channels.length;
-             loadChannel(currentChannelIndex);
-         };
+        
 
-         muteButton.onclick = () => (video.muted = !video.muted);
+        
 
-         volDownButton.onclick = () =>
-             (video.volume = Math.max(0, video.volume - 0.1));
+        
 
-         volUpButton.onclick = () =>
-             (video.volume = Math.min(1, video.volume + 0.1));
-    </script>
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+
+        
+
+
+        
+
+
+        
+
+
+        
+
+
+        
+
+
+        
+
+
+        
+
+
+        
+
+
+        
+
+
+        
+
+
+        
+
+
+        
+
+
+        
+
+
+        
+
+
+        
+
+
+        
+
+
+        
+
+
+        
+
+
+        
+
+
+        
+
+
+        
+
+
+        
+
+
+        
+
+
+        
+
+
+        
+
+
+        
+
+
+        
+
+
+        
+
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+}
+
+playButton.onclick = () => video.play();
+
+pauseButton.onclick = () => video.pause();
+
+stopButton.onclick = () => {
+    video.pause();
+    video.currentTime = 0;
+};
+
+prevChannelButton.onclick = () => {
+    currentChannelIndex =
+    (currentChannelIndex - 1 + channels.length) % channels.length;
+    loadChannel(currentChannelIndex);
+};
+
+nextChannelButton.onclick = () => {
+    currentChannelIndex =
+    (currentChannelIndex + 1) % channels.length;
+    loadChannel(currentChannelIndex);
+};
+
+muteButton.onclick = () => (video.muted = !video.muted);
+
+volDownButton.onclick = () =>
+(video.volume = Math.max(0, video.volume - 0.1));
+
+volUpButton.onclick = () =>
+(video.volume = Math.min(1, video.volume + 0.1));
+</script>
+
+
 </body>
-</html> 
+
+</html>
