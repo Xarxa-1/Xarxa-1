@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="mobile-web-app-capable" content="yes" />
+
+<!--
+<meta name="theme-color" content="#FF5733"> <!-- Color de la barra del navegador -->
+<!--
+<style>
+  /* Estil del text de la barra del navegador */
+  @media (prefers-color-scheme: dark) {
+    /* Estil del text en mode fosc */
+    /* Pots canviar el color del text en mode fosc aquí */
+  }
+  @media (prefers-color-scheme: light) {
+    /* Estil del text en mode clar */
+    /* Pots canviar el color del text en mode clar aquí */
+  }
+</style>
+ -->
+    <link rel="apple-touch-icon" sizes="180x180" href="" />
+    <link rel="apple-touch-icon" sizes="192x192" href="" />
+    <link rel="apple-touch-icon" sizes="32x32" href="" />
+    <link rel="apple-touch-icon" sizes="96x96" href="" />
+    <link rel="apple-touch-icon" sizes="16x16" href="" />
+    <link type="image/ico" href="" rel="icon" />
+    <title>Canals tele</title>
+    <link href="https://vjs.zencdn.net/7.14.3/video-js.css" rel="stylesheet">
+    <script src="https://vjs.zencdn.net/7.14.3/video.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Barlow+Condensed" rel="stylesheet">
+    <style>
+ .container {max-width: 100px; display: flex; justify-content: space-between; } .box { width: 100px; height: 100px; background-color: lightblue; margin-right: 20px; /* Afegim un marge de 20px entre els divs */ } /* Eliminem el marge del div últim per evitar que hi hagi un marge innecessari */ .box:last-child { margin-right: 0; }
+
+      body {
+            font-size: 22px;
+            background-color: #222;
+            color: #fff;
+            font-family: 'Barlow Condensed',  Verdana, sans-serif;
+        }
+
+        input {
+            font-size: 14px;
+            width: 95%;
+            background-color: #222;
+            color: #fff;
+            font-family: 'Barlow Condensed',  Verdana, sans-serif;
+        }
+
+        /* Resta del teu estil... */
+
+        #video-player {
+            width: calc(100vw - 0px);
+            height: calc(56.25vw + 0px);
+            max-height: 89vh;
+            max-width: 100%;
+            object-fit: cover;
+        }
+
+        #current-info {
+            margin-top: 0px;
+            display: flex;
+            align-items: center;
+            background-color: DarkSlateGray;
+        }
+
+        #channel-logo {
+            max-width: 200px;
+            max-height: 50px;
+            margin-right: 10px;
+        }
+
+        #current-info-text {
+            color: white;
+        }
+
+        hr {
+            border-color: #444;
+            margin: 0px 0;
+        }
+
+        button {
+            font-family: 'Barlow Condensed',  Verdana, sans-serif;
+            background-color: #333;
+            color: #fff;
+            padding: 100px;
+            border: none;
+            cursor: pointer;
+            padding: 15px;
+        }
+
+        .channel-button {
+            display: flex;
+            align-items: center; /* Alinea verticalment el logo i el text */
+            margin-bottom: 5px;
+            background-color: #333;
+            color: #fff;
+            margin: 4px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .channel-button img {
+            width: 10px;
+            height: 10px;
+            margin-right: 5px; /* Espai entre el logo i el text */
+        }
+
+        .active-channel {
+            background-color: olivedrab;
+            color: #fff;
+        }
+
+        #channel-buttons-container {
+            max-height: 200px;
+            overflow-y: scroll;
+            border: 0px solid #555;
+            padding: 10px;
+            white-space: nowrap;
+        }
+
+        #m3u-url,
+        #m3u-url:focus {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            margin-right: 10px;
+        }
+
+        #m3u-url::placeholder {
+            color: #888;
+        }
+
+        #channel-buttons {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        /* Exemple de CSS personalitzat */
+      .video-js .vjs-control-bar { font-size: 150%; /* Ajusta la mida dels elements de la barra de controls */ height: auto; /* Assegura que la barra de controls ajusti la seva alçada */ bottom: -3em; /* Desplaça la barra de controls cap avall */ } .video-js .vjs-control { height: 3em; /* Augmenta la mida dels botons */ line-height: 3em; /* Alinea els botons verticalment */ }
+    </style>
+<title>TV</title>
+</head>
+<body>
+<video  id="video-player" class="video-js vjs-fluid vjs-default-skin " fluid="true" liveui="true" controls preload="auto" width="100%" height="59%" poster="muted.jpg" muted>
+    El teu navegador no suporta la reproducció de vídeo.
+</video>
+<hr><div class="container">
+</div>
+<style>
+.contenedor-flexbox {
+    display: flex; /*Convertimos al menú en flexbox*/
+    justify-content: space-between; /*Con esto le indicamos que margine todos los items que se encuentra adentro hacia la derecha e izquierda*/
+    align-items: center; /*con esto alineamos de manera vertical*/
+    margin-top: -45px;
+}
+</style>
+<div class="contenedor-flexbox">
+<div style="width:50%; display:inline-block;border-color: black;  margin-top: -18px;">
+<div id="channel-buttons-container">
+   <button onclick="playPrevious()">Canal anterior</button>
+   <button onclick="playNext()">Canal següent</button>
+   <button onclick="skipTime(-30)">«30s.</button>
+   <button onclick="goLive()">Directe</button>
+   <button onclick="skipTime(30)">30s.»</button><br><input type="text" id="search-channel" placeholder="Cerca per nom de canal" oninput="filterChannels()"></div>
+<div style="width:100%; display:inline-block; border:solid; border-color: DarkSlateGray; ">
+<div id="current-info">
+    <img id="channel-logo" src="https://example.com/default_logo.jpg" alt="Logo del Canal">
+    <div id="current-info-text"></div>
+</div>
+</div>
+</div>
+<div id="channel-buttons-container" style="margin-top: 20px;">
+    <div id="channel-buttons"></div>
+</div>
+</div>
+
+ <div style="width:100%; display:inline-block; border-color: black;">
+<input type="text" id="m3u-url" placeholder="Ex: https://example.com/playlist.m3u8" value="https://xarxa-1.github.io/Xarxa-1/cat17.m3u">
+<button onclick="loadPlaylist()">Carrega la Playlist</button>
+</div>
+<script>
+    var currentIndex = 0;
+    var playlistUrls = [];
+    var playlistNames = [];
+    var playlistLogos = [];
+
+    function extractLogoUrl(line) {
+        var logoMatch = line.match(/tvg-logo="([^"]+)"/);
+        return logoMatch ? logoMatch[1] : "https://example.com/default_logo.jpg";
+    }
+
+    function scrollToActiveButton(activeButton) {
+        activeButton.scrollIntoView({ block: 'nearest', inline: 'start', behavior: 'smooth' });
+    }
+
+    function playPrevious() {
+        currentIndex = (currentIndex - 1 + playlistUrls.length) % playlistUrls.length;
+        playCurrentVideo();
+        scrollToActiveButton(document.getElementById('channel-buttons').children[currentIndex]);
+    }
+
+    function playNext() {
+        currentIndex = (currentIndex + 1) % playlistUrls.length;
+        playCurrentVideo();
+        scrollToActiveButton(document.getElementById('channel-buttons').children[currentIndex]);
+    }
+
+    function playCurrentVideo() {
+        var videoPlayer = videojs('video-player');
+        var currentInfo = document.getElementById('current-info-text');
+
+        videoPlayer.poster('https://example.com/poster.jpg');
+        videoPlayer.src(playlistUrls[currentIndex]);
+        videoPlayer.load();
+        videoPlayer.play();
+
+        currentInfo.innerHTML = '<h3></h3> ' + playlistNames[currentIndex];
+
+        var channelLogo = document.getElementById('channel-logo');
+        channelLogo.src = playlistLogos[currentIndex];
+        channelLogo.alt = "Logo del Canal";
+
+        var channelButtons = document.getElementsByClassName('channel-button');
+        for (var i = 0; i < channelButtons.length; i++) {
+            channelButtons[i].classList.remove('active-channel');
+        }
+
+        document.getElementById('channel-buttons').children[currentIndex].classList.add('active-channel');
+    }
+
+    function loadPlaylist() {
+        var inputUrl = document.getElementById('m3u-url').value;
+        var videoPlayer = videojs('video-player');
+        var currentInfo = document.getElementById('current-info-text');
+        var channelButtons = document.getElementById('channel-buttons');
+
+        if (inputUrl) {
+            fetch(inputUrl)
+                .then(response => response.text())
+                .then(data => {
+                    var lines = data.split('\n');
+                    channelButtons.innerHTML = '';
+                    playlistUrls = [];
+                    playlistNames = [];
+                    playlistLogos = [];
+
+                    lines.forEach(function(line) {
+                        if (line.startsWith('#EXTINF')) {
+                            var channelName = line.split(',')[1];
+                            var videoUrl = lines[lines.indexOf(line) + 1];
+                            var logoUrl = extractLogoUrl(line);
+                            playlistUrls.push(videoUrl);
+                            playlistNames.push(channelName);
+                            playlistLogos.push(logoUrl);
+
+                            var button = document.createElement('button');
+                            button.className = 'channel-button';
+                            button.addEventListener('click', function() {
+                                currentIndex = playlistUrls.indexOf(videoUrl);
+                                playCurrentVideo();
+                                scrollToActiveButton(button);
+                            });
+
+                            // Afegir el logo del canal com una imatge dins del botó
+                            var logoImage = document.createElement('img');
+                            logoImage.src = logoUrl;
+                            logoImage.alt = "Logo del Canal";
+                            logoImage.style.width = "30px";
+                            logoImage.style.height = "30px";
+                            button.appendChild(logoImage);
+
+                            // Afegir el nom del canal com a text dins del botó
+                            var channelText = document.createTextNode(channelName);
+                            button.appendChild(channelText);
+
+                            channelButtons.appendChild(button);
+                        }
+                    });
+
+                    currentIndex = 0;
+                    playCurrentVideo();
+                    scrollToActiveButton(document.getElementById('channel-buttons').children[currentIndex]);
+                })
+                .catch(error => console.error('Error loading playlist:', error));
+        }
+    }
+
+    function filterChannels() {
+        var searchText = document.getElementById('search-channel').value.toLowerCase();
+        var channelButtons = document.getElementById('channel-buttons').children;
+
+        for (var i = 0; i < channelButtons.length; i++) {
+            var channelName = channelButtons[i].textContent.toLowerCase();
+            if (channelName.includes(searchText)) {
+                channelButtons[i].style.display = 'block';
+            } else {
+                channelButtons[i].style.display = 'none';
+            }
+        }
+    }
+
+    function goLive() {
+        var player = videojs('video-player');
+        player.currentTime(player.seekable().end(0));
+    }
+
+    function skipTime(seconds) {
+        var player = videojs('video-player');
+        var currentTime = player.currentTime();
+        player.currentTime(currentTime + seconds);
+    }
+
+    window.onload = function() {
+        loadPlaylist();
+    };
+</script>
+
+</body>
+</html>
