@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.9">
+    <meta name="theme-color" content="#007bff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://mytuner-radio.com/static/icons/apple-touch-icon-144x144-precomposed.png"/><link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://mytuner-radio.com/static/icons/apple-touch-icon-120x120-precomposed.png"/><link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://mytuner-radio.com/static/icons/apple-touch-icon-114x114-precomposed.png"/><link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://mytuner-radio.com/static/icons/apple-touch-icon-72x72-precomposed.png"/><link rel="apple-touch-icon-precomposed" href="https://mytuner-radio.com/static/icons/apple-touch-icon-precomposed.png"/>
+<link rel="shortcut icon" href="https://mytuner-radio.com/static/icons/apple-touch-icon-144x144-precomposed.png" type="image/x-icon"/>
+    <title>Àudio</title>
+    <link href='https://fonts.googleapis.com/css?family=Antonio' rel='stylesheet'>
+    <style>
+        body {
+            font-family: 'Antonio', Arial, sans-serif;
+            background-color: #222;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .player-container {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            width: 400px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .player-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+        button {
+            font-family: 'Antonio', Arial, sans-serif;
+            background-color: #444;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #555;
+        }
+        .volume-slider {
+            width: 100%;
+            margin-top: 10px;
+        }
+        .loading {
+            display: none;
+            color: gray;
+        }
+        .battery-status, .clock {
+            color: white;
+            margin-bottom: 10px;
+        }
+        .stations-list {
+            background-color: #444;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            max-height: 150px;
+            overflow-y: auto;
+            width: 100%;
+        }
+        .stations-list p {
+            cursor: pointer;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #555;
+            border-radius: 5px;
+            text-align: center;
+            color: #fff;
+        }
+        .stations-list p:hover {
+            background-color: #666;
+        }
+        .active {
+            background-color: #ff9800;
+        }
+        .timer-select {
+            font-family: 'Antonio', Arial, sans-serif;
+            background-color: #444;
+            border-color: black;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            width: 100%;
+        }
+        #cancelTimerBtn {
+            display: none;
+            background-color: dimgray;
+            margin-top: 10px;
+        }
+        #timerStatus {
+            margin-top: 10px;
+            font-size: 14px;
+            color: white;
+        }
+        #currentStation {
+            border-radius: 5px;
+            padding: 55px;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <div class="clock" id="clock" style="font-size:50px;">::</div>
+    <div class="battery-status" id="batteryStatus">Bateria: %</div>
+    <div class="player-container">
+        <h2 id="stationName">Nom de l'emissora</h2>
+        <div class="controls">
+            <button id="prevBtn">Anterior</button>
+            <button id="playBtn">Play</button>
+            <button id="pauseBtn">Stop</button>
+            <button id="nextBtn">Següent</button>
+        </div>
+        <input type="range" id="volumeControl" class="volume-slider" min="0" max="1" step="0.1" value="0.5">
+        <div class="stations-list" id="stationsList"></div>
+        <select id="timerSelect" class="timer-select">
+            <option value="0">Sense temporitzador</option>
+            <option value="5">5 segons</option>
+            <option value="300">5 minuts</option>
+            <option value="900">15 minuts</option>
+            <option value="1800">30 minuts</option>
+            <option value="3600">60 minuts</option>
+        </select>
+        <button id="cancelTimerBtn">Cancel·lar temporitzador</button>
+        <p id="timerStatus"></p>
+    </div>
+    <p id="currentStation">URL actual: <span id="stationUrl"></span></p><div class="loading" id="loadingIndicator">Carregant...</div>
+    <button id="stopBtn" style="padding: 0px 0px;border-radius: 0px;width:0px;height: 0px;"></button>  
+    <script>
+        // Actualització de l'hora
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+        setInterval(updateClock, 1000);
+
+        // Percentatge de bateria
+        function updateBatteryStatus() {
+            navigator.getBattery().then(function(battery) {
+                const level = Math.round(battery.level * 100);
+                document.getElementById('batteryStatus').textContent = `Bateria: ${level}%`;
+            });
+        }
+        updateBatteryStatus();
+        setInterval(updateBatteryStatus, 60000); // Actualitzar cada minut
+        
+        let stations = [];
+        let currentStationIndex = 0;
+        let audio = new Audio();
+        let isPlaying = false;
+        let countdown;
+        let remainingTime = 0;
+
+        const playBtn = document.getElementById('playBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const volumeControl = document.getElementById('volumeControl');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const stationNameElem = document.getElementById('stationName');
+        const stationUrlElem = document.getElementById('stationUrl');
+        const stationsList = document.getElementById('stationsList');
+        const timerSelect = document.getElementById('timerSelect');
+        const timerStatus = document.getElementById('timerStatus');
+        const cancelTimerBtn = document.getElementById('cancelTimerBtn');
+
+        function loadStation(index) {
+            audio.pause();
+            audio.src = stations[index].url;
+            stationNameElem.textContent = stations[index].name;
+            stationUrlElem.textContent = stations[index].url;
+            isPlaying = false;
+
+            const activeElem = document.querySelector('.stations-list .active');
+            if (activeElem) activeElem.classList.remove('active');
+
+            const stationElems = stationsList.getElementsByTagName('p');
+            if (stationElems[index]) {
+                stationElems[index].classList.add('active');
+                stationElems[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        function playAudio() {
+            audio.load();
+            loadingIndicator.style.display = 'block';
+            audio.volume = volumeControl.value;
+            audio.addEventListener('canplay', () => {
+                loadingIndicator.style.display = 'none';
+                audio.play();
+                isPlaying = true;
+            });
+        }
+
+        function stopAudio() {
+            audio.pau();
+            audio.currentTime = 0;
+            isPlaying = false;
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (!isPlaying) {
+                playAudio();
+            }
+        });
+
+        pauseBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+            }
+        });
+
+        stopBtn.addEventListener('click', () => {
+            stopAudio();
+            clearInterval(countdown);
+            timerStatus.textContent = "";
+            cancelTimerBtn.style.display = 'none';
+        });
+
+        prevBtn.addEventListener('click', () => {
+            currentStationIndex = (currentStationIndex - 1 + stations.length) % stations.length;
+            loadStation(currentStationIndex);
+            if (isPlaying) {
+                playAudio();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentStationIndex = (currentStationIndex + 1) % stations.length;
+            loadStation(currentStationIndex);
+            if (isPlaying) {
+                playAudio();
+            }
+        });
+
+        volumeControl.addEventListener('input', () => {
+            audio.volume = volumeControl.value;
+        });
+
+        fetch('https://xarxa-1.github.io/Xarxa-1/stations.json')
+            .then(response => response.json())
+            .then(data => {
+                stations = data;
+                loadStation(currentStationIndex);
+                populateStationList();
+            })
+            .catch(error => console.error('Error carregant emissores:', error));
+
+        function populateStationList() {
+            stations.forEach((station, index) => {
+                const stationElem = document.createElement('p');
+                stationElem.textContent = station.name;
+                stationElem.style.color = "#fff";
+                stationElem.style.display = "block";
+                stationElem.addEventListener('click', () => {
+                    currentStationIndex = index;
+                    loadStation(currentStationIndex);
+                    if (isPlaying) {
+                        playAudio();
+                    }
+                });
+                stationsList.appendChild(stationElem);
+            });
+        }
+
+        // Timer select update
+        timerSelect.addEventListener('change', () => {
+            clearInterval(countdown);
+            const selectedTime = parseInt(timerSelect.value);
+            if (selectedTime > 0) {
+                remainingTime = selectedTime;
+                updateTimerStatus(remainingTime);
+                cancelTimerBtn.style.display = 'block';
+                countdown = setInterval(() => {
+                    remainingTime--;
+                    if (remainingTime <= 0) {
+                        clearInterval(countdown);
+                        audio.pause(); // Stop the audio when timer reaches 00:00:00
+                        timerStatus.textContent = "Temporitzador finalitzat";
+                        cancelTimerBtn.style.display = 'none';
+                    } else {
+                        updateTimerStatus(remainingTime);
+                    }
+                }, 1000);
+            } else {
+                timerStatus.textContent = "";
+                cancelTimerBtn.style.display = 'none';
+            }
+        });
+
+        cancelTimerBtn.addEventListener('click', () => {
+            clearInterval(countdown);
+            timerStatus.textContent = "Temporitzador cancel·lat.";
+            cancelTimerBtn.style.display = 'none';
+        });
+
+        function updateTimerStatus(seconds) {
+            const hours = String(Math.floor(seconds / 3600)).padStart(2, '0');
+            const minutes = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
+            const secs = String(seconds % 60).padStart(2, '0');
+            timerStatus.textContent = `Temps restant: ${hours}:${minutes}:${secs}`;
+        }
+    </script>
+</body>
+</html>
