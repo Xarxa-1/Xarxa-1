@@ -15,7 +15,7 @@ https://directes-tv-cat.3catdirectes.cat/live-content/c33-super3-hls/master.m3u8
 https://directes-tv-cat.3catdirectes.cat/live-content/super3-hls/master.m3u8
 #EXTINF:-1 tvg-id="BonDiaTV" tvg-logo="https://www.lyngsat.com/logo/tv/bb/bon-dia-tv-es.svg" group-title="Undefined",BonDiaTV
 https://directes-tv-int.3catdirectes.cat/live-content/bondia-hls/master.m3u8
-#EXTINF:-1 tvg-id="TV3.Cat.es" tvg-name="" group-title="" tvg-logo=https://www.3cat.cat/_resources/favicons/3cat-favicon-192x192.png",JocCartes
+#EXTINF:-1 tvg-id="TV3.Cat.es" tvg-name="" group-title="" tvg-logo="https://www.3cat.cat/_resources/favicons/3cat-favicon-192x192.png",JocCartes
 https://fast-tailor.3catdirectes.cat/v1/channel/ccma-channel1/hls.m3u8
 #EXTINF:-1 tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200" group-title="Catalu?a" tvg-name="3CAT Exclusiu 1",3CATe1
 https://directes-tv-cat.3catdirectes.cat/live-origin/oca1-hls/master.m3u8
