@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Live TV and Radio</title>
+    <link href="livetv.css" rel="stylesheet">
+    <link href="https://kunsh13.netlify.app/lib/video-js.min.css" rel="stylesheet">
+    <style>
+        /* Estil per assegurar que el reproductor de vídeo ocupa una alçada fixa */
+        #videoContainer {
+            width: 100%;
+            height: 33vh;
+            position: relative;
+            background-color: #000;
+        }
+        #videoPlayer {
+            width: 100%;
+            height: 33vh; 
+        }
+        /* Superposició del nom del canal */
+        #overlay {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            right: 0;
+            text-align: left;
+            color: #fff;
+            font-size: 1.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 5px;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        /* Contenidor de cerca i filtre */
+        #filterContainer {
+            display: flex;
+            gap: 10px;
+            padding: 10px;
+        }
+        #searchInput, button {
+            width: 30%;
+            padding: 8px;
+            font-size: 1rem;
+            background-color: #333;
+            color: #fff;
+        }
+        #groupFilterButton {
+            padding: 8px;
+            cursor: pointer;
+        }
+        /* Estil per al desplegable */
+        #groupDropdown {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            color: #fff;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 10;
+            left: 31%;
+        }
+        #groupDropdown div {
+            padding: 8px;
+            cursor: pointer;
+        }
+        #groupDropdown div:hover {
+            background-color: #555;
+        }
+
+        /* Estil per a la quadrícula de canals */
+        #channelGrid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            padding: 10px;
+            overflow-y: auto;
+            max-height: 50vh;
+        }
+        .channel {
+            cursor: pointer;
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            transition: border-color 0.3s, background-color 0.3s;
+            border-color: gray;
+            background-color: dimgray;
+        }
+        .channel:hover, .channel.selected {
+            border-color: gold;
+            background-color: #333;
+        }
+        .channel img {
+            width: 100%;
+            height: auto;
+            max-width: 100px;
+            margin: 0 auto;
+            display: block;
+        }
+        .channel p {
+            color: #fff;
+            margin-top: 5px;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .vjs-big-play-button { 
+            border: 0px !important; 
+            background-color: transparent !important;
+            color: white;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); 
+        }
+        .vjs-big-play-button .vjs-icon-placeholder::before { 
+            font-size: 3rem;
+        }       
+        .vjs-tech {
+            background-color: black !important;
+        }
+    </style>
+    
+    <script src="https://kunsh13.netlify.app/lib/video.7.20.3.min.js"></script>
+    <script src="https://kunsh13.netlify.app/lib/.videojs-http-streaming.js"></script>
+</head>
+
+<body>
+    <!-- Contenidor del reproductor de vídeo -->
+    <div id="videoContainer">
+        <video id="videoPlayer" class="video-js vjs-default-skin" controls autoplay muted preload="auto" style="font-size: 18px;" poster="0.jpg">
+            <source src="https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8" type="application/x-mpegURL">
+        </video>
+        <!-- Superposició per al nom del canal -->
+        <div id="overlay"></div>
+    </div>
+
+    <!-- Contenidor per cerca i filtre de grups -->
+    <div id="filterContainer">
+        <input type="text" id="searchInput" placeholder="Cerca canal..." oninput="filterChannels()">
+        <button id="groupFilterButton" onclick="toggleGroupDropdown()">Filtra per grup</button>
+        <div id="groupDropdown"></div>
+    </div>
+
+    <!-- Contenidor de la quadrícula de canals -->
+    <div id="channelGrid"></div>
+
+    <script>
+        let channels = [];
+        let groups = new Set();
+        let totalChannels = 0;
+
+        const player = videojs('videoPlayer', {
+            controls: true,
+            autoplay: false,
+            preload: 'auto',
+            techOrder: ['html5']
+        });
+
+        async function loadChannels() {
+            try {
+                const response = await fetch('https://xarxa-1.github.io/Xarxa-1/cat20.m3u');
+                const data = await response.text();
+                const lines = data.split('\n');
+                let channel = {};
+
+                lines.forEach(line => {
+                    line = line.trim();
+                    if (line.startsWith('#EXTINF')) {
+                        const nameMatch = line.match(/,(.+)/);
+                        const logoMatch = line.match(/tvg-logo="(.+?)"/);
+                        const groupMatch = line.match(/group-title="(.+?)"/);
+                        channel.name = nameMatch ? nameMatch[1] : 'Canal sense nom';
+                        channel.logo = logoMatch ? logoMatch[1] : '';
+                        channel.group = groupMatch ? groupMatch[1] : 'Sense Grup';
+                        groups.add(channel.group);
+                    } else if (line && line.startsWith('http')) {
+                        channel.url = line;
+                        channels.push(channel);
+                        addChannelToGrid(channel);
+                        channel = {};
+                    }
+                });
+
+                totalChannels = channels.length;
+                populateGroupDropdown();
+            } catch (error) {
+                console.error('Error carregant els canals:', error);
+            }
+        }
+
+        function addChannelToGrid(channel) {
+            const channelGrid = document.getElementById('channelGrid');
+            const channelElement = document.createElement('div');
+            channelElement.classList.add('channel');
+            channelElement.innerHTML = `
+                <img src="${channel.logo}" alt="${channel.name}">
+                <p>${channel.name}</p>
+            `;
+            channelElement.onclick = () => selectChannel(channel, channelElement);
+
+            channelGrid.appendChild(channelElement);
+        }
+
+        function selectChannel(channel, element) {
+            player.src({ src: channel.url, type: 'application/x-mpegURL' });
+            player.play();
+
+            document.querySelectorAll('.channel').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+
+            const index = channels.indexOf(channel) + 1;
+            showOverlay(`<strong style="color: gold; font-size:44px;">●●● ${channel.name} ●●●</strong><br> ${index} / ${totalChannels}`);
+        }
+
+        function showOverlay(text) {
+            const overlay = document.getElementById('overlay');
+            overlay.innerHTML = text;
+            overlay.style.opacity = 1;
+            setTimeout(() => overlay.style.opacity = 0, 5000);
+        }
+
+        function filterChannels() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const filteredChannels = channels.filter(channel => channel.name && channel.name.toLowerCase().includes(searchInput));
+            renderChannelGrid(filteredChannels);
+        }
+
+        function renderChannelGrid(channelList) {
+            const channelGrid = document.getElementById('channelGrid');
+            channelGrid.innerHTML = '';
+            channelList.forEach(addChannelToGrid);
+        }
+
+        function toggleGroupDropdown() {
+            const dropdown = document.getElementById('groupDropdown');
+            dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function populateGroupDropdown() {
+            const groupDropdown = document.getElementById('groupDropdown');
+            groupDropdown.innerHTML = '';
+
+            // Afegir "Tots els grups" per veure tots els canals
+            const allGroupsElement = document.createElement('div');
+            allGroupsElement.textContent = 'Tots els grups';
+            allGroupsElement.onclick = () => renderChannelGrid(channels); 
+            groupDropdown.appendChild(allGroupsElement);
+
+            groups.forEach(group => {
+                const groupElement = document.createElement('div');
+                groupElement.textContent = group;
+                groupElement.onclick = () => filterByGroup(group);
+                groupDropdown.appendChild(groupElement);
+            });
+        }
+
+        function filterByGroup(group) {
+            const filteredChannels = channels.filter(channel => channel.group === group);
+            renderChannelGrid(filteredChannels);
+            toggleGroupDropdown();
+        }
+
+        loadChannels();
+    </script>
+</body>
+</html>
