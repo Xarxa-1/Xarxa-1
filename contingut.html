@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Llistat de fitxers i directoris</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            padding-top: 20px;
+        }
+        table {
+            width: 80%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Tipus</th>
+                <th>Mida (bytes)</th>
+                <th>Data de creació</th>
+            </tr>
+        </thead>
+        <tbody id="file-list">
+            <!-- Les dades s'ompliran dinàmicament -->
+        </tbody>
+    </table>
+
+    <script>
+        async function loadFiles() {
+            try {
+                const response = await fetch('/list-files');
+                const files = await response.json();
+
+                const fileList = document.getElementById('file-list');
+                files.forEach(file => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${file.name}</td>
+                        <td>${file.type}</td>
+                        <td>${file.size}</td>
+                        <td>${new Date(file.created).toLocaleString()}</td>
+                    `;
+                    fileList.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error carregant els fitxers:', error);
+            }
+        }
+
+        // Carregar els fitxers quan es carrega la pàgina
+        window.onload = loadFiles;
+    </script>
+</body>
+</html>
