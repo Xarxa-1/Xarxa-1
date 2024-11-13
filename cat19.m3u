@@ -69,7 +69,7 @@ https://ott.tv5monde.com/Content/HLS/Live/channel(europe)/variant.m3u8
 https://ztnr.rtve.es/ztnr/6712432.m3u8
 #EXTINF:-1 tvg-id="rtvePlay2" tvg-name="rtvePlay2" tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSo6hURGd5fxHUZL6nWRegzuxQg03BA_mTHQ4XWpI5D3BQ0vRlAAf_jc-TlDaI&s",rtvePlay2
 https://ztnr.rtve.es/ztnr/6712402.m3u8
-#EXTINF:-1 group-title="News", tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Sky-news-logo.png" group-title="News",Sky News Extra 2
+#EXTINF:-1 tvg-id="Sky News" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Sky-news-logo.png" group-title="News",Sky News Extra 2
 https://skynewsau-live.akamaized.net/hls/live/2002690/skynewsau-extra2/master.m3u8
 #EXTINF:-1 tvg-logo="https://static-m.meteo.cat/assets-w3/images/smp/trama-smp-0.png group-title="News",WTVD TV News.
 https://content.uplynk.com/channel/ext/f05837c508c44712aa7129d531f7dbe6/wtvd_24x7_news.m3u8
