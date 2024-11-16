@@ -1,4 +1,4 @@
- #EXTM3U
+#EXTM3U
 #EXTINF:-1 tvg-id="TV3" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/TV3.svg/300px-TV3.svg.png" group-title="General",TV3
 https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
 #EXTINF:-1 tvg-id="TV3CAT" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/TV3CAT.svg/512px-TV3CAT.svg.png" group-title="General",TV3CAT
@@ -25,8 +25,10 @@ https://directes-tv-cat.3catdirectes.cat/live-origin/oca2-hls/master.m3u8
 https://directes-tv-cat.3catdirectes.cat/live-origin/oca3-hls/master.m3u8
 #EXTINF:-1 tvg-id="La1" tvg-logo="https://i.imgur.com/1jDS9UC.png" group-title="General",La1
 https://rtvelivestream.akamaized.net/rtvesec/la1/la1_main_dvr.m3u8
-#EXTINF:-1 tvg-id="24Horas" tvg-logo="https://i.imgur.com/IUVRm5L.png" group-title="News",24HCat
+#EXTINF:-1 tvg-id="La1" tvg-logo="https://i.imgur.com/1jDS9UC.png" group-title="General",La1
 https://ztnr.rtve.es/ztnr/1688877.m3u8
+#EXTINF:-1 tvg-id="24Horas" tvg-logo="https://i.imgur.com/IUVRm5L.png" group-title="News",24HCat
+https://ztnr.rtve.es/ztnr/1694255.m3u8
 #EXTINF:-1 tvg-id="La2Cat" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Logo_TVE-2.svg/512px-Logo_TVE-2.svg.png" group-title="General",La2 Cat
 https://ztnr.rtve.es/ztnr/3987218.m3u8
 #EXTINF:-1 tvg-id="Reus" tvg-logo="https://yt3.googleusercontent.com/vY_iHAEOHFjaC4SU6-JBjA0nJq8Xm9ZedQouEOwjjy15AiWKg6cel8UX84fZ1D-387q-0ajobH4=s200" group-title="General",CanalReus
@@ -59,6 +61,8 @@ https://cartv.streaming.aranova.es/hls/live/aragontv_canal1.m3u8
 https://rakuten-hola-2-es.samsung.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="ElPaisTV" tvg-logo="https://i.imgur.com/JzAzsft.png" group-title="News",EL PAÍS TV
 https://d2xqbi89ghm9hh.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-79fx3huimw4xc-ssai-prd/fast-channel-el-pais.m3u8
+#EXTINF:-1 tvg-id="ElConfidencial" tvg-logo="https://graph.facebook.com/elconfidencial/picture?width=200&height=200" group-title="News",El Confidencial
+https://daqnsnf5phf17.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-sde7fypd1420w-prod/fast-channel-elconfidencial/fast-channel-elconfidencial.m3u8
 #EXTINF:-1 tvg-id="EmpordaTV" tvg-logo="https://i.imgur.com/jc0lUbX.png" group-title="General",EmpordàTV
 https://video3.lhdserver.es/empordatv2/live.m3u8
 #EXTINF:-1 tvg-id="RED BULL" tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVU-oBd73EqgukfWA1UWxk9Nnvgo0BB3eGDw&usqp=CAU" group-title="Esports",RED BULL TV
