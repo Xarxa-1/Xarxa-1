@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- CSS específic del reproductor -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .player {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #1a1a1a;
+      color: white;
+      padding: 20px;
+      border-radius: 8px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .player__artwork img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .currently-playing {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .play-progress {
+      width: 100%;
+      margin: 10px 0;
+      position: relative;
+    }
+
+    .ssp-progress {
+      height: 5px;
+      background-color: #444;
+      border-radius: 2.5px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .ssp-progress .progress__filled {
+      height: 100%;
+      background-color: #f39c12;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
+    .playback__timers {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    .playback__controls {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .playback__controls button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 10px;
+    }
+
+    .playback__controls img {
+      width: 24px;
+      height: 24px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="player">
+    <div class="player__artwork">
+      <img src="icon-volume-on.svg" alt="Audio Artwork">
+    </div>
+    <div class="currently-playing">
+      <div class="show">Reproductor d'Àudio</div>
+      <div class="episode-title">Àudio Local</div>
+    </div>
+    <div class="play-progress">
+      <audio id="audio-player" preload="metadata">
+        <source src="The Sound of Silence - Disturbed [Cyril Remix 2024].mp3" type="audio/mpeg">
+        El teu navegador no suporta aquest àudio.
+      </audio>
+      <div class="ssp-progress">
+        <div class="progress__filled"></div>
+      </div>
+    </div>
+    <div class="playback__timers">
+      <time id="current-time">00:00</time>
+      <time id="duration">--:--</time>
+    </div>
+    <div class="playback__controls">
+      <button id="rewind" data-skip="-10">
+        <img src="icon-rwd.svg" alt="Rewind 10 seconds">
+      </button>
+      <button id="play-pause">
+        <img src="icon-play.svg" alt="Play">
+      </button>
+      <button id="fast-forward" data-skip="30">
+        <img src="icon-fwd.svg" alt="Fast Forward 30 seconds">
+      </button>
+      <button id="speed-control">
+        <img src="icon-volume-on.svg" alt="Speed Control">
+      </button>
+    </div>
+  </div>
+
+  <!-- JS específic del reproductor -->
+  <script>
+    const audioPlayer = document.getElementById('audio-player');
+    const playPauseButton = document.getElementById('play-pause');
+    const rewindButton = document.getElementById('rewind');
+    const fastForwardButton = document.getElementById('fast-forward');
+    const speedControlButton = document.getElementById('speed-control');
+    const currentTimeElement = document.getElementById('current-time');
+    const durationElement = document.getElementById('duration');
+    const progressBar = document.querySelector('.progress__filled');
+    const progressContainer = document.querySelector('.ssp-progress');
+
+    // Actualitza el botó Play/Pause
+    playPauseButton.addEventListener('click', () => {
+      if (audioPlayer.paused) {
+        audioPlayer.play();
+        playPauseButton.querySelector('img').src = 'icon-pause.svg';
+      } else {
+        audioPlayer.pause();
+        playPauseButton.querySelector('img').src = 'icon-play.svg';
+      }
+    });
+
+    // Avança o retrocedeix
+    [rewindButton, fastForwardButton].forEach(button => {
+      button.addEventListener('click', () => {
+        const skip = parseFloat(button.dataset.skip);
+        audioPlayer.currentTime += skip;
+      });
+    });
+
+    // Control de velocitat
+    let playbackRate = 1;
+    speedControlButton.addEventListener('click', () => {
+      playbackRate = playbackRate === 2 ? 0.5 : playbackRate + 0.5;
+      audioPlayer.playbackRate = playbackRate;
+      speedControlButton.querySelector('img').alt = `Speed ${playbackRate}x`;
+    });
+
+    // Actualitza el temps actual i la barra de progrés
+    audioPlayer.addEventListener('timeupdate', () => {
+      const currentTime = audioPlayer.currentTime;
+      const duration = audioPlayer.duration;
+      currentTimeElement.textContent = formatTime(currentTime);
+      progressBar.style.width = `${(currentTime / duration) * 100}%`;
+    });
+
+    // Carrega la durada total
+    audioPlayer.addEventListener('loadedmetadata', () => {
+      durationElement.textContent = formatTime(audioPlayer.duration);
+    });
+
+    // Permet fer clic per avançar el progrés
+    progressContainer.addEventListener('click', (e) => {
+      const width = progressContainer.offsetWidth;
+      const clickX = e.offsetX;
+      const duration = audioPlayer.duration;
+      audioPlayer.currentTime = (clickX / width) * duration;
+    });
+
+    // Funció per donar format al temps
+    function formatTime(time) {
+      const minutes = Math.floor(time / 60);
+      const seconds = Math.floor(time % 60).toString().padStart(2, '0');
+      return `${minutes}:${seconds}`;
+    }
+  </script>
+</body>
+
+</html>
