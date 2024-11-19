@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en-US">
 
 <head>
@@ -9,7 +9,7 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      background-color: #000;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -84,11 +84,17 @@
       border: none;
       cursor: pointer;
       padding: 10px;
+      font-size: 16px;
+      color: white;
     }
 
     .playback__controls img {
       width: 24px;
       height: 24px;
+    }
+
+    .playback__controls button:hover {
+      color: #f39c12;
     }
   </style>
 </head>
@@ -99,11 +105,11 @@
       <img src="icon-volume-on.svg" alt="Audio Artwork">
     </div>
     <div class="currently-playing">
-      <div class="show">Reproductor d'Àudio</div>
-      <div class="episode-title">Àudio Local</div>
+      <div class="show"></div>
+      <div class="episode-title"></div>
     </div>
     <div class="play-progress">
-      <audio id="audio-player" preload="metadata">
+      <audio id="audio-player" preload="metadata" autoplay>
         <source src="The Sound of Silence - Disturbed [Cyril Remix 2024].mp3" type="audio/mpeg">
         El teu navegador no suporta aquest àudio.
       </audio>
@@ -125,8 +131,7 @@
       <button id="fast-forward" data-skip="30">
         <img src="icon-fwd.svg" alt="Fast Forward 30 seconds">
       </button>
-      <button id="speed-control" style="color:white;">
-        1x</button>
+      <button id="speed-control">1x</button>
     </div>
   </div>
 
@@ -166,7 +171,7 @@
     speedControlButton.addEventListener('click', () => {
       playbackRate = playbackRate === 2 ? 0.5 : playbackRate + 0.5;
       audioPlayer.playbackRate = playbackRate;
-      speedControlButton.querySelector('img').alt = `Speed ${playbackRate}x`;
+      speedControlButton.textContent = `${playbackRate}x`;
     });
 
     // Actualitza el temps actual i la barra de progrés
