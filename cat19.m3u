@@ -106,4 +106,5 @@ http://bitcdn-kronehit.bitmovin.com/v2/hls/chunklist_b1628000.m3u8
 https://39997b2f529e4793961899e546833a75.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/Samsung-es_EuroNewsLive/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-logo="negre.jpg" group-title="News" tvg-name="",Euronews France
 https://rakuten-euronews-1-nl.samsung.wurl.tv/66037cf47c8df41335fbf42b1b1b9e7f.m3u8
-
+#EXTINF:-1 tvg-id="" tvg-name="" group-title="Woʀʟᴅ Sᴘoʀᴛs" tvg-logo="https://github.com/inspirationlinks/m3u/raw/live/Logos/ArenaSport.png",Arena Premium Liga 🇬🇧ᴴᴰ
+http://91.132.74.4:7374/play/a00k/index.m3u8
