@@ -101,7 +101,7 @@ https://ventdelnord.tv:8080/girona/directe.m3u8
 #EXTINF:-1 tvg-id="" tvg-logo="negre.jpg" group-title="General" tvg-name="",TVSabadell
 https://ingest1-video.streaming-pro.com/canaltaronja/sabadell/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-logo="negre.jpg" group-title="Music" tvg-name="",kronehit Austria
-http://bitcdn-kronehit.bitmovin.com/v2/hls/chunklist_b1628000.m3u8
+http://bitcdn-kronehit.bitmovin.com/v2/hls/chunklist.m3u8
 #EXTINF:-1 tvg-id="Euronews.TV" tvg-logo="https://graph.facebook.com/es.euronews/picture?width=200&height=200" group-title="News" tvg-name="Euronews",Euronews
 https://39997b2f529e4793961899e546833a75.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/Samsung-es_EuroNewsLive/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-logo="negre.jpg" group-title="News" tvg-name="",Euronews France
