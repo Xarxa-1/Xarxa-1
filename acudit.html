@@ -1,2 +1,210 @@
-Saps perquè m’agradaria dir-te Google?
-Perquè ets tot el que busco.
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dades Meteorològiques</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            color: white;
+            background-color: black;
+        }
+        table {
+            width: 100%;
+            background-color: #f0f0f0;
+            color: black;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            table-layout: fixed;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+            white-space: normal;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+        }
+        #loading {
+            display: none;
+        }
+        tr:not(:last-child) {
+            border-bottom: 1px solid #ddd;
+        }
+        .key-cell {
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>bon dia 
+    <div id="loading">Carregant...</div>
+    <table id="weatherTable">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Espluga</th>
+                <th>Borges</th>
+            </tr>
+        </thead>
+        <tbody id="weatherData">
+            <!-- Les dades meteorològiques es mostraran aquí -->
+        </tbody>
+    </table>
+
+    <script>
+        async function fetchWeatherData() {
+            const urls = [
+                'https://api.weather.com/v3/wx/observations/current?apiKey=e1f10a1e78da46f5b10a1e78da96f525&geocode=41.397%2C1.102&units=m&language=en-US&format=json',
+                'https://api.weather.com/v3/wx/observations/current?apiKey=e1f10a1e78da46f5b10a1e78da96f525&geocode=41.52%2C0.868&units=m&language=en-US&format=json'
+            ];
+            try {
+                const [response1, response2] = await Promise.all(urls.map(url => fetch(url)));
+                if (!response1.ok || !response2.ok) {
+                    throw new Error('Error en obtenir les dades');
+                }
+                const data1 = await response1.json();
+                const data2 = await response2.json();
+                updateWeatherTable(data1, data2);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        function updateWeatherTable(data1, data2) {
+            const tableBody = document.getElementById('weatherData');
+            tableBody.innerHTML = '';
+
+            const weatherElements = {
+                "Temperatura": {loc1: data1.temperature, loc2: data2.temperature},
+                "Temperatura Màxima": {loc1: data1.temperatureMax24Hour, loc2: data2.temperatureMax24Hour},
+                "Temperatura Mínima": {loc1: data1.temperatureMin24Hour, loc2: data2.temperatureMin24Hour},
+                "Sensació Tèrmica": {loc1: data1.temperatureFeelsLike, loc2: data2.temperatureFeelsLike},
+                "Humitat Relativa": {loc1: data1.relativeHumidity, loc2: data2.relativeHumidity},
+                "Punt de Rosada": {loc1: data1.temperatureDewPoint, loc2: data2.temperatureDewPoint},
+                "Índex de Calor": {loc1: data1.heatIndex, loc2: data2.heatIndex},
+                "Velocitat del Vent": {loc1: data1.windSpeed, loc2: data2.windSpeed},
+                "Ràfegues de Vent": {loc1: data1.windGust, loc2: data2.windGust},
+                "Direcció del Vent": {loc1: translateDirection(data1.windDirection), loc2: translateDirection(data2.windDirection)},
+                "Pressió": {loc1: data1.pressureAltimeter, loc2: data2.pressureAltimeter},
+                "Índex UV": {loc1: data1.uvIndex, loc2: data2.uvIndex},
+                "Descripció UV": {loc1: translateUVDescription(data1.uvDescription), loc2: translateUVDescription(data2.uvDescription)},
+                "Visibilitat": {loc1: data1.visibility, loc2: data2.visibility},
+                "Condició": {loc1: translateCondition(data1.wxPhraseLong), loc2: translateCondition(data2.wxPhraseLong)},
+                "Índex de Qualitat de l'Aire": {loc1: data1.airQuality, loc2: data2.airQuality},
+                "Precipitació (última hora)": {loc1: data1.precip1Hour, loc2: data2.precip1Hour},
+ 
+ 
+ "Precipitació (últimes 6 hores)": {loc1: data1.precip6Hour, loc2: data2.precip6Hour},
+               
+ 
+                "Precipitació (últimes 24 hores)": {loc1: data1.precip24Hour, loc2: data2.precip24Hour},
+                "Data i Hora de l'Observació": {loc1: formatDate(data1.validTimeLocal), loc2: formatDate(data2.validTimeLocal)}
+            };
+
+            for (const [key, value] of Object.entries(weatherElements)) {
+                const row = document.createElement('tr');
+                const cellKey = document.createElement('td');
+                cellKey.textContent = key;
+                cellKey.className = 'key-cell';
+                const cellValue1 = document.createElement('td');
+                cellValue1.textContent = value.loc1 !== undefined ? value.loc1 + (typeof value.loc1 === 'number' ? getUnit(key) : '') : '';
+                const cellValue2 = document.createElement('td');
+                cellValue2.textContent = value.loc2 !== undefined ? value.loc2 + (typeof value.loc2 === 'number' ? getUnit(key) : '') : '';
+                row.appendChild(cellKey);
+                row.appendChild(cellValue1);
+                row.appendChild(cellValue2);
+                tableBody.appendChild(row);
+            }
+        }
+
+        function getUnit(key) {
+            const units = {
+                "Temperatura": " °C",
+                "Temperatura Màxima": " °C",
+                "Temperatura Mínima": " °C",
+                "Sensació Tèrmica": " °C",
+                "Humitat Relativa": " %",
+                "Punt de Rosada": " °C",
+                "Índex de Calor": " °C",
+                "Velocitat del Vent": " km/h",
+                "Ràfegues de Vent": " km/h",
+                "Direcció del Vent": " °",
+                "Pressió": " hPa",
+                "Visibilitat": " km",
+                "Precipitació (última hora)": " mm",
+                "Precipitació (últimes 24 hores)": " mm"
+            };
+            return units[key] || '';
+        }
+
+        function formatDate(dateTime) {
+            const date = new Date(dateTime);
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = String(date.getFullYear()).slice(-2);
+            return `${hours}:${minutes} ${day}/${month}/${year}`;
+        }
+
+        function translateDirection(direction) {
+            const directions = {
+                "N": "Nord",
+                "NNE": "Nord-Nord-est",
+                "NE": "Nord-est",
+                "ENE": "Est-Nord-est",
+                "E": "Est",
+                "ESE": "Est-Sud-est",
+                "SE": "Sud-est",
+                "SSE": "Sud-Sud-est",
+                "S": "Sud",
+                "SSW": "Sud-Sud-oest",
+                "SW": "Sud-oest",
+                "WSW": "Oest-Sud-oest",
+                "W": "Oest",
+                "WNW": "Oest-Nord-oest",
+                "NW": "Nord-oest",
+                "NNW": "Nord-Nord-oest"
+            };
+            return directions[direction] || direction;
+        }
+
+        function translateUVDescription(uvDescription) {
+            const uvTranslations = {
+                "Low": "Baix",
+                "Moderate": "Moderada",
+                "High": "Alt",
+                "Very High": "Molt alt",
+                "Extreme": "Extrem"
+            };
+            return uvTranslations[uvDescription] || uvDescription;
+        }
+
+        function translateCondition(condition) {
+            const conditionTranslations = {
+                "Clear": "Clar",
+                "Partly Cloudy": "Parcialment ennuvolat",
+                "Cloudy": "Ennuvolat",
+                "Overcast": "Cobert",
+                "Rain": "Pluja",
+                "Thunderstorm": "Tempesta",
+                "Snow": "Neu",
+                "Fog": "Boira",
+                "Haze": "Calitja"
+            };
+            return conditionTranslations[condition] || condition;
+        }
+
+        setInterval(fetchWeatherData, 60000);
+        fetchWeatherData();
+    </script>
+</body>
+</html>
