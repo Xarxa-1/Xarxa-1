@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="theme-color" content="#050505" />
+	<link rel="apple-touch-icon" sizes="72x72" href="Temperatura.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="Temperatura.png" />
+	<link rel="apple-touch-icon" sizes="76x76" href="Temperatura.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="76x76" href="Temperatura.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="Temperatura.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="Temperatura.png" />
+	<link rel="apple-touch-icon" sizes="120x120" href="Temperatura.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="120x120" href="Temperatura.png" />
+	<link rel="apple-touch-icon" sizes="152x152" href="Temperatura.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="152x152" href="Temperatura.png" />
+	<link rel="shortcut icon" href="Temperatura.png" />
+	<link type="image/ico" href="Temperatura.png" rel="icon" />
+
+    <title>Temperatura Borges</title>
+	<link href='https://fonts.googleapis.com/css?family=Signika' rel='stylesheet'>
+	<style>
+	body
+	{
+	  margin-right: 2px;
+	  margin-left: 2px;
+	  padding: 1;
+	  background: black;
+	  word-wrap: break-word;
+	  color: white;
+	  font-size: 24px;
+	  font-family: "Signika", "Avenir", sans-serif;
+	}
+	img
+	{
+	max-width:100%;}
+	hr
+	{
+border: 6px dotted gray;
+    border-style: none none dotted;
+    color: #fff;
+    background-color: #fff;
+    }
+</style>
+</head>
+<body>
+<div class="app">
+
+</div>
+<script>
+'use strict'
+const monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+];
+
+let dateObj = new Date();
+let month = monthNames[dateObj.getUTCMonth()];
+let day = dateObj.getUTCDate() - 1;
+let year = dateObj.getUTCFullYear();
+
+let newdate = `${day} ${month} ${year}`;
+
+const app = document.querySelector('.app');
+
+fetch('https://api.weather.com/v3/wx/observations/current?apiKey=e1f10a1e78da46f5b10a1e78da96f525&geocode=41.52%2C0.868&units=m&language=en-US&format=json')
+    .then(response => response.json())
+    .then(data => {
+        console.log(data)
+        app.insertAdjacentHTML('afterbegin', `
+    <br>Les Borges Blanques, ${data.dayOfWeek} ${newdate} Sortida de sol: ${(data.sunriseTimeLocal).toString().slice(11, 16)} h. Posta de sol ${(data.sunsetTimeLocal).toString().slice(11, 16)} h.<br>
+<img src="https://www.wunderground.com/static/i/c/v4/${data.iconCode}.svg" width="50px;">
+    ${data.cloudCoverPhrase}<br>
+Temperatura: ${data.temperature}ºC <br>Mínima: ${data.temperatureMin24Hour}ºC Màxima: ${data.temperatureMax24Hour}ºC  Temperatura de sensació ${data.temperatureFeelsLike}ºC <br>
+Vent ${data.windSpeed} Km/h. direcció ${data.windDirectionCardinal} Humitat ${data.relativeHumidity} %  Pressió ${data.pressureAltimeter} hPa  Tendencia pressió ${data.pressureTendencyTrend}. Visivilitat ${data.visibility} Km.<br>
+Pluja última hora: ${data.precip1Hour} litres, últimes 6 h.: ${data.precip6Hour} litres, últimes 24 h.: ${data.precip1Hour} litres.
+<hr>`)
+    });
+</script>
+
