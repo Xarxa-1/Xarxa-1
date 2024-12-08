@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <link rel="icon" type="image/png" href="https://www.livehdtv.com/uploads/img/2022/03/31583vector2.png" />
+    <title>TV Streaming</title>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+    <link href='https://fonts.googleapis.com/css?family=Barlow+Condensed' rel='stylesheet'>
+    <style>
+        body, button, input {
+            background: black;
+            color: white;
+            font-family: 'Barlow Condensed', sans-serif;
+            caret-color: darkgray;
+        }
+        #channelListContainer {
+            border: 1px solid white;
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 10px;
+            padding: 5px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .channel-item {
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            background-color: #333;
+            width: 90px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .channel-item img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+        .channel-item.active {
+            background-color: coral;
+            color: black;
+        }
+        #selectedChannel {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        #selectedChannel img {
+            width: 30px;
+            height: 30px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+<body>
+    <video id="videojs" class="video-js vjs-fluid" controls preload="auto" style="width: 100vw;" poster="negre.jpg">
+        <source src="https://directes-tv-cat.ccma.cat/live-origin/tv3-hls/master.m3u8" type="application/x-mpegURL">
+        El teu navegador no suporta la reproducció d'aquest vídeo. Si us plau, prova amb un navegador diferent.
+    </video>
+
+    <h4>
+        <div id="selectedChannel">
+            <img src="" alt="" id="selectedChannelLogo" style="background:darkgray; border-width: 3px; border-style: solid; border-color: darkgray;">
+            <span id="selectedChannelTitle"></span>
+        </div>
+    </h4>
+    <button onclick="playPreviousChannel()">&lt;&lt; Anterior</button>
+    <button onclick="playNextChannel()">Següent &gt;&gt;</button>
+    <button onclick="skipTime(-60)">&laquo; 1m.</button>
+    <button onclick="skipTime(-30)">&laquo; 30s.</button>
+    <button onclick="goLive()">&nbsp;&nbsp;O&nbsp;&nbsp;</button>
+    <button onclick="skipTime(30)">30s. &raquo;</button>
+    <button onclick="skipTime(60)">1m. &raquo;</button>
+    <br>
+
+    <div id="channelControls" style="margin-top: 10px;">
+        <input type="text" id="channelSearch" placeholder="Cerca canals...">
+        <div id="channelListContainer"></div>
+    </div>
+
+    <div style="color: white; margin-top: 10px;">
+        <label for="m3uUrlInput">URL de la llista:</label>
+        <input type="text" id="m3uUrlInput" value="https://xarxa-1.github.io/Xarxa-1/Dubai.m3u">
+        <button onclick="loadNewM3U()">Carregar</button>
+    </div>
+
+    <script>
+        var video = document.getElementById('videojs');
+        var channels = [];
+
+        if (Hls.isSupported()) {
+            var hls = new Hls();
+            hls.loadSource('https://directes-tv-cat.ccma.cat/live-origin/tv3-hls/master.m3u8');
+            hls.attachMedia(video);
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = 'https://directes-tv-cat.ccma.cat/live-origin/tv3-hls/master.m3u8';
+        } else {
+            alert('El teu navegador no suporta HLS. Prova amb un navegador diferent.');
+        }
+
+        function goLive() {
+            video.currentTime = video.seekable.end(0);
+        }
+
+        function skipTime(seconds) {
+            video.currentTime += seconds;
+        }
+
+        function loadNewM3U() {
+            const m3uUrl = document.getElementById('m3uUrlInput').value;
+            fetch(m3uUrl)
+                .then(response => response.text())
+                .then(data => {
+                    clearPreviousChannels();
+                    parseM3U(data);
+                    if (channels.length > 0) {
+                        playChannel(channels[0].url, channels[0].title, channels[0].logoUrl, document.querySelectorAll('.channel-item')[0]);
+                    }
+                })
+                .catch(error => console.error("Error carregant canals:", error));
+        }
+
+        function parseM3U(m3uData) {
+            const lines = m3uData.split('\n');
+            channels = [];
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (line.startsWith('#EXTINF:')) {
+                    const title = line.split(',')[1].trim();
+                    const url = lines[i + 1].trim();
+                    const logoMatch = line.match(/tvg-logo="([^"]+)"/);
+                    const logoUrl = logoMatch ? logoMatch[1] : '';
+                    channels.push({ title, url, logoUrl });
+                }
+            }
+            displayChannels(channels);
+        }
+
+        function displayChannels(channels) {
+            const channelListContainer = document.getElementById('channelListContainer');
+            channels.forEach(channel => {
+                const channelDiv = document.createElement('div');
+                channelDiv.classList.add('channel-item');
+                if (channel.logoUrl) {
+                    const logo = document.createElement('img');
+                    logo.src = channel.logoUrl;
+                    channelDiv.appendChild(logo);
+                }
+                const title = document.createElement('span');
+                title.textContent = channel.title;
+                channelDiv.appendChild(title);
+                channelDiv.onclick = () => playChannel(channel.url, channel.title, channel.logoUrl, channelDiv);
+                channelListContainer.appendChild(channelDiv);
+            });
+        }
+
+        function playChannel(url, title, logoUrl, element) {
+            if (Hls.isSupported()) {
+                hls.loadSource(url);
+                hls.attachMedia(video);
+            } else {
+                video.src = url;
+            }
+            video.play();
+            document.querySelectorAll('.channel-item').forEach(item => item.classList.remove('active'));
+            element.classList.add('active');
+            document.getElementById('selectedChannelTitle').innerText = title;
+            document.getElementById('selectedChannelLogo').src = logoUrl || '';
+            element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+
+        function clearPreviousChannels() {
+            document.getElementById('channelListContainer').innerHTML = '';
+        }
+
+        function playPreviousChannel() {
+            const selectedChannelIndex = channels.findIndex(channel => channel.title === document.getElementById('selectedChannelTitle').innerText);
+            if (selectedChannelIndex > 0) {
+                const previousChannel = channels[selectedChannelIndex - 1];
+                playChannel(previousChannel.url, previousChannel.title, previousChannel.logoUrl, document.querySelectorAll('.channel-item')[selectedChannelIndex - 1]);
+            }
+        }
+
+        function playNextChannel() {
+            const selectedChannelIndex = channels.findIndex(channel => channel.title === document.getElementById('selectedChannelTitle').innerText);
+            if (selectedChannelIndex < channels.length - 1) {
+                const nextChannel = channels[selectedChannelIndex + 1];
+                playChannel(nextChannel.url, nextChannel.title, nextChannel.logoUrl, document.querySelectorAll('.channel-item')[selectedChannelIndex + 1]);
+            }
+        }
+
+        document.getElementById('channelSearch').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const filteredChannels = channels.filter(channel => channel.title.toLowerCase().includes(searchTerm));
+            clearPreviousChannels();
+            displayChannels(filteredChannels);
+        });
+
+        window.addEventListener('load', loadNewM3U);
+    </script>
+</body>
+</html>
