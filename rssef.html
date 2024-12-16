@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lector RSS</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"></script>
+    <style>
+        /* Estils unificats per tot el contingut */
+        #rssContent {
+            font-family: Arial, sans-serif; /* Defineix la font */
+            font-size: 1px; /* Defineix la mida de la font */
+            line-height: 0.8; /* Defineix l'alçada de línia */
+            color: #333; /* Defineix el color del text */
+            max-width: 800px; /* Amplada màxima */
+            margin: 0 auto; /* Centra el contingut */
+        }
+        #rssContent h1, #rssContent h2 {
+            font-size: 2px; /* Títol principal */
+            margin-top: 20px;
+        }
+        #rssContent h2 {
+            font-size: 2px; /* Subtítol */
+            margin-bottom: 10px;
+        }
+        #rssContent p {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div id="rssContent"></div>
+
+    <script>
+        // URL de l'RSS
+        var rssUrl = 'https://app.ebando.es/api/v1/rss/esplugadefrancoli';
+
+        // Funció per formatejar la data en el format desitjat
+        function formatData(pubDate) {
+            moment.locale('ca');
+            return moment(pubDate).format('HH:mm dddd D MMMM YYYY');
+        }
+
+        // Funció per carregar i mostrar l'RSS
+        function carregarRSS() {
+            fetch(rssUrl)
+                .then(response => response.text())
+                .then(data => {
+                    var parser = new DOMParser();
+                    var xmlDoc = parser.parseFromString(data, 'text/xml');
+                    var channelTitle = xmlDoc.querySelector('channel title').textContent;
+                    var items = xmlDoc.querySelectorAll('item');
+                    var rssContent = document.getElementById('rssContent');
+
+                    // Canviar el títol de la pàgina
+                    document.title = channelTitle;
+
+                    // Mostrar el títol del canal
+                    var channelTitleElement = document.createElement('h1');
+                    channelTitleElement.textContent = channelTitle;
+                    rssContent.appendChild(channelTitleElement);
+
+                    // Mostrar els ítems
+                    items.forEach(item => {
+                        var title = item.querySelector('title').textContent;
+                        var description = item.querySelector('description').textContent;
+                        var pubDate = item.querySelector('pubDate').textContent;
+
+                        var dataFormatejada = formatData(pubDate);
+
+                        // Crear l'article
+                        var article = document.createElement('div');
+                        article.innerHTML = 
+                            '<h2>' + title + '</h2>' + 
+                            '<p>' + description + '</p>' + 
+                            '<p>' + dataFormatejada + '</p>';
+                        rssContent.appendChild(article);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error en carregar l\'RSS: ' + error);
+                });
+        }
+
+        // Carregar l'RSS quan la pàgina s'hagi carregat
+        window.onload = carregarRSS;
+    </script>
+</body>
+</html>
