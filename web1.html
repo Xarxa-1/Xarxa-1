@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="theme-color" content="#050505" />
+	<link rel="apple-touch-icon" sizes="72x72" href="Temperatura.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="Temperatura.png" />
+	<link rel="apple-touch-icon" sizes="76x76" href="Temperatura.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="76x76" href="Temperatura.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="Temperatura.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="Temperatura.png" />
+	<link rel="apple-touch-icon" sizes="120x120" href="Temperatura.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="120x120" href="Temperatura.png" />
+	<link rel="apple-touch-icon" sizes="152x152" href="Temperatura.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="152x152" href="Temperatura.png" />
+	<link rel="shortcut icon" href="Temperatura.png" />
+	<link type="image/ico" href="Temperatura.png" rel="icon" />
+
+    <title>Temperatura</title>
+	<link href='https://fonts.googleapis.com/css?family=Signika' rel='stylesheet'>
+	<style>
+	body
+	{
+	  margin-right: 2px;
+	  margin-left: 2px;
+	  padding: 1;
+	  background: black;
+	  word-wrap: break-word;
+	  color: white;
+	  font-size: 8px;
+	  font-family: "Signika", "Avenir", sans-serif;
+	}
+	img
+	{
+	max-width:100%;}
+	hr
+	{
+border: 6px dotted gray;
+    border-style: none none dotted;
+    color: #fff;
+    background-color: #fff;
+    }
+</style>
+</head>
+<body>
+<div class="app">
+
+</div>
+<script>
+'use strict'
+const monthNames = ["de gener de", "de febrer de", "de mar� de", "d'abril de", "de maig d", "de juny de", "de juliol de", "d'agost de", "de setembre de", "d'octubre de", "de novembre de", "de desembre de"];
+const diaNames = ["diumenge", "dilluns", "dimarts", "dimecres", "dijous", "divendres", "dissabte"];
+
+
+let dateObj = new Date();
+let month = monthNames[dateObj.getUTCMonth()];
+let day = dateObj.getUTCDate() + 0;
+let year = dateObj.getUTCFullYear();
+let dia = diaNames[dateObj.getUTCDay()];
+let newdate = `${dia} ${day} ${month} ${year}`;
+
+const app = document.querySelector('.app');
+
+fetch('https://api.weather.com/v3/wx/observations/current?apiKey=e1f10a1e78da46f5b10a1e78da96f525&geocode=41.397%2C1.102&units=m&language=es-US&format=json')
+    .then(response => response.json())
+    .then(data => {
+        console.log(data)
+        app.insertAdjacentHTML('afterbegin', `
+    <br>L Espluga de Francol�, ${newdate}. Sortida de sol ${(data.sunriseTimeLocal).toString().slice(11, 16)} h. Posta de sol ${(data.sunsetTimeLocal).toString().slice(11, 16)} h.<br>
+<img src="https://www.wunderground.com/static/i/c/v4/${data.iconCode}.svg" width="50px;">
+    ${data.cloudCoverPhrase}<br>
+Temperatura ${data.temperature}°C <br>Mínima ${data.temperatureMin24Hour}°C Màxima ${data.temperatureMax24Hour}°C  <br>Temperatura de sensació ${data.temperatureFeelsLike}°C <br>
+Vent ${data.windSpeed} Km/h. direcció ${data.windDirectionCardinal} Humitat ${data.relativeHumidity} %  Pressió ${data.pressureAltimeter} hPa  Tendencia pressió ${data.pressureTendencyTrend}. Visivilitat ${data.visibility} Km.<br>
+Pluja última hora ${data.precip1Hour} litres, últimes 6 h. ${data.precip6Hour} litres, últimes 24 h. ${data.precip24Hour} litres. <br>Actualitzat: ${data.validTimeLocal}
+<hr>`)
+    });
+</script>
+<div class="appo">
+
+</div>
+
+
+<script>
+'use strict'
+const monthNames1 = ["de gener de", "de febrer de", "de mar� de", "d'abril de", "de maig d", "de juny de", "de juliol de", "d'agost de", "de setembre de", "d'octubre de", "de novembre de", "de desembre de"];
+
+let dateObj1 = new Date();
+let month1 = monthNames1[dateObj1.getUTCMonth()];
+let day1 = dateObj1.getUTCDate() - 1;
+let year1 = dateObj1.getUTCFullYear();
+
+let newdate1 = `${day1} ${month1} ${year1}`;
+
+const appo = document.querySelector('.appo');
+
+fetch('https://api.weather.com/v3/wx/observations/current?apiKey=e1f10a1e78da46f5b10a1e78da96f525&geocode=41.52%2C0.868&units=m&language=es-US&format=json')
+    .then(response => response.json())
+    .then(data => {
+        console.log(data)
+        appo.insertAdjacentHTML('afterbegin', `
+    <br>Les Borges Blanques, ${newdate}. Sortida de sol ${(data.sunriseTimeLocal).toString().slice(11, 16)} h. Posta de sol ${(data.sunsetTimeLocal).toString().slice(11, 16)} h.<br>
+<img src="https://www.wunderground.com/static/i/c/v4/${data.iconCode}.svg" width="50px;">
+    ${data.cloudCoverPhrase}<br> 
+	                               
+                         
+Temperatura ${data.temperature}°C <br>Màxima ${data.temperatureMin24Hour}°C Míxima ${data.temperatureMax24Hour}°C  <br>Temperatura de sensació ${data.temperatureFeelsLike}°C <br>
+Vent ${data.windSpeed} Km/h. direcci ${data.windDirectionCardinal} Humitat ${data.relativeHumidity} %  Pressió ${data.pressureAltimeter} hPa  Tendencia pressi� ${data.pressureTendencyTrend}. Visivilitat ${data.visibility} Km.<br>
+Pluja última hora ${data.precip1Hour} litres, �ltimes 6 h. ${data.precip6Hour} litres, últimes 24 h. ${data.precip24Hour} litres.<br>Actualitzat: ${data.validTimeLocal}
+<hr>`)
+    });
+	 var cloudCoverPhrase = result.cloudCoverPhrase;
+                                cloudCoverPhrase = cloudCoverPhrase.replace("Partly Cloudy", "ooo");
+</script>
+
+<button type="button" onClick="refreshPage()">Actualitza</button>
+
+<script>
+function refreshPage(){
+    window.location.reload();
+} 
+</script>
