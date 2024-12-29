@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta http-equiv="content-type" content="text/html; utf-8">
@@ -70,12 +70,11 @@ fetch('https://api.weather.com/v3/wx/observations/current?apiKey=e1f10a1e78da46f
     .then(data => {
         console.log(data)
         app.insertAdjacentHTML('afterbegin', `
-    <br>L Espluga de Francol�, ${newdate}. Sortida de sol ${(data.sunriseTimeLocal).toString().slice(11, 16)} h. Posta de sol ${(data.sunsetTimeLocal).toString().slice(11, 16)} h.<br>
+    <br>L'Espluga de Francolí, ${newdate}. El sol surt a les  ${(data.sunriseTimeLocal).toString().slice(11, 16)}. El sol és pond a les ${(data.sunsetTimeLocal).toString().slice(11, 16)}.<br>
 <img src="https://www.wunderground.com/static/i/c/v4/${data.iconCode}.svg" width="50px;">
-    ${data.cloudCoverPhrase}<br>
-Temperatura ${data.temperature}°C <br>Mínima ${data.temperatureMin24Hour}°C Màxima ${data.temperatureMax24Hour}°C  <br>Temperatura de sensació ${data.temperatureFeelsLike}°C <br>
+    ${data.cloudCoverPhrase}<br>La temperatura actual és de ${data.temperature} ° Centígrads. Mínima ${data.temperatureMin24Hour} ° Centígrads. Màxima ${data.temperatureMax24Hour} ° Centígrads. La temperatura de sensació és de ${data.temperatureFeelsLike} ° Centígrads.
 Vent ${data.windSpeed} Km/h. direcció ${data.windDirectionCardinal} Humitat ${data.relativeHumidity} %  Pressió ${data.pressureAltimeter} hPa  Tendencia pressió ${data.pressureTendencyTrend}. Visivilitat ${data.visibility} Km.<br>
-Pluja última hora ${data.precip1Hour} litres, últimes 6 h. ${data.precip6Hour} litres, últimes 24 h. ${data.precip24Hour} litres. <br>Actualitzat: ${data.validTimeLocal}
+Pluja última hora ${data.precip1Hour} litres, últimes 6 h. ${data.precip6Hour} litres, últimes 24 h. ${data.precip24Hour} litres.<!--   <br>Actualitzat: ${data.validTimeLocal} -->
 <hr>`)
     });
 </script>
@@ -103,13 +102,10 @@ fetch('https://api.weather.com/v3/wx/observations/current?apiKey=e1f10a1e78da46f
         console.log(data)
         appo.insertAdjacentHTML('afterbegin', `
     <br>Les Borges Blanques, ${newdate}. Sortida de sol ${(data.sunriseTimeLocal).toString().slice(11, 16)} h. Posta de sol ${(data.sunsetTimeLocal).toString().slice(11, 16)} h.<br>
-<img src="https://www.wunderground.com/static/i/c/v4/${data.iconCode}.svg" width="50px;">
-    ${data.cloudCoverPhrase}<br> 
-	                               
-                         
-Temperatura ${data.temperature}°C <br>Màxima ${data.temperatureMin24Hour}°C Míxima ${data.temperatureMax24Hour}°C  <br>Temperatura de sensació ${data.temperatureFeelsLike}°C <br>
-Vent ${data.windSpeed} Km/h. direcci ${data.windDirectionCardinal} Humitat ${data.relativeHumidity} %  Pressió ${data.pressureAltimeter} hPa  Tendencia pressi� ${data.pressureTendencyTrend}. Visivilitat ${data.visibility} Km.<br>
-Pluja última hora ${data.precip1Hour} litres, �ltimes 6 h. ${data.precip6Hour} litres, últimes 24 h. ${data.precip24Hour} litres.<br>Actualitzat: ${data.validTimeLocal}
+<img src="https://www.wunderground.com/static/i/c/v4/${data.iconCode}.svg" width="50px;">                 
+${data.cloudCoverPhrase}<br>La temperatura actual és de ${data.temperature} ° Centígrads. Mínima ${data.temperatureMin24Hour} ° Centígrads. Màxima ${data.temperatureMax24Hour} ° Centígrads. La temperatura de sensació és de ${data.temperatureFeelsLike} ° Centígrads.
+Vent ${data.windSpeed} Km/h. direcció ${data.windDirectionCardinal} Humitat ${data.relativeHumidity} %  Pressió ${data.pressureAltimeter} hPa  Tendencia pressió ${data.pressureTendencyTrend}. Visivilitat ${data.visibility} Km.<br>
+Pluja última hora ${data.precip1Hour} litres, últimes 6 h. ${data.precip6Hour} litres, últimes 24 h. ${data.precip24Hour} litres.<!--   <br>Actualitzat: ${data.validTimeLocal} -->
 <hr>`)
     });
 	 var cloudCoverPhrase = result.cloudCoverPhrase;
