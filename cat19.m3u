@@ -43,11 +43,6 @@ https://ott.tv5monde.com/Content/HLS/Live/channel(europe)/variant.m3u8
 https://0d0239e437124ddcb8090d815caf4013.mediatailor.us-east-1.amazonaws.com/v1/master/04fd913bb278d8775298c26fdca9d9841f37601f/Samsung-gb_TheGuardianChannel/playlist.m3u8
 
 
-#EXTINF:-1 tvg-id="La7 Italy" tvg-logo="https://graph.facebook.com/tgla7/picture?width=200&height=200" group-title="Documentary;News",La7Italy
-https://d15umi5iaezxgx.cloudfront.net/LA7/CLN/HLS-B/Live.m3u8
-#EXTINF:-1 tvg-id="DW" tvg-logo="https://graph.facebook.com/dw.espanol/picture?width=200&height=200" group-title="Documentary;News",DW Alemania
-
-https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/index.m3u8
 #EXTINF:-1 tvg-id="SkyNews" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Sky-news-logo.png/500px-Sky-news-logo.png" group-title="News",SkyNews 
 https://linear417-gb-hls1-prd-ak.cdn.skycdp.com/100e/Content/HLS_001_1080_30/Live/channel(skynews)/index_1080-30.m3u8
 #EXTINF:-1 tvg-id="tastemade" tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200" group-title="Food",TastemadeES 
@@ -64,8 +59,6 @@ https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tastemadetravel-tab
 https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tastemadehome-lgus/playlist.m3u8
 #EXTINF:-1 tvg-id="AragonTV" tvg-logo="https://i.imgur.com/6YSi1zW.png" group-title="General",Aragón TV
 https://cartv.streaming.aranova.es/hls/live/aragontv_canal1.m3u8
-#EXTINF:-1 tvg-id="¡Hola!" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Revista_%C2%A1Hola%21_logo.svg/1024px-Revista_%C2%A1Hola%21_logo.svg.png" group-title="Lifestyle",¡Hola!Play
-https://rakuten-hola-2-es.samsung.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="ElPaisTV" tvg-logo="https://i.imgur.com/JzAzsft.png" group-title="News",EL PAÍS TV
 https://d2xqbi89ghm9hh.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-79fx3huimw4xc-ssai-prd/fast-channel-el-pais.m3u8
 #EXTINF:-1 tvg-id="ElConfidencial" tvg-logo="https://graph.facebook.com/elconfidencial/picture?width=200&height=200" group-title="News",El Confidencial
@@ -100,8 +93,6 @@ https://content.uplynk.com/channel/ext/f05837c508c44712aa7129d531f7dbe6/wtvd_24x
 https://ventdelnord.tv:8080/girona/directe.m3u8
 #EXTINF:-1 tvg-id="" tvg-logo="negre.jpg" group-title="General" tvg-name="",TVSabadell
 https://ingest1-video.streaming-pro.com/canaltaronja/sabadell/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-logo="negre.jpg" group-title="Music" tvg-name="",kronehit Austria
-http://bitcdn-kronehit.bitmovin.com/v2/hls/chunklist.m3u8
 #EXTINF:-1 tvg-id="Euronews.TV" tvg-logo="https://graph.facebook.com/es.euronews/picture?width=200&height=200" group-title="News" tvg-name="Euronews",Euronews
 https://39997b2f529e4793961899e546833a75.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/Samsung-es_EuroNewsLive/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-logo="negre.jpg" group-title="News" tvg-name="",Euronews France
