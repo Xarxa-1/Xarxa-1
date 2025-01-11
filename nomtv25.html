@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=yes" />
+    <title>TV Streaming</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <style>
+        body, input, button {
+            background: black;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .main-video, .side-videos > div {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .main-video video, .side-videos video {
+            width: 100%;
+            aspect-ratio: 16/9;
+        }
+        .video-title {
+            text-align: center;
+            font-size: 14px;
+            margin: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .video-title img {
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+        .side-videos {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .channel-container {
+            margin-top: 10px;
+            background: #222;
+            padding: 10px;
+            border-radius: 5px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .channel-container button {
+            margin: 5px;
+            padding: 10px 15px;
+            border: none;
+            background: #444;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .channel-container button:hover {
+            background: #555;
+        }
+        .channel-container button.active {
+            background: white;
+            color: black;
+        }
+        .url-container {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .url-container input {
+            width: 300px;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Vídeo principal -->
+        <div class="main-video">
+            <video muted autoplay id="mainVideo" class="video-js" controls>
+                <source src="" type="application/x-mpegURL">
+            </video>
+            <p id="mainVideoTitle" class="video-title">Cap vídeo seleccionat</p>
+        </div>
+
+        <!-- Vídeos laterals -->
+        <div class="side-videos">
+            <div>
+                <video muted autoplay id="sideVideo1" class="video-js"></video>
+                <p id="sideVideoTitle1" class="video-title">Cap vídeo seleccionat</p>
+            </div>
+            <div>
+                <video muted autoplay id="sideVideo2" class="video-js"></video>
+                <p id="sideVideoTitle2" class="video-title">Cap vídeo seleccionat</p>
+            </div>
+            <div>
+                <video muted autoplay id="sideVideo3" class="video-js"></video>
+                <p id="sideVideoTitle3" class="video-title">Cap vídeo seleccionat</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenidor de botons de canals -->
+    <div class="channel-container" id="channelButtons"></div>
+
+    <!-- URL de llista de vídeos -->
+    <div class="url-container">
+        <label for="m3uUrl">URL de la llista M3U:</label>
+        <input type="text" id="m3uUrl" placeholder="https://xarxa-1.github.io/Xarxa-1/cat19.m3u" value="https://xarxa-1.github.io/Xarxa-1/cat19.m3u">
+        <button onclick="loadM3U()">Carregar Canals</button>
+    </div>
+
+    <script>
+        const mainVideo = document.getElementById('mainVideo');
+        const sideVideo1 = document.getElementById('sideVideo1');
+        const sideVideo2 = document.getElementById('sideVideo2');
+        const sideVideo3 = document.getElementById('sideVideo3');
+
+        const mainVideoTitle = document.getElementById('mainVideoTitle');
+        const sideVideoTitle1 = document.getElementById('sideVideoTitle1');
+        const sideVideoTitle2 = document.getElementById('sideVideoTitle2');
+        const sideVideoTitle3 = document.getElementById('sideVideoTitle3');
+
+        let sideVideos = [sideVideo1, sideVideo2, sideVideo3];
+        let sideTitles = [sideVideoTitle1, sideVideoTitle2, sideVideoTitle3];
+        let currentVideos = [];
+        let channels = [];
+
+        window.onload = function() {
+            loadM3U(); // Carrega la llista de canals per defecte
+        };
+
+        // Funció per carregar canals des d'un fitxer M3U
+        function loadM3U() {
+            const m3uUrl = document.getElementById('m3uUrl').value;
+            fetch(m3uUrl)
+                .then(response => response.text())
+                .then(data => {
+                    parseM3U(data);
+                    displayChannelButtons();
+                    autoPlayChannels();
+                })
+                .catch(error => console.error("Error carregant la llista M3U:", error));
+        }
+
+        // Analitza el fitxer M3U i extreu els canals
+        function parseM3U(m3uData) {
+            const lines = m3uData.split('\n');
+            channels = [];
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (line.startsWith('#EXTINF:')) {
+                    const title = line.split(',')[1].trim();
+                    const logoMatch = line.match(/tvg-logo="([^"]+)"/);
+                    const logo = logoMatch ? logoMatch[1] : '';
+                    const url = lines[i + 1]?.trim();
+                    channels.push({ title, url, logo });
+                }
+            }
+        }
+
+        // Mostra els botons de canals dinàmics
+        function displayChannelButtons() {
+            const container = document.getElementById('channelButtons');
+            container.innerHTML = '';
+            channels.forEach((channel, index) => {
+                const button = document.createElement('button');
+                button.textContent = channel.title;
+                button.id = `channelButton${index}`;
+                button.classList.add('channelButton');
+                button.onclick = () => playVideo(channel.url, channel.title, channel.logo, index);
+                container.appendChild(button);
+            });
+        }
+
+        // Reprodueix automàticament els primers 4 canals amb ordre invers, evitant repeticions
+        function autoPlayChannels() {
+            const selectedChannels = [];
+            for (let i = 3; i >= 0; i--) {
+                if (!selectedChannels.includes(channels[i]?.url)) {
+                    selectedChannels.push(channels[i]?.url);
+                    playVideo(channels[i]?.url, channels[i]?.title, channels[i]?.logo, i);
+                }
+            }
+        }
+
+        // Reprodueix el vídeo seleccionat i mou els anteriors als laterals
+        function playVideo(src, title, logo, index) {
+            if (src && mainVideo.src !== src) {
+                // Mou el vídeo principal als laterals
+                if (currentVideos.length < 3) {
+                    currentVideos.unshift({ src: mainVideo.src, title: mainVideoTitle.textContent, logo: mainVideoTitle.dataset.logo });
+                } else {
+                    currentVideos.pop();
+                    currentVideos.unshift({ src: mainVideo.src, title: mainVideoTitle.textContent, logo: mainVideoTitle.dataset.logo });
+                }
+
+                // Actualitza els vídeos laterals
+                sideVideos.forEach((video, i) => {
+                    if (currentVideos[i]) {
+                        video.src = currentVideos[i].src;
+                        sideTitles[i].innerHTML = `<img src="${currentVideos[i].logo}" alt="" /> ${currentVideos[i].title}`;
+                    } else {
+                        video.src = '';
+                        sideTitles[i].textContent = 'Cap vídeo seleccionat';
+                    }
+                });
+
+                // Reprodueix el nou vídeo principal
+                mainVideo.src = src;
+                mainVideoTitle.dataset.logo = logo;
+                mainVideoTitle.innerHTML = `<img src="${logo}" alt="" /> ${title}`;
+                mainVideo.play();
+
+                // Actualitza l'estat dels botons
+                document.querySelectorAll('.channelButton').forEach(button => button.classList.remove('active'));
+                document.getElementById(`channelButton${index}`).classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
