@@ -1,14 +1,14 @@
 #EXTM3U
 #EXTINF:-1 tvg-id="TV3" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/TV3.svg/300px-TV3.svg.png" group-title="General",TV3
 https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
-#EXTINF:-1 tvg-id="TV3CAT" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/TV3CAT.svg/512px-TV3CAT.svg.png" group-title="General",TV3CAT
-https://directes3-tv-int.3catdirectes.cat/live-content/tvi-hls/master.m3u8
 #EXTINF:-1 tvg-id="324" tvg-logo="https://graph.facebook.com/324cat/picture?width=200&height=200" group-title="News",3/24
 https://directes-tv-cat.3catdirectes.cat/live-content/canal324-hls/master.m3u8
 #EXTINF:-1 tvg-id="Esport3" tvg-logo="https://graph.facebook.com/Esport3/picture?width=200&height=200" group-title="Esports",Esport3
 https://directes-tv-cat.3catdirectes.cat/live-content/esport3-hls/master.m3u8
 #EXTINF:-1 tvg-id="TAC12" tvg-logo="https://pbs.twimg.com/profile_images/1326929087919689729/S1zkeUh3_400x400.jpg" group-title="General",TAC12
 https://ingest1-video.streaming-pro.com/tac12_ABR/stream/playlist.m3u8
+#EXTINF:-1 tvg-id="TV3CAT" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/TV3CAT.svg/512px-TV3CAT.svg.png" group-title="General",TV3CAT
+https://directes3-tv-int.3catdirectes.cat/live-content/tvi-hls/master.m3u8
 #EXTINF:-1 tvg-id="C33.TV" tvg-logo="https://graph.facebook.com/Canal33/picture?width=200&height=200" group-title="General" tvg-name="33",Canal33
 https://directes-tv-cat.3catdirectes.cat/live-content/c33-super3-hls/master.m3u8
 #EXTINF:-1 tvg-id="C33.TV" tvg-logo="https://graph.facebook.com/SomSX3/picture?width=200&height=200" group-title="Juvenil" tvg-name="SX3",SX3
@@ -99,3 +99,5 @@ https://39997b2f529e4793961899e546833a75.mediatailor.us-east-1.amazonaws.com/v1/
 https://rakuten-euronews-1-nl.samsung.wurl.tv/66037cf47c8df41335fbf42b1b1b9e7f.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="" group-title="Woʀʟᴅ Sᴘoʀᴛs" tvg-logo="https://github.com/inspirationlinks/m3u/raw/live/Logos/ArenaSport.png",Arena Premium Liga 🇬🇧ᴴᴰ
 http://91.132.74.4:7374/play/a00k/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="" group-title="fut" tvg-logo="",futbol
+http://45.5.117.182:8000/play/jnl0/index.m3u8
