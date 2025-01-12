@@ -33,7 +33,7 @@ https://1.goalglory.org/n-1/tracks-v1a1/mono.m3u8
 http://181.78.105.146:2000/play/a08m/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="" tvg-language="" tvg-logo="" tvg-country="" tvg-url="" group-title="Bics",FUTBOL 05
 http://181.78.109.49:8000/play/a06r/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="" tvg-language="" tvg-logo="" tvg-country="" tvg-url="" group-title="Bics",FUTBOL 06
+#EXTINF:-1 tvg-logo="http://x.playerlatino.live/skysports.png"  group-title="CANALES VARIADOS", SKY Sports
 http://45.5.117.182:8000/play/jnl0/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="" tvg-language="" tvg-logo="" tvg-country="" tvg-url="" group-title="Bics",FUTBOL 08
 https://www.oha.to/play/2428779244/index.m3u8
