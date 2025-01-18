@@ -1,4 +1,4 @@
-#EXTINF:-1 tvg-logo="http://x.playerlatino.live/skysports.png" group-title="CANALES VARIADOS",SKY Sports
+ #EXTINF:-1 tvg-logo="http://x.playerlatino.live/skysports.png" group-title="CANALES VARIADOS",SKY Sports
 http://45.5.117.182:8000/play/jnl0/index.m3u8
 #EXTINF:-1 tvg-logo="http://x.playerlatino.live/skysports.png" group-title="Catalunya",TV3
 https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
@@ -47,23 +47,27 @@ https://www.oha.to/play/2428779244/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="" tvg-language="" tvg-logo="" tvg-country="" tvg-url="" group-title="Bics",FUTBOL 11
 http://51.178.65.238/BeinSport/mono.m3u8
 
-#EXTINF:-1 group-title="Bics US", US: PARAMOUNT NETWORK 
-http://fl2.moveonjoy.com/PARAMOUNT_NETWORK/index.m3u8 
+#EXTINF:-1 group-title="Bics US", US: PARAMOUNT NETWORK
+http://fl2.moveonjoy.com/PARAMOUNT_NETWORK/index.m3u8
 
 
-EXTINF:-1 group-title="Bics DEPORTES", US: ESPN 2 
+EXTINF:-1 group-title="Bics DEPORTES", US: ESPN 2
 http://fl2.moveonjoy.com/ESPN_2/index.m3u8
 
-#EXTINF:-1 group-title="Bics DEPORTES", US: ESPN 2 
-http://fl5.moveonjoy.com/ESPN_2/index.m3u8 
+#EXTINF:-1 group-title="Bics DEPORTES", US: ESPN 2
+http://fl5.moveonjoy.com/ESPN_2/index.m3u8
 
- 
-#EXTINF:-1 group-title="Bics DEPORTES", US: FS 1 
-http://fl4.moveonjoy.com/FOX_Sports_1/index.m3u8 
-#EXTINF:-1 group-title="Bics DEPORTES", US: YES NETWORK 
+
+#EXTINF:-1 group-title="Bics DEPORTES", US: FS 1
+http://fl4.moveonjoy.com/FOX_Sports_1/index.m3u8
+#EXTINF:-1 group-title="Bics DEPORTES", US: YES NETWORK
 http://fl2.moveonjoy.com/YES_NETWORK/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES", US: YES NETWORK 
+#EXTINF:-1 group-title="Bics DEPORTES", US: YES NETWORK
 http://fl5.moveonjoy.com/YES_NETWORK/index.m3u8
 
-#EXTINF:-1 group-title="Bics DEPORTES FUTBOL", FUTBOL 06 
-http://45.5.117.182:8000/play/jnl0/index.m3u8 
+#EXTINF:-1 group-title="Bics DEPORTES FUTBOL", FUTBOL 06
+http://45.5.117.182:8000/play/jnl0/index.m3u8
+#EXTINF:-1 group-title="Bics DEPORTES.", US: YES NETWORK tv3
+https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
+#EXTINF:-1 group-title="Bics DEPORTES.", US: YES NETWORK tac12
+https://ingest1-video.streaming-pro.com/tac12_ABR/stream/playlist.m3u8
