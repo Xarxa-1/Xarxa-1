@@ -1,14 +1,13 @@
-#EXTINF:-1 tvg-logo="http://x.playerlatino.live/skysports.png"  group-title="CANALES VARIADOS", SKY Sports
+#EXTINF:-1 tvg-logo="http://x.playerlatino.live/skysports.png" group-title="CANALES VARIADOS",SKY Sports
 http://45.5.117.182:8000/play/jnl0/index.m3u8
-#EXTINF:-1 tvg-logo="http://x.playerlatino.live/skysports.png"  group-title="Catalunya", TV3
+#EXTINF:-1 tvg-logo="http://x.playerlatino.live/skysports.png" group-title="Catalunya",TV3
 https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
-#EXTINF:-1 tvg-logo="http://x.playerlatino.live/skysports.png"  group-title="Catalunya", TAC12 Tarragona
+#EXTINF:-1 tvg-logo="http://x.playerlatino.live/skysports.png" group-title="Catalunya",TAC12 Tarragona
 https://ingest1-video.streaming-pro.com/tac12_ABR/stream/playlist.m3u8
 #EXTINF:-1 tvg-id="Dubai" tvg-name="Dubai" tvg-language="Arabic" tvg-logo="http://admango.cdn.mangomolo.com/analytics/uploads/71/5d934e3b33.png" tvg-country="AE" tvg-url="http://195.154.221.171/epg/guidearab.xml.gz" group-title="Sport",Dubai Sports 1
 http://dmitnthvll.cdn.mangomolo.com/dubaisports/smil:dubaisports.smil/chunklist_b1600000.m3u8
 #EXTINF:-1 tvg-id="Dubai" tvg-name="Dubai" tvg-language="Arabic" tvg-logo="http://admango.cdn.mangomolo.com/analytics/uploads/71/5d934d8aa9.png" tvg-country="AE" tvg-url="http://195.154.221.171/epg/guidearab.xml.gz" group-title="Sport",Dubai Sports 2
 http://dmitwlvvll.cdn.mangomolo.com/dubaisportshd/smil:dubaisportshd.smil/chunklist_b1300000.m3u8
-#EXTINF:-1 tvg-id="Dubai" tvg-name="Dubai" tvg-language="Arabic" tvg-logo="http://admango.cdn.mangomolo.com/analytics/uploads/71/5d934da293.png" tvg-country="AE" tvg-url="http://195.154.221.171/epg/guidearab.xml.gz" group-title="Sport",Dubai Sports 3
 #EXTINF:-1 tvg-id="Dubai" tvg-name="Dubai" tvg-language="Arabic" tvg-logo="http://admango.cdn.mangomolo.com/analytics/uploads/71/5d934e3b33.png" tvg-country="AE" tvg-url="http://195.154.221.171/epg/guidearab.xml.gz" group-title="Sport",Dubai Sports 1+
 http://dmitnthvll.cdn.mangomolo.com/dubaisports/smil:dubaisports/chunklist.m3u8
 #EXTINF:-1 tvg-id="Dubai" tvg-name="Dubai" tvg-language="Arabic" tvg-logo="http://admango.cdn.mangomolo.com/analytics/uploads/71/5d934d8aa9.png" tvg-country="AE" tvg-url="http://195.154.221.171/epg/guidearab.xml.gz" group-title="Sport",Dubai Sports 2+
