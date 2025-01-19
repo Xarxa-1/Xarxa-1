@@ -1,1137 +1,371 @@
-#EXTM3U
-
-************************  12/ENE/2025  ESTA LISTA ES DE USO PARTICULAR - NO SE VENDE Y NO TIENE UN SERVIDOR PROPIO ****************************
-************************    TODOS LOS LINKS SE ENCUENTRAN EN INTERNET Y SON DE DOMINIO PUBLICO  ***********************************************
-***********************************************************************************************************************************************
-******************************************************     PROPIO     *************************************************************************
-******************************************************     BICS MX     *************************************************************************
-
-#EXTINF:-1 group-title="Bics MX", MX: AZTECA UNO
-https://mdstrm.com/live-stream-playlist/609b243156cca108312822a6.m3u8
-#EXTINF:-1 group-title="Bics MX", MX: AZTECA UNO -1 HR
-https://azt-oo.otteravision.com/out/v1/da53d7d388be437e92bf8f464018eb48/index_6.m3u8
-#EXTINF:-1 group-title="Bics MX", MX: AZTECA INTERNACIONAL
-https://azt-mun.otteravision.com/azt/mun/mun.m3u8
-#EXTINF:-1 group-title="Bics MX", MX: LAS ESTRELLAS
-https://channel01-onlymex.akamaized.net/hls/live/2022749/event01/index.m3u8
-#EXTINF:-1  group-title="Bics MX", MX: ESTRELLAS
-https://cdn1.sba.cdn.moderntv.eu:7908/sba/stream/ESTRELLAS/40-hls/live-media.m3u8
-#EXTINF:-1 group-title="Bics MX", MX: IMAGEN TV
-http://181.78.105.146:2000/play/a00h/index.m3u8
-#EXTINF:-1 group-title="Bics MX", MX: IMAGEN TV
-https://cdn1.sba.cdn.moderntv.eu:7908/sba/stream/IMAGEN/40-hls/live-media.m3u8
-#EXTINF:-1 group-title="Bics MX", MX: IMAGEN TV+
-http://stream.grupoabchn.com:1935/TENHD/TENLive.smil/master.m3u8
-#EXTINF:-1 group-title="Bics MX", MX: CANAL 5
-http://181.78.105.146:2000/play/a038/index.m3u8
-#EXTINF:-1 group-title="Bics MX", MX: CANAL 5
-http://streamsy.online:2999/happy2024/newyear/1457
-#EXTINF:-1 group-title="Bics MX", MX: CANAL 5
-https://cdn1.sba.cdn.moderntv.eu:7908/sba/stream/CANAL5/40-hls/live-media.m3u8
-#EXTINF:-1 group-title="Bics MX", MX: MULTIMEDIOS TELEDIARIO NOW
-https://stream.ads.ottera.tv/playlist.m3u8?network_id=11014&avod=1&coppa=0&is_lat=0&dnt=0&td=6&us_privacy=1ynn&did=3dafe10496907bcf3d5a3415a3135845&ifa_type=sessionid&app_bundle=com.canela.ott&app_store_url=https%3A%2F%2Fwww.canela.tv%2Fdevices&app_domain=canela.tv&app_name=canelatv&custom_targeting=web&custom_4=internal&player_height=720&player_width=1280&content_channel=canelatv&content_dist_name=internal&device_make=&device_model=&device_os=web&preferred_language=en&consent=1&gdpr=0&custom_12=0&custom_15=es&custom_16=en&custom_17=es&country=mx&country_region=mexico%20city&postal_code=07890&site_page=https%253a%252f%252fwww.canela.tv%252fes%252flinear%252ftelediario-now&gender=not_specified&yob=0&livestream=1&custom_param_0=&custom_param_1=handset&custom_param_2=&custom_param_3=&custom_param_4=internal&custom_param_5=web&timestamp=1726015280&id=69276&ip=2806%3A2f0%3Aa2a0%3Afb1d%3A7121%3A79d4%3Ac454%3A16ac&override_expiration=1500&deliveryProfileId=23762&sign=1MztDmTEi0FHwHXT9qSFpZNa08kwr6CgtXl8ZbK0rIs%3D
-#EXTINF:-1 group-title="Bics MX", MX: MULTIMEDIOS CDMX
-https://mdstrm.com/live-stream-playlist/5f2d9d6ff17144074bd8a284.m3u8
-#EXTINF:-1 group-title="Bics MX", MX: MULTIMEDIOS MTY
-https://mdstrm.com/live-stream-playlist/57b4dbf5dbbfc8f16bb63ce1.m3u8
-#EXTINF:-1 group-title="Bics MX", MX: MULTIMEDIOS LAGUNA
-https://mdstrm.com/live-stream-playlist/57bf686a61ff39e1085d43e1.m3u8
-#EXTINF:-1 group-title="Bics MX", MX: MULTIMEDIOS GDL
-https://mdstrm.com/live-stream-playlist/5c54d38ca392a5119bb0aa0d.m3u8
-#EXTINF:-1 group-title="Bics MX", MX: MULTIMEDIOS PUEBLA
-https://mdstrm.com/live-stream-playlist/5d56ed29c92dd106ff01543b.m3u8
-#EXTINF:-1 group-title="Bics MX", MX: AZTECA 7
-https://pubads.g.doubleclick.net/ssai/event/YHoOj51dSKCvBQOBG2OvLQ/master.m3u8
-#EXTINF:-1 group-title="Bics MX", MX: AZTECA 7 1
-https://dai.google.com/linear/hls/event/YHoOj51dSKCvBQOBG2OvLQ/master.m3u8
-#EXTINF:-1 group-title="Bics MX", MX: AZTECA 7 2
-https://mdstrm.com/live-stream-playlist/609ad46a7a441137107d7a81.m3u8
-#EXTINF:-1 group-title="Bics MX", MX: AZTECA 7 3
-https://pubads.g.doubleclick.net/ssai/event/YHoOj51dSKCvBQOBG2OvLQ/master.m3u8
-#EXTINF:-1  group-title="Bics MX", MX: AZTECA 7 4
-https://cdn1.sba.cdn.moderntv.eu:7908/sba/stream/AZTECA7/20-hls/live-media.m3u8
-#EXTINF:-1 group-title="Bics MX", MX: CANAL NU9VE
-http://innovat.ddns.net/live/INNOVA2011/GPygQQ7Crh/3746.m3u8
-#EXTINF:-1 group-title="Bics MX", MX: ADN 40
-https://mdstrm.com/live-stream-playlist/60b578b060947317de7b57ac.m3u8
-#EXTINF:-1  group-title="Bics MX", MX: A+
-https://mdstrm.com/live-stream-playlist/60b56be1000ea50835fa1e63.m3u8
-#EXTINF:-1  group-title="Bics MX", MX: MVS
-https://dish.akamaized.net/Content/HLS_HLS_CLR/Live/channel(mvs)/variant.m3u8
-#EXTINF:-1 group-title="Bics MX", MX: MILENIO
-https://mdstrm.com/live-stream-playlist/610178c7db32a4112d994650.m3u8
-#EXTINF:-1 group-title="Bics MX", MX: N+ FORO
-https://notusaauth.univision.com/api/v3/akamai-auth/token-auth?url=https://channel02secure-notusa.akamaized.net/hls/live/2023914/event01/index.m3u8&redirect=true
-#EXTINF:-1  group-title="Bics MX", MX: N+ FORO
-https://cdn1.sba.cdn.moderntv.eu:7908/sba/stream/FOROTV/20-hls/live-media.m3u8
-#EXTINF:-1 group-title="Bics MX", MX: N+ GDL
-https://channel08-onlymex.akamaized.net/hls/live/2037034/event01/index.m3u8
-#EXTINF:-1 group-title="Bics MX", MX: N+ MTY
-https://channel09-onlymex.akamaized.net/hls/live/2094418/event01/index.m3u8
-#EXTINF:-1  group-title="Bics MX", MX: MARIA VISION
-https://1601580044.rsc.cdn77.org/live/_jcn_/amlst:Mariavision/playlist.m3u8
-#EXTINF:-1  group-title="Bics MX", MX: MARIA VISION CAPILLA
-https://1601580044.rsc.cdn77.org/live/_jcn_/amlst:Privado2/playlist.m3u8
-#EXTINF:-1  group-title="Bics MX", MX: EWTN
-https://cdn3.wowza.com/1/SmVrQmZCUXZhVDgz/b3J3MFJv/hls/live/playlist.m3u8
-
-#EXTINF:-1  group-title="Bics MX", MX: AXN
-https://cdn1.sba.cdn.moderntv.eu:7908/sba/stream/AXN/40-hls/live-media.m3u8
-#EXTINF:-1  group-title="Bics MX", MX: SYFY
-https://cdn1.sba.cdn.moderntv.eu:7908/sba/stream/SYFY/20-hls/live-media.m3u8
-#EXTINF:-1  group-title="Bics MX", MX: GALAVISION
-https://cdn1.sba.cdn.moderntv.eu:7908/sba/stream/GALAVISION/40-hls/live-media.m3u8
-#EXTINF:-1  group-title="Bics MX", MX: TELEFORMULA
-https://cdn1.sba.cdn.moderntv.eu:7908/sba/stream/Teleformula/20-hls/live-media.m3u8
-
-
-******************************************************     BICS US     *************************************************************************
-
-#EXTINF:-1 group-title="Bics US", US: CANAL 57
-https://167790.global.ssl.fastly.net/6189746bccf0424c112f5476/live_50bbca50292011ed8d265962bedee5f9/tracks-v2a1/mono.m3u8
-#EXTINF:-1 group-title="Bics US", US: CNN
-https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8
-#EXTINF:-1 group-title="Bics US", US: AL JAZEERA EN
-https://live-hls-web-aje-fa.getaj.net/AJE/03.m3u8
-#EXTINF:-1 group-title="Bics US", US: AL JAZEERA ARAB
-https://live-hls-web-aja-fa.getaj.net/AJA/05.m3u8
-
-#EXTINF:-1 group-title="Bics Latino", PR: TELEMUNDO
-https://nbculocallive.akamaized.net/hls/live/2037499/puertorico/stream1/master.m3u8
-#EXTINF:-1 group-title="Bics Latino", PR: PUNTO 2
-https://nbculocallive.akamaized.net/hls/live/2037499/puertorico/stream2/master.m3u8
-#EXTINF:-1 group-title="Bics Latino", GT: TV AZTECA GUATE
-https://ch1-tva.duin.dev/hls/stream.m3u8
-#EXTINF:-1 group-title="Bics Latino", HN: CTV INTERNACIONAL
-https://mediacp.us:8081/ctvhn/index.m3u8
-#EXTINF:-1 group-title="Bics Latino", SV: CANAL 21
-https://mgv-channel21.akamaized.net/hls/live/2093191/MGV_CHANNEL21/0/streamPlaylist.m3u8
-#EXTINF:-1 group-title="Bics Latino", EC: ECUADOR TV
-https://samson.streamerr.co:8081/shogun/tracks-v1a1/mono.m3u8
-#EXTINF:-1 group-title="Bics Latino", BO: CANAL 7.1
-https://5ca9af4645e15.streamlock.net/boliviatv/videoboliviatv/playlist.m3u8
-#EXTINF:-1 group-title="Bics Latino", BO: CANAL 7.2 DEPORTES
-https://5ca3e84a76d30.streamlock.net/boliviatv2/videoboliviatv2/playlist.m3u8
-#EXTINF:-1 group-title="Bics Latino", BO: BOLIVISION
-https://d3ew2cr4djta2j.cloudfront.net/index.m3u8
-#EXTINF:-1 group-title="Bics Latino", VE: VPI TV
-https://ott3.streann.com/loadbalancer/services/public/channels/5d23d5882cdce61dae029fd8/playlist.m3u8
-#EXTINF:-1 group-title="Bics Latino", VE: VENEVISION INTERNACIONAL
-https://vod2live.univtec.com/manifest/4c41c0d8-e2e4-43cc-bd43-79afe715e1b3/1660000.m3u8
-#EXTINF:-1 group-title="Bics Latino", VE: TELESUR
-https://cdnesmain.telesur.ultrabase.net/mbliveMain/480p/chunklist.m3u8
-#EXTINF:-1 group-title="Bics Latino", VE: TELECENTRO
-https://streamtv.intervenhosting.net:3698/live/telecentrolive.m3u8
-
-
-****** 01 *****
-
-#EXTINF:-1 group-title="Bics US", US: WGN
-http://hardcoremedia.xyz/live/6FyrkGbRP/D4Q4pk3k8u/129979.m3u8
-
-#EXTINF:-1 group-title="Bics US", CA: CTV
-http://tvmate.icu:8080/live/7686199/9576982/47234.m3u8
-#EXTINF:-1 group-title="Bics US", CA: CTV DRAMA
-http://tvmate.icu:8080/live/7686199/9576982/57254.m3u8
-#EXTINF:-1 group-title="Bics US", CA: CTV LIFE
-http://tvmate.icu:8080/live/7686199/9576982/116506.m3u8
-#EXTINF:-1 group-title="Bics US", CA: CTV SCI FI
-http://tvmate.icu:8080/live/7686199/9576982/57464.m3u8
-
-#EXTINF:-1 group-title="Bics US", US: MGM +
-http://hardcoremedia.xyz/live/6FyrkGbRP/D4Q4pk3k8u/129987.m3u8
-
-#EXTINF:-1 group-title="Bics DEPORTES", US: ESPN
-http://tvmate.icu:8080/live/7686199/9576982/14197.m3u8
-#EXTINF:-1 group-title="Bics US", US: UNIVISION
-http://tvmate.icu:8080/live/7686199/9576982/15336.m3u8
-
-********************************
-
-#EXTINF:-1 group-title="Bics MoveOnJoy US", US: PPV 1
-http://fl6.moveonjoy.com/PPV_1/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", US: PPV 2
-http://fl6.moveonjoy.com/PPV_1/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", US: PPV 6
-http://fl6.moveonjoy.com/PPV_6/index.m3u8
-
-#EXTINF:-1 group-title="Bics MoveOnJoy US", US: ABC EAST
+#EXTM3U url-tvg="[XML_EPG]"
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", ABC EAST
 http://fl1.moveonjoy.com/ABC_EAST/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", ABC EAST
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", ABC EAST
 http://fl3.moveonjoy.com/ABC_EAST/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", ACC NETWORK
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", ACC NETWORK
 http://fl2.moveonjoy.com/ACC_NETWORK/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", AMC NETWORK
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", AMC NETWORK
 http://fl5.moveonjoy.com/AMC_NETWORK/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", American Heroes Channel
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", American Heroes Channel
 http://fl3.moveonjoy.com/American_Heroes_Channel/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", Animal Planet
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", Animal Planet
 http://fl2.moveonjoy.com/Animal_Planet/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", Antenna
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", Antenna
 http://fl3.moveonjoy.com/Antenna/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", Aspire
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", Aspire
 http://fl3.moveonjoy.com/Aspire/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", BBC AMERICA
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", BBC AMERICA
 http://fl2.moveonjoy.com/BBC_AMERICA/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", BBC WORLD NEWS
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", BBC WORLD NEWS
 http://fl2.moveonjoy.com/BBC_WORLD_NEWS/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", BEIN SPORTS
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", BEIN SPORTS
 http://fl2.moveonjoy.com/BEIN_SPORTS/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", BET EAST
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", BET EAST
 http://fl2.moveonjoy.com/BET_EAST/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", BET GOSPEL
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", BET GOSPEL
 http://fl2.moveonjoy.com/BET_GOSPEL/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", BET HER
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", BET HER
 http://fl2.moveonjoy.com/BET_HER/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", BET JAMS
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", BET JAMS
 http://fl3.moveonjoy.com/BET_Jams/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", BET SOUL
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", BET SOUL
 http://fl2.moveonjoy.com/BET_SOUL/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", BIG TEN NETWORK
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", BIG TEN NETWORK
 http://fl3.moveonjoy.com/BIG_TEN_NETWORK/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", BLOOMBERG
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", BLOOMBERG
 http://fl2.moveonjoy.com/BLOOMBERG/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", BOOMERANG
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", BLOOMBERG
 http://fl3.moveonjoy.com/BOOMERANG/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", BOUNCE TV
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", BOUNCE TV
 http://fl3.moveonjoy.com/BOUNCE_TV/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", BRAVO
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", BRAVO
 http://fl2.moveonjoy.com/BRAVO/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", BUZZR
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", BUZZR
 http://fl3.moveonjoy.com/Buzzr/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", C SPAN
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", C SPAN
 http://fl2.moveonjoy.com/C-SPAN/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", CARTOON NETWORK
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", CARTOON NETWORK
 http://fl2.moveonjoy.com/CARTOON_NETWORK/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", CBS EAST
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", CBS EAST
 http://fl2.moveonjoy.com/CBSEAST/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", CBS SPORTS NETWORK
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", CBS SPORTS NETWORK
 http://fl2.moveonjoy.com/CBS_SPORTS_NETWORK/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", CINEMAX
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", CINEMAX
 http://fl5.moveonjoy.com/CINEMAX/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", CINEMAX EAST
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", CINEMAX EAST
 http://fl2.moveonjoy.com/CINEMAX_EAST/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", CINEMAX WEST
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", CINEMAX WEST
 http://fl2.moveonjoy.com/CINEMAX_WEST/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", CINEMAX MOREMAX
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", CINEMAX MOREMAX
 http://fl3.moveonjoy.com/CINEMAX_MOREMAX/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", CLEO TV
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", CLEO TV
 http://fl3.moveonjoy.com/Cleo_TV/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", CMT
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", CMT
 http://fl3.moveonjoy.com/CMT/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", CNBC
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", CNBC
 http://fl2.moveonjoy.com/CNBC/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", CNN
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", CNN
 http://fl2.moveonjoy.com/CNN/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", CNN INTERNACIONAL
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", CNN INTERNACIONAL
 http://fl2.moveonjoy.com/CNN_INTERNATIONAL/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", COMEDY CENTRAL
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", COMEDY CENTRAL
 http://fl3.moveonjoy.com/Comedy_Central/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", COMEDY TV
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", COMEDY TV
 http://fl3.moveonjoy.com/Comedy_TV/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", COMET
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", COMET
 http://fl3.moveonjoy.com/COMET/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", COOKING CHANNEL
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", COOKING CHANNEL
 http://fl3.moveonjoy.com/COOKING_CHANNEL/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", COURT TV
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", COURT TV
 http://fl3.moveonjoy.com/COURT_TV/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", COZI TV
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", COZI TV
 http://fl3.moveonjoy.com/COZI_TV/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", CRIME AND INVESTIGATION NET
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", CRIME AND INVESTIGATION NET
 http://fl3.moveonjoy.com/Crime_and_Investigation_Network/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", CRAVE 1
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", CRAVE 1
 http://fl3.moveonjoy.com/CRAVE_1/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", CRAVE 2
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", CRAVE 2
 http://fl2.moveonjoy.com/CRAVE_2/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", CRAVE 3
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", CRAVE 3
 http://fl3.moveonjoy.com/CRAVE_3/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", CRAVE 4
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", CRAVE 4
 http://fl2.moveonjoy.com/CRAVE_4/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", CURIOSITY STREAM
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", CURIOSITY STREAM
 http://fl3.moveonjoy.com/Curiosity_Stream/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", DESTINATION AMERICA
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", DESTINATION AMERICA
 http://fl3.moveonjoy.com/Destination_America/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", DISCOVERY CHANNEL
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", DISCOVERY CHANNEL
 http://fl3.moveonjoy.com/Discovery_Channel/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", DISCOVERY FAMILY CHANNEL
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", DISCOVERY FAMILY CHANNEL
 http://fl2.moveonjoy.com/DISCOVERY_FAMILY_CHANNEL/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", DISCOVERY LIFE
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", DISCOVERY LIFE
 http://fl2.moveonjoy.com/DISCOVERY_LIFE/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", DISCOVERY SCIENCE
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", DISCOVERY SCIENCE
 http://fl3.moveonjoy.com/Discovery_Science/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", DISNEY CHANNEL
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", DISNEY CHANNEL
 http://fl5.moveonjoy.com/DISNEY_CHANNEL/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", DISNEY JR
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", DISNEY JR
 http://fl5.moveonjoy.com/DISNEY_JR/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", DISNEY XD
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", DISNEY XD
 http://fl5.moveonjoy.com/DISNEY_XD/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", DIY
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", DIY
 http://fl2.moveonjoy.com/DIY/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", E!
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", E!
 http://fl2.moveonjoy.com/E_ENTERTAINMENT_TELEVISION/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", EPIX
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", EPIX
 http://fl2.moveonjoy.com/EPIX/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", EPIX 2
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", EPIX 2
 http://fl2.moveonjoy.com/EPIX_2/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", EPIX DRIVE IN
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", EPIX DRIVE IN
 http://fl2.moveonjoy.com/EPIX_DRIVE_IN/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", EPIX HITS
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", EPIX HITS
 http://fl2.moveonjoy.com/EPIX_HITS/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", ESPN
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", ESPN
 http://fl2.moveonjoy.com/ESPN/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", ESPN 2
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", ESPN 2
 http://fl2.moveonjoy.com/ESPN_2/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", ESPN NEWS
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", ESPN NEWS
 http://fl2.moveonjoy.com/ESPN_NEWS/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", ESPN U
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", ESPN U
 http://fl2.moveonjoy.com/ESPN_U/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", ESPN NETWORK
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", ESPN NETWORK
 http://fl2.moveonjoy.com/FOOD_NETWORK/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", FOOD NETWORK
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", FOOD NETWORK
 http://fl2.moveonjoy.com/FOOD_NETWORK/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", FOX EAST
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", FOX EAST
 http://fl2.moveonjoy.com/FOX_EAST/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", FOX BUSSINESS NET
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", FOX BUSSINESS NET
 http://fl2.moveonjoy.com/FOX_Business_Network/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", FOX NEWS CHANNEL
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", FOX NEWS CHANNEL
 http://fl2.moveonjoy.com/FOX_News_Channel/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", FOX SOCCER PLUS [Not Working]
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", FOX SOCCER PLUS [Not Working]
 http://fl2.moveonjoy.com/FOX_SOCCER_PLUS/index.m3u8 
-#EXTINF:-1 group-title="Bics MoveOnJoy US", FOX SPORTS 1
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", FOX SPORTS 1
 http://fl2.moveonjoy.com/FOX_Sports_1/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", FOX SPORTS 2
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", FOX SPORTS 2
 http://fl2.moveonjoy.com/FOX_Sports_2/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", FOX SOUL
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", FOX SOUL
 http://fl1.moveonjoy.com/FOX_SOUL/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", FREE FORM
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", FREE FORM
 http://fl2.moveonjoy.com/FREE_FORM/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", FUSE
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", FUSE
 http://fl2.moveonjoy.com/FUSE/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", FX
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", FX
 http://fl2.moveonjoy.com/FX/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", FX MOVIE
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", FX MOVIE
 http://fl2.moveonjoy.com/FX_MOVIE/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", FXX
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", FXX
 http://fl2.moveonjoy.com/FXX/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", FYI
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", FYI
 http://fl5.moveonjoy.com/FYI/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", GAME SHOW NET
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", GAME SHOW NET
 http://fl5.moveonjoy.com/GAME_SHOW_NETWORK/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", GET TV
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", GET TV
 http://fl2.moveonjoy.com/GET_TV/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", GOLF CHANNEL
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", GOLF CHANNEL
 http://fl2.moveonjoy.com/GOLF_CHANNEL/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", GRIT TV
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", GRIT TV
 http://fl2.moveonjoy.com/GRIT_TV/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", HALLMARK CHANNEL
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", HALLMARK CHANNEL
 http://fl2.moveonjoy.com/HALLMARK_CHANNEL/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", HALLMARK DRAMA
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", HALLMARK DRAMA
 http://fl2.moveonjoy.com/HALLMARK_DRAMA/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", HBO
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", HBO
 http://fl5.moveonjoy.com/HBO/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", HBO 2
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", HBO 2
 http://fl5.moveonjoy.com/HBO_2/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", HBO COMEDY
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", HBO COMEDY
 http://fl5.moveonjoy.com/HBO_COMEDY/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", HBO FAMILY
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", HBO FAMILY
 http://fl5.moveonjoy.com/HBO_FAMILY/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", HBO ZONE
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", HBO ZONE
 http://fl5.moveonjoy.com/HBO_ZONE/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", HGTV
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", HGTV
 http://fl5.moveonjoy.com/HGTV/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", HLN
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", HLN
 http://fl2.moveonjoy.com/HLN/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", HSN
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", HSN
 http://fl2.moveonjoy.com/HSN/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", INSP
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", INSP
 http://fl2.moveonjoy.com/INSP/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", ID
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", ID
 http://fl2.moveonjoy.com/INVESTIGATION_DISCOVERY/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", ION TV
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", ION TV
 http://fl2.moveonjoy.com/ION_TV/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", ION PLUS
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", ION PLUS
 http://fl3.moveonjoy.com/ION_Plus/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", LIFETIME
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", LIFETIME
 http://fl2.moveonjoy.com/LIFETIME/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", LIFETIME MOVIE NET
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", LIFETIME MOVIE NET
 http://fl2.moveonjoy.com/LIFETIME_MOVIE_NETWORK/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", LOGO
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", LOGO
 http://fl3.moveonjoy.com/Logo/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", LONGHORN NETWORK
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", LONGHORN NETWORK
 http://fl5.moveonjoy.com/LONGHORN_NETWORK/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", LMAV TV
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", LMAV TV
 http://fl2.moveonjoy.com/MAV_TV/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", ME TV
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", ME TV
 http://fl2.moveonjoy.com/ME_TV/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", MILITARY HISTORY
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", MILITARY HISTORY
 http://fl3.moveonjoy.com/Military_History/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", MLB NETWORK
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", MLB NETWORK
 http://fl2.moveonjoy.com/MLB_NETWORK/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", MOTOR TREND
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", MOTOR TREND
 http://fl2.moveonjoy.com/MOTOR_TREND/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", MSG
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", MSG
 http://fl3.moveonjoy.com/MSG/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", MSNBC
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", MSNBC
 http://fl2.moveonjoy.com/MSNBC/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", MTV
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", MTV
 http://fl2.moveonjoy.com/MTV/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", MTV 2
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", MTV 2
 http://fl2.moveonjoy.com/MTV_2/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", MTV CLASSIC
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", MTV CLASSIC
 http://fl2.moveonjoy.com/MTV_CLASSIC/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", MTV LIVE
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", MTV LIVE
 http://fl2.moveonjoy.com/MTV_LIVE/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", MTV U
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", MTV U
 http://fl2.moveonjoy.com/MTV_U/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", NAT GEO
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", NAT GEO
 http://fl2.moveonjoy.com/National_Geographic/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", NAT GEO WILD
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", NAT GEO WILD
 http://fl2.moveonjoy.com/Nat_Geo_Wild/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", NBA TV
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", NBA TV
 http://fl2.moveonjoy.com/NBA_TV/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", NBC EAST
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", NBC EAST
 http://fl2.moveonjoy.com/NBC_EAST/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", NBC SPORT NET
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", NBC SPORT NET
 http://fl2.moveonjoy.com/NBC_SPORTS_NETWORK/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", NEWS NATION
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", NEWS NATION
 http://fl2.moveonjoy.com/NEWS_NATION/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", NEWS Y
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", NEWS Y
 http://fl3.moveonjoy.com/Newsy/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", NFL NETWORK
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", NFL NETWORK
 http://fl2.moveonjoy.com/NFL_NETWORK/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", NHL NETWORK
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", NHL NETWORK
 http://fl2.moveonjoy.com/NHL_NETWORK/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", NICKELODEON
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", NICKELODEON
 http://fl2.moveonjoy.com/NICKELODEON/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", NICK JR
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", NICK JR
 http://fl2.moveonjoy.com/NICK_JR/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", NICK MUSIC
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", NICK MUSIC
 http://fl2.moveonjoy.com/NICK_MUSIC/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", NICKTOONS
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", NICKTOONS
 http://fl2.moveonjoy.com/NICKTOONS/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", TEEN NICK
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", TEEN NICK
 https://fl3.moveonjoy.com/Teen_Nick/index.m3u8 
-#EXTINF:-1 group-title="Bics MoveOnJoy US", OUTDOOR CHANNEL
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", OUTDOOR CHANNEL
 http://fl2.moveonjoy.com/OUTDOOR_CHANNEL/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", OUTSIDE TV
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", OUTSIDE TV
 http://fl2.moveonjoy.com/OUTSIDE_TV/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", OVATION
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", OVATION
 http://fl3.moveonjoy.com/Ovation/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", OWN
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", OWN
 http://fl2.moveonjoy.com/OWN/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", OXYGEN
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", OXYGEN
 http://fl2.moveonjoy.com/OXYGEN/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", OUTER MAX
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", OUTER MAX
 http://fl2.moveonjoy.com/OUTER_MAX/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", PAC 12 [STOPPED BROADCASTING]
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", PAC 12 [STOPPED BROADCASTING]
 http://fl3.moveonjoy.com/PAC_12/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", PARAMOUNT NETWORK
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", PARAMOUNT NETWORK
 http://fl2.moveonjoy.com/PARAMOUNT_NETWORK/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", POP TV
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", POP TV
 http://fl3.moveonjoy.com/Pop_TV/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", PURSUIT CHANNEL
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", PURSUIT CHANNEL
 http://fl3.moveonjoy.com/Pursuit_Channel/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", QVC
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", QVC
 http://fl2.moveonjoy.com/QVC/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", REELZ
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", REELZ
 http://fl2.moveonjoy.com/REELZ/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", REVOLT
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", REVOLT
 http://fl2.moveonjoy.com/REVOLT/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", SEC NETWORK [Not Working]
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", SEC NETWORK [Not Working]
 http://fl2.moveonjoy.com/SEC_NETWORK/index.m3u8 
-#EXTINF:-1 group-title="Bics MoveOnJoy US", SHOWTIME
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", SHOWTIME
 http://fl2.moveonjoy.com/SHOWTIME/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", SHOWTIME 2
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", SHOWTIME 2
 http://fl2.moveonjoy.com/SHOWTIME_2/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", SHOWTIME EXTREME
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", SHOWTIME EXTREME
 http://fl2.moveonjoy.com/SHOWTIME_EXTREME/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", SHOWTIME NEXT
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", SHOWTIME NEXT
 http://fl2.moveonjoy.com/SHOWTIME_NEXT/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", SHOWTIME WOMEN
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", SHOWTIME WOMEN
 http://fl2.moveonjoy.com/SHOWTIME_WOMEN/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", SHOWTIME WEST
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", SHOWTIME WEST
 http://fl2.moveonjoy.com/SHOWTIME_WEST/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", SMITHSONIAN CHANNEL
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", SMITHSONIAN CHANNEL
 http://fl2.moveonjoy.com/SMITHSONIAN_CHANNEL/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", SONY MOVIE CHANNEL
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", SONY MOVIE CHANNEL
 http://fl3.moveonjoy.com/Sony_Movie_Channel/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", STADIUM
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", STADIUM
 http://fl2.moveonjoy.com/STADIUM/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", STARZ
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", STARZ
 http://fl5.moveonjoy.com/STARZ/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", STARZ COMEDY
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", STARZ COMEDY
 http://fl5.moveonjoy.com/STARZ_COMEDY/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", STARZ EDGE
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", STARZ EDGE
 http://fl5.moveonjoy.com/STARZ_EDGE/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", STARZ ENCORE
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", STARZ ENCORE
 http://fl5.moveonjoy.com/STARZ_ENCORE/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", STARZ ENCORE ACTION
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", STARZ ENCORE ACTION
 http://fl5.moveonjoy.com/STARZ_ENCORE_ACTION/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", STARZ ENCORE CLASSIC
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", STARZ ENCORE CLASSIC
 http://fl5.moveonjoy.com/STARZ_ENCORE_CLASSIC/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", STARZ ENCORE WESTERNS
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", STARZ ENCORE WESTERNS
 http://fl5.moveonjoy.com/STARZ_ENCORE_WESTERNS/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", STARZ WEST
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", STARZ WEST
 http://fl2.moveonjoy.com/STARZ_WEST/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", SUNDANCE
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", SUNDANCE
 http://fl2.moveonjoy.com/SUNDANCE/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", SYFY
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", SYFY
 http://fl5.moveonjoy.com/SYFY/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", TBS
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", TBS
 http://fl2.moveonjoy.com/TBS/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", TCM
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", TCM
 http://fl2.moveonjoy.com/TCM/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", TENNIS CHANNEL
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", TENNIS CHANNEL
 http://fl2.moveonjoy.com/TENNIS_CHANNEL/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", THE WEATHER CHANNEL
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", THE WEATHER CHANNEL
 http://fl2.moveonjoy.com/THE_WEATHER_CHANNEL/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", TLC
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", TLC
 http://fl5.moveonjoy.com/TLC/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", TNT
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", TNT
 http://fl5.moveonjoy.com/TNT/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", TRAVEL CHANNEL
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", TRAVEL CHANNEL
 http://fl2.moveonjoy.com/Travel_Channel/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", TRU TV
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", TRU TV
 http://fl2.moveonjoy.com/TRU_TV/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", TSN 1
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", TSN 1
 http://fl5.moveonjoy.com/TSN_1/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", TSN 2
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", TSN 2
 http://fl5.moveonjoy.com/TSN_2/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", TSN 3
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", TSN 3
 http://fl5.moveonjoy.com/TSN_3/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", TSN 4
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", TSN 4
 http://fl5.moveonjoy.com/TSN_4/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", TSN 5
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", TSN 5
 http://fl5.moveonjoy.com/TSN_5/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", TV LAND
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", TV LAND
 http://fl2.moveonjoy.com/TV_Land/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", TV ONE
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", TV ONE
 http://fl2.moveonjoy.com/TV_ONE/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", TVG
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", TVG
 http://fl2.moveonjoy.com/TVG/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", UFC
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", UFC
 http://fl1.moveonjoy.com/UFC/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", USA NETWORK
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", USA NETWORK
 http://fl2.moveonjoy.com/USA_Network/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", VH1 
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", VH1 
 http://fl2.moveonjoy.com/VH1/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", VICELAND
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", VICELAND
 http://fl2.moveonjoy.com/VICELAND/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", WE TV
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", WE TV
 http://fl2.moveonjoy.com/WE_TV/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", WGN
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", WGN
 http://fl2.moveonjoy.com/WGN/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", WWE
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", WWE
 http://fl2.moveonjoy.com/WWE/index.m3u8
-#EXTINF:-1 group-title="Bics MoveOnJoy US", YES NETWORK
-http://fl2.moveonjoy.com/YES_NETWORK/index.m3u8
-
-******************
-
-****** 03 *****
-#EXTINF:-1 group-title="Bics US", US: UNIVISION
-http://23.237.66.106:25461/now_160322/now2.php?id=UNIVISIONEAST&calidad=sd&.m3u8
-#EXTINF:-1 group-title="Bics US", US: UNIVISION
-http://vp-txpro.com:80/nsNvUZumRLXE/aXKFbmCk7YCM/19682
-
-#EXTINF:-1 group-title="Bics Latino", SV: TCS+
-https://telecorporacion.cdn.vustreams.com/live/19b307cf-3f2d-44cb-bce6-0fd65365c56a/live.isml/.m3u8
-#EXTINF:-1 group-title="Bics Latino", SV: CANAL 2
-https://telecorporacion-es.cdn.vustreams.com/live/d3e259fa-736d-46b0-b1c9-71caf946ace9/live.isml/live.m3u8
-#EXTINF:-1 group-title="Bics Latino", SV: CANAL 12
-https://alba-sv-c12-c12.stream.mediatiquestream.com/index.m3u8
-#EXTINF:-1 group-title="Bics Latino", SV: CANAL 57
-https://streaming.grupocsanetwork.com:19360/canal57/canal57.m3u8
-
-#EXTINF:-1 group-title="Bics DEPORTES", Fox Deportes Español
-https://live-news-manifest.tubi.video/live-news-manifest/csm/extlive/tubiprd01,Fox-Sports-Espanol2.m3u8
-
-******************
-
-*****  04 ******
-
-******************
-
-****** 05 ******
-#EXTINF:-1 group-title="Bics US", US: UNIVISION 
-http://23.237.66.106:25461/now_160322/now2.php?id=UNIVISIONMIAMI&calidad=hd&.ts
-#EXTINF:-1 group-title="Bics US", US: UNIVISION 
-http://23.237.66.106:25461/now_160322/now2.php?id=UNIVISIONMIAMI&calidad=sd&.ts
-#EXTINF:-1 group-title="Bics US", US: UNIMAS UHD
-http://23.237.66.106:25461/now_160322/now2.php?id=UNIMASMIAMI&calidad=hd&.ts
-#EXTINF:-1 group-title="Bics US", US: UNIMAS
-http://23.237.66.106:25461/now_160322/now2.php?id=UNIMASMIAMI&calidad=sd&.ts
-#EXTINF:-1 group-title="Bics US", US: TELEMUNDO 51 MIAMI
-https://nbcu-telemundoflorida-firetv.amagi.tv/playlist1080.m3u8
-******************
-
-*****************************************************************************************************************************************************
-*****************************************************************************************************************************************************
-******************************************************* TEMPORALES POR EVENTO ***********************************************************************
-
-********************************************************   LIGA MX   *******************************************************************************
-
-#EXTINF:-1 group-title="Bics DEPORTES LIGA MX", LIGA MX: CLARO SPORTS
-https://dai.google.com/linear/hls/event/yINISWAPQ0CPhPixe-40wQ/master.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LIGA MX", LIGA MX: AZTECA 7
-https://pubads.g.doubleclick.net/ssai/event/YHoOj51dSKCvBQOBG2OvLQ/master.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LIGA MX", LIGA MX US: TELEMUNDO
-https://cdn.igocast.com/wkrp_channel1_hls/wkrp_channel1_profile1.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LIGA MX", LIGA MX US: TELEMUNDO
-https://content.uplynk.com/channel/b6a96ed39d694ae1b738faa98cf7dd3f.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LIGA MX", LIGA MX: CALIENTE TV [NOT 24/7]
-https://ythls-v3.onrender.com/channel/UCpJN_3WCOtfICbsKKxZcBsg.m3u8
-
-*****************************************************************************************************************************************************
-********************************************************  FUTBOL  **********************************************************************************
-
-#EXTINF:-1 group-title="Bics DEPORTES FUTBOL", FUTBOL 01
-http://190.185.121.102:58092/play/a00t
-#EXTINF:-1 group-title="Bics DEPORTES FUTBOL", FUTBOL 02
-http://181.78.105.146:2000/play/a08m/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES FUTBOL", FUTBOL 03
-http://45.5.117.182:8000/play/jnl0/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES FUTBOL", FUTBOL 04
-http://181.78.105.146:8800/play/a07h
-
-
-*****************************************************************************************************************************************************
-************************************************  CANALES REGIONALES Y YOUTUBE  *********************************************************************
-
-#EXTINF:-1 group-title="Bics REGIONALES MX", AGS: TELEVISA AGUASCALIENTES
-https://ythls-v3.onrender.com/channel/UC5ZtV3bu3bjSuOLoA6oCFIg.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", AGS: CANAL 26
-https://60417ddeaf0d9.streamlock.net/telemetrika3/smil:telemetrika3.smil/playlist.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", BAJA: TELEVISA ENSENADA
-https://ythls-v3.onrender.com/channel/UCFuWAM_YItwkHzDWDKtJULg.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", BAJA: TELEVISA MEXICALI
-https://ythls-v3.onrender.com/channel/UCcmuFsMIIIHO3LBqeBVfm8Q.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", BAJA: TELEVISA TIJUANA
-https://ythls-v3.onrender.com/channel/UCjwXjnO3BGePtB7gSKEpoqA.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", BAJA: CANAL 66 MEXICALI
-https://60417ddeaf0d9.streamlock.net/canal66/videocanal66/playlist.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", BAJA: CANAL 33 TIJUANA
-https://5f2c1b0d880e5.streamlock.net/canal33tijuana/videocanal33tijuana/playlist.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", CAM: TRC
-https://5f1af61612fb5.streamlock.net/trc/videotrc/playlist.m3u8
-
-#EXTINF:-1 group-title="Bics REGIONALES MX", CDMX: A+
-https://mdstrm.com/live-stream-playlist/60b56be1000ea50835fa1e63.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", CDMX: ONCE
-https://vivo.canaloncelive.tv/alivepkgr3/ngrp:cepro_all/playlist.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", CDMX: ONCE
-https://vivo.canaloncelive.tv:443/alivepkgr3/ngrp:cepro_all/chunklist_b2098304.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", CDMX: CANAL ONCE.3 DIGITAL
-https://vivo.canaloncelive.tv/oncedos/ngrp:pruebachunks_all/playlist.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", CDMX: CANAL 14
-https://s5.mexside.net:1936/canal14/canal14/chunklist.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", CDMX: CANAL 22
-https://5fc584f3f19c9.streamlock.net/canal22/smil:canal22.smil/playlist.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", CDMX: CANAL 22.2
-https://5fc584f3f19c9.streamlock.net/canal222/smil:canal222.smil/playlist.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", CUA: TELEVISA CD. JUAREZ
-https://ythls-v3.onrender.com/channel/UCot4t8PVKz8TT5xVM8Eb00w.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", CUA: CANAL 44 Chihuahua
-https://5e50264bd6766.streamlock.net/canal442/videocanal442/playlist.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", COA: TELEVISA PIEDRAS NEGRAS
-https://ythls-v3.onrender.com/channel/UCxK8C1E8UZ5RipNXIBYEvTA.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", COA: TELEVISA SALTILLO
-https://ythls-v3.onrender.com/channel/UCpeD73Gb4KjKUL2gyoJ4gLw.m3u8
-
-#EXTINF:-1 group-title="Bics REGIONALES MX", COA: TELEVISA LAGUNA
-https://ythls-v3.onrender.com/channel/UC_mwCcsKDJLSWjply5s0h8w.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", COA: RCG
-https://video1.getstreamhosting.com:1936/8172/8172/playlist.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", COA: RCG .2
-https://video1.getstreamhosting.com:1936/8246/8246/playlist.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", COA: RCG .3
-https://video1.getstreamhosting.com:1936/8032/8032/playlist.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", COA: MULTIMEDIOS LAGUNA
-https://mdstrm.com/live-stream-playlist/57bf686a61ff39e1085d43e1.m3u8
-
-#EXTINF:-1 group-title="Bics REGIONALES MX", COA: CANAL 15 SABINAS
-https://cdn.fastocloud.com/leonel.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", COA: NRT INTERNACIONAL
-https://5c001c2729b09.streamlock.net:4443/live/_definst_/canal24/playlist.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", COA: NRT REGION CARBONIFERA
-https://59e88b197fb16.streamlock.net:4443/live/canal10/playlist.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", COA: NRT REGION SURESTE
-https://5c001c2729b09.streamlock.net:4443/live/_definst_/canal6/playlist.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", COA: NRT REGION CENTRO
-https://5c001c2729b09.streamlock.net:4443/live/_definst_/canal4/playlist.m3u8
-
-#EXTINF:-1 group-title="Bics REGIONALES MX", CHIAP: CANAL 10
-https://5ca9af4645e15.streamlock.net/chiapas/videochiapas/playlist.m3u8
-
-#EXTINF:-1 group-title="Bics REGIONALES MX", DGO: TELEVISA DURANGO
-https://ythls-v3.onrender.com/channel/UCON7DvLd5N8tXivc9WqILxQ.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", DGO: CANAL 10
-https://5e50264bd6766.streamlock.net/canal10durango/videocanal10durango/playlist.m3u8
-
-#EXTINF:-1 group-title="Bics REGIONALES MX", EDOMEX: AMX
-https://5e50264bd6766.streamlock.net/mexiquense2/videomexiquense2/playlist.m3u8
-
-#EXTINF:-1 group-title="Bics REGIONALES MX", GRO: TELEVISA GUERRERO
-https://ythls-v3.onrender.com/channel/UCnxTRk2K1iNsQkgpWXxyj4w.m3u8
-
-#EXTINF:-1 group-title="Bics REGIONALES MX", GTO: TELEVISA DEL BAJIO
-https://ythls-v3.onrender.com/channel/UC-uYy4_jIvDoJ4wigEv1S5A.m3u8
-
-#EXTINF:-1 group-title="Bics REGIONALES MX", GTO: TV 4.1
-https://5f1af61612fb5.streamlock.net/tv4/smil:tv4.smil/playlist.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", GTO: TV 4.2
-https://5f2c1b0d880e5.streamlock.net/tv42/videotv42_720p/playlist.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", GTO: TV 4.3
-https://5f1af61612fb5.streamlock.net/tv43gto/smil:tv43gto.smil/playlist.m3u8
-
-#EXTINF:-1 group-title="Bics REGIONALES MX", JAL: TELEVISA GUADALAJARA
-https://ythls-v3.onrender.com/channel/UCRujF_YxVVFmTRWURQH-Cww.m3u8
-
-#EXTINF:-1 group-title="Bics REGIONALES MX", MEX: IMAGEN TV
-http://181.78.105.146:2000/play/a00h/index.m3u8
-
-#EXTINF:-1 group-title="Bics REGIONALES MX", MICH: SMRT
-https://s5.mexside.net:1936/enlinea/enlinea/playlist.m3u8
-
-#EXTINF:-1 group-title="Bics REGIONALES MX", MOR: TELEVISA MORELOS
-https://ythls-v3.onrender.com/channel/UCcC9ykApQrgl4UxbKg2U4zw.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", MOR: 15.1
-https://5f1af61612fb5.streamlock.net/tv4/smil:tv4.smil/playlist.m3u8
-
-#EXTINF:-1 group-title="Bics REGIONALES MX", NL: TELEVISA MONTERREY
-https://ythls-v3.onrender.com/channel/UCGDJLLphnP0zQQaE3kgo5Wg.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", NL: TELEVISA NORESTE
-https://ythls-v3.onrender.com/channel/UC752DYv5vPlTSMrvEjfZXcw.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", NL: MULTIMEDIOS
-https://ythls-v3.onrender.com/channel/UCo1nfa1JKNqtcUyLjLwTiIw.m3u8
-
-#EXTINF:-1 group-title="Bics REGIONALES MX", PUE: TELEVISA PUEBLA
-https://ythls-v3.onrender.com/channel/UC-HNztluSQSffhIWJTL-LUw.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", PUE: MULTIMEDIOS PUEBLA
-https://mdstrm.com/live-stream-playlist/5d56ed29c92dd106ff01543b.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", PUE: CANAL 13
-https://207963.global.ssl.fastly.net/65313d270e749722b6474684/live_19c1e870dfbf11eeadd41749c3286f4a/tracks-a1/index.fmp4.m3u8
-
-#EXTINF:-1 group-title="Bics REGIONALES MX", QRO: TELEVISA QUERETARO
-https://ythls-v3.onrender.com/channel/UC9QNz6VS3gGz55dzxAQtgtA.m3u8
-
-#EXTINF:-1 group-title="Bics REGIONALES MX", QOO: TELEVISA QUINTANA QOO
-https://ythls-v3.onrender.com/channel/UC37V2K5_sXWqOhoc5WgiXhw.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", QOO: CANAL 10 CANCUN
-https://canal10.mediaflix.istream.mx/wza_live/live/movil/playlist.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", QOO: SIPSE
-https://webprod.sipse.com.mx:8080/show/tvcun.m3u8
-
-#EXTINF:-1 group-title="Bics REGIONALES MX", SIN: TELEVISA SINALOA
-https://ythls-v3.onrender.com/channel/UCtm1LvYEIQ_NrfOUVJ08YhQ.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", SLP: TELEVISA SAN LUIS POTOSI
-https://ythls-v3.onrender.com/channel/UCaRuyaHshLdq462E9_pLzdA.m3u8
-
-#EXTINF:-1 group-title="Bics REGIONALES MX", SON: TELEVISA SONORA
-https://ythls-v3.onrender.com/channel/UCyzWMHGS7bs0sot6KZk5EZg.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", SON: TELEMAX
-https://s5.mexside.net:1936/telemax/telemax/playlist.m3u8
-
-#EXTINF:-1 group-title="Bics REGIONALES MX", TAB: TV UJAT
-https://5e50264bd6766.streamlock.net/ujat/videoujat/playlist.m3u8
-
-#EXTINF:-1 group-title="Bics REGIONALES MX", TAB: CANAL 13
-https://207963.global.ssl.fastly.net/65313d270e749722b6474684/live_185f5f10888711ee83e2f144889e3879/tracks-a1/index.fmp4.m3u8
-
-#EXTINF:-1 group-title="Bics REGIONALES MX", TAM: TELEVISA DEL GOLFO
-https://ythls-v3.onrender.com/channel/UCQ08tNTPiBn44c975S81ftg.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", TAM: TELEVISA VICTORIA
-https://ythls-v3.onrender.com/channel/UCIqGddpV4flOlK3b-hgu9pQ.m3u8
-
-#EXTINF:-1 group-title="Bics REGIONALES MX", VER: TELEVISA VERACRUZ
-https://ythls-v3.onrender.com/channel/UC5EnLdE7ASjYzWt7wvT-QSg.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", VER: RTV  VERACRUZ
-https://5ca9af4645e15.streamlock.net/rtv/videortv/playlist.m3u8
-
-#EXTINF:-1 group-title="Bics REGIONALES MX", YUC: TELEVISA YUCATAN
-https://ythls-v3.onrender.com/channel/UCMIYaH2cLoPS8Hcb-9AA2ZA.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", YUC: TELEPLAY
-https://teleplay.mediaflix.istream.mx/livestream/teleplay/livehd/playlist.m3u8
-#EXTINF:-1 group-title="Bics REGIONALES MX", YUC: SIPSE
-https://webprod.sipse.com.mx:8080/show/merida.m3u8
-
-#EXTINF:-1 group-title="Bics REGIONALES MX", ZAC: TELEVISA ZACATECAS
-https://ythls-v3.onrender.com/channel/UCQb3i7gu9J8A4zzQU7j6C1Q.m3u8
-
-**********************************************************************************************************************************************************
-********************************************* CANALES DEPORTES Y YOUTUBE  ********************************************************************************
-
-#EXTINF:-1 group-title="Bics DEPORTES", MX: INTERNETV DEPORTES
-https://stream.ads.ottera.tv/playlist.m3u8?network_id=5999
-#EXTINF:-1 group-title="Bics DEPORTES", MX: AYM SPORTS
-https://aym-as.otteravision.com/aym/as/as_1080p.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES", MX: AYM SPORTS
-https://aym-as.otteravision.com/aym/as/as_720p_high.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES", MX: AYM SPORTS
-#EXTINF:-1 group-title="Bics DEPORTES", MX: CLARO SPORTS
-https://dai.google.com/linear/hls/event/yINISWAPQ0CPhPixe-40wQ/master.m3u8
-
-******** emilio *********
-
-#EXTINF:-1 group-title="Bics DEPORTES", MX: FOX SPORTS ESPAÑOL
-https://live-news-manifest.tubi.video/live-news-manifest/csm/extlive/tubiprd01,Fox-Sports-Espanol2.m3u8
-
-****** 07  ******
-#EXTINF:-1 group-title="Bics DEPORTES",Claro Sport
-http://181.78.105.146:2000/play/a053/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES",ESPN 2
-http://181.78.105.146:2000/play/a063/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES",ESPN
-http://181.78.105.146:2000/play/a064/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES",ESPN 3
-http://181.78.105.146:2000/play/a03n/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES",ESPN Deportes
-http://iptvtree.net:8080/Luctv2024/c6b6031eb1/6446
-#EXTINF:-1 group-title="Bics DEPORTES",ESPN
-http://iptvtree.net:8080/Luctv2024/c6b6031eb1/5779
-#EXTINF:-1 group-title="Bics DEPORTES",ESPN 2
-http://iptvtree.net:8080/Luctv2024/c6b6031eb1/3031
-#EXTINF:-1 group-title="Bics DEPORTES",ESPN 3
-http://iptvtree.net:8080/Luctv2024/c6b6031eb1/3032
-#EXTINF:-1 group-title="Bics DEPORTES",ESPN 4
-http://iptvtree.net:8080/Luctv2024/c6b6031eb1/295304
-
-#EXTINF:-1 group-title="Bics DEPORTES", SKY LA LIGA
-http://181.78.105.146:2000/play/a08m/index.m3u8
-
-#EXTINF:-1 group-title="Bics US", UNIVISION EAST
-http://23.237.66.106:25461/now_160322/now2.php?id=UNIVISIONEAST&calidad=sd&.m3u8
-#EXTINF:-1 group-title="Bics US", UNIVISION MIAMI
-http://23.237.66.106:25461/now_160322/now2.php?id=UNIVISIONMIAMI&calidad=sd&.m3u8
-
-***** 06 ******
-#EXTINF:-1 group-title="Bics DEPORTES",ESPN VIVO
-http://hzcdn.vood.top:80/hls/309458_.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES",ESPN
-http://190.60.32.178:8178/play/a02k/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES",ESPN VIVO
-http://38.51.233.85:8000/play/a03x/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES",ESPN 2 HD
-http://181.78.8.90:16123/play/ch17
-#EXTINF:-1 group-title="Bics DEPORTES",ESPN 2 HD
-http://38.51.233.85:8000/play/a03s/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES",ESPN 2 HD
-http://190.60.32.178:8178/play/a02x/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES",ESPN 3 HD
-http://181.78.8.90:16123/play/ch18
-#EXTINF:-1 group-title="Bics DEPORTES",ESPN 3 HD
-http://190.60.32.178:8178/play/a015/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES",ESPN 4 HD
-http://190.60.32.178:8178/play/a0ab/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES",ESPN 5
-http://181.78.8.90:16123/play/ch19
-#EXTINF:-1 group-title="Bics DEPORTES",ESPN 5
-http://190.60.32.178:8178/play/a0ac/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES",ESPN 6
-http://190.60.32.178:8178/play/a0aa/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES",ESPN 7
-http://209.45.20.210:50001/play/a00w/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES",ESPN 7
-http://190.60.32.178:8178/play/a02w/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES",ESPN 7
-http://190.60.32.178:8178/play/a0ad/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES",ESPN Premium HD
-http://209.45.20.210:50001/play/a02p/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES",ESPN DEPORTES
-http://190.92.10.66:4000/play/a003/index.m3u8
-
-#EXTINF:-1 group-title="Bics DEPORTES",FOX DEPORTES
-https://csm-e-cetubiausw2live204-07ad27f1a339939e4.csm.tubi.video/csm/extlive/tubiprd01,Fox-Sports-Espanol2.m3u8?playback_start_ts=1727276199.351&yo.oh=Y3NtLWUtZWIuY3NtLnR1YmkudmlkZW8=
-
-******   01 *******
-#EXTINF:-1 group-title="Bics DEPORTES", CA: TSN 1
-http://fl5.moveonjoy.com/TSN_1/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES", CA: TSN 2
-http://fl5.moveonjoy.com/TSN_2/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES", CA: TSN 3
-http://fl5.moveonjoy.com/TSN_3/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES", CA: TSN 4
-http://fl5.moveonjoy.com/TSN_4/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES", CA: TSN 5
-http://fl5.moveonjoy.com/TSN_5/index.m3u8
-
-#EXTINF:-1 group-title="Bics DEPORTES", US: SNY
-https://fl6.moveonjoy.com/SNY/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES", US: YES NETWORK
-https://fl2.moveonjoy.com/YES_NETWORK/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES", US: MSG 2
-https://fl3.moveonjoy.com/MSG/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES", US: NBC_SPORTS_BOSTON
-https://fl4.moveonjoy.com/NBC_SPORTS_BOSTON/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES", US: BALLY_SPORTS_DETROIT
-https://fl6.moveonjoy.com/BALLY_SPORTS_DETROIT/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES", US: BALLY_SPORTS_FLORIDA
-https://fl6.moveonjoy.com/BALLY_SPORTS_FLORIDA/index.m3u8
-
-#EXTINF:-1 group-title="Bics DEPORTES", US: BALLY_SPORTS_MIDWEST
-https://fl6.moveonjoy.com/BALLY_SPORTS_MIDWEST/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES", US: BALLY_SPORTS_ARIZONA
-https://fl6.moveonjoy.com/BALLY_SPORTS_ARIZONA/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES", US: BALLY_SPORTS_NEW_ORLEANS
-https://fl6.moveonjoy.com/BALLY_SPORTS_NEW_ORLEANS/index.m3u8
-
-#EXTINF:-1 group-title="Bics DEPORTES", US: DAZN_1
-https://fl4.moveonjoy.com/DAZN_1/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES", US: DAZN_2
-https://fl4.moveonjoy.com/DAZN_2/index.m3u8
-
-#EXTINF:-1 group-title="Bics DEPORTES LFA", US: LFA 01
-https://fl3.moveonjoy.com/NFL_1/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LFA", US: LFA 01
-https://fl4.moveonjoy.com/NFL_1/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LFA", US: LFA 01
-https://fl6.moveonjoy.com/NFL_1/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LFA", US: LFA 02
-https://fl6.moveonjoy.com/NFL_2/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LFA", US: LFA 03
-https://fl6.moveonjoy.com/NFL_3/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LFA", US: LFA 04
-https://fl6.moveonjoy.com/NFL_4/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LFA", US: LFA 05
-https://fl6.moveonjoy.com/NFL_5/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LFA", US: LFA 06
-https://fl6.moveonjoy.com/NFL_6/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LFA", US: LFA 07
-https://fl6.moveonjoy.com/NFL_7/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LFA", US: LFA 08
-https://fl6.moveonjoy.com/NFL_8/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LFA", US: LFA 09
-https://fl6.moveonjoy.com/NFL_9/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LFA", US: LFA 10
-https://fl6.moveonjoy.com/NFL_10/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LFA", US: LFA 11
-https://fl6.moveonjoy.com/NFL_11/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LFA", US: LFA 12
-https://fl6.moveonjoy.com/NFL_12/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LFA", US: LFA 13
-https://fl6.moveonjoy.com/NFL_13/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LFA", US: LFA 14
-https://fl6.moveonjoy.com/NFL_14/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LFA", US: LFA 15
-https://fl6.moveonjoy.com/NFL_15/index.m3u8
-
-
-#EXTINF:-1 group-title="Bics DEPORTES BLM", US: BLM 01
-https://fl4.moveonjoy.com/MLB_1/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES BLM", US: BLM 02
-https://fl4.moveonjoy.com/MLB_2/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES BLM", US: BLM 03
-https://fl4.moveonjoy.com/MLB_3/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES BLM", US: BLM 04
-https://fl4.moveonjoy.com/MLB_4/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES BLM", US: BLM 05
-https://fl4.moveonjoy.com/MLB_5/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES BLM", US: BLM 06
-https://fl4.moveonjoy.com/MLB_6/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES BLM", US: BLM 07
-https://fl4.moveonjoy.com/MLB_7/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES BLM", US: BLM 08
-https://fl4.moveonjoy.com/MLB_8/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES BLM", US: BLM 09
-https://fl4.moveonjoy.com/MLB_9/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES BLM", US: BLM 10
-https://fl4.moveonjoy.com/MLB_10/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES BLM", US: BLM 11
-https://fl4.moveonjoy.com/MLB_11/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES BLM", US: BLM 12
-https://fl4.moveonjoy.com/MLB_12/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES BLM", US: BLM 13
-https://fl4.moveonjoy.com/MLB_13/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES BLM", US: BLM 14
-https://fl4.moveonjoy.com/MLB_14/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES BLM", US: BLM 15
-https://fl4.moveonjoy.com/MLB_15/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES BLM", US: BLM 16
-https://fl4.moveonjoy.com/MLB_16/index.m3u8
-
-#EXTINF:-1 group-title="Bics DEPORTES ANB", US: ANB 01
-https://fl5.moveonjoy.com/NBA_1/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES ANB", US: ANB 02
-https://fl5.moveonjoy.com/NBA_2/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES ANB", US: ANB 03
-https://fl5.moveonjoy.com/NBA_3/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES ANB", US: ANB 04
-https://fl5.moveonjoy.com/NBA_4/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES ANB", US: ANB 05
-https://fl5.moveonjoy.com/NBA_5/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES ANB", US: ANB 06
-https://fl5.moveonjoy.com/NBA_6/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES ANB", US: ANB 07
-https://fl5.moveonjoy.com/NBA_7/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES ANB", US: ANB 08
-https://fl5.moveonjoy.com/NBA_8/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES ANB", US: ANB 09
-https://fl5.moveonjoy.com/NBA_9/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES ANB", US: ANB 10
-https://fl5.moveonjoy.com/NBA_10/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES ANB", US: ANB 11
-https://fl5.moveonjoy.com/NBA_11/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES ANB", US: ANB 12
-https://fl5.moveonjoy.com/NBA_12/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES ANB", US: ANB 13
-https://fl5.moveonjoy.com/NBA_13/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES ANB", US: ANB 14
-https://fl5.moveonjoy.com/NBA_14/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES ANB", US: ANB 15
-https://fl5.moveonjoy.com/NBA_15/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES ANB", US: ANB 16
-https://fl5.moveonjoy.com/NBA_16/index.m3u8
-
-
-#EXTINF:-1 group-title="Bics DEPORTES LNH", US: LNH 01
-http://fl5.moveonjoy.com/NHL_1/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LNH", US: LNH 02
-http://fl5.moveonjoy.com/NHL_2/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LNH", US: LNH 03
-http://fl5.moveonjoy.com/NHL_3/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LNH", US: LNH 04
-http://fl5.moveonjoy.com/NHL_4/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LNH", US: LNH 05
-http://fl5.moveonjoy.com/NHL_5/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LNH", US: LNH 06
-http://fl5.moveonjoy.com/NHL_6/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LNH", US: LNH 07
-http://fl5.moveonjoy.com/NHL_7/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LNH", US: LNH 08
-http://fl5.moveonjoy.com/NHL_8/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LNH", US: LNH 09
-http://fl5.moveonjoy.com/NHL_9/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LNH", US: LNH 10
-http://fl5.moveonjoy.com/NHL_10/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LNH", US: LNH 11
-http://fl5.moveonjoy.com/NHL_11/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LNH", US: LNH 12
-http://fl5.moveonjoy.com/NHL_12/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LNH", US: LNH 13
-http://fl5.moveonjoy.com/NHL_13/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LNH", US: LNH 14
-http://fl5.moveonjoy.com/NHL_14/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES LNH", US: LNH 15
-http://fl5.moveonjoy.com/NHL_15/index.m3u8
-
-***********
-
-******** 02 *********
-
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", RED Z
-http://cdn1host.online:2999/happy2024/newyear/260
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", GAME D
-http://cdn1host.online:2999/happy2024/newyear/2713
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", NETWORK
-http://cdn1host.online:2999/happy2024/newyear/1880
-
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", AMERICAN 00
-http://cdn1host.online:2999/happy2024/newyear/366
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", AMERICAN 01
-http://cdn1host.online:2999/happy2024/newyear/367
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", AMERICAN 02
-http://cdn1host.online:2999/happy2024/newyear/368
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", AMERICAN 03
-http://cdn1host.online:2999/happy2024/newyear/369
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", AMERICAN 04
-http://cdn1host.online:2999/happy2024/newyear/369
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", AMERICAN 05
-http://cdn1host.online:2999/happy2024/newyear/370
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", AMERICAN 06
-http://cdn1host.online:2999/happy2024/newyear/371
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", AMERICAN 07
-http://cdn1host.online:2999/happy2024/newyear/372
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", AMERICAN 08
-http://cdn1host.online:2999/happy2024/newyear/373
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", AMERICAN 09
-http://cdn1host.online:2999/happy2024/newyear/374
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", AMERICAN 10
-http://cdn1host.online:2999/happy2024/newyear/375
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", AMERICAN 11
-http://cdn1host.online:2999/happy2024/newyear/376
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", AMERICAN 12
-http://cdn1host.online:2999/happy2024/newyear/377
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", AMERICAN 13
-http://cdn1host.online:2999/happy2024/newyear/378
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", AMERICAN 14
-http://cdn1host.online:2999/happy2024/newyear/379
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", AMERICAN 15
-http://cdn1host.online:2999/happy2024/newyear/380
-
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", AMERICAN GAME 00
-http://cdn1host.online:2999/velous/OyEDBHzcaE/366
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", AMERICAN GAME 01
-http://cdn1host.online:2999/velous/OyEDBHzcaE/367
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", AMERICAN GAME 02
-http://cdn1host.online:2999/velous/OyEDBHzcaE/368
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", AMERICAN GAME 03
-http://cdn1host.online:2999/velous/OyEDBHzcaE/369
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", AMERICAN GAME 04
-http://cdn1host.online:2999/velous/OyEDBHzcaE/370
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", AMERICAN GAME 05
-http://cdn1host.online:2999/velous/OyEDBHzcaE/371
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", AMERICAN GAME 06
-http://cdn1host.online:2999/velous/OyEDBHzcaE/372
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", AMERICAN GAME 07
-http://cdn1host.online:2999/velous/OyEDBHzcaE/373
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", AMERICAN GAME 08
-http://cdn1host.online:2999/velous/OyEDBHzcaE/374
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", AMERICAN GAME 09
-http://cdn1host.online:2999/velous/OyEDBHzcaE/375
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", AMERICAN GAME 10
-http://cdn1host.online:2999/velous/OyEDBHzcaE/376
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", AMERICAN GAME 11
-http://cdn1host.online:2999/velous/OyEDBHzcaE/377
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", AMERICAN GAME 12
-http://cdn1host.online:2999/velous/OyEDBHzcaE/378
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", AMERICAN GAME 13
-http://cdn1host.online:2999/velous/OyEDBHzcaE/379
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", AMERICAN GAME 14
-http://cdn1host.online:2999/velous/OyEDBHzcaE/380
-
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", GAME 00
-http://cdn1host.online:2999/xman2b/d5lxdEfHnB/366
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", GAME 01
-http://cdn1host.online:2999/xman2b/d5lxdEfHnB/367
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", GAME 02
-http://cdn1host.online:2999/xman2b/d5lxdEfHnB/368
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", GAME 03
-http://cdn1host.online:2999/xman2b/d5lxdEfHnB/369
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", GAME 04
-http://cdn1host.online:2999/xman2b/d5lxdEfHnB/370
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", GAME 05
-http://cdn1host.online:2999/xman2b/d5lxdEfHnB/371
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", GAME 06
-http://cdn1host.online:2999/xman2b/d5lxdEfHnB/372
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", GAME 07
-http://cdn1host.online:2999/xman2b/d5lxdEfHnB/373
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", GAME 08
-http://cdn1host.online:2999/xman2b/d5lxdEfHnB/374
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", GAME 09
-http://cdn1host.online:2999/xman2b/d5lxdEfHnB/375
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", GAME 10
-http://cdn1host.online:2999/xman2b/d5lxdEfHnB/376
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", GAME 11
-http://cdn1host.online:2999/xman2b/d5lxdEfHnB/377
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", GAME 12
-http://cdn1host.online:2999/xman2b/d5lxdEfHnB/378
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", GAME 13
-http://cdn1host.online:2999/xman2b/d5lxdEfHnB/379
-#EXTINF:-1 group-title="Bics DEPORTES AMERICAN", GAME 14
-http://cdn1host.online:2999/xman2b/d5lxdEfHnB/380
-
-******************************
-
-#EXTINF:-1 group-title="Bics STIN", LATIN POP
-https://lotus.stingray.com/manifest/ose-190ads-montreal/samsungtvplus/master.m3u8
-#EXTINF:-1 group-title="Bics STIN", SEASON
-https://lotus.stingray.com/manifest/ose-155ads-montreal/samsungtvplus/master.m3u8
-#EXTINF:-1 group-title="Bics STIN", ROMANCE LATINO
-https://lotus.stingray.com/manifest/ose-202ads-montreal/samsungtvplus/master.m3u8
-#EXTINF:-1 group-title="Bics STIN", REMEMBER THE 80s
-https://dbrb49pjoymg4.cloudfront.net/v1/master/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod_default_xumo-ams-aws/master.m3u8?ads.xumo_channelId=99991742
-#EXTINF:-1 group-title="Bics STIN", GREATEST HITS
-https://dbrb49pjoymg4.cloudfront.net/v1/master/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod_default_xumo-ams-aws/master.m3u8?ads.xumo_channelId=99991120
-#EXTINF:-1 group-title="Bics STIN", COUNTRY
-https://dbrb49pjoymg4.cloudfront.net/v1/master/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod_default_xumo-ams-aws/master.m3u8?ads.xumo_channelId=99991118
- 
+#EXTINF:-1 group-title="Live TV (MoveOnJoy)", YES NETWORK
+http://fl2.moveonjoy.com/YES_NETWORK/index.m3u8 
