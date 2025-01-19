@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#002017" />
+  <title>CANALS TELE</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/video.js@7.20.3/dist/video-js.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/videojs-hls-quality-selector@1.1.1/dist/videojs-hls-quality-selector.css">
+  <style>
+    body, button, input, select {
+      background: black;
+      color: white;
+      font-family: 'Barlow Condensed', sans-serif;
+      caret-color: blue;
+    }
+    #videojs {
+      width: 100vw;
+      max-height: 60vh;
+    }
+    #channelListContainer {
+      margin-top: 20px;
+      border: 1px solid white;
+      height: 300px;
+      overflow-y: scroll;
+      padding: 10px;
+    }
+    #channelListContainer div {
+      margin: 5px 0;
+      padding: 10px;
+      border: 1px solid white;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+    #channelListContainer img {
+      margin-right: 10px;
+    }
+    #selectedChannel {
+      margin-top: 10px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    #errorDisplay {
+      color: red;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <!-- Vídeo -->
+  <video id="videojs" class="video-js vjs-fluid vjs-default-skin" controls autoplay muted preload="auto">
+    <source src="https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8" type="application/x-mpegURL">
+    <p class="vjs-no-js">
+      To view this video please enable JavaScript, and consider upgrading to a web browser that
+      <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+    </p>
+  </video>
+  <h4><div id="selectedChannel">TV3</div></h4>
+  <div id="errorDisplay"></div>
+
+  <!-- Entrada d'URL personalitzada -->
+  <div style="margin: 10px 0;">
+    <label for="m3uUrlInput">URL</label>
+    <input type="text" id="m3uUrlInput" value="https://xarxa-1.github.io/Xarxa-1/cat19.m3u" style="width: 300px;">
+    <button onclick="loadCustomM3U()">Carregar</button>
+  </div>
+
+  <!-- Llista de canals -->
+  <div id="channelListContainer">
+    <!-- Aquí es mostraran els canals -->
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/video.js@7.20.3/dist/video.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-quality-levels/2.0.9/videojs-contrib-quality-levels.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/videojs-hls-quality-selector@1.1.1/dist/videojs-hls-quality-selector.min.js"></script>
+  <script>
+    var player;
+    var channels = [];
+    var currentChannelIndex = 0;
+
+    // Inicia el reproductor de Video.js i afegeix el selector de qualitat
+    document.addEventListener('DOMContentLoaded', function () {
+      player = videojs('videojs');
+      player.hlsQualitySelector(); // Activa el selector de qualitat
+      loadCustomM3U(); // Carrega la llista de canals per defecte
+
+      // Gestiona errors de reproducció
+      player.on('error', function () {
+        const error = player.error();
+        document.getElementById('errorDisplay').innerText = `Error: ${error.message || 'No es pot reproduir el vídeo.'}`;
+        console.error('Video.js error:', error);
+
+        // Intenta passar al següent canal
+        playNextChannel();
+      });
+    });
+
+    // Processa el fitxer M3U i crea la llista de canals
+    function parseM3U(m3uData) {
+      const lines = m3uData.split('\n');
+      channels = [];
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i].trim();
+        if (line.startsWith('#EXTINF:')) {
+          const title = line.split(',')[1].trim();
+          const url = lines[i + 1]?.trim(); // Comprova que hi hagi una línia següent
+          const logoMatch = line.match(/tvg-logo="([^"]+)"/);
+          const logoUrl = logoMatch ? logoMatch[1] : '';
+          if (url) {
+            channels.push({ title, url, logoUrl });
+          }
+        }
+      }
+      displayChannels(channels);
+    }
+
+    // Mostra la llista de canals al contenidor
+    function displayChannels(channels) {
+      const channelListContainer = document.getElementById('channelListContainer');
+      channelListContainer.innerHTML = ''; // Neteja canals anteriors
+
+      channels.forEach((channel, index) => {
+        const channelDiv = document.createElement('div');
+
+        const channelLogo = document.createElement('img');
+        channelLogo.src = channel.logoUrl || '';
+        channelLogo.alt = channel.title;
+        channelLogo.style.width = '30px';
+        channelLogo.style.height = '30px';
+
+        const channelTitle = document.createElement('span');
+        channelTitle.textContent = channel.title;
+
+        channelDiv.appendChild(channelLogo);
+        channelDiv.appendChild(channelTitle);
+
+        channelDiv.addEventListener('click', () => {
+          playChannel(index);
+        });
+
+        channelListContainer.appendChild(channelDiv);
+      });
+    }
+
+    // Reprodueix un canal seleccionat
+    function playChannel(index) {
+      currentChannelIndex = index;
+      const channel = channels[index];
+      if (channel) {
+        playVideo(channel.url, channel.title);
+      }
+    }
+
+    // Reprodueix el vídeo d'un canal seleccionat
+    function playVideo(videoUrl, channelName) {
+      if (player) {
+        player.src({ type: 'application/x-mpegURL', src: videoUrl });
+        player.play();
+        document.getElementById('selectedChannel').innerText = `${channelName}`;
+        document.getElementById('errorDisplay').innerText = ''; // Neteja errors anteriors
+      } else {
+        console.error('El reproductor no està inicialitzat.');
+      }
+    }
+
+    // Carrega el següent canal si hi ha un error
+    function playNextChannel() {
+      currentChannelIndex = (currentChannelIndex + 1) % channels.length;
+      playChannel(currentChannelIndex);
+    }
+
+    // Carrega una llista M3U des d'una URL
+    function loadCustomM3U() {
+      const customUrl = document.getElementById('m3uUrlInput').value;
+      fetch(customUrl)
+        .then(response => response.text())
+        .then(data => {
+          parseM3U(data);
+        })
+        .catch(error => {
+          console.error('Error carregant llista M3U:', error);
+        });
+    }
+  </script>
+</body>
+</html>
+<!-- https://raw.githubusercontent.com/jsosao/m3u/refs/heads/main/test1.m3u8 
+https://raw.githubusercontent.com/jsosao/m3u/refs/heads/main/test2.m3u8
+
+-->

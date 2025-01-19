@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reproductor de Streaming</title>
+
+  <!-- Video.js CSS -->
+  <link href="https://vjs.zencdn.net/8.3.0/video-js.css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/video.js@7.20.3/dist/video-js.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/videojs-hls-quality-selector@1.1.1/dist/videojs-hls-quality-selector.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+    .video-container {
+      position: relative;
+      width: 100%;
+      padding-top: 31.58%; /* Aspect ratio 6:19 */
+      background-color: #000;
+    }
+    .video-js {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    #channel-title {
+      font-size: 18px;
+      text-align: center;
+      margin: 10px 0;
+    }
+    #channel-list-container {
+      max-height: 300px;
+      overflow-y: auto;
+      border: 2px solid #ccc;
+      padding: 5px;
+      margin: 20px auto;
+      max-width: 800px;
+      background-color: #1e1e1e;
+      border-radius: 5px;
+      margin-top: 60px;
+      top: 300px;
+    }
+    #channel-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+    }
+    #channel-list li {
+      margin: 2px;
+      text-align: center;
+    }
+    #channel-list button {
+      display: block;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 14px;
+      width: 120px;
+    }
+    #channel-list button.active {
+      background-color: #ffc107;
+    }
+    #channel-list button:hover {
+      background-color: #0056b3;
+    }
+    #url-input-container {
+      margin: 20px auto;
+      max-width: 800px;
+    }
+    #url-input-container input[type="text"] {
+      width: 70%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    #url-input-container button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      background-color: #28a745;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    #url-input-container button:hover {
+      background-color: #218838;
+    }
+    .zapping-controls {
+      margin: 20px 0;
+    }
+    .zapping-controls button {
+      margin: 0 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      background-color: #ffc107;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .zapping-controls button:hover {
+      background-color: #e0a800;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Reproductor de vídeo -->
+  <div class="video-container">
+    <video
+      id="my-video"
+      class="video-js vjs-default-skinvideo-js vjs-fluid vjs-default-skin"
+      controls
+      preload="auto"
+      muted
+      data-setup='{
+        "playbackRates": [0.5, 1, 1.5, 2],
+        "fluid": true,
+        "responsive": true
+      }'
+    >
+      El teu navegador no suporta aquest vídeo.
+    </video>
+  </div>
+
+  <!-- Nom del canal actiu -->
+  <div id="channel-title">Canal Actiu: --</div>
+
+  <!-- Llista de canals -->
+  <div id="channel-list-container">
+    <ul id="channel-list">
+      <!-- Els canals es carregaran dinàmicament aquí -->
+    </ul>
+  </div>
+
+  <!-- Controls de zàping -->
+  <div class="zapping-controls">
+    <button id="prev-channel">Canal Anterior</button>
+    <button id="next-channel">Canal Següent</button>
+    <button id="zapping">Iniciar Zapping</button>
+  </div>
+
+  <!-- Entrada per carregar altres URL -->
+  <div id="url-input-container">
+    <input type="text" id="custom-url" value="https://xarxa-1.github.io/Xarxa-1/latino.m3u">
+    <button onclick="loadCustomUrl()">Carrega URL</button>
+  </div>
+
+  <!-- Video.js JS -->
+  <script src="https://vjs.zencdn.net/8.3.0/video.min.js"></script>
+
+  <!-- HLS.js per a suport HLS -->
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+  <script>
+    const player = videojs('my-video');
+    const channelListElement = document.getElementById('channel-list');
+    const channelTitle = document.getElementById('channel-title');
+    let channels = [];
+    let currentChannelIndex = 0;
+    let zappingInterval;
+
+    // Funció per carregar canals des d'una URL M3U
+    async function loadChannelsFromM3U(url) {
+      const response = await fetch(url);
+      const m3uData = await response.text();
+      channels = parseM3U(m3uData);
+      renderChannels(channels);
+      playChannel(0); // Comença amb el primer canal
+    }
+
+    // Funció per analitzar un fitxer M3U
+    function parseM3U(data) {
+      const lines = data.split('\n');
+      const parsedChannels = [];
+      let currentChannel = {};
+
+      lines.forEach(line => {
+        line = line.trim();
+        if (line.startsWith('#EXTINF:')) {
+          const [, name] = line.split(',');
+          currentChannel = { name };
+        } else if (line.startsWith('http')) {
+          currentChannel.url = line;
+          parsedChannels.push(currentChannel);
+          currentChannel = {};
+        }
+      });
+
+      return parsedChannels;
+    }
+
+    // Renderitzar els canals com a botons
+    function renderChannels(channels) {
+      channelListElement.innerHTML = ''; // Netejar llista
+      channels.forEach((channel, index) => {
+        const listItem = document.createElement('li');
+        const button = document.createElement('button');
+        button.textContent = channel.name;
+        button.onclick = () => playChannel(index);
+        listItem.appendChild(button);
+        channelListElement.appendChild(listItem);
+      });
+    }
+
+    // Funció per reproduir un canal al reproductor
+    function playChannel(index) {
+      if (index < 0 || index >= channels.length) return;
+      currentChannelIndex = index;
+
+      const channel = channels[index];
+      channelTitle.textContent = `Canal Actiu: ${channel.name}`;
+
+      // Actualitzar estils dels botons
+      Array.from(channelListElement.children).forEach((li, idx) => {
+        li.querySelector('button').classList.toggle('active', idx === index);
+      });
+
+      // Desplaça el botó actiu al centre del contenidor
+      const activeButton = channelListElement.children[index];
+      activeButton.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      // Configura el reproductor
+      if (Hls.isSupported()) {
+        const video = document.getElementById('my-video_html5_api');
+        const hls = new Hls();
+        hls.loadSource(channel.url);
+        hls.attachMedia(video);
+        player.muted(true);
+        player.play();
+      } else {
+        player.src({ src: channel.url, type: 'application/x-mpegURL' });
+        player.muted(true);
+        player.play();
+      }
+    }
+
+    // Funció per carregar una URL personalitzada
+    function loadCustomUrl() {
+      const customUrl = document.getElementById('custom-url').value.trim();
+      if (customUrl) {
+        loadChannelsFromM3U(customUrl);
+      }
+    }
+
+    // Funció per fer zàping
+    function startZapping() {
+      clearInterval(zappingInterval); // Evitar múltiples intervals
+      zappingInterval = setInterval(() => {
+        playChannel((currentChannelIndex + 1) % channels.length);
+      }, 6000);
+    }
+
+    // Atura el zàping en fer clic a un altre botó
+    function stopZapping() {
+      clearInterval(zappingInterval);
+    }
+
+    // Gestió de botons
+    document.getElementById('zapping').addEventListener('click', startZapping);
+    document.getElementById('prev-channel').addEventListener('click', () => {
+      stopZapping();
+      playChannel((currentChannelIndex - 1 + channels.length) % channels.length);
+    });
+    document.getElementById('next-channel').addEventListener('click', () => {
+      stopZapping();
+      playChannel((currentChannelIndex + 1) % channels.length);
+    });
+
+    // Carrega els canals inicialment
+    loadChannelsFromM3U('https://xarxa-1.github.io/Xarxa-1/latino.m3u');
+  </script>
+</body>
+</html>
