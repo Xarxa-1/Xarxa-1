@@ -127,7 +127,12 @@ https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_ch
 https://nmxlive.akamaized.net/hls/live/529965/Live_1/index.m3u8
 #EXTINF:0 tvg-name="BX1" tvg-language="French" tvg-country="BE" tvg-id="BX1" tvg-logo="https://i.imgur.com/VHAYeqR.png" group-title="News",BX1
 https://59959724487e3.streamlock.net/stream/live/master.m3u8
-
-
-
+#EXTINF:-1 group-title="Bics", MX: MILENIO
+https://mdstrm.com/live-stream-playlist/610178c7db32a4112d994650.m3u8
+#EXTINF:-1 group-title="Bics", MX: N+ MTY
+https://channel09-notusa.akamaized.net/hls/live/2094418/event01/index.m3u8
+#EXTINF:-1 group-title="Bics Extra US", US: CNN
+https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8
+#EXTINF:-1 group-title="Bics Extra US", US: AL JAZEERA EN
+https://live-hls-web-aje-fa.getaj.net/AJE/03.m3u8
 
