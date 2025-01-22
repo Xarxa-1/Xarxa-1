@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ràdio Compacta</title>
+  <link href="https://fonts.googleapis.com/css?family=Antonio" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Antonio', sans-serif;
+      background-color: #121212;
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    #radio-container {
+      display: flex;
+      align-items: center;
+      background-color: #1e1e1e;
+      padding: 10px 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      gap: 10px;
+    }
+
+    #info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 5px;
+      color: #b3b3b3; 
+      font-size: 0.9em;
+    }
+
+    #clock, #battery {
+      margin: 0;
+    }
+
+    #station-name {
+      font-size: 1em;
+      color: #ffffff;
+    }
+
+    #controls, #timers {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    button {
+      background: #333;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      font-size: 1em;
+      cursor: pointer;
+      border-radius: 5px;font-family: 'Antonio', sans-serif;
+    }
+
+    button:hover {
+      background: gold;
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      background: #444;
+      width: 100px;
+      height: 5px;
+      border-radius: 5px;
+      margin: 0 10px;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 15px;
+      height: 15px;
+      background: gold;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    #stations, #timer-options {
+      max-width: 150px;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none; border-left: gray 5px solid; border-right: gray 5px solid;
+    }
+
+    #stations button, #timer-options button {
+      display: inline-block;
+      background: #555;
+      color: white;
+      margin: 0 5px;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #stations button:hover, #timer-options button:hover {
+      background: #777;
+    }
+
+    #countdown {
+      margin-left: 10px;
+      font-size: 1em;
+      color: #b3b3b3;
+    }
+    .emisores {
+    max-height: 200px;
+    overflow-y: scroll;
+}
+#temporitzador { background: red;
+    height: 150px;
+    overflow-y: auto;
+}
+
+  </style>
+</head>
+<body>
+  <div id="radio-container">
+    <div id="info">
+      <div id="clock">00:00</div>
+      <div id="battery">Bateria: 100%</div>
+    </div>
+    <div id="station-name">Carregant emissores...</div>
+
+    <div id="controls">
+      <button id="prev">⏮️</button>
+      <button id="play-stop">⏯️</button>
+      <button id="next">⏭️</button>
+      <input type="range" id="volume-slider" min="0" max="10" value="2">
+    </div>
+
+    <div id="stations"></div>
+    <input type="range"  id="timeline-slider" min="0" max="100" value="0">
+
+    <div id="timers">
+      <button id="timer-btn">🕒</button>
+      <div id="timer-options" style="display: none;">
+        <button data-time="0">Sense temporitzador</button>
+        <button data-time="5">5 segons</button>
+        <button data-time="300">5 minuts</button>
+        <button data-time="1200">20 minuts</button>
+        <button data-time="1800">30 minuts</button>
+        <button data-time="3600">1 hora</button>
+      </div>
+      <div id="countdown"></div>
+    </div>
+  </div>
+
+  <script>
+    const clockElem = document.getElementById("clock");
+    const batteryElem = document.getElementById("battery");
+    const stationNameElem = document.getElementById("station-name");
+    const stationsElem = document.getElementById("stations");
+    const playStopBtn = document.getElementById("play-stop");
+    const prevBtn = document.getElementById("prev");
+    const nextBtn = document.getElementById("next");
+    const volumeSlider = document.getElementById("volume-slider");
+    const timelineSlider = document.getElementById("timeline-slider");
+    const timerBtn = document.getElementById("timer-btn");
+    const timerOptions = document.getElementById("timer-options");
+    const countdownElem = document.getElementById("countdown");
+
+    let stations = [];
+    let currentStationIndex = 0;
+    let isPlaying = false;
+    let audio = new Audio();
+    let timer;
+
+    audio.volume = 0.2;
+
+    function updateClock() {
+      const now = new Date();
+      clockElem.textContent = now.toLocaleTimeString("ca-ES");
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    navigator.getBattery().then(battery => {
+      function updateBatteryStatus() {
+        batteryElem.textContent = `Bateria: ${(battery.level * 100).toFixed(0)}%`;
+      }
+      updateBatteryStatus();
+      battery.addEventListener("levelchange", updateBatteryStatus);
+    });
+
+    fetch("https://xarxa-1.github.io/Xarxa-1/stations.json")
+      .then(response => response.json())
+      .then(data => {
+        stations = data;
+        renderStations();
+        updateStation();
+      });
+
+    function updateStation() {
+      if (stations.length > 0) {
+        const station = stations[currentStationIndex];
+        stationNameElem.textContent = station.name;
+        audio.src = station.url;
+      }
+    }
+
+    function renderStations() {
+      stationsElem.innerHTML = stations.map((station, index) => `
+        <button onclick="selectStation(${index})">${station.name}</button>
+      `).join("");
+    }
+
+    window.selectStation = function(index) {
+      currentStationIndex = index;
+      updateStation();
+      playAudio();
+    };
+
+    function playAudio() {
+      if (audio.src) {
+        audio.play();
+        isPlaying = true;
+        playStopBtn.textContent = "⏹️";
+      }
+    }
+
+    function stopAudio() {
+      audio.pause();
+      isPlaying = false;
+      playStopBtn.textContent = "⏯️";
+    }
+
+    playStopBtn.addEventListener("click", () => {
+      isPlaying ? stopAudio() : playAudio();
+    });
+
+    prevBtn.addEventListener("click", () => {
+      currentStationIndex = (currentStationIndex - 1 + stations.length) % stations.length;
+      updateStation();
+      playAudio();
+    });
+
+    nextBtn.addEventListener("click", () => {
+      currentStationIndex = (currentStationIndex + 1) % stations.length;
+      updateStation();
+      playAudio();
+    });
+
+    volumeSlider.addEventListener("input", () => {
+      audio.volume = volumeSlider.value / 10;
+    });
+
+    timerBtn.addEventListener("click", () => {
+      timerOptions.style.display = timerOptions.style.display === "none" ? "block" : "none";
+    });
+
+    timerOptions.addEventListener("click", event => {
+      if (event.target.tagName === "BUTTON") {
+        const time = parseInt(event.target.dataset.time, 10);
+        clearTimeout(timer);
+        if (time > 0) {
+          const end = Date.now() + time * 1000;
+          timer = setInterval(() => {
+            const diff = end - Date.now();
+            if (diff <= 0) {
+              clearInterval(timer);
+              stopAudio();
+            } else {
+              const seconds = Math.floor((diff / 1000) % 60);
+              const minutes = Math.floor((diff / 1000 / 60) % 60);
+              const hours = Math.floor(diff / 1000 / 60 / 60);
+              countdownElem.textContent = `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+            }
+          }, 1000);
+        } else {
+          countdownElem.textContent = "";
+        }
+        timerOptions.style.display = "none";
+      }
+    });
+  </script>
+</body>
+</html>
