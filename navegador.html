@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navegador Simple</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    #top-bar {
+      display: flex;
+      padding: 10px;
+      background-color: #f4f4f4;
+      border-bottom: 1px solid #ddd;
+    }
+    #url-input {
+      flex-grow: 1;
+      padding: 8px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-right: 10px;
+    }
+    #load-button {
+      padding: 8px 16px;
+      font-size: 16px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #load-button:hover {
+      background-color: #0056b3;
+    }
+    iframe {
+      flex-grow: 1;
+      width: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="top-bar">
+    <input type="text" id="url-input" placeholder="Escriu una URL aquí..." value="https://www.segre.com/ca/">
+    <button id="load-button">Carrega</button>
+  </div>
+  <iframe id="web-viewer" sandbox="allow-forms allow-same-origin"></iframe>
+
+  <script>
+    const input = document.getElementById('url-input');
+    const button = document.getElementById('load-button');
+    const iframe = document.getElementById('web-viewer');
+
+    // Funció per carregar una URL al <iframe>
+    function loadPage() {
+      const url = input.value;
+      if (url) {
+        iframe.src = url;
+      } else {
+        alert('Introdueix una URL vàlida!');
+      }
+    }
+
+    // Event al fer clic al botó
+    button.addEventListener('click', loadPage);
+
+    // Carrega la URL predeterminada en iniciar
+    window.onload = loadPage;
+  </script>
+</body>
+</html>
