@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <link rel="icon" type="image/png" href="https://www.livehdtv.com/uploads/img/2022/03/31583vector2.png" />
+    <title>TV Streaming</title>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+    <link href='https://fonts.googleapis.com/css?family=Barlow+Condensed' rel='stylesheet'>
+    <style>
+        body, button, input {
+            background: black;
+            color: white;
+            font-family: 'Barlow Condensed', sans-serif;
+            caret-color: darkgray;
+        }
+        .resizable-container {
+            position: relative;
+            overflow: hidden;
+            height: 300px; /* Alçada inicial */
+            margin-bottom: 10px; /* Separació entre vídeos */
+        }
+        .resizer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            cursor: ns-resize;
+            background: rgba(255, 255, 255, 0.5);
+            z-index: 10;
+        }
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Fa que el vídeo cobreixi tot l'espai */
+            background: black;
+        }
+    </style>
+</head>
+<body>
+    <!-- Primer vídeo amb resizer -->
+    <div class="resizable-container">
+        <video id="video1" src="http://45.5.117.182:8000/play/jnl0/index.m3u8" controls autoplay></video>
+        <div class="resizer" data-target="video1"></div>
+    </div>
+
+    <!-- Segon vídeo amb resizer -->
+    <div class="resizable-container">
+        <video id="video2" src="http://181.78.105.146:2000/play/a08m/index.m3u8" controls autoplay></video>
+        <div class="resizer" data-target="video2"></div>
+    </div>
+
+    <!-- Tercer vídeo (fixa, sense resizer) -->
+    <div style="height: 60px;">
+        <iframe style="height: 60px;" id="externalIframe" src="https://xarxa-1.github.io/Xarxa-1/radiogrok5.html"></iframe> 
+    </div>
+
+    <script>
+        // Funció per fer els vídeos ajustables
+        document.querySelectorAll('.resizer').forEach(function(resizer) {
+            let isDragging = false;
+            let startY = 0;
+            let startHeight = 0;
+
+            function onStart(e) {
+                isDragging = true;
+                startY = e.type === "mousedown" ? e.clientY : e.touches[0].clientY;
+                startHeight = resizer.parentElement.offsetHeight;
+
+                document.addEventListener(e.type === "mousedown" ? "mousemove" : "touchmove", onMove);
+                document.addEventListener(e.type === "mousedown" ? "mouseup" : "touchend", onEnd);
+            }
+
+            function onMove(e) {
+                if (!isDragging) return;
+                const currentY = e.type === "mousemove" ? e.clientY : e.touches[0].clientY;
+                const newHeight = startHeight + (currentY - startY);
+
+                if (newHeight > 50) { // Evitar alçades massa petites
+                    resizer.parentElement.style.height = newHeight + "px";
+                }
+            }
+
+            function onEnd() {
+                isDragging = false;
+                document.removeEventListener("mousemove", onMove);
+                document.removeEventListener("mouseup", onEnd);
+                document.removeEventListener("touchmove", onMove);
+                document.removeEventListener("touchend", onEnd);
+            }
+
+            resizer.addEventListener("mousedown", onStart);
+            resizer.addEventListener("touchstart", onStart);
+        });
+    </script>
+</body>
+</html>
