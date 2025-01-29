@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reproductor de Vídeo amb Plyr</title>
+    <!-- Estils de Plyr -->
+    <link href="https://cdn.plyr.io/3.7.8/plyr.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Arial Narrow', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        #video-container {
+            width: 100%;
+            padding-top: 56.25%; /* Proporció 16:9 */
+            position: relative;
+        }
+        .plyr {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        #controls {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: #1e1e1e;
+        }
+        #channel-list {
+            display: flex;
+            overflow-x: auto;
+            background-color: #1e1e1e;
+            padding: 10px;
+            gap: 10px;
+        }
+        .channel-btn {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            text-align: left;
+            width: 150px; /* Amplada fixa */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-family: 'Arial Narrow', sans-serif;
+            flex-shrink: 0;
+        }
+        .channel-btn.active {
+            background-color: #555;
+        }
+        #clock {
+            text-align: center;
+            padding: 10px;
+            background-color: #1e1e1e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        #timer-menu {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            padding: 10px;
+            z-index: 1000;
+        }
+        #timer-menu button, input, button {
+            display: block;
+            width: 100%;
+            padding: 5px;
+            margin: 2px;
+            background-color: #444;
+            color: white;
+            padding: 2px;
+            cursor: pointer;
+        }
+        #playlist-input {
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+            background-color: #1e1e1e;
+            margin-top: 20px;
+        }
+        #playlist-input input {
+            width: 70%;
+            padding: 5px;
+            margin-right: 10px;
+        }
+        #playlist-input button {
+            padding: 5px 10px;
+        }
+        #current-channel {
+            text-align: center;
+            padding: 10px;
+            background-color: #1e1e1e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        #current-channel img {
+            width: 40px;
+            height: 40px;
+        }
+        /* Estils per al botó de qualitat */
+        .quality-btn {
+            background-color: #444;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        #filter-input {
+            margin: 10px;
+            padding: 5px;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div id="video-container">
+        <!-- Reproductor de vídeo amb Plyr -->
+        <video id="videoPlayer" controls autoplay muted preload="auto">
+            <source src="" type="application/x-mpegURL">
+      
+        </video>
+    </div>
+    <div id="controls">
+        <button id="prevChannel">Canal Anterior</button>
+        <button id="nextChannel">Canal Següent</button>
+        <button id="timerBtn">Temporitzador</button>
+        <div id="timer-menu">
+            <button onclick="setTimer(5)">5 segons</button>
+            <button onclick="setTimer(900)">15 minuts</button>
+            <button onclick="setTimer(1800)">30 minuts</button>  
+            <button onclick="setTimer(2700)">45 minuts</button>
+            <button onclick="setTimer(3600)">1 hora</button>
+            <button onclick="cancelTimer()">Cancel·lar</button>
+        </div>
+        </div>
+    </div>
+    <div id="current-channel">
+        <img id="current-channel-logo" src="" alt="Logo del canal">
+        <span id="current-channel-name"></span>
+        <input type="text" id="filter-input" placeholder="Filtrar canals..." oninput="filterChannels()">
+    </div>
+    <div id="channel-list"></div>
+    <div id="clock">
+        <span id="current-time">00:00:00</span>
+        <span id="countdown">00:00:00</span>
+    </div>
+    <div id="playlist-input">
+        <input type="text" id="playlistUrl" value="https://xarxa-1.github.io/Xarxa-1/cat19.m3u" placeholder="Introdueix la URL de la llista de reproducció">
+        <button onclick="loadChannels()">Carrega Canals</button>
+    </div>
+
+    <!-- Scripts de Plyr -->
+    <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
+    <script>
+        let channels = [];
+        let currentChannelIndex = 0;
+        let timer;
+
+        // Inicialització del reproductor de vídeo amb Plyr
+        const player = new Plyr('#videoPlayer', {
+            controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'fullscreen'],
+            autoplay: false,
+            seekTime: 10,
+        });
+
+        // Carregar canals automàticament al iniciar
+        window.onload = function() {
+            loadChannels();
+            setInterval(updateClock, 1000); // Iniciar el rellotge
+        };
+
+        function loadChannels() {
+            const url = document.getElementById('playlistUrl').value;
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    channels = parseM3U(data);
+                    displayChannels();
+                    if (channels.length > 0) {
+                        playChannel(0);
+                    }
+                })
+                .catch(error => console.error('Error carregant canals:', error));
+        }
+
+        function parseM3U(data) {
+            const lines = data.split('\n');
+            const channels = [];
+            for (let i = 0; i < lines.length; i++) {
+                if (lines[i].startsWith('#EXTINF:')) {
+                    const info = lines[i].split(',');
+                    const logoMatch = info[0].match(/tvg-logo="([^"]+)"/);
+                    const logo = logoMatch ? logoMatch[1] : '';
+                    const name = info[1];
+                    const url = lines[i + 1];
+                    channels.push({ name, logo, url });
+                }
+            }
+            return channels;
+        }
+
+        function displayChannels() {
+            const channelList = document.getElementById('channel-list');
+            channelList.innerHTML = '';
+            channels.forEach((channel, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'channel-btn';
+                btn.innerHTML = `<img src="${channel.logo}" alt="${channel.name}" style="width: 20px; height: 20px;"> ${channel.name.substring(0, 10)}`;
+                btn.onclick = () => playChannel(index);
+                channelList.appendChild(btn);
+            });
+            updateActiveChannel();
+        }
+
+        function filterChannels() {
+            const filterText = document.getElementById('filter-input').value.toLowerCase();
+            const channelList = document.getElementById('channel-list');
+            channelList.innerHTML = '';
+            channels.forEach((channel, index) => {
+                if (channel.name.toLowerCase().includes(filterText)) {
+                    const btn = document.createElement('button');
+                    btn.className = 'channel-btn';
+                    btn.innerHTML = `<img src="${channel.logo}" alt="${channel.name}" style="width: 20px; height: 20px;"> ${channel.name.substring(0, 10)}`;
+                    btn.onclick = () => playChannel(index);
+                    channelList.appendChild(btn);
+                }
+            });
+            updateActiveChannel();
+        }
+
+        function playChannel(index) {
+            if (index >= 0 && index < channels.length) {
+                currentChannelIndex = index;
+                player.source = {
+                    type: 'video',
+                    sources: [{
+                        src: channels[index].url,
+                        type: 'application/x-mpegURL',
+                    }],
+                };
+                player.play();
+                updateActiveChannel();
+                updateCurrentChannelInfo();
+                // Desplaçar el canal actiu a la vista
+                const channelList = document.getElementById('channel-list');
+                const activeBtn = channelList.querySelector('.channel-btn.active');
+                if (activeBtn) {
+                    activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                }
+            }
+        }
+
+        function updateActiveChannel() {
+            const buttons = document.querySelectorAll('.channel-btn');
+            buttons.forEach((btn, index) => {
+                btn.classList.toggle('active', index === currentChannelIndex);
+            });
+        }
+
+        function updateCurrentChannelInfo() {
+            const currentChannel = channels[currentChannelIndex];
+            document.getElementById('current-channel-logo').src = currentChannel.logo;
+            document.getElementById('current-channel-name').textContent = currentChannel.name;
+        }
+
+        function updateClock() {
+            const now = new Date();
+            const clock = document.getElementById('current-time');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            clock.textContent = `${hours}:${minutes}:${seconds}`;
+        }
+
+        function setTimer(seconds) {
+            clearInterval(timer);
+            const countdownDisplay = document.getElementById('countdown');
+            let timeLeft = seconds;
+            timer = setInterval(() => {
+                const hours = Math.floor(timeLeft / 3600);
+                const minutes = Math.floor((timeLeft % 3600) / 60);
+                const secs = timeLeft % 60;
+                countdownDisplay.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    player.pause();
+                }
+                timeLeft--;
+            }, 1000);
+            closeTimerMenu();
+        }
+
+        function cancelTimer() {
+            clearInterval(timer);
+            document.getElementById('countdown').textContent = '00:00:00';
+            closeTimerMenu();
+        }
+
+        function closeTimerMenu() {
+            document.getElementById('timer-menu').style.display = 'none';
+        }
+
+        function showQualityMenu() {
+            const qualityMenu = document.getElementById('quality-menu');
+            qualityMenu.style.display = qualityMenu.style.display === 'block' ? 'none' : 'block';
+            if (qualityMenu.style.display === 'block') {
+                updateQualityMenu();
+            }
+        }
+
+        function updateQualityMenu() {
+            const qualityMenu = document.getElementById('quality-menu');
+            qualityMenu.innerHTML = '';
+            const qualities = player.quality.available;
+            qualities.forEach(quality => {
+                const btn = document.createElement('button');
+                btn.textContent = quality + 'p';
+                btn.onclick = () => player.quality = quality;
+                qualityMenu.appendChild(btn);
+            });
+        }
+
+        function showSpeedMenu() {
+            const speedMenu = document.getElementById('speed-menu');
+            speedMenu.style.display = speedMenu.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function setSpeed(speed) {
+            player.speed = speed;
+            document.getElementById('speedBtn').textContent = speed + 'x';
+        }
+
+        document.getElementById('prevChannel').onclick = () => {
+            if (currentChannelIndex > 0) {
+                playChannel(currentChannelIndex - 1);
+            }
+        };
+
+        document.getElementById('nextChannel').onclick = () => {
+            if (currentChannelIndex < channels.length - 1) {
+                playChannel(currentChannelIndex + 1);
+            }
+        };
+
+        document.getElementById('timerBtn').onclick = () => {
+            const menu = document.getElementById('timer-menu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        };
+    </script>
+</body>
+</html>
