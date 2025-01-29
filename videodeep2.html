@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reproductor de Vídeo</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Arial Narrow', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        #videojs {
+            width: 100%;
+            padding-top: 56.25%; /* Proporció 16:9 */
+            position: relative;
+        }
+        video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        #controls {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: #1e1e1e;
+        }
+        #channel-list {
+            display: flex;
+            overflow-x: auto;
+            background-color: #1e1e1e;
+            padding: 10px;
+            gap: 10px;
+        }
+        .channel-btn {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            text-align: left;
+            width: 150px; /* Amplada fixa */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-family: 'Arial Narrow', sans-serif;
+            flex-shrink: 0;
+        }
+        .channel-btn.active {
+            background-color: #555;
+        }
+        #clock {
+            text-align: center;
+            padding: 10px;
+            background-color: #1e1e1e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        #timer-menu {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            padding: 10px;
+            z-index: 1000;
+        }
+        #timer-menu button {
+            display: block;
+            width: 100%;
+            padding: 5px;
+            margin: 5px 0;
+            background-color: #444;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #playlist-input {
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+            background-color: #1e1e1e;
+            margin-top: 20px;
+        }
+        #playlist-input input {
+            width: 70%;
+            padding: 5px;
+            margin-right: 10px;
+        }
+        #playlist-input button {
+            padding: 5px 10px;
+        }
+        #current-channel {
+            text-align: center;
+            padding: 10px;
+            background-color: #1e1e1e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        #current-channel img {
+            width: 40px;
+            height: 40px;
+        }
+        /* Estils per al botó de qualitat */
+        .quality-btn {
+            background-color: #444;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        #search-box {
+            padding: 5px;
+            margin-left: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+        }
+        #videojs img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+    </style>
+    <link href="https://unpkg.com/video.js@7/dist/video-js.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/videojs-hls-quality-selector@1.1.1/dist/videojs-hls-quality-selector.css">    
+    <script src="https://unpkg.com/video.js@7/dist/video.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/videojs-hls-quality-selector@1.1.4/dist/videojs-hls-quality-selector.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-quality-levels/2.0.9/videojs-contrib-quality-levels.min.js"></script>
+   
+   
+    
+</head>
+<body>
+    <div id="videojs">
+        <video id="videoPlayer" controls muted>
+            <source src="" type="application/x-mpegURL">
+        </video>
+        <img id="timer-image" src="foto.jpg" alt="Imatge de temporitzador">
+    </div>
+    <div id="controls">
+        <button id="prevChannel">Canal Anterior</button>
+        <button id="nextChannel">Canal Següent</button>
+        <button id="timerBtn">Temporitzador</button>
+        <div id="timer-menu">
+            <button onclick="setTimer(5)">5 segons</button>
+            <button onclick="setTimer(900)">15 minuts</button>
+            <button onclick="setTimer(1800)">30 minuts</button>
+            <button onclick="setTimer(3600)">1 hora</button>
+            <button onclick="cancelTimer()">Cancel·lar</button>
+        </div>
+    </div>
+    <div id="current-channel">
+        <img id="current-channel-logo" src="" alt="Logo del canal">
+        <span id="current-channel-name"></span>
+        <input type="text" id="search-box" placeholder="Cerca canal..." oninput="filterChannels()">
+    </div>
+    <div id="channel-list"></div>
+    <div id="clock">
+        <span id="current-time">00:00:00</span>
+        <span id="countdown">00:00:00</span>
+    </div>
+    <div id="playlist-input">
+        <input type="text" id="playlistUrl" value="https://xarxa-1.github.io/Xarxa-1/futbol.m3u" placeholder="Introdueix la URL de la llista de reproducció">
+        <button onclick="loadChannels()">Carrega Canals</button>
+    </div>
+
+    <script>
+        let channels = [];
+        let currentChannelIndex = 0;
+        let timer;
+
+        function loadChannels() {
+            const url = document.getElementById('playlistUrl').value;
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    channels = parseM3U(data);
+                    displayChannels();
+                    if (channels.length > 0) {
+                        playChannel(0);
+                    }
+                })
+                .catch(error => console.error('Error carregant canals:', error));
+        }
+
+        function parseM3U(data) {
+            const lines = data.split('\n');
+            const channels = [];
+            for (let i = 0; i < lines.length; i++) {
+                if (lines[i].startsWith('#EXTINF:')) {
+                    const info = lines[i].split(',');
+                    const logoMatch = info[0].match(/tvg-logo="([^"]+)"/);
+                    const logo = logoMatch ? logoMatch[1] : '';
+                    const name = info[1];
+                    const url = lines[i + 1];
+                    channels.push({ name, logo, url });
+                }
+            }
+            return channels;
+        }
+
+        function displayChannels() {
+            const channelList = document.getElementById('channel-list');
+            channelList.innerHTML = '';
+            channels.forEach((channel, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'channel-btn';
+                btn.innerHTML = `<img src="${channel.logo}" alt="${channel.name}" style="width: 20px; height: 20px;"> ${channel.name.substring(0, 10)}`;
+                btn.onclick = () => playChannel(index);
+                channelList.appendChild(btn);
+            });
+        }
+
+        function filterChannels() {
+            const searchText = document.getElementById('search-box').value.toLowerCase();
+            const buttons = document.querySelectorAll('.channel-btn');
+            buttons.forEach((btn, index) => {
+                const channelName = channels[index].name.toLowerCase();
+                if (channelName.includes(searchText)) {
+                    btn.style.display = 'block';
+                } else {
+                    btn.style.display = 'none';
+                }
+            });
+        }
+
+        function playChannel(index) {
+            if (index >= 0 && index < channels.length) {
+                currentChannelIndex = index;
+                const videoPlayer = document.getElementById('videoPlayer');
+                videoPlayer.src = channels[index].url;
+                videoPlayer.play();
+                updateActiveChannel();
+                updateCurrentChannelInfo();
+                // Amaga la imatge quan es canvia de canal
+                document.getElementById('timer-image').style.display = 'none';
+                // Desplaça el contenidor per mostrar el botó del canal actiu
+                scrollToActiveChannel();
+            }
+        }
+
+        function scrollToActiveChannel() {
+            const channelList = document.getElementById('channel-list');
+            const activeButton = document.querySelector('.channel-btn.active');
+            if (activeButton) {
+                const buttonOffset = activeButton.offsetLeft;
+                const buttonWidth = activeButton.offsetWidth;
+                const containerWidth = channelList.offsetWidth;
+                const scrollLeft = buttonOffset - (containerWidth / 2) + (buttonWidth / 2);
+                channelList.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+            }
+        }
+
+        function updateActiveChannel() {
+            const buttons = document.querySelectorAll('.channel-btn');
+            buttons.forEach((btn, index) => {
+                btn.classList.toggle('active', index === currentChannelIndex);
+            });
+        }
+
+        function updateCurrentChannelInfo() {
+            const currentChannel = channels[currentChannelIndex];
+            document.getElementById('current-channel-logo').src = currentChannel.logo;
+            document.getElementById('current-channel-name').textContent = currentChannel.name;
+        }
+
+        function updateClock() {
+            const now = new Date();
+            const clock = document.getElementById('current-time');
+            clock.textContent = now.toTimeString().split(' ')[0];
+        }
+
+        function setTimer(seconds) {
+            clearInterval(timer);
+            const countdownDisplay = document.getElementById('countdown');
+            const timerImage = document.getElementById('timer-image');
+            let timeLeft = seconds;
+            timer = setInterval(() => {
+                const hours = Math.floor(timeLeft / 3600);
+                const minutes = Math.floor((timeLeft % 3600) / 60);
+                const secs = timeLeft % 60;
+                countdownDisplay.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    document.getElementById('videoPlayer').pause();
+                    timerImage.style.display = 'block';
+                }
+                timeLeft--;
+            }, 1000);
+            closeTimerMenu();
+        }
+
+        function cancelTimer() {
+            clearInterval(timer);
+            document.getElementById('countdown').textContent = '00:00:00';
+            document.getElementById('timer-image').style.display = 'none';
+            closeTimerMenu();
+        }
+
+        function closeTimerMenu() {
+            document.getElementById('timer-menu').style.display = 'none';
+        }
+
+        document.getElementById('prevChannel').onclick = () => playChannel(currentChannelIndex - 1);
+        document.getElementById('nextChannel').onclick = () => playChannel(currentChannelIndex + 1);
+        document.getElementById('timerBtn').onclick = () => {
+            const menu = document.getElementById('timer-menu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        };
+
+        setInterval(updateClock, 1000);
+        loadChannels(); // Carrega els canals automàticament al iniciar
+    </script>
+</body>
+</html>
