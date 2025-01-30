@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="mobile-web-app-capable" content="yes" /><meta name="theme-color" content="#00ffcc">
+  <link rel="icon" type="image/x-icon" href="https://s.imgur.com/images/favicon-96x96.png">  
+    <title>Ràdio</title> <!-- Títol inicial -->
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <!-- Inclou Font Awesome per a les icones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Estils generals */
+        body {
+            background-color: #1a1a1a;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        /* Contenidor principal */
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background-color: #2a2a2a;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Rellotge */
+        #clock {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #00ffcc;
+        }
+
+        /* Nom de l'emissora activa */
+        #current-station {
+            font-size: 1.2em;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #00ffcc;
+        }
+
+        /* Reproductor d'àudio */
+        #radio-player {
+            width: 100%;
+            margin-bottom: 20px;
+            background-color: #444;
+            border-radius: 10px;
+            padding: 10px;
+            filter: invert(1) hue-rotate(180deg) brightness(1.5);
+        }
+
+        /* Botons de control */
+        .control-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .control-buttons button {
+            background-color: #444;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px; /* Amplada fixa per als botons */
+            height: 50px; /* Alçada fixa per als botons */
+        }
+
+        .control-buttons button:hover {
+            background-color: #00ffcc;
+            color: #1a1a1a;
+        }
+
+        /* Control de volum */
+        .volume-control {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .volume-control button {
+            background-color: #444;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px; /* Amplada fixa per als botons de volum */
+            height: 40px; /* Alçada fixa per als botons de volum */
+        }
+
+        .volume-control button:hover {
+            background-color: #00ffcc;
+            color: #1a1a1a;
+        }
+
+        /* Estil del slider de volum */
+        #volume-slider {
+            width: 70%;
+            cursor: pointer;
+            -webkit-appearance: none;
+            appearance: none;
+            background: #444;
+            border-radius: 5px;
+            outline: none;
+            height: 8px;
+        }
+
+        #volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #00ffcc;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        #volume-slider::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            background: #00ffcc;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        /* Contenidor d'emissores */
+        #stations-container {
+            max-height: 150px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            border: 1px solid #444;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        #stations-container button {
+            width: 100%;
+            background-color: #444;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #stations-container button.current {
+            background-color: #00ffcc;
+            color: #1a1a1a;
+        }
+
+        #stations-container button:hover {
+            background-color: #00ffcc;
+            color: #1a1a1a;
+        }
+
+        /* Temporitzador i bateria */
+        #timer-battery-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        #timer-button {
+            background-color: #444;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+
+        #timer-button:hover {
+            background-color: #00ffcc;
+            color: #1a1a1a;
+        }
+
+        #battery-status {
+            font-size: 1em;
+            color: #00ffcc;
+        }
+
+        #timer-menu {
+            display: none;
+            margin-top: 10px;
+        }
+
+        #timer-menu button {
+            background-color: #444;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #timer-menu button:hover {
+            background-color: #00ffcc;
+            color: #1a1a1a;
+        }
+
+        #timer-display {
+            font-size: 1.5em;
+            text-align: center;
+            margin-top: 10px;
+            display: none;
+            color: #00ffcc;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Rellotge -->
+        <div id="clock">00:00:00</div>
+
+        <!-- Nom de l'emissora activa -->
+        <div id="current-station">Emissora activa: Cap</div>
+
+        <!-- Reproductor d'àudio -->
+        <audio id="radio-player" controls>
+            Your browser does not support the audio element.
+        </audio>
+
+        <!-- Botons de control: Anterior, Pausa, Stop, Següent -->
+        <div class="control-buttons">
+            <button onclick="previousStation()"><i class="fas fa-backward"></i></button>
+            <button id="play-pause-button" onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+            <button onclick="stopRadio()"><i class="fas fa-stop"></i></button>
+            <button onclick="nextStation()"><i class="fas fa-forward"></i></button>
+        </div>
+
+        <!-- Control de volum -->
+        <div class="volume-control">
+            <button onclick="decreaseVolume()"><i class="fas fa-volume-down"></i></button>
+            <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="1" oninput="setVolume(this.value)">
+            <button onclick="increaseVolume()"><i class="fas fa-volume-up"></i></button>
+        </div>
+
+        <!-- Contenidor d'emissores -->
+        <div id="stations-container">
+            <!-- Botons de les emissores es carregaran aquí -->
+        </div>
+
+        <!-- Temporitzador i bateria -->
+        <div id="timer-battery-container">
+            <button id="timer-button"><i class="fas fa-clock"></i> </button>
+            <div id="battery-status">   --%</div>
+        </div>
+
+        <!-- Menú del temporitzador -->
+        <div id="timer-menu">
+            <button onclick="setTimer(3)">3 Segons</button>
+            <button onclick="setTimer(900)">15 Minuts</button>
+            <button onclick="setTimer(1800)">30 Minuts</button>
+            <button onclick="setTimer(2700)">45 Minuts</button>
+            <button onclick="setTimer(3600)">1 Hora</button>
+            <button onclick="cancelTimer()">Cancel·lar</button>
+        </div>
+        <div id="timer-display"></div>
+    </div>
+
+    <script>
+        const player = document.getElementById('radio-player');
+        const stationsContainer = document.getElementById('stations-container');
+        const timerMenu = document.getElementById('timer-menu');
+        const timerDisplay = document.getElementById('timer-display');
+        const playPauseButton = document.getElementById('play-pause-button');
+        const volumeSlider = document.getElementById('volume-slider');
+        const currentStationDisplay = document.getElementById('current-station');
+        const batteryStatus = document.getElementById('battery-status');
+        let currentStationButton = null;
+        let timer = null;
+        let stations = [];
+        let currentStationIndex = -1;
+
+        // Carrega les emissores des de l'URL
+        fetch('https://xarxa-1.github.io/Xarxa-1/stations.json')
+            .then(response => response.json())
+            .then(data => {
+                stations = data;
+                data.forEach((station, index) => {
+                    const button = document.createElement('button');
+                    button.textContent = station.name;
+                    button.onclick = () => selectStation(index);
+                    stationsContainer.appendChild(button);
+                });
+                if (stations.length > 0) {
+                    selectStation(0); // Selecciona la primera emissora per defecte
+                }
+            });
+
+        function selectStation(index) {
+            if (index < 0 || index >= stations.length) return;
+            currentStationIndex = index;
+            player.src = stations[index].url;
+            player.play();
+            if (currentStationButton) {
+                currentStationButton.classList.remove('current');
+            }
+            currentStationButton = stationsContainer.children[index];
+            currentStationButton.classList.add('current');
+            playPauseButton.innerHTML = '<i class="fas fa-pause"></i>';
+            currentStationDisplay.textContent = `${stations[index].name}`;
+
+            // Actualitza el títol de la pàgina amb el nom de l'emissora
+            document.title = `Reproductor de Ràdio - ${stations[index].name}`;
+
+            // Desplaça el contenidor per mostrar l'emissora activa
+            currentStationButton.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function previousStation() {
+            const newIndex = (currentStationIndex - 1 + stations.length) % stations.length;
+            selectStation(newIndex);
+        }
+
+        function nextStation() {
+            const newIndex = (currentStationIndex + 1) % stations.length;
+            selectStation(newIndex);
+        }
+
+        function togglePlayPause() {
+            if (player.paused) {
+                player.play();
+                playPauseButton.innerHTML = '<i class="fas fa-pause"></i>';
+            } else {
+                player.pause();
+                playPauseButton.innerHTML = '<i class="fas fa-play"></i>';
+            }
+        }
+
+        function stopRadio() {
+            player.pause();
+            player.currentTime = 0;
+            playPauseButton.innerHTML = '<i class="fas fa-play"></i>';
+        }
+
+        function setVolume(volume) {
+            player.volume = volume;
+        }
+
+        function increaseVolume() {
+            if (player.volume < 1) {
+                player.volume += 0.1;
+                volumeSlider.value = player.volume;
+            }
+        }
+
+        function decreaseVolume() {
+            if (player.volume > 0) {
+                player.volume -= 0.1;
+                volumeSlider.value = player.volume;
+            }
+        }
+
+        // Rellotge en temps real
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Temporitzador
+        document.getElementById('timer-button').onclick = () => {
+            timerMenu.style.display = timerMenu.style.display === 'block' ? 'none' : 'block';
+        };
+
+        function setTimer(seconds) {
+            clearInterval(timer);
+            let timeLeft = seconds;
+            timerDisplay.textContent = formatTime(timeLeft);
+            timerDisplay.style.display = 'block';
+            timerMenu.style.display = 'none';
+            timer = setInterval(() => {
+                timeLeft--;
+                timerDisplay.textContent = formatTime(timeLeft);
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    player.pause();
+                    timerDisplay.textContent = '00:00:00';
+                    timerDisplay.style.display = 'none';
+                }
+            }, 1000);
+        }
+
+        function cancelTimer() {
+            clearInterval(timer);
+            timerDisplay.textContent = '00:00:00';
+            timerDisplay.style.display = 'none';
+            timerMenu.style.display = 'none';
+        }
+
+        function formatTime(seconds) {
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const secs = seconds % 60;
+            return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
+        // Bateria
+        function updateBatteryStatus(battery) {
+            const batteryLevel = Math.round(battery.level * 100);
+            batteryStatus.textContent = `Bateria: ${batteryLevel}%`;
+        }
+
+        if ('getBattery' in navigator) {
+            navigator.getBattery().then(battery => {
+                updateBatteryStatus(battery); // Actualitza l'estat inicial
+                battery.addEventListener('levelchange', () => updateBatteryStatus(battery)); // Actualitza quan canvia el nivell
+                battery.addEventListener('chargingchange', () => updateBatteryStatus(battery)); // Actualitza quan es carrega
+            });
+        } else {
+            batteryStatus.textContent = "Bateria: No disponible";
+        }
+    </script>
+
+</body>
+</html>
