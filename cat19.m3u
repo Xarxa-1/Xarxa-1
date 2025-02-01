@@ -226,3 +226,36 @@ https://janus.xpbroadcasting.com:8443/hls/xptv2.m3u8
 
 #EXTINF:-1 tvg-id="XPTVUS.es" tvg-logo="https://i.imgur.com/1m7kDmc.png" group-title="Series",XPTV US (720p)
 https://janus.xpbroadcasting.com:8443/hls/xptvUS.m3u8
+
+#EXTINF:-1 tvg-id="MuseumTVFrench.fr" tvg-logo="https://i.imgur.com/WbjURLo.png" group-title="Culture",BelAiR TV (Museum TV Paris)
+https://rakutenaa-museumtv-fr-rakuten-nilyp.amagi.tv/playlist/rakutenAA-museumtv-fr-rakuten/playlist.m3u8
+
+#EXTINF:-1 tvg-id="" tvg-logo="" group-title="Undefined",Vogue Europe
+https://d39g1vxj2ef6in.cloudfront.net/v1/master/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod-rakuten-stitched/master.m3u8?ads.xumo_channelId=88883060
+
+#EXTINF:-1 tvg-id="DiscoverFilm.uk" tvg-logo="https://i.imgur.com/oMnpsQ5.png" group-title="Movies",DiscoverFilm
+https://discoverfilm-discoverfilm-1-nl.samsung.wurl.tv/playlist.m3u8
+
+#EXTINF:-1 tvg-id="FashionTVEurope.fr" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Fashion_TV_logo.svg/512px-Fashion_TV_logo.svg.png" group-title="Lifestyle",Fashion TV
+https://fashiontv-fashiontv-5-nl.samsung.wurl.tv/playlist.m3u8
+
+#EXTINF:-1 tvg-id="GBNews.uk" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/3/35/GB_News_Logo.svg/512px-GB_News_Logo.svg.png" group-title="News",GB News
+https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg01076-lightningintern-gbnewsnz-samsungnz/playlist.m3u8
+
+#EXTINF:-1 tvg-id="MUTV.uk" tvg-logo="https://d2n0069hmnqmmx.cloudfront.net/epgdata/1.0/newchanlogos/512/512/skychb1834.png" group-title="Sports",MUTV (720p)
+https://bcovlive-a.akamaihd.net/r2d2c4ca5bf57456fb1d16255c1a535c8/eu-west-1/6058004203001/playlist.m3u8
+
+#EXTINF:-1 tvg-id="Pop.uk" tvg-logo="https://i.imgur.com/fGUlCY3.png" group-title="Undefined",Pop (1080p)
+https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01753-narrativeentert-popkids-lggb/playlist.m3u8
+
+#EXTINF:-1 tvg-id="PopUp.uk" tvg-logo="https://i.imgur.com/GdSotmS.png" group-title="Kids",Pop Up (1080p)
+https://jmp2.uk/sam-GB25000016G.m3u8
+
+#EXTINF:-1 tvg-id="QVC.uk" tvg-logo="https://i.imgur.com/6TWUVrh.png" group-title="Shop",QVC UK (540p)
+https://qvcuk-live.akamaized.net/hls/live/2097112/qvc/master.m3u8
+
+#EXTINF:-1 tvg-id="V2BEATTV.uk" tvg-logo="https://i.imgur.com/PXGqyLn.png" group-title="Music",V2BEAT (720p) [Not 24/7]
+https://abr.de1se01.v2beat.live/playlist.m3u8
+
+#EXTINF:-1 tvg-id="Wonder.uk" tvg-logo="https://i.imgur.com/LquGNbh.png" group-title="Undefined",Wonder
+https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg00426-littledotstudio-wondernz-samsungnz/playlist.m3u8
