@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#00ffcc" />
+  <title>Streaming ✓</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/video.js@7.20.3/dist/video-js.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/videojs-hls-quality-selector@1.1.1/dist/videojs-hls-quality-selector.css">
+  <style>
+    body, button, input, select {
+      background: black;
+      color: white;
+      font-family: 'Barlow Condensed', sans-serif;
+      caret-color: blue;
+    }
+    #videoContainer {
+      width: 100%;
+      background: black;
+    }
+    #videojs {
+      width: 100vw;
+      max-height: 100vh;
+    }
+    #mainContent {
+      padding: 20px 5%;
+    }
+    #channelListContainer {
+      width: 90%;
+      height: 300px;
+      border: 1px solid white;
+      margin: 20px auto;
+      overflow-y: auto;
+      padding: 10px;
+    }
+    .channel-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 5px 0;
+      padding: 10px;
+      border: 1px solid white;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .channel-item.active-channel {
+      background: #ff6b00;
+      border-color: #ffd900;
+    }
+    .channel-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .channel-selector {
+      background: #002017;
+      border: 1px solid white;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    .channel-selector.selected {
+      background: #00ffcc;
+      color: black;
+    }
+    .nav-buttons {
+      width: 90%;
+      margin: 20px auto;
+      display: flex;
+      gap: 10px;
+    }
+    .nav-buttons button {
+      flex: 1;
+      padding: 8px;
+      background: #002017;
+      border: 1px solid white;
+    }
+    #historyContainer {
+      width: 90%;
+      margin: 20px auto;
+    }
+    #historyContent {
+      width: 100%;
+      height: 300px;
+      background: #001a10;
+      color: white;
+      padding: 10px;
+      white-space: pre-wrap;
+      overflow-y: auto;
+      border: 1px solid white;
+    }
+    #copyHistory {
+      margin-top: 5px;
+      padding: 5px 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="videoContainer">
+    <video id="videojs" class="video-js vjs-fluid vjs-default-skin" controls autoplay muted preload="auto">
+      <source src="https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8" type="application/x-mpegURL">
+      <p class="vjs-no-js">
+        To view this video please enable JavaScript, and consider upgrading to a web browser that
+        <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+      </p>
+    </video>
+    <h4><div id="selectedChannel">TV3</div></h4> <div class="nav-buttons">
+      <button onclick="playPreviousChannel()">Canal Anterior</button>
+      <button onclick="playNextChannel()">Canal Següent</button>
+    </div>
+    <div id="errorDisplay"></div>
+  </div>
+
+  
+    <div id="channelListContainer"></div>
+<div id="mainContent">
+    <div style="margin: 10px auto; width: 90%">
+      <label for="m3uUrlInput">URL</label>
+      <input type="text" id="m3uUrlInput" value="https://xarxa-1.github.io/Xarxa-1/cat19.m3u" style="width: 300px;">
+      <button onclick="loadCustomM3U()">Carregar</button>
+    </div>
+
+    <div id="historyContainer">
+      <div id="historyContent"></div>
+      <button id="copyHistory" onclick="copyHistoryContent()">Copiar Historial</button>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/video.js@7.20.3/dist/video.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-quality-levels/2.0.9/videojs-contrib-quality-levels.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/videojs-hls-quality-selector@1.1.1/dist/videojs-hls-quality-selector.min.js"></script>
+  <script>
+    let player;
+    let channels = [];
+    let currentChannelIndex = 0;
+    let history = [];
+    let historyUrls = new Set();
+
+    document.addEventListener('DOMContentLoaded', () => {
+      player = videojs('videojs');
+      player.hlsQualitySelector();
+      loadCustomM3U();
+
+      player.on('error', () => {
+        const error = player.error();
+        document.getElementById('errorDisplay').innerText = `Error: ${error.message || 'No es pot reproduir el vídeo.'}`;
+        playNextChannel();
+      });
+    });
+
+    function parseM3U(m3uData) {
+      channels = [];
+      const lines = m3uData.split('\n');
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i].trim();
+        if (line.startsWith('#EXTINF:')) {
+          const title = line.split(',')[1].trim();
+          const url = lines[i + 1]?.trim();
+          const logoMatch = line.match(/tvg-logo="([^"]+)"/);
+          channels.push({
+            title,
+            url: url || '',
+            logoUrl: logoMatch ? logoMatch[1] : '',
+            infoLine: line,
+            selected: false
+          });
+        }
+      }
+      displayChannels();
+    }
+
+    function displayChannels() {
+      const container = document.getElementById('channelListContainer');
+      container.innerHTML = '';
+      
+      channels.forEach((channel, index) => {
+        const div = document.createElement('div');
+        div.className = `channel-item ${index === currentChannelIndex ? 'active-channel' : ''}`;
+        
+        div.innerHTML = `
+          <div class="channel-info">
+            <img src="${channel.logoUrl}" alt="${channel.title}" style="width:30px;height:30px">
+            <span>${channel.title}</span>
+          </div>
+          <button class="channel-selector ${channel.selected ? 'selected' : ''}" 
+                  onclick="toggleChannelSelection(${index})">✓</button>
+        `;
+
+        div.onclick = () => playChannel(index);
+        container.appendChild(div);
+      });
+    }
+
+    function toggleChannelSelection(index) {
+      channels[index].selected = !channels[index].selected;
+      displayChannels();
+      updateHistory();
+    }
+
+    function updateHistory() {
+      history = [];
+      historyUrls.clear();
+      channels.forEach(channel => {
+        if (channel.selected && !historyUrls.has(channel.url)) {
+          history.push(`${channel.infoLine}\n${channel.url}\n`);
+          historyUrls.add(channel.url);
+        }
+      });
+      document.getElementById('historyContent').textContent = history.join('\n');
+    }
+
+    function playChannel(index) {
+      currentChannelIndex = index;
+      const channel = channels[index];
+      if (!channel) return;
+
+      player.src({ type: 'application/x-mpegURL', src: channel.url });
+      player.play();
+      document.getElementById('selectedChannel').textContent = channel.title;
+      document.getElementById('errorDisplay').textContent = '';
+      
+      displayChannels();
+    }
+
+    function playNextChannel() {
+      currentChannelIndex = (currentChannelIndex + 1) % channels.length;
+      playChannel(currentChannelIndex);
+    }
+
+    function playPreviousChannel() {
+      currentChannelIndex = (currentChannelIndex - 1 + channels.length) % channels.length;
+      playChannel(currentChannelIndex);
+    }
+
+    function loadCustomM3U() {
+      fetch(document.getElementById('m3uUrlInput').value)
+        .then(r => r.text())
+        .then(parseM3U)
+        .catch(e => console.error('Error carregant M3U:', e));
+    }
+
+    function copyHistoryContent() {
+      navigator.clipboard.writeText(document.getElementById('historyContent').textContent);
+    }
+  </script>
+</body>
+</html>
