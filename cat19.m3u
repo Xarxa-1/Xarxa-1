@@ -268,3 +268,6 @@ https://eu1.vectromdigital.com:1936/netvtoronto/netvtoronto/playlist.m3u8
 
 #EXTINF:-1 tvg-id="",Noovo Comédies (1080p)
 https://d2s8iafdyzconc.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-6x2p3ho0vw00a/Noovo_Comedies_Home.m3u8
+
+#EXTINF:-1 tvg-id="",WOW TV El Salvador
+https://cdn.elsalvadordigital.com:1936/wowtv/smil:wowtv.smil/playlist.m3u8
