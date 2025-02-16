@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="mobile-web-app-capable" content="yes" /><meta name="theme-color" content="#4CAF50">
+  <link rel="icon" type="image/x-icon" href="https://logo-icons.com/cdn/shop/files/269-logo-1712247239.978color-4CAF50.svg?v=1712759642&width=416">
+    
+    <title>Lector de continguts web</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 2px;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 90%;
+            margin: 0 auto;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        #urlInput {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #resultado {
+            background-color: white;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-height: 80vh;
+            overflow-y: auto;
+            line-height: 1.6;
+        }
+
+        .loading {
+            display: none;
+            color: #666;
+            margin: 20px 0;
+        }
+
+        .error {
+            color: #dc3545;
+            padding: 10px;
+            border: 1px solid #dc3545;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        
+           .img {
+            max-width: 90%;
+            margin: 0px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="input-group">
+            <input type="text" id="urlInput" value="https://www.lavanguardia.com/tecnologia">
+            <button onclick="cargarContenido()">Carregar</button>
+        </div>
+        <div class="loading" id="loading">Carregant...</div>
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+        async function cargarContenido() {
+            const url = document.getElementById('urlInput').value.trim();
+            const resultado = document.getElementById('resultado');
+            const loading = document.getElementById('loading');
+            const baseUrl = new URL(url);
+
+            resultado.innerHTML = '';
+            loading.style.display = 'block';
+
+            if (!url) {
+                mostrarError('Si us plau, introdueix una URL vàlida');
+                return;
+            }
+
+            try {
+                const proxyUrl = 'https://api.allorigins.win/get?url=' + encodeURIComponent(url);
+                const response = await fetch(proxyUrl);
+                
+                if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+                
+                const data = await response.json();
+                const htmlContent = data.contents;
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(htmlContent, 'text/html');
+
+                // Neteja elements innecessaris
+                doc.querySelectorAll('script, style, noscript, header, footer, nav, iframe, form, button, .ad, .ads, [class*="cookie"], [id*="cookie"]').forEach(el => el.remove());
+
+                // Processar imatges
+                const images = doc.querySelectorAll('img');
+                images.forEach(img => {
+                    const src = img.getAttribute('data-src') || img.getAttribute('src');
+                    if (!src) return;
+                    try {
+                        const absoluteSrc = new URL(src, baseUrl).href;
+                        img.src = `https://api.allorigins.win/raw?url=${encodeURIComponent(absoluteSrc)}`;
+                        img.removeAttribute('data-src');
+                    } catch (error) {
+                        img.remove();
+                    }
+                });
+
+                // Processar enllaços (convertir a absoluts)
+                const links = doc.querySelectorAll('a');
+                links.forEach(a => {
+                    const href = a.getAttribute('href');
+                    if (!href) return;
+                    try {
+                        const absoluteHref = new URL(href, baseUrl).href;
+                        a.href = absoluteHref;
+                    } catch (error) {
+                        a.removeAttribute('href');
+                    }
+                });
+
+                // Processar CSS
+                let stylesHTML = '';
+                const styles = doc.querySelectorAll('link[rel="stylesheet"], style');
+                
+                for (const style of styles) {
+                    if (style.tagName === 'LINK') {
+                        const href = style.href;
+                        if (!href) continue;
+                        try {
+                            const cssProxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(href)}`;
+                            const cssResponse = await fetch(cssProxyUrl);
+                            const cssData = await cssResponse.json();
+                            let cssText = cssData.contents;
+                            
+                            // Processar URLs dins del CSS
+                            cssText = cssText.replace(/url\(['"]?(.*?)['"]?\)/gi, (match, path) => {
+                                try {
+                                    const absolutePath = new URL(path, href).href;
+                                    return `url('https://api.allorigins.win/raw?url=${encodeURIComponent(absolutePath)}')`;
+                                } catch {
+                                    return match;
+                                }
+                            });
+                            
+                            stylesHTML += `<style>${cssText}</style>`;
+                        } catch (error) {
+                            console.error('Error carregant CSS:', error);
+                        }
+                    } else if (style.tagName === 'STYLE') {
+                        let cssText = style.innerHTML;
+                        cssText = cssText.replace(/url\(['"]?(.*?)['"]?\)/gi, (match, path) => {
+                            try {
+                                const absolutePath = new URL(path, baseUrl).href;
+                                return `url('https://api.allorigins.win/raw?url=${encodeURIComponent(absolutePath)}')`;
+                            } catch {
+                                return match;
+                            }
+                        });
+                        stylesHTML += `<style>${cssText}</style>`;
+                    }
+                }
+
+                // Injectar contingut
+                const mainContent = doc.querySelector('article, main, .article-body') || doc.body;
+                resultado.innerHTML = `
+                    ${stylesHTML}
+                    <div class="loaded-content">${mainContent.innerHTML}</div>
+                `;
+
+            } catch (error) {
+                mostrarError(`Error: ${error.message}`);
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        function mostrarError(mensaje) {
+            const resultado = document.getElementById('resultado');
+            resultado.innerHTML = `<div class="error">${mensaje}</div>`;
+        }
+
+        // Configuració inicial i gestió d'enllaços
+        window.onload = () => {
+            document.getElementById('urlInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') cargarContenido();
+            });
+
+            document.getElementById('resultado').addEventListener('click', (e) => {
+                if (e.target.tagName === 'A') {
+                    e.preventDefault();
+                    const newUrl = e.target.href;
+                    document.getElementById('urlInput').value = newUrl;
+                    cargarContenido();
+                }
+            });
+
+            cargarContenido();
+        };
+    </script>
+</body>
+</html>
