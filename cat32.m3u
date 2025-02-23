@@ -1,8 +1,7 @@
 #EXTM3U
-#EXTM3U url-tvg="[XML_EPG]"
 #EXTINF:-1 tvg-id="" tvg-logo="" group-title="News",  BBC WORLD NEWS
 http://fl2.moveonjoy.com/BBC_WORLD_NEWS/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-logo="" group-title="News",  BBC AMERICA
+#EXTINF:-1 tvg-id="" tvg-logo="" group-title="News",  BBC.AMERICA
 http://fl2.moveonjoy.com/BBC_AMERICA/index.m3u8
 #EXTINF:-1 group-title="Live TV (MoveOnJoy)", ABC EAST
 http://fl1.moveonjoy.com/ABC_EAST/index.m3u8
