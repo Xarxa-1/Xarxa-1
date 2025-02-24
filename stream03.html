@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head><meta name="mobile-web-app-capable" content="yes" /><link rel="icon" type="image/png" href="https://www.livehdtv.com/uploads/img/2022/03/31583vector2.png" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme" content="graydark">
+    <title>TV</title>
+    <style>
+        :root {
+            --primary-color: #2196F3;
+            --background-color: #1a1a1a;
+            --surface-color: #2d2d2d;
+            --text-color: #ffffff;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        #video-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 20px;
+            background: #000;
+            aspect-ratio: 16/9;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        #video-player {
+            width: 100%;
+            height: 100%;
+        }
+
+        #controls {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        #channel-list {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #404040;
+            padding: 10px;
+            background: var(--surface-color);
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+
+        .channel-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin: 5px 0;
+            text-align: left;
+            background: #333333;
+            border: 1px solid #404040;
+            color: var(--text-color);
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .channel-btn:hover {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .filter-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .filter-item {
+            padding: 10px;
+            border: 1px solid #404040;
+            border-radius: 6px;
+            background: var(--surface-color);
+            color: var(--text-color);
+        }
+
+        ::cue {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            font-size: 1.1em;
+            text-shadow: 1px 1px 2px black;
+        }
+
+        @media (max-width: 600px) {
+            .filter-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="video-container">
+        <video id="video-player" controls crossorigin="anonymous" muted autoplay></video>
+    </div>
+
+    <div id="controls">
+        <div class="filter-container">
+            <select id="group-select" class="filter-item">
+                <option value="">Tots els grups</option>
+            </select>
+            <input type="text" id="search-input" class="filter-item" placeholder="Cerca canal...">
+        </div>
+        
+        <div id="channel-list"></div>
+        
+        <!-- Nou elements afegits -->
+        <button onclick="checkControls()" class="channel-btn" style="margin-top: 10px;">
+            Comprova controls de vídeo
+        </button>
+        <div id="demo" class="filter-item"></div>
+    </div>
+
+    <script>
+        let channels = [];
+        let currentSource = null;
+
+        // Funció nova per comprovar controls
+        function checkControls() {
+            const videoPlayer = document.getElementById("video-player");
+            const controlsStatus = videoPlayer.controls;
+            document.getElementById("demo").innerHTML = 
+                `Controls visibles: ${controlsStatus ? 'Sí' : 'No'}`;
+        }
+
+        async function loadPlaylist() {
+            try {
+                const response = await fetch('https://xarxa-1.github.io/Xarxa-1/cat32.m3u');
+                const data = await response.text();
+                const lines = data.split('\n');
+                
+                let currentChannel = {};
+                let channelNumber = 1;
+
+                lines.forEach(line => {
+                    if(line.startsWith('#EXTINF')) {
+                        const info = line.match(/group-title="(.*?)",(.*)/);
+                        if(info) {
+                            currentChannel = {
+                                number: channelNumber++,
+                                group: info[1],
+                                name: info[2].trim()
+                            };
+                        }
+                    } else if(line.startsWith('http')) {
+                        currentChannel.url = line.trim();
+                        channels.push(currentChannel);
+                    }
+                });
+
+                populateGroupFilter();
+                updateChannelList();
+                
+                if(channels.length > 0) {
+                    playChannel(channels[0].url);
+                }
+            } catch (error) {
+                console.error('Error carregant la llista:', error);
+            }
+        }
+
+        function populateGroupFilter() {
+            const groups = [...new Set(channels.map(ch => ch.group))];
+            const groupSelect = document.getElementById('group-select');
+            
+            groups.forEach(group => {
+                const option = document.createElement('option');
+                option.value = group;
+                option.textContent = group;
+                groupSelect.appendChild(option);
+            });
+        }
+
+        function updateChannelList() {
+            const channelList = document.getElementById('channel-list');
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const selectedGroup = document.getElementById('group-select').value;
+
+            const filtered = channels.filter(ch => {
+                const nameMatch = ch.name.toLowerCase().includes(searchTerm);
+                const groupMatch = selectedGroup ? ch.group === selectedGroup : true;
+                return nameMatch && groupMatch;
+            });
+
+            channelList.innerHTML = filtered.map(ch => `
+                <button class="channel-btn" data-url="${ch.url}">
+                    ${ch.number}. ${ch.name}
+                </button>
+            `).join('');
+
+            document.querySelectorAll('.channel-btn').forEach(btn => {
+                btn.addEventListener('click', () => playChannel(btn.dataset.url));
+            });
+        }
+
+        function playChannel(url) {
+            const videoPlayer = document.getElementById('video-player');
+            
+            if(currentSource) {
+                videoPlayer.pause();
+                videoPlayer.removeChild(currentSource);
+            }
+
+            const source = document.createElement('source');
+            source.src = url;
+            source.type = 'application/x-mpegURL';
+            
+            videoPlayer.appendChild(source);
+            videoPlayer.load();
+            
+            videoPlayer.play()
+                .catch(error => {
+                    console.error('Error en la reproducció automàtica:', error);
+                });
+            
+            currentSource = source;
+        }
+
+        document.getElementById('group-select').addEventListener('change', updateChannelList);
+        document.getElementById('search-input').addEventListener('input', updateChannelList);
+
+        loadPlaylist();
+    </script>
+</body>
+</html>
