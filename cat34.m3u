@@ -1,0 +1,234 @@
+#EXTM3U
+#EXTINF:0 tvg-name="Newsmax TV" tvg-language="English" tvg-country="CA" tvg-id="Newsmax-TV" tvg-logo="https://i.imgur.com/Twkovic.gif" group-title="Entertainment",Newsmax TV
+https://nmxlive.akamaized.net/hls/live/529965/Live_1/index.m3u8
+
+#EXTINF:0 tvg-logo="https://i.imgur.com/ODIWC6n.jpg" tvg-name="Infowars1" tvg-id="Infowars1" group-title="News",Infowars Live1
+https://infostream.secure.footprint.net/hls-live/infostream-infostream/_definst_/master.m3u8
+
+#EXTINF:0 tvg-logo="https://i.imgur.com/ODIWC6n.jpg" tvg-name="Infowars" tvg-id="Infowars" group-title="News",Infowars Live 2
+https://infowarslive-lh.akamaihd.net/i/infowarsevent_1@366809/master.m3u8
+
+#EXTINF:0 tvg-name="Russia today News" tvg-country="RU" tvg-language="English" tvg-logo="https://i.imgur.com/QY4B8Hg.png" group-title="News",RT News
+https://rt-news-gd.secure2.footprint.net/1103.m3u8
+
+#EXTINF:0 tvg-name="Russia today USA" tvg-country="RU" tvg-language="English" tvg-logo="https://i.imgur.com/QY4B8Hg.png" group-title="News",RT USA
+https://rt-usa.secure.footprint.net/1105.m3u8
+
+#EXTINF:0 tvg-name="Russia today France" tvg-country="RU" tvg-language="French" tvg-logo="https://i.imgur.com/cOG7OSB.png" group-title="News",RT France
+https://rt-france-gd.secure2.footprint.net/1107.m3u8
+
+#EXTINF:0 tvg-name="Russia today France YT" tvg-country="RU" tvg-language="French" tvg-logo="https://i.imgur.com/cOG7OSB.png" group-title="News",RT France | Youtube
+https://www.youtube.com/watch?v=rjcyBzzE7-A
+
+#EXTINF:0 group-title="Documentary" tvg-name="RT Documentary" tvg-language="English" tvg-country="RU" tvg-logo="https://i.imgur.com/6iJiWUe.png",RT Documentary
+https://rt-doc.secure.footprint.net/1101.m3u8
+
+#EXTINF:0 tvg-name="PressTV" tvg-language="English" tvg-country="IR" tvg-id="Presstv" group-title="News" tvg-logo="https://www.merih-news.com/wp-content/uploads/2015/06/PressTV-Logo.jpg",Presstv live
+https://live2.presstv.com/liveprs/smil:liveprs.smil/playlist.m3u8
+
+#EXTINF:0 tvg-name="PressTV" tvg-language="English" tvg-country="IR" tvg-id="Presstv" group-title="News" tvg-logo="https://www.merih-news.com/wp-content/uploads/2015/06/PressTV-Logo.jpg",Presstv live
+https://204.155.154.90:1935/live/ngrp:ptven_all/playlist.m3u8
+
+#EXTINF:0 tvg-language="English" tvg-country="US" tvg-logo="https://i.imgur.com/GBIoooY.jpg" tvg-name="BLOOMBERG" tvg-id="BLOOMBERG" group-title="News",EN: BLOOMBERG US HD
+https://liveproduseast.global.ssl.fastly.net/btv/desktop/us_live.m3u8
+
+#EXTINF:0 tvg-language="English" tvg-country="US" tvg-logo="https://i.imgur.com/GBIoooY.jpg" tvg-name="BLOOMBERG" tvg-id="BLOOMBERG" group-title="News",EN: BLOOMBERG EUROPE
+https://liveprodeuwest.akamaized.net/eu1/Channel-EUTVqvs-AWS-ireland-1/Source-EUTVqvs-1000-1_live.m3u8
+
+#EXTINF:0 tvg-language="English" tvg-country="US" tvg-logo="https://i.imgur.com/3zfCuGm.png" tvg-name="BLOOMBERG" tvg-id="BLOOMBERG" group-title="News",EN: BLOOMBERG AUSTRALIA
+https://liveprodapnortheast.akamaized.net/btv/desktop/aus_live.m3u8
+
+#EXTINF:0 tvg-id="Sky-News" tvg-name="Sky News" tvg-logo="https://upload.wikimedia.org/wikipedia/en/9/91/SKY_TG24.png" group-title="News",Sky News (UK)
+http://d59pscns5ugc8.cloudfront.net/cdhls/skynewsamericas/1013/live/06.m3u8
+
+#EXTINF:0 tvg-logo="https://images.telequebec.tv/lafabriqueculturelle/partners/2/w150_h150.jpg",Canal Savoir (fr)
+https://stream.canalsavoir.tv/livestream/stream.m3u8
+
+#EXTINF:0 tvg-logo="https://i.imgur.com/DVjMg8q.png",France 24 | Youtube
+https://www.youtube.com/watch?v=a-M_5rGhPdg
+
+#EXTINF:0 tvg-logo="https://i.imgur.com/Twkovic.gif" group-title="News",Newsmax | Youtube
+https://www.youtube.com/watch?v=kJ8K6KN5I1o
+
+#EXTINF:0 tvg-name="BX1" tvg-language="French" tvg-country="BE" tvg-id="BX1" tvg-logo="https://i.imgur.com/VHAYeqR.png" group-title="News",BX1
+https://59959724487e3.streamlock.net/stream/live/master.m3u8
+
+#EXTINF:0 tvg-name="RTC" tvg-language="French" tvg-country="BE" tvg-id="RTC" tvg-logo="https://i.imgur.com/n7iBhDH.png" group-title="News",RTC
+https://media.webtvlive.eu/rtc/_definst_/smil:live.smil/chunklist_w1102165051_b3128000_tkdG9rZW5lbmR0aW1lPTE1NDAwMzc2NDgmdG9rZW5zdGFydHRpbWU9MTU0MDAyNjg0OCZ0b2tlbmhhc2g9MnBrS1RWeURNWGFieVpvZ1RsZ0VyYXhoNy1YRERrYzhtanQzVGFiWmhSYz0=.m3u8
+
+#EXTINF:0 tvg-name="MSNBC" tvg-language="English" tvg-country="US" tvg-id="MSNBC" tvg-logo="https://i.imgur.com/XpZdSKH.gif" group-title="News",MSNBC (News) (US) (English)
+https://tvemsnbc-lh.akamaihd.net/i/nbcmsnbc_1@122532/master.m3u8
+
+#EXTINF:0 tvg-name="euronews" tvg-id="euro-news" tvg-language="French" tvg-country="FR" tvg-logo="https://i.imgur.com/lMaRRrs.png" group-title="News",FR: Euronews
+https://edge-04.playmedia-cdn.net/origin02/amlst:medi1tv/chunklist_w2056231246_b800000.m3u8
+
+#EXTINF:0 tvg-name="euronews-yt" tvg-id="euro-news-yt" tvg-language="French" tvg-country="FR" tvg-logo="https://i.imgur.com/lMaRRrs.png" group-title="News",FR: Euronews | Youtube
+https://www.youtube.com/watch?v=IGMMMTJ3JkQ
+
+#EXTINF:0 tvg-name="euronews" tvg-id="euro-news-en" tvg-language="English" tvg-country="EN" tvg-logo="https://i.imgur.com/lMaRRrs.png" group-title="News",Euronews | Youtube
+https://www.youtube.com/watch?v=QIi5dk81z0A
+
+#EXTINF:0 tvg-name="ARTE.fr" tvg-id="ARTE.fr" tvg-logo="https://i.imgur.com/yvLAzEM.png" group-title="Art",FR: Arte HD
+https://streaming-hub.com/stream/arte.m3u8
+
+#EXTINF:-1 tvg-id="Canal J FR" tvg-name="Canal J FR" tvg-language="French" tvg-logo="https://i.imgur.com/uNE046N.png" group-title="",Canal J
+http://144.217.253.140/Canalj/tracks-v1a1/index.m3u8
+
+#EXTINF:-1 tvg-id="Notele" tvg-name="Notele" tvg-language="French" tvg-country="FR" tvg-logo="https://i.imgur.com/8CWBmcN.png" group-title="",Notele
+https://streaming01.divercom.be/notele_live/_definst_/direct.stream/chunklist_w1424854023.m3u8
+
+#EXTINF:-1 tvg-id="Notele2" tvg-name="Notele 2" tvg-language="French" tvg-country="FR" tvg-logo="https://i.imgur.com/8CWBmcN.png" group-title="",Notele
+https://streaming01.divercom.be/notele_live/_definst_/direct.stream/chunklist_w798871553.m3u8
+
+#EXTINF:0 tvg-name="Aerostar TV" tvg-id="AerostarTV" tvg-logo="https://i.imgur.com/3q6OFhO.png" group-title="Family",Aerostar TV
+https://163.172.23.65:1935/aerostar/ngrp:test_all/chunklist_w479500417_b392000.m3u8
+
+#EXTINF:0 tvg-name="KTVU 2" tvg-language="English" tvg-country="US" tvg-id="KTVU 2" tvg-logo="https://i.imgur.com/w7sFs6Y.png" group-title="News",KTVU 2 (News) (US) (English)
+https://play-prod1.live.anvato.net/server/play/ktvutestctg/master.m3u8
+
+#EXTINF:0 tvg-name="Redbull TV" tvg-language="English" tvg-country="US" tvg-id="Redbull-TV" tvg-logo="https://i.imgur.com/iFNScQ6.png" group-title="Sports",Redbull TV
+https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master_1660.m3u8
+
+#EXTINF:0 tvg-name="Buzzr" tvg-language="English" tvg-country="US" tvg-id="Buzzr" tvg-logo="https://i.imgur.com/DiENZs9.png" group-title="Entertainment",Buzzr
+https://buzzr.global.ssl.fastly.net/out/u/buzzr_hls_4.m3u8
+
+#EXTINF:0 tvg-name="CHCH" tvg-language="English" tvg-country="CA" tvg-id="CHCH" tvg-logo="https://i.imgur.com/uAxLCSh.png" group-title="Entertainment",CHCH (Hamilton)
+https://flowcaster1-cl.cdn.clearcable.net/CHCH/smil:CHCH.smil/playlist.m3u8?iimae0UC2aendtime=1577816251&iimae0UC2ahash=lcXnON8DLCvtD8VcKDo1h5sxuqjXqkL792KxYHoKM9s=
+
+#EXTINF:0 tvg-name="NTV" tvg-language="English" tvg-country="CA" tvg-id="NTV" tvg-logo="https://i.imgur.com/rI4DCiE.png" group-title="Entertainment",NTV (CJON-DT)
+https://2-fss-2.streamhoster.com/pl_138/201748-1282640-1/chunklist.m3u8
+
+#EXTINF:0 tvg-name="London Live" tvg-language="English" tvg-country="GB" tvg-id="London Live" tvg-logo="https://i.imgur.com/lDm5tkK.png" group-title="News",London Live
+https://bcoveliveios-i.akamaihd.net/hls/live/217434/3083279840001/master_900.m3u8
+
+#EXTINF:-1 tvg-name="Ei" tvg-language="English" tvg-country="US" tvg-id="Ei" tvg-logo="https://i.imgur.com/2krIVOg.jpg" group-title="Family",E-I
+https://acaooyalahd2-lh.akamaihd.net/i/TBN04_delivery@186242/master.m3u8
+
+#EXTINF:0 tvg-name="Global TV" tvg-language="English" tvg-country="CA" tvg-id="GlobalTV" tvg-logo="https://i.imgur.com/5SArb9Om.jpg" group-title="Entertainment",Global TV
+https://glblvestu-f.akamaihd.net/i/glblvestu_1@78149/master.m3u8
+
+#EXTINF:0 tvg-name="Global TV Montreal" tvg-language="English" tvg-country="CA" tvg-id="GlobalTVMontreal" tvg-logo="https://i.imgur.com/5SArb9Om.jpg" group-title="Entertainment",Global TV Montreal
+https://globalnewstor-lh.akamaihd.net/i/globalnewsElemTOR1_1@7232/master.m3u8
+
+#EXTINF:0 tvg-name="Assemble Nationale" tvg-language="French" tvg-country="CA" tvg-id="Assemble Nationale" tvg-logo="https://i.imgur.com/wSURfN9.jpg" group-title="News",Assemble Nationale (News) (CA) (Français)
+https://diffusionm4.assnat.qc.ca/canal9/250.sdp/playlist.m3u8
+
+#EXTINF:0 tvg-name="ICI Radio Canada" tvg-language="French" tvg-country="CA" tvg-id="ICI-Radio-Canada" tvg-logo="https://i.imgur.com/3ylx3Rnm.jpg" group-title="Entertainment",ICI Radio-Canada (2500)
+https://rcavlive.akamaized.net/hls/live/664045/cancbvt/master_2500.m3u8
+
+#EXTINF:0 tvg-name="ICI Radio Canada ChromeCast" tvg-language="French" tvg-country="CA" tvg-id="ICI-Radio-Canada-cc" tvg-logo="https://i.imgur.com/3ylx3Rnm.jpg" group-title="Entertainment",ICI Radio-Canada (1800)
+https://rcavlive.akamaized.net/hls/live/664045/cancbvt/master_1800.m3u8
+
+#EXTINF:0 tvg-name="ICI RDI" tvg-language="French" tvg-country="CA" tvg-id="ICI-RDI2" tvg-logo="https://i.imgur.com/VyaXt7T.png" group-title="News",ICI RDI
+https://srclive-lh.akamaihd.net/i/canrdi_1@95877/master.m3u8
+
+#EXTINF:0 tvg-name="noovo" tvg-language="French" tvg-country="CA" tvg-id="noovo" tvg-logo="https://i.imgur.com/K1AUUrO.png" group-title="Entertainment",Noovo (V-Télé)
+https://bcsecurelivehls-i.akamaihd.net/hls/live/551061/618566855001/master.m3u8
+
+#EXTINF:0 tvg-name="Télé-Quebec" tvg-language="French" tvg-country="CA" tvg-id="telequebec" tvg-logo="https://i.imgur.com/uIZSky1.png" group-title="Entertainment",Télé-Quebec
+https://teleqmmd.mmdlive.lldns.net/teleqmmd/f386e3b206814e1f8c8c1c71c0f8e748/chunklist_b1928000.m3u8
+
+#EXTINF:0 tvg-name="D5TV" tvg-language="French" tvg-country="CA" tvg-id="d5tv" tvg-logo="https://i.imgur.com/cfXVJgN.png" group-title="Entertainment",D5TV
+https://live.creacast.com/d5tv/smil:d5tv.smil/master.m3u8
+
+#EXTINF:0 tvg-name="medi1-tv" tvg-id="medi1-tv" tvg-language="French" tvg-country="CF" tvg-logo="https://i
+
+
+
+
+#EXTINF:-1 tvg-logo="https://github.com/geonsey/Free2ViewTV/blob/master/images/logos/YahooFinance_450x450.png?raw=true" group-title="Financial News & Info",Yahoo! Finance | Source 2
+https://d1ewctnvcwvvvu.cloudfront.net/playlist.m3u8
+#EXTINF:0 tvg-name="Newsmax TV" tvg-language="English" tvg-country="CA" tvg-id="Newsmax-TV" tvg-logo="https://i.imgur.com/Twkovic.gif" group-title="Entertainment",Newsmax TV https://nmxlive.akamaized.net/hls/live/529965/Live_1/index.m3u8
+
+#EXTINF:0 tvg-name="Russia today France" tvg-country="RU" tvg-language="French" tvg-logo="https://i.imgur.com/cOG7OSB.png" group-title="News",RT France
+https://rt-fra.rttv.com/live/rtfrance/playlist.m3u8
+
+#EXTINF:0 tvg-name="Newsmax TV" tvg-language="English" tvg-country="US" tvg-id="Newsmax-TV" tvg-logo="https://i.imgur.com/Twkovic.gif" group-title="News",Newsmax TV
+https://nmxlive.akamaized.net/hls/live/529965/Live_1/index.m3u8
+
+#EXTINF:-1 tvg-name="Newsy" tvg-id="Newsy.us" tvg-country="US" tvg-language="English" tvg-id="newsy" tvg-logo="https://i.imgur.com/eEqyFBX.jpg" group-title="News",Newsy (1080p)
+https://content.uplynk.com/channel/4bb4901b934c4e029fd4c1abfc766c37.m3u8
+
+#EXTINF:0 tvg-logo="https://i.ibb.co/hdBrzcc/fox.png" group-title="" tvg-language="English",FOX NEWS
+https://fox-foxnewsnow-samsungus.amagi.tv/playlist.m3u8
+
+#EXTINF:0 tvg-logo="https://i.ibb.co/jJDxCxN/abc.jpg" group-title="" tvg-language="English",ABC NEWS
+https://content.uplynk.com/channel/3324f2467c414329b3b0cc5cd987b6be.m3u8
+
+#EXTINF:0 tvg-logo="https://i.ibb.co/YD3G64y/cbs.jpg" group-title="" tvg-language="English",CBS NEWS
+https://cbsn-us.cbsnstream.cbsnews.com/out/v1/55a8648e8f134e82a470f83d562deeca/master.m3u8
+
+#EXTINF:0 tvg-logo="https://i.ibb.co/84XLZJq/dw.png" group-title="" tvg-language="English",DW ENGLISH
+https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/index.m3u8
+
+#EXTINF:0 tvg-logo="https://i.ibb.co/MGW5Vv9/aljaz.png" group-title="" tvg-language="English",AL JAZEERA NEWS
+https://live-hls-web-aje.getaj.net/AJE/master.m3u8
+
+#EXTINF:-1 tvg-id="BloombergTVUSLiveEvent.us" tvg-country="US" tvg-language="English" tvg-logo="https://cdn-profiles.tunein.com/s47135/images/logog.png" group-title="Business",Bloomberg TV US Live Event (720p)
+https://www.bloomberg.com/media-manifest/streams/us-event.m3u8
+
+#EXTINF:0 tvg-name="Redbull TV" tvg-language="English" tvg-country="US" tvg-id="Redbull-TV" tvg-logo="https://i.imgur.com/iFNScQ6.png" group-title="Sports",Redbull TV
+https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master_1660.m3u8
+
+#EXTINF:0 tvg-name="Global TV" tvg-language="English" tvg-country="CA" tvg-id="GlobalTV" tvg-logo="https://i.imgur.com/5SArb9Om.jpg" group-title="Entertainment",Global TV
+https://live.corusdigitaldev.com/groupd/live/49a91e7f-1023-430f-8d66-561055f3d0f7/live.isml/live-audio_1=96000-video=2499968.m3u8
+
+#EXTINF:-1 channel-id="samsung-FRBC90000220" tvg-id="FRBC90000220" tvg-chno="4207" tvg-logo="https://tvpmlogopeu.samsungcloud.tv/platform/image/sourcelogo/vc/70/FRBC90000220_20220928T011222.png" tvg-language="French" tvg-country="FR" group-title="Divertissement",Enquêtes de Choc
+https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01796-fastmediabackbo-enquetesdechoc-samsungfr/playlist.m3u8
+
+#EXTINF:0 tvg-name="medi1-tv" tvg-id="medi1-tv" tvg-language="French" tvg-country="CF" tvg-logo="https://i.imgur.com/2bwPnSg.png" group-title="News",Medi 1 TV
+https://streaming1.medi1tv.com/live/smil:medi1fr.smil/master.m3u8
+
+#EXTINF:0 tvg-logo="https://i.ibb.co/drk4BWw/tv5inf.png" tvg-language="French" tvg-country="FR" group-title="News" ,TV5MONDE INFO
+https://ott.tv5monde.com/Content/HLS/Live/channel(info)/variant.m3u8
+
+#EXTINF:0 tvg-name="BX1" tvg-language="French" tvg-country="BE" tvg-id="BX1" tvg-logo="https://i.imgur.com/VHAYeqR.png" group-title="News",BX1
+https://59959724487e3.streamlock.net/stream/live/master.m3u8
+
+#EXTINF:0 tvg-logo="https://i.ibb.co/M5P1TMG/clubbing.png" group-title="" tvg-language="French" tvg-country="FR",CLUBBING TV
+https://clubbingtv-rakuten.amagi.tv/playlist.m3u8
+
+#EXTINF:0 tvg-name="Francophonie.fr" tvg-language="French" tvg-id="Francophonie.fr" tvg-logo="https://i.imgur.com/zakRGtSm.jpg" group-title="France",FR: Francophonie
+https://5421175365ea3.streamlock.net/live/smil:switch.smil/playlist.m3u8
+
+#EXTINF:0 tvg-logo="https://i.ibb.co/R3KG4L9/cherie25.png" group-title="" tvg-language="French" tvg-country="FR",CHERIE 25
+https://cherie25.nrjaudio.fm/hls/live/2038375/c25/master.m3u8
+
+#EXTINF:0 tvg-logo="https://i.ibb.co/6spXX2y/nrj12.png" group-title="" tvg-language="French" tvg-country="FR",NRJ 12
+https://nrj12.nrjaudio.fm/hls/live/2038374/nrj_12/master.m3u8
+
+#EXTINF:0 tvg-logo="https://i.ibb.co/grBSqt4/novela.png" group-title="" tvg-language="French" tvg-country="FR",TELE NOVELA TV
+https://stormcast-telenovelatv-1-fr.samsung.wurl.tv/playlist.m3u8
+
+#EXTINF:0 tvg-logo="https://i.ibb.co/883phd1/ktook.png" group-title="" tvg-language="French" tvg-country="FR",KTO
+https://live-kto.akamaized.net/hls/live/2033284/KTO/master.m3u8
+
+#EXTINF:0 tvg-logo="https://i.ibb.co/VvRpRty/myzen.png" group-title="" tvg-language="French" tvg-country="FR",MY ZEN TV
+https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01255-secomcofites-my-myzen-en-plex/playlist.m3u8
+
+#EXTINF:0 tvg-logo="https://i.ibb.co/LYbF1Wt/fashionok.png" group-title="" tvg-language="French" tvg-country="FR",FASHION TV
+https://fashiontv-fashiontv-1-eu.rakuten.wurl.tv/playlist.m3u8
+
+#EXTINF:0 tvg-logo="https://i.ibb.co/mzhSFNV/bfmregions.png" group-title="" tvg-language="French" tvg-country="FR",BFM ALPES
+https://ncdn-live-bfm.pfd.sfr.net/shls/LIVE$BFM_DICI_ALPESDUSUD/index.m3u8?start=LIVE&end=END
+
+#EXTINF:0 tvg-logo="https://i.ibb.co/mzhSFNV/bfmregions.png" group-title="" tvg-language="French" tvg-country="FR",BFM MARSEILLE
+https://ncdn-live-bfm.pfd.sfr.net/shls/LIVE$BFM_MARSEILLEPROV/index.m3u8?start=LIVE&end=END
+
+#EXTINF:0 tvg-logo="https://i.ibb.co/mzhSFNV/bfmregions.png" group-title="" tvg-language="French" tvg-country="FR",BFM TOULON
+https://ncdn-live-bfm.pfd.sfr.net/shls/LIVE$BFM_TOULONVAR/index.m3u8?start=LIVE&end=END
+
+#EXTINF:0 tvg-name="CBC News Canada" tvg-language="English" tvg-country="CA" tvg-id="cbc-Canada" tvg-logo="https://i.imgur.com/thAavMy.png" group-title="Entertainment",CBC News UPDATED
+https://cbcrclive-tor.akamaized.net/hls/live/2040351/geo_allow_global/ES_NEWS_14/master_3000.m3u8
+
+#EXTINF:-1 tvg-id="Cheddar-News2" tvg-name="Cheddar News" tvg-language="English" tvg-logo="https://i.imgur.com/7WkpIBJ.png" group-title="News",Cheddar News 2
+https://bcf66772c67a40ec839611926b59b041.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/Samsung_Cheddar/playlist.m3u8?ads.wurl_channel=575&ads.wurl_name=Cheddar&ads.us_privacy=1YNY&ads.psid=%7BPSID%7D&ads.targetopt=%7BTARGETOPT%7D&ads.app_domain=%7BAPP_DOMAIN%7D&ads.app_name=%7BAPP_NAME%7D&ads.coppa=0
+
+#EXTINF:0 tvg-name="CGTN French" tvg-language="French" tvg-country="CN" tvg-id="CGTN-fr " group-title="News" tvg-logo="https://i.imgur.com/Pb7DplW.png",CGTN (French)
+https://news.cgtn.com/resource/live/french/cgtn-f.m3u8
+
+#EXTINF:0 tvg-logo="https://i.imgur.com/f8o2U0j.png" tvg-name="True-History 2" tvg-id="TrueHistory" group-title="Documentary",True History
+https://linear-188.frequency.stream/dist/glewedtv/188/hls/master/playlist.m3u8
+
+#EXTINF:0 tvg-name="aljazeera" tvg-language="English" tvg-id="aljazeera" tvg-logo="https://i.imgur.com/fLuRbYi.jpg" group-title="News",Aljazeera
+https://live-hls-web-aje.getaj.net/AJE/index.m3u8
