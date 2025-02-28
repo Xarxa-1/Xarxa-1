@@ -1,0 +1,39 @@
+#EXTINF:-1 tvg-id="" tvg-logo="" group-title="..",HBO PLUS
+http://170.254.18.106/HBO_PLUS/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-logo="" group-title="..",HBO FAMILY
+http://170.254.18.106/HBO_FAMILY/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-logo="" group-title="..",HBO 2
+http://170.254.18.106/HBO2/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-logo="" group-title="..",HBO SIG
+http://170.254.18.106/HBO_SIG/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-logo="" group-title="..",HBO XTREME
+http://170.254.18.106/HBO_XTREME/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-logo="" group-title="..",HBO POP
+http://170.254.18.106/HBO_POP/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-logo="" group-title="..",HBO MUNDI
+http://170.254.18.106/HBO_MUNDI/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-logo="" group-title="..",FX
+http://170.254.18.106/FX/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-logo="" group-title="..",CINEMAX
+http://170.254.18.106/CINEMAX/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-logo="" group-title="..",TBS
+http://170.254.18.106/TBS/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-logo="" group-title="..",HALLMARK
+http://170.254.18.106/HALLMARK/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-logo="" group-title="..",PARAMOUNT
+http://170.254.18.106/PARAMOUNT/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-logo="" group-title="..",BRAVO
+http://170.254.18.106/BRAVO/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-logo="" group-title="..",DISCOVERY
+http://170.254.18.106/DISCOVERY_SCIENCE/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-logo="" group-title="..",AXN
+http://170.254.18.106/AXN/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-logo="" group-title="..",TNT
+http://170.254.18.106/TNT/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-logo="" group-title="..",AMC
+http://170.254.18.106/AMC/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-logo="" group-title="..",STAR
+http://170.254.18.106/STAR/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-logo="" group-title="..",HGTV
+http://170.254.18.106/HGTV/index.m3u8
+
