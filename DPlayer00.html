@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DPlayer</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dplayer/dist/DPlayer.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif; color: #fff;
+            background-color: #010;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+        #dplayer {
+            width: 100%;
+            max-width: 1200px;
+            aspect-ratio: 16 / 9; /* Relació d'aspecte 16:9 */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .channel-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .channel-info img {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+        }
+        .channel-info h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .channel-buttons-container {
+            width: 100%;
+            max-width: 1200px;
+            height: 200px; /* Alçada fixa per al requadre de botons */
+            overflow-y: auto; /* Scroll vertical */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: black;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .channel-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .channel-buttons button {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .channel-buttons button:hover {
+            background-color: #0056b3;
+        }
+        .channel-buttons button img {
+            width: 24px;
+            height: 24px;
+            border-radius: 3px;
+        }
+        .url-input-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .url-input-container input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 300px;
+        }
+        .url-input-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .url-input-container button:hover {
+            background-color: #218838;
+        }
+        /* Fer la imatge de pausa més transparent */
+        .dplayer-pause {
+            opacity: 0.5 !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="dplayer"></div>
+    <div class="channel-info" id="channel-info">
+        <img id="channel-logo" src="" alt="Logo del Canal">
+        <h2 id="channel-title"></h2>
+    </div>
+    <div class="channel-buttons-container">
+        <div class="channel-buttons" id="channel-buttons"></div>
+    </div>
+    <div class="url-input-container">
+        <input type="text" id="m3u-url" placeholder="Introdueix la URL de la llista M3U" value="https://xarxa-1.github.io/Xarxa-1/cat35.m3u">
+        <button id="load-channels">o</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/dplayer/dist/DPlayer.min.js"></script>
+    <script>
+        // URL per defecte de la llista de reproducció M3U
+        const defaultM3uUrl = 'https://xarxa-1.github.io/Xarxa-1/cat35.m3u';
+
+        // Funció per obtenir les dades dels canals de la llista M3U
+        async function getChannelData(m3uUrl) {
+            try {
+                const response = await fetch(m3uUrl);
+                const text = await response.text();
+                const lines = text.split('\n');
+                const channels = [];
+                for (let i = 0; i < lines.length; i++) {
+                    if (lines[i].startsWith('#EXTINF:')) {
+                        const info = lines[i].split(',');
+                        const metadata = info[0].split(' ');
+                        const tvgLogo = metadata.find(m => m.startsWith('tvg-logo='))?.split('=')[1]?.replace(/"/g, '');
+                        const channelName = info[1].trim();
+                        const videoUrl = lines[i + 1].trim();
+                        channels.push({ name: channelName, logo: tvgLogo, url: videoUrl });
+                    }
+                }
+                return channels;
+            } catch (error) {
+                console.error('Error en obtenir les dades dels canals:', error);
+                return [];
+            }
+        }
+
+        // Funció per crear botons dels canals
+        function createChannelButtons(channels) {
+            const channelButtonsContainer = document.getElementById('channel-buttons');
+            channelButtonsContainer.innerHTML = ''; // Netejar botons anteriors
+            channels.forEach((channel, index) => {
+                const button = document.createElement('button');
+                if (channel.logo) {
+                    const img = document.createElement('img');
+                    img.src = channel.logo;
+                    img.alt = `Logo de ${channel.name}`;
+                    button.appendChild(img);
+                }
+                button.appendChild(document.createTextNode(channel.name));
+                button.addEventListener('click', () => {
+                    dp.switchVideo({
+                        url: channel.url,
+                        type: 'auto',
+                    });
+                    dp.play();
+                    updateChannelInfo(channel);
+                });
+                channelButtonsContainer.appendChild(button);
+            });
+        }
+
+        // Funció per actualitzar la informació del canal actual
+        function updateChannelInfo(channel) {
+            const channelLogo = document.getElementById('channel-logo');
+            const channelTitle = document.getElementById('channel-title');
+            channelLogo.src = channel.logo || '';
+            channelLogo.style.display = channel.logo ? 'block' : 'none';
+            channelTitle.textContent = channel.name;
+        }
+
+        // Inicialització del reproductor DPlayer amb opcions avançades
+        let dp;
+        async function initializePlayer(m3uUrl) {
+            const channels = await getChannelData(m3uUrl);
+            if (channels.length > 0) {
+                if (!dp) {
+                    dp = new DPlayer({
+                        container: document.getElementById('dplayer'),
+                        autoplay: true,
+                        theme: '#FADFA3', // Color del tema
+                        loop: true, // Reproducció en bucle
+                        lang: 'ca', // Idioma
+                        screenshot: true, // Habilitar captures de pantalla
+                        hotkey: true, // Habilitar tecles de drecera
+                        preload: 'auto', // Precarregar el vídeo
+                        volume: 0.7, // Volum per defecte
+                        mutex: true, // Evitar múltiples reproductors alhora
+                        video: {
+                            url: channels[0].url, // Reproduir el primer canal per defecte
+                            type: 'auto',
+                            pic: channels[0].logo, // Imatge de portada
+                        },
+                        contextmenu: [
+                            {
+                                text: 'Informació del canal',
+                                click: () => {
+                                    alert(`Canal: ${channels[0].name}\nURL: ${channels[0].url}`);
+                                },
+                            },
+                        ],
+                    });
+                } else {
+                    dp.switchVideo({
+                        url: channels[0].url,
+                        type: 'auto',
+                        pic: channels[0].logo, // Actualitzar imatge de portada
+                    });
+                }
+
+                // Actualitzar la informació del canal inicial
+                updateChannelInfo(channels[0]);
+
+                // Crear botons dels canals
+                createChannelButtons(channels);
+            } else {
+                console.error('No s\'han pogut obtenir les dades dels canals.');
+            }
+        }
+
+        // Carregar canals quan es faci clic al botó
+        document.getElementById('load-channels').addEventListener('click', () => {
+            const m3uUrl = document.getElementById('m3u-url').value;
+            initializePlayer(m3uUrl);
+        });
+
+        // Inicialitzar amb la URL per defecte
+        initializePlayer(defaultM3uUrl);
+    </script>
+</body>
+</html>
+
+
