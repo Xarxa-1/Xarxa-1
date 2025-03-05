@@ -1,5 +1,23 @@
 #EXTM3U
-#EXTINF:0 tvg-name="Redbull TV" tvg-language="English" tvg-country="US" tvg-id="Redbull-TV" tvg-logo="https://i.imgur.com/iFNScQ6.png" group-title="Sports",Redbull TV
+#EXTINF:-1, CBS SPORT 🇺🇸 
+https://fl2.moveonjoy.com/CBS_SPORTS_NETWORK/index.m3u8
+#EXTINF:-1, Sport5 🇮🇱 
+https://rgelive.akamaized.net/hls/live/2043151/radiolive/playlist.m3u8
+#EXTINF:-1,4Sports 🇮🇱 
+https://hls.pokertvfa.live/hls/stream.m3u8
+#EXTINF:-1, Bein Sports 🇬🇧 
+http://fl2.moveonjoy.com/BEIN_SPORTS/index.m3u8
+#EXTINF:-1,BEIN SPORT EXTRA Ñ 🇪🇸 
+https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/bein-sports-xtra-en-espanol/playlist.m3u8
+#EXTINF:-1,Arena Sport 3 🇷🇸 
+http://109.105.201.198/ARENASPORT3/video.m3u8?token=test 
+#EXTINF:-1,EUROSPORT 2 🇪🇸 
+http://185.189.225.157/EuroSport2/index.m3u8
+#EXTINF:-1,EUROSPORT 1 🇪🇸 
+http://185.189.225.157/EuroSport1/index.m3u8
+
+
+#EXTINF:0 tvg-name="Redbull TV" tvg-language="English" tvg-country="US" tvg-id="Redbull-TV" tvg-logo="https://i.imgur.com/iFNScQ6.png" group-title="Sports",Redbull TV 🇺🇸
 https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master_1660.m3u8 
 _id=6105&publishing_platform_id=5
 
