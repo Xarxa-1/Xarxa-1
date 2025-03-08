@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Reproductor de Canals M3U</title>
+    <style>
+        /* Estils generals */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Reproductor de vídeo */
+        .video-container {
+            width: 100%;
+            background-color: #000;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+        }
+
+        /* Títol del vídeo actiu */
+        .channel-info {
+            background-color: LightSteelBlue; 
+            padding: 10px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Contenidor per a la llista de canals i l'entrada d'URL */
+        .bottom-container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* Llista de canals */
+        .channel-list {
+            flex: 1;
+            background-color: gray;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            max-height: 400px;
+            padding: 10px;
+            position: relative;
+        }
+
+        /* Filtre de canals (fixat a la part superior) */
+        .filter-container {
+            position: sticky;
+            top: 0;
+            padding: 10px 0;
+            z-index: 1;
+        }
+
+        .filter-container input {
+            padding: 10px;
+            font-size: 16px;
+            width: 90%;
+            border: 1px solid #ccc;
+            background-color: LightSteelBlue;
+            border-radius: 5px;
+        }
+
+        .channel-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .channel-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .channel-logo {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            border-radius: 10%;
+        }
+
+        .channel-name {
+            font-size: 16px;
+        }
+
+        /* Entrada d'URL i botó */
+        .input-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .input-container input {
+            padding: 10px;
+            font-size: 8px;
+            width: 100%;
+            border: 1px solid #ccc;
+            background-color: dimgray;
+            border-radius: 5px;
+        }
+
+        .input-container button {
+            padding: 10px 20px;
+            font-size: 14px;
+            background-color: dimgray;
+            color: gray;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .input-container button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Reproductor de vídeo -->
+    <div class="video-container">
+        <video id="video-player" controls></video>
+    </div>
+
+    <!-- Títol del vídeo actiu -->
+    <div id="channel-info" class="channel-info"></div>
+
+    <!-- Contenidor per a la llista de canals i l'entrada d'URL -->
+    <div class="bottom-container">
+        <!-- Llista de canals -->
+        <div class="channel-list">
+            <!-- Filtre de canals (fixat a la part superior) -->
+            <div class="filter-container">
+                <input type="text" id="filter-input" placeholder="Filtrar canals..." oninput="filterChannels()">
+            </div>
+            <!-- Llista de canals es mostrarà aquí -->
+            <div id="channel-list-items"></div>
+        </div>
+</div>
+        <!-- Entrada d'URL i botó -->
+        <div class="input-container">
+            <input type="text" id="m3u-url" placeholder="Introdueix la URL del fitxer M3U" value="https://xarxa-1.github.io/Xarxa-1/cat19.m3u" onclick="suggestNewURL()">
+            <button onclick="loadM3U()">Carregar Canals</button>
+        </div>
+    </div>
+
+    <!-- Script de hls.js -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script>
+        // Variables globals
+        let hls;
+        let channels = [];
+
+        // Llista d'URLs suggerides
+        const suggestedURLs = [
+            "https://xarxa-1.github.io/Xarxa-1/cat19.m3u",
+ "https://xarxa-1.github.io/Xarxa-1/cat31.m3u", 
+   "https://xarxa-1.github.io/Xarxa-1/cat32.m3u",        
+ "https://xarxa-1.github.io/Xarxa-1/cat33.m3u",  
+"https://xarxa-1.github.io/Xarxa-1/cat34.m3u", 
+ "https://xarxa-1.github.io/Xarxa-1/cat35.m3u",        "https://raw.githubusercontent.com/olivergiangvu/IPTV/refs/heads/main/updated_usa_tv.m3u"
+           
+        ];
+
+        // Comptador per alternar entre les URLs
+        let urlIndex = 0;
+
+        // Funció per carregar el fitxer M3U
+        async function loadM3U() {
+            const url = document.getElementById('m3u-url').value;
+            if (!url) {
+                alert('Si us plau, introdueix una URL vàlida.');
+                return;
+            }
+
+            try {
+                const response = await fetch(url);
+                const text = await response.text();
+                parseM3U(text);
+                displayChannels();
+                playChannel(0); // Reprodueix el primer canal automàticament
+            } catch (error) {
+                console.error('Error carregant el fitxer M3U:', error);
+                alert('No s\'ha pogut carregar el fitxer M3U.');
+            }
+        }
+
+        // Funció per analitzar el fitxer M3U
+        function parseM3U(data) {
+            channels = [];
+            const lines = data.split('\n');
+            let channel = {};
+
+            lines.forEach(line => {
+                if (line.startsWith('#EXTINF:')) {
+                    const info = line.split(',');
+                    const metadata = info[0].split(' ');
+                    channel = {
+                        name: info[1].trim(),
+                        logo: metadata.find(m => m.startsWith('tvg-logo='))?.split('=')[1]?.replace(/"/g, ''),
+                        url: ''
+                    };
+                } else if (line.startsWith('http')) {
+                    channel.url = line.trim();
+                    channels.push(channel);
+                }
+            });
+        }
+
+        // Funció per mostrar la llista de canals
+        function displayChannels(filterText = '') {
+            const channelListItems = document.getElementById('channel-list-items');
+            const filteredChannels = filterText
+                ? channels.filter(channel => channel.name.toLowerCase().includes(filterText.toLowerCase()))
+                : channels;
+
+            channelListItems.innerHTML = filteredChannels.map((channel, index) => `
+                <div class="channel-item" onclick="playChannel(${index})">
+                    <img src="${channel.logo || 'https://via.placeholder.com/40'}" alt="${channel.name}" class="channel-logo">
+                    <div class="channel-name">${channel.name}</div>
+                </div>
+            `).join('');
+        }
+
+        // Funció per filtrar canals
+        function filterChannels() {
+            const filterText = document.getElementById('filter-input').value;
+            displayChannels(filterText);
+        }
+
+        // Funció per reproduir un canal
+        function playChannel(index) {
+            const channel = channels[index];
+            if (!channel) return;
+
+            const video = document.getElementById('video-player');
+            const channelInfo = document.getElementById('channel-info');
+
+            // Actualitza la informació del canal
+            channelInfo.innerHTML = `
+                <img src="${channel.logo || 'https://via.placeholder.com/40'}" alt="${channel.name}" class="channel-logo">
+                <span>${channel.name}</span>
+            `;
+
+            // Configura HLS.js
+            if (Hls.isSupported()) {
+                if (hls) hls.destroy();
+                hls = new Hls();
+                hls.loadSource(channel.url);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = channel.url;
+                video.addEventListener('loadedmetadata', () => video.play());
+            } else {
+                alert('El teu navegador no suporta la reproducció de fluxos HLS.');
+            }
+        }
+
+        // Funció per suggerir una nova URL quan es fa clic al camp d'entrada
+        function suggestNewURL() {
+            const urlInput = document.getElementById('m3u-url');
+            
+            // Alterna entre les URLs suggerides
+            urlIndex = (urlIndex + 1) % suggestedURLs.length;
+            urlInput.value = suggestedURLs[urlIndex];
+        }
+
+        // Carrega automàticament la URL per defecte quan s'obri la pàgina
+        window.onload = function() {
+            loadM3U();
+        };
+    </script>
+
+</body>
+</html>
