@@ -2,8 +2,9 @@
 <html lang="ca">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="apple-mobile-web-app-capable" content="yes">
-    <title>Reproductor de Canals M3U</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>m3u</title>
     <style>
         /* Estils generals */
         body {
@@ -31,10 +32,13 @@
         .channel-info {
             background-color: LightSteelBlue; 
             padding: 10px;
-            text-align: center;
+            text-align: left; /* Centrat per l'esquerra */
             font-size: 18px;
             font-weight: bold;
-            width: 100%;
+            width: 300px; /* Amplada de 300px */
+            height: 20px; /* Alçada de 20px */
+            display: flex;
+            align-items: center; /* Centrat verticalment */
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
@@ -43,7 +47,7 @@
             width: 100%;
             max-width: 1200px;
             display: flex;
-            gap: 20px;
+            gap: 2px;
             padding: 20px;
             box-sizing: border-box;
         }
@@ -62,8 +66,8 @@
         /* Filtre de canals (fixat a la part superior) */
         .filter-container {
             position: sticky;
-            top: 0;
-            padding: 10px 0;
+            top: -20px;
+            padding: 3px 0;
             z-index: 1;
         }
 
@@ -76,29 +80,41 @@
             border-radius: 5px;
         }
 
-        .channel-item {
+        /* Botons dels canals */
+        .channel-buttons {
             display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-            cursor: pointer;
-            padding: 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+            flex-wrap: wrap; /* Permet que els botons es disposin en múltiples línies */
+            gap: 5px; /* Espai entre botons */
         }
 
-        .channel-item:hover {
+        .channel-item {
+            width: 90px; /* Amplada de 90px */
+            height: 40px; /* Alçada de 40px */
+            display: flex;
+            align-items: center; /* Centrat verticalment */
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
             background-color: #f0f0f0;
         }
 
+        .channel-item:hover {
+            background-color: #ddd;
+        }
+
         .channel-logo {
-            width: 40px;
-            height: 40px;
-            margin-right: 10px;
+            width: 30px; /* Mida del logo */
+            height: 30px;
             border-radius: 10%;
+            margin-right: 5px; /* Espai entre el logo i el text */
         }
 
         .channel-name {
-            font-size: 16px;
+            font-size: 12px;
+            white-space: nowrap; /* Evita que el text es divideixi en múltiples línies */
+            overflow: hidden;
+            text-overflow: ellipsis; /* Afegeix punts suspensius si el text és massa llarg */
         }
 
         /* Entrada d'URL i botó */
@@ -106,13 +122,14 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            width: 100%;
+            gap: 1px;
         }
 
         .input-container input {
             padding: 10px;
             font-size: 8px;
-            width: 100%;
+            width: 98%;
             border: 1px solid #ccc;
             background-color: dimgray;
             border-radius: 5px;
@@ -153,7 +170,7 @@
                 <input type="text" id="filter-input" placeholder="Filtrar canals..." oninput="filterChannels()">
             </div>
             <!-- Llista de canals es mostrarà aquí -->
-            <div id="channel-list-items"></div>
+            <div class="channel-buttons" id="channel-list-items"></div>
         </div>
 </div>
         <!-- Entrada d'URL i botó -->
@@ -169,16 +186,17 @@
         // Variables globals
         let hls;
         let channels = [];
+        let filteredChannels = [];
 
         // Llista d'URLs suggerides
         const suggestedURLs = [
             "https://xarxa-1.github.io/Xarxa-1/cat19.m3u",
- "https://xarxa-1.github.io/Xarxa-1/cat31.m3u", 
-   "https://xarxa-1.github.io/Xarxa-1/cat32.m3u",        
- "https://xarxa-1.github.io/Xarxa-1/cat33.m3u",  
-"https://xarxa-1.github.io/Xarxa-1/cat34.m3u", 
- "https://xarxa-1.github.io/Xarxa-1/cat35.m3u",        "https://raw.githubusercontent.com/olivergiangvu/IPTV/refs/heads/main/updated_usa_tv.m3u"
-           
+            "https://xarxa-1.github.io/Xarxa-1/cat31.m3u", 
+            "https://xarxa-1.github.io/Xarxa-1/cat32.m3u",        
+            "https://xarxa-1.github.io/Xarxa-1/cat33.m3u",  
+            "https://xarxa-1.github.io/Xarxa-1/cat34.m3u", 
+            "https://xarxa-1.github.io/Xarxa-1/cat35.m3u",        
+            "https://raw.githubusercontent.com/olivergiangvu/IPTV/refs/heads/main/updated_usa_tv.m3u"
         ];
 
         // Comptador per alternar entre les URLs
@@ -197,7 +215,7 @@
                 const text = await response.text();
                 parseM3U(text);
                 displayChannels();
-                playChannel(0); // Reprodueix el primer canal automàticament
+                playFilteredChannel(0); // Reprodueix el primer canal automàticament
             } catch (error) {
                 console.error('Error carregant el fitxer M3U:', error);
                 alert('No s\'ha pogut carregar el fitxer M3U.');
@@ -229,12 +247,12 @@
         // Funció per mostrar la llista de canals
         function displayChannels(filterText = '') {
             const channelListItems = document.getElementById('channel-list-items');
-            const filteredChannels = filterText
+            filteredChannels = filterText
                 ? channels.filter(channel => channel.name.toLowerCase().includes(filterText.toLowerCase()))
                 : channels;
 
             channelListItems.innerHTML = filteredChannels.map((channel, index) => `
-                <div class="channel-item" onclick="playChannel(${index})">
+                <div class="channel-item" onclick="playFilteredChannel(${index})">
                     <img src="${channel.logo || 'https://via.placeholder.com/40'}" alt="${channel.name}" class="channel-logo">
                     <div class="channel-name">${channel.name}</div>
                 </div>
@@ -247,9 +265,9 @@
             displayChannels(filterText);
         }
 
-        // Funció per reproduir un canal
-        function playChannel(index) {
-            const channel = channels[index];
+        // Funció per reproduir un canal filtrat
+        function playFilteredChannel(filteredIndex) {
+            const channel = filteredChannels[filteredIndex];
             if (!channel) return;
 
             const video = document.getElementById('video-player');
@@ -292,4 +310,4 @@
     </script>
 
 </body>
-</html>
+</html> 
