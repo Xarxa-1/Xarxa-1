@@ -1,0 +1,59 @@
+[
+  { "name": "RAC1", "url": "https://20103.live.streamtheworld.com/RAC_1.mp3" },
+  { "name": "RAC+1", "url": "https://25633.live.streamtheworld.com/RAC_MES_1.mp3" },
+  { "name": "Espluga FM Ràdio", "url": "https://relay.stream.enacast-cloud.com:40319/esplugafmHD.mp3" },
+  { "name": "Ràdio Montblanc", "url": "http://relay.stream.enacast-cloud.com:30045/radiomontblanc56.mp3" },
+  { "name": "Hit103 Valls", "url": "https://streaming.enacast.com/radiovalls128.mp3" },
+  { "name": "Tarragona Ràdio", "url": "http://relay.stream.enacast-cloud.com:30007/tarragona56.mp3" },
+  { "name": "Lleida Ràdio Ua1", "url": "http://panel5.soydigital.fm/8032/stream" },
+  { "name": "Ràdio Borges", "url": "http://188.164.198.121:8034/stream"},
+  { "name": "Ràdio Ponent", "url": "http://relay.stream.enacast-cloud.com:30305/radioponentSD.mp3" },
+  { "name": "Flaix FM", "url": "https://stream.flaixfm.cat/icecast" },
+  { "name": "Flaixbac", "url": "https://stream.flaixbac.cat/icecast" },
+  { "name": "RAC105", "url": "https://23553.live.streamtheworld.com/RAC105AAC/HLS/playlist.m3u8" },
+  { "name": "Catalunya Ràdio", "url": "https://shoutcast.ccma.cat/ccma/catalunyaradioHD.mp3" },
+  { "name": "Catalunya Informació", "url": "https://shoutcast.ccma.cat/ccma/catalunyainformacioHD.mp3" },
+  { "name": "Catalunya Música", "url": "https://shoutcast.ccma.cat/ccma/catalunyamusicaHD.mp3" },
+  { "name": "iCatFM", "url": "https://shoutcast.ccma.cat/ccma/icatHD.mp3" },
+  { "name": "Europa FM", "url": "http://agregadores-atres-live.atresmedia.com/tunein/live/europafm/bitrate_1.m3u8" },
+  { "name": "HitFM", "url": "https://adhandler.kissfmradio.cires21.com/get_link?url=https://bbhitfm.kissfmradio.cires21.com/bbhitfm.mp3" },
+  { "name": "RockFM", "url": "https://rockfm-cope.flumotion.com/playlist.m3u8" },
+  { "name": "Los40", "url": "https://playerservices.streamtheworld.com/api/livestream-redirect/LOS40_CATAAC_SC?dist=los40" },
+  { "name": "SER", "url": "https://23543.live.streamtheworld.com/SER_CAT.mp3" },
+  { "name": "Ràdio Estel", "url": "https://srv6021.dns-lcinternet.com:10244/stream" },
+  { "name": "RNE Radio5", "url": "https://rtvelivestream.akamaized.net/rtvesec/rne/rne_r5_madrid_main.m3u8" },
+  { "name": "Radio5 rne", "url": "https://dispatcher.rndfnk.com/crtve/rne5/main/mp3/high?aggregator=tunein" },
+  
+  
+  
+  
+  
+    { "name": "Radio 5", "url": "https://d131.rndfnk.com/star/crtve/rne5/bcn/mp3/128/stream.mp3?cid=01GEP66PD2Z35HZMWWYTNPZDNA&sid=2nRKsO7DLb17mtLNwNQYtVTol8n&token=7qxgy3qHT3DSNTAaCBADJl9VD_8D7MMtniQpD4_mIl4&tvf=Nc9CIep4_hdkMTMxLnJuZGZuay5jb20" },
+      { "name": "Ràdio4", "url": "https://rtvelivestream.akamaized.net/rtvesec/rne/rne_r4_main.m3u8" },
+      { "name": "COPE", "url": "https://wecast14-h-cloud.flumotion.com/copesedes/tarragona.mp3" },
+      { "name": "Radio Marca", "url": "https://radiomarcabcnmedia.dns-lcinternet.com:9000/stream" },
+      { "name": "Radio5", "url": "" },
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  { "name": "TV3", "url": "https://directes-tv-cat.ccma.cat/live-origin/tv3-hls/master.m3u8" },
+  { "name": "TV3i", "url": "https://directes-tv-int.ccma.cat/live-origin/tvi-hls/master.m3u8" },
+  { "name": "324", "url": "https://directes-tv-es.ccma.cat/live-origin/canal324-hls/master.m3u8" },
+  { "name": "Esport3", "url": "https://directes-tv-cat.ccma.cat/live-origin/esport3-hls/master.m3u8" },
+  { "name": "TAC12", "url": "https://ingest1-video.streaming-pro.com/tac12_ABR/stream/playlist.m3u8" },
+  { "name": "La1", "url": "https://ztnr.rtve.es/ztnr/5190066.m3u8" },
+  { "name": "La2", "url": "https://ztnr.rtve.es/ztnr/5468585.m3u8" },
+  { "name": "24h", "url": "https://ztnr.rtve.es/ztnr/1694255.m3u8" },
+  { "name": "BBCNews", "url": "http://stream.live.vc.bbcmedia.co.uk/bbc_world_service?s=1626288607&e=1626303007&h=c753830cabbef2a8b442e0f422712a42" }
+]
