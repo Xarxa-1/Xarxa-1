@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reproductor de Ràdio en Directe</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #1a1a1a;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .player {
+      width: 350px;
+      background: #2a2a2a;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+
+    .cover {
+      width: 200px;
+      height: 200px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: #333;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .disc {
+      width: 100%;
+      height: 100%;
+      background: url('https://via.placeholder.com/200') no-repeat center center/cover;
+      border-radius: 50%;
+      animation: spin 10s linear infinite;
+      animation-play-state: paused;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .info {
+      margin-bottom: 20px;
+    }
+
+    .title {
+      font-size: 24px;
+      margin: 0;
+    }
+
+    .artist {
+      font-size: 16px;
+      color: #888;
+      margin: 5px 0 0;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .btn {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 24px;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .btn:hover {
+      color: #1db954;
+    }
+
+    .progress-container {
+      width: 100%;
+      height: 5px;
+      background: #444;
+      border-radius: 5px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+
+    .progress {
+      height: 100%;
+      background: #1db954;
+      border-radius: 5px;
+      width: 0%;
+      transition: width 0.1s;
+    }
+  </style>
+</head>
+<body>
+  <div class="player">
+    <div class="cover">
+      <div class="disc"></div>
+    </div>
+    <div class="info">
+      <h2 class="title" id="title">Carregant...</h2>
+      <h3 class="artist" id="artist">Ràdio en Directe</h3>
+    </div>
+    <div class="controls">
+      <button class="btn prev"><i class="fas fa-backward"></i></button>
+      <button class="btn play"><i class="fas fa-play"></i></button>
+      <button class="btn next"><i class="fas fa-forward"></i></button>
+    </div>
+    <div class="progress-container">
+      <div class="progress"></div>
+    </div>
+  </div>
+
+  <script>
+    const audio = new Audio();
+    const playBtn = document.querySelector('.play');
+    const prevBtn = document.querySelector('.prev');
+    const nextBtn = document.querySelector('.next');
+    const disc = document.querySelector('.disc');
+    const title = document.getElementById('title');
+    const artist = document.getElementById('artist');
+
+    let stations = [];
+    let currentStationIndex = 0;
+    let isPlaying = false;
+
+    // Carrega les estacions de ràdio des de l'URL
+    async function loadStations() {
+      try {
+        const response = await fetch('https://xarxa-1.github.io/Xarxa-1/station1.json');
+        stations = await response.json();
+        if (stations.length > 0) {
+          loadStation(stations[currentStationIndex]);
+        }
+      } catch (error) {
+        console.error('Error carregant les estacions:', error);
+        title.textContent = "Error carregant les estacions";
+      }
+    }
+
+    // Carrega una estació específica
+    function loadStation(station) {
+      title.textContent = station.name;
+      artist.textContent = "Ràdio en Directe";
+      audio.src = station.url;
+      disc.style.backgroundImage = `url('${station.logo}')`;
+      if (isPlaying) {
+        audio.play();
+      }
+    }
+
+    // Reprodueix o pausa l'àudio
+    function togglePlay() {
+      if (isPlaying) {
+        audio.pause();
+        playBtn.innerHTML = '<i class="fas fa-play"></i>';
+        disc.style.animationPlayState = 'paused';
+      } else {
+        audio.play();
+        playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        disc.style.animationPlayState = 'running';
+      }
+      isPlaying = !isPlaying;
+    }
+
+    // Canvia a l'estació anterior
+    function prevStation() {
+      currentStationIndex = (currentStationIndex - 1 + stations.length) % stations.length;
+      loadStation(stations[currentStationIndex]);
+    }
+
+    // Canvia a la següent estació
+    function nextStation() {
+      currentStationIndex = (currentStationIndex + 1) % stations.length;
+      loadStation(stations[currentStationIndex]);
+    }
+
+    // Event listeners
+    playBtn.addEventListener('click', togglePlay);
+    prevBtn.addEventListener('click', prevStation);
+    nextBtn.addEventListener('click', nextStation);
+
+    // Carrega les estacions al iniciar
+    loadStations();
+  </script>
+</body>
+</html>
