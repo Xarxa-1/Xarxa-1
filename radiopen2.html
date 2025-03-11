@@ -6,12 +6,12 @@
   <title>Reproductor de Ràdio en Directe</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Antonio:wght@300;400;500;600&display=swap');
-    body { margin: 0; padding: 0; font-family: 'Antonio', sans-serif; background: #1a1a1a; color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; }
-    .player { width: 400px; background: #2a2a2a; border-radius: 15px; padding: 20px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); }
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+    body { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; background: #1a1a1a; color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; }
+    .player { width: 450px; background: #2a2a2a; border-radius: 15px; padding: 20px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); }
     .top-section { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
     .controls { display: flex; align-items: center; gap: 10px; order: 2; }
-    .clock { font-family: Antonio; font-size: 14px; color: white; padding-right: 15px; border-right: 1px solid #444; }
+    .clock { font-family: monospace; font-size: 14px; color: #1db954; padding-right: 15px; border-right: 1px solid #444; }
     .cover { width: 40px; height: 40px; background: #333; position: relative; overflow: hidden; flex-shrink: 0; order: 3; }
     .disc { width: 100%; height: 100%; background: url('https://via.placeholder.com/200') no-repeat center center/cover; animation: spin 60s linear infinite; animation-play-state: paused; }
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
@@ -22,22 +22,23 @@
     .btn:hover { color: #1db954; }
     .progress-container { width: 100%; height: 5px; background: #444; border-radius: 5px; cursor: pointer; }
     .progress { height: 100%; background: #1db954; border-radius: 5px; width: 0%; transition: width 0.1s; }
+    .volume-container { display: flex; align-items: center; gap: 5px; margin-left: 10px; }
+    .volume-slider { -webkit-appearance: none; width: 80px; height: 4px; background: #444; border-radius: 2px; outline: none; }
+    .volume-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; background: #1db954; border-radius: 50%; cursor: pointer; }
   </style>
 </head>
 <body>
-  <div class="player"><div class="top-section"><div class="clock" id="clock">--:--:--</div><div class="controls"><button class="btn prev"><i class="fas fa-backward"></i></button><button class="btn play"><i class="fas fa-play"></i></button><button class="btn next"><i class="fas fa-forward"></i></button></div><div class="cover"><div class="disc"></div></div><div class="info"><h3 class="artist" id="title">Carregant...</h3><h3 class="title" id="artist">Ràdio en Directe</h3></div></div><div class="progress-container"><div class="progress"></div></div></div>
+  <div class="player"><div class="top-section"><div class="clock" id="clock">--:--:--</div><div class="controls"><button class="btn prev"><i class="fas fa-backward"></i></button><button class="btn play"><i class="fas fa-play"></i></button><button class="btn next"><i class="fas fa-forward"></i></button><div class="volume-container"><i class="fas fa-volume-up" style="font-size: 14px;"></i><input type="range" class="volume-slider" min="0" max="1" step="0.1" value="1"></div></div><div class="cover"><div class="disc"></div></div><div class="info"><h3 class="artist" id="title">Carregant...</h3><h3 class="title" id="artist">Ràdio en Directe</h3></div></div><div class="progress-container"><div class="progress"></div></div></div>
 
   <script>
     // Rellotge
     function updateClock() {
       const now = new Date();
-      const hours = String(now.getHours()).padStart(2, '0');
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-      const seconds = String(now.getSeconds()).padStart(2, '0');
-      document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+      const timeString = now.toLocaleTimeString('ca-ES', {hour12: false});
+      document.getElementById('clock').textContent = timeString;
     }
     setInterval(updateClock, 1000);
-    updateClock(); // Inicialitza immediatament
+    updateClock();
 
     // Reproductor
     const audio = new Audio();
@@ -47,10 +48,16 @@
     const disc = document.querySelector('.disc');
     const title = document.getElementById('title');
     const artist = document.getElementById('artist');
+    const volumeSlider = document.querySelector('.volume-slider');
 
     let stations = [];
     let currentStationIndex = 0;
     let isPlaying = false;
+
+    // Control de volum
+    volumeSlider.addEventListener('input', (e) => {
+      audio.volume = e.target.value;
+    });
 
     async function loadStations() {
       try {
@@ -93,4 +100,4 @@
     loadStations();
   </script>
 </body>
-</html>
+</html> 
