@@ -7,7 +7,7 @@
   { "name": "Hit103 Valls", "url": "https://streaming.enacast.com/radiovalls128.mp3", "logo": "https://pbs.twimg.com/profile_images/1438766759813787653/EM_oF1FH.jpg" },
   { "name": "Tarragona Ràdio", "url": "http://relay.stream.enacast-cloud.com:30007/tarragona56.mp3", "logo": "https://www.tarragonaradio.cat/wp-content/uploads/2021/02/logo-tarragona-radio-footer.png" },
   { "name": "Lleida Ràdio Ua1", "url": "http://panel5.soydigital.fm/8032/stream", "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKBmtbu8i1oORV8JfMLLqN1FRL1vXDvHKj_yQ26b3GH0Y_QbCwAM10lh09zQ&s" },
-  { "name": "Ràdio Ponent", "url": "http://relay.stream.enacast-cloud.com:30305/radioponentSD.mp3", "logo": "https://enacast.com/media/cache/03/0e/030e32d8fa427b7a628626de2368de19.png" },
+  { "name": "Ràdio Ponent", "url": "http://relay.stream.enacast-cloud.com:30305/radioponentSD.mp3", "logo": "https://pbs.twimg.com/profile_images/1176595590521769984/PQOPtUsi.jpg" },
   { "name": "Flaix FM", "url": "https://stream.flaixfm.cat/icecast", "logo": "https://static.mytuner.mobi/media/radios-150px/275/flaix-fm.a95b9f21.png" },
   { "name": "Flaixbac", "url": "https://stream.flaixbac.cat/icecast", "logo": "https://static.mytuner.mobi/media/radios-150px/274/flaixbac.f6d8cd83.jpg" },
   { "name": "RAC105", "url": "https://23553.live.streamtheworld.com/RAC105AAC/HLS/playlist.m3u8", "logo": "https://static.mytuner.mobi/media/radios-150px/616/rac-105.a84bf07c.jpg" },
