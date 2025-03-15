@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">meta name=”theme-color” content=”#000000” />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>m3u</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .video-container {
+            width: 100%;
+            background-color: #000;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+        }
+
+        .channel-info {
+            background-color: LightSteelBlue; border-radius: 5px;margin-top: -3px;margin-bottom: -21px;
+            padding: 10px;
+            text-align: left;
+            font-size: 18px;
+            font-weight: bold;
+            width: 80%;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .bottom-container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            gap: 2px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .channel-list {
+            flex: 1;
+            background-color: black;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            max-height: 400px;
+            padding: 10px;
+            position: relative;
+        }
+
+        .filter-container {
+            position: sticky;
+            top: -20px;
+            padding: 3px 0;
+            z-index: 1;
+        }
+
+        .filter-container input {
+            padding: 10px; margin-top: 0;
+            font-size: 16px;
+            width: 300px;height: 20px;
+            border: 1px solid #ccc;
+            background-color: LightSteelBlue;
+            border-radius: 5px;
+        }
+
+        .channel-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .channel-item {
+            width: 163px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        .channel-item:hover {
+            background-color: #ddd;
+            color: #000000;
+        }
+
+        .channel-logo {
+            width: 30px;
+            height: 30px;
+            border-radius: 10%;
+            margin-right: 5px;
+            display: none; /* Ocult per defecte */
+        }
+
+        .channel-name {
+            font-size: 12px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-left: 5px;
+        }
+
+        .input-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 1px;
+        }
+
+        .input-container input {
+            padding: 10px;
+            font-size: 12px;
+            width: 98%;
+            border: 1px solid #ccc;
+            background-color: black;
+            color: #ffffff;
+            border-radius: 5px;
+        }
+
+        .input-container button {
+            padding: 10px 20px;
+            font-size: 12px;
+            background-color: black;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .input-container button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <video id="video-player" controls></video>
+    </div>
+
+    <div id="channel-info" class="channel-info"></div>
+
+    <div class="bottom-container">
+        <div class="channel-list">
+            <div class="filter-container">
+                <input type="text" id="filter-input" placeholder="Filtrar per nom o número..." oninput="filterChannels()">
+            </div>
+            <div class="channel-buttons" id="channel-list-items"></div>
+        </div></div>
+        <div class="input-container">
+            <input type="text" id="m3u-url" placeholder="Introdueix la URL del fitxer M3U" value="https://xarxa-1.github.io/Xarxa-1/cat19.m3u" onclick="suggestNewURL()">
+            <button onclick="loadM3U()">Carregar</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script>
+        let hls;
+        let channels = [];
+        let filteredChannels = [];
+
+        const suggestedURLs = [
+            "https://xarxa-1.github.io/Xarxa-1/futbol.m3u",
+            "https://xarxa-1.github.io/Xarxa-1/cat19.m3u",
+            "https://xarxa-1.github.io/Xarxa-1/cat31.m3u", 
+            "https://xarxa-1.github.io/Xarxa-1/cat32.m3u",
+            "https://xarxa-1.github.io/Xarxa-1/cat33.m3u",
+            "https://xarxa-1.github.io/Xarxa-1/cat34.m3u",
+            "https://xarxa-1.github.io/Xarxa-1/cat35.m3u",
+            "https://raw.githubusercontent.com/olivergiangvu/IPTV/refs/heads/main/updated_usa_tv.m3u"
+        ];
+
+        let urlIndex = 0;
+
+        async function loadM3U() {
+            const url = document.getElementById('m3u-url').value;
+            if (!url) {
+                alert('Si us plau, introdueix una URL vàlida.');
+                return;
+            }
+
+            try {
+                const response = await fetch(url);
+                const text = await response.text();
+                parseM3U(text);
+                displayChannels();
+                playFilteredChannel(0);
+            } catch (error) {
+                console.error('Error carregant el fitxer M3U:', error);
+                alert('No s\'ha pogut carregar el fitxer M3U.');
+            }
+        }
+
+        function parseM3U(data) {
+            channels = [];
+            const lines = data.split('\n');
+            let channel = {};
+            let channelNumber = 1;
+
+            lines.forEach(line => {
+                if (line.startsWith('#EXTINF:')) {
+                    const info = line.split(',');
+                    const metadata = info[0].split(' ');
+                    channel = {
+                        id: channelNumber++,
+                        name: info[1].trim(),
+                        logo: metadata.find(m => m.startsWith('tvg-logo='))?.split('=')[1]?.replace(/"/g, ''),
+                        url: ''
+                    };
+                } else if (line.startsWith('http')) {
+                    channel.url = line.trim();
+                    channels.push(channel);
+                }
+            });
+        }
+
+        function displayChannels(filterText = '') {
+            const channelListItems = document.getElementById('channel-list-items');
+            filteredChannels = filterText
+                ? channels.filter(channel => 
+                    channel.name.toLowerCase().includes(filterText.toLowerCase()) ||
+                    channel.id.toString().includes(filterText)
+                  )
+                : channels;
+
+            channelListItems.innerHTML = filteredChannels.map((channel, index) => `
+                <div class="channel-item" onclick="playFilteredChannel(${index})">
+                    ${channel.logo ? `<img src="${channel.logo}" alt="${channel.name}" class="channel-logo" style="display:block">` : ''}
+                    <div class="channel-name">${channel.id}. ${channel.name}</div>
+                </div>
+            `).join('');
+        }
+
+        function filterChannels() {
+            const filterText = document.getElementById('filter-input').value;
+            displayChannels(filterText);
+        }
+
+        function playFilteredChannel(filteredIndex) {
+            const channel = filteredChannels[filteredIndex];
+            if (!channel) return;
+
+            const video = document.getElementById('video-player');
+            const channelInfo = document.getElementById('channel-info');
+
+            channelInfo.innerHTML = `
+                ${channel.logo ? `<img src="${channel.logo}" alt="${channel.name}" class="channel-logo" style="display:block">` : ''}
+                <span>${channel.id}. ${channel.name}</span>
+            `;
+
+            if (Hls.isSupported()) {
+                if (hls) hls.destroy();
+                hls = new Hls();
+                hls.loadSource(channel.url);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = channel.url;
+                video.addEventListener('loadedmetadata', () => video.play());
+            } else {
+                alert('El teu navegador no suporta la reproducció de fluxos HLS.');
+            }
+        }
+
+        function suggestNewURL() {
+            const urlInput = document.getElementById('m3u-url');
+            urlIndex = (urlIndex + 1) % suggestedURLs.length;
+            urlInput.value = suggestedURLs[urlIndex];
+        }
+
+        window.onload = function() {
+            loadM3U();
+        };
+    </script>
+    <iframe width="100%" id="externalIframe" src="https://xarxa-1.github.io/Xarxa-1/radiopen2.html"></iframe>
+</body>
+</html>
