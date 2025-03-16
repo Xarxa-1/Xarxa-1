@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><link rel="shortcut icon" href="https://convertico.com/favicon.ico" type="image/x-icon"> <meta name="theme-color" content="black"> <meta name="apple-mobile-web-app-capable" content="yes"></head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cercador</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .search-container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        select {
+            width: 320px;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="search-container">
+    <h1>Buscador Web</h1>
+    <form id="searchForm">
+        <input type="text" id="searchQuery" placeholder="Introduce tu búsqueda..." required>
+        <br>
+        <select id="searchEngine">
+            <option value="google">Google</option>
+            <option value="bing">Bing</option>
+            <option value="duckduckgo">DuckDuckGo</option>
+            <option value="yahoo">Yahoo</option>
+            <option value="ecosia">Ecosia</option>
+            <option value="startpage">Startpage</option>
+            <option value="qwant">Qwant</option>
+            <option value="brave">Brave Search</option>
+            <option value="yandex">Yandex</option>
+            <option value="baidu">Baidu</option>
+            <option value="swisscows">Swisscows</option>
+            <option value="dogpile">Dogpile</option>
+            <option value="sogou">Sogou</option>
+            <option value="ask">Ask.com</option>
+        </select>
+        <br>
+        <input type="submit" value="Buscar">
+    </form>
+</div>
+
+<script>
+    document.getElementById('searchForm').onsubmit = function(event) {
+        event.preventDefault(); // Evita que el formulario se envíe de la manera tradicional
+        var query = document.getElementById('searchQuery').value;
+        var engine = document.getElementById('searchEngine').value;
+
+        if (query) {
+            var url;
+            switch (engine) {
+                case 'google':
+                    url = "https://www.google.com/search?q=" + encodeURIComponent(query);
+                    break;
+                case 'bing':
+                    url = "https://www.bing.com/search?q=" + encodeURIComponent(query);
+                    break;
+                case 'duckduckgo':
+                    url = "https://duckduckgo.com/?q=" + encodeURIComponent(query);
+                    break;
+                case 'yahoo':
+                    url = "https://search.yahoo.com/search?p=" + encodeURIComponent(query);
+                    break;
+                case 'ecosia':
+                    url = "https://www.ecosia.org/search?q=" + encodeURIComponent(query);
+                    break;
+                case 'startpage':
+                    url = "https://www.startpage.com/do/search?q=" + encodeURIComponent(query);
+                    break;
+                case 'qwant':
+                    url = "https://www.qwant.com/?q=" + encodeURIComponent(query);
+                    break;
+                case 'brave':
+                    url = "https://search.brave.com/search?q=" + encodeURIComponent(query);
+                    break;
+                case 'yandex':
+                    url = "https://yandex.com/search/?text=" + encodeURIComponent(query);
+                    break;
+                case 'baidu':
+                    url = "https://www.baidu.com/s?wd=" + encodeURIComponent(query);
+                    break;
+                case 'swisscows':
+                    url = "https://swisscows.com/web?query=" + encodeURIComponent(query);
+                    break;
+                case 'dogpile':
+                    url = "https://www.dogpile.com/serp?q=" + encodeURIComponent(query);
+                    break;
+                case 'sogou':
+                    url = "https://www.sogou.com/web?query=" + encodeURIComponent(query);
+                    break;
+                case 'ask':
+                    url = "https://www.ask.com/web?q=" + encodeURIComponent(query);
+                    break;
+                default:
+                    url = "https://www.google.com/search?q=" + encodeURIComponent(query);
+            }
+            window.location.href = url; // Redirige al usuario
+        }
+    };
+</script>
+
+</body>
+</html>
