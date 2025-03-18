@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+		<link rel='shortcut icon' href='https://gsap.com/community/uploads/monthly_2023_10/favicon.ico' type="image/x-icon">
+<link rel="apple-touch-icon" sizes="180x180" href="https://gsap.com/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="https://gsap.com/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="https://gsap.com/favicon-16x16.png"><link rel="mask-icon" href="https://gsap.com/safari-pinned-tab.svg" color="#5bbad5"><meta name="msapplication-TileColor" content="#000000"><meta name="theme-color" content="#000000">
+    <title>Calendari d'Esdeveniments</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto Condensed', Arial, sans-serif;
+        }
+
+        body {
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .calendar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px 0;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .nav-button {
+            background: none;
+            border: 1px solid #ddd;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .nav-button:hover {
+            background-color: #f8f8f8;
+            border-color: #ccc;
+        }
+
+        .month-title {
+            font-size: 26px;
+            font-weight: bold;
+            color: #333;
+            text-transform: uppercase;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+
+        .day-header {
+            text-align: center;
+            padding: 15px 10px;
+            background-color: #f8f8f8;
+            font-weight: bold;
+            color: #666;
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+
+        .calendar-day {
+            border: 1px solid #eee;
+            min-height: 120px;
+            padding: 10px;
+            position: relative;
+            background-color: #fff;
+            transition: transform 0.2s;
+        }
+
+        .calendar-day:hover {
+            transform: translateY(-2px);
+            z-index: 1;
+        }
+
+        .date-number {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #444;
+            font-size: 1.1em;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .event-marker {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: #2196F3;
+            display: inline-block;
+        }
+
+        .calendar-day:nth-child(7n+6) .date-number,
+        .calendar-day:nth-child(7n) .date-number,
+        .festiu .date-number {
+            color: #FF6F61;
+        }
+
+        .events-list {
+            margin-top: 20px;
+            padding: 15px;
+            border-top: 2px solid #ddd;
+        }
+
+        .event-item {
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .event-badge {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+        }
+
+        .event-conferencia {
+            background-color: #4CAF50;
+        }
+
+        .event-taller {
+            background-color: #FFEB3B;
+        }
+
+        .event-altres {
+            background-color: #2196F3;
+        }
+
+        .event-date {
+            min-width: 80px;
+            font-weight: bold;
+        }
+
+        .adjacent-month {
+            background-color: #fafafa;
+        }
+
+        .adjacent-month .date-number {
+            color: #999;
+            opacity: 0.6;
+        }
+
+        @media (max-width: 768px) {
+            .calendar-container {
+                padding: 10px;
+            }
+            
+            .calendar-day {
+                min-height: 80px;
+                padding: 6px;
+            }
+            
+            .date-number {
+                font-size: 0.9em;
+            }
+            
+            .month-title {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calendar-container">
+        <div class="calendar-header">
+            <button class="nav-button" onclick="previousMonth()">&lt; Anterior</button>
+            <center><div class="month-title" id="monthTitle"></div></center>
+            <button class="nav-button" onclick="nextMonth()">Següent &gt;</button>
+        </div>
+        
+        <div class="calendar-grid" id="calendarGrid">
+            <div class="day-header">Dl</div>
+            <div class="day-header">Dt</div>
+            <div class="day-header">Dc</div>
+            <div class="day-header">Dj</div>
+            <div class="day-header">Dv</div>
+            <div class="day-header">Ds</div>
+            <div class="day-header">Dg</div>
+        </div>
+        <div class="events-list" id="eventsList"></div>
+    </div>
+
+    <script>
+        let currentDate = new Date();
+        const festius = [
+            '01-01', '01-06', '04-01', '05-01', 
+            '06-24', '09-11', '10-12', '12-25', '12-26'
+        ];
+
+        // Esdeveniments definits directament al codi
+        const events = [
+            { date: "2024-03-05", title: "Conferència de disseny", type: "conferencia" },
+            { date: "-03-12", title: "Taller anual de fotografia", type: "taller" },
+            { date: "-01-20", title: "Esdeveniment anual gener", type: "altres" },
+            { date: "2024-03-18", title: "Presentació de llibre", type: "altres" },
+            { date: "-04-23", title: "Sant Jordi", type: "altres" }
+        ];
+
+        function buildCalendar(month, year) {
+            const calendarGrid = document.getElementById('calendarGrid');
+            const monthTitle = document.getElementById('monthTitle');
+            const eventsList = document.getElementById('eventsList');
+            
+            // Netejar continguts
+            while(calendarGrid.children.length > 7) calendarGrid.removeChild(calendarGrid.lastChild);
+            eventsList.innerHTML = '';
+
+            // Configurar mes
+            const monthNames = ["Gener", "Febrer", "Març", "Abril", "Maig", "Juny",
+                              "Juliol", "Agost", "Setembre", "Octubre", "Novembre", "Desembre"];
+            monthTitle.textContent = `${monthNames[month]} ${year}`;
+
+            // Càlculs de dates
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const startingDay = (firstDay.getDay() + 6) % 7;
+            const prevMonthLastDay = new Date(year, month, 0).getDate();
+
+            // Afegir dies del mes anterior
+            for(let i = startingDay; i > 0; i--) {
+                const day = prevMonthLastDay - i + 1;
+                addDayToCalendar(new Date(year, month - 1, day), true);
+            }
+
+            // Afegir dies del mes actual
+            for(let day = 1; day <= lastDay.getDate(); day++) {
+                const currentDate = new Date(year, month, day);
+                addDayToCalendar(currentDate, false);
+            }
+
+            // Completar amb dies del mes següent
+            const totalDays = startingDay + lastDay.getDate();
+            const remainingDays = Math.ceil((totalDays)/7)*7 - totalDays;
+            for(let day = 1; day <= remainingDays; day++) {
+                addDayToCalendar(new Date(year, month + 1, day), true);
+            }
+
+            // Generar llista d'esdeveniments
+            generateEventsList(month, year);
+        }
+
+        function addDayToCalendar(date, isAdjacent) {
+            const calendarGrid = document.getElementById('calendarGrid');
+            const dayElement = document.createElement('div');
+            dayElement.className = `calendar-day${isAdjacent ? ' adjacent-month' : ''}`;
+
+            // Verificar si és festiu
+            const mmdd = `${String(date.getMonth() + 1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+            if(festius.includes(mmdd)) dayElement.classList.add('festiu');
+
+            // Afegir número del dia
+            const dateNumber = document.createElement('div');
+            dateNumber.className = 'date-number';
+            dateNumber.textContent = date.getDate();
+
+            // Afegir marcador d'esdeveniment
+            const eventsForDay = getEventsForDate(date);
+            if(eventsForDay.length > 0 && !isAdjacent) {
+                const marker = document.createElement('div');
+                marker.className = 'event-marker';
+                dateNumber.appendChild(marker);
+            }
+
+            dayElement.appendChild(dateNumber);
+            calendarGrid.appendChild(dayElement);
+        }
+
+        function generateEventsList(month, year) {
+            const eventsList = document.getElementById('eventsList');
+            const monthNames = ["Gener", "Febrer", "Març", "Abril", "Maig", "Juny",
+                              "Juliol", "Agost", "Setembre", "Octubre", "Novembre", "Desembre"];
+
+            events.forEach(event => {
+                const eventDate = parseEventDate(event.date, year);
+                if(eventDate.getMonth() === month && eventDate.getFullYear() === year) {
+                    const eventItem = document.createElement('div');
+                    eventItem.className = 'event-item';
+                    
+                    const dateString = `${eventDate.getDate()} ${monthNames[month]}`;
+                    const badgeColor = `event-${event.type}`;
+
+                    eventItem.innerHTML = `
+                        <div class="event-badge ${badgeColor}"></div>
+                        <span class="event-date">${dateString}</span>
+                        <span class="event-title">${event.title}</span>
+                    `;
+                    
+                    eventsList.appendChild(eventItem);
+                }
+            });
+        }
+
+        function parseEventDate(dateString, year) {
+            if(dateString.startsWith('-')) {
+                const [_, month, day] = dateString.match(/-(\d{2})-(\d{2})/);
+                return new Date(year, parseInt(month)-1, parseInt(day));
+            }
+            return new Date(dateString);
+        }
+
+        function getEventsForDate(date) {
+            const year = date.getFullYear();
+            const dateISO = date.toISOString().split('T')[0];
+            const dateAnnual = `-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+
+            return events.filter(event => {
+                if(event.date.startsWith('-')) {
+                    return event.date === dateAnnual;
+                }
+                return event.date === dateISO;
+            });
+        }
+
+        function previousMonth() {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            buildCalendar(currentDate.getMonth(), currentDate.getFullYear());
+        }
+
+        function nextMonth() {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            buildCalendar(currentDate.getMonth(), currentDate.getFullYear());
+        }
+
+        // Iniciar al carregar la pàgina
+        document.addEventListener('DOMContentLoaded', () => {
+            buildCalendar(currentDate.getMonth(), currentDate.getFullYear());
+        });
+    </script>
+</body>
+</html>
