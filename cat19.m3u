@@ -33,7 +33,7 @@ https://ztnr.rtve.es/ztnr/1688877.m3u8
 https://ztnr.rtve.es/ztnr/1694255.m3u8
 #EXTINF:-1 tvg-id="La2Cat" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Logo_TVE-2.svg/512px-Logo_TVE-2.svg.png" group-title="General",La2 Cat
 https://ztnr.rtve.es/ztnr/3987218.m3u8
-#EXTINF:-1 tvg-id="Reus" tvg-logo="https://yt3.googleusercontent.com/vY_iHAEOHFjaC4SU6-JBjA0nJq8Xm9ZedQouEOwjjy15AiWKg6cel8UX84fZ1D-387q-0ajobH4=s200" group-title="General",CanalReus
+#EXTINF:-1 tvg-id="Reus" tvg-logo="https://pbs.twimg.com/profile_images/1899040884026392577/MK3u4IhA_x96.jpg" group-title="General",CanalReus
 https://ingest2-video.streaming-pro.com/creus/stream/playlist.m3u8
 #EXTINF:-1 tvg-id="TVReus" tvg-logo="https://i.imgur.com/Ee0C8UH.jpg" group-title="General",TVReus
 https://eu1.servers10.com:8081/8166/index.m3u8
