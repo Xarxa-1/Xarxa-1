@@ -15,7 +15,7 @@
             font-family: Arial, sans-serif;
             touch-action: none;
         }
-
+        
         #ar-container {
             position: fixed;
             top: 0;
@@ -24,7 +24,7 @@
             height: 100%;
             display: none;
         }
-
+        
         #map {
             position: absolute;
             width: 1000px;
@@ -33,7 +33,7 @@
             transform: rotateX(90deg) translateZ(-50px);
             background-image: url('https://tile.openstreetmap.org/16/53973/36365.png');
         }
-
+        
         .marker {
             position: absolute;
             width: 20px;
@@ -41,7 +41,7 @@
             border-radius: 50%;
             transform: translateZ(1px);
         }
-
+        
         .marker::after {
             content: '';
             position: absolute;
@@ -53,42 +53,48 @@
             top: 20px;
             left: 0;
         }
-
+        
         .marker-red {
             background-color: red;
         }
-
+        
         .marker-red::after {
             border-top-color: red;
         }
-
+        
         .marker-green {
             background-color: #00ff00;
         }
-
+        
         .marker-green::after {
             border-top-color: #00ff00;
         }
-
+        
         .marker-yellow {
             background-color: #ffff00;
         }
-
+        
         .marker-yellow::after {
             border-top-color: #ffff00;
         }
-
-        .marker-label {
+        
+        .marker-label-container {
             position: absolute;
+            transform-style: preserve-3d;
+        }
+        
+        .marker-label {
+            position: relative;
             color: white;
             background-color: rgba(0, 0, 0, 0.7);
             padding: 5px 10px;
             border-radius: 10px;
             font-size: 14px;
             white-space: nowrap;
-            transform: translate(-50%, -100px);
+            transform: translate(-50%, -100px) rotateX(-90deg);
+            transform-origin: bottom center;
         }
-
+        
         #compass {
             position: fixed;
             top: 20px;
@@ -100,7 +106,7 @@
             border: 2px solid white;
             z-index: 100;
         }
-
+        
         #compass-arrow {
             position: absolute;
             top: 10px;
@@ -110,7 +116,7 @@
             background-color: red;
             transform-origin: bottom center;
         }
-
+        
         #compass::after {
             content: 'N';
             position: absolute;
@@ -119,7 +125,7 @@
             color: white;
             font-weight: bold;
         }
-
+        
         #instructions {
             position: fixed;
             bottom: 20px;
@@ -131,7 +137,7 @@
             padding: 10px;
             z-index: 100;
         }
-
+        
         #permission-button {
             position: fixed;
             top: 50%;
@@ -146,7 +152,7 @@
             z-index: 200;
             cursor: pointer;
         }
-
+        
         #loading {
             position: fixed;
             top: 0;
@@ -170,15 +176,21 @@
         <div id="map">
             <!-- Marcador Esglèsia Vella -->
             <div class="marker marker-red" id="church-marker"></div>
-            <div class="marker-label" id="church-label">Esglèsia Vella</div>
-
+            <div class="marker-label-container" id="church-label-container">
+                <div class="marker-label">Esglèsia Vella</div>
+            </div>
+            
             <!-- Marcador EF verd -->
             <div class="marker marker-green" id="ef-marker"></div>
-            <div class="marker-label" id="ef-label">ef (411m)</div>
-
+            <div class="marker-label-container" id="ef-label-container">
+                <div class="marker-label">ef (411m)</div>
+            </div>
+            
             <!-- Marcador Roca de la Manxa groc -->
             <div class="marker marker-yellow" id="roca-marker"></div>
-            <div class="marker-label" id="roca-label">Roca de la Manxa (499.1m)</div>
+            <div class="marker-label-container" id="roca-label-container">
+                <div class="marker-label">Roca de la Manxa (499.1m)</div>
+            </div>
         </div>
         <div id="compass">
             <div id="compass-arrow"></div>
@@ -193,68 +205,68 @@
             const arContainer = document.getElementById('ar-container');
             const compassArrow = document.getElementById('compass-arrow');
             const loading = document.getElementById('loading');
-
+            
             // Coordenades de referència (L'Espluga de Francolí)
             const centerLat = 41.3958;
             const centerLng = 1.1026;
-
+            
             // Coordenades de la Esglèsia Vella
             const churchLat = 41.3965;
             const churchLng = 1.1018;
-
+            
             // Coordenades del punt EF (verd)
             const efLat = 41.395799;
             const efLng = 1.096335;
             const efAlt = 411; // metres
-
+            
             // Coordenades de la Roca de la Manxa (groc)
             const rocaLat = 41 + 25/60 + 35/3600; // 41° 25′ 35″ N
             const rocaLng = 1 + 6/60 + 55/3600;  // 1° 06′ 55″ E
             const rocaAlt = 499.1; // metres
-
+            
             // Variables per a la posició de l'usuari
             let userLat = centerLat;
             let userLng = centerLng;
             let userAlt = 0;
-
+            
             // Escala: aproximadament 111,000 metres per grau
             const scale = 1000; // píxels per grau (ajustat per a millor visualització)
-
+            
             // Funció per a calcular la posició d'un marcador
             function calculateMarkerPosition(targetLat, targetLng, refLat, refLng) {
                 const latDiff = targetLat - refLat;
                 const lngDiff = targetLng - refLng;
-
+                
                 const x = 500 + lngDiff * scale;
                 const y = 500 - latDiff * scale;
-
+                
                 return { x, y };
             }
-
+            
             // Funció per a actualitzar la posició dels marcadors
             function updateMarkers() {
                 // Posicionar marcador de la Esglèsia Vella
                 const churchPos = calculateMarkerPosition(churchLat, churchLng, userLat, userLng);
                 document.getElementById('church-marker').style.left = `${churchPos.x}px`;
                 document.getElementById('church-marker').style.top = `${churchPos.y}px`;
-                document.getElementById('church-label').style.left = `${churchPos.x}px`;
-                document.getElementById('church-label').style.top = `${churchPos.y}px`;
-
+                document.getElementById('church-label-container').style.left = `${churchPos.x}px`;
+                document.getElementById('church-label-container').style.top = `${churchPos.y}px`;
+                
                 // Posicionar marcador EF verd
                 const efPos = calculateMarkerPosition(efLat, efLng, userLat, userLng);
                 document.getElementById('ef-marker').style.left = `${efPos.x}px`;
                 document.getElementById('ef-marker').style.top = `${efPos.y}px`;
-                document.getElementById('ef-label').style.left = `${efPos.x}px`;
-                document.getElementById('ef-label').style.top = `${efPos.y}px`;
-
+                document.getElementById('ef-label-container').style.left = `${efPos.x}px`;
+                document.getElementById('ef-label-container').style.top = `${efPos.y}px`;
+                
                 // Posicionar marcador Roca de la Manxa groc
                 const rocaPos = calculateMarkerPosition(rocaLat, rocaLng, userLat, userLng);
                 document.getElementById('roca-marker').style.left = `${rocaPos.x}px`;
                 document.getElementById('roca-marker').style.top = `${rocaPos.y}px`;
-                document.getElementById('roca-label').style.left = `${rocaPos.x}px`;
-                document.getElementById('roca-label').style.top = `${rocaPos.y}px`;
+                document.getElementById('roca-label-container').style.left = `${rocaPos.x}px`;
+                document.getElementById('roca-label-container').style.top = `${rocaPos.y}px`;
             }
-
+            
             // Obtenir la ubicació de l'usuari
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
@@ -262,7 +274,7 @@
                         userLat = position.coords.latitude;
                         userLng = position.coords.longitude;
                         userAlt = position.coords.altitude || 0;
-
+                        
                         loading.style.display = 'none';
                         permissionButton.style.display = 'block';
                         updateMarkers();
@@ -286,7 +298,7 @@
                     updateMarkers();
                 }, 2000);
             }
-
+            
             // Sol·licitar permisos i activar AR
             permissionButton.addEventListener('click', async function() {
                 try {
@@ -311,32 +323,32 @@
                     alert('Hi ha hagut un error al activar la realitat augmentada.');
                 }
             });
-
+            
             function startAR() {
                 permissionButton.style.display = 'none';
                 arContainer.style.display = 'block';
-
+                
                 // Variables per a l'orientació
                 let beta = 0;  // Inclinació frontal (eix X)
                 let gamma = 0; // Inclinació lateral (eix Y)
                 let alpha = 0;  // Orientació de la brúixola (eix Z)
-
+                
                 // Escoltar esdeveniments d'orientació del dispositiu
                 window.addEventListener('deviceorientation', function(event) {
                     beta = event.beta;  // Inclinació frontal
                     gamma = event.gamma; // Inclinació lateral
                     alpha = event.alpha; // Orientació de la brúixola
-
+                    
                     // Rotar el mapa en 3D segons l'orientació del dispositiu
                     const map = document.getElementById('map');
                     map.style.transform = `rotateX(${90 + beta}deg) rotateY(${gamma}deg) translateZ(-50px)`;
-
+                    
                     // Actualitzar la brúixola
                     if (alpha !== null) {
                         compassArrow.style.transform = `rotate(${360 - alpha}deg)`;
                     }
                 });
-
+                
                 // Ajustar la mida del mapa perquè sembli estar a terra
                 function resizeMap() {
                     const map = document.getElementById('map');
@@ -347,10 +359,10 @@
                     map.style.left = `-${mapSize/2 - window.innerWidth/2}px`;
                     map.style.top = `-${mapSize/2 - window.innerHeight/2}px`;
                 }
-
+                
                 resizeMap();
                 window.addEventListener('resize', resizeMap);
-
+                
                 // Actualitzar posició de l'usuari periòdicament
                 if (navigator.geolocation) {
                     setInterval(() => {
