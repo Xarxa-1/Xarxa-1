@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Mapa 3D - L'Espluga de Francolí</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #000;
+            font-family: Arial, sans-serif;
+            touch-action: none;
+        }
+
+        #ar-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #map {
+            position: absolute;
+            width: 1000px;
+            height: 1000px;
+            background-image: url('https://maps.googleapis.com/maps/api/staticmap?center=41.3958,1.1026&zoom=16&size=1000x1000&maptype=hybrid&key=YOUR_API_KEY');
+            background-size: cover;
+            transform: rotateX(90deg) translateZ(-50px);
+        }
+
+        .marker {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            border-radius: 50%;
+            transform: translateZ(1px);
+        }
+
+        .marker::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 20px solid red;
+            top: 20px;
+            left: 0;
+        }
+
+        .marker-label {
+            position: absolute;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-size: 14px;
+            white-space: nowrap;
+            transform: translate(-50%, -100px);
+        }
+
+        #compass {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            border: 2px solid white;
+            z-index: 100;
+        }
+
+        #compass-arrow {
+            position: absolute;
+            top: 10px;
+            left: 28px;
+            width: 4px;
+            height: 20px;
+            background-color: red;
+            transform-origin: bottom center;
+        }
+
+        #compass::after {
+            content: 'N';
+            position: absolute;
+            top: 5px;
+            left: 26px;
+            color: white;
+            font-weight: bold;
+        }
+
+        #instructions {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            z-index: 100;
+        }
+
+        #permission-button {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 15px 30px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            z-index: 200;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <button id="permission-button">Activar AR</button>
+    <div id="ar-container">
+        <div id="map">
+            <div class="marker" style="left: 500px; top: 500px;"></div>
+            <div class="marker-label" style="left: 500px; top: 500px;">Esglèsia Vella</div>
+        </div>
+        <div id="compass">
+            <div id="compass-arrow"></div>
+        </div>
+        <div id="instructions">Mou el telèfon per veure el mapa en 3D. Els punts vermells mostran llocs d'interès.</div>
+    </div>
+
+    <script>
+        // Esperar a que cargue el DOM
+        document.addEventListener('DOMContentLoaded', function() {
+            const permissionButton = document.getElementById('permission-button');
+            const arContainer = document.getElementById('ar-container');
+            const compassArrow = document.getElementById('compass-arrow');
+
+            // Ocultar el contenedor AR inicialmente
+            arContainer.style.display = 'none';
+
+            // Coordenadas de referencia (L'Espluga de Francolí)
+            const centerLat = 41.3958;
+            const centerLng = 1.1026;
+
+            // Coordenadas de la Esglèsia Vella
+            const churchLat = 41.3965;
+            const churchLng = 1.1018;
+
+            // Calcular posición relativa del marcador
+            const latDiff = churchLat - centerLat;
+            const lngDiff = churchLng - centerLng;
+
+            // Escala: aproximadamente 111,000 metros por grado
+            const scale = 1000; // píxeles por grado (ajustado para mejor visualización)
+            const markerX = 500 + lngDiff * scale;
+            const markerY = 500 - latDiff * scale;
+
+            // Posicionar el marcador
+            const marker = document.querySelector('.marker');
+            const markerLabel = document.querySelector('.marker-label');
+            marker.style.left = `${markerX}px`;
+            marker.style.top = `${markerY}px`;
+            markerLabel.style.left = `${markerX}px`;
+            markerLabel.style.top = `${markerY}px`;
+
+            // Solicitar permisos y activar AR
+            permissionButton.addEventListener('click', async function() {
+                try {
+                    // Verificar si el dispositivo soporta la API de orientación
+                    if (window.DeviceOrientationEvent) {
+                        // Solicitar permiso para el evento de orientación en iOS 13+
+                        if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+                            const permission = await DeviceOrientationEvent.requestPermission();
+                            if (permission === 'granted') {
+                                startAR();
+                            } else {
+                                alert('Es necessari permetre l\'accés als sensors per utilitzar aquesta funció.');
+                            }
+                        } else {
+                            startAR();
+                        }
+                    } else {
+                        alert('El teu dispositiu no suporta la realitat augmentada o els sensors necessaris.');
+                    }
+                } catch (error) {
+                    console.error('Error al solicitar permisos:', error);
+                    alert('Hi ha hagut un error al activar la realitat augmentada.');
+                }
+            });
+
+            function startAR() {
+                permissionButton.style.display = 'none';
+                arContainer.style.display = 'block';
+
+                // Variables para la orientación
+                let beta = 0;  // Inclinación frontal (eje X)
+                let gamma = 0; // Inclinación lateral (eje Y)
+                let alpha = 0;  // Orientación de la brújula (eje Z)
+
+                // Escuchar eventos de orientación del dispositivo
+                window.addEventListener('deviceorientation', function(event) {
+                    beta = event.beta;  // Inclinación frontal
+                    gamma = event.gamma; // Inclinación lateral
+                    alpha = event.alpha; // Orientación de la brújula
+
+                    // Rotar el mapa en 3D según la orientación del dispositivo
+                    const map = document.getElementById('map');
+                    map.style.transform = `rotateX(${90 + beta}deg) rotateY(${gamma}deg) translateZ(-50px)`;
+
+                    // Actualizar la brújula
+                    if (alpha !== null) {
+                        compassArrow.style.transform = `rotate(${360 - alpha}deg)`;
+                    }
+                });
+
+                // Ajustar el tamaño del mapa para que parezca estar en el suelo
+                function resizeMap() {
+                    const map = document.getElementById('map');
+                    const windowHeight = window.innerHeight;
+                    const mapSize = windowHeight * 2; // Hacer el mapa lo suficientemente grande
+                    map.style.width = `${mapSize}px`;
+                    map.style.height = `${mapSize}px`;
+                    map.style.left = `-${mapSize/2 - window.innerWidth/2}px`;
+                    map.style.top = `-${mapSize/2 - window.innerHeight/2}px`;
+                }
+
+                resizeMap();
+                window.addEventListener('resize', resizeMap);
+            }
+        });
+    </script>
+</body>
+</html>
