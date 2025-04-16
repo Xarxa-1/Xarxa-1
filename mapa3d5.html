@@ -48,6 +48,12 @@
             height: 20px;
             border-radius: 50%;
             transform: translateZ(1px);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .marker.visible {
+            opacity: 1;
         }
 
         .marker::after {
@@ -89,6 +95,12 @@
         .marker-label-container {
             position: absolute;
             transform-style: preserve-3d;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .marker-label-container.visible {
+            opacity: 1;
         }
 
         .marker-label {
@@ -205,7 +217,7 @@
         <div id="compass">
             <div id="compass-arrow"></div>
         </div>
-        <div id="instructions">Mou el telèfon per veure el mapa en 3D. Els punts mostren llocs d'interès.</div>
+        <div id="instructions">Mou el telèfon per veure el mapa en 3D. Els punts mostren llocs d'interès quan estan a la teva vista.</div>
     </div>
 
     <script>
@@ -239,6 +251,7 @@
             let userLat = centerLat;
             let userLng = centerLng;
             let userAlt = 0;
+            let userHeading = 0;
 
             // Escala: aproximadament 111,000 metres per grau
             const scale = 1000; // píxels per grau (ajustat per a millor visualització)
@@ -252,6 +265,65 @@
                 const y = 500 - latDiff * scale;
 
                 return { x, y };
+            }
+
+            // Funció per calcular la direcció entre dos punts
+            function calculateBearing(userLat, userLng, targetLat, targetLng) {
+                const y = Math.sin(targetLng - userLng) * Math.cos(targetLat);
+                const x = Math.cos(userLat) * Math.sin(targetLat) -
+                          Math.sin(userLat) * Math.cos(targetLat) * Math.cos(targetLng - userLng);
+                let bearing = Math.atan2(y, x);
+                bearing = bearing * (180 / Math.PI);
+                bearing = (bearing + 360) % 360;
+                return bearing;
+            }
+
+            // Funció per a actualitzar la visibilitat dels marcadors
+            function updateMarkerVisibility() {
+                // Angle de visió (90 graus = 45 graus a cada costat)
+                const viewAngle = 90;
+
+                // Esglèsia Vella
+                const churchBearing = calculateBearing(userLat, userLng, churchLat, churchLng);
+                const churchAngleDiff = Math.abs((userHeading - churchBearing + 180) % 360 - 180);
+                const churchMarker = document.getElementById('church-marker');
+                const churchLabel = document.getElementById('church-label-container');
+
+                if (churchAngleDiff < viewAngle/2) {
+                    churchMarker.classList.add('visible');
+                    churchLabel.classList.add('visible');
+                } else {
+                    churchMarker.classList.remove('visible');
+                    churchLabel.classList.remove('visible');
+                }
+
+                // Punt EF
+                const efBearing = calculateBearing(userLat, userLng, efLat, efLng);
+                const efAngleDiff = Math.abs((userHeading - efBearing + 180) % 360 - 180);
+                const efMarker = document.getElementById('ef-marker');
+                const efLabel = document.getElementById('ef-label-container');
+
+                if (efAngleDiff < viewAngle/2) {
+                    efMarker.classList.add('visible');
+                    efLabel.classList.add('visible');
+                } else {
+                    efMarker.classList.remove('visible');
+                    efLabel.classList.remove('visible');
+                }
+
+                // Roca de la Manxa
+                const rocaBearing = calculateBearing(userLat, userLng, rocaLat, rocaLng);
+                const rocaAngleDiff = Math.abs((userHeading - rocaBearing + 180) % 360 - 180);
+                const rocaMarker = document.getElementById('roca-marker');
+                const rocaLabel = document.getElementById('roca-label-container');
+
+                if (rocaAngleDiff < viewAngle/2) {
+                    rocaMarker.classList.add('visible');
+                    rocaLabel.classList.add('visible');
+                } else {
+                    rocaMarker.classList.remove('visible');
+                    rocaLabel.classList.remove('visible');
+                }
             }
 
             // Funció per a actualitzar la posició dels marcadors
@@ -276,6 +348,9 @@
                 document.getElementById('roca-marker').style.top = `${rocaPos.y}px`;
                 document.getElementById('roca-label-container').style.left = `${rocaPos.x}px`;
                 document.getElementById('roca-label-container').style.top = `${rocaPos.y}px`;
+
+                // Actualizar visibilidad
+                updateMarkerVisibility();
             }
 
             // Obtenir la ubicació de l'usuari
@@ -349,6 +424,7 @@
                     beta = event.beta;  // Inclinació frontal
                     gamma = event.gamma; // Inclinació lateral
                     alpha = event.alpha; // Orientació de la brúixola
+                    userHeading = alpha || 0;
 
                     // Rotar el mapa en 3D segons l'orientació del dispositiu
                     mapWrapper.style.transform = `rotateX(${beta}deg) rotateY(${-gamma}deg)`;
@@ -357,6 +433,9 @@
                     if (alpha !== null) {
                         compassArrow.style.transform = `rotate(${360 - alpha}deg)`;
                     }
+
+                    // Actualizar visibilidad de marcadores
+                    updateMarkerVisibility();
                 });
 
                 // Ajustar la mida del mapa perquè sembli estar a terra
