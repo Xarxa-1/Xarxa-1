@@ -13,19 +13,19 @@
             background-color: #000;
             color: white;
         }
-        
+
         #container {
             position: relative;
             width: 100vw;
             height: 100vh;
         }
-        
+
         #arView {
             width: 100%;
             height: 100%;
             display: block;
         }
-        
+
         #infoPanel {
             position: absolute;
             top: 10px;
@@ -35,7 +35,7 @@
             border-radius: 5px;
             z-index: 100;
         }
-        
+
         #compass {
             position: absolute;
             top: 10px;
@@ -49,7 +49,7 @@
             align-items: center;
             z-index: 100;
         }
-        
+
         #compassArrow {
             width: 30px;
             height: 30px;
@@ -58,7 +58,7 @@
             background-repeat: no-repeat;
             transition: transform 0.1s ease-out;
         }
-        
+
         #pointsList {
             position: absolute;
             bottom: 10px;
@@ -70,18 +70,18 @@
             overflow-y: auto;
             z-index: 100;
         }
-        
+
         .pointItem {
             margin: 5px 0;
             cursor: pointer;
             padding: 5px;
             border-radius: 3px;
         }
-        
+
         .pointItem:hover {
             background-color: rgba(255, 255, 255, 0.2);
         }
-        
+
         #loading {
             position: absolute;
             top: 50%;
@@ -105,12 +105,38 @@
             transform: translate(-50%, -100%);
             white-space: nowrap;
         }
+
+        #toggleButton {
+            position: absolute;
+            bottom: 170px;
+            left: 10px;
+            background-color: rgba(76, 175, 80, 0.8);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 100;
+            font-weight: bold;
+        }
+
+        #toggleButton:hover {
+            background-color: rgba(76, 175, 80, 1);
+        }
+
+        #toggleButton.inactive {
+            background-color: rgba(244, 67, 54, 0.8);
+        }
+
+        #toggleButton.inactive:hover {
+            background-color: rgba(244, 67, 54, 1);
+        }
     </style>
 </head>
 <body>
     <div id="container">
         <canvas id="arView"></canvas>
-        
+
         <div id="infoPanel">
             <div>Latitud: <span id="latitude">--</span></div>
             <div>Longitud: <span id="longitude">--</span></div>
@@ -118,27 +144,29 @@
             <div>Precisió: <span id="accuracy">--</span> m</div>
             <div>Direcció: <span id="heading">--</span>°</div>
         </div>
-        
+
         <div id="compass">
             <div id="compassArrow"></div>
         </div>
-        
+
+        <button id="toggleButton">Mostrar només propers</button>
+
         <div id="pointsList">
             <h3>Punts d'Interès:</h3>
             <div class="pointItem" data-id="1">Esglèsia (412 msnm)</div>
             <div class="pointItem" data-id="2">Ermita (560 msnm)</div>
             <div class="pointItem" data-id="3">Sant Bernat (456 msnm)</div>
             <div class="pointItem" data-id="4">Roca de la Manxa (499 msnm)</div>
-             <div class="pointItem" data-id="5">Nou Lloc 1 </div>
+                 <div class="pointItem" data-id="5">Lloc</div>
     <div class="pointItem" data-id="6">Novacoop</div>
         </div>
-        
+
         <div id="loading">Carregant... Esperant dades de geolocalització</div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
-    
+
     <script>
         // Punts d'interès definits
         const pointsOfInterest = [
@@ -146,9 +174,8 @@
             { id: 2, name: "Ermita", lat: 41.3731, lon: 1.11065, alt: 560, color: 0x00FF00 },
             { id: 3, name: "Sant Bernat", lat: 41.388193, lon: 1.083005, alt: 456, color: 0x0000FF },
             { id: 4, name: "Roca de la Manxa", lat: 41.426297, lon: 1.115281, alt: 499, color: 0xFFFF00 },
-            { id: 5, name: "Nou Lloc 1", lat: 41.52205, lon: 0.868813, alt: 353, color: 0xFF00FF },
+             { id: 5, name: "Nou Lloc 1", lat: 41.52205, lon: 0.868813, alt: 353, color: 0xFF00FF },
             { id: 6, name: "Novacoop", lat: 41.520159, lon: 0.0862992, alt: 353, color: 0x00FFFF }
-   
         ];
 
         // Variables globals
@@ -159,52 +186,57 @@
         let poiLabels = [];
         let compassArrow = document.getElementById('compassArrow');
         let watchId;
-        
+        let showAllPoints = true;
+        const MAX_DISTANCE = 2000; // 2 km (distància màxima per considerar "proper")
+
         // Inicialització de l'aplicació
         function init() {
             setup3DScene();
             setupEventListeners();
             requestGeolocation();
+
+            // Configurar botó de toggle
+            document.getElementById('toggleButton').addEventListener('click', togglePointsVisibility);
         }
-        
+
         // Configuració de l'escena 3D
         function setup3DScene() {
             // Escena
             scene = new THREE.Scene();
             scene.background = new THREE.Color(0x000000);
-            
+
             // Càmera
             camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000);
             camera.position.set(0, 1.6, 0);
-            
+
             // Renderer
-            renderer = new THREE.WebGLRenderer({ 
-                canvas: document.getElementById('arView'), 
+            renderer = new THREE.WebGLRenderer({
+                canvas: document.getElementById('arView'),
                 antialias: true,
                 alpha: true
             });
             renderer.setSize(window.innerWidth, window.innerHeight);
             renderer.setPixelRatio(window.devicePixelRatio);
-            
+
             // Controls (per a proves en escriptori)
             controls = new THREE.OrbitControls(camera, renderer.domElement);
             controls.enableZoom = true;
             controls.enablePan = false;
             controls.enableDamping = true;
             controls.dampingFactor = 0.25;
-            
+
             // Llum ambiental
             const ambientLight = new THREE.AmbientLight(0x404040);
             scene.add(ambientLight);
-            
+
             // Llum direccional
             const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
             directionalLight.position.set(1, 1, 1);
             scene.add(directionalLight);
-            
+
             // Crear marcadors pels punts d'interès
             createPOIMarkers();
-            
+
             // Animació
             animate();
         }
@@ -220,7 +252,7 @@
             pointsOfInterest.forEach(point => {
                 // Crear marcador 3D
                 const markerGeometry = new THREE.SphereGeometry(0.5, 16, 16);
-                const markerMaterial = new THREE.MeshBasicMaterial({ 
+                const markerMaterial = new THREE.MeshBasicMaterial({
                     color: point.color,
                     transparent: true,
                     opacity: 0.8
@@ -230,7 +262,7 @@
                 marker.userData = point;
                 scene.add(marker);
                 poiMarkers.push(marker);
-                
+
                 // Crear etiqueta HTML
                 const label = document.createElement('div');
                 label.className = 'poi-label';
@@ -240,7 +272,7 @@
                 poiLabels.push(label);
             });
         }
-        
+
         // Sol·licitar geolocalització
         function requestGeolocation() {
             if (navigator.geolocation) {
@@ -252,21 +284,21 @@
                         // Simular posició per a proves si falla la geolocalització
                         simulatePosition();
                     },
-                    { 
-                        enableHighAccuracy: true, 
+                    {
+                        enableHighAccuracy: true,
                         maximumAge: 0,
-                        timeout: 10000 
+                        timeout: 10000
                     }
                 );
-                
+
                 // Configurar actualització contínua
                 watchId = navigator.geolocation.watchPosition(
                     position => updatePosition(position),
                     error => console.error('Error de geolocalització:', error),
-                    { 
-                        enableHighAccuracy: true, 
-                        maximumAge: 0, 
-                        timeout: 5000 
+                    {
+                        enableHighAccuracy: true,
+                        maximumAge: 0,
+                        timeout: 5000
                     }
                 );
             } else {
@@ -285,16 +317,32 @@
                 alt: 400,
                 accuracy: 10
             };
-            
+
             document.getElementById('latitude').textContent = userPosition.lat.toFixed(6);
             document.getElementById('longitude').textContent = userPosition.lon.toFixed(6);
             document.getElementById('altitude').textContent = Math.round(userPosition.alt);
             document.getElementById('accuracy').textContent = Math.round(userPosition.accuracy);
-            
+
             updatePOIMarkers();
             document.getElementById('loading').style.display = 'none';
         }
-        
+
+        // Funció per alternar la visibilitat dels punts
+        function togglePointsVisibility() {
+            showAllPoints = !showAllPoints;
+            const button = document.getElementById('toggleButton');
+
+            if (showAllPoints) {
+                button.textContent = "Mostrar només propers";
+                button.classList.remove('inactive');
+            } else {
+                button.textContent = "Mostrar tots els punts";
+                button.classList.add('inactive');
+            }
+
+            updatePOIMarkers();
+        }
+
         // Actualitzar posició de l'usuari
         function updatePosition(position) {
             userPosition = {
@@ -303,97 +351,98 @@
                 alt: position.coords.altitude || 0,
                 accuracy: position.coords.accuracy
             };
-            
+
             // Actualitzar UI
             document.getElementById('latitude').textContent = userPosition.lat.toFixed(6);
             document.getElementById('longitude').textContent = userPosition.lon.toFixed(6);
             document.getElementById('altitude').textContent = Math.round(userPosition.alt);
             document.getElementById('accuracy').textContent = Math.round(userPosition.accuracy);
-            
+
             // Actualitzar heading si està disponible
             if (position.coords.heading !== null && !isNaN(position.coords.heading)) {
                 userHeading = position.coords.heading;
                 document.getElementById('heading').textContent = Math.round(userHeading);
                 updateCompass();
             }
-            
+
             // Actualitzar marcadors dels punts d'interès
             updatePOIMarkers();
-            
+
             // Amagar missatge de carregament un cop tenim dades
             document.getElementById('loading').style.display = 'none';
         }
-        
+
         // Actualitzar brúixola
         function updateCompass() {
             compassArrow.style.transform = `rotate(${360 - userHeading}deg)`;
         }
-        
+
         // Actualitzar marcadors dels punts d'interès
         function updatePOIMarkers() {
             poiMarkers.forEach((marker, index) => {
                 const poi = marker.userData;
-                
-                // Calcular distància i direcció respecte a l'usuari
+
+                // Calcular distància
                 const distance = calculateDistance(
-                    userPosition.lat, userPosition.lon, 
+                    userPosition.lat, userPosition.lon,
                     poi.lat, poi.lon
                 );
-                
-                const bearing = calculateBearing(
-                    userPosition.lat, userPosition.lon, 
-                    poi.lat, poi.lon
-                );
-                
-                // Convertir a coordenades 3D
-                const relativeBearing = (bearing - userHeading + 360) % 360;
-                const angle = THREE.MathUtils.degToRad(relativeBearing);
-                
-                // Distància i alçada relativa (escalat ajustat)
-                const scaleFactor = 0.01; // Factor d'escalat per fer visible als marcadors
-                const x = Math.sin(angle) * distance * scaleFactor;
-                const z = Math.cos(angle) * distance * scaleFactor;
-                const y = (poi.alt - userPosition.alt) * scaleFactor;
-                
-                // Actualitzar posició del marcador
-                marker.position.set(x, y, -z); // Invertim z per a una visualització més natural
-                
+
+                // Determinar si el punt és visible segons el filtre
+                let shouldBeVisible = true;
+                if (!showAllPoints && distance > MAX_DISTANCE) {
+                    shouldBeVisible = false;
+                }
+
+                // Actualitzar posició només si és visible
+                if (shouldBeVisible) {
+                    const bearing = calculateBearing(
+                        userPosition.lat, userPosition.lon,
+                        poi.lat, poi.lon
+                    );
+
+                    const relativeBearing = (bearing - userHeading + 360) % 360;
+                    const angle = THREE.MathUtils.degToRad(relativeBearing);
+
+                    const scaleFactor = 0.01;
+                    const x = Math.sin(angle) * distance * scaleFactor;
+                    const z = Math.cos(angle) * distance * scaleFactor;
+                    const y = (poi.alt - userPosition.alt) * scaleFactor;
+
+                    marker.position.set(x, y, -z);
+                    marker.visible = true;
+
+                    // Actualitzar etiqueta
+                    updatePOILabel(marker, poiLabels[index], distance);
+                } else {
+                    marker.visible = false;
+                    poiLabels[index].style.display = 'none';
+                }
+
                 // Actualitzar mida del marcador segons la distància
                 const size = Math.max(0.2, 3 - (distance / 1000));
                 marker.scale.set(size, size, size);
-                
-                // Actualitzar etiqueta
-                updatePOILabel(marker, poiLabels[index]);
             });
         }
 
         // Actualitzar etiqueta HTML del punt d'interès
-        function updatePOILabel(marker, label) {
+        function updatePOILabel(marker, label, distance) {
             const position = marker.position.clone();
             position.project(camera);
-            
-            // Convertir coordenades normalitzades (-1 to 1) a coordenades de pantalla
+
             const x = (position.x * 0.5 + 0.5) * window.innerWidth;
             const y = (-(position.y * 0.5) + 0.5) * window.innerHeight;
-            
-            // Mostrar només si el punt està davant de la càmera
-            if (position.z < 1) {
+
+            if (position.z < 1 && marker.visible) {
                 label.style.display = 'block';
                 label.style.left = `${x}px`;
                 label.style.top = `${y}px`;
-                
-                // Actualitzar text amb distància
-                const poi = marker.userData;
-                const distance = calculateDistance(
-                    userPosition.lat, userPosition.lon, 
-                    poi.lat, poi.lon
-                );
-                label.textContent = `${poi.name} (${Math.round(distance)} m)`;
+                label.textContent = `${marker.userData.name} (${Math.round(distance)} m)`;
             } else {
                 label.style.display = 'none';
             }
         }
-        
+
         // Càlcul de distància entre dos punts (fórmula Haversine)
         function calculateDistance(lat1, lon1, lat2, lon2) {
             const R = 6371000; // Radi de la Terra en metres
@@ -401,34 +450,34 @@
             const φ2 = lat2 * Math.PI/180;
             const Δφ = (lat2-lat1) * Math.PI/180;
             const Δλ = (lon2-lon1) * Math.PI/180;
-            
+
             const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
                       Math.cos(φ1) * Math.cos(φ2) *
                       Math.sin(Δλ/2) * Math.sin(Δλ/2);
             const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-            
+
             return R * c;
         }
-        
+
         // Càlcul de direcció (bearing) entre dos punts
         function calculateBearing(lat1, lon1, lat2, lon2) {
             const φ1 = lat1 * Math.PI/180;
             const φ2 = lat2 * Math.PI/180;
             const λ1 = lon1 * Math.PI/180;
             const λ2 = lon2 * Math.PI/180;
-            
+
             const y = Math.sin(λ2-λ1) * Math.cos(φ2);
             const x = Math.cos(φ1)*Math.sin(φ2) -
                       Math.sin(φ1)*Math.cos(φ2)*Math.cos(λ2-λ1);
             const θ = Math.atan2(y, x);
-            
+
             return (θ*180/Math.PI + 360) % 360;
         }
-        
+
         // Configurar listeners d'esdeveniments
         function setupEventListeners() {
             window.addEventListener('resize', onWindowResize);
-            
+
             // Listeners per als punts d'interès
             document.querySelectorAll('.pointItem').forEach(item => {
                 item.addEventListener('click', () => {
@@ -436,14 +485,14 @@
                     const poi = pointsOfInterest.find(p => p.id === id);
                     if (poi) {
                         const distance = calculateDistance(
-                            userPosition.lat, userPosition.lon, 
+                            userPosition.lat, userPosition.lon,
                             poi.lat, poi.lon
                         );
                         alert(`Punt seleccionat: ${poi.name}\nLatitud: ${poi.lat}\nLongitud: ${poi.lon}\nAltitud: ${poi.alt} msnm\nDistància: ${Math.round(distance)} metres`);
                     }
                 });
             });
-            
+
             // Simulació de brúixola per a proves en escriptori
             if (!window.DeviceOrientationEvent) {
                 console.log("Dispositiu no compatible amb l'API DeviceOrientation");
@@ -468,21 +517,21 @@
                 });
             }
         }
-        
+
         // Gestionar redimensionament de la finestra
         function onWindowResize() {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
         }
-        
+
         // Bucle d'animació
         function animate() {
             requestAnimationFrame(animate);
             controls.update();
             renderer.render(scene, camera);
         }
-        
+
         // Iniciar l'aplicació quan es carrega la pàgina
         window.addEventListener('load', init);
     </script>
