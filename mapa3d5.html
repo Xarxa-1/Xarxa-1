@@ -35,21 +35,22 @@
         
         #map {
             position: absolute;
-            width: 1000px;
-            height: 1000px;
+            width: 2000px;
+            height: 2000px;
             background-size: cover;
-            background-image: url('https://tile.openstreetmap.org/16/53973/36365.png');
-            transform: rotateX(90deg) translateZ(-50px);
+            background-image: url('https://tile.openstreetmap.org/17/107946/72731.png');
+            transform: rotateX(90deg) translateZ(-100px);
         }
         
         .marker {
             position: absolute;
-            width: 20px;
-            height: 20px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             transform: translateZ(1px);
             opacity: 0;
-            transition: opacity 0.3s;
+            transition: opacity 0.5s;
+            pointer-events: none;
         }
         
         .marker.visible {
@@ -61,10 +62,10 @@
             position: absolute;
             width: 0;
             height: 0;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-top: 20px solid;
-            top: 20px;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 30px solid;
+            top: 30px;
             left: 0;
         }
         
@@ -96,7 +97,9 @@
             position: absolute;
             transform-style: preserve-3d;
             opacity: 0;
-            transition: opacity 0.3s;
+            transition: opacity 0.5s;
+            pointer-events: none;
+            z-index: 10;
         }
         
         .marker-label-container.visible {
@@ -106,12 +109,13 @@
         .marker-label {
             position: relative;
             color: white;
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 5px 10px;
-            border-radius: 10px;
-            font-size: 14px;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 8px 15px;
+            border-radius: 15px;
+            font-size: 18px;
             white-space: nowrap;
-            transform: rotateX(-90deg);
+            text-shadow: 1px 1px 2px black;
+            transform: rotateX(-90deg) translateY(-40px);
             transform-origin: bottom center;
         }
         
@@ -119,20 +123,20 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            width: 60px;
-            height: 60px;
+            width: 80px;
+            height: 80px;
             background-color: rgba(0, 0, 0, 0.5);
             border-radius: 50%;
-            border: 2px solid white;
+            border: 3px solid white;
             z-index: 100;
         }
         
         #compass-arrow {
             position: absolute;
-            top: 10px;
-            left: 28px;
-            width: 4px;
-            height: 20px;
+            top: 15px;
+            left: 37px;
+            width: 6px;
+            height: 30px;
             background-color: red;
             transform-origin: bottom center;
         }
@@ -140,10 +144,11 @@
         #compass::after {
             content: 'N';
             position: absolute;
-            top: 5px;
-            left: 26px;
+            top: 10px;
+            left: 35px;
             color: white;
             font-weight: bold;
+            font-size: 18px;
         }
         
         #instructions {
@@ -154,8 +159,9 @@
             text-align: center;
             color: white;
             background-color: rgba(0, 0, 0, 0.7);
-            padding: 10px;
+            padding: 15px;
             z-index: 100;
+            font-size: 16px;
         }
         
         #permission-button {
@@ -163,14 +169,15 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            padding: 15px 30px;
+            padding: 20px 40px;
             background-color: #4CAF50;
             color: white;
             border: none;
-            border-radius: 5px;
-            font-size: 18px;
+            border-radius: 10px;
+            font-size: 20px;
             z-index: 200;
             cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
         }
         
         #loading {
@@ -179,19 +186,38 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.8);
+            background-color: rgba(0,0,0,0.9);
             color: white;
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 300;
-            font-size: 20px;
+            font-size: 24px;
+            flex-direction: column;
+        }
+        
+        #loading-spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
-    <div id="loading">Obtenint la teva ubicació...</div>
-    <button id="permission-button" style="display: none;">Activar AR</button>
+    <div id="loading">
+        <div id="loading-spinner"></div>
+        Obtenint la teva ubicació...
+    </div>
+    <button id="permission-button" style="display: none;">Activar AR.-.-.-.</button>
     <div id="ar-container">
         <div id="map-wrapper">
             <div id="map">
@@ -217,7 +243,7 @@
         <div id="compass">
             <div id="compass-arrow"></div>
         </div>
-        <div id="instructions">Mou el telèfon per veure el mapa en 3D. Els punts mostren llocs d'interès quan estan a la teva vista.</div>
+        <div id="instructions">Mou el telèfon per veure el mapa en 3D. Els punts apareixen quan mires en la seva direcció.</div>
     </div>
 
     <script>
@@ -254,24 +280,29 @@
             let userHeading = 0;
             
             // Escala: aproximadament 111,000 metres per grau
-            const scale = 1000; // píxels per grau (ajustat per a millor visualització)
+            const scale = 2000; // píxels per grau (ajustat per a millor visualització)
             
             // Funció per a calcular la posició d'un marcador
             function calculateMarkerPosition(targetLat, targetLng, refLat, refLng) {
                 const latDiff = targetLat - refLat;
                 const lngDiff = targetLng - refLng;
                 
-                const x = 500 + lngDiff * scale;
-                const y = 500 - latDiff * scale;
+                const x = 1000 + lngDiff * scale;
+                const y = 1000 - latDiff * scale;
                 
                 return { x, y };
             }
             
             // Funció per calcular la direcció entre dos punts
             function calculateBearing(userLat, userLng, targetLat, targetLng) {
-                const y = Math.sin(targetLng - userLng) * Math.cos(targetLat);
-                const x = Math.cos(userLat) * Math.sin(targetLat) - 
-                          Math.sin(userLat) * Math.cos(targetLat) * Math.cos(targetLng - userLng);
+                const lat1 = userLat * Math.PI / 180;
+                const lat2 = targetLat * Math.PI / 180;
+                const lng1 = userLng * Math.PI / 180;
+                const lng2 = targetLng * Math.PI / 180;
+                
+                const y = Math.sin(lng2 - lng1) * Math.cos(lat2);
+                const x = Math.cos(lat1) * Math.sin(lat2) - 
+                          Math.sin(lat1) * Math.cos(lat2) * Math.cos(lng2 - lng1);
                 let bearing = Math.atan2(y, x);
                 bearing = bearing * (180 / Math.PI);
                 bearing = (bearing + 360) % 360;
@@ -371,6 +402,8 @@
                         setTimeout(() => {
                             loading.style.display = 'none';
                             permissionButton.style.display = 'block';
+                            userLat = centerLat;
+                            userLng = centerLng;
                             updateMarkers();
                         }, 2000);
                     },
@@ -381,6 +414,8 @@
                 setTimeout(() => {
                     loading.style.display = 'none';
                     permissionButton.style.display = 'block';
+                    userLat = centerLat;
+                    userLng = centerLng;
                     updateMarkers();
                 }, 2000);
             }
@@ -442,7 +477,7 @@
                 function resizeMap() {
                     const map = document.getElementById('map');
                     const windowHeight = window.innerHeight;
-                    const mapSize = windowHeight * 2; // Fer el mapa prou gran
+                    const mapSize = windowHeight * 4; // Fer el mapa més gran
                     map.style.width = `${mapSize}px`;
                     map.style.height = `${mapSize}px`;
                     map.style.left = `-${mapSize/2 - window.innerWidth/2}px`;
