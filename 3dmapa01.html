@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brújula y Mapa 3D</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        #compass-container {
+            background-color: #f0f0f0;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        #compass {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto;
+            position: relative;
+            border-radius: 50%;
+            background-color: #fff;
+            border: 2px solid #333;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+
+        #compass-needle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 2px;
+            height: 25px;
+            background-color: red;
+            transform-origin: bottom center;
+            transform: translate(-50%, -100%) rotate(0deg);
+        }
+
+        #compass-north {
+            position: absolute;
+            top: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: bold;
+            color: red;
+        }
+
+        #map-container {
+            flex: 1;
+            position: relative;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+
+        .location-info {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        .marker-info {
+            position: absolute;
+            background-color: white;
+            padding: 5px;
+            border-radius: 3px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+            transform: translate(-50%, -120%);
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <div id="compass-container">
+        <h2>Brújula</h2>
+        <div id="compass">
+            <div id="compass-north">N</div>
+            <div id="compass-needle"></div>
+        </div>
+        <p id="compass-direction">Dirección: -</p>
+    </div>
+
+    <div id="map-container">
+        <div id="map"></div>
+        <div class="location-info">
+            <p id="current-location">Obteniendo ubicación...</p>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://unpkg.com/maplibre-gl@2.1.9/dist/maplibre-gl.js"></script>
+    <link href="https://unpkg.com/maplibre-gl@2.1.9/dist/maplibre-gl.css" rel="stylesheet" />
+    <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+
+    <script>
+        // Configuración de la brújula
+        function initCompass() {
+            if (window.DeviceOrientationEvent) {
+                window.addEventListener('deviceorientation', function(event) {
+                    const alpha = event.alpha; // Grados respecto al norte magnético
+                    if (alpha !== null) {
+                        const compassNeedle = document.getElementById('compass-needle');
+                        compassNeedle.style.transform = `translate(-50%, -100%) rotate(${alpha}deg)`;
+
+                        const directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+                        const index = Math.round(alpha / 45) % 8;
+                        document.getElementById('compass-direction').textContent =
+                            `Dirección: ${directions[index]} (${Math.round(alpha)}°)`;
+                    }
+                });
+            } else {
+                document.getElementById('compass-container').innerHTML =
+                    '<p>Tu dispositivo no soporta la API de orientación.</p>';
+            }
+        }
+
+        // Configuración del mapa 3D
+        let map;
+        let userLocation = null;
+        const pointsOfInterest = [
+            { name: "Esglèsia", lat: 41.396712, lng: 1.103376, elevation: 412, color: "#4285F4" },
+            { name: "Ermita", lat: 41.3731, lng: 1.11065, elevation: 560, color: "#EA4335" },
+            { name: "Sant Bernat", lat: 41.388193, lng: 1.083005, elevation: 456, color: "#FBBC05" },
+            { name: "Roca de la Manxa", lat: 41.426297, lng: 1.115281, elevation: 499, color: "#34A853" }
+        ];
+
+        function initMap() {
+            // Intentar obtener la ubicación del usuario
+            navigator.geolocation.getCurrentPosition(
+                position => {
+                    userLocation = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude,
+                        elevation: position.coords.altitude || 0
+                    };
+
+                    updateLocationInfo();
+                    createMap();
+                },
+                error => {
+                    console.error("Error obteniendo ubicación:", error);
+                    // Usar una ubicación por defecto si no se puede obtener la actual
+                    userLocation = {
+                        lat: 41.396712,
+                        lng: 1.103376,
+                        elevation: 412
+                    };
+                    document.getElementById('current-location').textContent =
+                        "Ubicación no disponible. Mostrando mapa con ubicación por defecto.";
+                    createMap();
+                }
+            );
+        }
+
+        function updateLocationInfo() {
+            if (userLocation) {
+                document.getElementById('current-location').innerHTML =
+                    `Tu ubicación:<br>
+                    Latitud: ${userLocation.lat.toFixed(6)}<br>
+                    Longitud: ${userLocation.lng.toFixed(6)}<br>
+                    Altitud: ${userLocation.elevation.toFixed(0)} m`;
+            }
+        }
+
+        function createMap() {
+            // Crear el mapa
+            map = new maplibregl.Map({
+                container: 'map',
+                style: 'https://demotiles.maplibre.org/style.json', // Estilo básico
+                center: [userLocation.lng, userLocation.lat],
+                zoom: 13,
+                pitch: 60, // Inclinación para efecto 3D
+                bearing: 0,
+                antialias: true // Suavizado para mejor calidad 3D
+            });
+
+            // Esperar a que el mapa esté listo
+            map.on('load', function() {
+                // Añadir capa de terreno 3D
+                map.addSource('mapbox-dem', {
+                    type: 'raster-dem',
+                    url: 'https://demotiles.maplibre.org/terrain-tiles/tiles.json',
+                    tileSize: 256
+                });
+
+                map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
+
+                // Añadir marcador para la ubicación del usuario
+                if (userLocation) {
+                    new maplibregl.Marker({ color: "#000000" })
+                        .setLngLat([userLocation.lng, userLocation.lat])
+                        .setPopup(new maplibregl.Popup().setHTML("<h3>Tu ubicación</h3>"))
+                        .addTo(map);
+                }
+
+                // Añadir marcadores para los puntos de interés
+                pointsOfInterest.forEach(point => {
+                    const el = document.createElement('div');
+                    el.className = 'marker';
+                    el.style.backgroundColor = point.color;
+                    el.style.width = '20px';
+                    el.style.height = '20px';
+                    el.style.borderRadius = '50%';
+                    el.style.border = '2px solid white';
+
+                    new maplibregl.Marker(el)
+                        .setLngLat([point.lng, point.lat])
+                        .setPopup(new maplibregl.Popup().setHTML(`
+                            <h3>${point.name}</h3>
+                            <p>Latitud: ${point.lat.toFixed(6)}</p>
+                            <p>Longitud: ${point.lng.toFixed(6)}</p>
+                            <p>Altitud: ${point.elevation} m</p>
+                        `))
+                        .addTo(map);
+
+                    // Añadir línea desde la ubicación del usuario al punto
+                    if (userLocation) {
+                        const line = {
+                            type: 'Feature',
+                            geometry: {
+                                type: 'LineString',
+                                coordinates: [
+                                    [userLocation.lng, userLocation.lat],
+                                    [point.lng, point.lat]
+                                ]
+                            },
+                            properties: {}
+                        };
+
+                        map.addSource(`line-${point.name}`, {
+                            type: 'geojson',
+                            data: line
+                        });
+
+                        map.addLayer({
+                            id: `line-${point.name}`,
+                            type: 'line',
+                            source: `line-${point.name}`,
+                            paint: {
+                                'line-color': point.color,
+                                'line-width': 2,
+                                'line-dasharray': [2, 2]
+                            }
+                        });
+                    }
+                });
+
+                // Añadir controles de navegación
+                map.addControl(new maplibregl.NavigationControl(), 'top-right');
+
+                // Actualizar la información de ubicación cuando se mueve el mapa
+                map.on('move', function() {
+                    const center = map.getCenter();
+                    document.getElementById('current-location').innerHTML =
+                        `Centro del mapa:<br>
+                        Latitud: ${center.lat.toFixed(6)}<br>
+                        Longitud: ${center.lng.toFixed(6)}`;
+                });
+            });
+        }
+
+        // Inicializar todo cuando se cargue la página
+        window.onload = function() {
+            initCompass();
+            initMap();
+        };
+    </script>
+</body>
+</html>
