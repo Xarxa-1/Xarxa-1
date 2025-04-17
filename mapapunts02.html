@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa interactiu - Vista satèl·lit</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        #map {
+            width: 100%;
+            height: 100vh;
+        }
+        .controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+        .zoom-btn {
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 8px 12px;
+            margin: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.2);
+        }
+        .zoom-btn:hover {
+            background-color: #f4f4f4;
+        }
+        .point-label {
+            background-color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 12px;
+            white-space: nowrap;
+            transform: translateY(-50%);
+        }
+        .map-tooltip {
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <div class="controls">
+        <button class="zoom-btn" id="zoom-in">+</button>
+        <button class="zoom-btn" id="zoom-out">-</button>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Punts d'interès
+        const points = [
+            { id: 1, name: "Esglèsia Vella", lat: 41.396712, lon: 1.103376, alt: 412, color: '#FF0000' },
+            { id: 2, name: "Ermita", lat: 41.3731, lon: 1.11065, alt: 560, color: '#00FF00' },
+            { id: 3, name: "Sant Bernat", lat: 41.388193, lon: 1.083005, alt: 456, color: '#0000FF' },
+            { id: 4, name: "Roca de la Manxa", lat: 41.426297, lon: 1.115281, alt: 499, color: '#FFFF00' },
+            { id: 5, name: "Nou Lloc 1", lat: 41.52205, lon: 0.868813, alt: 353, color: '#FF00FF' },
+            { id: 6, name: "Novacoop", lat: 41.520159, lon: 0.863224, alt: 353, color: '#00FFFF' },
+            { id: 7, name: "Poblet", lat: 41.380406, lon: 1.083457, alt: 460, color: 'green' },
+            { id: 8, name: "La Pena", lat: 41.3597743, lon: 1.093488, alt: 800, color: 'lime' },
+            { id: 9, name: "Tarragona", lat: 41.113685, lon: 1.256539, alt: 800, color: 'coral' },
+            { id: 10, name: "Lleida", lat: 41.615100, lon: 0.627411, alt: 800, color: 'coral' }
+
+        ];
+
+        let map;
+        let currentPositionMarker;
+        let currentPosition = null;
+        let pointMarkers = [];
+        let lines = [];
+
+        // Inicialitza el mapa
+        function initMap() {
+            map = L.map('map').setView([41.3925, 2.14], 12); // Vista per defecte (Barcelona)
+
+            // Afegeix capa del mapa satèl·lit (Google Satellite sense API key)
+            L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+                attribution: 'Imatges © <a href="https://www.google.com/maps">Google Maps</a>',
+                maxZoom: 20,
+                subdomains: ['mt0','mt1','mt2','mt3']
+            }).addTo(map);
+
+            // Obtenir la posició actual
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    position => {
+                        currentPosition = {
+                            lat: position.coords.latitude,
+                            lon: position.coords.longitude
+                        };
+                        updateMapWithPosition();
+                    },
+                    error => {
+                        console.error("Error obtenint la posició:", error);
+                        alert("No s'ha pogut obtenir la teva posició. Es mostrarà una vista per defecte.");
+                        updateMapWithPosition(); // Mostra punts sense posició actual
+                    },
+                    { enableHighAccuracy: true }
+                );
+            } else {
+                alert("El teu navegador no suporta geolocalització. Es mostrarà una vista per defecte.");
+                updateMapWithPosition(); // Mostra punts sense posició actual
+            }
+
+            // Configura botons de zoom
+            document.getElementById('zoom-in').addEventListener('click', () => {
+                map.zoomIn();
+            });
+            document.getElementById('zoom-out').addEventListener('click', () => {
+                map.zoomOut();
+            });
+        }
+
+        // Actualitza el mapa amb la posició actual i punts d'interès
+        function updateMapWithPosition() {
+            // Neteja marcadors i línies anteriors
+            if (currentPositionMarker) map.removeLayer(currentPositionMarker);
+            pointMarkers.forEach(marker => map.removeLayer(marker));
+            lines.forEach(line => map.removeLayer(line));
+            pointMarkers = [];
+            lines = [];
+
+            // Centra el mapa en la posició actual o en una vista general dels punts
+            if (currentPosition) {
+                map.setView([currentPosition.lat, currentPosition.lon], 13);
+
+                // Afegeix marcador de posició actual
+                currentPositionMarker = L.circleMarker(
+                    [currentPosition.lat, currentPosition.lon],
+                    {
+                        radius: 8,
+                        color: '#FFFFFF',
+                        weight: 2,
+                        fillColor: '#3388ff',
+                        fillOpacity: 1
+                    }
+                ).addTo(map);
+
+                // Afegeix etiqueta a la posició actual
+                currentPositionMarker.bindTooltip("La teva posició", {
+                    permanent: false,
+                    direction: 'top',
+                    className: 'map-tooltip'
+                }).openTooltip();
+            } else {
+                // Si no tenim posició, centra en una vista que mostri tots els punts
+                const bounds = points.reduce((acc, point) => {
+                    return acc.extend([point.lat, point.lon]);
+                }, L.latLngBounds([points[0].lat, points[0].lon], [points[0].lat, points[0].lon]));
+                map.fitBounds(bounds.pad(0.2));
+            }
+
+            // Afegeix punts d'interès i línies
+            points.forEach(point => {
+                // Crea marcador del punt
+                const marker = L.circleMarker(
+                    [point.lat, point.lon],
+                    {
+                        radius: 6,
+                        color: '#FFFFFF',
+                        weight: 2,
+                        fillColor: point.color,
+                        fillOpacity: 1
+                    }
+                ).addTo(map);
+
+                // Afegeix etiqueta amb nom i altitud
+                marker.bindTooltip(`${point.name} (${point.alt}m)`, {
+                    permanent: false,
+                    direction: 'top',
+                    className: 'map-tooltip'
+                });
+                pointMarkers.push(marker);
+
+                // Si tenim posició actual, dibuixa línia i etiqueta
+                if (currentPosition) {
+                    // Dibuixa línia
+                    const line = L.polyline(
+                        [[currentPosition.lat, currentPosition.lon], [point.lat, point.lon]],
+                        {
+                            color: point.color,
+                            weight: 3,
+                            dashArray: '5,5',
+                            opacity: 0.8
+                        }
+                    ).addTo(map);
+                    lines.push(line);
+
+                    // Calcula el punt mig per posar l'etiqueta
+                    const midLat = (currentPosition.lat + point.lat) / 2;
+                    const midLon = (currentPosition.lon + point.lon) / 2;
+
+                    // Crea etiqueta flotant
+                    const label = L.marker([midLat, midLon], {
+                        icon: L.divIcon({
+                            className: 'point-label',
+                            html: point.name,
+                            iconSize: null
+                        }),
+                        zIndexOffset: 1000
+                    }).addTo(map);
+                    pointMarkers.push(label);
+                }
+            });
+        }
+
+        // Inicialitza el mapa quan es carrega la pàgina
+        window.onload = initMap;
+    </script>
+</body>
+</html>
