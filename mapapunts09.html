@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Mapa Orientat Correctament</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        /* Estils previs... */
+        
+        #map-container {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        #map {
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s ease;
+            transform-origin: center center;
+        }
+        
+        /* Resta d'estils... */
+    </style>
+</head>
+<body>
+    <div id="map-container">
+        <div id="map"></div>
+    </div>
+    <!-- Resta d'elements HTML... -->
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Variables globals per a l'orientació
+        let currentHeading = 0;
+        let targetBearing = 0;
+        let isCompassAvailable = false;
+        let lastMapRotation = 0;
+
+        // Funció revisada per actualitzar l'orientació
+        function updateOrientation(event) {
+            if (!currentPosition) return;
+            
+            // Obtenir el capçal del dispositiu
+            if (event.webkitCompassHeading) {
+                // Per a Safari
+                currentHeading = event.webkitCompassHeading;
+                isCompassAvailable = true;
+            } else if (event.alpha !== null && event.absolute === true) {
+                // Per a altres navegadors amb API d'orientació absoluta
+                currentHeading = 360 - event.alpha;
+                isCompassAvailable = true;
+            }
+            
+            // Actualitzar la brúixola visual
+            updateCompassDisplay();
+            
+            // Si tenim un punt destí, calcular i aplicar la rotació
+            if (targetPoint) {
+                updateMapRotation();
+            }
+        }
+
+        // Funció per calcular el rumb cap al destí
+        function calculateBearing(lat1, lon1, lat2, lon2) {
+            const φ1 = lat1 * Math.PI / 180;
+            const φ2 = lat2 * Math.PI / 180;
+            const Δλ = (lon2 - lon1) * Math.PI / 180;
+            
+            const y = Math.sin(Δλ) * Math.cos(φ2);
+            const x = Math.cos(φ1) * Math.sin(φ2) - 
+                      Math.sin(φ1) * Math.cos(φ2) * Math.cos(Δλ);
+            const θ = Math.atan2(y, x);
+            
+            return (θ * 180 / Math.PI + 360) % 360;
+        }
+
+        // Funció per actualitzar la rotació del mapa
+        function updateMapRotation() {
+            if (!currentPosition || !targetPoint) return;
+            
+            // Calcular el rumb cap al destí
+            targetBearing = calculateBearing(
+                currentPosition.coords.latitude,
+                currentPosition.coords.longitude,
+                targetPoint.lat,
+                targetPoint.lon
+            );
+            
+            // Calcular l'angle de rotació necessari
+            let rotationAngle;
+            if (isCompassAvailable) {
+                // Orientar el mapa amb la brúixola
+                rotationAngle = (360 - currentHeading + targetBearing) % 360;
+            } else {
+                // Orientació bàsica (sense brúixola)
+                rotationAngle = targetBearing;
+            }
+            
+            // Aplicar la rotació al mapa
+            document.getElementById('map').style.transform = `rotate(${rotationAngle}deg)`;
+            lastMapRotation = rotationAngle;
+        }
+
+        // Funció per actualitzar la visualització de la brúixola
+        function updateCompassDisplay() {
+            const compass = document.getElementById('compass');
+            if (isCompassAvailable) {
+                compass.style.transform = `rotate(${360 - currentHeading}deg)`;
+                compass.textContent = 'N';
+            } else {
+                compass.textContent = '⌖'; // Símbol d'orientació sense brúixola
+            }
+        }
+
+        // Modificació en la selecció de destí
+        map.on('click', function(e) {
+            // Trobar el punt més proper al clic
+            let closestPoint = null;
+            let minDistance = Infinity;
+            
+            pointsOfInterest.forEach(point => {
+                const distance = calculateDistance(
+                    e.latlng.lat,
+                    e.latlng.lng,
+                    point.lat,
+                    point.lon
+                );
+                
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closestPoint = point;
+                }
+            });
+            
+            if (minDistance < 0.5) {
+                targetPoint = closestPoint;
+                updateMapRotation();
+                alert(`Destinació: ${targetPoint.name}. El mapa s'orientarà cap a aquest punt.`);
+            } else {
+                targetPoint = null;
+                document.getElementById('map').style.transform = 'rotate(0deg)';
+            }
+        });
+
+        // Inicialització revisada
+        function init() {
+            initMap();
+            
+            // Configuració dels controls...
+            
+            // Verificar i demanar permisos d'orientació
+            if (window.DeviceOrientationEvent) {
+                if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+                    // iOS 13+
+                    DeviceOrientationEvent.requestPermission()
+                        .then(response => {
+                            if (response === 'granted') {
+                                window.addEventListener('deviceorientation', updateOrientation);
+                            }
+                        })
+                        .catch(console.error);
+                } else {
+                    window.addEventListener('deviceorientation', updateOrientation);
+                }
+            }
+            
+            // Actualitzar la posició inicial
+            if (navigator.geolocation) {
+                watchId = navigator.geolocation.watchPosition(
+                    function(position) {
+                        updatePosition(position);
+                        if (targetPoint) {
+                            updateMapRotation();
+                        }
+                    },
+                    handleLocationError,
+                    { enableHighAccuracy: true }
+                );
+            }
+        }
+    </script>
+</body>
+</html>
