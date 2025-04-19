@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Mapa de Punts d'Interès i Pluja</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .info-panel {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            max-width: 200px;
+        }
+
+        .location-info {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            max-width: 250px;
+        }
+
+        .compass {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            z-index: 1000;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .rain-legend {
+            position: absolute;
+            bottom: 70px;
+            right: 10px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            border: 1px solid #333;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <div class="info-panel">
+        <h3>Punts d'Interès</h3>
+        <div id="points-info"></div>
+    </div>
+    <div class="location-info">
+        <div><strong>La teva ubicació:</strong></div>
+        <div id="current-location"></div>
+    </div>
+    <div class="compass" id="compass">N</div>
+    <div class="rain-legend">
+        <h4>Intensitat de pluja</h4>
+        <div class="legend-item"><div class="legend-color" style="background-color: rgba(255, 0, 0, 0.25)"></div>Molt pluja</div>
+        <div class="legend-item"><div class="legend-color" style="background-color: rgba(255, 255, 0, 0.25)"></div>Pluja intensa</div>
+        <div class="legend-item"><div class="legend-color" style="background-color: rgba(0, 255, 0, 0.25)"></div>Pluja moderada</div>
+        <div class="legend-item"><div class="legend-color" style="background-color: rgba(0, 0, 255, 0.25)"></div>Pluja lleu</div>
+        <div class="legend-item"><div class="legend-color" style="background-color: rgba(255, 255, 255, 0.25)"></div>Pluja molt lleu</div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Punts d'interès
+        const pointsOfInterest = [
+            { id: 1, name: "Esglèsia", lat: 41.396712, lon: 1.103376, alt: 412, color: '#FF0000' },
+            { id: 2, name: "Ermita", lat: 41.3731, lon: 1.11065, alt: 560, color: '#00FF00' },
+            { id: 3, name: "Sant Bernat", lat: 41.388193, lon: 1.083005, alt: 456, color: '#0000FF' },
+            { id: 4, name: "Roca de la Manxa", lat: 41.426297, lon: 1.115281, alt: 499, color: '#FFFF00' },
+            { id: 5, name: "Nou Lloc 1", lat: 41.52205, lon: 0.868813, alt: 353, color: '#FF00FF' },
+            { id: 6, name: "Novacoop", lat: 41.520159, lon: 0.0862992, alt: 353, color: '#00FFFF' },
+            { id: 7, name: "Poblet", lat: 41.380406, lon: 1.083457, alt: 460, color: 'green' },
+            { id: 8, name: "La Pena", lat: 41.3597743, lon: 1.093488, alt: 800, color: 'lime' },
+            { id: 9, name: "Tarragona", lat: 41.113685, lon: 1.256539, alt: 800, color: 'coral' },
+            { id: 10, name: "Lleida", lat: 41.615100, lon: 0.627411, alt: 800, color: 'coral' }
+        ];
+
+        // Zones de pluja (simulades)
+        const rainAreas = [
+            // Zona 1 - Pluja molt intensa (vermell)
+            {
+                intensity: 5,
+                color: 'rgba(255, 0, 0, 0.85)',
+                polygon: [
+                    [41.40, 1.10],
+                    [41.38, 1.12],
+                    [41.37, 1.08],
+                    [41.39, 1.06]
+                ]
+            },
+            // Zona 2 - Pluja intensa (groc)
+            {
+                intensity: 4,
+                color: 'rgba(255, 255, 0, 0.25)',
+                polygon: [
+                    [41.45, 1.05],
+                    [41.43, 1.08],
+                    [41.42, 1.04],
+                    [41.44, 1.02]
+                ]
+            },
+            // Zona 3 - Pluja moderada (verd)
+            {
+                intensity: 3,
+                color: 'rgba(0, 255, 0, 0.25)',
+                polygon: [
+                    [41.35, 1.15],
+                    [41.33, 1.18],
+                    [41.32, 1.14],
+                    [41.34, 1.12]
+                ]
+            },
+            // Zona 4 - Pluja lleu (blau)
+            {
+                intensity: 2,
+                color: 'rgba(0, 0, 255, 0.25)',
+                polygon: [
+                    [41.50, 0.90],
+                    [41.48, 0.93],
+                    [41.47, 0.89],
+                    [41.49, 0.87]
+                ]
+            },
+            // Zona 5 - Pluja molt lleu (blanc)
+            {
+                intensity: 1,
+                color: 'rgba(255, 255, 255, 0.25)',
+                polygon: [
+                    [41.55, 0.70],
+                    [41.53, 0.73],
+                    [41.52, 0.69],
+                    [41.54, 0.67]
+                ]
+            }
+        ];
+
+        // Variables globals
+        let map;
+        let currentPositionMarker;
+        let polylines = [];
+        let currentPosition = null;
+        let watchId;
+        let currentHeading = 0;
+        let targetPoint = null;
+        let rainLayers = [];
+
+        // Inicialització del mapa
+        function initMap() {
+            // Crear el mapa centrat a una posició per defecte (s'actualitzarà amb la ubicació real)
+            map = L.map('map', {
+                zoomControl: false,
+                inertia: false
+            }).setView([41.38879, 1.10397], 13);
+
+            // Afegir capa de satèl·lit
+            L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+                maxZoom: 20,
+                subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+                attribution: 'Google Satellite'
+            }).addTo(map);
+
+            // Afegir punts d'interès al mapa
+            pointsOfInterest.forEach(point => {
+                const marker = L.circleMarker([point.lat, point.lon], {
+                    radius: 6,
+                    fillColor: point.color,
+                    color: '#000',
+                    weight: 1,
+                    opacity: 1,
+                    fillOpacity: 0.8
+                }).addTo(map);
+
+                marker.bindPopup(`<b>${point.name}</b><br>Altitud: ${point.alt}m`);
+            });
+
+            // Afegir zones de pluja
+            addRainAreas();
+
+            // Actualitzar informació dels punts
+            updatePointsInfo();
+        }
+
+        // Afegir zones de pluja al mapa
+        function addRainAreas() {
+            // Netejar capes existents
+            rainLayers.forEach(layer => map.removeLayer(layer));
+            rainLayers = [];
+
+            // Afegir noves zones de pluja
+            rainAreas.forEach(area => {
+                const polygon = L.polygon(area.polygon, {
+                    color: area.color,
+                    fillColor: area.color,
+                    fillOpacity: 0.25,
+                    weight: 1
+                }).addTo(map);
+
+                // Afegir tooltip amb intensitat de pluja
+                polygon.bindTooltip(`Intensitat pluja: ${area.intensity}/5`, {
+                    permanent: false,
+                    direction: 'top'
+                });
+
+                rainLayers.push(polygon);
+            });
+        }
+
+        // Actualitzar la informació dels punts al panell
+        function updatePointsInfo() {
+            const pointsInfoDiv = document.getElementById('points-info');
+            pointsInfoDiv.innerHTML = '';
+
+            if (!currentPosition) return;
+
+            pointsOfInterest.forEach(point => {
+                const distance = calculateDistance(
+                    currentPosition.coords.latitude,
+                    currentPosition.coords.longitude,
+                    point.lat,
+                    point.lon
+                );
+
+                const pointElement = document.createElement('div');
+                pointElement.style.margin = '5px 0';
+                pointElement.style.color = point.color;
+                pointElement.innerHTML = `<b>${point.name}</b>: ${distance.toFixed(2)} km`;
+                pointsInfoDiv.appendChild(pointElement);
+            });
+        }
+
+        // Calcular distància entre dos punts (fórmula haversine)
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371; // Radi de la Terra en km
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a =
+                Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                Math.sin(dLon/2) * Math.sin(dLon/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            return R * c;
+        }
+
+        // Actualitzar la posició actual
+        function updatePosition(position) {
+            currentPosition = position;
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+
+            // Actualitzar text de ubicació
+            document.getElementById('current-location').innerHTML = `
+                Lat: ${lat.toFixed(6)}<br>
+                Lon: ${lon.toFixed(6)}<br>
+                Prec: ±${position.coords.accuracy.toFixed(0)}m
+            `;
+
+            // Crear o actualitzar marcador de posició actual
+            if (!currentPositionMarker) {
+                currentPositionMarker = L.circleMarker([lat, lon], {
+                    radius: 8,
+                    fillColor: '#0000FF',
+                    color: '#FFFFFF',
+                    weight: 2,
+                    opacity: 1,
+                    fillOpacity: 0.8
+                }).addTo(map);
+
+                currentPositionMarker.bindPopup("<b>La teva ubicació</b>");
+            } else {
+                currentPositionMarker.setLatLng([lat, lon]);
+            }
+
+            // Centrar el mapa en la posició actual (suau)
+            map.setView([lat, lon], map.getZoom(), { animate: true, duration: 1 });
+
+            // Actualitzar línies cap als punts d'interès
+            updateLinesToPoints();
+
+            // Actualitzar informació dels punts
+            updatePointsInfo();
+        }
+
+        // Actualitzar línies cap als punts d'interès
+        function updateLinesToPoints() {
+            // Eliminar línies existents
+            polylines.forEach(line => map.removeLayer(line));
+            polylines = [];
+
+            if (!currentPosition) return;
+
+            const currentLat = currentPosition.coords.latitude;
+            const currentLon = currentPosition.coords.longitude;
+
+            // Crear noves línies
+            pointsOfInterest.forEach(point => {
+                const line = L.polyline(
+                    [[currentLat, currentLon], [point.lat, point.lon]],
+                    { color: point.color, weight: 2, dashArray: '5,5' }
+                ).addTo(map);
+                polylines.push(line);
+            });
+        }
+
+        // Manejar errors de geolocalització
+        function handleLocationError(error) {
+            let errorMessage;
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    errorMessage = "L'usuari ha denegat la sol·licitud de geolocalització.";
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    errorMessage = "La informació de ubicació no està disponible.";
+                    break;
+                case error.TIMEOUT:
+                    errorMessage = "S'ha exhaurit el temps d'espera per obtenir la ubicació.";
+                    break;
+                case error.UNKNOWN_ERROR:
+                    errorMessage = "S'ha produït un error desconegut.";
+                    break;
+            }
+
+            alert("Error de geolocalització: " + errorMessage);
+        }
+
+        // Actualitzar orientació del mapa segons la brúixola
+        function updateOrientation(event) {
+            if (event.webkitCompassHeading) {
+                // Per a Safari
+                currentHeading = event.webkitCompassHeading;
+                document.getElementById('compass').style.transform = `rotate(${360 - currentHeading}deg)`;
+            } else if (event.alpha !== null) {
+                // Per a altres navegadors
+                currentHeading = event.alpha;
+                document.getElementById('compass').style.transform = `rotate(${360 - currentHeading}deg)`;
+            }
+
+            // Si hi ha un punt objectiu, ajustar l'orientació del mapa
+            if (targetPoint && currentPosition) {
+                const bearing = calculateBearing(
+                    currentPosition.coords.latitude,
+                    currentPosition.coords.longitude,
+                    targetPoint.lat,
+                    targetPoint.lon
+                );
+
+                const rotationAngle = (360 - currentHeading + bearing) % 360;
+                document.getElementById('map').style.transform = `rotate(${rotationAngle}deg)`;
+            }
+        }
+
+        // Calcular rumb entre dos punts
+        function calculateBearing(lat1, lon1, lat2, lon2) {
+            const φ1 = lat1 * Math.PI / 180;
+            const φ2 = lat2 * Math.PI / 180;
+            const Δλ = (lon2 - lon1) * Math.PI / 180;
+
+            const y = Math.sin(Δλ) * Math.cos(φ2);
+            const x = Math.cos(φ1) * Math.sin(φ2) - Math.sin(φ1) * Math.cos(φ2) * Math.cos(Δλ);
+            const θ = Math.atan2(y, x);
+
+            return (θ * 180 / Math.PI + 360) % 360;
+        }
+
+        // Inicialitzar l'aplicació
+        function init() {
+            initMap();
+
+            // Demanar permisos de geolocalització
+            if (navigator.geolocation) {
+                watchId = navigator.geolocation.watchPosition(
+                    updatePosition,
+                    handleLocationError,
+                    { enableHighAccuracy: true, maximumAge: 10000, timeout: 5000 }
+                );
+            } else {
+                alert("La geolocalització no és compatible amb aquest navegador.");
+            }
+
+            // Configurar esdeveniments d'orientació (brúixola)
+            if (window.DeviceOrientationEvent) {
+                if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+                    // Demanar permís en iOS 13+
+                    DeviceOrientationEvent.requestPermission()
+                        .then(response => {
+                            if (response === 'granted') {
+                                window.addEventListener('deviceorientation', updateOrientation);
+                            }
+                        })
+                        .catch(console.error);
+                } else {
+                    window.addEventListener('deviceorientation', updateOrientation);
+                }
+            } else {
+                alert("L'orientació del dispositiu no és compatible amb aquest navegador.");
+            }
+
+            // Permetre seleccionar un punt objectiu
+            map.on('click', function(e) {
+                // Trobar el punt més proper al clic
+                let closestPoint = null;
+                let minDistance = Infinity;
+
+                pointsOfInterest.forEach(point => {
+                    const distance = calculateDistance(
+                        e.latlng.lat,
+                        e.latlng.lng,
+                        point.lat,
+                        point.lon
+                    );
+
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        closestPoint = point;
+                    }
+                });
+
+                if (minDistance < 0.5) { // Si el clic està a menys de 500m d'un punt
+                    targetPoint = closestPoint;
+                    alert(`Has seleccionat ${targetPoint.name} com a destinació. El mapa s'orientarà cap a aquest punt.`);
+                } else {
+                    targetPoint = null;
+                    document.getElementById('map').style.transform = 'rotate(0deg)';
+                    alert('Clica sobre un punt d\'interès per establir-lo com a destinació.');
+                }
+            });
+        }
+
+        // Iniciar l'aplicació quan la pàgina estigui carregada
+        window.onload = init;
+    </script>
+</body>
+</html>
