@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Radar Meteorològic</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            background-color: #f0f0f0;
+        }
+        
+        #map-container {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+        
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+        
+        .zoom-controls {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .zoom-btn {
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin: 5px;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+        }
+        
+        .zoom-btn:hover {
+            background-color: #f4f4f4;
+        }
+        
+        .info-panel {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.2);
+        }
+        
+        .compass {
+            width: 30px;
+            height: 30px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="map-container">
+        <div id="map"></div>
+        <div class="zoom-controls">
+            <button class="zoom-btn" id="zoom-in">+</button>
+            <button class="zoom-btn" id="zoom-out">-</button>
+        </div>
+        <div class="info-panel">
+            <div id="location-info">Obtenint ubicació...</div>
+            <div id="time-info"></div>
+        </div>
+        <div class="compass" id="compass">N</div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Inicialització del mapa
+        let map;
+        let radarLayer;
+        let userMarker;
+        let lastUpdateTime = null;
+        
+        // Coordenades per defecte (Barcelona) en cas que no es pugui obtenir la ubicació
+        const defaultCoords = {
+            lat: 41.3851,
+            lng: 2.1734,
+            zoom: 9
+        };
+        
+        // Inicialitzar el mapa amb la ubicació actual
+        function initMap(lat, lng, zoom) {
+            map = L.map('map', {
+                center: [lat, lng],
+                zoom: zoom,
+                zoomControl: false,
+                attributionControl: false
+            });
+            
+            // Afegir capa de satèl·lit
+            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+                maxZoom: 19
+            }).addTo(map);
+            
+            // Simular capa de radar (en un entorn real, s'utilitzaria una API com la de Meteo.cat)
+            radarLayer = L.layerGroup().addTo(map);
+            updateRadarLayer();
+            
+            // Actualitzar cada 5 minuts
+            setInterval(updateRadarLayer, 300000);
+            
+            // Afegir marcador de l'usuari
+            userMarker = L.marker([lat, lng], {
+                icon: L.divIcon({
+                    className: 'user-marker',
+                    html: '📍',
+                    iconSize: [30, 30]
+                })
+            }).addTo(map);
+            
+            // Configurar botons de zoom
+            document.getElementById('zoom-in').addEventListener('click', () => {
+                map.zoomIn();
+            });
+            
+            document.getElementById('zoom-out').addEventListener('click', () => {
+                map.zoomOut();
+            });
+            
+            // Actualitzar informació de temps
+            updateTimeInfo();
+            setInterval(updateTimeInfo, 60000);
+            
+            // Iniciar orientació del dispositiu
+            initDeviceOrientation();
+        }
+        
+        // Simulació de dades de radar (en una aplicació real, s'utilitzarien dades reals)
+        function updateRadarLayer() {
+            radarLayer.clearLayers();
+            
+            // Simular dades de precipitació
+            const bounds = map.getBounds();
+            const ne = bounds.getNorthEast();
+            const sw = bounds.getSouthWest();
+            
+            // Generar punts aleatoris de precipitació dins del viewport
+            for (let i = 0; i < 50; i++) {
+                const lat = sw.lat + Math.random() * (ne.lat - sw.lat);
+                const lng = sw.lng + Math.random() * (ne.lng - sw.lng);
+                const intensity = Math.floor(Math.random() * 5); // 0-4
+                
+                if (intensity > 0) {
+                    const color = getRainColor(intensity);
+                    const radius = intensity * 1000; // Mida segons intensitat
+                    
+                    L.circle([lat, lng], {
+                        color: color,
+                        fillColor: color,
+                        fillOpacity: 0.5,
+                        radius: radius
+                    }).addTo(radarLayer);
+                }
+            }
+            
+            lastUpdateTime = new Date();
+            updateTimeInfo();
+        }
+        
+        // Obtenir color segons intensitat de pluja
+        function getRainColor(intensity) {
+            const colors = [
+                '#4A90E2', // Lleu (blau clar)
+                '#357ABD', // Moderada (blau)
+                '#FFD700', // Forta (groc)
+                '#FF8C00', // Molt forta (taronja)
+                '#FF0000'  // Extrema (vermell)
+            ];
+            return colors[intensity - 1] || colors[0];
+        }
+        
+        // Actualitzar informació de temps
+        function updateTimeInfo() {
+            const timeElement = document.getElementById('time-info');
+            const now = new Date();
+            
+            let timeStr = `Última actualització: ${now.toLocaleTimeString('ca-ES')}`;
+            if (lastUpdateTime) {
+                const minsAgo = Math.floor((now - lastUpdateTime) / 60000);
+                timeStr += ` (Fa ${minsAgo} min${minsAgo !== 1 ? 's' : ''})`;
+            }
+            
+            timeElement.textContent = timeStr;
+        }
+        
+        // Configurar orientació del dispositiu
+        function initDeviceOrientation() {
+            if (window.DeviceOrientationEvent) {
+                window.addEventListener('deviceorientation', handleOrientation, true);
+            } else {
+                document.getElementById('compass').style.display = 'none';
+            }
+        }
+        
+        function handleOrientation(event) {
+            if (event.alpha !== null) {
+                const compass = document.getElementById('compass');
+                const alpha = event.alpha; // 0-360 graus
+                
+                // Rotar el mapa segons l'orientació
+                map.setBearing(-alpha);
+                
+                // Actualitzar indicador de brúixola
+                compass.style.transform = `rotate(${alpha}deg)`;
+                
+                // Mostrar la direcció aproximada
+                const directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+                const index = Math.round(alpha / 45) % 8;
+                compass.textContent = directions[index];
+            }
+        }
+        
+        // Obtenir ubicació actual
+        function getLocation() {
+            const locationElement = document.getElementById('location-info');
+            
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+                        locationElement.textContent = `Lat: ${lat.toFixed(4)}, Lng: ${lng.toFixed(4)}`;
+                        initMap(lat, lng, 11);
+                    },
+                    (error) => {
+                        console.error("Error obtenint ubicació:", error);
+                        locationElement.textContent = "Utilitzant ubicació per defecte (Barcelona)";
+                        initMap(defaultCoords.lat, defaultCoords.lng, defaultCoords.zoom);
+                    }
+                );
+            } else {
+                locationElement.textContent = "Geolocalització no suportada. Utilitzant Barcelona";
+                initMap(defaultCoords.lat, defaultCoords.lng, defaultCoords.zoom);
+            }
+        }
+        
+        // Iniciar l'aplicació
+        document.addEventListener('DOMContentLoaded', getLocation);
+    </script>
+</body>
+</html>
