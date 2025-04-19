@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mapa d'Orientació per a Senderisme</title>
+    <!-- Utilitzem Leaflet amb el plugin de rotació -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-rotate@1.0.0/leaflet-rotate.css" />
     <style>
         body {
             margin: 0;
@@ -298,8 +300,11 @@
             </div>
         </form>
     </div>
-    
+
+    <!-- Incloure Leaflet i el plugin de rotació -->
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-rotate@1.0.0/leaflet-rotate.js"></script>
+    
     <script>
         // Variables globals
         let map;
@@ -337,6 +342,7 @@
                 zoomControl: false,
                 rotate: true,
                 bearing: 0,
+                touchRotate: true,
                 inertia: false
             });
             
@@ -374,8 +380,70 @@
             // Configurar l'arrossegament de la finestra
             setupFormDragging();
             
-            // Línia de prova per verificar la rotació
-            L.polyline([[0,0], [0.001,0]], {color: 'red'}).addTo(map);
+            // Línia de prova per verificar la rotació (orientada cap a l'est)
+            L.polyline([[0,0], [0,0.001]], {color: 'red', weight: 3}).addTo(map);
+        }
+        
+        // Configurar l'escolta d'orientació del dispositiu
+        function setupOrientationListener() {
+            if (window.DeviceOrientationEvent) {
+                if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+                    // iOS 13+ necessita permís
+                    document.getElementById('location-panel').addEventListener('click', function requestPermission() {
+                        DeviceOrientationEvent.requestPermission()
+                            .then(response => {
+                                if (response === 'granted') {
+                                    window.addEventListener('deviceorientation', handleOrientation);
+                                }
+                            })
+                            .catch(console.error);
+                        this.removeEventListener('click', requestPermission);
+                    });
+                } else {
+                    // Altres navegadors
+                    window.addEventListener('deviceorientation', handleOrientation);
+                }
+            } else {
+                console.log("L'orientació del dispositiu no està suportada en aquest navegador.");
+                document.getElementById('heading-value').textContent = "No suportat";
+            }
+        }
+        
+        // Manejar l'orientació del dispositiu
+        function handleOrientation(event) {
+            let newHeading;
+            
+            if (event.absolute && event.alpha !== null) {
+                // Per a navegadors que suporten l'orientació absoluta
+                newHeading = event.alpha;
+            } else if (event.webkitCompassHeading) {
+                // Per a Safari en iOS
+                newHeading = event.webkitCompassHeading;
+            } else {
+                return;
+            }
+            
+            // Aplicar offset de 3 graus a la dreta
+            heading = newHeading + HEADING_OFFSET;
+            
+            // Normalitzar a 0-360
+            heading = heading % 360;
+            if (heading < 0) heading += 360;
+            
+            // Rotar el mapa (sense invertir)
+            map.setBearing(heading);
+            
+            // Actualitzar la brúixola visual (invertim per mostrar correctament)
+            updateCompass(-heading);
+            
+            // Actualitzar informació al panell
+            document.getElementById('heading-value').textContent = Math.round(heading);
+        }
+        
+        // Actualitzar la brúixola visual
+        function updateCompass(heading) {
+            const arrow = document.getElementById('compass-arrow');
+            arrow.style.transform = `rotate(${heading}deg)`;
         }
         
         // Configurar l'arrossegament de la finestra
@@ -442,62 +510,6 @@
         // Finalitzar arrossegament
         function endDrag() {
             isDragging = false;
-        }
-        
-        // Configurar l'escolta d'orientació del dispositiu
-        function setupOrientationListener() {
-            if (window.DeviceOrientationEvent) {
-                if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-                    // iOS 13+ necessita permís
-                    document.getElementById('location-panel').addEventListener('click', function requestPermission() {
-                        DeviceOrientationEvent.requestPermission()
-                            .then(response => {
-                                if (response === 'granted') {
-                                    window.addEventListener('deviceorientation', handleOrientation);
-                                }
-                            })
-                            .catch(console.error);
-                        this.removeEventListener('click', requestPermission);
-                    });
-                } else {
-                    // Altres navegadors
-                    window.addEventListener('deviceorientation', handleOrientation);
-                }
-            } else {
-                console.log("L'orientació del dispositiu no està suportada en aquest navegador.");
-                document.getElementById('heading-value').textContent = "No suportat";
-            }
-        }
-        
-        // Manejar l'orientació del dispositiu
-        function handleOrientation(event) {
-            let newHeading;
-            
-            if (event.absolute && event.alpha !== null) {
-                // Per a navegadors que suporten l'orientació absoluta
-                newHeading = event.alpha;
-            } else if (event.webkitCompassHeading) {
-                // Per a Safari en iOS
-                newHeading = event.webkitCompassHeading;
-            } else {
-                return;
-            }
-            
-            // Aplicar offset de 3 graus a la dreta
-            heading = newHeading + HEADING_OFFSET;
-            
-            // Normalitzar a 0-360
-            heading = heading % 360;
-            if (heading < 0) heading += 360;
-            
-            // Rotar el mapa (sense invertir)
-            map.setBearing(heading);
-            
-            // Actualitzar la brúixola visual (invertim per mostrar correctament)
-            updateCompass(-heading);
-            
-            // Actualitzar informació al panell
-            document.getElementById('heading-value').textContent = Math.round(heading);
         }
         
         // Iniciar el seguiment de geolocalització
@@ -637,12 +649,6 @@
                 (lat1 + lat2) / 2,
                 (lon1 + lon2) / 2
             ];
-        }
-        
-        // Actualitzar la brúixola visual
-        function updateCompass(heading) {
-            const arrow = document.getElementById('compass-arrow');
-            arrow.style.transform = `rotate(${heading}deg)`;
         }
         
         // Manejar errors de geolocalització
