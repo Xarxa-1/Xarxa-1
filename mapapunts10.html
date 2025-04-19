@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mapa Satelital Orientat</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            background-color: #f0f0f0;
+        }
+        
+        #map-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+        
+        #map {
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        #controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        #compass {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        #info-panel {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 5px;
+            max-width: 300px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+        
+        .point-marker {
+            border-radius: 50%;
+            border: 2px solid white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 0 2px black;
+        }
+        
+        .location-icon {
+            background-color: #0066ff;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+        
+        .heading-line {
+            position: absolute;
+            width: 20px;
+            height: 2px;
+            background-color: black;
+            top: 50%;
+            left: 50%;
+            transform-origin: left center;
+        }
+    </style>
+</head>
+<body>
+    <div id="map-container">
+        <div id="map"></div>
+        <div id="controls">
+            <button id="center-btn">Centrar en mi ubicació</button>
+            <button id="toggle-orientation">Activar orientació</button>
+        </div>
+        <div id="compass">N</div>
+        <div id="info-panel">
+            <h3 id="point-name"></h3>
+            <p id="point-coords"></p>
+            <p id="point-alt"></p>
+            <button id="close-info">Tancar</button>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Datos de los puntos
+        const points = [
+            { id: 1, name: "Esglèsia", lat: 41.396712, lon: 1.103376, alt: 412, color: '#FF0000' },
+            { id: 2, name: "Ermita", lat: 41.3731, lon: 1.11065, alt: 560, color: '#00FF00' },
+            { id: 3, name: "Sant Bernat", lat: 41.388193, lon: 1.083005, alt: 456, color: '#0000FF' },
+            { id: 4, name: "Roca de la Manxa", lat: 41.426297, lon: 1.115281, alt: 499, color: '#FFFF00' },
+            { id: 5, name: "Nou Lloc 1", lat: 41.52205, lon: 0.868813, alt: 353, color: '#FF00FF' },
+            { id: 6, name: "Novacoop", lat: 41.520159, lon: 0.0862992, alt: 353, color: '#00FFFF' },
+            { id: 7, name: "Poblet", lat: 41.380406, lon: 1.083457, alt: 460, color: 'green' },
+            { id: 8, name: "La Pena", lat: 41.3597743, lon: 1.093488, alt: 800, color: 'lime' },
+            { id: 9, name: "Tarragona", lat: 41.113685, lon: 1.256539, alt: 800, color: 'coral' },
+            { id: 10, name: "Lleida", lat: 41.615100, lon: 0.627411, alt: 800, color: 'coral' }
+        ];
+
+        // Variables globales
+        let map;
+        let userMarker;
+        let headingMarker;
+        let currentPosition = null;
+        let orientationActive = false;
+        let currentHeading = 0;
+        let markers = [];
+        let circleMarkers = [];
+
+        // Inicializar el mapa
+        function initMap() {
+            // Crear mapa con vista satélite
+            map = L.map('map', {
+                zoomControl: false,
+                inertia: false
+            }).setView([41.38879, 1.10336], 13); // Vista inicial (se actualizará con la posición real)
+
+            // Añadir capa de satélite (usando Mapbox como ejemplo)
+            L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+                maxZoom: 18,
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+                    '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                    'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                id: 'mapbox/satellite-v9',
+                tileSize: 512,
+                zoomOffset: -1
+            }).addTo(map);
+
+            // Añadir puntos al mapa
+            addPointsToMap();
+
+            // Configurar controles
+            setupControls();
+
+            // Intentar obtener la ubicación del usuario
+            if (navigator.geolocation) {
+                navigator.geolocation.watchPosition(
+                    position => {
+                        updatePosition(position);
+                    },
+                    error => {
+                        console.error("Error obteniendo la ubicación:", error);
+                        alert("No se pudo obtener la ubicación. Asegúrate de haber dado permisos de ubicación.");
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        maximumAge: 10000,
+                        timeout: 5000
+                    }
+                );
+            } else {
+                alert("Tu navegador no soporta geolocalización.");
+            }
+
+            // Configurar orientación del dispositivo si está disponible
+            if (window.DeviceOrientationEvent) {
+                window.addEventListener('deviceorientation', handleOrientation);
+            } else {
+                console.log("Device orientation not supported");
+                document.getElementById('toggle-orientation').disabled = true;
+            }
+        }
+
+        // Añadir puntos al mapa
+        function addPointsToMap() {
+            points.forEach(point => {
+                // Crear marcador circular
+                const circleMarker = L.circleMarker([point.lat, point.lon], {
+                    radius: 8,
+                    fillColor: point.color,
+                    color: "#fff",
+                    weight: 1,
+                    opacity: 1,
+                    fillOpacity: 0.8
+                }).addTo(map);
+                
+                circleMarker.bindPopup(`<b>${point.name}</b><br>Altitud: ${point.alt}m`);
+                circleMarkers.push(circleMarker);
+                
+                // Crear marcador con número
+                const marker = L.marker([point.lat, point.lon], {
+                    icon: L.divIcon({
+                        className: 'point-marker',
+                        html: point.id.toString(),
+                        iconSize: [20, 20],
+                        iconAnchor: [10, 10],
+                        style: `background-color: ${point.color};`
+                    })
+                }).addTo(map);
+                
+                marker.on('click', () => {
+                    showPointInfo(point);
+                });
+                
+                markers.push(marker);
+            });
+        }
+
+        // Mostrar información del punto
+        function showPointInfo(point) {
+            document.getElementById('point-name').textContent = point.name;
+            document.getElementById('point-coords').textContent = `Coordenades: ${point.lat.toFixed(6)}, ${point.lon.toFixed(6)}`;
+            document.getElementById('point-alt').textContent = `Altitud: ${point.alt} metres`;
+            document.getElementById('info-panel').style.display = 'block';
+        }
+
+        // Configurar controles
+        function setupControls() {
+            document.getElementById('center-btn').addEventListener('click', () => {
+                if (currentPosition) {
+                    map.setView([currentPosition.coords.latitude, currentPosition.coords.longitude], map.getZoom());
+                }
+            });
+            
+            document.getElementById('toggle-orientation').addEventListener('click', () => {
+                orientationActive = !orientationActive;
+                document.getElementById('toggle-orientation').textContent = 
+                    orientationActive ? 'Desactivar orientació' : 'Activar orientació';
+                
+                if (orientationActive && currentPosition && currentHeading !== null) {
+                    updateMapRotation();
+                } else {
+                    map.setBearing(0);
+                }
+            });
+            
+            document.getElementById('close-info').addEventListener('click', () => {
+                document.getElementById('info-panel').style.display = 'none';
+            });
+        }
+
+        // Actualizar posición del usuario
+        function updatePosition(position) {
+            currentPosition = position;
+            const { latitude, longitude, accuracy } = position.coords;
+            
+            // Crear o actualizar marcador de posición
+            if (!userMarker) {
+                userMarker = L.marker([latitude, longitude], {
+                    icon: L.divIcon({
+                        className: 'location-icon',
+                        iconSize: [20, 20],
+                        iconAnchor: [10, 10]
+                    })
+                }).addTo(map);
+                
+                // Crear marcador de dirección
+                headingMarker = L.marker([latitude, longitude], {
+                    icon: L.divIcon({
+                        className: 'heading-line',
+                        iconSize: [30, 2],
+                        iconAnchor: [0, 1]
+                    })
+                }).addTo(map);
+            } else {
+                userMarker.setLatLng([latitude, longitude]);
+                headingMarker.setLatLng([latitude, longitude]);
+            }
+            
+            // Centrar mapa en la posición si no está muy lejos
+            if (!map.getBounds().contains(userMarker.getLatLng())) {
+                map.setView([latitude, longitude], map.getZoom());
+            }
+            
+            // Actualizar rotación si está activa
+            if (orientationActive && currentHeading !== null) {
+                updateMapRotation();
+            }
+        }
+
+        // Manejar orientación del dispositivo
+        function handleOrientation(event) {
+            if (event.alpha !== null) {
+                currentHeading = event.alpha;
+                updateCompass();
+                
+                if (orientationActive && currentPosition) {
+                    updateMapRotation();
+                }
+            }
+        }
+
+        // Actualizar brújula
+        function updateCompass() {
+            const compass = document.getElementById('compass');
+            compass.style.transform = `rotate(${-currentHeading}deg)`;
+            
+            // Mostrar dirección aproximada
+            const directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+            const index = Math.round(((currentHeading % 360) / 45)) % 8;
+            compass.textContent = directions[index];
+        }
+
+        // Actualizar rotación del mapa
+        function updateMapRotation() {
+            if (!currentPosition || currentHeading === null) return;
+            
+            // Rotar el mapa (Leaflet no soporta rotación nativa, así que usamos una aproximación)
+            // En un caso real, podrías usar una librería como Leaflet.RotatedMarker para los marcadores
+            // o Leaflet.Mapbox.GL que soporta rotación de mapas vectoriales
+            
+            // Aquí simplemente actualizamos el marcador de dirección
+            const headingRad = (currentHeading * Math.PI) / 180;
+            const distance = 0.001; // Pequeña distancia para la línea de dirección
+            
+            const newLat = currentPosition.coords.latitude + (distance * Math.cos(headingRad));
+            const newLng = currentPosition.coords.longitude + (distance * Math.sin(headingRad));
+            
+            headingMarker.setLatLng([newLat, newLng]);
+            
+            // También podríamos rotar los iconos de los marcadores
+            markers.forEach(marker => {
+                // En una implementación real, usarías L.RotatedMarker o similar
+            });
+        }
+
+        // Inicializar cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', initMap);
+    </script>
+</body>
+</html>
