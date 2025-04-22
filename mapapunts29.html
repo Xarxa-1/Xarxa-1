@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de Senderisme</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        #map {
+            width: 100%;
+            height: 100vh;
+            z-index: 1;
+        }
+        
+        #info-panel {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            width: 300px;
+            max-height: 200px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        #info-panel.collapsed {
+            max-height: 40px;
+            overflow: hidden;
+        }
+        
+        #info-panel h3 {
+            margin-top: 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        #info-content {
+            margin-top: 10px;
+        }
+        
+        .point-info {
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .point-info:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .toggle-icon {
+            font-size: 20px;
+        }
+        
+        .distance {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <div id="info-panel" class="collapsed">
+        <h3 onclick="togglePanel()">
+            Informació dels Punts
+            <span class="toggle-icon">▼</span>
+        </h3>
+        <div id="info-content"></div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Punts d'interès
+        const points = [
+            { id: 1, name: "Esglèsia EF", lat: 41.396712, lon: 1.103376, alt: 412, color: '#FF0000' },
+            { id: 2, name: "Ermita", lat: 41.3731, lon: 1.11065, alt: 560, color: '#00FF00' },
+            { id: 3, name: "Sant Bernat", lat: 41.388193, lon: 1.083005, alt: 456, color: '#0000FF' },
+            { id: 4, name: "Roca de la Manxa", lat: 41.426297, lon: 1.115281, alt: 499, color: '#FFFF00' },
+            { id: 5, name: "Esglèsia BB", lat: 41.52205, lon: 0.868813, alt: 353, color: '#FF00FF' },
+            { id: 6, name: "Novacoop", lat: 41.520159, lon: 0.0862992, alt: 353, color: '#00FFFF' },
+            { id: 7, name: "Poblet", lat: 41.380406, lon: 1.083457, alt: 460, color: 'green' },
+            { id: 8, name: "La Pena", lat: 41.3597743, lon: 1.093488, alt: 800, color: 'lime' },
+            { id: 9, name: "Tarragona", lat: 41.113685, lon: 1.256539, alt: 800, color: 'coral' },
+            { id: 10, name: "Lleida", lat: 41.615100, lon: 0.627411, alt: 800, color: 'coral' }
+        ];
+
+        // Variables globals
+        let map;
+        let userMarker;
+        let userPosition = null;
+        let pointMarkers = [];
+        let lines = [];
+        let watchId;
+        let isPanelCollapsed = true;
+
+        // Inicialització del mapa
+        function initMap() {
+            // Crear el mapa centrat a una posició per defecte (s'actualitzarà amb la posició real)
+            map = L.map('map', {
+                zoomControl: false,
+                inertia: false
+            }).setView([41.396712, 1.103376], 13);
+
+            // Afegir capa de satèl·lit
+            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+                maxZoom: 19
+            }).addTo(map);
+
+            // Afegir control de zoom personalitzat
+            L.control.zoom({
+                position: 'topright'
+            }).addTo(map);
+
+            // Afegir punts d'interès al mapa
+            addPointsToMap();
+
+            // Obtenir la posició actual de l'usuari
+            getUserPosition();
+
+            // Configurar l'orientació del mapa
+            setupOrientation();
+        }
+
+        // Afegir punts d'interès al mapa
+        function addPointsToMap() {
+            points.forEach(point => {
+                const marker = L.circleMarker([point.lat, point.lon], {
+                    radius: 8,
+                    fillColor: point.color,
+                    color: "#000",
+                    weight: 1,
+                    opacity: 1,
+                    fillOpacity: 0.8
+                }).addTo(map);
+
+                marker.bindPopup(`<b>${point.name}</b><br>Altitud: ${point.alt}m`);
+                pointMarkers.push(marker);
+            });
+        }
+
+        // Obtenir la posició actual de l'usuari
+        function getUserPosition() {
+            if (navigator.geolocation) {
+                watchId = navigator.geolocation.watchPosition(
+                    position => {
+                        userPosition = {
+                            lat: position.coords.latitude,
+                            lon: position.coords.longitude,
+                            accuracy: position.coords.accuracy,
+                            heading: position.coords.heading
+                        };
+
+                        updateUserPositionOnMap();
+                        updateDistances();
+                        updateMapOrientation();
+                    },
+                    error => {
+                        console.error("Error obtenint la posició:", error);
+                        alert("No s'ha pogut obtenir la teva posició. Assegura't que tens activat el GPS i has donat permís per accedir a la teva ubicació.");
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        maximumAge: 10000,
+                        timeout: 5000
+                    }
+                );
+            } else {
+                alert("El teu navegador no suporta geolocalització.");
+            }
+        }
+
+        // Actualitzar la posició de l'usuari al mapa
+        function updateUserPositionOnMap() {
+            if (!userPosition) return;
+
+            if (!userMarker) {
+                userMarker = L.circleMarker([userPosition.lat, userPosition.lon], {
+                    radius: 10,
+                    fillColor: '#800080',
+                    color: "#fff",
+                    weight: 2,
+                    opacity: 1,
+                    fillOpacity: 0.8
+                }).addTo(map);
+
+                // Afegir línies entre la posició de l'usuari i els punts d'interès
+                createLinesToPoints();
+            } else {
+                userMarker.setLatLng([userPosition.lat, userPosition.lon]);
+            }
+
+            // Actualitzar les línies
+            updateLinesToPoints();
+
+            // Centrar el mapa a la posició de l'usuari (només la primera vegada)
+            if (!map.getBounds().contains(userMarker.getLatLng())) {
+                map.setView(userMarker.getLatLng(), 13);
+            }
+        }
+
+        // Crear línies entre la posició de l'usuari i els punts d'interès
+        function createLinesToPoints() {
+            points.forEach(point => {
+                const line = L.polyline([], {
+                    color: point.color,
+                    weight: 2,
+                    dashArray: '5, 5',
+                    opacity: 0.7
+                }).addTo(map);
+                lines.push(line);
+            });
+        }
+
+        // Actualitzar les línies entre la posició de l'usuari i els punts d'interès
+        function updateLinesToPoints() {
+            if (!userPosition) return;
+
+            points.forEach((point, index) => {
+                const line = lines[index];
+                line.setLatLngs([
+                    [userPosition.lat, userPosition.lon],
+                    [point.lat, point.lon]
+                ]);
+            });
+        }
+
+        // Actualitzar distàncies als punts d'interès
+        function updateDistances() {
+            if (!userPosition) return;
+
+            let infoContent = '';
+            points.forEach((point, index) => {
+                const distance = calculateDistance(
+                    userPosition.lat, userPosition.lon,
+                    point.lat, point.lon
+                );
+
+                let distanceText;
+                if (distance < 1) {
+                    distanceText = `${Math.round(distance * 1000)} metres`;
+                } else {
+                    distanceText = `${distance.toFixed(2)} km`;
+                }
+
+                infoContent += `
+                    <div class="point-info" style="color: ${point.color}">
+                        <strong>${point.name}</strong>: 
+                        <span class="distance">${distanceText}</span>
+                    </div>
+                `;
+            });
+
+            document.getElementById('info-content').innerHTML = infoContent;
+        }
+
+        // Calcular distància entre dos punts en km (fórmula del haversine)
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371; // Radi de la Terra en km
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = 
+                Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+                Math.sin(dLon/2) * Math.sin(dLon/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            return R * c;
+        }
+
+        // Configurar l'orientació del mapa
+        function setupOrientation() {
+            if (window.DeviceOrientationEvent) {
+                window.addEventListener('deviceorientation', handleOrientation);
+            } else {
+                console.log("El dispositiu no suporta l'orientació");
+            }
+        }
+
+        // Gestionar l'orientació del dispositiu
+        function handleOrientation(event) {
+            if (event.alpha !== null && userPosition && userPosition.heading !== null) {
+                updateMapOrientation();
+            }
+        }
+
+        // Actualitzar l'orientació del mapa basada en la direcció de l'usuari
+        function updateMapOrientation() {
+            if (userPosition && userPosition.heading !== null) {
+                // Ajustar la rotació del mapa segons la direcció de l'usuari
+                const bearing = userPosition.heading;
+                map.setBearing(-bearing);
+            }
+        }
+
+        // Alternar el panell d'informació
+        function togglePanel() {
+            const panel = document.getElementById('info-panel');
+            const toggleIcon = document.querySelector('.toggle-icon');
+            
+            if (isPanelCollapsed) {
+                panel.classList.remove('collapsed');
+                toggleIcon.textContent = '▲';
+            } else {
+                panel.classList.add('collapsed');
+                toggleIcon.textContent = '▼';
+            }
+            
+            isPanelCollapsed = !isPanelCollapsed;
+        }
+
+        // Inicialitzar el mapa quan la pàgina estigui carregada
+        window.onload = initMap;
+
+        // Netejar quan es tanca la pàgina
+        window.onbeforeunload = function() {
+            if (watchId) {
+                navigator.geolocation.clearWatch(watchId);
+            }
+        };
+    </script>
+</body>
+</html>
