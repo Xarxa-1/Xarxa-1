@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa d'Orientació per a Senderisme</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            transform-origin: center center;
+            transition: transform 0.3s ease;
+        }
+        
+        .panel {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .panel.collapsed {
+            max-height: 30px;
+            overflow: hidden;
+        }
+        
+        .panel-header {
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        #points-panel {
+            top: 10px;
+            right: 10px;
+            width: 250px;
+        }
+        
+        #location-panel {
+            bottom: 10px;
+            left: 10px;
+            width: 250px;
+        }
+        
+        .compass {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            top: 70px;
+            right: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .compass-arrow {
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 20px solid red;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        
+        .compass-label {
+            position: absolute;
+            font-size: 10px;
+            font-weight: bold;
+        }
+        
+        .north {
+            top: 2px;
+        }
+        
+        .east {
+            right: 2px;
+        }
+        
+        .south {
+            bottom: 2px;
+        }
+        
+        .west {
+            left: 2px;
+        }
+        
+        .custom-zoom {
+            position: absolute;
+            bottom: 20px;
+            right: 10px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .custom-zoom button {
+            display: block;
+            width: 30px;
+            height: 30px;
+            margin: 5px;
+            border: none;
+            background: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        
+        .custom-zoom button:hover {
+            background: #f0f0f0;
+        }
+        
+        .point-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            padding: 5px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+        .point-item:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        
+        .point-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .location-info {
+            margin-top: 5px;
+        }
+        
+        .location-info div {
+            margin-bottom: 3px;
+        }
+        
+        #add-point-form {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            z-index: 2000;
+            width: 250px;
+            cursor: move;
+        }
+        
+        #add-point-form h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            cursor: move;
+        }
+        
+        #add-point-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        #add-point-form input, #add-point-form select {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        
+        #add-point-form button {
+            padding: 5px 10px;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+        
+        #add-point-btn {
+            position: absolute;
+            top: 130px;
+            right: 10px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        @media (max-width: 600px) {
+            #points-panel, #location-panel {
+                width: 200px;
+            }
+            
+            #add-point-form {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    
+    <div id="points-panel" class="panel">
+        <div class="panel-header" onclick="togglePanel('points-panel')">
+            <span>Punts d'Interès</span>
+            <span id="points-arrow">▼</span>
+        </div>
+        <div id="points-content"></div>
+    </div>
+    
+    <div id="location-panel" class="panel">
+        <div class="panel-header" onclick="togglePanel('location-panel')">
+            <span>Informació d'Ubicació</span>
+            <span id="location-arrow">▼</span>
+        </div>
+        <div id="location-content" class="location-info">
+            <div>Latitud: <span id="lat-value">-</span></div>
+            <div>Longitud: <span id="lon-value">-</span></div>
+            <div>Precisió: <span id="accuracy-value">-</span> m</div>
+            <div>Orientació: <span id="heading-value">-</span>°</div>
+        </div>
+    </div>
+    
+    <div class="compass">
+        <div class="compass-arrow" id="compass-arrow"></div>
+        <div class="compass-label north">N</div>
+        <div class="compass-label east">E</div>
+        <div class="compass-label south">S</div>
+        <div class="compass-label west">O</div>
+    </div>
+    
+    <div class="custom-zoom">
+        <button onclick="zoomIn()">+</button>
+        <button onclick="zoomOut()">-</button>
+    </div>
+    
+    <button id="add-point-btn" onclick="toggleAddPointMode()">+ Afegir Punt</button>
+    
+    <div id="add-point-form">
+        <h3>Afegir Nou Punt</h3>
+        <form id="new-point-form">
+            <label for="point-name">Nom:</label>
+            <input type="text" id="point-name" required>
+            
+            <label for="point-lat">Latitud:</label>
+            <input type="number" id="point-lat" step="0.000001" required>
+            
+            <label for="point-lon">Longitud:</label>
+            <input type="number" id="point-lon" step="0.000001" required>
+            
+            <label for="point-alt">Altitud (m):</label>
+            <input type="number" id="point-alt" required>
+            
+            <label for="point-color">Color:</label>
+            <select id="point-color">
+                <option value="#FF0000">Vermell</option>
+                <option value="#00FF00">Verd</option>
+                <option value="#0000FF">Blau</option>
+                <option value="#FFFF00">Groc</option>
+                <option value="#FF00FF">Magenta</option>
+                <option value="#00FFFF">Cian</option>
+                <option value="green">Verd Fosc</option>
+                <option value="lime">Lima</option>
+                <option value="coral">Corall</option>
+            </select>
+            
+            <div style="margin-top: 15px; text-align: right;">
+                <button type="button" onclick="cancelAddPoint()">Cancel·lar</button>
+                <button type="submit">Afegir</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Variables globals
+        let map;
+        let userMarker;
+        let watchId;
+        let heading = 0;
+        const HEADING_OFFSET = 0; // Eliminat l'offset anterior
+        let initialPositionSet = false;
+        let pointsOfInterest = [
+            { id: 1, name: "Esglèsia", lat: 41.396712, lon: 1.103376, alt: 412, color: '#FF0000' },
+            { id: 2, name: "Ermita", lat: 41.3731, lon: 1.11065, alt: 560, color: '#00FF00' },
+            { id: 3, name: "Sant Bernat", lat: 41.388193, lon: 1.083005, alt: 456, color: '#0000FF' },
+            { id: 4, name: "Roca de la Manxa", lat: 41.426297, lon: 1.115281, alt: 499, color: '#FFFF00' },
+            { id: 5, name: "Nou Lloc 1", lat: 41.52205, lon: 0.868813, alt: 353, color: '#FF00FF' },
+            { id: 6, name: "Novacoop", lat: 41.520159, lon: 0.0862992, alt: 353, color: '#00FFFF' },
+            { id: 7, name: "Poblet", lat: 41.380406, lon: 1.083457, alt: 460, color: 'green' },
+            { id: 8, name: "La Pena", lat: 41.3597743, lon: 1.093488, alt: 800, color: 'lime' },
+            { id: 9, name: "Tarragona", lat: 41.113685, lon: 1.256539, alt: 800, color: 'coral' },
+            { id: 10, name: "Lleida", lat: 41.615100, lon: 0.627411, alt: 800, color: 'coral' }
+        ];
+        let pointMarkers = [];
+        let distanceLines = [];
+        let addPointMode = false;
+        let clickHandler = null;
+        let isDragging = false;
+        let dragStartX, dragStartY;
+        let formStartX, formStartY;
+        let addPointForm;
+        let currentZoom = 16;
+        
+        // Inicialització del mapa
+        function initMap() {
+            // Crear el mapa
+            map = L.map('map', {
+                renderer: L.canvas(),
+                zoomControl: false,
+                inertia: false
+            });
+            
+            // Afegir capa de satèl·lit de Google
+            L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+                attribution: 'Google Satellite',
+                maxZoom: 20
+            }).addTo(map);
+            
+            // Inicialitzar marcador de l'usuari
+            userMarker = L.circleMarker([0, 0], {
+                radius: 8,
+                fillColor: "#3388ff",
+                color: "#000",
+                weight: 1,
+                opacity: 1,
+                fillOpacity: 0.8
+            }).addTo(map);
+            
+            // Carregar punts d'interès
+            loadPointsOfInterest();
+            
+            // Iniciar seguiment de geolocalització
+            startGeolocationTracking();
+            
+            // Configurar l'escolta d'orientació
+            setupOrientationListener();
+            
+            // Configurar el formulari per afegir nous punts
+            document.getElementById('new-point-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                addNewPoint();
+            });
+            
+            // Configurar l'arrossegament de la finestra
+            setupFormDragging();
+        }
+        
+        // Configurar l'escolta d'orientació del dispositiu
+        function setupOrientationListener() {
+            if (window.DeviceOrientationEvent) {
+                if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+                    // iOS 13+ necessita permís
+                    document.getElementById('location-panel').addEventListener('click', function requestPermission() {
+                        DeviceOrientationEvent.requestPermission()
+                            .then(response => {
+                                if (response === 'granted') {
+                                    window.addEventListener('deviceorientation', handleOrientation, true);
+                                }
+                            })
+                            .catch(console.error);
+                        this.removeEventListener('click', requestPermission);
+                    });
+                } else {
+                    // Altres navegadors
+                    window.addEventListener('deviceorientation', handleOrientation, true);
+                }
+            } else {
+                console.log("L'orientació del dispositiu no està suportada en aquest navegador.");
+                document.getElementById('heading-value').textContent = "No suportat";
+            }
+        }
+        
+        // Manejar l'orientació del dispositiu
+        function handleOrientation(event) {
+            let newHeading;
+            
+            if (event.webkitCompassHeading !== undefined) {
+                // Per a Safari en iOS
+                newHeading = event.webkitCompassHeading;
+            } else if (event.absolute && event.alpha !== null) {
+                // Per a navegadors que suporten l'orientació absoluta
+                // Compensem per a obtenir el mateix comportament que Safari
+                newHeading = 360 - event.alpha;
+            } else {
+                return;
+            }
+            
+            // Aplicar offset i normalitzar a 0-360
+            heading = (newHeading + HEADING_OFFSET) % 360;
+            if (heading < 0) heading += 360;
+            
+            // Rotar el mapa (ara gira en la direcció correcta)
+            rotateMap(heading);
+            
+            // Actualitzar la brúixola visual
+            updateCompass(heading);
+            
+            // Actualitzar informació al panell
+            document.getElementById('heading-value').textContent = Math.round(heading);
+        }
+        
+        // Funció per rotar el mapa
+        function rotateMap(degrees) {
+            const mapElement = document.getElementById('map');
+            mapElement.style.transform = `rotate(${degrees}deg)`;
+            
+            // Actualitzar posició dels marcadors per compensar la rotació
+            pointMarkers.forEach(marker => {
+                marker.getElement().style.transform = `rotate(${-degrees}deg)`;
+            });
+            
+            // Actualitzar posició del marcador de l'usuari
+            if (userMarker) {
+                userMarker.getElement().style.transform = `rotate(${-degrees}deg)`;
+            }
+        }
+        
+        // Actualitzar la brúixola visual
+        function updateCompass(heading) {
+            const arrow = document.getElementById('compass-arrow');
+            arrow.style.transform = `rotate(${heading}deg)`;
+        }
+        
+        // Funcions de zoom personalitzades
+        function zoomIn() {
+            currentZoom = Math.min(20, currentZoom + 1);
+            map.setZoom(currentZoom);
+        }
+        
+        function zoomOut() {
+            currentZoom = Math.max(1, currentZoom - 1);
+            map.setZoom(currentZoom);
+        }
+        
+        // Configurar l'arrossegament de la finestra
+        function setupFormDragging() {
+            addPointForm = document.getElementById('add-point-form');
+            const formHeader = addPointForm.querySelector('h3');
+            
+            formHeader.addEventListener('mousedown', startDrag);
+            formHeader.addEventListener('touchstart', startDrag);
+            
+            document.addEventListener('mousemove', dragForm);
+            document.addEventListener('touchmove', dragForm);
+            
+            document.addEventListener('mouseup', endDrag);
+            document.addEventListener('touchend', endDrag);
+        }
+        
+        // Començar a arrossegar
+        function startDrag(e) {
+            isDragging = true;
+            
+            if (e.type === 'mousedown') {
+                dragStartX = e.clientX;
+                dragStartY = e.clientY;
+            } else if (e.type === 'touchstart') {
+                dragStartX = e.touches[0].clientX;
+                dragStartY = e.touches[0].clientY;
+            }
+            
+            const formRect = addPointForm.getBoundingClientRect();
+            formStartX = formRect.left;
+            formStartY = formRect.top;
+            
+            e.preventDefault();
+        }
+        
+        // Arrossegar la finestra
+        function dragForm(e) {
+            if (!isDragging) return;
+            
+            let clientX, clientY;
+            
+            if (e.type === 'mousemove') {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            } else if (e.type === 'touchmove') {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            }
+            
+            const deltaX = clientX - dragStartX;
+            const deltaY = clientY - dragStartY;
+            
+            const newX = formStartX + deltaX;
+            const newY = formStartY + deltaY;
+            
+            addPointForm.style.left = newX + 'px';
+            addPointForm.style.top = newY + 'px';
+            addPointForm.style.transform = 'none';
+            
+            e.preventDefault();
+        }
+        
+        // Finalitzar arrossegament
+        function endDrag() {
+            isDragging = false;
+        }
+        
+        // Iniciar el seguiment de geolocalització
+        function startGeolocationTracking() {
+            if (navigator.geolocation) {
+                watchId = navigator.geolocation.watchPosition(
+                    updatePosition,
+                    handleGeolocationError,
+                    {
+                        enableHighAccuracy: true,
+                        maximumAge: 10000,
+                        timeout: 5000
+                    }
+                );
+            } else {
+                alert("La geolocalització no està disponible en aquest navegador.");
+            }
+        }
+        
+        // Actualitzar la posició de l'usuari
+        function updatePosition(position) {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            const accuracy = position.coords.accuracy;
+            
+            // Actualitzar marcador de l'usuari
+            userMarker.setLatLng([lat, lon]);
+            userMarker.setRadius(Math.max(8, Math.min(20, accuracy / 5)));
+            
+            // Actualitzar informació al panell
+            document.getElementById('lat-value').textContent = lat.toFixed(6);
+            document.getElementById('lon-value').textContent = lon.toFixed(6);
+            document.getElementById('accuracy-value').textContent = Math.round(accuracy);
+            
+            // Centrar el mapa en la posició inicial (només la primera vegada)
+            if (!initialPositionSet) {
+                map.setView([lat, lon], currentZoom);
+                initialPositionSet = true;
+            }
+            
+            // Actualitzar línies de distància als punts d'interès
+            updateDistanceLines(lat, lon);
+        }
+        
+        // Carregar punts d'interès al mapa i al panell
+        function loadPointsOfInterest() {
+            const pointsContent = document.getElementById('points-content');
+            pointsContent.innerHTML = '';
+            
+            pointsOfInterest.forEach(point => {
+                const marker = createPointMarker(point);
+                marker.addTo(map);
+                pointMarkers.push(marker);
+                addPointToPanel(point);
+            });
+        }
+        
+        // Crear marcador per a un punt d'interès
+        function createPointMarker(point) {
+            return L.circleMarker([point.lat, point.lon], {
+                radius: 6,
+                fillColor: point.color,
+                color: "#000",
+                weight: 1,
+                opacity: 1,
+                fillOpacity: 0.8
+            }).bindPopup(`<b>${point.name}</b><br>Altitud: ${point.alt} m`);
+        }
+        
+        // Afegir punt al panell de punts
+        function addPointToPanel(point) {
+            const pointsContent = document.getElementById('points-content');
+            const pointItem = document.createElement('div');
+            pointItem.className = 'point-item';
+            pointItem.innerHTML = `
+                <div class="point-color" style="background-color: ${point.color};"></div>
+                <div>${point.name}</div>
+            `;
+            
+            pointItem.addEventListener('click', () => {
+                map.setView([point.lat, point.lon], currentZoom);
+            });
+            
+            pointsContent.appendChild(pointItem);
+        }
+        
+        // Actualitzar línies de distància als punts d'interès
+        function updateDistanceLines(lat, lon) {
+            distanceLines.forEach(line => map.removeLayer(line));
+            distanceLines = [];
+            
+            pointsOfInterest.forEach(point => {
+                const distance = calculateDistance(lat, lon, point.lat, point.lon);
+                
+                const line = L.polyline(
+                    [[lat, lon], [point.lat, point.lon]],
+                    {
+                        color: point.color,
+                        weight: 2,
+                        dashArray: '5, 5',
+                        opacity: 0.7
+                    }
+                ).addTo(map);
+                
+                const midpoint = calculateMidpoint(lat, lon, point.lat, point.lon);
+                const label = L.marker(midpoint, {
+                    icon: L.divIcon({
+                        className: 'distance-label',
+                        html: `${Math.round(distance)} m`,
+                        iconSize: [60, 20]
+                    })
+                }).addTo(map);
+                
+                distanceLines.push(line, label);
+            });
+        }
+        
+        // Calcular distància entre dos punts (fórmula haversine)
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371e3;
+            const φ1 = lat1 * Math.PI / 180;
+            const φ2 = lat2 * Math.PI / 180;
+            const Δφ = (lat2 - lat1) * Math.PI / 180;
+            const Δλ = (lon2 - lon1) * Math.PI / 180;
+            
+            const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+                      Math.cos(φ1) * Math.cos(φ2) *
+                      Math.sin(Δλ/2) * Math.sin(Δλ/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            
+            return R * c;
+        }
+        
+        // Calcular punt mig entre dos coordenades
+        function calculateMidpoint(lat1, lon1, lat2, lon2) {
+            return [
+                (lat1 + lat2) / 2,
+                (lon1 + lon2) / 2
+            ];
+        }
+        
+        // Manejar errors de geolocalització
+        function handleGeolocationError(error) {
+            let errorMessage;
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    errorMessage = "L'usuari ha denegat la sol·licitud de geolocalització.";
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    errorMessage = "La informació de localització no està disponible.";
+                    break;
+                case error.TIMEOUT:
+                    errorMessage = "S'ha exhaurit el temps d'espera per obtenir la localització.";
+                    break;
+                case error.UNKNOWN_ERROR:
+                    errorMessage = "S'ha produït un error desconegut.";
+                    break;
+            }
+            
+            alert("Error de geolocalització: " + errorMessage);
+        }
+        
+        // Alternar panells (minimitzar/expandir)
+        function togglePanel(panelId) {
+            const panel = document.getElementById(panelId);
+            const arrow = panelId === 'points-panel' ? 
+                document.getElementById('points-arrow') : 
+                document.getElementById('location-arrow');
+            
+            panel.classList.toggle('collapsed');
+            arrow.textContent = panel.classList.contains('collapsed') ? '▶' : '▼';
+        }
+        
+        // Alternar mode d'addició de punts
+        function toggleAddPointMode() {
+            addPointMode = !addPointMode;
+            const btn = document.getElementById('add-point-btn');
+            const form = document.getElementById('add-point-form');
+            
+            if (addPointMode) {
+                btn.textContent = "× Cancel·lar";
+                btn.style.backgroundColor = "#ffcccc";
+                form.style.display = 'block';
+                
+                if (!form.style.left && !form.style.top) {
+                    form.style.left = '50%';
+                    form.style.top = '50%';
+                    form.style.transform = 'translate(-50%, -50%)';
+                }
+                
+                clickHandler = map.on('click', function(e) {
+                    document.getElementById('point-lat').value = e.latlng.lat.toFixed(6);
+                    document.getElementById('point-lon').value = e.latlng.lng.toFixed(6);
+                });
+            } else {
+                btn.textContent = "+ Afegir Punt";
+                btn.style.backgroundColor = "";
+                form.style.display = 'none';
+                
+                if (clickHandler) {
+                    map.off('click', clickHandler);
+                    clickHandler = null;
+                }
+            }
+        }
+        
+        // Cancel·lar l'addició de punt
+        function cancelAddPoint() {
+            toggleAddPointMode();
+            document.getElementById('new-point-form').reset();
+        }
+        
+        // Afegir nou punt d'interès
+        function addNewPoint() {
+            const name = document.getElementById('point-name').value;
+            const lat = parseFloat(document.getElementById('point-lat').value);
+            const lon = parseFloat(document.getElementById('point-lon').value);
+            const alt = parseInt(document.getElementById('point-alt').value);
+            const color = document.getElementById('point-color').value;
+            
+            const newId = pointsOfInterest.length > 0 ? 
+                Math.max(...pointsOfInterest.map(p => p.id)) + 1 : 1;
+            
+            const newPoint = {
+                id: newId,
+                name: name,
+                lat: lat,
+                lon: lon,
+                alt: alt,
+                color: color
+            };
+            
+            pointsOfInterest.push(newPoint);
+            
+            const marker = createPointMarker(newPoint);
+            marker.addTo(map);
+            pointMarkers.push(marker);
+            addPointToPanel(newPoint);
+            
+            const userPos = userMarker.getLatLng();
+            if (userPos.lat !== 0) {
+                updateDistanceLines(userPos.lat, userPos.lng);
+            }
+            
+            document.getElementById('new-point-form').reset();
+            toggleAddPointMode();
+        }
+        
+        // Inicialitzar l'aplicació quan es carregui la pàgina
+        window.onload = initMap;
+    </script>
+</body>
+</html>
