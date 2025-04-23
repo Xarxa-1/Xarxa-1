@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa d'Orientació per a Senderisme.</title>
+    <title>Mapa d'Orientació per a Senderisme</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         body {
@@ -15,13 +15,23 @@
             user-select: none;
         }
         
-        #map {
+        #map-container {
             position: absolute;
             top: 0;
             bottom: 0;
             width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        #map {
+            position: absolute;
+            width: 200%;
+            height: 200%;
             transform-origin: center center;
             transition: transform 0.3s ease;
+            left: -50%;
+            top: -50%;
         }
         
         .panel {
@@ -243,7 +253,9 @@
     </style>
 </head>
 <body>
-    <div id="map"></div>
+    <div id="map-container">
+        <div id="map"></div>
+    </div>
     
     <div id="points-panel" class="panel">
         <div class="panel-header" onclick="togglePanel('points-panel')">
@@ -324,6 +336,7 @@
         let watchId;
         let heading = 0;
         let initialPositionSet = false;
+        let userPosition = { lat: 0, lng: 0 };
         let pointsOfInterest = [
             { id: 1, name: "Esglèsia", lat: 41.396712, lon: 1.103376, alt: 412, color: '#FF0000' },
             { id: 2, name: "Ermita", lat: 41.3731, lon: 1.11065, alt: 560, color: '#00FF00' },
@@ -352,7 +365,9 @@
             map = L.map('map', {
                 renderer: L.canvas(),
                 zoomControl: false,
-                inertia: false
+                inertia: false,
+                center: [0, 0],
+                zoom: currentZoom
             });
             
             // Afegir capa de satèl·lit de Google
@@ -473,10 +488,26 @@
             document.getElementById('heading-value').textContent = Math.round(deviceHeading) + "°";
         }
 
-        // Funció per rotar el mapa
+        // Funció per rotar el mapa al voltant de la posició actual
         function rotateMap(degrees) {
             const mapElement = document.getElementById('map');
-            mapElement.style.transform = `rotate(${degrees}deg)`;
+            const container = document.getElementById('map-container');
+            
+            // Obtenir la posició actual del mapa
+            const center = map.getCenter();
+            const pixelCenter = map.latLngToContainerPoint(center);
+            const pixelUser = map.latLngToContainerPoint(userPosition);
+            
+            // Calcular la diferència entre el centre i l'usuari
+            const diffX = pixelUser.x - pixelCenter.x;
+            const diffY = pixelUser.y - pixelCenter.y;
+            
+            // Aplicar transformació per rotar al voltant de l'usuari
+            mapElement.style.transform = `
+                translate(${diffX}px, ${diffY}px)
+                rotate(${degrees}deg)
+                translate(${-diffX}px, ${-diffY}px)
+            `;
             
             // Actualitzar posició dels marcadors per compensar la rotació
             pointMarkers.forEach(marker => {
@@ -594,27 +625,30 @@
         
         // Actualitzar la posició de l'usuari
         function updatePosition(position) {
-            const lat = position.coords.latitude;
-            const lon = position.coords.longitude;
+            userPosition = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+            
             const accuracy = position.coords.accuracy;
             
             // Actualitzar marcador de l'usuari
-            userMarker.setLatLng([lat, lon]);
+            userMarker.setLatLng([userPosition.lat, userPosition.lng]);
             userMarker.setRadius(Math.max(8, Math.min(20, accuracy / 5)));
             
             // Actualitzar informació al panell
-            document.getElementById('lat-value').textContent = lat.toFixed(6);
-            document.getElementById('lon-value').textContent = lon.toFixed(6);
+            document.getElementById('lat-value').textContent = userPosition.lat.toFixed(6);
+            document.getElementById('lon-value').textContent = userPosition.lng.toFixed(6);
             document.getElementById('accuracy-value').textContent = Math.round(accuracy);
             
             // Centrar el mapa en la posició inicial (només la primera vegada)
             if (!initialPositionSet) {
-                map.setView([lat, lon], currentZoom);
+                map.setView([userPosition.lat, userPosition.lng], currentZoom);
                 initialPositionSet = true;
             }
             
             // Actualitzar línies de distància als punts d'interès
-            updateDistanceLines(lat, lon);
+            updateDistanceLines(userPosition.lat, userPosition.lng);
         }
         
         // Carregar punts d'interès al mapa i al panell
@@ -812,9 +846,8 @@
             pointMarkers.push(marker);
             addPointToPanel(newPoint);
             
-            const userPos = userMarker.getLatLng();
-            if (userPos.lat !== 0) {
-                updateDistanceLines(userPos.lat, userPos.lng);
+            if (userPosition.lat !== 0) {
+                updateDistanceLines(userPosition.lat, userPosition.lng);
             }
             
             document.getElementById('new-point-form').reset();
