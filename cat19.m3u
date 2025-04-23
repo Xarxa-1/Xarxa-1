@@ -21,6 +21,8 @@ https://bcovlive-a.akamaihd.net/0dcc260b00d541609a19916858a71c9b/eu-west-1/57793
 https://d1pgniwg61j6fm.cloudfront.net/out/v1/f32d8fe5be7a4ababd6894109683254b/index_2.m3u8?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkaXN0cmlidXRpb24iOiJmMzJkOGZlNWJlN2E0YWJhYmQ2ODk0MTA5NjgzMjU0YiIsImlzcyI6Imh0dHBzOi8vbGF4YXJ4YW1lcy5jb20iLCJhdWQiOiJodHRwczovL2xheGFyeGFtZXMuY29tIiwidGltZUJhc2UiOm51bGwsInRpbWVGcmFtZXMiOltdLCJleHAiOjE3NDQ5NTQwNzgwMDAsImlhdCI6MTc0NDg1Njg3ODAwMCwibmJmIjoxNzQ0ODU2ODczMDAwfQ.5j5lR1-4ZFo6ULEtK6W4W7xeiE7eRNVb5IkIGKRZ5-Q&_t=1744856878&hash=c-6314323916112&_tc=1704883765
 #EXTINF:-1 tvg-id="SkyNews" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Sky-news-logo.png/500px-Sky-news-logo.png" group-title="News",SkyNews 
 https://linear417-gb-hls1-prd-ak.cdn.skycdp.com/100e/Content/HLS_001_1080_30/Live/channel(skynews)/index_1080-30.m3u8
+#EXTINF:-1 tvg-id="SkySports" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Sky-news-logo.png/500px-Sky-news-logo.png" group-title="News",SkySports 
+https://streaming.videos.skysports.com/c0a06dbfa3c047e493c285ae2f38b286/eu-west-1/6057984924001/profile_4/chunklist.m3u8
 #EXTINF:-1 tvg-id="HIT TV" tvg-logo="https://i0.wp.com/audiovisual451.com/wp-content/uploads/HIT-TV.jpg" group-title="General",HIT TV
 http://185.189.225.149/HitTV/index.m3u8
 #EXTINF:-1 tvg-id="TV3.Cat.es" tvg-name="" group-title="Food" tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200",JocCartes
