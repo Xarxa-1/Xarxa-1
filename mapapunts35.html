@@ -1,0 +1,84 @@
+<script>
+    // ... (codi anterior sense canvis)
+
+    // Configurar l'escolta d'orientació del dispositiu - MODIFICAT
+    function setupOrientationListener() {
+        if (window.DeviceOrientationEvent) {
+            // Demanar permís explícitament
+            const requestPermission = () => {
+                if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+                    // iOS 13+
+                    DeviceOrientationEvent.requestPermission()
+                        .then(response => {
+                            if (response === 'granted') {
+                                window.addEventListener('deviceorientation', handleOrientation, true);
+                                document.getElementById('heading-value').textContent = "0°";
+                            } else {
+                                document.getElementById('heading-value').textContent = "Permís denegat";
+                            }
+                        })
+                        .catch(console.error);
+                } else {
+                    // Altres navegadors
+                    window.addEventListener('deviceorientation', handleOrientation, true);
+                    document.getElementById('heading-value').textContent = "0°";
+                }
+            };
+
+            // Afegir botó per demanar permís si és necessari
+            const locationPanel = document.getElementById('location-panel');
+            const permissionButton = document.createElement('button');
+            permissionButton.textContent = "Activar brúixola";
+            permissionButton.style.marginTop = "5px";
+            permissionButton.style.padding = "3px 6px";
+            permissionButton.onclick = requestPermission;
+            
+            locationPanel.querySelector('.location-info').appendChild(permissionButton);
+        } else {
+            document.getElementById('heading-value').textContent = "No suportat";
+        }
+    }
+
+    // Manejar l'orientació del dispositiu - MODIFICAT
+    function handleOrientation(event) {
+        let deviceHeading;
+        
+        // Obtenir l'orientació del dispositiu
+        if (event.webkitCompassHeading !== undefined) {
+            // Safari iOS
+            deviceHeading = event.webkitCompassHeading;
+        } else if (event.alpha !== null) {
+            // Altres navegadors
+            deviceHeading = event.alpha;
+            
+            // Ajustar segons l'orientació de la pantalla
+            if (window.orientation) {
+                const orientation = window.orientation;
+                if (orientation === 90) {
+                    deviceHeading = (deviceHeading + 270) % 360;
+                } else if (orientation === -90 || orientation === 270) {
+                    deviceHeading = (deviceHeading + 90) % 360;
+                } else if (orientation === 180) {
+                    deviceHeading = (deviceHeading + 180) % 360;
+                }
+            }
+        } else {
+            return;
+        }
+        
+        // Normalitzar a 0-360 graus
+        deviceHeading = (deviceHeading + 360) % 360;
+        
+        // Invertir la rotació per al mapa
+        const mapRotation = (360 - deviceHeading) % 360;
+        
+        // Aplicar la rotació
+        rotateMap(mapRotation);
+        updateCompass(deviceHeading);
+        
+        // Actualitzar informació al panell
+        document.getElementById('heading-value').textContent = Math.round(deviceHeading) + "°";
+    }
+
+    // ... (resta del codi sense canvis)
+</script>
