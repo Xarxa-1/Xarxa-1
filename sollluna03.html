@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Predicció Solar i Lunar - Vista AR Corregida</title>
+    <style>
+        /* Estils previs... (mantenir els mateixos estils que abans) */
+        
+        #ar-view {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            background-color: #000;
+            overflow: hidden;
+        }
+        
+        #ar-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .ar-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .ar-marker {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+        
+        .sun-marker {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #FFD700, #FF8C00);
+            box-shadow: 0 0 20px #FFD700;
+        }
+        
+        .moon-marker {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #E6E6FA, #A9A9A9);
+            box-shadow: 0 0 15px #E6E6FA;
+        }
+        
+        .ar-path {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .sun-path {
+            stroke: rgba(255, 215, 0, 0.6);
+            stroke-width: 2;
+            fill: none;
+        }
+        
+        .moon-path {
+            stroke: rgba(230, 230, 250, 0.6);
+            stroke-width: 2;
+            fill: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Resta del codi HTML es manté igual... -->
+
+    <script>
+        // Variables globals afegides per a AR
+        let arViewInitialized = false;
+        let deviceOrientation = { alpha: 0, beta: 0, gamma: 0 };
+        let arElements = {
+            video: null,
+            overlay: null,
+            sunMarker: null,
+            moonMarker: null,
+            sunPath: null,
+            moonPath: null
+        };
+
+        // Modificació de la funció initARView
+        function initARView() {
+            const arView = document.getElementById('ar-view');
+            arView.innerHTML = `
+                <video id="ar-video" autoplay playsinline></video>
+                <div class="ar-overlay">
+                    <svg class="ar-path" id="sun-path"></svg>
+                    <svg class="ar-path" id="moon-path"></svg>
+                    <div id="ar-sun-marker" class="ar-marker sun-marker"></div>
+                    <div id="ar-moon-marker" class="ar-marker moon-marker"></div>
+                </div>
+            `;
+            
+            // Guardar referències als elements AR
+            arElements.video = document.getElementById('ar-video');
+            arElements.sunMarker = document.getElementById('ar-sun-marker');
+            arElements.moonMarker = document.getElementById('ar-moon-marker');
+            arElements.sunPath = document.getElementById('sun-path');
+            arElements.moonPath = document.getElementById('moon-path');
+            
+            // Configurar la càmera
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ 
+                    video: { 
+                        facingMode: 'environment',
+                        width: { ideal: 1920 },
+                        height: { ideal: 1080 }
+                    } 
+                }).then(stream => {
+                    arElements.video.srcObject = stream;
+                    
+                    // Iniciar l'orientació del dispositiu
+                    if (window.DeviceOrientationEvent) {
+                        window.addEventListener('deviceorientation', handleAROrientation);
+                    }
+                    
+                    // Actualitzar les posicions inicials
+                    updateARView();
+                    arViewInitialized = true;
+                }).catch(error => {
+                    console.error('Error en accedir a la càmera:', error);
+                    document.getElementById('ar-info').textContent = 'Error en accedir a la càmera: ' + error.message;
+                });
+            } else {
+                document.getElementById('ar-info').textContent = 'Accés a la càmera no disponible';
+            }
+        }
+
+        // Nova funció per manejar l'orientació en mode AR
+        function handleAROrientation(event) {
+            if (event.alpha !== null) {
+                deviceOrientation = {
+                    alpha: event.alpha,  // Rotació al voltant de l'eix Z (0-360)
+                    beta: event.beta,    // Inclinació front-back (-180 a 180)
+                    gamma: event.gamma   // Inclinació esquerra-dreta (-90 a 90)
+                };
+                
+                if (arViewInitialized) {
+                    updateARView();
+                }
+            }
+        }
+
+        // Funció millorada per actualitzar la vista AR
+        function updateARView() {
+            if (!currentLocation || !arViewInitialized) return;
+            
+            // Obtenir posicions actuals
+            const sunPos = SunCalc.getPosition(currentDate, currentLocation.lat, currentLocation.lng);
+            const moonPos = SunCalc.getMoonPosition(currentDate, currentLocation.lat, currentLocation.lng);
+            
+            // Convertir a coordenades de pantalla
+            updateARPosition(arElements.sunMarker, sunPos, '#FFD700');
+            updateARPosition(arElements.moonMarker, moonPos, '#E6E6FA');
+            
+            // Actualitzar trajectòries
+            updateARPaths();
+        }
+
+        // Funció per actualitzar la posició d'un element AR
+        function updateARPosition(element, position, color) {
+            const altitude = position.altitude * 180 / Math.PI;
+            const azimuth = (position.azimuth * 180 / Math.PI + 180) % 360;
+            
+            // Convertir coordenades celestials a coordenades de pantalla
+            const relativeAzimuth = (azimuth - deviceOrientation.alpha + 360) % 360;
+            
+            // Factor de correcció per la perspectiva (usant beta i gamma)
+            const perspectiveFactor = Math.max(0.5, 1 - Math.abs(deviceOrientation.beta) / 180);
+            
+            // Coordenades X i Y (centrades)
+            const x = 50 + Math.sin(relativeAzimuth * Math.PI / 180) * 40 * perspectiveFactor;
+            const y = 50 - (altitude / 90 * 40) * perspectiveFactor;
+            
+            // Mostrar només si està sobre l'horitzó
+            if (altitude > 0) {
+                element.style.display = 'block';
+                element.style.left = `${x}%`;
+                element.style.top = `${y}%`;
+                
+                // Ajustar mida segons l'altura
+                const sizeFactor = 0.5 + (altitude / 180);
+                element.style.transform = `translate(-50%, -50%) scale(${sizeFactor})`;
+            } else {
+                element.style.display = 'none';
+            }
+        }
+
+        // Funció per actualitzar les trajectòries AR
+        function updateARPaths() {
+            if (!currentLocation) return;
+            
+            const date = new Date(currentDate);
+            date.setHours(0, 0, 0, 0);
+            
+            // Netejar trajectòries existents
+            arElements.sunPath.innerHTML = '';
+            arElements.moonPath.innerHTML = '';
+            
+            // Crear nous elements de trajectòria
+            const sunPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            const moonPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            
+            sunPath.setAttribute('class', 'sun-path');
+            moonPath.setAttribute('class', 'moon-path');
+            
+            // Calcular punts per a les trajectòries
+            const sunPoints = calculateARPathPoints(true);
+            const moonPoints = calculateARPathPoints(false);
+            
+            sunPath.setAttribute('d', sunPoints);
+            moonPath.setAttribute('d', moonPoints);
+            
+            arElements.sunPath.appendChild(sunPath);
+            arElements.moonPath.appendChild(moonPath);
+        }
+
+        // Funció per calcular els punts d'una trajectòria AR
+        function calculateARPathPoints(isSun) {
+            const points = [];
+            const date = new Date(currentDate);
+            date.setHours(0, 0, 0, 0);
+            
+            // Calcular punts cada 30 minuts
+            for (let i = 0; i < 24; i += 0.5) {
+                const time = new Date(date);
+                time.setHours(i);
+                
+                const position = isSun 
+                    ? SunCalc.getPosition(time, currentLocation.lat, currentLocation.lng)
+                    : SunCalc.getMoonPosition(time, currentLocation.lat, currentLocation.lng);
+                
+                const altitude = position.altitude * 180 / Math.PI;
+                if (altitude <= 0) continue; // Saltar punts sota l'horitzó
+                
+                const azimuth = (position.azimuth * 180 / Math.PI + 180) % 360;
+                const relativeAzimuth = (azimuth - deviceOrientation.alpha + 360) % 360;
+                
+                // Factor de correcció per la perspectiva
+                const perspectiveFactor = Math.max(0.5, 1 - Math.abs(deviceOrientation.beta) / 180);
+                
+                // Calcular coordenades
+                const x = 50 + Math.sin(relativeAzimuth * Math.PI / 180) * 40 * perspectiveFactor;
+                const y = 50 - (altitude / 90 * 40) * perspectiveFactor;
+                
+                points.push(`${points.length === 0 ? 'M' : 'L'} ${x} ${y}`);
+            }
+            
+            return points.join(' ');
+        }
+
+        // Modificar la funció calculatePositions per incloure l'actualització AR
+        function calculatePositions() {
+            // ... (codi existent)
+            
+            // Actualitzar vista AR si està activa
+            if (arViewInitialized) {
+                updateARView();
+            }
+            
+            // ... (resta del codi existent)
+        }
+
+        // Afegir esdeveniment per a canvis d'orientació
+        function setupTabs() {
+            // ... (codi existent)
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // ... (codi existent)
+                    
+                    if (tab.dataset.tab === 'ar') {
+                        initARView();
+                    } else if (arViewInitialized) {
+                        // Aturar la càmera quan es canvia de pestanya
+                        const stream = arElements.video.srcObject;
+                        if (stream) {
+                            stream.getTracks().forEach(track => track.stop());
+                        }
+                        arViewInitialized = false;
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>
