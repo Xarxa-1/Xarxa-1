@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Predicció Solar i Lunar - Eines per Fotografia, Energia i Ciència</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+    <style>
+        :root {
+            --primary-color: #4285F4;
+            --secondary-color: #34A853;
+            --danger-color: #EA4335;
+            --warning-color: #FBBC05;
+            --dark-color: #202124;
+            --light-color: #f8f9fa;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: var(--dark-color);
+            background-color: #f5f5f5;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 992px) {
+            .dashboard {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .panel {
+            background: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+
+        .panel-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        button.secondary {
+            background-color: #e0e0e0;
+            color: var(--dark-color);
+        }
+
+        button.warning {
+            background-color: var(--warning-color);
+        }
+
+        button.danger {
+            background-color: var(--danger-color);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .location-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-card {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .info-card h3 {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-card p {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .sun-moon-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 1.5rem 0;
+        }
+
+        .celestial-body {
+            text-align: center;
+        }
+
+        .celestial-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sun-icon {
+            background: radial-gradient(circle, #FFD700, #FF8C00);
+            color: #8B4513;
+        }
+
+        .moon-icon {
+            background: radial-gradient(circle, #E6E6FA, #A9A9A9);
+            color: #2F4F4F;
+        }
+
+        .celestial-info {
+            margin-top: 0.5rem;
+        }
+
+        .tab-container {
+            margin-top: 1rem;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 1rem;
+        }
+
+        .tab {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            border-bottom: 3px solid var(--primary-color);
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .tab-content {
+            display: none;
+            min-height: 300px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        #map {
+            height: 300px;
+            width: 100%;
+            border-radius: 4px;
+        }
+
+        #compass-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+        }
+
+        #compass-base {
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><circle cx="100" cy="100" r="95" fill="none" stroke="%23333" stroke-width="2"/><circle cx="100" cy="100" r="3" fill="%23EA4335"/><text x="100" y="30" text-anchor="middle" font-size="16" fill="%23333">N</text><text x="170" y="105" text-anchor="middle" font-size="16" fill="%23333">E</text><text x="100" y="180" text-anchor="middle" font-size="16" fill="%23333">S</text><text x="30" y="105" text-anchor="middle" font-size="16" fill="%23333">O</text></svg>') no-repeat center center;
+            background-size: contain;
+        }
+
+        #compass-needle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><line x1="100" y1="20" x2="100" y2="180" stroke="%23EA4335" stroke-width="3" stroke-linecap="round"/><circle cx="100" cy="100" r="10" fill="%23EA4335"/></svg>') no-repeat center center;
+            background-size: contain;
+            transition: transform 0.5s ease-out;
+        }
+
+        #ar-view {
+            width: 100%;
+            height: 300px;
+            background-color: #000;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ar-marker {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .sun-marker {
+            background-color: #FFD700;
+            box-shadow: 0 0 10px #FFD700;
+        }
+
+        .moon-marker {
+            background-color: #E6E6FA;
+            box-shadow: 0 0 10px #E6E6FA;
+        }
+
+        .ephemeris-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .ephemeris-table th, .ephemeris-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .ephemeris-table th {
+            background-color: #f8f9fa;
+            font-weight: 500;
+        }
+
+        .ephemeris-table tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .timeline {
+            margin-top: 1rem;
+            position: relative;
+            height: 60px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .timeline-now {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: var(--danger-color);
+            z-index: 2;
+        }
+
+        .timeline-now::after {
+            content: 'Ara';
+            position: absolute;
+            top: -20px;
+            left: -10px;
+            font-size: 0.8rem;
+            color: var(--danger-color);
+            font-weight: 500;
+        }
+
+        .timeline-sunrise {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, rgba(0,0,0,0.5), #FFD700);
+            opacity: 0.6;
+            z-index: 1;
+        }
+
+        .timeline-day {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            background-color: #FFD700;
+            opacity: 0.2;
+            z-index: 1;
+        }
+
+        .timeline-sunset {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, #FFD700, rgba(0,0,0,0.5));
+            opacity: 0.6;
+            z-index: 1;
+        }
+
+        .timeline-moon {
+            position: absolute;
+            top: 10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #E6E6FA, #A9A9A9);
+            transform: translateX(-50%);
+            z-index: 3;
+        }
+
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Mode fosc */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #121212;
+                color: #e0e0e0;
+            }
+
+            .panel, .info-card, .ephemeris-table th {
+                background-color: #1e1e1e;
+                color: #e0e0e0;
+            }
+
+            .panel-header {
+                border-bottom-color: #333;
+            }
+
+            .ephemeris-table th, .ephemeris-table td {
+                border-bottom-color: #333;
+            }
+
+            .ephemeris-table tr:hover {
+                background-color: #2a2a2a;
+            }
+
+            .timeline {
+                background-color: #2a2a2a;
+            }
+
+            input, select {
+                background-color: #2a2a2a;
+                border-color: #333;
+                color: #e0e0e0;
+            }
+
+            .info-card {
+                background-color: #2a2a2a;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Predicció Solar i Lunar</h1>
+            <div id="current-time"></div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="dashboard">
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Configuració de Localització</h2>
+                </div>
+                <div class="form-group">
+                    <label for="location-input">Adreça o coordenades (lat, long):</label>
+                    <input type="text" id="location-input" placeholder="Ex: Barcelona o 41.3851, 2.1734">
+                </div>
+                <div class="form-group">
+                    <button id="get-location-btn">Usar la meva ubicació</button>
+                    <button id="search-location-btn" class="secondary">Cercar</button>
+                </div>
+                <div class="location-info">
+                    <div class="info-card">
+                        <h3>Latitud</h3>
+                        <p id="latitude-value">--</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>Longitud</h3>
+                        <p id="longitude-value">--</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>Altitud</h3>
+                        <p id="altitude-value">--</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>Fus horari</h3>
+                        <p id="timezone-value">--</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="date-input">Data:</label>
+                    <input type="date" id="date-input">
+                </div>
+                <div class="form-group">
+                    <label for="time-input">Hora:</label>
+                    <input type="time" id="time-input" step="60">
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Sol i Lluna</h2>
+                    <div class="panel-controls">
+                        <button id="now-btn">Ara</button>
+                    </div>
+                </div>
+                <div class="sun-moon-container">
+                    <div class="celestial-body">
+                        <div class="celestial-icon sun-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="5"></circle>
+                                <line x1="12" y1="1" x2="12" y2="3"></line>
+                                <line x1="12" y1="21" x2="12" y2="23"></line>
+                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                                <line x1="1" y1="12" x2="3" y2="12"></line>
+                                <line x1="21" y1="12" x2="23" y2="12"></line>
+                                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                            </svg>
+                        </div>
+                        <div class="celestial-info">
+                            <h3>Sol</h3>
+                            <p id="sun-altitude">Altura: --</p>
+                            <p id="sun-azimuth">Azimut: --</p>
+                        </div>
+                    </div>
+                    <div class="celestial-body">
+                        <div class="celestial-icon moon-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                            </svg>
+                        </div>
+                        <div class="celestial-info">
+                            <h3>Lluna</h3>
+                            <p id="moon-altitude">Altura: --</p>
+                            <p id="moon-azimuth">Azimut: --</p>
+                            <p id="moon-phase">Fase: --</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline">
+                    <div class="timeline-now"></div>
+                    <div class="timeline-sunrise" id="sunrise-timeline"></div>
+                    <div class="timeline-day" id="day-timeline"></div>
+                    <div class="timeline-sunset" id="sunset-timeline"></div>
+                    <div class="timeline-moon" id="moon-timeline"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-header">
+                <h2>Visualització</h2>
+            </div>
+            <div class="tabs">
+                <div class="tab active" data-tab="compass">Brúixola 3D</div>
+                <div class="tab" data-tab="map">Vista de Mapa</div>
+                <div class="tab" data-tab="ar">Vista de Càmera (AR)</div>
+                <div class="tab" data-tab="ephemeris">Efemèrides</div>
+            </div>
+            <div class="tab-content active" id="compass-tab">
+                <div id="compass-container">
+                    <div id="compass-base"></div>
+                    <div id="compass-needle"></div>
+                </div>
+                <div style="text-align: center; margin-top: 1rem;">
+                    <p>Orienta el teu dispositiu per veure la direcció del sol i la lluna</p>
+                    <p id="device-orientation">Azimut del dispositiu: --</p>
+                </div>
+            </div>
+            <div class="tab-content" id="map-tab">
+                <div id="map"></div>
+                <div style="text-align: center; margin-top: 1rem;">
+                    <p>Visualitza la trajectòria del sol i la lluna al mapa</p>
+                </div>
+            </div>
+            <div class="tab-content" id="ar-tab">
+                <div id="ar-view">
+                    <p>Realitat augmentada no disponible en aquest dispositiu</p>
+                </div>
+                <div style="text-align: center; margin-top: 1rem;">
+                    <p>Apunta amb la càmera per veure la posició del sol i la lluna en temps real</p>
+                </div>
+            </div>
+            <div class="tab-content" id="ephemeris-tab">
+                <h3>Efemèrides del Sol</h3>
+                <table class="ephemeris-table">
+                    <thead>
+                        <tr>
+                            <th>Esdeveniment</th>
+                            <th>Hora</th>
+                            <th>Azimut</th>
+                            <th>Altura</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sun-ephemeris">
+                        <!-- Aquí s'afegiran les dades del sol -->
+                    </tbody>
+                </table>
+                
+                <h3 style="margin-top: 1.5rem;">Efemèrides de la Lluna</h3>
+                <table class="ephemeris-table">
+                    <thead>
+                        <tr>
+                            <th>Esdeveniment</th>
+                            <th>Hora</th>
+                            <th>Azimut</th>
+                            <th>Altura</th>
+                            <th>Il·luminació</th>
+                        </tr>
+                    </thead>
+                    <tbody id="moon-ephemeris">
+                        <!-- Aquí s'afegiran les dades de la lluna -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>Aplicació de Predicció Solar i Lunar - Útil per fotografia, panells solars, jardineria i projectes científics</p>
+            <p>© 2023 - Desenvolupat amb SunCalc i API Geolocalització</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/suncalc@1.8.0/suncalc.min.js"></script>
+    <script>
+        // Variables globals
+        let currentLocation = null;
+        let currentDate = new Date();
+        let map = null;
+        let sunMarker = null;
+        let moonMarker = null;
+        let sunPath = null;
+        let moonPath = null;
+        let deviceOrientation = null;
+        let compassActive = false;
+
+        // Inicialització
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar la data i hora actuals
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+
+            // Configurar els listeners dels botons
+            document.getElementById('get-location-btn').addEventListener('click', getCurrentLocation);
+            document.getElementById('search-location-btn').addEventListener('click', searchLocation);
+            document.getElementById('now-btn').addEventListener('click', setToCurrentTime);
+            
+            // Configurar els tabs
+            setupTabs();
+            
+            // Inicialitzar el mapa
+            initMap();
+            
+            // Provar amb una localització per defecte (Barcelona)
+            setTimeout(() => {
+                if (!currentLocation) {
+                    searchLocationByCoords(41.3851, 2.1734);
+                }
+            }, 1000);
+        });
+
+        // Funcions
+        function updateDateTime() {
+            const now = new Date();
+            document.getElementById('current-time').textContent = now.toLocaleTimeString('ca-ES');
+            
+            // Actualitzar inputs de data i hora si no s'han modificat manualment
+            const dateInput = document.getElementById('date-input');
+            const timeInput = document.getElementById('time-input');
+            
+            if (!dateInput.dataset.manual) {
+                dateInput.valueAsDate = now;
+            }
+            
+            if (!timeInput.dataset.manual) {
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                timeInput.value = `${hours}:${minutes}`;
+            }
+            
+            // Actualitzar la línia "Ara" a la línia de temps
+            updateTimelineNow();
+            
+            // Si s'ha seleccionat una localització, actualitzar les dades
+            if (currentLocation) {
+                calculatePositions();
+            }
+        }
+
+        function updateTimelineNow() {
+            const now = new Date();
+            const startOfDay = new Date(now);
+            startOfDay.setHours(0, 0, 0, 0);
+            
+            const percentOfDay = (now - startOfDay) / (1000 * 60 * 60 * 24) * 100;
+            document.querySelector('.timeline-now').style.left = `${percentOfDay}%`;
+        }
+
+        function getCurrentLocation() {
+            if (navigator.geolocation) {
+                document.getElementById('get-location-btn').innerHTML = '<span class="loading"></span> Localitzant...';
+                
+                navigator.geolocation.getCurrentPosition(
+                    position => {
+                        searchLocationByCoords(position.coords.latitude, position.coords.longitude);
+                        document.getElementById('get-location-btn').textContent = 'Usar la meva ubicació';
+                    },
+                    error => {
+                        alert('No s\'ha pogut obtenir la ubicació: ' + error.message);
+                        document.getElementById('get-location-btn').textContent = 'Usar la meva ubicació';
+                    },
+                    { enableHighAccuracy: true, timeout: 10000 }
+                );
+            } else {
+                alert('La geolocalització no és compatible amb aquest navegador');
+            }
+        }
+
+        function searchLocation() {
+            const locationInput = document.getElementById('location-input').value.trim();
+            
+            if (locationInput.includes(',')) {
+                // És una coordenada
+                const coords = locationInput.split(',').map(coord => parseFloat(coord.trim()));
+                if (coords.length === 2 && !isNaN(coords[0]) && !isNaN(coords[1])) {
+                    searchLocationByCoords(coords[0], coords[1]);
+                } else {
+                    alert('Si us plau, introdueix coordenades vàlides (latitud, longitud)');
+                }
+            } else if (locationInput) {
+                // És una adreça - fem servir Nominatim per geocodificar
+                fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(locationInput)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data && data.length > 0) {
+                            searchLocationByCoords(parseFloat(data[0].lat), parseFloat(data[0].lon));
+                        } else {
+                            alert('No s\'ha trobat la ubicació');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error en la geocodificació:', error);
+                        alert('Error en cercar la ubicació');
+                    });
+            } else {
+                alert('Si us plau, introdueix una adreça o coordenades');
+            }
+        }
+
+        function searchLocationByCoords(lat, lng) {
+            currentLocation = { lat, lng };
+            
+            // Actualitzar la UI amb les coordenades
+            document.getElementById('latitude-value').textContent = lat.toFixed(4);
+            document.getElementById('longitude-value').textContent = lng.toFixed(4);
+            
+            // Obtenir altitud i fus horari (simplificat)
+            getAltitude(lat, lng);
+            getTimezone(lat, lng);
+            
+            // Centrar el mapa
+            if (map) {
+                map.setView([lat, lng], 14);
+                
+                // Afegir marcador
+                if (!sunMarker) {
+                    sunMarker = L.marker([lat, lng], { icon: L.divIcon({ className: 'sun-marker', iconSize: [20, 20] }) }).addTo(map);
+                    moonMarker = L.marker([lat, lng], { icon: L.divIcon({ className: 'moon-marker', iconSize: [20, 20] }) }).addTo(map);
+                } else {
+                    sunMarker.setLatLng([lat, lng]);
+                    moonMarker.setLatLng([lat, lng]);
+                }
+            }
+            
+            // Calcular posicions
+            calculatePositions();
+            
+            // Actualitzar línia de temps
+            updateSunMoonTimeline();
+        }
+
+        function getAltitude(lat, lng) {
+            // Simulació - en una aplicació real, es faria una crida a una API d'altitud
+            document.getElementById('altitude-value').textContent = '~50m';
+        }
+
+        function getTimezone(lat, lng) {
+            // Simulació - en una aplicació real, es faria una crida a una API de fus horari
+            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            document.getElementById('timezone-value').textContent = timezone;
+        }
+
+        function setToCurrentTime() {
+            const now = new Date();
+            document.getElementById('date-input').valueAsDate = now;
+            document.getElementById('time-input').value = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+            
+            // Marcar com a no manual per permetre l'actualització automàtica
+            document.getElementById('date-input').dataset.manual = false;
+            document.getElementById('time-input').dataset.manual = false;
+            
+            // Actualitzar càlculs
+            if (currentLocation) {
+                calculatePositions();
+            }
+        }
+
+        function setupTabs() {
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Desactivar totes les pestanyes
+                    tabs.forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    // Activar la pestanya seleccionada
+                    tab.classList.add('active');
+                    document.getElementById(`${tab.dataset.tab}-tab`).classList.add('active');
+                    
+                    // Inicialitzar funcionalitats específiques
+                    if (tab.dataset.tab === 'compass' && !compassActive) {
+                        initCompass();
+                        compassActive = true;
+                    } else if (tab.dataset.tab === 'ar') {
+                        initARView();
+                    }
+                });
+            });
+        }
+
+        function initMap() {
+            map = L.map('map').setView([41.3851, 2.1734], 14);
+            
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+            
+            // Afegir control de capes
+            const baseLayers = {
+                "Mapa": L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; OpenStreetMap'
+                }),
+                "Satèl·lit": L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                    attribution: '&copy; Esri'
+                })
+            };
+            
+            L.control.layers(baseLayers).addTo(map);
+        }
+
+        function initCompass() {
+            if (window.DeviceOrientationEvent) {
+                window.addEventListener('deviceorientation', handleOrientation, true);
+            } else {
+                document.getElementById('device-orientation').textContent = "L'orientació del dispositiu no està suportada en aquest navegador";
+            }
+        }
+
+        function handleOrientation(event) {
+            if (event.alpha !== null && currentLocation) {
+                deviceOrientation = event.alpha; // 0-360 graus
+                document.getElementById('device-orientation').textContent = `Azimut del dispositiu: ${Math.round(deviceOrientation)}°`;
+                
+                // Rotar la brúixola
+                document.getElementById('compass-needle').style.transform = `rotate(${deviceOrientation}deg)`;
+                
+                // Actualitzar marcadors AR (simulat)
+                updateARMarkers();
+            }
+        }
+
+        function initARView() {
+            const arView = document.getElementById('ar-view');
+            
+            // Comprovem si tenim accés a la càmera
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+                    .then(stream => {
+                        arView.innerHTML = '';
+                        const video = document.createElement('video');
+                        video.srcObject = stream;
+                        video.autoplay = true;
+                        arView.appendChild(video);
+                        
+                        // Crear marcadors AR
+                        createARMarkers();
+                    })
+                    .catch(error => {
+                        arView.innerHTML = '<p>No s\'ha pogut accedir a la càmera: ' + error.message + '</p>';
+                    });
+            } else {
+                arView.innerHTML = '<p>La realitat augmentada no està suportada en aquest dispositiu</p>';
+            }
+        }
+
+        function createARMarkers() {
+            const arView = document.getElementById('ar-view');
+            
+            // Netegem marcadors existents
+            document.querySelectorAll('.ar-marker').forEach(marker => marker.remove());
+            
+            // Crear marcadors per al sol i la lluna (simulat)
+            if (currentLocation) {
+                const sunMarker = document.createElement('div');
+                sunMarker.className = 'ar-marker sun-marker';
+                sunMarker.id = 'ar-sun-marker';
+                arView.appendChild(sunMarker);
+                
+                const moonMarker = document.createElement('div');
+                moonMarker.className = 'ar-marker moon-marker';
+                moonMarker.id = 'ar-moon-marker';
+                arView.appendChild(moonMarker);
+                
+                updateARMarkers();
+            }
+        }
+
+        function updateARMarkers() {
+            if (!currentLocation) return;
+            
+            // Això és una simulació - en una aplicació real, es calcularien les posicions basades en l'orientació del dispositiu
+            const sunMarker = document.getElementById('ar-sun-marker');
+            const moonMarker = document.getElementById('ar-moon-marker');
+            
+            if (sunMarker && moonMarker) {
+                // Posició simulada basada en l'azimut i altura
+                const sunAzimuth = parseFloat(document.getElementById('sun-azimuth').textContent.split(': ')[1]);
+                const sunAltitude = parseFloat(document.getElementById('sun-altitude').textContent.split(': ')[1]);
+                
+                const moonAzimuth = parseFloat(document.getElementById('moon-azimuth').textContent.split(': ')[1]);
+                const moonAltitude = parseFloat(document.getElementById('moon-altitude').textContent.split(': ')[1]);
+                
+                // Convertir a coordenades de pantalla (simplificat)
+                const centerX = 50; // 50% del centre
+                const centerY = 50; // 50% del centre
+                
+                // Factor d'escala per a l'altura (0° = horitzó, 90° = zenit)
+                const altitudeScale = 40; // pixels per grau
+                
+                // Calcular posicions relatives
+                if (deviceOrientation !== null) {
+                    // Ajustar segons l'orientació del dispositiu
+                    const sunRelativeAz = (sunAzimuth - deviceOrientation + 360) % 360;
+                    const moonRelativeAz = (moonAzimuth - deviceOrientation + 360) % 360;
+                    
+                    // Posició X basada en l'azimut relatiu
+                    const sunX = centerX + Math.sin(sunRelativeAz * Math.PI / 180) * 50;
+                    const moonX = centerX + Math.sin(moonRelativeAz * Math.PI / 180) * 50;
+                    
+                    // Posició Y basada en l'altura (invertida perquè Y augmenta cap avall)
+                    const sunY = centerY - (sunAltitude * altitudeScale / 90 * 50);
+                    const moonY = centerY - (moonAltitude * altitudeScale / 90 * 50);
+                    
+                    // Aplicar posicions
+                    sunMarker.style.left = `${sunX}%`;
+                    sunMarker.style.top = `${sunY}%`;
+                    
+                    moonMarker.style.left = `${moonX}%`;
+                    moonMarker.style.top = `${moonY}%`;
+                }
+            }
+        }
+
+        function calculatePositions() {
+            if (!currentLocation) return;
+            
+            // Obtenir data i hora seleccionades
+            const dateInput = document.getElementById('date-input').valueAsDate;
+            const timeInput = document.getElementById('time-input').value;
+            
+            let date = new Date();
+            if (dateInput) {
+                date.setFullYear(dateInput.getFullYear(), dateInput.getMonth(), dateInput.getDate());
+            }
+            
+            if (timeInput) {
+                const [hours, minutes] = timeInput.split(':').map(Number);
+                date.setHours(hours, minutes, 0, 0);
+            }
+            
+            currentDate = date;
+            
+            // Calcular posicions amb SunCalc
+            const sunPos = SunCalc.getPosition(date, currentLocation.lat, currentLocation.lng);
+            const moonPos = SunCalc.getMoonPosition(date, currentLocation.lat, currentLocation.lng);
+            const moonIllumination = SunCalc.getMoonIllumination(date);
+            
+            // Convertir radians a graus i ajustar azimut
+            const sunAltitudeDeg = (sunPos.altitude * 180 / Math.PI).toFixed(1);
+            const sunAzimuthDeg = ((sunPos.azimuth * 180 / Math.PI + 180) % 360).toFixed(1);
+            
+            const moonAltitudeDeg = (moonPos.altitude * 180 / Math.PI).toFixed(1);
+            const moonAzimuthDeg = ((moonPos.azimuth * 180 / Math.PI + 180) % 360).toFixed(1);
+            
+            // Actualitzar UI
+            document.getElementById('sun-altitude').textContent = `Altura: ${sunAltitudeDeg}°`;
+            document.getElementById('sun-azimuth').textContent = `Azimut: ${sunAzimuthDeg}°`;
+            
+            document.getElementById('moon-altitude').textContent = `Altura: ${moonAltitudeDeg}°`;
+            document.getElementById('moon-azimuth').textContent = `Azimut: ${moonAzimuthDeg}°`;
+            
+            // Calcular fase lunar
+            const moonPhase = moonIllumination.phase;
+            let moonPhaseText = '';
+            if (moonPhase === 0 || moonPhase === 1) {
+                moonPhaseText = 'Lluna Nova';
+            } else if (moonPhase < 0.25) {
+                moonPhaseText = 'Lluna Creixent';
+            } else if (moonPhase === 0.25) {
+                moonPhaseText = 'Quart Creixent';
+            } else if (moonPhase < 0.5) {
+                moonPhaseText = 'Lluna Gibosa Creixent';
+            } else if (moonPhase === 0.5) {
+                moonPhaseText = 'Lluna Plena';
+            } else if (moonPhase < 0.75) {
+                moonPhaseText = 'Lluna Gibosa Minvant';
+            } else if (moonPhase === 0.75) {
+                moonPhaseText = 'Quart Minvant';
+            } else {
+                moonPhaseText = 'Lluna Minvant';
+            }
+            
+            document.getElementById('moon-phase').textContent = `Fase: ${moonPhaseText} (${Math.round(moonIllumination.fraction * 100)}%)`;
+            
+            // Actualitzar mapa
+            updateMapMarkers();
+            
+            // Actualitzar vista AR
+            updateARMarkers();
+            
+            // Calcular efemèrides
+            calculateEphemeris();
+        }
+
+        function updateMapMarkers() {
+            if (!map || !currentLocation) return;
+            
+            // Obtenir posicions per a diferents hores del dia
+            const times = [];
+            const date = currentDate;
+            const startDate = new Date(date);
+            startDate.setHours(0, 0, 0, 0);
+            
+            for (let i = 0; i < 24; i += 0.5) {
+                const time = new Date(startDate);
+                time.setHours(i);
+                times.push(time);
+            }
+            
+            // Calcular trajectòries
+            const sunPositions = times.map(time => {
+                const pos = SunCalc.getPosition(time, currentLocation.lat, currentLocation.lng);
+                const alt = pos.altitude * 180 / Math.PI;
+                if (alt > 0) { // Només mostrem quan el sol és sobre l'horitzó
+                    return {
+                        lat: currentLocation.lat + alt/90 * 0.1 * Math.sin(pos.azimuth),
+                        lng: currentLocation.lng + alt/90 * 0.1 * Math.cos(pos.azimuth),
+                        time: time
+                    };
+                }
+                return null;
+            }).filter(Boolean);
+            
+            const moonPositions = times.map(time => {
+                const pos = SunCalc.getMoonPosition(time, currentLocation.lat, currentLocation.lng);
+                const alt = pos.altitude * 180 / Math.PI;
+                if (alt > 0) { // Només mostrem quan la lluna és sobre l'horitzó
+                    return {
+                        lat: currentLocation.lat + alt/90 * 0.1 * Math.sin(pos.azimuth),
+                        lng: currentLocation.lng + alt/90 * 0.1 * Math.cos(pos.azimuth),
+                        time: time
+                    };
+                }
+                return null;
+            }).filter(Boolean);
+            
+            // Actualitzar o crear polylines
+            if (sunPath) {
+                map.removeLayer(sunPath);
+            }
+            if (moonPath) {
+                map.removeLayer(moonPath);
+            }
+            
+            if (sunPositions.length > 0) {
+                sunPath = L.polyline(sunPositions.map(pos => [pos.lat, pos.lng]), {
+                    color: '#FFD700',
+                    weight: 2,
+                    opacity: 0.7
+                }).addTo(map);
+            }
+            
+            if (moonPositions.length > 0) {
+                moonPath = L.polyline(moonPositions.map(pos => [pos.lat, pos.lng]), {
+                    color: '#E6E6FA',
+                    weight: 2,
+                    opacity: 0.7
+                }).addTo(map);
+            }
+            
+            // Actualitzar posició actual del sol i la lluna
+            const currentSunPos = SunCalc.getPosition(currentDate, currentLocation.lat, currentLocation.lng);
+            const currentMoonPos = SunCalc.getMoonPosition(currentDate, currentLocation.lat, currentLocation.lng);
+            
+            const sunAlt = currentSunPos.altitude * 180 / Math.PI;
+            const moonAlt = currentMoonPos.altitude * 180 / Math.PI;
+            
+            if (sunAlt > 0) {
+                const sunLat = currentLocation.lat + sunAlt/90 * 0.1 * Math.sin(currentSunPos.azimuth);
+                const sunLng = currentLocation.lng + sunAlt/90 * 0.1 * Math.cos(currentSunPos.azimuth);
+                sunMarker.setLatLng([sunLat, sunLng]);
+                sunMarker.setOpacity(1);
+            } else {
+                sunMarker.setOpacity(0);
+            }
+            
+            if (moonAlt > 0) {
+                const moonLat = currentLocation.lat + moonAlt/90 * 0.1 * Math.sin(currentMoonPos.azimuth);
+                const moonLng = currentLocation.lng + moonAlt/90 * 0.1 * Math.cos(currentMoonPos.azimuth);
+                moonMarker.setLatLng([moonLat, moonLng]);
+                moonMarker.setOpacity(1);
+            } else {
+                moonMarker.setOpacity(0);
+            }
+        }
+
+        function updateSunMoonTimeline() {
+            if (!currentLocation) return;
+            
+            const date = new Date(currentDate);
+            date.setHours(0, 0, 0, 0);
+            
+            // Obtenir temps de sortida i posta del sol
+            const sunTimes = SunCalc.getTimes(date, currentLocation.lat, currentLocation.lng);
+            const moonTimes = SunCalc.getMoonTimes(date, currentLocation.lat, currentLocation.lng);
+            
+            // Calcular percentatges per a la línia de temps
+            const startOfDay = new Date(date);
+            const endOfDay = new Date(date);
+            endOfDay.setHours(23, 59, 59, 999);
+            
+            const dayLength = endOfDay - startOfDay;
+            
+            const sunrisePercent = ((sunTimes.sunrise - startOfDay) / dayLength) * 100;
+            const sunsetPercent = ((sunTimes.sunset - startOfDay) / dayLength) * 100;
+            
+            // Actualitzar línia de temps del sol
+            const sunriseTimeline = document.getElementById('sunrise-timeline');
+            const dayTimeline = document.getElementById('day-timeline');
+            const sunsetTimeline = document.getElementById('sunset-timeline');
+            
+            sunriseTimeline.style.left = '0%';
+            sunriseTimeline.style.width = `${sunrisePercent}%`;
+            
+            dayTimeline.style.left = `${sunrisePercent}%`;
+            dayTimeline.style.width = `${sunsetPercent - sunrisePercent}%`;
+            
+            sunsetTimeline.style.left = `${sunsetPercent}%`;
+            sunsetTimeline.style.width = `${100 - sunsetPercent}%`;
+            
+            // Actualitzar posició de la lluna
+            if (moonTimes.rise && moonTimes.set) {
+                const moonRisePercent = ((moonTimes.rise - startOfDay) / dayLength) * 100;
+                const moonSetPercent = ((moonTimes.set - startOfDay) / dayLength) * 100;
+                
+                const moonPosition = ((currentDate - moonTimes.rise) / (moonTimes.set - moonTimes.rise)) * 100;
+                const moonTimeline = document.getElementById('moon-timeline');
+                
+                moonTimeline.style.left = `${moonRisePercent + (moonSetPercent - moonRisePercent) * (moonPosition / 100)}%`;
+            }
+        }
+
+        function calculateEphemeris() {
+            if (!currentLocation) return;
+            
+            const date = new Date(currentDate);
+            date.setHours(0, 0, 0, 0);
+            
+            // Obtenir temps del sol
+            const sunTimes = SunCalc.getTimes(date, currentLocation.lat, currentLocation.lng);
+            
+            // Preparar taula d'efemèrides del sol
+            const sunEphemeris = [
+                { event: "Sortida del sol", time: sunTimes.sunrise },
+                { event: "Zenit solar", time: sunTimes.solarNoon },
+                { event: "Posta del sol", time: sunTimes.sunset },
+                { event: "Capvespre civil", time: sunTimes.dusk },
+                { event: "Capvespre nàutic", time: sunTimes.nauticalDusk },
+                { event: "Capvespre astronòmic", time: sunTimes.astronomicalDusk }
+            ];
+            
+            // Omplir taula del sol
+            const sunTable = document.getElementById('sun-ephemeris');
+            sunTable.innerHTML = '';
+            
+            sunEphemeris.forEach(item => {
+                if (item.time) {
+                    const pos = SunCalc.getPosition(item.time, currentLocation.lat, currentLocation.lng);
+                    const alt = (pos.altitude * 180 / Math.PI).toFixed(1);
+                    const az = ((pos.azimuth * 180 / Math.PI + 180) % 360).toFixed(1);
+                    
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${item.event}</td>
+                        <td>${item.time.toLocaleTimeString('ca-ES')}</td>
+                        <td>${az}°</td>
+                        <td>${alt}°</td>
+                    `;
+                    sunTable.appendChild(row);
+                }
+            });
+            
+            // Obtenir temps de la lluna
+            const moonTimes = SunCalc.getMoonTimes(date, currentLocation.lat, currentLocation.lng);
+            const moonIllumination = SunCalc.getMoonIllumination(date);
+            
+            // Preparar taula d'efemèrides de la lluna
+            const moonEphemeris = [];
+            
+            if (moonTimes.rise) {
+                moonEphemeris.push({ event: "Sortida de la lluna", time: moonTimes.rise });
+            }
+            if (moonTimes.set) {
+                moonEphemeris.push({ event: "Posta de la lluna", time: moonTimes.set });
+            }
+            
+            // Afegir fases lunars properes
+            const phases = getMoonPhasesAroundDate(date);
+            moonEphemeris.push(...phases);
+            
+            // Omplir taula de la lluna
+            const moonTable = document.getElementById('moon-ephemeris');
+            moonTable.innerHTML = '';
+            
+            moonEphemeris.forEach(item => {
+                if (item.time) {
+                    const pos = SunCalc.getMoonPosition(item.time, currentLocation.lat, currentLocation.lng);
+                    const alt = (pos.altitude * 180 / Math.PI).toFixed(1);
+                    const az = ((pos.azimuth * 180 / Math.PI + 180) % 360).toFixed(1);
+                    
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${item.event}</td>
+                        <td>${item.time.toLocaleTimeString('ca-ES')}</td>
+                        <td>${az}°</td>
+                        <td>${alt}°</td>
+                        <td>${item.fraction ? Math.round(item.fraction * 100) + '%' : '--'}</td>
+                    `;
+                    moonTable.appendChild(row);
+                }
+            });
+        }
+
+        function getMoonPhasesAroundDate(date) {
+            // Aquesta funció retorna les fases lunars properes a la data actual
+            // En una aplicació real, es faria un càlcul més precís
+            
+            const phases = [];
+            const currentIllumination = SunCalc.getMoonIllumination(date);
+            
+            // Simulem algunes fases properes
+            const oneDay = 24 * 60 * 60 * 1000;
+            
+            phases.push({
+                event: "Fase actual",
+                time: date,
+                fraction: currentIllumination.fraction
+            });
+            
+            // Nova lluna propera
+            const newMoonDate = new Date(date);
+            newMoonDate.setDate(date.getDate() + (29.53 - currentIllumination.age));
+            phases.push({
+                event: "Pròxima lluna nova",
+                time: newMoonDate,
+                fraction: 0
+            });
+            
+            // Lluna plena propera
+            const fullMoonDate = new Date(date);
+            fullMoonDate.setDate(date.getDate() + (14.765 - currentIllumination.age));
+            phases.push({
+                event: "Pròxima lluna plena",
+                time: fullMoonDate,
+                fraction: 1
+            });
+            
+            return phases;
+        }
+
+        // Listeners per a canvis de data i hora
+        document.getElementById('date-input').addEventListener('change', function() {
+            this.dataset.manual = true;
+            if (currentLocation) {
+                calculatePositions();
+            }
+        });
+        
+        document.getElementById('time-input').addEventListener('change', function() {
+            this.dataset.manual = true;
+            if (currentLocation) {
+                calculatePositions();
+            }
+        });
+    </script>
+</body>
+</html>
