@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Vista AR - Sol i Lluna amb Brúixola Integrada</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            background-color: #000;
+            color: white;
+        }
+        
+        #ar-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        #video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        #video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        #overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+        
+        .celestial-body {
+            position: absolute;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+            z-index: 3;
+        }
+        
+        #sun {
+            background: radial-gradient(circle at 30% 30%, #FFF9C4, #FFEB3B, #FF9800);
+            width: 50px;
+            height: 50px;
+        }
+        
+        #moon {
+            background: radial-gradient(circle at 30% 30%, #FFFFFF, #E0E0E0, #9E9E9E);
+            width: 40px;
+            height: 40px;
+        }
+        
+        #trajectories {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+        
+        .time-marker {
+            position: absolute;
+            color: white;
+            font-size: 12px;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 2px 5px;
+            border-radius: 3px;
+            transform: translate(-50%, -50%);
+            z-index: 4;
+        }
+        
+        .sun-time {
+            color: #FFD700;
+        }
+        
+        .moon-time {
+            color: #E6E6FA;
+        }
+        
+        #base-compass {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 150px;
+            z-index: 10;
+        }
+        
+        .compass-circle {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        .compass-direction {
+            position: absolute;
+            font-weight: bold;
+            font-size: 14px;
+            color: white;
+        }
+        
+        #compass-n {
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #FF5252;
+        }
+        
+        #compass-s {
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        #compass-e {
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+        }
+        
+        #compass-w {
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+        }
+        
+        .compass-line {
+            position: absolute;
+            width: 2px;
+            height: 50%;
+            background-color: rgba(255, 82, 82, 0.7);
+            top: 50%;
+            left: 50%;
+            transform-origin: top center;
+            z-index: 11;
+        }
+        
+        #sun-compass-line {
+            background-color: rgba(255, 215, 0, 0.7);
+        }
+        
+        #moon-compass-line {
+            background-color: rgba(230, 230, 250, 0.7);
+        }
+        
+        #controls {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            z-index: 10;
+            pointer-events: auto;
+        }
+        
+        button {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: 1px solid white;
+            border-radius: 20px;
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        #info-panel {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            max-width: 300px;
+            z-index: 10;
+        }
+        
+        #device-orientation {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        #loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .tilt-warning {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(255, 165, 0, 0.7);
+            color: black;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 10;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="ar-container">
+        <div id="video-container">
+            <video id="video" autoplay playsinline></video>
+        </div>
+        
+        <div id="overlay">
+            <svg id="trajectories" xmlns="http://www.w3.org/2000/svg"></svg>
+            <div id="sun" class="celestial-body"></div>
+            <div id="moon" class="celestial-body"></div>
+            <!-- Marcadores de tiempo se añadirán dinámicamente -->
+            
+            <!-- Brúixola a la base de les trajectòries -->
+            <div id="base-compass">
+                <div class="compass-circle"></div>
+                <div id="compass-n" class="compass-direction">N</div>
+                <div id="compass-s" class="compass-direction">S</div>
+                <div id="compass-e" class="compass-direction">E</div>
+                <div id="compass-w" class="compass-direction">O</div>
+                <div id="compass-line" class="compass-line"></div>
+                <div id="sun-compass-line" class="compass-line"></div>
+                <div id="moon-compass-line" class="compass-line"></div>
+            </div>
+        </div>
+        
+        <div class="tilt-warning" id="tilt-warning">
+            Dispositiu inclinat - La precisió pot estar afectada
+        </div>
+        
+        <div id="info-panel">
+            <h3>Vista AR - Sol i Lluna</h3>
+            <p><strong>Sol:</strong> <span id="sun-azimuth">0</span>° azimut, <span id="sun-altitude">0</span>° altura</p>
+            <p><strong>Lluna:</strong> <span id="moon-azimuth">0</span>° azimut, <span id="moon-altitude">0</span>° altura</p>
+            <div id="device-orientation">
+                <p><strong>Orientació:</strong> <span id="device-alpha">0</span>°</p>
+                <p><strong>Inclinació:</strong> <span id="device-beta">0</span>°</p>
+                <p><strong>Lateral:</strong> <span id="device-gamma">0</span>°</p>
+            </div>
+            <p><strong>Hora actual:</strong> <span id="current-time">00:00</span></p>
+        </div>
+        
+        <div id="controls">
+            <button id="switch-camera">Canviar Càmera</button>
+            <button id="toggle-trajectories">Mostrar/Ocultar Trajectòries</button>
+            <button id="toggle-time-markers">Mostrar/Ocultar Hores</button>
+        </div>
+        
+        <div id="loading">
+            <h2>Carregant Vista AR</h2>
+            <p>Esperant permisos de càmera i sensors...</p>
+            <button id="start-ar">Activar AR</button>
+        </div>
+    </div>
+
+    <script>
+        // Variables globals
+        let video = document.getElementById('video');
+        let sun = document.getElementById('sun');
+        let moon = document.getElementById('moon');
+        let trajectories = document.getElementById('trajectories');
+        let compassLine = document.getElementById('compass-line');
+        let sunCompassLine = document.getElementById('sun-compass-line');
+        let moonCompassLine = document.getElementById('moon-compass-line');
+        let tiltWarning = document.getElementById('tilt-warning');
+        let showTrajectories = true;
+        let showTimeMarkers = true;
+        let currentFacingMode = 'environment';
+        let deviceOrientation = { alpha: 0, beta: 0, gamma: 0 };
+        let sunPosition = { azimuth: 0, altitude: 0 };
+        let moonPosition = { azimuth: 0, altitude: 0 };
+        let sunTimeMarkers = [];
+        let moonTimeMarkers = [];
+        
+        // Elements d'informació
+        const sunAzimuthElement = document.getElementById('sun-azimuth');
+        const sunAltitudeElement = document.getElementById('sun-altitude');
+        const moonAzimuthElement = document.getElementById('moon-azimuth');
+        const moonAltitudeElement = document.getElementById('moon-altitude');
+        const deviceAlphaElement = document.getElementById('device-alpha');
+        const deviceBetaElement = document.getElementById('device-beta');
+        const deviceGammaElement = document.getElementById('device-gamma');
+        const currentTimeElement = document.getElementById('current-time');
+        
+        // Botons
+        const switchCameraBtn = document.getElementById('switch-camera');
+        const toggleTrajectoriesBtn = document.getElementById('toggle-trajectories');
+        const toggleTimeMarkersBtn = document.getElementById('toggle-time-markers');
+        const startARBtn = document.getElementById('start-ar');
+        
+        // Inicialització
+        document.addEventListener('DOMContentLoaded', () => {
+            startARBtn.addEventListener('click', initAR);
+            switchCameraBtn.addEventListener('click', switchCamera);
+            toggleTrajectoriesBtn.addEventListener('click', toggleTrajectories);
+            toggleTimeMarkersBtn.addEventListener('click', toggleTimeMarkers);
+            
+            // Actualitzar hora actual cada minut
+            updateCurrentTime();
+            setInterval(updateCurrentTime, 60000);
+        });
+        
+        // Funció per iniciar l'AR
+        async function initAR() {
+            try {
+                // Demanar permisos de càmera
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: { 
+                        facingMode: currentFacingMode,
+                        width: { ideal: 1920 },
+                        height: { ideal: 1080 }
+                    },
+                    audio: false
+                });
+                
+                video.srcObject = stream;
+                
+                // Configurar els sensors d'orientació
+                if (window.DeviceOrientationEvent) {
+                    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+                        // iOS 13+ necessita permís explícit
+                        const permission = await DeviceOrientationEvent.requestPermission();
+                        if (permission !== 'granted') {
+                            throw new Error('Permís denegat per als sensors d\'orientació');
+                        }
+                    }
+                    window.addEventListener('deviceorientation', handleOrientation);
+                } else {
+                    alert("El vostre navegador no suporta l'API DeviceOrientation");
+                }
+                
+                // Amagar pantalla de càrrega
+                document.getElementById('loading').classList.add('hidden');
+                
+                // Iniciar bucle de renderització
+                requestAnimationFrame(updatePositions);
+            } catch (error) {
+                console.error("Error en inicialitzar AR:", error);
+                alert("No s'ha pogut accedir a la càmera o sensors: " + error.message);
+            }
+        }
+        
+        // Actualitzar l'hora actual
+        function updateCurrentTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            currentTimeElement.textContent = `${hours}:${minutes}`;
+        }
+        
+        // Manejar l'orientació del dispositiu
+        function handleOrientation(event) {
+            deviceOrientation = {
+                alpha: event.alpha,  // Rotació respecte al nord (0-360)
+                beta: event.beta,    // Inclinació front-back (-180 a 180)
+                gamma: event.gamma   // Inclinació esquerra-dreta (-90 a 90)
+            };
+            
+            // Actualitzar UI d'orientació
+            deviceAlphaElement.textContent = Math.round(deviceOrientation.alpha || 0);
+            deviceBetaElement.textContent = Math.round(deviceOrientation.beta || 0);
+            deviceGammaElement.textContent = Math.round(deviceOrientation.gamma || 0);
+            
+            // Mostrar advertència si el dispositiu està molt inclinat
+            const isTilted = Math.abs(deviceOrientation.beta) > 30 || Math.abs(deviceOrientation.gamma) > 30;
+            tiltWarning.style.display = isTilted ? 'block' : 'none';
+        }
+        
+        // Actualitzar posicions dels elements AR
+        function updatePositions() {
+            const now = new Date();
+            const lat = 41.3851;  // Barcelona per defecte
+            const lng = 2.1734;
+            
+            // Calcular posició del sol i la lluna
+            const sunPos = calculateSunPosition(now, lat, lng);
+            sunPosition = { azimuth: sunPos.azimuth, altitude: sunPos.altitude };
+            
+            const moonPos = calculateMoonPosition(now, lat, lng);
+            moonPosition = { azimuth: moonPos.azimuth, altitude: moonPos.altitude };
+            
+            // Actualitzar UI amb correcció d'inclinació
+            updateCelestialBodyPosition(sun, sunPosition);
+            updateCelestialBodyPosition(moon, moonPosition);
+            
+            // Actualitzar brúixola i línies de direcció
+            updateCompassLines();
+            
+            // Actualitzar informació
+            updateInfoPanel();
+            
+            // Actualitzar elements visuals
+            if (showTrajectories) updateTrajectories(now, lat, lng);
+            if (showTimeMarkers) updateTimeMarkers(now, lat, lng);
+            
+            // Continuar el bucle
+            requestAnimationFrame(updatePositions);
+        }
+        
+        // Actualitzar les línies de la brúixola
+        function updateCompassLines() {
+            // Línia del nord (vermella)
+            compassLine.style.transform = `translateX(-50%) rotate(${-deviceOrientation.alpha || 0}deg)`;
+            
+            // Línia del sol (groc)
+            const sunAzimuthRelative = (sunPosition.azimuth - (deviceOrientation.alpha || 0) + 360) % 360;
+            sunCompassLine.style.transform = `translateX(-50%) rotate(${-sunAzimuthRelative}deg)`;
+            sunCompassLine.style.opacity = sunPosition.altitude > 0 ? '1' : '0.3';
+            
+            // Línia de la lluna (blanc)
+            const moonAzimuthRelative = (moonPosition.azimuth - (deviceOrientation.alpha || 0) + 360) % 360;
+            moonCompassLine.style.transform = `translateX(-50%) rotate(${-moonAzimuthRelative}deg)`;
+            moonCompassLine.style.opacity = moonPosition.altitude > 0 ? '1' : '0.3';
+        }
+        
+        // Actualitzar posició d'un cos celeste amb correcció d'inclinació
+        function updateCelestialBodyPosition(element, position) {
+            const viewWidth = window.innerWidth;
+            const viewHeight = window.innerHeight;
+            
+            // Convertir azimut i altura a coordenades 3D (amb correcció d'inclinació)
+            const azimuthRad = (position.azimuth - (deviceOrientation.alpha || 0)) * Math.PI / 180;
+            const altitudeRad = position.altitude * Math.PI / 180;
+            
+            // Aplicar correcció per inclinació del dispositiu (beta i gamma)
+            const tiltCorrection = getTiltCorrection();
+            
+            // Coordenades 3D
+            const distance = 100;
+            let x = distance * Math.sin(azimuthRad) * Math.cos(altitudeRad);
+            let y = distance * Math.sin(altitudeRad);
+            let z = distance * Math.cos(azimuthRad) * Math.cos(altitudeRad);
+            
+            // Aplicar correcció d'inclinació
+            x = x * tiltCorrection.xScale;
+            y = y * tiltCorrection.yScale + tiltCorrection.yOffset;
+            z = z * tiltCorrection.zScale;
+            
+            // Projectar a 2D (perspectiva simplificada)
+            const screenX = (x + distance) * viewWidth / (2 * distance);
+            const screenY = viewHeight - (y + distance) * viewHeight / (2 * distance);
+            
+            // Ajustar mida segons altura i inclinació
+            const sizeFactor = 0.5 + 0.5 * Math.sin(altitudeRad) * tiltCorrection.sizeFactor;
+            const size = element === sun ? 
+                30 + 20 * sizeFactor * tiltCorrection.sizeFactor : 
+                25 + 15 * sizeFactor * tiltCorrection.sizeFactor;
+            
+            // Aplicar transformacions
+            element.style.width = `${size}px`;
+            element.style.height = `${size}px`;
+            element.style.left = `${screenX}px`;
+            element.style.top = `${screenY}px`;
+            element.style.opacity = position.altitude > 0 ? '1' : '0.3';
+        }
+        
+        // Calcular correccions per la inclinació del dispositiu
+        function getTiltCorrection() {
+            const betaRad = (deviceOrientation.beta || 0) * Math.PI / 180;
+            const gammaRad = (deviceOrientation.gamma || 0) * Math.PI / 180;
+            
+            // Factors de correcció basats en la inclinació
+            return {
+                xScale: 1 + 0.3 * Math.sin(gammaRad),  // Correcció per inclinació lateral
+                yScale: 1 - 0.5 * Math.abs(Math.sin(betaRad)),  // Correcció per inclinació frontal
+                yOffset: 20 * Math.sin(betaRad),  // Desplaçament vertical
+                zScale: 1 - 0.3 * Math.abs(Math.sin(betaRad)),  // Correcció de profunditat
+                sizeFactor: 1 - 0.3 * Math.abs(Math.sin(betaRad))  // Reducció de mida quan està inclinat
+            };
+        }
+        
+        // Actualitzar panell d'informació
+        function updateInfoPanel() {
+            sunAzimuthElement.textContent = Math.round(sunPosition.azimuth);
+            sunAltitudeElement.textContent = Math.round(sunPosition.altitude);
+            moonAzimuthElement.textContent = Math.round(moonPosition.azimuth);
+            moonAltitudeElement.textContent = Math.round(moonPosition.altitude);
+        }
+        
+        // Actualitzar trajectòries amb opacitat per parts no visibles
+        function updateTrajectories(now, lat, lng) {
+            trajectories.innerHTML = '';
+            
+            // Trajectòria del sol
+            const sunPoints = [];
+            for (let h = 0; h < 24; h += 0.5) {
+                const time = new Date(now);
+                time.setHours(Math.floor(h));
+                time.setMinutes((h % 1) * 60);
+                
+                const pos = calculateSunPosition(time, lat, lng);
+                sunPoints.push({...pos, time: h, visible: pos.altitude > -5});
+            }
+            drawTrajectoryWithVisibility(sunPoints, '#FFD700', 'sun-trajectory');
+            
+            // Trajectòria de la lluna
+            const moonPoints = [];
+            for (let h = 0; h < 24; h += 0.5) {
+                const time = new Date(now);
+                time.setHours(Math.floor(h));
+                time.setMinutes((h % 1) * 60);
+                
+                const pos = calculateMoonPosition(time, lat, lng);
+                moonPoints.push({...pos, time: h, visible: pos.altitude > -5});
+            }
+            drawTrajectoryWithVisibility(moonPoints, '#E6E6FA', 'moon-trajectory');
+        }
+        
+        // Dibuixar trajectòria amb parts visibles i no visibles
+        function drawTrajectoryWithVisibility(points, color, id) {
+            const viewWidth = window.innerWidth;
+            const viewHeight = window.innerHeight;
+            const distance = 100;
+            const tiltCorrection = getTiltCorrection();
+            
+            // Dividir punts en segments visibles i no visibles
+            let segments = [];
+            let currentSegment = [];
+            let lastVisibility = points[0].visible;
+            
+            points.forEach((pos, i) => {
+                if (pos.visible !== lastVisibility && currentSegment.length > 0) {
+                    segments.push({
+                        points: [...currentSegment],
+                        visible: lastVisibility
+                    });
+                    currentSegment = [];
+                }
+                currentSegment.push(pos);
+                lastVisibility = pos.visible;
+            });
+            
+            // Afegir l'últim segment
+            if (currentSegment.length > 0) {
+                segments.push({
+                    points: [...currentSegment],
+                    visible: lastVisibility
+                });
+            }
+            
+            // Dibuixar cada segment amb la seva opacitat
+            segments.forEach(segment => {
+                const pathData = segment.points.map((pos, i) => {
+                    const azimuthRad = (pos.azimuth - (deviceOrientation.alpha || 0)) * Math.PI / 180;
+                    const altitudeRad = pos.altitude * Math.PI / 180;
+                    
+                    // Coordenades 3D amb correcció
+                    let x = distance * Math.sin(azimuthRad) * Math.cos(altitudeRad);
+                    let y = distance * Math.sin(altitudeRad);
+                    let z = distance * Math.cos(azimuthRad) * Math.cos(altitudeRad);
+                    
+                    x = x * tiltCorrection.xScale;
+                    y = y * tiltCorrection.yScale + tiltCorrection.yOffset;
+                    z = z * tiltCorrection.zScale;
+                    
+                    // Projectar a 2D
+                    const screenX = (x + distance) * viewWidth / (2 * distance);
+                    const screenY = viewHeight - (y + distance) * viewHeight / (2 * distance);
+                    
+                    return `${i === 0 ? 'M' : 'L'}${screenX},${screenY}`;
+                }).join(' ');
+                
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                path.setAttribute('d', pathData);
+                path.setAttribute('stroke', color);
+                path.setAttribute('stroke-width', '2');
+                path.setAttribute('fill', 'none');
+                path.setAttribute('opacity', segment.visible ? '0.7' : '0.3');
+                path.setAttribute('class', `${id}-segment`);
+                
+                trajectories.appendChild(path);
+            });
+        }
+        
+        // Actualitzar marcadors de temps
+        function updateTimeMarkers(now, lat, lng) {
+            // Eliminar marcadors anteriors
+            sunTimeMarkers.forEach(marker => marker.remove());
+            moonTimeMarkers.forEach(marker => marker.remove());
+            sunTimeMarkers = [];
+            moonTimeMarkers = [];
+            
+            // Crear nous marcadors amb correcció d'inclinació
+            for (let h = 0; h < 24; h += 1) {
+                const time = new Date(now);
+                time.setHours(h);
+                time.setMinutes(0);
+                
+                // Marcadors per al sol
+                const sunPos = calculateSunPosition(time, lat, lng);
+                const markerSun = createTimeMarker(sunPos, h, 'sun-time');
+                markerSun.style.opacity = sunPos.altitude > 0 ? '1' : '0.3';
+                sunTimeMarkers.push(markerSun);
+                document.getElementById('overlay').appendChild(markerSun);
+                
+                // Marcadors per a la lluna
+                const moonPos = calculateMoonPosition(time, lat, lng);
+                const markerMoon = createTimeMarker(moonPos, h, 'moon-time');
+                markerMoon.style.opacity = moonPos.altitude > 0 ? '1' : '0.3';
+                moonTimeMarkers.push(markerMoon);
+                document.getElementById('overlay').appendChild(markerMoon);
+            }
+        }
+        
+        // Crear marcador de temps amb correcció d'inclinació
+        function createTimeMarker(position, hour, className) {
+            const viewWidth = window.innerWidth;
+            const viewHeight = window.innerHeight;
+            
+            // Convertir azimut i altura a coordenades 3D
+            const azimuthRad = (position.azimuth - (deviceOrientation.alpha || 0)) * Math.PI / 180;
+            const altitudeRad = position.altitude * Math.PI / 180;
+            
+            // Aplicar correcció per inclinació
+            const tiltCorrection = getTiltCorrection();
+            
+            // Coordenades 3D
+            const distance = 100;
+            let x = distance * Math.sin(azimuthRad) * Math.cos(altitudeRad);
+            let y = distance * Math.sin(altitudeRad);
+            let z = distance * Math.cos(azimuthRad) * Math.cos(altitudeRad);
+            
+            // Aplicar correcció d'inclinació
+            x = x * tiltCorrection.xScale;
+            y = y * tiltCorrection.yScale + tiltCorrection.yOffset;
+            z = z * tiltCorrection.zScale;
+            
+            // Projectar a 2D
+            const screenX = (x + distance) * viewWidth / (2 * distance);
+            const screenY = viewHeight - (y + distance) * viewHeight / (2 * distance);
+            
+            // Crear element
+            const marker = document.createElement('div');
+            marker.className = `time-marker ${className}`;
+            marker.textContent = `${hour}h`;
+            marker.style.left = `${screenX}px`;
+            marker.style.top = `${screenY}px`;
+            
+            return marker;
+        }
+        
+        // Funcions restants (switchCamera, toggleTrajectories, toggleTimeMarkers, calculateSunPosition, 
+        // calculateMoonPosition, getDayOfYear) es mantenen iguals que en el codi anterior
+        
+        // Canviar càmera (frontal/posterior)
+        async function switchCamera() {
+            currentFacingMode = currentFacingMode === 'environment' ? 'user' : 'environment';
+            
+            // Aturar el flux actual
+            const stream = video.srcObject;
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+            
+            // Iniciar amb la nova càmera
+            try {
+                const newStream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: currentFacingMode },
+                    audio: false
+                });
+                video.srcObject = newStream;
+            } catch (error) {
+                console.error("Error en canviar de càmera:", error);
+                alert("No s'ha pogut canviar de càmera: " + error.message);
+            }
+        }
+        
+        // Alternar visibilitat de trajectòries
+        function toggleTrajectories() {
+            showTrajectories = !showTrajectories;
+            trajectories.style.display = showTrajectories ? 'block' : 'none';
+        }
+        
+        // Alternar visibilitat de marcadors de temps
+        function toggleTimeMarkers() {
+            showTimeMarkers = !showTimeMarkers;
+            const display = showTimeMarkers ? 'block' : 'none';
+            
+            sunTimeMarkers.forEach(marker => marker.style.display = display);
+            moonTimeMarkers.forEach(marker => marker.style.display = display);
+        }
+        
+        // Càlcul simplificat de la posició del sol
+        function calculateSunPosition(date, lat, lng) {
+            // Convertir data a hora solar local
+            const solarTime = date.getHours() + date.getMinutes() / 60 + (lng / 15);
+            
+            // Càlcul simplificat de l'angle horari
+            const hourAngle = (solarTime - 12) * 15;  // 15 graus per hora
+            
+            // Declinació solar aproximada (en graus)
+            const dayOfYear = getDayOfYear(date);
+            const declination = 23.45 * Math.sin((2 * Math.PI / 365) * (dayOfYear - 81));
+            
+            // Convertir a radians
+            const latRad = lat * Math.PI / 180;
+            const decRad = declination * Math.PI / 180;
+            const hourRad = hourAngle * Math.PI / 180;
+            
+            // Calcular altura i azimut
+            const altitude = Math.asin(
+                Math.sin(latRad) * Math.sin(decRad) + 
+                Math.cos(latRad) * Math.cos(decRad) * Math.cos(hourRad)
+            ) * 180 / Math.PI;
+            
+            const azimuth = Math.atan2(
+                Math.sin(hourRad),
+                Math.cos(hourRad) * Math.sin(latRad) - Math.tan(decRad) * Math.cos(latRad)
+            ) * 180 / Math.PI + 180;
+            
+            return { azimuth, altitude };
+        }
+        
+        // Càlcul simplificat de la posició de la lluna
+        function calculateMoonPosition(date, lat, lng) {
+            // Aproximació molt simplificada
+            
+            // Fase lunar aproximada (0-29.5 dies)
+            const moonPhase = ((date.getTime() / 1000 / 60 / 60 / 24) % 29.53);
+            
+            // Desplaçament respecte al sol (aprox. 12.2 graus per dia)
+            const moonOffset = (moonPhase * 12.2) % 360;
+            
+            // Obtenir posició solar i afegir desplaçament
+            const sunPos = calculateSunPosition(date, lat, lng);
+            let moonAzimuth = (sunPos.azimuth + moonOffset + 180) % 360;
+            let moonAltitude = sunPos.altitude * 0.9;  // La lluna tendeix a estar més baixa
+            
+            // Variar l'altura segons la fase
+            moonAltitude += (Math.sin(moonPhase * 2 * Math.PI / 29.53) * 10);
+            
+            return { azimuth: moonAzimuth, altitude: moonAltitude };
+        }
+        
+        // Funció auxiliar per obtenir el dia de l'any
+        function getDayOfYear(date) {
+            const start = new Date(date.getFullYear(), 0, 0);
+            const diff = date - start;
+            const oneDay = 1000 * 60 * 60 * 24;
+            return Math.floor(diff / oneDay);
+        }
+    </script>
+</body>
+</html>
