@@ -34,7 +34,7 @@ https://directes-tv-cat.3catdirectes.cat/live-origin/oca2-hls/master.m3u8
 https://directes-tv-cat.3catdirectes.cat/live-origin/oca3-hls/master.m3u8
 #EXTINF:-1 tvg-id="La1" tvg-logo="https://i.imgur.com/1jDS9UC.png" group-title="General",La1
 https://rtvelivestream.akamaized.net/rtvesec/la1/la1_main_dvr.m3u8
-#EXTINF:-1 tvg-id="La2Cat" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Logo_TVE-2.svg/512px-Logo_TVE-2.svg.png" group-title="General",La2 Cat
+#EXTINF:-1 tvg-id="La2Cat" tvg-logo="https://static.iptv-epg.com/es/LA2.es.png" group-title="General",La2 Cat
 https://ztnr.rtve.es/ztnr/3987218.m3u8
 #EXTINF:-1 tvg-id="24Horas" tvg-logo="https://i.imgur.com/IUVRm5L.png" group-title="News",24HCat
 https://ztnr.rtve.es/ztnr/1694255.m3u8
