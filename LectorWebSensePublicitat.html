@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ca">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><meta name="apple-mobile-web-app-capable" content="yes" /><meta name="apple-touch-fullscreen" content="yes" /><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0" /><meta name="theme-color" content="#C20B19" /><link rel="shortcut icon" href="https://www.lecturas.com/favicon.ico" type="image/x-icon" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lector Web Sense Publicitat</title>
+    <style>
+        :root {
+            --primary: #4285f4;
+            --error: #d32f2f;
+            --success: #388e3c;
+            --text: #333;
+            --light-text: #666;
+            --bg: #f5f5f5;
+            --card-bg: #fff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .description {
+            color: var(--light-text);
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        #url-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+
+        #url-input:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        #load-button {
+            padding: 12px 25px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        #load-button:hover {
+            background-color: #3367d6;
+        }
+
+        #load-button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        .status-message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .error {
+            background-color: #ffebee;
+            color: var(--error);
+            display: block;
+        }
+
+        .success {
+            background-color: #e8f5e9;
+            color: var(--success);
+            display: block;
+        }
+
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: var(--light-text);
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0,0,0,0.1);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        #article-container {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .article-title {
+            margin-top: 0;
+            color: var(--text);
+            line-height: 1.3;
+        }
+
+        .article-meta {
+            color: var(--light-text);
+            font-size: 0.9em;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .article-content {
+            overflow-wrap: break-word;
+        }
+
+        .article-content img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 8px;
+            display: block;
+        }
+
+        .article-content iframe {
+            max-width: 100%;
+            margin: 20px 0;
+        }
+
+        .fallback-message {
+            background: #fff8e1;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            color: #5d4037;
+        }
+
+        .try-proxy-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            text-decoration: underline;
+            cursor: pointer;
+            padding: 0;
+            font-size: inherit;
+        }
+
+        @media (max-width: 600px) {
+            .controls {
+                flex-direction: column;
+            }
+
+            #article-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Lector Web Sense Publicitat</h1>
+            <p class="description">Carrega articles eliminant publicitat i elements distorsius per a una experiència de lectura neta</p>
+        </header>
+
+        <div class="controls">
+            <input type="url" id="url-input"
+                   value="https://www.rac1.cat/societat/20201021/484212579781/estrategies-consells-procrastinar-ajornar-tasques-coses-a-fer-psicologia.html"
+                   placeholder="Introdueix la URL de l'article">
+            <button id="load-button">Carrega</button>
+        </div>
+
+        <div id="status-message" class="status-message"></div>
+
+        <div id="article-container" style="display: none;">
+            <h2 id="article-title" class="article-title"></h2>
+            <div id="article-meta" class="article-meta"></div>
+            <div id="article-content" class="article-content"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlInput = document.getElementById('url-input');
+            const loadButton = document.getElementById('load-button');
+            const statusMessage = document.getElementById('status-message');
+            const articleContainer = document.getElementById('article-container');
+            const articleTitle = document.getElementById('article-title');
+            const articleMeta = document.getElementById('article-meta');
+            const articleContent = document.getElementById('article-content');
+
+            // Llista de proxies disponibles (podries afegir-ne més)
+            const PROXY_SERVERS = [
+                'https://api.allorigins.win/raw?url=',
+                'https://cors-anywhere.herokuapp.com/',
+                'https://proxy.cors.sh/'
+            ];
+
+            let currentProxyIndex = 0;
+
+            // Funció principal per carregar l'article
+            async function loadArticle() {
+                const url = urlInput.value.trim();
+
+                if (!isValidUrl(url)) {
+                    showError('Si us plau, introdueix una URL vàlida (ex: https://example.com)');
+                    return;
+                }
+
+                showLoading('Carregant article...');
+                resetArticleView();
+                disableButton();
+
+                try {
+                    // Prova amb el proxy actual
+                    const proxyUrl = PROXY_SERVERS[currentProxyIndex] + encodeURIComponent(url);
+                    const response = await fetchWithTimeout(proxyUrl, {
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    }, 15000); // 15 segons de timeout
+
+                    if (!response.ok) {
+                        throw new Error(`Error HTTP: ${response.status}`);
+                    }
+
+                    const html = await response.text();
+                    processArticleContent(html);
+                    showSuccess('Article carregat correctament');
+
+                } catch (error) {
+                    console.error('Error amb proxy:', error);
+
+                    // Prova amb el següent proxy si n'hi ha
+                    if (currentProxyIndex < PROXY_SERVERS.length - 1) {
+                        currentProxyIndex++;
+                        showLoading(`Tornant a intentar amb un altre servidor... (${currentProxyIndex + 1}/${PROXY_SERVERS.length})`);
+                        await new Promise(resolve => setTimeout(resolve, 1000));
+                        loadArticle();
+                        return;
+                    }
+
+                    // Si tots els proxies fallen, prova el mètode alternatiu
+                    try {
+                        showLoading('Provant mètode alternatiu...');
+                        await loadArticleFallback(url);
+                    } catch (fallbackError) {
+                        console.error('Error en mètode alternatiu:', fallbackError);
+                        showError(`No s'ha pogut carregar l'article. Prova amb una altra URL o torna-ho a intentar més tard. Detalls: ${fallbackError.message}`);
+                    }
+                } finally {
+                    enableButton();
+                }
+            }
+
+            // Mètode alternatiu quan fallen els proxies
+            async function loadArticleFallback(url) {
+                // Utilitza l'API de Mercury (simulada en aquest exemple)
+                // En una aplicació real, necessitaries una clau API vàlida
+                const parserUrl = `https://mercury.postlight.com/parser?url=${encodeURIComponent(url)}`;
+
+                // Aquesta part fallarà per CORS, és només per il·lustrar el flux
+                try {
+                    const response = await fetch(parserUrl, {
+                        headers: {
+                            'x-api-key': 'DEMO_KEY' // En realitat necessitaries una clau vàlida
+                        }
+                    });
+
+                    if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+
+                    const articleData = await response.json();
+                    displayArticleFromAPI(articleData);
+                    showSuccess('Article carregat (mode de lectura)');
+
+                } catch (apiError) {
+                    // Si falla, mostra instruccions per a l'usuari
+                    showError(`
+                        No s'ha pogut carregar directament. Pots provar:
+                        <ol>
+                            <li>Obrir l'enllaç en una nova pestanya</li>
+                            <li>Utilitzar una extensió com "Reader View"</li>
+                            <li>Provar amb una altra URL</li>
+                        </ol>
+                        <button onclick="window.open('${url}', '_blank')" style="margin-top: 10px; padding: 8px 15px; background: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer;">
+                            Obrir en nova pestanya
+                        </button>
+                    `);
+                    throw apiError;
+                }
+            }
+
+            // Processa el contingut HTML de l'article
+            function processArticleContent(html) {
+                // Creem un document temporal per processar el HTML
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+
+                // Neteja el contingut
+                cleanDocument(doc);
+
+                // Intenta extreure el contingut principal
+                const article = findMainContent(doc);
+
+                // Mostra el resultat
+                displayArticle(article, doc);
+                articleContainer.style.display = 'block';
+            }
+
+            // Neteja el document eliminant elements no desitjats
+            function cleanDocument(doc) {
+                // Llista de selectors per eliminar
+                const selectorsToRemove = [
+                    'script', 'iframe', 'style', 'nav', 'header', 'footer',
+                    '.ad', '.ads', '.ad-container', '.publicitat',
+                    '.social-share', '.comments', '.newsletter',
+                    '[id*="ad"]', '[class*="ad"]', '[id*="banner"]',
+                    '.cookie', '.gdpr', '.popup', '.modal'
+                ];
+
+                selectorsToRemove.forEach(selector => {
+                    doc.querySelectorAll(selector).forEach(el => el.remove());
+                });
+            }
+
+            // Troba el contingut principal de l'article
+            function findMainContent(doc) {
+                // Prova amb selectors comuns per articles
+                const possibleSelectors = [
+                    'article',
+                    '.article-content',
+                    '.post-content',
+                    '.entry-content',
+                    'main',
+                    '[role="main"]',
+                    '.content'
+                ];
+
+                for (const selector of possibleSelectors) {
+                    const element = doc.querySelector(selector);
+                    if (element) return element;
+                }
+
+                // Si no troba cap selector específic, retorna el body
+                return doc.body;
+            }
+
+            // Mostra l'article processat
+            function displayArticle(articleElement, fullDoc) {
+                // Extreu el títol
+                const title = fullDoc.querySelector('h1') ||
+                             fullDoc.querySelector('title') ||
+                             articleElement.querySelector('h1, h2') ||
+                             { textContent: 'Article sense títol' };
+
+                articleTitle.textContent = title.textContent;
+
+                // Extreu metadades (autor, data, etc.)
+                const metaInfo = [];
+
+                // Autor
+                const author = fullDoc.querySelector('[rel="author"], .author, .byline') ||
+                               findMetaTag(fullDoc, 'author');
+                if (author) metaInfo.push(`Autor: ${author.textContent}`);
+
+                // Data
+                const date = fullDoc.querySelector('time, .date, .published') ||
+                             findMetaTag(fullDoc, 'date');
+                if (date) metaInfo.push(`Data: ${date.textContent}`);
+
+                articleMeta.innerHTML = metaInfo.join(' | ');
+
+                // Contingut
+                articleContent.innerHTML = articleElement.innerHTML;
+
+                // Neteja estils en línia per millorar la llegibilitat
+                articleContent.querySelectorAll('*').forEach(el => {
+                    el.removeAttribute('style');
+                    el.classList.remove(...el.classList);
+                });
+            }
+
+            // Mostra l'article des d'una API
+            function displayArticleFromAPI(articleData) {
+                articleTitle.textContent = articleData.title || 'Article sense títol';
+
+                const metaInfo = [];
+                if (articleData.author) metaInfo.push(`Autor: ${articleData.author}`);
+                if (articleData.date_published) metaInfo.push(`Data: ${new Date(articleData.date_published).toLocaleDateString()}`);
+
+                articleMeta.innerHTML = metaInfo.join(' | ');
+                articleContent.innerHTML = articleData.content || '<p>No s\'ha pogut carregar el contingut.</p>';
+                articleContainer.style.display = 'block';
+            }
+
+            // Funcions auxiliars
+            function isValidUrl(url) {
+                try {
+                    new URL(url);
+                    return true;
+                } catch {
+                    return false;
+                }
+            }
+
+            function findMetaTag(doc, name) {
+                const meta = doc.querySelector(`meta[name="${name}"], meta[property="${name}"]`);
+                return meta ? { textContent: meta.getAttribute('content') } : null;
+            }
+
+            async function fetchWithTimeout(resource, options = {}, timeout = 8000) {
+                const controller = new AbortController();
+                const id = setTimeout(() => controller.abort(), timeout);
+
+                const response = await fetch(resource, {
+                    ...options,
+                    signal: controller.signal
+                });
+
+                clearTimeout(id);
+                return response;
+            }
+
+            function showLoading(message) {
+                statusMessage.className = 'status-message loading';
+                statusMessage.innerHTML = `<div class="spinner"></div> ${message}`;
+                statusMessage.style.display = 'flex';
+            }
+
+            function showSuccess(message) {
+                statusMessage.className = 'status-message success';
+                statusMessage.textContent = message;
+                statusMessage.style.display = 'block';
+            }
+
+            function showError(message) {
+                statusMessage.className = 'status-message error';
+                statusMessage.innerHTML = message;
+                statusMessage.style.display = 'block';
+            }
+
+            function resetArticleView() {
+                articleContainer.style.display = 'none';
+                articleTitle.textContent = '';
+                articleMeta.textContent = '';
+                articleContent.innerHTML = '';
+            }
+
+            function disableButton() {
+                loadButton.disabled = true;
+                loadButton.textContent = 'Carregant...';
+            }
+
+            function enableButton() {
+                loadButton.disabled = false;
+                loadButton.textContent = 'Carrega';
+            }
+
+            // Configura esdeveniments
+            loadButton.addEventListener('click', loadArticle);
+
+            urlInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    loadArticle();
+                }
+            });
+
+            // Carrega automàticament l'article per defecte
+            loadArticle();
+        });
+    </script>
+</body>
+</html>
