@@ -22,8 +22,8 @@ https://d1pgniwg61j6fm.cloudfront.net/out/v1/f32d8fe5be7a4ababd6894109683254b/in
 
 #EXTINF:-1 tvg-id="SkyNews" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Sky-news-logo.png/500px-Sky-news-logo.png" group-title="News",SkyNews
 https://linear417-gb-hls1-prd-ak.cdn.skycdp.com/100e/Content/HLS_001_1080_30/Live/channel(skynews)/index_1080-30.m3u8
-#EXTINF:-1 tvg-id="HIT TV" tvg-logo="https://i0.wp.com/audiovisual451.com/wp-content/uploads/HIT-TV.jpg" group-title="General",HIT TV
-https://185.189.225.149/HitTV/index.m3u8
+****#EXTINF:-1 tvg-id="HIT TV" tvg-logo="https://i0.wp.com/audiovisual451.com/wp-content/uploads/HIT-TV.jpg" group-title="General",HIT TV
+****https://185.189.225.149/HitTV/index.m3u8
 #EXTINF:-1 tvg-id="TV3.Cat.es" tvg-name="" group-title="Food" tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200",JocCartes
 https://fast-tailor.3catdirectes.cat/v1/channel/ccma-channel1/hls.m3u8
 #EXTINF:-1 tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200" group-title="Lifestyle" tvg-name="3CAT Exclusiu 1",3CATe1
@@ -46,11 +46,11 @@ https://eu1.servers10.com:8081/8166/index.m3u8
 https://bcovlive-a.akamaihd.net/8499d938ef904e39b58a4adec2ddeada/eu-west-1/6057955885001/playlist_dvr.m3u8
 #EXTINF:-1 tvg-id="TV5Monde.TV" tvg-logo="https://graph.facebook.com/tv5mondeofficiel/picture?width=200&height=200" group-title="News" tvg-name="TV5Monde Francia",TV5Monde Francia FR
 https://ott.tv5monde.com/Content/HLS/Live/channel(europe)/variant.m3u8
-#EXTINF:-1 tvg-id="TheGuardian.uk" tvg-logo="https://i.imgur.com/o9AYq9V.png" group-title="Documentary;News",The Guardian
-https://0d0239e437124ddcb8090d815caf4013.mediatailor.us-east-1.amazonaws.com/v1/master/04fd913bb278d8775298c26fdca9d9841f37601f/Samsung-gb_TheGuardianChannel/playlist.m3u8
+**** #EXTINF:-1 tvg-id="TheGuardian.uk" tvg-logo="https://i.imgur.com/o9AYq9V.png" group-title="Documentary;News",The Guardian
+**** https://0d0239e437124ddcb8090d815caf4013.mediatailor.us-east-1.amazonaws.com/v1/master/04fd913bb278d8775298c26fdca9d9841f37601f/Samsung-gb_TheGuardianChannel/playlist.m3u8
 
-#EXTINF:-1 tvg-id="Vatican" tvg-logo="negre.jpg" group-title="Documentary;News",Vatican
-https://www.youtube.com/watch?v=VgyeonlpkO8
+**** #EXTINF:-1 tvg-id="Vatican" tvg-logo="negre.jpg" group-title="Documentary;News",Vatican
+**** https://www.youtube.com/watch?v=VgyeonlpkO8
 #EXTINF:-1 channel-id="USBD35000428O-us" tvg-id="USBD35000428O" tvg-chno="3541" tvg-name="History 365" tvg-logo="https://tvpnlogopus.samsungcloud.tv/platform/image/sourcelogo/vc/00/02/34/USBD35000428O_20250325T015204SQUARE.png" group-title="United States", History 365
 https://jmp2.uk/sam-USBD35000428O.m3u8
 #EXTINF:-1 tvg-id="Telemadrid.TV" tvg-logo="https://graph.facebook.com/telemadrid/picture?width=200&height=200" group-title="C. de Madrid" tvg-name="Telemadrid",Telemadrid
@@ -65,10 +65,10 @@ https://jmp2.uk/sam-IT90001094.m3u8
 https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tastemadees16international24i-ono/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200" group-title="General" tvg-name="Food",Tastemade
 https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tmintlaus-samsungnz/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200" group-title="General" tvg-name="Food",TastemadeTravel
-https://tastemadept16intl-xumobrazil.amagi.tv/playlist.m3u8
-#EXTINF:-1 tvg-name="" tvg-id="ES:.Tastemade.es" group-title="Travel & Food ?????" tvg-logo="https://www.tastemade.com.br/icons/icon-72x72.png?v=77aa54c80c1f1d706e21e9787677ea4e",Tastemade ????
-https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tmes8intl-xiaomi/playlist.m3u8
+**** #EXTINF:-1 tvg-id="" tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200" group-title="General" tvg-name="Food",TastemadeTravel
+**** https://tastemadept16intl-xumobrazil.amagi.tv/playlist.m3u8
+**** #EXTINF:-1 tvg-name="" tvg-id="ES:.Tastemade.es" group-title="Travel & Food ?????" tvg-logo="https://www.tastemade.com.br/icons/icon-72x72.png?v=77aa54c80c1f1d706e21e9787677ea4e",Tastemade ????
+**** https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tmes8intl-xiaomi/playlist.m3u8
 #EXTINF:-1 tvg-id="USBD700017WC " tvg-name="" group-title="Travel & Food ?????" tvg-logo="https://github.com/inspirationlinks/m3u/raw/live/LogosTv/TastemadeTravel.webp",Tastemade Travel ????
 https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tastemadetravel-tablo/playlist.m3u8
 #EXTINF:-1 tvg-id="USBC3200022W6" group-title="Lifestyle & Celebrities ???" tvg-logo="https://tvpnlogopus.samsungcloud.tv/platform/image/sourcelogo/vc/00/02/34/USBC3200022W6_20240910T003655SQUARE.png",Tastemade Home ????
@@ -83,8 +83,8 @@ https://daqnsnf5phf17.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a
 https://video3.lhdserver.es/empordatv2/live.m3u8
 #EXTINF:-1 tvg-id="RED BULL" tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVU-oBd73EqgukfWA1UWxk9Nnvgo0BB3eGDw&usqp=CAU" group-title="Esports",RED BULL TV
 https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master_1660.m3u8?xtreamiptv.m3u8
-#EXTINF:-1 tvg-id="elClubComedia" tvg-name="Club Comedia" tvg-logo="https://graph.facebook.com/ElClubDeLaComediaEnlaSexta/picture?width=200&height=200", El Club Comedia
-https://fast-channels.atresmedia.com/648f47f7a2ffb0e40aeff3ad/648f47f7a2ffb0e40aeff3ad.m3u8
+**** #EXTINF:-1 tvg-id="elClubComedia" tvg-name="Club Comedia" tvg-logo="https://graph.facebook.com/ElClubDeLaComediaEnlaSexta/picture?width=200&height=200", El Club Comedia
+**** https://fast-channels.atresmedia.com/648f47f7a2ffb0e40aeff3ad/648f47f7a2ffb0e40aeff3ad.m3u8
 #EXTINF:-1 tvg-id="bonappetit.us" tvg-logo="https://i.imgur.com/YhFFxlE.png" group-title="Food",bon app?tit
 https://bonappetit-samsung.amagi.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="CookingPanda.us" tvg-logo="https://i.imgur.com/bhY0Zcs.png" group-title="Food",Cooking Panda
@@ -93,14 +93,14 @@ https://stream-us-east-1.getpublica.com/playlist.m3u8?network_id=46
 https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg01077-gustoworldwidem-gustotvnz-samsungnz/playlist.m3u8
 #EXTINF:-1 tvg-id="FashionTVEurope.fr" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Fashion_TV_logo.svg/512px-Fashion_TV_logo.svg.png" group-title="Lifestyle",Fashion TV
 https://fashiontv-fashiontv-5-nl.samsung.wurl.tv/playlist.m3u8
-#EXTINF:-1 tvg-id="RakutenTVFamilyMovies" tvg-logo="https://i.imgur.com/NJYEYE3.png" group-title="Lifestyle",Rakuten Family
-https://rakuten-family-2-es.samsung.wurl.tv/playlist.m3u8
+**** #EXTINF:-1 tvg-id="RakutenTVFamilyMovies" tvg-logo="https://i.imgur.com/NJYEYE3.png" group-title="Lifestyle",Rakuten Family
+**** https://rakuten-family-2-es.samsung.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="rtvePlay1" tvg-name="rtvePlay1" tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSo6hURGd5fxHUZL6nWRegzuxQg03BA_mTHQ4XWpI5D3BQ0vRlAAf_jc-TlDaI&s",rtvePlay1
 https://ztnr.rtve.es/ztnr/6712432.m3u8
 #EXTINF:-1 tvg-id="rtvePlay2" tvg-name="rtvePlay2" tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSo6hURGd5fxHUZL6nWRegzuxQg03BA_mTHQ4XWpI5D3BQ0vRlAAf_jc-TlDaI&s",rtvePlay2
 https://ztnr.rtve.es/ztnr/6712402.m3u8
-#EXTINF:-1 tvg-id="Sky News" tvg-logo="https://graph.facebook.com/skynews/picture?width=200&height=200" group-title="News",Sky News Extra 2
-https://skynewsau-live.akamaized.net/hls/live/2002690/skynewsau-extra2/master.m3u8
+**** #EXTINF:-1 tvg-id="Sky News" tvg-logo="https://graph.facebook.com/skynews/picture?width=200&height=200" group-title="News",Sky News Extra 2
+**** https://skynewsau-live.akamaized.net/hls/live/2002690/skynewsau-extra2/master.m3u8
 #EXTINF:-1 tvg-id="GBNews.uk" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/3/35/GB_News_Logo.svg/512px-GB_News_Logo.svg.png" group-title="News",GB News
 https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg01076-lightningintern-gbnewsnz-samsungnz/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://static-m.meteo.cat/assets-w3/images/smp/trama-smp-0.png" group-title="News",WTVD TV News.
@@ -115,30 +115,30 @@ https://ingest1-video.streaming-pro.com/canalteABR/ctestream/playlist.m3u8
 https://ingest1-video.streaming-pro.com/canaltaronja/central/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-logo="https://graph.facebook.com/betevecat/picture?width=200&height=200" group-title="General" tvg-name="",betevé 
 https://cdnapisec.kaltura.com/p/2346171/sp/234617100/playManifest/entryId/1_n6442jz0/protocol/https/format/applehttp/a.m3u8?referrer=aHR0cHM6Ly9iZXRldmUuY2F0
-#EXTINF:-1 tvg-id="Euronews.TV" tvg-logo="https://graph.facebook.com/es.euronews/picture?width=200&height=200" group-title="News" tvg-name="Euronews",Euronews
-https://39997b2f529e4793961899e546833a75.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/Samsung-es_EuroNewsLive/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-logo="negre.jpg" group-title="News" tvg-name="",Euronews France
-https://rakuten-euronews-1-nl.samsung.wurl.tv/66037cf47c8df41335fbf42b1b1b9e7f.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="" group-title="Woʀʟᴅ Sᴘoʀᴛs" tvg-logo="https://github.com/inspirationlinks/m3u/raw/live/Logos/ArenaSport.png",Arena Premium Liga 🇬🇧ᴴᴰ
-http://91.132.74.4:7374/play/a00k/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="" group-title="fut" tvg-logo="",futbol
-http://45.5.117.182:8000/play/jnl0/index.m3u8
+****#EXTINF:-1 tvg-id="Euronews.TV" tvg-logo="https://graph.facebook.com/es.euronews/picture?width=200&height=200" group-title="News" tvg-name="Euronews",Euronews
+****https://39997b2f529e4793961899e546833a75.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/Samsung-es_EuroNewsLive/playlist.m3u8
+****#EXTINF:-1 tvg-id="" tvg-logo="negre.jpg" group-title="News" tvg-name="",Euronews France
+****https://rakuten-euronews-1-nl.samsung.wurl.tv/66037cf47c8df41335fbf42b1b1b9e7f.m3u8
+****#EXTINF:-1 tvg-id="" tvg-name="" group-title="Woʀʟᴅ Sᴘoʀᴛs" tvg-logo="https://github.com/inspirationlinks/m3u/raw/live/Logos/ArenaSport.png",Arena Premium Liga 🇬🇧ᴴᴰ
+****http://91.132.74.4:7374/play/a00k/index.m3u8
+****#EXTINF:-1 tvg-id="" tvg-name="" group-title="fut" tvg-logo="",futbol
+****http://45.5.117.182:8000/play/jnl0/index.m3u8
 #EXTINF:-1 group-title="Bics US", US: CNN
 https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES", US: ESPN
-http://tvmate.icu:8080/live/7686199/9576982/14197.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES", US: YES NETWORK
-http://fl2.moveonjoy.com/YES_NETWORK/index.m3u8
-#EXTINF:-1 group-title="Bics DEPORTES", US: YES NETWORK
-http://fl5.moveonjoy.com/YES_NETWORK/index.m3u8
+****#EXTINF:-1 group-title="Bics DEPORTES", US: ESPN
+****http://tvmate.icu:8080/live/7686199/9576982/14197.m3u8
+****#EXTINF:-1 group-title="Bics DEPORTES", US: YES NETWORK
+****http://fl2.moveonjoy.com/YES_NETWORK/index.m3u8
+****#EXTINF:-1 group-title="Bics DEPORTES", US: YES NETWORK
+****http://fl5.moveonjoy.com/YES_NETWORK/index.m3u8
 #EXTINF:-1 group-title="Bics DEPORTES", Fox Deportes Español
 https://live-news-manifest.tubi.video/live-news-manifest/csm/extlive/tubiprd01,Fox-Sports-Espanol2.m3u8
 #EXTINF:-1 tvg-id="BBC News HD" tvg-name="BBC News HD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/BBC_News_2019.svg/100px-BBC_News_2019.svg.png" group-title="BBC",BBC.News
 https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/mobile_wifi_main_sd_abr_v2.m3u8
-#EXTINF:-1 tvg-id="BBC News HD" tvg-name="BBC News HD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/BBC_News_2019.svg/100px-BBC_News_2019.svg.png" group-title="BBC",BBC News HD
-https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/t=3840/v=pv14/b=5070016/main.m3u8
-#EXTINF:-1 tvg-id="BBC News HD" tvg-name="BBC News HD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/BBC_News_2019.svg/100px-BBC_News_2019.svg.png" group-title="BBC",BBC News
-https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/mobile_wifi_main_sd_abr_v2.m3u8
+****#EXTINF:-1 tvg-id="BBC News HD" tvg-name="BBC News HD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/BBC_News_2019.svg/100px-BBC_News_2019.svg.png" group-title="BBC",BBC News HD
+****https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/t=3840/v=pv14/b=5070016/main.m3u8
+****#EXTINF:-1 tvg-id="BBC News HD" tvg-name="BBC News HD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/BBC_News_2019.svg/100px-BBC_News_2019.svg.png" group-title="BBC",BBC News
+****https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/mobile_wifi_main_sd_abr_v2.m3u8
 #EXTINF:0 tvg-name="Newsmax TV" tvg-language="English" tvg-country="CA" tvg-id="Newsmax-TV" tvg-logo="https://i.imgur.com/Twkovic.gif" group-title="Entertainment",Newsmax TV
 https://nmxlive.akamaized.net/hls/live/529965/Live_1/index.m3u8
 #EXTINF:0 tvg-name="BX1" tvg-language="French" tvg-country="BE" tvg-id="BX1" tvg-logo="https://i.imgur.com/VHAYeqR.png" group-title="News",BX1
@@ -151,7 +151,7 @@ https://channel09-notusa.akamaized.net/hls/live/2094418/event01/index.m3u8
 https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8
 #EXTINF:-1 group-title="Bics Extra US", US: AL JAZEERA EN
 https://live-hls-web-aje-fa.getaj.net/AJE/03.m3u8
- #EXTINF:-1 tvg-id="Antena3.es" tvg-logo="https://i.imgur.com/USbmwiC.png" group-title="General",Antena 3 (1080p)
+#EXTINF:-1 tvg-id="Antena3.es" tvg-logo="https://i.imgur.com/USbmwiC.png" group-title="General",Antena 3 (1080p)
 https://spa-ha-p005.cdn.masmediatv.es/SVoriginOperatorEdge3/smil:7_HD.smil/manifest.m3u8
 
 #EXTINF:-1 tvg-id="Canal45.es" tvg-logo="https://i.imgur.com/yEfSnGt.png" group-title="Undefined",Canal 45 (576p)
