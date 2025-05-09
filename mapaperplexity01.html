@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <title>Mapa Satèl·lit Orientable</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    #map {
+      width: 100vw;
+      height: 100vh;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .leaflet-control-attribution {
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script>
+    // Inicialitza el mapa sense centrar-lo
+    var map = L.map('map', {
+      zoomControl: true,
+      attributionControl: true
+    });
+
+    // Capa satèl·lit lliure (OpenStreetMap)
+    var satellite = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Centra el mapa a la ubicació de l’usuari
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var lat = position.coords.latitude;
+        var lng = position.coords.longitude;
+        map.setView([lat, lng], 18);
+
+        // Marca la posició actual
+        L.marker([lat, lng]).addTo(map).bindPopup("Estàs aquí!").openPopup();
+      }, function() {
+        alert("No s'ha pogut obtenir la teva ubicació.");
+        map.setView([41.3851, 2.1734], 10); // Barcelona per defecte
+      });
+    } else {
+      alert("El teu navegador no suporta geolocalització.");
+      map.setView([41.3851, 2.1734], 10);
+    }
+
+    // Orientació segons el dispositiu
+    if (window.DeviceOrientationEvent) {
+      window.addEventListener('deviceorientationabsolute', orientaMapa, true);
+      window.addEventListener('deviceorientation', orientaMapa, true);
+    }
+
+    function orientaMapa(event) {
+      var heading = null;
+      // Per a iOS i navegadors moderns
+      if (event.absolute && event.alpha !== null) {
+        heading = event.alpha;
+      } else if (event.webkitCompassHeading !== undefined) {
+        heading = event.webkitCompassHeading;
+      } else if (event.alpha !== null) {
+        heading = 360 - event.alpha;
+      }
+      if (heading !== null) {
+        // Rota el mapa: la part superior sempre indica la direcció real
+        map.setBearing ? map.setBearing(heading) : rotateMap(heading);
+      }
+    }
+
+    // Funció per rotar el contenidor del mapa si Leaflet no té setBearing
+    function rotateMap(angle) {
+      var mapContainer = document.getElementById('map');
+      mapContainer.style.transform = 'rotate(' + angle + 'deg)';
+    }
+  </script>
+</body>
+</html>
