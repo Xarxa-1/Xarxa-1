@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <title>Mapa amb punts d'interès i distàncies</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://unpkg.com/maplibre-gl@3.6.1/dist/maplibre-gl.css" rel="stylesheet" />
+  <style>
+    html, body { height: 100%; margin: 0; padding: 0; }
+    #map { width: 100vw; height: 100vh; position: absolute; top: 0; left: 0; }
+    .distance-label {
+      background: rgba(255,255,255,0.85);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 12px;
+      color: #222;
+      border: 1px solid #888;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script src="https://unpkg.com/maplibre-gl@3.6.1/dist/maplibre-gl.js"></script>
+  <script>
+    // Punts d'interès
+    const pointsOfInterest = [
+        { id: 1, name: "Esglèsia E", lat: 41.396712, lon: 1.103376, alt: 412, color: '#FF0000' },
+        { id: 2, name: "Ermita", lat: 41.3731, lon: 1.11065, alt: 560, color: '#00FF00' },
+        { id: 3, name: "Sant Bernat", lat: 41.388193, lon: 1.083005, alt: 456, color: '#0000FF' },
+        { id: 4, name: "Roca de la Manxa", lat: 41.426297, lon: 1.115281, alt: 499, color: '#FFFF00' },
+        { id: 5, name: "Esglèsia B", lat: 41.52205, lon: 0.868813, alt: 353, color: '#FF00FF' },
+        { id: 6, name: "Novacoop", lat: 41.520159, lon: 0.862992, alt: 353, color: '#00FFFF' },
+        { id: 7, name: "Poblet", lat: 41.380406, lon: 1.083457, alt: 460, color: 'green' },
+        { id: 8, name: "La Pena", lat: 41.3597743, lon: 1.093488, alt: 800, color: 'lime' },
+        { id: 9, name: "Tarragona", lat: 41.113685, lon: 1.256539, alt: 800, color: 'coral' },
+        { id: 10, name: "Lleida", lat: 41.615100, lon: 0.627411, alt: 800, color: 'coral' }
+    ];
+
+    // Inicialitza el mapa
+    const map = new maplibregl.Map({
+      container: 'map',
+      style: {
+        version: 8,
+        sources: {
+          'satellite': {
+            'type': 'raster',
+            'tiles': [
+              'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
+            ],
+            'tileSize': 256,
+            'attribution': 'Tiles © Esri'
+          }
+        },
+        layers: [
+          {
+            id: 'satellite',
+            type: 'raster',
+            source: 'satellite',
+            minzoom: 0,
+            maxzoom: 19
+          }
+        ]
+      },
+      center: [1.103376, 41.396712], // Centre inicial a Esglèsia E
+      zoom: 12,
+      bearing: 45,
+      pitch: 0
+    });
+
+    map.addControl(new maplibregl.NavigationControl());
+
+    // Variables globals
+    let userMarker = null;
+    let userPos = null;
+    let lineIds = [];
+    let labelMarkers = [];
+
+    // Funció per calcular distància (Haversine)
+    function distance(lat1, lon1, lat2, lon2) {
+      const R = 6371000;
+      const toRad = deg => deg * Math.PI / 180;
+      const dLat = toRad(lat2 - lat1);
+      const dLon = toRad(lon2 - lon1);
+      const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+                Math.sin(dLon/2) * Math.sin(dLon/2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      return R * c;
+    }
+
+    // Dibuixa punts, línies i etiquetes de distància
+    function dibuixaLiniesIDistancies() {
+      // Esborra línies i etiquetes anteriors
+      lineIds.forEach(id => {
+        if (map.getLayer(id)) map.removeLayer(id);
+        if (map.getSource(id)) map.removeSource(id);
+      });
+      lineIds = [];
+      labelMarkers.forEach(marker => marker.remove());
+      labelMarkers = [];
+
+      pointsOfInterest.forEach((poi, idx) => {
+        // Línia només si tenim posició
+        if (userPos) {
+          const lineId = 'line-' + idx;
+          map.addSource(lineId, {
+            type: 'geojson',
+            data: {
+              type: 'Feature',
+              geometry: {
+                type: 'LineString',
+                coordinates: [
+                  [userPos[0], userPos[1]],
+                  [poi.lon, poi.lat]
+                ]
+              }
+            }
+          });
+          map.addLayer({
+            id: lineId,
+            type: 'line',
+            source: lineId,
+            layout: {},
+            paint: {
+              'line-color': poi.color,
+              'line-width': 3
+            }
+          });
+          lineIds.push(lineId);
+
+          // Distància i etiqueta
+          const dist = distance(userPos[1], userPos[0], poi.lat, poi.lon);
+          const distText = dist > 1000 ? (dist/1000).toFixed(2) + " km" : Math.round(dist) + " m";
+          const midLng = (userPos[0] + poi.lon) / 2;
+          const midLat = (userPos[1] + poi.lat) / 2;
+
+          const label = document.createElement('div');
+          label.className = 'distance-label';
+          label.textContent = distText;
+          const marker = new maplibregl.Marker({element: label})
+            .setLngLat([midLng, midLat])
+            .addTo(map);
+          labelMarkers.push(marker);
+        }
+      });
+    }
+
+    // Afegeix els punts d'interès amb el seu color
+    function afegeixPunts() {
+      pointsOfInterest.forEach(poi => {
+        const el = document.createElement('div');
+        el.style.width = '20px';
+        el.style.height = '20px';
+        el.style.background = poi.color;
+        el.style.borderRadius = '50%';
+        el.style.border = '2px solid #fff';
+        el.style.boxShadow = '0 0 4px #0006';
+        el.title = poi.name;
+        new maplibregl.Marker({element: el})
+          .setLngLat([poi.lon, poi.lat])
+          .setPopup(new maplibregl.Popup().setText(poi.name + " (" + poi.alt + " m)"))
+          .addTo(map);
+      });
+    }
+
+    map.on('load', function() {
+      afegeixPunts();
+    });
+
+    // Geolocalització i seguiment
+    if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(function(position) {
+        const lng = position.coords.longitude;
+        const lat = position.coords.latitude;
+        userPos = [lng, lat];
+
+        // Marca la posició actual
+        if (!userMarker) {
+          userMarker = new maplibregl.Marker({color: "#222"})
+            .setLngLat([lng, lat])
+            .setPopup(new maplibregl.Popup().setText("Posició actual"))
+            .addTo(map);
+        } else {
+          userMarker.setLngLat([lng, lat]);
+        }
+
+        // Dibuixa línies i etiquetes
+        dibuixaLiniesIDistancies();
+
+      }, function() {
+        alert("No s'ha pogut obtenir la teva ubicació.");
+      }, {
+        enableHighAccuracy: true,
+        maximumAge: 5000,
+        timeout: 10000
+      });
+    } else {
+      alert("El teu navegador no suporta geolocalització.");
+    }
+  </script>
+</body>
+</html>
