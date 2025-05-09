@@ -1,496 +1,87 @@
 <!DOCTYPE html>
 <html lang="ca">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brúixula</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-            background-color: #f5f5f5;
-            color: #333;
-        }
-        
-        .container {
-            text-align: center;
-            max-width: 500px;
-            width: 100%;
-            padding: 20px;
-        }
-        
-        h1 {
-            color: #2c3e50;
-            margin-bottom: 30px;
-        }
-        
-        .compass-container {
-            position: relative;
-            width: 300px;
-            height: 300px;
-            margin: 0 auto 30px;
-        }
-        
-        .compass {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background-color: #fff;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .compass-inner {
-            position: absolute;
-            top: 10%;
-            left: 10%;
-            width: 80%;
-            height: 80%;
-            border-radius: 50%;
-            background-color: #e74c3c;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-        }
-        
-        .compass-arrow {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            width: 4px;
-            height: 50%;
-            background-color: #fff;
-            transform-origin: bottom center;
-            transform: translateX(-50%) rotate(0deg);
-            z-index: 10;
-        }
-        
-        .compass-arrow:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -10px;
-            width: 0;
-            height: 0;
-            border-left: 12px solid transparent;
-            border-right: 12px solid transparent;
-            border-top: 20px solid #fff;
-        }
-        
-        .compass-markers {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-        
-        .compass-marker {
-            position: absolute;
-            width: 2px;
-            height: 15px;
-            background-color: #333;
-            transform-origin: bottom center;
-        }
-        
-        .compass-cardinal {
-            position: absolute;
-            font-weight: bold;
-            color: #333;
-            font-size: 14px;
-            width: 20px;
-            height: 20px;
-            text-align: center;
-            line-height: 20px;
-        }
-        
-        .compass-location-marker {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            transform-origin: bottom center;
-            z-index: 5;
-        }
-        
-        .compass-location-label {
-            position: absolute;
-            font-size: 12px;
-            font-weight: bold;
-            transform-origin: center;
-            white-space: nowrap;
-            z-index: 5;
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 2px 5px;
-            border-radius: 3px;
-        }
-        
-        .info {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .coordinates {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 15px;
-        }
-        
-        .coordinate {
-            padding: 8px 15px;
-            background-color: #3498db;
-            color: white;
-            border-radius: 4px;
-        }
-        
-        .locations-list {
-            margin-top: 20px;
-            text-align: left;
-            max-height: 200px;
-            overflow-y: auto;
-            padding: 10px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .location-item {
-            padding: 8px;
-            margin: 5px 0;
-            border-bottom: 1px solid #eee;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        
-        .location-item:hover {
-            background-color: #f0f0f0;
-        }
-        
-        @media (max-width: 500px) {
-            .compass-container {
-                width: 250px;
-                height: 250px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Brúixola Simple</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f0f0f0;
+    }
+    #compass {
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border: 2px solid #333;
+      display: block;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Brújula en Línia amb Punts d'Interès</h1>
-        
-        <div class="compass-container">
-            <div class="compass">
-                <div class="compass-markers" id="markers"></div>
-                <div class="compass-arrow" id="arrow"></div>
-                <div class="compass-inner" id="direction">N</div>
-            </div>
-        </div>
-        
-        <div class="info">
-            <p>Mou el dispositiu per veure canviar la direcció de la brújula</p>
-            <div class="coordinates">
-                <div class="coordinate" id="latitude">Latitud: --</div>
-                <div class="coordinate" id="longitude">Longitud: --</div>
-            </div>
-        </div>
-        
-        <div class="locations-list" id="locationsList"></div>
-    </div>
+  <canvas id="compass" width="40" height="40"></canvas>
+  <script>
+    const canvas = document.getElementById('compass');
+    const ctx = canvas.getContext('2d');
+    const center = 20; // Centre de la brúixola
+    const radius = 18; // Radi lleugerament menor per deixar marge
+    const needleLength = 10; // Longitud de la línia (20px total, 10px cap amunt)
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const arrow = document.getElementById('arrow');
-            const direction = document.getElementById('direction');
-            const latitudeEl = document.getElementById('latitude');
-            const longitudeEl = document.getElementById('longitude');
-            const markersContainer = document.getElementById('markers');
-            const locationsList = document.getElementById('locationsList');
-            
-            // Datos de los lugares
-            const locations = [
-                { id: 1, name: "Esglèsia", lat: 41.396712, lon: 1.103376, alt: 412, color: '#FF0000' },
-                { id: 2, name: "Ermita", lat: 41.3731, lon: 1.11065, alt: 560, color: '#00FF00' },
-                { id: 3, name: "Sant Bernat", lat: 41.388193, lon: 1.083005, alt: 456, color: '#0000FF' },
-                { id: 4, name: "Roca de la Manxa", lat: 41.426297, lon: 1.115281, alt: 499, color: '#FFFF00' },
-                { id: 5, name: "Nou Lloc 1", lat: 41.52205, lon: 0.868813, alt: 353, color: '#FF00FF' },
-                { id: 6, name: "Novacoop", lat: 41.520159, lon: 0.0862992, alt: 353, color: '#00FFFF' }
-            ];
-            
-            // Variables para la posición actual
-            let currentPosition = {
-                latitude: null,
-                longitude: null
-            };
-            
-            // Crear marcadores de grados y puntos cardinales
-            function createCompassMarkers() {
-                // Marcadores de grados
-                for (let i = 0; i < 360; i += 5) {
-                    const marker = document.createElement('div');
-                    marker.className = 'compass-marker';
-                    marker.style.transform = `rotate(${i}deg) translateY(-140px)`;
-                    
-                    // Hacer más largos los marcadores cada 15 grados
-                    if (i % 15 === 0) {
-                        marker.style.height = '20px';
-                    }
-                    
-                    // Hacer aún más largos los marcadores cada 90 grados (N, E, S, W)
-                    if (i % 90 === 0) {
-                        marker.style.height = '25px';
-                        marker.style.backgroundColor = '#e74c3c';
-                    }
-                    
-                    markersContainer.appendChild(marker);
-                }
-                
-                // Puntos cardinales principales (N, E, S, O)
-                const mainCardinals = [
-                    { angle: 0, text: 'N' },
-                    { angle: 90, text: 'E' },
-                    { angle: 180, text: 'S' },
-                    { angle: 270, text: 'O' }
-                ];
-                
-                // Puntos cardinales intermedios (NE, SE, SO, NO)
-                const interCardinals = [
-                    { angle: 45, text: 'NE' },
-                    { angle: 135, text: 'SE' },
-                    { angle: 225, text: 'SO' },
-                    { angle: 315, text: 'NO' }
-                ];
-                
-                // Añadir puntos cardinales principales
-                mainCardinals.forEach(cardinal => {
-                    addCardinalMarker(cardinal.angle, cardinal.text, 130, 16);
-                });
-                
-                // Añadir puntos cardinales intermedios
-                interCardinals.forEach(cardinal => {
-                    addCardinalMarker(cardinal.angle, cardinal.text, 130, 14);
-                });
-            }
-            
-            function addCardinalMarker(angle, text, radius, fontSize) {
-                const cardinal = document.createElement('div');
-                cardinal.className = 'compass-cardinal';
-                cardinal.textContent = text;
-                cardinal.style.fontSize = `${fontSize}px`;
-                
-                const angleRad = angle * Math.PI / 180;
-                const x = 150 + Math.sin(angleRad) * radius;
-                const y = 150 - Math.cos(angleRad) * radius;
-                
-                cardinal.style.left = `${x - 10}px`;
-                cardinal.style.top = `${y - 10}px`;
-                cardinal.style.transform = `rotate(${-angle}deg)`;
-                
-                markersContainer.appendChild(cardinal);
-            }
-            
-            // Mostrar lista de lugares
-            function createLocationsList() {
-                locations.forEach(location => {
-                    const locationItem = document.createElement('div');
-                    locationItem.className = 'location-item';
-                    locationItem.innerHTML = `<span style="color:${location.color}">●</span> ${location.name}`;
-                    locationItem.addEventListener('click', () => {
-                        highlightLocation(location);
-                    });
-                    locationsList.appendChild(locationItem);
-                });
-            }
-            
-            // Comprobar si el navegador soporta la API de orientación del dispositivo
-            function setupDeviceOrientation() {
-                if (window.DeviceOrientationEvent) {
-                    window.addEventListener('deviceorientation', function(event) {
-                        const alpha = event.alpha; // Rotación alrededor del eje z (0-360)
-                        
-                        if (alpha !== null) {
-                            // Rotar la flecha en dirección opuesta para compensar el movimiento
-                            arrow.style.transform = `translateX(-50%) rotate(${-alpha}deg)`;
-                            
-                            // Actualizar la dirección cardinal
-                            updateDirection(alpha);
-                            
-                            // Actualizar marcadores de ubicación
-                            updateLocationMarkers(alpha);
-                        }
-                    });
-                } else {
-                    direction.textContent = "No soportat";
-                    alert("El teu navegador no suporta l'API d'Orientació del Dispositiu. Prova amb un navegador modern o un dispositiu mòbil.");
-                }
-            }
-            
-            // Obtener coordenadas GPS
-            function setupGeolocation() {
-                if (navigator.geolocation) {
-                    navigator.geolocation.watchPosition(
-                        function(position) {
-                            currentPosition.latitude = position.coords.latitude;
-                            currentPosition.longitude = position.coords.longitude;
-                            
-                            latitudeEl.textContent = `Latitud: ${currentPosition.latitude.toFixed(6)}`;
-                            longitudeEl.textContent = `Longitud: ${currentPosition.longitude.toFixed(6)}`;
-                            
-                            updateLocationMarkers();
-                        },
-                        function(error) {
-                            console.error("Error al obtener la ubicación:", error);
-                        },
-                        { enableHighAccuracy: true }
-                    );
-                } else {
-                    latitudeEl.textContent = "Geolocalització no soportada";
-                    longitudeEl.textContent = "";
-                }
-            }
-            
-            function updateDirection(degrees) {
-                // Normalizar los grados
-                degrees = (degrees + 360) % 360;
-                
-                // Determinar la dirección cardinal
-                let cardinal;
-                if (degrees >= 337.5 || degrees < 22.5) cardinal = 'N';
-                else if (degrees >= 22.5 && degrees < 67.5) cardinal = 'NE';
-                else if (degrees >= 67.5 && degrees < 112.5) cardinal = 'E';
-                else if (degrees >= 112.5 && degrees < 157.5) cardinal = 'SE';
-                else if (degrees >= 157.5 && degrees < 202.5) cardinal = 'S';
-                else if (degrees >= 202.5 && degrees < 247.5) cardinal = 'SO';
-                else if (degrees >= 247.5 && degrees < 292.5) cardinal = 'O';
-                else if (degrees >= 292.5 && degrees < 337.5) cardinal = 'NO';
-                
-                direction.textContent = `${cardinal} ${Math.round(degrees)}°`;
-            }
-            
-            function updateLocationMarkers(heading = 0) {
-                // Eliminar marcadores antiguos
-                const oldMarkers = document.querySelectorAll('.compass-location-marker, .compass-location-label');
-                oldMarkers.forEach(marker => marker.remove());
-                
-                if (!currentPosition.latitude || !currentPosition.longitude) return;
-                
-                // Calcular y mostrar marcadores para cada ubicación
-                locations.forEach(location => {
-                    const bearing = calculateBearing(
-                        currentPosition.latitude, 
-                        currentPosition.longitude, 
-                        location.lat, 
-                        location.lon
-                    );
-                    
-                    // Crear marcador
-                    const marker = document.createElement('div');
-                    marker.className = 'compass-location-marker';
-                    marker.style.backgroundColor = location.color;
-                    
-                    // Posicionar marcador
-                    const angleRad = bearing * Math.PI / 180;
-                    const x = 150 + Math.sin(angleRad) * 120;
-                    const y = 150 - Math.cos(angleRad) * 120;
-                    
-                    marker.style.left = `${x - 5}px`;
-                    marker.style.top = `${y - 5}px`;
-                    
-                    // Crear etiqueta
-                    const label = document.createElement('div');
-                    label.className = 'compass-location-label';
-                    label.textContent = location.name;
-                    label.style.color = location.color;
-                    
-                    // Posicionar etiqueta (un poco más afuera)
-                    const labelX = 150 + Math.sin(angleRad) * 140;
-                    const labelY = 150 - Math.cos(angleRad) * 140;
-                    
-                    label.style.left = `${labelX - 30}px`;
-                    label.style.top = `${labelY - 10}px`;
-                    label.style.transform = `rotate(${-bearing}deg)`;
-                    
-                    // Añadir al contenedor
-                    markersContainer.appendChild(marker);
-                    markersContainer.appendChild(label);
-                });
-            }
-            
-            function highlightLocation(location) {
-                if (!currentPosition.latitude || !currentPosition.longitude) {
-                    alert("Esperant a obtenir la teva ubicació...");
-                    return;
-                }
-                
-                const bearing = calculateBearing(
-                    currentPosition.latitude, 
-                    currentPosition.longitude, 
-                    location.lat, 
-                    location.lon
-                );
-                
-                const distance = calculateDistance(
-                    currentPosition.latitude, 
-                    currentPosition.longitude, 
-                    location.lat, 
-                    location.lon
-                );
-                
-                alert(`Direcció a ${location.name}:\n${Math.round(bearing)}° (${getCardinalDirection(bearing)})\nDistància: ${(distance/1000).toFixed(2)} km`);
-            }
-            
-            function getCardinalDirection(degrees) {
-                degrees = (degrees + 360) % 360;
-                const directions = ['N', 'NE', 'E', 'SE', 'S', 'SO', 'O', 'NO'];
-                return directions[Math.round(degrees / 45) % 8];
-            }
-            
-            // Calcular el rumbo (bearing) entre dos puntos geográficos
-            function calculateBearing(lat1, lon1, lat2, lon2) {
-                const φ1 = lat1 * Math.PI / 180;
-                const φ2 = lat2 * Math.PI / 180;
-                const Δλ = (lon2 - lon1) * Math.PI / 180;
-                
-                const y = Math.sin(Δλ) * Math.cos(φ2);
-                const x = Math.cos(φ1) * Math.sin(φ2) - Math.sin(φ1) * Math.cos(φ2) * Math.cos(Δλ);
-                const θ = Math.atan2(y, x);
-                
-                return (θ * 180 / Math.PI + 360) % 360;
-            }
-            
-            // Calcular distancia entre dos puntos (en metros)
-            function calculateDistance(lat1, lon1, lat2, lon2) {
-                const R = 6371e3; // Radio de la Tierra en metros
-                const φ1 = lat1 * Math.PI / 180;
-                const φ2 = lat2 * Math.PI / 180;
-                const Δφ = (lat2 - lat1) * Math.PI / 180;
-                const Δλ = (lon2 - lon1) * Math.PI / 180;
-                
-                const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
-                          Math.cos(φ1) * Math.cos(φ2) *
-                          Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
-                const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-                
-                return R * c;
-            }
-            
-            // Inicializar la aplicación
-            createCompassMarkers();
-            createLocationsList();
-            setupDeviceOrientation();
-            setupGeolocation();
-        });
-    </script>
+    // Dibuixa la brúixola i l'agulla
+    function drawCompass(angle = 0) {
+      ctx.clearRect(0, 0, 40, 40);
+
+      // Cercle exterior
+      ctx.beginPath();
+      ctx.arc(center, center, radius, 0, 2 * Math.PI);
+      ctx.strokeStyle = '#333';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Marca la N
+      ctx.font = '8px Arial';
+      ctx.fillStyle = '#c00';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+      ctx.fillText('N', center, 2);
+
+      // Agulla (nord)
+      ctx.save();
+      ctx.translate(center, center);
+      ctx.rotate(angle);
+
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(0, -needleLength);
+      ctx.strokeStyle = '#c00';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+      ctx.restore();
+    }
+
+    // Inicialitza la brúixola a 0º
+    drawCompass(0);
+
+    // Gestiona l'orientació del dispositiu
+    if (window.DeviceOrientationEvent) {
+      window.addEventListener('deviceorientation', function(event) {
+        // event.alpha dona la rotació respecte al nord (en graus)
+        let heading = event.alpha;
+        if (typeof event.webkitCompassHeading !== "undefined") {
+          // Safari i iOS
+          heading = event.webkitCompassHeading;
+        }
+        // Converteix graus a radians i ajusta perquè 0 apunti cap amunt
+        const angle = ((heading || 0) * Math.PI / 180) * -1;
+        drawCompass(angle);
+      }, true);
+    } else {
+      // Si no és compatible, mostra la brúixola fixa
+      drawCompass(0);
+    }
+  </script>
 </body>
 </html>
