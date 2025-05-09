@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <title>Mapa Satèl·lit Orientable</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- MapLibre GL CSS -->
+  <link href="https://unpkg.com/maplibre-gl@3.6.1/dist/maplibre-gl.css" rel="stylesheet" />
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    #map {
+      width: 100vw;
+      height: 100vh;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <!-- MapLibre GL JS -->
+  <script src="https://unpkg.com/maplibre-gl@3.6.1/dist/maplibre-gl.js"></script>
+  <script>
+    // Capa satèl·lit lliure (Esri World Imagery, ús no comercial)
+    const SATELLITE_SOURCE = {
+      'type': 'raster',
+      'tiles': [
+        'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
+      ],
+      'tileSize': 256,
+      'attribution': 'Tiles © Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+    };
+
+    // Inicialitza el mapa
+    const map = new maplibregl.Map({
+      container: 'map',
+      style: {
+        version: 8,
+        sources: {
+          'satellite': SATELLITE_SOURCE
+        },
+        layers: [
+          {
+            id: 'satellite',
+            type: 'raster',
+            source: 'satellite',
+            minzoom: 0,
+            maxzoom: 19
+          }
+        ]
+      },
+      center: [2.1734, 41.3851], // Barcelona per defecte
+      zoom: 18,
+      pitch: 0,
+      bearing: 0
+    });
+
+    // Control de navegació
+    map.addControl(new maplibregl.NavigationControl());
+
+    // Geolocalització i seguiment
+    if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(function(position) {
+        const lng = position.coords.longitude;
+        const lat = position.coords.latitude;
+        map.setCenter([lng, lat]);
+        // Marca la posició actual
+        if (!window.userMarker) {
+          window.userMarker = new maplibregl.Marker().setLngLat([lng, lat]).addTo(map);
+        } else {
+          window.userMarker.setLngLat([lng, lat]);
+        }
+      }, function() {
+        alert("No s'ha pogut obtenir la teva ubicació.");
+      }, {
+        enableHighAccuracy: true,
+        maximumAge: 5000,
+        timeout: 10000
+      });
+    } else {
+      alert("El teu navegador no suporta geolocalització.");
+    }
+
+    // Orientació segons el dispositiu
+    function orientaMapa(event) {
+      let heading = null;
+      // Per a iOS i navegadors moderns
+      if (event.absolute && event.alpha !== null) {
+        heading = event.alpha;
+      } else if (event.webkitCompassHeading !== undefined) {
+        heading = event.webkitCompassHeading;
+      } else if (event.alpha !== null) {
+        heading = 360 - event.alpha;
+      }
+      if (heading !== null) {
+        map.rotateTo(heading, { duration: 0 });
+      }
+    }
+
+    if (window.DeviceOrientationEvent) {
+      window.addEventListener('deviceorientationabsolute', orientaMapa, true);
+      window.addEventListener('deviceorientation', orientaMapa, true);
+    }
+  </script>
+</body>
+</html>
