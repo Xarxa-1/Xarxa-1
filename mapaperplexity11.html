@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <title>Mapa Satèl·lit amb MapLibre GL JS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- MapLibre GL JS CSS -->
+  <link href="https://unpkg.com/maplibre-gl@5.4.0/dist/maplibre-gl.css" rel="stylesheet" />
+  <style>
+    html, body, #map {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    #headingBox {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(255,255,255,0.95);
+      color: #222;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-family: sans-serif;
+      font-size: 1rem;
+      z-index: 10;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      min-width: 140px;
+      text-align: center;
+      pointer-events: none;
+    }
+    .maplibregl-popup {
+      font-family: sans-serif;
+      font-size: 1em;
+    }
+    .distance-label {
+      background: rgba(255,255,255,0.85);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 0.95em;
+      color: #222;
+      font-family: sans-serif;
+      border: 1px solid #ddd;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <div id="headingBox">Orientació: --°</div>
+  <div id="map"></div>
+  <!-- MapLibre GL JS -->
+  <script src="https://unpkg.com/maplibre-gl@5.4.0/dist/maplibre-gl.js"></script>
+  <script>
+    // --- Configuració de punts d'interès ---
+    const POIS = [
+      { id: 1, name: "Esglèsia E", lat: 41.396712, lon: 1.103376, alt: 412, color: '#FF0000' },
+      { id: 2, name: "Ermita", lat: 41.3731, lon: 1.11065, alt: 560, color: '#00FF00' },
+      { id: 3, name: "Sant Bernat", lat: 41.388193, lon: 1.083005, alt: 456, color: '#0000FF' },
+      { id: 4, name: "Roca de la Manxa", lat: 41.426297, lon: 1.115281, alt: 499, color: '#FFFF00' },
+      { id: 5, name: "Esglèsia B", lat: 41.52205, lon: 0.868813, alt: 353, color: '#FF00FF' },
+      { id: 6, name: "Novacoop", lat: 41.520159, lon: 0.862992, alt: 353, color: '#00FFFF' },
+      { id: 7, name: "Poblet", lat: 41.380406, lon: 1.083457, alt: 460, color: 'green' },
+      { id: 8, name: "La Pena", lat: 41.3597743, lon: 1.093488, alt: 800, color: 'lime' },
+      { id: 9, name: "Tarragona", lat: 41.113685, lon: 1.256539, alt: 800, color: 'coral' },
+      { id: 10, name: "Lleida", lat: 41.615100, lon: 0.627411, alt: 800, color: 'coral' },
+      { id: 11, name: "Lleida Pl Cervantes", lat: 41.6159085, lon: 0.6180916, alt: 651, color: 'blue' },
+      { id: 12, name: "Lleida Gardeny", lat: 41.6047971, lon: 0.6021415, alt: 651, color: 'gray' },
+      { id: 13, name: "Lleida DGT", lat: 41.6209321, lon: 0.6096191, alt: 651, color: 'narrow' }
+    ];
+
+    // --- Utilitats ---
+    function haversine(lat1, lon1, lat2, lon2) {
+      const R = 6371000; // Radi de la Terra en metres
+      const toRad = x => x * Math.PI / 180;
+      const dLat = toRad(lat2 - lat1);
+      const dLon = toRad(lon2 - lon1);
+      const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+                Math.sin(dLon/2) * Math.sin(dLon/2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      return R * c;
+    }
+    function formatDistance(meters) {
+      if (meters < 1000) return meters.toFixed(1) + " m";
+      return (meters/1000).toFixed(2) + " km";
+    }
+    function midpoint(lat1, lon1, lat2, lon2) {
+      // Retorna el punt mig geodèsic (no simplement la mitjana)
+      const toRad = x => x * Math.PI / 180;
+      const toDeg = x => x * 180 / Math.PI;
+      const dLon = toRad(lon2 - lon1);
+
+      lat1 = toRad(lat1); lat2 = toRad(lat2); lon1 = toRad(lon1);
+
+      const Bx = Math.cos(lat2) * Math.cos(dLon);
+      const By = Math.cos(lat2) * Math.sin(dLon);
+
+      const lat3 = Math.atan2(
+        Math.sin(lat1) + Math.sin(lat2),
+        Math.sqrt((Math.cos(lat1) + Bx) * (Math.cos(lat1) + Bx) + By * By)
+      );
+      const lon3 = lon1 + Math.atan2(By, Math.cos(lat1) + Bx);
+
+      return [toDeg(lat3), toDeg(lon3)];
+    }
+
+    // --- Inicialització del mapa ---
+    const map = new maplibregl.Map({
+      container: 'map',
+      style: {
+        "version": 8,
+        "sources": {
+          "esri-sat": {
+            "type": "raster",
+            "tiles": [
+              "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+            ],
+            "tileSize": 256,
+            "attribution": "Esri, Maxar, Earthstar Geographics"
+          }
+        },
+        "layers": [
+          {
+            "id": "esri-sat",
+            "type": "raster",
+            "source": "esri-sat",
+            "minzoom": 0,
+            "maxzoom": 19
+          }
+        ]
+      },
+      center: [1.103376, 41.396712], // Centrat inicial (Esglèsia E)
+      zoom: 10,
+      pitch: 0,
+      bearing: 0
+    });
+
+    // Controls de navegació
+    map.addControl(new maplibregl.NavigationControl());
+
+    // --- Variables globals ---
+    let userMarker = null;
+    let userCoords = null;
+    let userWatchId = null;
+    let linesSourceId = "user-poi-lines";
+    let distanceLabels = [];
+    let lastUserCoords = null;
+
+    // --- Dibuixa punts d'interès ---
+    function createPoiMarker(poi) {
+      // Crea un element DOM pel marcador amb el color especificat
+      const el = document.createElement('div');
+      el.style.width = '18px';
+      el.style.height = '18px';
+      el.style.borderRadius = '50%';
+      el.style.background = poi.color;
+      el.style.border = '2px solid #222';
+      el.style.boxShadow = '0 0 4px #0003';
+      el.style.cursor = 'pointer';
+      // Popup amb nom i altitud
+      const popup = new maplibregl.Popup({ offset: 18 })
+        .setHTML(`<strong>${poi.name}</strong><br>Altitud: ${poi.alt} m`);
+      // Crea el marcador
+      new maplibregl.Marker(el)
+        .setLngLat([poi.lon, poi.lat])
+        .setPopup(popup)
+        .addTo(map);
+    }
+    POIS.forEach(createPoiMarker);
+
+    // --- Dibuixa línies i etiquetes de distància ---
+    function drawLinesAndLabels() {
+      // Elimina etiquetes anteriors
+      distanceLabels.forEach(label => label.remove());
+      distanceLabels = [];
+      if (!userCoords) return;
+
+      // GeoJSON de línies
+      const features = [];
+      POIS.forEach((poi, idx) => {
+        features.push({
+          type: "Feature",
+          geometry: {
+            type: "LineString",
+            coordinates: [
+              [userCoords.longitude, userCoords.latitude],
+              [poi.lon, poi.lat]
+            ]
+          },
+          properties: {
+            color: poi.color,
+            id: poi.id
+          }
+        });
+      });
+
+      // Si la font ja existeix, actualitza; si no, afegeix
+      if (map.getSource(linesSourceId)) {
+        map.getSource(linesSourceId).setData({
+          type: "FeatureCollection",
+          features: features
+        });
+      } else {
+        map.addSource(linesSourceId, {
+          type: "geojson",
+          data: {
+            type: "FeatureCollection",
+            features: features
+          }
+        });
+        map.addLayer({
+          id: linesSourceId,
+          type: "line",
+          source: linesSourceId,
+          paint: {
+            "line-color": ['get', 'color'],
+            "line-width": 2,
+            "line-dasharray": [2, 2]
+          }
+        });
+      }
+
+      // Etiquetes de distància (divs flotants)
+      POIS.forEach((poi, idx) => {
+        const dist = haversine(userCoords.latitude, userCoords.longitude, poi.lat, poi.lon);
+        const [midLat, midLon] = midpoint(userCoords.latitude, userCoords.longitude, poi.lat, poi.lon);
+        const label = document.createElement('div');
+        label.className = 'distance-label';
+        label.textContent = formatDistance(dist);
+
+        // Projecta la posició al mapa
+        const point = map.project([midLon, midLat]);
+        label.style.position = 'absolute';
+        label.style.left = `${point.x - 40}px`;
+        label.style.top = `${point.y - 15}px`;
+        label.style.borderColor = poi.color;
+        label.style.borderWidth = "2px";
+        label.style.borderStyle = "solid";
+        label.style.background = "#fff";
+        label.style.zIndex = 9;
+        map.getContainer().appendChild(label);
+        distanceLabels.push(label);
+      });
+    }
+
+    // Actualitza posició de les etiquetes quan el mapa es mou
+    function updateDistanceLabels() {
+      if (!userCoords) return;
+      POIS.forEach((poi, idx) => {
+        if (!distanceLabels[idx]) return;
+        const [midLat, midLon] = midpoint(userCoords.latitude, userCoords.longitude, poi.lat, poi.lon);
+        const point = map.project([midLon, midLat]);
+        distanceLabels[idx].style.left = `${point.x - 40}px`;
+        distanceLabels[idx].style.top = `${point.y - 15}px`;
+      });
+    }
+    map.on('move', updateDistanceLabels);
+    map.on('resize', updateDistanceLabels);
+
+    // --- Geolocalització de l'usuari ---
+    function setUserMarker(position) {
+      userCoords = position.coords;
+      // Si ja existeix el marcador, mou-lo; si no, crea'l
+      if (userMarker) {
+        userMarker.setLngLat([userCoords.longitude, userCoords.latitude]);
+      } else {
+        // Crea marcador negre
+        const el = document.createElement('div');
+        el.style.width = '22px';
+        el.style.height = '22px';
+        el.style.background = '#000';
+        el.style.border = '3px solid #fff';
+        el.style.borderRadius = '50%';
+        el.style.boxShadow = '0 0 8px #0006';
+        userMarker = new maplibregl.Marker(el)
+          .setLngLat([userCoords.longitude, userCoords.latitude])
+          .addTo(map);
+      }
+      // Centra el mapa la primera vegada
+      if (!lastUserCoords) {
+        map.flyTo({ center: [userCoords.longitude, userCoords.latitude], zoom: 14 });
+      }
+      // Dibuixa línies i etiquetes
+      drawLinesAndLabels();
+      updateDistanceLabels();
+      lastUserCoords = { ...userCoords };
+    }
+
+    // Control de moviment mínim (5 metres)
+    function coordsMovedEnough(newCoords, oldCoords) {
+      if (!oldCoords) return true;
+      const d = haversine(newCoords.latitude, newCoords.longitude, oldCoords.latitude, oldCoords.longitude);
+      return d > 5;
+    }
+
+    // Geolocalització manual amb watchPosition
+    function startGeolocation() {
+      if (!navigator.geolocation) {
+        alert("El teu navegador no suporta geolocalització.");
+        return;
+      }
+      userWatchId = navigator.geolocation.watchPosition(
+        pos => {
+          if (coordsMovedEnough(pos.coords, lastUserCoords)) {
+            setUserMarker(pos);
+          }
+        },
+        err => {
+          alert("No s'ha pogut obtenir la posició de l'usuari.");
+        },
+        { enableHighAccuracy: true, maximumAge: 3000, timeout: 10000 }
+      );
+    }
+    map.on('load', startGeolocation);
+
+    // --- Control d'orientació del dispositiu ---
+    let lastHeading = null;
+    let lastHeadingUpdate = 0;
+    function setHeadingBox(angle) {
+      document.getElementById('headingBox').textContent = `Orientació: ${Math.round(angle)}°`;
+    }
+    function rotateMapToHeading(angle) {
+      map.rotateTo(angle, { duration: 800 });
+    }
+    // Actualitza cada 5 segons
+    window.addEventListener('deviceorientationabsolute' in window ? 'deviceorientationabsolute' : 'deviceorientation', function(event) {
+      let heading = event.alpha;
+      if (typeof event.webkitCompassHeading !== "undefined") {
+        heading = event.webkitCompassHeading; // iOS Safari
+      }
+      if (heading == null || isNaN(heading)) return;
+      const now = Date.now();
+      if (now - lastHeadingUpdate > 5000) {
+        lastHeading = heading;
+        setHeadingBox(heading);
+        rotateMapToHeading(heading);
+        lastHeadingUpdate = now;
+      }
+    }, true);
+
+    // --- Responsive: el mapa sempre ocupa el 100% ---
+    window.addEventListener('resize', () => {
+      map.resize();
+      updateDistanceLabels();
+    });
+  </script>
+</body>
+</html>
