@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lector RSS</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --background-color: #f9f9f9;
+            --text-color: #333;
+            --border-color: #e0e0e0;
+            --hover-color: #2980b9;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        #rssContent {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+            text-align: center;
+        }
+
+        h2 {
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .article {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .article:last-child {
+            border-bottom: none;
+        }
+
+        .article p {
+            margin: 0.8rem 0;
+            font-size: 1.1rem;
+            color: var(--text-color);
+        }
+
+        .pub-date {
+            font-size: 0.9rem;
+            color: #666;
+            font-style: italic;
+            margin-top: 0.5rem;
+        }
+
+        .content {
+            line-height: 1.7;
+        }
+
+        .content img {
+            max-width: 100%;
+            height: auto;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+
+        a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--hover-color);
+            text-decoration: underline;
+        }
+
+        /* Estilos responsivos */
+        @media (max-width: 768px) {
+            #rssContent {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            #rssContent {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="rssContent" role="main">
+        <h1 id="main-title" tabindex="-1">Carregant contingut RSS...</h1>
+    </div>
+
+    <script>
+        // URL de l'RSS
+        var rssUrl = 'https://app.ebando.es/api/v1/rss/esplugadefrancoli';
+
+        // Funció per formatejar la data en el format desitjat
+        function formatData(pubDate) {
+            moment.locale('ca');
+            return moment(pubDate).format('HH:mm - dddd, D MMMM YYYY');
+        }
+
+        // Funció per netejar i formatar el contingut HTML
+        function cleanContent(html) {
+            if (!html) return '';
+
+            const div = document.createElement('div');
+            div.innerHTML = html;
+
+            // Convertir enlaces para que se abran en nueva pestaña
+            const links = div.querySelectorAll('a');
+            links.forEach(link => {
+                link.setAttribute('target', '_blank');
+                link.setAttribute('rel', 'noopener noreferrer');
+            });
+
+            // Asegurar que las imágenes sean responsivas
+            const images = div.querySelectorAll('img');
+            images.forEach(img => {
+                img.style.maxWidth = '100%';
+                img.style.height = 'auto';
+            });
+
+            return div.innerHTML;
+        }
+
+        // Funció per carregar i mostrar l'RSS
+        function carregarRSS() {
+            fetch(rssUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Error HTTP: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    var parser = new DOMParser();
+                    var xmlDoc = parser.parseFromString(data, 'text/xml');
+
+                    // Verificar si hay errores en el XML
+                    const errorNode = xmlDoc.querySelector('parsererror');
+                    if (errorNode) {
+                        throw new Error('Error al analitzar el XML RSS');
+                    }
+
+                    var channelTitle = xmlDoc.querySelector('channel title').textContent;
+                    var items = xmlDoc.querySelectorAll('item');
+                    var rssContent = document.getElementById('rssContent');
+
+                    // Canviar el títol de la pàgina
+                    document.title = channelTitle + ' - Lector RSS';
+
+                    // Actualizar el título principal
+                    const mainTitle = document.getElementById('main-title');
+                    mainTitle.textContent = channelTitle;
+
+                    // Mostrar els ítems
+                    if (items.length === 0) {
+                        rssContent.innerHTML += '<p>No hi ha elements per mostrar.</p>';
+                        return;
+                    }
+
+                    items.forEach(item => {
+                        var title = item.querySelector('title').textContent;
+                        var contentEncoded = item.querySelector('content\\:encoded')?.textContent ||
+                                            item.querySelector('encoded')?.textContent ||
+                                            item.querySelector('description').textContent;
+                        var pubDate = item.querySelector('pubDate').textContent;
+                        var link = item.querySelector('link')?.textContent || '#';
+
+                        var dataFormatejada = formatData(pubDate);
+                        var contentClean = cleanContent(contentEncoded);
+
+                        // Crear l'article
+                        var article = document.createElement('article');
+                        article.className = 'article';
+                        article.innerHTML =
+                            `<h2>${title}</h2>
+                             <div class="content">${contentClean}</div>
+                             <p class="pub-date">Publicat: ${dataFormatejada}</p>`;
+                        rssContent.appendChild(article);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error en carregar l\'RSS: ', error);
+                    const rssContent = document.getElementById('rssContent');
+                    rssContent.innerHTML = `
+                        <h1>Error en carregar el contingut</h1>
+                        <p>No s'ha pogut carregar el contingut RSS. Si us plau, intenta-ho més tard.</p>
+                        <p>Detalls de l'error: ${error.message}</p>
+                    `;
+                });
+        }
+
+        // Carregar l'RSS quan la pàgina s'hagi carregat
+        window.addEventListener('DOMContentLoaded', carregarRSS);
+    </script>
+</body>
+</html>
