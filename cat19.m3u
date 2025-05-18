@@ -17,7 +17,7 @@ https://directes-tv-cat.3catdirectes.cat/live-content/super3-hls/master.m3u8
 https://directes-tv-int.3catdirectes.cat/live-content/bondia-hls/master.m3u8
 #EXTINF:-1 tvg-id="LleidaTV" tvg-logo="https://www.laxarxa.cat/images/logolaxarxa-quadratpermenufixe.png" group-title="General",laXarxa
 https://bcovlive-a.akamaihd.net/0dcc260b00d541609a19916858a71c9b/eu-west-1/5779379807001/profile_0/chunklist_dvr.m3u8
-#EXTINF:-1 tvg-id="BarçaOne"  tvg-logo="https://play-lh.googleusercontent.com/Aqp_wNSGx1JGiuOD5FHk3fa5iQcZ2NzB9hy75N5lBrDm2OrQ_Jnka7__-yXQe1pjHCM=w480-h960-rw" group-title="General",BarçaOne
+#EXTINF:-1 tvg-id="BarçaOne"  tvg-logo="https://www.celh.es/wp-content/uploads/2021/02/escut-barca.png" group-title="General",BarçaOne
 https://live-edge-par-1.cdn.enetres.net/0A0F71E9CC1B44ABA095DF1459442350027/live-2500/index.m3u8
 #EXTINF:-1 tvg-id="BarçaOne"  tvg-logo="https://www.celh.es/wp-content/uploads/2021/02/escut-barca.png" group-title="General",BarçaOne
 https://play.cdn.enetres.net/0A0F71E9CC1B44ABA095DF1459442350027/021/ab/playlist.m3u8
