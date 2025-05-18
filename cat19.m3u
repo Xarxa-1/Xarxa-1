@@ -19,9 +19,10 @@ https://directes-tv-int.3catdirectes.cat/live-content/bondia-hls/master.m3u8
 https://bcovlive-a.akamaihd.net/0dcc260b00d541609a19916858a71c9b/eu-west-1/5779379807001/profile_0/chunklist_dvr.m3u8
 #EXTINF:-1 tvg-id="BarçaOne"  tvg-logo="https://play-lh.googleusercontent.com/Aqp_wNSGx1JGiuOD5FHk3fa5iQcZ2NzB9hy75N5lBrDm2OrQ_Jnka7__-yXQe1pjHCM=w480-h960-rw" group-title="General",BarçaOne
 https://live-edge-par-1.cdn.enetres.net/0A0F71E9CC1B44ABA095DF1459442350027/live-2500/index.m3u8
+#EXTINF:-1 tvg-id="BarçaOne"  tvg-logo="https://www.celh.es/wp-content/uploads/2021/02/escut-barca.png" group-title="General",BarçaOne
+https://play.cdn.enetres.net/0A0F71E9CC1B44ABA095DF1459442350027/021/ab/playlist.m3u8
 #EXTINF:-1 tvg-id="LaXarxa" tvg-logo="https://ott.instantvideocloud.net/admin/storage/logos/3VdActjefSf3IdjxknnOH4Bt4xMt2ciYIXe7DDtj.png" group-title="General",LleidaTV
 https://d1pgniwg61j6fm.cloudfront.net/out/v1/f32d8fe5be7a4ababd6894109683254b/index_2.m3u8?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkaXN0cmlidXRpb24iOiJmMzJkOGZlNWJlN2E0YWJhYmQ2ODk0MTA5NjgzMjU0YiIsImlzcyI6Imh0dHBzOi8vbGF4YXJ4YW1lcy5jb20iLCJhdWQiOiJodHRwczovL2xheGFyeGFtZXMuY29tIiwidGltZUJhc2UiOm51bGwsInRpbWVGcmFtZXMiOltdLCJleHAiOjE3NDQ5NTQwNzgwMDAsImlhdCI6MTc0NDg1Njg3ODAwMCwibmJmIjoxNzQ0ODU2ODczMDAwfQ.5j5lR1-4ZFo6ULEtK6W4W7xeiE7eRNVb5IkIGKRZ5-Q&_t=1744856878&hash=c-6314323916112&_tc=1704883765
-
 #EXTINF:-1 tvg-id="SkyNews" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Sky-news-logo.png/500px-Sky-news-logo.png" group-title="News",SkyNews
 https://linear417-gb-hls1-prd-ak.cdn.skycdp.com/100e/Content/HLS_001_1080_30/Live/channel(skynews)/index_1080-30.m3u8
 ****#EXTINF:-1 tvg-id="HIT TV" tvg-logo="https://i0.wp.com/audiovisual451.com/wp-content/uploads/HIT-TV.jpg" group-title="General",HIT TV
