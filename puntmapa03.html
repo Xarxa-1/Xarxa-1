@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>RA - Punt Verd "ef" amb Línia</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script src="https://unpkg.com/aframe-gps-position@1.1.3/dist/aframe-gps-position.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        .arjs-loader {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            flex-direction: column;
+        }
+        .error {
+            color: red;
+            margin-top: 20px;
+            display: none;
+            text-align: center;
+            padding: 10px;
+        }
+        .coordinates {
+            margin-top: 10px;
+            font-size: 14px;
+            text-align: center;
+            background: rgba(0,0,0,0.5);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .distance {
+            margin-top: 5px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="arjs-loader">
+        <div>Carregant aplicació de realitat augmentada...</div>
+        <div class="coordinates" id="coords">Obtenint la teva ubicació...</div>
+        <div class="distance" id="distance"></div>
+        <div class="error" id="error"></div>
+    </div>
+
+    <a-scene 
+        vr-mode-ui="enabled: false" 
+        embedded 
+        arjs="sourceType: webcam; debugUIEnabled: false;"
+        renderer="logarithmicDepthBuffer: true;"
+        gps-camera-debug>
+        
+        <!-- Punt de destí -->
+        <a-entity id="target-point"
+            gps-entity-place="latitude: 41.395799; longitude: 1.096335"
+            look-at="[gps-camera]">
+            <a-sphere 
+                color="#00FF00" 
+                radius="10"
+                position="0 0 0"
+                material="transparent: false; opacity: 1;"
+                scale="1 1 1">
+            </a-sphere>
+            <a-text 
+                value="ef" 
+                color="white" 
+                align="center" 
+                position="0 15 0"
+                scale="15 15 15"
+                background="color: #333; opacity: 0.8; padding: 5px">
+            </a-text>
+        </a-entity>
+        
+        <!-- Línia des de la càmera al punt -->
+        <a-entity id="connection-line" line="color: #00FF00; opacity: 0.7"></a-entity>
+        
+        <!-- Indicador de posició actual -->
+        <a-entity id="user-position">
+            <a-sphere 
+                color="#3498db" 
+                radius="5"
+                position="0 0 0"
+                material="transparent: false; opacity: 1;">
+            </a-sphere>
+        </a-entity>
+        
+        <a-camera gps-camera rotation-reader></a-camera>
+    </a-scene>
+
+    <script>
+        // Elements del DOM
+        const scene = document.querySelector('a-scene');
+        const coordsDiv = document.getElementById('coords');
+        const distanceDiv = document.getElementById('distance');
+        const errorDiv = document.getElementById('error');
+        const targetPoint = document.getElementById('target-point');
+        const connectionLine = document.getElementById('connection-line');
+        const userPosition = document.getElementById('user-position');
+        
+        // Coordenades del punt destí
+        const TARGET_LAT = 41.395799;
+        const TARGET_LON = 1.096335;
+        
+        // Variables per a la posició actual
+        let currentPosition = null;
+        let currentDistance = 0;
+        
+        // Calcula distància entre dues coordenades (haversine formula)
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371000; // Radi de la Terra en metres
+            const φ1 = lat1 * Math.PI/180;
+            const φ2 = lat2 * Math.PI/180;
+            const Δφ = (lat2-lat1) * Math.PI/180;
+            const Δλ = (lon2-lon1) * Math.PI/180;
+            
+            const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+                      Math.cos(φ1) * Math.cos(φ2) *
+                      Math.sin(Δλ/2) * Math.sin(Δλ/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            
+            return R * c;
+        }
+        
+        // Actualitza la línia entre la posició actual i el punt destí
+        function updateConnectionLine() {
+            if (!currentPosition) return;
+            
+            const targetPos = targetPoint.getAttribute('position');
+            connectionLine.setAttribute('line', {
+                start: {x: 0, y: 0, z: 0}, // Posició de la càmera
+                end: targetPos,
+                color: '#00FF00',
+                opacity: 0.7
+            });
+        }
+        
+        // Actualitza la informació mostrada
+        function updatePositionInfo(position) {
+            currentPosition = position;
+            const { latitude, longitude, altitude } = position.coords;
+            
+            // Calcula distància al punt destí
+            currentDistance = calculateDistance(latitude, longitude, TARGET_LAT, TARGET_LON);
+            
+            // Actualitza la UI
+            coordsDiv.innerHTML = `
+                <strong>La teva posició:</strong><br>
+                Lat: ${latitude.toFixed(6)}<br>
+                Lon: ${longitude.toFixed(6)}<br>
+                Alt: ${altitude ? altitude.toFixed(2) + 'm' : 'N/A'}
+            `;
+            
+            distanceDiv.innerHTML = `Distància al punt "ef": ${currentDistance.toFixed(2)} metres`;
+            
+            // Actualitza la posició de l'usuari en l'escena
+            userPosition.setAttribute('gps-entity-place', {
+                latitude: latitude,
+                longitude: longitude
+            });
+            
+            // Actualitza la línia de connexió
+            updateConnectionLine();
+        }
+        
+        // Gestiona errors
+        function handleError(error) {
+            let message = '';
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    message = "Permís de geolocalització denegat. Si us plau, habilita'l a la configuració del teu navegador.";
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    message = "La informació de localització no està disponible. Assegura't d'estar en una zona amb bona recepció GPS.";
+                    break;
+                case error.TIMEOUT:
+                    message = "Temps d'espera per obtenir la localització exhaurit. Torna a intentar-ho.";
+                    break;
+                case error.UNKNOWN_ERROR:
+                    message = "Error desconegut en obtenir la localització.";
+                    break;
+            }
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+        }
+        
+        // Quan l'escena està carregada
+        if (scene) {
+            scene.addEventListener('loaded', function() {
+                setTimeout(function() {
+                    const loader = document.querySelector('.arjs-loader');
+                    if (loader) loader.style.display = 'none';
+                }, 2000);
+            });
+        }
+        
+        // Configura el seguiment de la posició
+        if (navigator.geolocation) {
+            navigator.geolocation.watchPosition(
+                updatePositionInfo, 
+                handleError, 
+                {
+                    enableHighAccuracy: true,
+                    maximumAge: 0,
+                    timeout: 10000
+                }
+            );
+        } else {
+            errorDiv.textContent = "El teu navegador no suporta geolocalització. Prova amb Chrome o Firefox en un dispositiu mòbil.";
+            errorDiv.style.display = 'block';
+        }
+        
+        // Actualitza la línia periòdicament
+        setInterval(updateConnectionLine, 1000);
+    </script>
+</body>
+</html>
