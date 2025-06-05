@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RA - Punts d'Interès amb Línies</title>
+    <title>RA - Punts "ef" i "Bes"</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
@@ -43,15 +43,16 @@
             padding: 10px;
             border-radius: 5px;
         }
+        .distance {
+            margin-top: 5px;
+            font-size: 16px;
+            font-weight: bold;
+        }
         .distance-container {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 5px;
+            justify-content: space-around;
             width: 100%;
             margin-top: 10px;
-            max-height: 40vh;
-            overflow-y: auto;
         }
         .distance-box {
             background: rgba(0,0,0,0.5);
@@ -59,61 +60,117 @@
             border-radius: 5px;
             min-width: 45%;
         }
-        .distance-title {
-            font-weight: bold;
-            margin-bottom: 3px;
-        }
-        .distance-value {
-            font-size: 14px;
-        }
     </style>
 </head>
 <body>
     <div class="arjs-loader">
         <div>Carregant aplicació de realitat augmentada...</div>
         <div class="coordinates" id="coords">Obtenint la teva ubicació...</div>
-        <div class="distance-container" id="distances-container"></div>
+        <div class="distance-container">
+            <div class="distance-box">
+                <div id="distance-ef">Distància a "ef": --</div>
+            </div>
+            <div class="distance-box">
+                <div id="distance-bes">Distància a "Bes": --</div>
+            </div>
+        </div>
         <div class="error" id="error"></div>
     </div>
 
-    <a-scene 
-        vr-mode-ui="enabled: false" 
-        embedded 
+    <a-scene
+        vr-mode-ui="enabled: false"
+        embedded
         arjs="sourceType: webcam; debugUIEnabled: false;"
         renderer="logarithmicDepthBuffer: true;"
         gps-camera-debug>
-        
-        <!-- Contenidor per a tots els punts i línies -->
-        <a-entity id="points-container"></a-entity>
-        
+
+        <!-- Punt verd "ef" -->
+        <a-entity id="target-point-ef"
+            gps-entity-place="latitude: 41.395799; longitude: 1.096335"
+            look-at="[gps-camera]">
+            <a-sphere
+                color="#00FF00"
+                radius="10"
+                position="0 0 0"
+                material="transparent: false; opacity: 1;"
+                scale="1 1 1">
+            </a-sphere>
+            <a-text
+                value="ef"
+                color="white"
+                align="center"
+                position="0 15 0"
+                scale="15 15 15"
+                background="color: #333; opacity: 0.8; padding: 5px">
+            </a-text>
+        </a-entity>
+
+        <!-- Línia verda des de la càmera al punt "ef" -->
+        <a-entity id="connection-line-ef" line="color: #00FF00; opacity: 0.7"></a-entity>
+
+        <!-- Punt groc "Bes" -->
+        <a-entity id="target-point-bes"
+            gps-entity-place="latitude: 41.4665607398; longitude: 0.8471321541; altitude: 593"
+            look-at="[gps-camera]">
+            <a-sphere
+                color="#FFFF00"
+                radius="10"
+                position="0 0 0"
+                material="transparent: false; opacity: 1;"
+                scale="1 1 1">
+            </a-sphere>
+            <a-text
+                value="Bes"
+                color="black"
+                align="center"
+                position="0 15 0"
+                scale="15 15 15"
+                background="color: #EEE; opacity: 0.8; padding: 5px">
+            </a-text>
+        </a-entity>
+
+        <!-- Línia groga des de la càmera al punt "Bes" -->
+        <a-entity id="connection-line-bes" line="color: #FFFF00; opacity: 0.7"></a-entity>
+
+        <!-- Indicador de posició actual -->
+        <a-entity id="user-position">
+            <a-sphere
+                color="#3498db"
+                radius="5"
+                position="0 0 0"
+                material="transparent: false; opacity: 1;">
+            </a-sphere>
+        </a-entity>
+
         <a-camera gps-camera rotation-reader></a-camera>
     </a-scene>
 
     <script>
-        // Punts d'interès
-        const POINTS_OF_INTEREST = [
-            { id: 1, name: "Esglèsia", lat: 41.396712, lon: 1.103376, alt: 412, color: '#FF0000' },
-            { id: 2, name: "Ermita", lat: 41.3731, lon: 1.11065, alt: 560, color: '#00FF00' },
-            { id: 3, name: "Sant Bernat", lat: 41.388193, lon: 1.083005, alt: 456, color: '#0000FF' },
-            { id: 4, name: "Roca de la Manxa", lat: 41.426297, lon: 1.115281, alt: 499, color: '#FFFF00' },
-            { id: 5, name: "Nou Lloc 1", lat: 41.52205, lon: 0.868813, alt: 353, color: '#FF00FF' },
-            { id: 6, name: "Novacoop", lat: 41.520159, lon: 0.0862992, alt: 353, color: '#00FFFF' },
-            { id: 7, name: "Poblet", lat: 41.380406, lon: 1.083457, alt: 460, color: 'green' },
-            { id: 8, name: "La Pena", lat: 41.3597743, lon: 1.093488, alt: 800, color: 'lime' },
-            { id: 9, name: "Tarragona", lat: 41.113685, lon: 1.256539, alt: 800, color: 'coral' },
-            { id: 10, name: "Lleida", lat: 41.615100, lon: 0.627411, alt: 800, color: 'coral' }
-        ];
-
         // Elements del DOM
         const scene = document.querySelector('a-scene');
         const coordsDiv = document.getElementById('coords');
-        const distancesContainer = document.getElementById('distances-container');
+        const distanceEfDiv = document.getElementById('distance-ef');
+        const distanceBesDiv = document.getElementById('distance-bes');
         const errorDiv = document.getElementById('error');
-        const pointsContainer = document.getElementById('points-container');
-        
+
+        // Coordenades dels punts destí
+        const TARGET_EF = {
+            lat: 41.3597743,
+            lon: 1.093488,
+            alt: 800,
+            name: "LaPena"
+        };
+
+        const TARGET_BES = {
+            lat: 41.396712,
+            lon: 1.103376,
+            alt: 412,
+            name: "Esglèsia"
+        };
+
         // Variables per a la posició actual
         let currentPosition = null;
-        
+
         // Calcula distància entre dues coordenades (haversine formula)
         function calculateDistance(lat1, lon1, lat2, lon2) {
             const R = 6371000; // Radi de la Terra en metres
@@ -121,68 +178,47 @@
             const φ2 = lat2 * Math.PI/180;
             const Δφ = (lat2-lat1) * Math.PI/180;
             const Δλ = (lon2-lon1) * Math.PI/180;
-            
+
             const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
                       Math.cos(φ1) * Math.cos(φ2) *
                       Math.sin(Δλ/2) * Math.sin(Δλ/2);
             const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-            
+
             return R * c;
         }
-        
-        // Crea els elements AR pels punts d'interès
-        function createPointsOfInterest() {
-            POINTS_OF_INTEREST.forEach(point => {
-                // Crea l'entitat del punt (invisible, només per a la posició)
-                const pointEntity = document.createElement('a-entity');
-                pointEntity.setAttribute('id', `point-${point.id}`);
-                pointEntity.setAttribute('gps-entity-place', {
-                    latitude: point.lat,
-                    longitude: point.lon,
-                    altitude: point.alt
-                });
-                
-                // Crea la línia de connexió
-                const line = document.createElement('a-entity');
-                line.setAttribute('id', `line-${point.id}`);
-                line.setAttribute('line', {
-                    color: point.color,
-                    opacity: 0.7
-                });
-                
-                pointsContainer.appendChild(pointEntity);
-                pointsContainer.appendChild(line);
-            });
-        }
-        
+
         // Actualitza totes les línies de connexió
         function updateConnectionLines() {
             if (!currentPosition) return;
-            
-            POINTS_OF_INTEREST.forEach(point => {
-                const pointEntity = document.getElementById(`point-${point.id}`);
-                const line = document.getElementById(`line-${point.id}`);
-                
-                if (pointEntity && line) {
-                    const pointPos = pointEntity.getAttribute('position');
-                    
-                    if (pointPos) {
-                        line.setAttribute('line', {
-                            start: {x: 0, y: 0, z: 0}, // Posició de la càmera
-                            end: pointPos,
-                            color: point.color,
-                            opacity: 0.7
-                        });
-                    }
-                }
+
+            // Línia al punt "ef"
+            const targetPosEf = document.getElementById('target-point-ef').getAttribute('position');
+            document.getElementById('connection-line-ef').setAttribute('line', {
+                start: {x: 0, y: 0, z: 0}, // Posició de la càmera
+                end: targetPosEf,
+                color: '#00FF00',
+                opacity: 0.7
+            });
+
+            // Línia al punt "Bes"
+            const targetPosBes = document.getElementById('target-point-bes').getAttribute('position');
+            document.getElementById('connection-line-bes').setAttribute('line', {
+                start: {x: 0, y: 0, z: 0}, // Posició de la càmera
+                end: targetPosBes,
+                color: '#FFFF00',
+                opacity: 0.7
             });
         }
-        
+
         // Actualitza la informació mostrada
         function updatePositionInfo(position) {
             currentPosition = position;
             const { latitude, longitude, altitude } = position.coords;
-            
+
+            // Calcula distàncies
+            const distToEf = calculateDistance(latitude, longitude, TARGET_EF.lat, TARGET_EF.lon);
+            const distToBes = calculateDistance(latitude, longitude, TARGET_BES.lat, TARGET_BES.lon);
+
             // Actualitza la UI
             coordsDiv.innerHTML = `
                 <strong>La teva posició:</strong><br>
@@ -190,26 +226,20 @@
                 Lon: ${longitude.toFixed(6)}<br>
                 Alt: ${altitude ? altitude.toFixed(2) + 'm' : 'N/A'}
             `;
-            
-            // Actualitza les distàncies
-            distancesContainer.innerHTML = '';
-            POINTS_OF_INTEREST.forEach(point => {
-                const distance = calculateDistance(latitude, longitude, point.lat, point.lon);
-                
-                const distanceBox = document.createElement('div');
-                distanceBox.className = 'distance-box';
-                distanceBox.style.borderLeft = `4px solid ${point.color}`;
-                distanceBox.innerHTML = `
-                    <div class="distance-title">${point.name}</div>
-                    <div class="distance-value">${distance.toFixed(2)}m</div>
-                `;
-                distancesContainer.appendChild(distanceBox);
+
+            distanceEfDiv.innerHTML = `Distància a "${TARGET_EF.name}": ${distToEf.toFixed(2)}m`;
+            distanceBesDiv.innerHTML = `Distància a "${TARGET_BES.name}": ${distToBes.toFixed(2)}m`;
+
+            // Actualitza la posició de l'usuari en l'escena
+            document.getElementById('user-position').setAttribute('gps-entity-place', {
+                latitude: latitude,
+                longitude: longitude
             });
-            
+
             // Actualitza les línies de connexió
             updateConnectionLines();
         }
-        
+
         // Gestiona errors
         function handleError(error) {
             let message = '';
@@ -230,25 +260,22 @@
             errorDiv.textContent = message;
             errorDiv.style.display = 'block';
         }
-        
+
         // Quan l'escena està carregada
         if (scene) {
             scene.addEventListener('loaded', function() {
-                // Crea els punts d'interès
-                createPointsOfInterest();
-                
                 setTimeout(function() {
                     const loader = document.querySelector('.arjs-loader');
                     if (loader) loader.style.display = 'none';
                 }, 2000);
             });
         }
-        
+
         // Configura el seguiment de la posició
         if (navigator.geolocation) {
             navigator.geolocation.watchPosition(
-                updatePositionInfo, 
-                handleError, 
+                updatePositionInfo,
+                handleError,
                 {
                     enableHighAccuracy: true,
                     maximumAge: 0,
@@ -259,7 +286,7 @@
             errorDiv.textContent = "El teu navegador no suporta geolocalització. Prova amb Chrome o Firefox en un dispositiu mòbil.";
             errorDiv.style.display = 'block';
         }
-        
+
         // Actualitza les línies periòdicament
         setInterval(updateConnectionLines, 1000);
     </script>
