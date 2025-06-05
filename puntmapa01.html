@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Realitat Augmentada - Punt Verd "ef"</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        .arjs-loader {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="arjs-loader">
+        <div>Carregant, si us plau habilita la càmera...</div>
+    </div>
+
+    <a-scene vr-mode-ui="enabled: false" embedded arjs="sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
+        <!-- Punt verd a les coordenades especificades -->
+        <a-entity 
+            gps-entity-place="latitude: 41.395799; longitude: 1.096335; altitude: 411"
+            look-at="[gps-camera]">
+            <a-sphere 
+                color="green" 
+                radius="5"
+                position="0 0 0">
+            </a-sphere>
+            <a-text 
+                value="ef" 
+                color="white" 
+                align="center" 
+                position="0 5 0"
+                scale="10 10 10">
+            </a-text>
+        </a-entity>
+        
+        <a-camera gps-camera rotation-reader></a-camera>
+    </a-scene>
+
+    <script>
+        // Amaga el loader quan la escena està carregada
+        document.querySelector('a-scene').addEventListener('loaded', function() {
+            setTimeout(function() {
+                document.querySelector('.arjs-loader').style.display = 'none';
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
