@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Localitzador de la Lluna - RA</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: white;
+        }
+        
+        #cameraView {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(to bottom, #000428, #004e92);
+            overflow: hidden;
+        }
+        
+        #moon {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: #f5f5f5;
+            border-radius: 50%;
+            box-shadow: 0 0 20px 5px rgba(245, 245, 245, 0.6);
+            display: none;
+            z-index: 10;
+        }
+        
+        #crosshair {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+        }
+        
+        #crosshair:before, #crosshair:after {
+            content: '';
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        
+        #crosshair:before {
+            width: 2px;
+            height: 10px;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        #crosshair:after {
+            width: 10px;
+            height: 2px;
+            left: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        #instructions {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            z-index: 20;
+        }
+        
+        #deviceOrientation {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <div id="cameraView">
+        <div id="moon"></div>
+        <div id="crosshair"></div>
+        <div id="deviceOrientation">Orientació: -</div>
+        <div id="instructions">Mou el dispositiu per localitzar la lluna</div>
+    </div>
+
+    <script>
+        // Crear estrelles de fons
+        function createStars() {
+            const cameraView = document.getElementById('cameraView');
+            const starsCount = 100;
+            
+            for (let i = 0; i < starsCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                // Posició aleatòria
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                
+                // Mida aleatòria
+                const size = Math.random() * 3;
+                
+                // Opacitat aleatòria
+                const opacity = Math.random() * 0.8 + 0.2;
+                
+                star.style.left = `${left}%`;
+                star.style.top = `${top}%`;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.opacity = opacity;
+                
+                // Afegir brillantor a algunes estrelles
+                if (Math.random() > 0.7) {
+                    star.style.boxShadow = `0 0 ${size * 2}px ${size / 2}px rgba(255, 255, 255, 0.5)`;
+                }
+                
+                cameraView.appendChild(star);
+            }
+        }
+        
+        // Posició simulada de la lluna (en angles d'orientació)
+        const moonPosition = {
+            alpha: 45,  // Azimut (0-360 graus)
+            beta: 60    // Inclinació (0-180 graus)
+        };
+        
+        // Marges d'error per considerar que estem apuntant a la lluna
+        const tolerance = 15;
+        
+        // Funció per actualitzar la posició del punt de la lluna
+        function updateMoonPosition(e) {
+            const alpha = e.alpha;  // Rotació al voltant de l'eix Z (0-360)
+            const beta = e.beta;    // Rotació al voltant de l'eix X (0-180)
+            const gamma = e.gamma; // Rotació al voltant de l'eix Y (-90-90)
+            
+            // Actualitzar dades d'orientació a la pantalla
+            document.getElementById('deviceOrientation').textContent = 
+                `Azimut: ${alpha.toFixed(1)}° | Inclinació: ${beta.toFixed(1)}°`;
+            
+            const moon = document.getElementById('moon');
+            const cameraView = document.getElementById('cameraView');
+            
+            // Calcular diferència amb la posició de la lluna
+            const alphaDiff = Math.abs(alpha - moonPosition.alpha);
+            const betaDiff = Math.abs(beta - moonPosition.beta);
+            
+            // Si estem apuntant a la zona de la lluna
+            if (alphaDiff < tolerance && betaDiff < tolerance) {
+                // Mostrar la lluna
+                moon.style.display = 'block';
+                
+                // Calcular posició en pantalla basada en l'orientació
+                // (simulant que la lluna està en aquesta direcció)
+                const x = 50 + (gamma / 90 * 50); // Gamma afecta la posició horitzontal
+                const y = 50 + ((beta - 90) / 90 * 50); // Beta afecta la posició vertical
+                
+                moon.style.left = `${x}%`;
+                moon.style.top = `${y}%`;
+                
+                // Canviar color quan està al centre (dins del punt de mira)
+                const crosshairRect = document.getElementById('crosshair').getBoundingClientRect();
+                const moonRect = moon.getBoundingClientRect();
+                
+                const isCentered = 
+                    moonRect.left > crosshairRect.left && 
+                    moonRect.right < crosshairRect.right &&
+                    moonRect.top > crosshairRect.top && 
+                    moonRect.bottom < crosshairRect.bottom;
+                
+                moon.style.backgroundColor = isCentered ? '#ffff00' : '#f5f5f5';
+                moon.style.boxShadow = isCentered ? 
+                    '0 0 30px 10px rgba(255, 255, 0, 0.8)' : 
+                    '0 0 20px 5px rgba(245, 245, 245, 0.6)';
+            } else {
+                // Amagar la lluna si no estem apuntant cap a la seva posició
+                moon.style.display = 'none';
+            }
+        }
+        
+        // Inicialització
+        window.onload = function() {
+            createStars();
+            
+            // Comprovar si el dispositiu suporta l'API d'orientació
+            if (window.DeviceOrientationEvent) {
+                // Demanar permís per accedir a l'orientació del dispositiu (necessari en alguns navegadors)
+                if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+                    DeviceOrientationEvent.requestPermission()
+                        .then(permissionState => {
+                            if (permissionState === 'granted') {
+                                window.addEventListener('deviceorientation', updateMoonPosition);
+                            } else {
+                                alert('Permís denegat. No es pot accedir a l\'orientació del dispositiu.');
+                            }
+                        })
+                        .catch(console.error);
+                } else {
+                    // Navegadors que no requereixen permís explícit
+                    window.addEventListener('deviceorientation', updateMoonPosition);
+                }
+            } else {
+                alert('El teu dispositiu o navegador no suporta l\'API d\'orientació.');
+                
+                // Simulació per a escriptori (només per proves)
+                document.addEventListener('mousemove', function(e) {
+                    const simulatedEvent = {
+                        alpha: (e.clientX / window.innerWidth) * 360,
+                        beta: (e.clientY / window.innerHeight) * 180,
+                        gamma: ((e.clientX - window.innerWidth/2) / (window.innerWidth/2)) * 90
+                    };
+                    updateMoonPosition(simulatedEvent);
+                });
+            }
+        };
+    </script>
+</body>
+</html>
