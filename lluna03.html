@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <title>Simulació AR: Localitzador de la Lluna</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: #111;
+      height: 100%;
+      width: 100%;
+    }
+    #camera-view {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(to top, #222 70%, #001a33 100%);
+    }
+    #moon-dot {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 0 30px 10px #fff, 0 0 60px 20px #aaf;
+      border: 2px solid #bbf;
+      /* La posició es modificarà amb JS */
+    }
+    #label {
+      position: absolute;
+      color: #fff;
+      font-family: sans-serif;
+      font-size: 18px;
+      left: 50%;
+      top: 10px;
+      transform: translateX(-50%);
+      text-shadow: 0 0 10px #000;
+    }
+  </style>
+</head>
+<body>
+  <div id="camera-view"></div>
+  <div id="moon-dot"></div>
+  <div id="label">Posició simulada de la Lluna</div>
+  <script>
+    // Simulació: la lluna es mou segons el moviment del ratolí (com si fos el mòbil)
+    const moonDot = document.getElementById('moon-dot');
+    const cameraView = document.getElementById('camera-view');
+
+    function updateMoonDot(x, y) {
+      // Limita la posició dins la pantalla
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      const dotSize = 30;
+      // Centra el punt a la posició x,y
+      moonDot.style.left = (x - dotSize/2) + 'px';
+      moonDot.style.top = (y - dotSize/2) + 'px';
+    }
+
+    // Inicial: posa la lluna a una posició fixa (per exemple, 70% a la dreta i 30% a dalt)
+    updateMoonDot(window.innerWidth * 0.7, window.innerHeight * 0.3);
+
+    // Simulació: mou el punt segons el moviment del ratolí (com si fos el mòbil)
+    cameraView.addEventListener('mousemove', function(e) {
+      updateMoonDot(e.clientX, e.clientY);
+    });
+
+    // Opcional: adapta la mida si canvies la mida de la finestra
+    window.addEventListener('resize', function() {
+      updateMoonDot(window.innerWidth * 0.7, window.innerHeight * 0.3);
+    });
+  </script>
+</body>
+</html>
