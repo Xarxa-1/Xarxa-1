@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>RA: Punt Verd, Sol i Lluna</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/suncalc@1.8.0/suncalc.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        .arjs-loader {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+        .info-panel {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 10000;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="arjs-loader">
+        <div>Carregant, si us plau habilita la càmera i la ubicació...</div>
+    </div>
+
+    <div class="info-panel" id="infoPanel">
+        Calculant posicions del Sol i la Lluna...
+    </div>
+
+    <a-scene vr-mode-ui="enabled: false" embedded arjs="sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
+        <!-- Punt verd original -->
+        <a-entity 
+            id="puntVerd"
+            gps-entity-place="latitude: 41.395799; longitude: 1.096335; altitude: 411"
+            look-at="[gps-camera]">
+            <a-sphere 
+                color="green" 
+                radius="5"
+                position="0 0 0">
+            </a-sphere>
+            <a-text 
+                value="ef" 
+                color="white" 
+                align="center" 
+                position="0 5 0"
+                scale="10 10 10">
+            </a-text>
+        </a-entity>
+        
+        <!-- Punt groc per al Sol -->
+        <a-entity 
+            id="sol"
+            look-at="[gps-camera]">
+            <a-sphere 
+                color="yellow" 
+                radius="15"
+                position="0 0 0">
+            </a-sphere>
+            <a-text 
+                value="Sol" 
+                color="black" 
+                align="center" 
+                position="0 20 0"
+                scale="15 15 15">
+            </a-text>
+        </a-entity>
+        
+        <!-- Punt blanc per a la Lluna -->
+        <a-entity 
+            id="lluna"
+            look-at="[gps-camera]">
+            <a-sphere 
+                color="white" 
+                radius="10"
+                position="0 0 0">
+            </a-sphere>
+            <a-text 
+                value="Lluna" 
+                color="black" 
+                align="center" 
+                position="0 15 0"
+                scale="12 12 12">
+            </a-text>
+        </a-entity>
+        
+        <a-camera gps-camera rotation-reader></a-camera>
+    </a-scene>
+
+    <script>
+        document.querySelector('a-scene').addEventListener('loaded', function() {
+            setTimeout(function() {
+                document.querySelector('.arjs-loader').style.display = 'none';
+                
+                // Esperem a tenir la posició GPS
+                const camera = document.querySelector('[gps-camera]');
+                camera.addEventListener('gps-camera-update-position', function(e) {
+                    updateCelestialPositions(e.detail.position);
+                });
+            }, 1500);
+        });
+
+        function updateCelestialPositions(userPosition) {
+            const now = new Date();
+            const userLat = userPosition.latitude;
+            const userLng = userPosition.longitude;
+            
+            // Calcula posició del Sol
+            const sunPos = SunCalc.getPosition(now, userLat, userLng);
+            const sunAzimuth = sunPos.azimuth * (180 / Math.PI);
+            const sunAltitude = sunPos.altitude * (180 / Math.PI);
+            
+            // Calcula posició de la Lluna
+            const moonPos = SunCalc.getMoonPosition(now, userLat, userLng);
+            const moonAzimuth = moonPos.azimuth * (180 / Math.PI);
+            const moonAltitude = moonPos.altitude * (180 / Math.PI);
+            
+            // Distància aproximada per a visualització (en metres)
+            const distance = 1000;
+            
+            // Actualitza posició del Sol
+            const sol = document.getElementById('sol');
+            const sunX = distance * Math.cos(sunAltitude * Math.PI/180) * Math.sin(sunAzimuth * Math.PI/180);
+            const sunY = distance * Math.sin(sunAltitude * Math.PI/180);
+            const sunZ = distance * Math.cos(sunAltitude * Math.PI/180) * Math.cos(sunAzimuth * Math.PI/180);
+            sol.setAttribute('position', `${sunX} ${sunY} ${sunZ}`);
+            
+            // Actualitza posició de la Lluna
+            const lluna = document.getElementById('lluna');
+            const moonX = distance * Math.cos(moonAltitude * Math.PI/180) * Math.sin(moonAzimuth * Math.PI/180);
+            const moonY = distance * Math.sin(moonAltitude * Math.PI/180);
+            const moonZ = distance * Math.cos(moonAltitude * Math.PI/180) * Math.cos(moonAzimuth * Math.PI/180);
+            lluna.setAttribute('position', `${moonX} ${moonY} ${moonZ}`);
+            
+            // Actualitza panell d'informació
+            const infoPanel = document.getElementById('infoPanel');
+            infoPanel.innerHTML = `
+                <strong>Posició actual:</strong><br>
+                Lat: ${userLat.toFixed(6)}, Lng: ${userLng.toFixed(6)}<br><br>
+                <strong>Sol:</strong><br>
+                Azimut: ${sunAzimuth.toFixed(2)}°, Altitud: ${sunAltitude.toFixed(2)}°<br><br>
+                <strong>Lluna:</strong><br>
+                Azimut: ${moonAzimuth.toFixed(2)}°, Altitud: ${moonAltitude.toFixed(2)}°
+            `;
+        }
+    </script>
+</body>
+</html>
