@@ -15,3 +15,37 @@ https://live.24hrkpop.com/hls/3/stream.m3u8
 
 #EXTINF:-1 tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-oFGwp3UAGd87rZtxS1nkKPIbkikh_K1w9ylFAiowTZGOwrR-IkKgUds&s=10" group-title="Music",SPIRIT TV
 https://cdnlive.myspirit.tv/LS-ATL-43240-2/index.m3u8
+
+#EXTINF:-1 tvg-id="ToonamiAftermathWest.us" tvg-logo="https://i.imgur.com/aSjhZK7.png",Toonami Aftermath West
+http://api.toonamiaftermath.com:3000/pst/playlist.m3u8
+
+#EXTINF:-1 tvg-id="ToonamiAftermathEast.us" tvg-logo="https://imgur.com/BBxuA9d.png",Toonami Aftermath East
+http://api.toonamiaftermath.com:3000/est/playlist.m3u8
+
+#EXTINF:-1 tvg-id="ToonamiAftermathMovie.us" tvg-logo="https://i.imgur.com/BBxuA9d.png",Toonami Aftermath Movie
+http://api.toonamiaftermath.com:3000/movies/playlist.m3u8
+
+#EXTINF:-1 tvg-id="ToonamiAftermathRadio.us" tvg-logo="https://i.imgur.com/BBxuA9d.png" ,Toonami Aftermath Radio
+http://api.toonamiaftermath.com:3000/radio/playlist.m3u8
+
+#EXTINF:-1 tvg-id="locomotiontv.com" tvg-logo="http://locomotiontv.com/imgs/loco/logo_white.png",locomotiontv
+http://85.239.54.197:81/live/loco_hi/index.m3u8
+
+#EXTINF:-1 tvg-id="Disney Jr" tvg-logo="",Disney Jr
+http://212.102.60.231/DISNEY_JR/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="Nick Jr" tvg-logo="",Nick Jr
+http://212.102.60.231/NICK_JR/index.m3u8
+
+#EXTINF:-1 tvg-id="HBO" tvg-logo="",HBO
+http://212.102.60.231/HBO/index.m3u8
+
+#EXTINF:-1 tvg-id="HBO Family" tvg-logo="",HBO Family
+http://212.102.60.231/HBO_FAMILY/index.m3u8
+
+#EXTINF:-1 tvg-id="Lifetime" tvg-logo="",Lifetime
+http://212.102.60.231/LIFETIME/index.m3u8
+
+#EXTINF:-1 tvg-id="rakuten movie" tvg-logo="",rakuten movie
+https://0145451975a64b35866170fd2e8fa486.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-5987/master.m3u8
+
