@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>*Realitat Augmentada - Línies de Destinació</title>
+    <title>-----Realitat Augmentada - Línies de Destinació</title>
     <style>
         body {
             margin: 0;
@@ -183,6 +183,17 @@
             display: none;
             max-width: 90%;
         }
+        
+        #orientationInfo {
+            position: fixed;
+            top: 70px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 8px;
+            border-radius: 5px;
+            z-index: 100;
+            font-size: 12px;
+        }
     </style>
 </head>
 <body>
@@ -193,6 +204,7 @@
     
     <button id="startButton">Iniciar Realitat Augmentada</button>
     <div id="permissionHelp">Si no veus la càmera, comprova que has donat permisos</div>
+    <div id="orientationInfo">Orientació: Esperant dades...</div>
     
     <div id="controlPanel" class="minimized">
         <div id="togglePanel">
@@ -231,6 +243,7 @@
         
         // Variables globals
         let userPosition = null;
+        let deviceOrientation = { alpha: 0, beta: 0, gamma: 0 };
         let cameraStream = null;
         let animationFrameId = null;
         let distances = {};
@@ -252,6 +265,7 @@
         const errorText = document.getElementById('errorText');
         const retryButton = document.getElementById('retryButton');
         const permissionHelp = document.getElementById('permissionHelp');
+        const orientationInfo = document.getElementById('orientationInfo');
         
         // Inicialització
         window.addEventListener('load', init);
@@ -272,6 +286,9 @@
             
             // Inicialitzar la llegenda
             initLegend();
+            
+            // Configurar l'esdeveniment d'orientació del dispositiu
+            window.addEventListener('deviceorientation', handleDeviceOrientation);
         }
         
         function resizeCanvas() {
@@ -332,6 +349,26 @@
             });
         }
         
+        function handleDeviceOrientation(event) {
+            // Actualitzar les dades d'orientació del dispositiu
+            deviceOrientation = {
+                alpha: event.alpha,  // Rotació al voltant de l'eix Z (0-360)
+                beta: event.beta,    // Inclinació front-back (-180 to 180)
+                gamma: event.gamma   // Inclinació esquerra-dreta (-90 to 90)
+            };
+            
+            // Actualitzar la informació d'orientació a la pantalla
+            orientationInfo.textContent = 
+                `Orientació: ${deviceOrientation.alpha.toFixed(1)}° (Z), 
+                ${deviceOrientation.beta.toFixed(1)}° (X), 
+                ${deviceOrientation.gamma.toFixed(1)}° (Y)`;
+            
+            // Si tenim la posició de l'usuari, actualitzem la brúixola
+            if (userPosition) {
+                userPosition.heading = deviceOrientation.alpha;
+            }
+        }
+        
         async function startAR() {
             try {
                 // Reset estat anterior
@@ -360,8 +397,11 @@
                 loadingProgress.textContent = 'Pass 2/3: Obtenint ubicació...';
                 await getLocation();
                 
-                // Pass 3: Iniciar realitat augmentada
-                loadingProgress.textContent = 'Pass 3/3: Iniciant realitat augmentada...';
+                // Pass 3: Comprovar orientació del dispositiu
+                loadingProgress.textContent = 'Pass 3/3: Esperant dades d\'orientació...';
+                
+                // Esperar a tenir dades d'orientació
+                await waitForOrientationData();
                 
                 // Esperar 500ms perquè l'usuari vegi l'últim missatge
                 await new Promise(resolve => setTimeout(resolve, 500));
@@ -382,6 +422,21 @@
             } catch (error) {
                 showError(error.message);
             }
+        }
+        
+        function waitForOrientationData() {
+            return new Promise((resolve) => {
+                if (deviceOrientation.alpha !== null) {
+                    resolve();
+                } else {
+                    const checkInterval = setInterval(() => {
+                        if (deviceOrientation.alpha !== null) {
+                            clearInterval(checkInterval);
+                            resolve();
+                        }
+                    }, 100);
+                }
+            });
         }
         
         async function startCamera() {
@@ -435,7 +490,7 @@
                         lon: position.coords.longitude,
                         alt: position.coords.altitude || 0,
                         accuracy: position.coords.accuracy,
-                        heading: position.coords.heading || 0,
+                        heading: position.coords.heading || deviceOrientation.alpha || 0,
                         speed: position.coords.speed
                     };
                     
@@ -518,7 +573,7 @@
             }
             
             // Dibuixar les línies AR si tenim la posició de l'usuari
-            if (userPosition) {
+            if (userPosition && deviceOrientation.alpha !== null) {
                 const centerX = arCanvas.width / 2;
                 const centerY = arCanvas.height / 2;
                 
@@ -529,8 +584,8 @@
                         dest.lat, dest.lon
                     );
                     
-                    // Ajustar segons l'orientació de l'usuari
-                    const adjustedBearing = (bearing - userPosition.heading + 360) % 360;
+                    // Ajustar segons l'orientació del dispositiu (alpha és la brúixola)
+                    const adjustedBearing = (bearing - deviceOrientation.alpha + 360) % 360;
                     const angle = adjustedBearing * Math.PI / 180;
                     
                     // Longitud de la línia (més curta per destinacions llunyanes)
