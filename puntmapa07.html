@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>-----Realitat Augmentada - Línies de Destinació</title>
+    <title>++++Realitat Augmentada - Línies de Destinació</title>
     <style>
         body {
             margin: 0;
@@ -169,22 +169,7 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
         
-        #permissionHelp {
-            position: fixed;
-            bottom: 60px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 10px;
-            border-radius: 5px;
-            z-index: 100;
-            text-align: center;
-            font-size: 14px;
-            display: none;
-            max-width: 90%;
-        }
-        
-        #orientationInfo {
+        #sensorInfo {
             position: fixed;
             top: 70px;
             left: 10px;
@@ -193,6 +178,7 @@
             border-radius: 5px;
             z-index: 100;
             font-size: 12px;
+            max-width: 90%;
         }
     </style>
 </head>
@@ -203,8 +189,7 @@
     </div>
     
     <button id="startButton">Iniciar Realitat Augmentada</button>
-    <div id="permissionHelp">Si no veus la càmera, comprova que has donat permisos</div>
-    <div id="orientationInfo">Orientació: Esperant dades...</div>
+    <div id="sensorInfo">Esperant dades dels sensors...</div>
     
     <div id="controlPanel" class="minimized">
         <div id="togglePanel">
@@ -248,12 +233,14 @@
         let animationFrameId = null;
         let distances = {};
         let isARActive = false;
+        let originMarker = null;
         
         // Elements del DOM
         const cameraFeed = document.getElementById('cameraFeed');
         const arCanvas = document.getElementById('arCanvas');
         const arContext = arCanvas.getContext('2d');
         const startButton = document.getElementById('startButton');
+        const sensorInfo = document.getElementById('sensorInfo');
         const controlPanel = document.getElementById('controlPanel');
         const togglePanel = document.getElementById('togglePanel');
         const toggleIcon = document.getElementById('toggleIcon');
@@ -264,8 +251,6 @@
         const errorMessage = document.getElementById('errorMessage');
         const errorText = document.getElementById('errorText');
         const retryButton = document.getElementById('retryButton');
-        const permissionHelp = document.getElementById('permissionHelp');
-        const orientationInfo = document.getElementById('orientationInfo');
         
         // Inicialització
         window.addEventListener('load', init);
@@ -352,21 +337,22 @@
         function handleDeviceOrientation(event) {
             // Actualitzar les dades d'orientació del dispositiu
             deviceOrientation = {
-                alpha: event.alpha,  // Rotació al voltant de l'eix Z (0-360)
-                beta: event.beta,    // Inclinació front-back (-180 to 180)
-                gamma: event.gamma   // Inclinació esquerra-dreta (-90 to 90)
+                alpha: event.alpha || 0,  // Rotació al voltant de l'eix Z (brúixola, 0-360)
+                beta: event.beta || 0,    // Inclinació front-back (-180 to 180)
+                gamma: event.gamma || 0   // Inclinació esquerra-dreta (-90 to 90)
             };
             
-            // Actualitzar la informació d'orientació a la pantalla
-            orientationInfo.textContent = 
-                `Orientació: ${deviceOrientation.alpha.toFixed(1)}° (Z), 
-                ${deviceOrientation.beta.toFixed(1)}° (X), 
-                ${deviceOrientation.gamma.toFixed(1)}° (Y)`;
-            
-            // Si tenim la posició de l'usuari, actualitzem la brúixola
-            if (userPosition) {
-                userPosition.heading = deviceOrientation.alpha;
-            }
+            // Actualitzar la informació dels sensors
+            updateSensorInfo();
+        }
+        
+        function updateSensorInfo() {
+            sensorInfo.innerHTML = `
+                <div>Brúixola: ${deviceOrientation.alpha.toFixed(1)}°</div>
+                <div>Inclinació: ${deviceOrientation.beta.toFixed(1)}°</div>
+                <div>Gir: ${deviceOrientation.gamma.toFixed(1)}°</div>
+                ${userPosition ? `<div>Posició: ${userPosition.lat.toFixed(6)}, ${userPosition.lon.toFixed(6)}</div>` : ''}
+            `;
         }
         
         async function startAR() {
@@ -386,7 +372,6 @@
                 startButton.style.display = 'none';
                 errorMessage.style.display = 'none';
                 loadingMessage.style.display = 'block';
-                permissionHelp.style.display = 'none';
                 cameraFeed.style.display = 'none';
                 
                 // Pass 1: Sol·licitar permisos de càmera
@@ -399,8 +384,6 @@
                 
                 // Pass 3: Comprovar orientació del dispositiu
                 loadingProgress.textContent = 'Pass 3/3: Esperant dades d\'orientació...';
-                
-                // Esperar a tenir dades d'orientació
                 await waitForOrientationData();
                 
                 // Esperar 500ms perquè l'usuari vegi l'últim missatge
@@ -410,11 +393,8 @@
                 loadingMessage.style.display = 'none';
                 cameraFeed.style.display = 'block';
                 
-                // Mostrar ajuda de permisos temporalment
-                permissionHelp.style.display = 'block';
-                setTimeout(() => {
-                    permissionHelp.style.display = 'none';
-                }, 3000);
+                // Crear marcador d'origen
+                createOriginMarker();
                 
                 // Iniciar renderitzat AR
                 isARActive = true;
@@ -437,6 +417,13 @@
                     }, 100);
                 }
             });
+        }
+        
+        function createOriginMarker() {
+            originMarker = {
+                x: arCanvas.width / 2,
+                y: arCanvas.height / 2
+            };
         }
         
         async function startCamera() {
@@ -494,15 +481,11 @@
                         speed: position.coords.speed
                     };
                     
-                    // Calcular distàncies a totes les destinacions
-                    destinations.forEach(dest => {
-                        distances[dest.id] = calculateDistance(
-                            userPosition.lat, userPosition.lon, userPosition.alt,
-                            dest.lat, dest.lon, dest.alt
-                        );
-                    });
+                    // Calcular distàncies i direccions a totes les destinacions
+                    calculateDestinationsData();
                     
                     updateDistances();
+                    updateSensorInfo();
                     resolve();
                 };
                 
@@ -525,6 +508,27 @@
                 };
                 
                 navigator.geolocation.getCurrentPosition(success, error, options);
+            });
+        }
+        
+        function calculateDestinationsData() {
+            destinations.forEach(dest => {
+                // Calcular distància
+                distances[dest.id] = calculateDistance(
+                    userPosition.lat, userPosition.lon, userPosition.alt,
+                    dest.lat, dest.lon, dest.alt
+                );
+                
+                // Calcular azimut (direcció horitzontal)
+                dest.azimuth = calculateBearing(
+                    userPosition.lat, userPosition.lon,
+                    dest.lat, dest.lon
+                );
+                
+                // Calcular elevació (angle vertical)
+                const distance = distances[dest.id] * 1000; // en metres
+                const altDiff = dest.alt - userPosition.alt; // en metres
+                dest.elevation = Math.atan2(altDiff, distance) * 180 / Math.PI; // en graus
             });
         }
         
@@ -558,7 +562,7 @@
         }
         
         function renderAR() {
-            if (!isARActive) return;
+            if (!isARActive || !originMarker) return;
             
             // Netejar el canvas
             arContext.clearRect(0, 0, arCanvas.width, arCanvas.height);
@@ -572,48 +576,53 @@
                 }
             }
             
-            // Dibuixar les línies AR si tenim la posició de l'usuari
+            // Dibuixar les línies AR si tenim totes les dades necessàries
             if (userPosition && deviceOrientation.alpha !== null) {
-                const centerX = arCanvas.width / 2;
-                const centerY = arCanvas.height / 2;
+                const centerX = originMarker.x;
+                const centerY = originMarker.y;
                 
                 destinations.forEach(dest => {
-                    // Calcular azimut
-                    const bearing = calculateBearing(
-                        userPosition.lat, userPosition.lon,
-                        dest.lat, dest.lon
-                    );
+                    // Calcular la diferència d'azimut entre el destí i l'orientació actual del dispositiu
+                    const azimuthDiff = (dest.azimuth - deviceOrientation.alpha + 360) % 360;
                     
-                    // Ajustar segons l'orientació del dispositiu (alpha és la brúixola)
-                    const adjustedBearing = (bearing - deviceOrientation.alpha + 360) % 360;
-                    const angle = adjustedBearing * Math.PI / 180;
+                    // Convertir a coordenades de pantalla (horitzontal)
+                    const screenWidth = arCanvas.width;
+                    const fov = 60; // Camp de visió aproximat de la càmera (graus)
+                    const xPos = centerX + (azimuthDiff > 180 ? azimuthDiff - 360 : azimuthDiff) * (screenWidth / fov);
                     
-                    // Longitud de la línia (més curta per destinacions llunyanes)
-                    const baseLength = Math.min(arCanvas.height * 0.4, 200);
-                    const length = baseLength * (1 - Math.min(distances[dest.id] / 100, 0.9));
+                    // Calcular la posició vertical basada en l'elevació
+                    const elevationDiff = dest.elevation - (deviceOrientation.beta || 0);
+                    const screenHeight = arCanvas.height;
+                    const yPos = centerY + elevationDiff * (screenHeight / fov);
                     
-                    const endX = centerX + Math.sin(angle) * length;
-                    const endY = centerY - Math.cos(angle) * length;
-                    
-                    // Dibuixar la línia
-                    arContext.beginPath();
-                    arContext.moveTo(centerX, centerY);
-                    arContext.lineTo(endX, endY);
-                    arContext.strokeStyle = dest.color;
-                    arContext.lineWidth = 3;
-                    arContext.stroke();
-                    
-                    // Dibuixar el nom de la destinació
-                    arContext.fillStyle = dest.color;
-                    arContext.font = 'bold 16px Arial';
-                    arContext.fillText(dest.name, endX + 10, endY);
-                    
-                    // Dibuixar un cercle al final de la línia
-                    arContext.beginPath();
-                    arContext.arc(endX, endY, 5, 0, 2 * Math.PI);
-                    arContext.fillStyle = dest.color;
-                    arContext.fill();
+                    // Només dibuixar si el punt és visible a la pantalla
+                    if (xPos >= 0 && xPos <= arCanvas.width && yPos >= 0 && yPos <= arCanvas.height) {
+                        // Dibuixar la línia des del centre fins al destí
+                        arContext.beginPath();
+                        arContext.moveTo(centerX, centerY);
+                        arContext.lineTo(xPos, yPos);
+                        arContext.strokeStyle = dest.color;
+                        arContext.lineWidth = 3;
+                        arContext.stroke();
+                        
+                        // Dibuixar el nom de la destinació
+                        arContext.fillStyle = dest.color;
+                        arContext.font = 'bold 16px Arial';
+                        arContext.fillText(dest.name, xPos + 10, yPos);
+                        
+                        // Dibuixar un cercle al final de la línia
+                        arContext.beginPath();
+                        arContext.arc(xPos, yPos, 5, 0, 2 * Math.PI);
+                        arContext.fillStyle = dest.color;
+                        arContext.fill();
+                    }
                 });
+                
+                // Dibuixar marcador d'origen
+                arContext.beginPath();
+                arContext.arc(centerX, centerY, 8, 0, 2 * Math.PI);
+                arContext.fillStyle = 'white';
+                arContext.fill();
             }
             
             animationFrameId = requestAnimationFrame(renderAR);
