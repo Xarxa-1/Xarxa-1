@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Realitat Augmentada - Línies de Destinació</title>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/webxr/ARButton.js"></script>
     <style>
         body {
             margin: 0;
@@ -13,22 +17,14 @@
             color: white;
         }
         
-        #cameraContainer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 1;
-        }
-        
-        #arCanvas {
+        #info {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 100;
         }
         
         #controlPanel {
@@ -125,12 +121,27 @@
             text-align: center;
             display: none;
         }
+        
+        #arButton {
+            position: fixed;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
-    <div id="cameraContainer">
-        <video id="cameraFeed" autoplay playsinline style="display: none;"></video>
-        <canvas id="arCanvas"></canvas>
+    <div id="info">
+        <div id="positionInfo">Esperant geolocalització...</div>
+        <div id="orientationInfo">Esperant orientació...</div>
     </div>
     
     <div id="controlPanel" class="minimized">
@@ -150,6 +161,8 @@
     
     <div id="errorMessage"></div>
     
+    <button id="arButton" style="display: none;">Iniciar AR</button>
+    
     <script>
         // Configuració de destinacions
         const destinations = [
@@ -167,15 +180,17 @@
         
         // Variables globals
         let userPosition = null;
+        let userOrientation = null;
         let distances = {};
-        let cameraStream = null;
-        let lastFrameTime = 0;
-        const FPS = 30;
+        let destinationObjects = [];
+        let scene, camera, renderer, controller;
+        let reticle;
+        let hitTestSource = null;
+        let hitTestSourceRequested = false;
         
         // Elements del DOM
-        const cameraFeed = document.getElementById('cameraFeed');
-        const arCanvas = document.getElementById('arCanvas');
-        const arContext = arCanvas.getContext('2d');
+        const positionInfo = document.getElementById('positionInfo');
+        const orientationInfo = document.getElementById('orientationInfo');
         const controlPanel = document.getElementById('controlPanel');
         const togglePanel = document.getElementById('togglePanel');
         const toggleIcon = document.getElementById('toggleIcon');
@@ -183,37 +198,82 @@
         const legend = document.getElementById('legend');
         const loadingMessage = document.getElementById('loadingMessage');
         const errorMessage = document.getElementById('errorMessage');
+        const arButton = document.getElementById('arButton');
         
         // Inicialització
         window.addEventListener('load', init);
         
         function init() {
-            // Configurar el canvas per ocupar tota la pantalla
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
-            
             // Configurar el panell de control
             togglePanel.addEventListener('click', toggleControlPanel);
             
-            // Iniciar la càmera i la geolocalització
-            Promise.all([
-                startCamera(),
-                getLocation()
-            ]).then(() => {
-                loadingMessage.style.display = 'none';
-                requestAnimationFrame(renderAR);
-            }).catch(error => {
-                loadingMessage.style.display = 'none';
-                showError(error.message);
-            });
-            
             // Inicialitzar la llegenda
             initLegend();
+            
+            // Iniciar la geolocalització
+            getLocation();
+            
+            // Configurar Three.js i WebXR
+            initThreeJS();
+            
+            // Comprovar compatibilitat amb WebXR
+            if (navigator.xr) {
+                navigator.xr.isSessionSupported('immersive-ar').then((supported) => {
+                    if (supported) {
+                        arButton.style.display = 'block';
+                        arButton.addEventListener('click', onStartAR);
+                    } else {
+                        showError("El vostre dispositiu no suporta WebXR AR");
+                    }
+                }).catch(error => {
+                    showError("Error en comprovar WebXR: " + error.message);
+                });
+            } else {
+                showError("El vostre navegador no suporta WebXR");
+            }
         }
         
-        function resizeCanvas() {
-            arCanvas.width = window.innerWidth;
-            arCanvas.height = window.innerHeight;
+        function initThreeJS() {
+            // Crear escena
+            scene = new THREE.Scene();
+            
+            // Crear càmera
+            camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 100);
+            
+            // Crear renderer
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.xr.enabled = true;
+            document.body.appendChild(renderer.domElement);
+            
+            // Afegir llum a l'escena
+            const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
+            light.position.set(0.5, 1, 0.25);
+            scene.add(light);
+            
+            // Crear reticle per a la interacció
+            reticle = new THREE.Mesh(
+                new THREE.RingBufferGeometry(0.15, 0.2, 32).rotateX(-Math.PI / 2),
+                new THREE.MeshBasicMaterial({ color: 0xffffff })
+            );
+            reticle.matrixAutoUpdate = false;
+            reticle.visible = false;
+            scene.add(reticle);
+            
+            // Configurar controls
+            controller = renderer.xr.getController(0);
+            controller.addEventListener('select', onSelect);
+            scene.add(controller);
+            
+            // Gestió de redimensionament
+            window.addEventListener('resize', onWindowResize);
+        }
+        
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
         }
         
         function toggleControlPanel() {
@@ -269,26 +329,6 @@
             });
         }
         
-        async function startCamera() {
-            try {
-                cameraStream = await navigator.mediaDevices.getUserMedia({
-                    video: {
-                        facingMode: 'environment',
-                        width: { ideal: 1920 },
-                        height: { ideal: 1080 }
-                    }
-                });
-                cameraFeed.srcObject = cameraStream;
-                return new Promise((resolve) => {
-                    cameraFeed.onloadedmetadata = () => {
-                        resolve();
-                    };
-                });
-            } catch (error) {
-                throw new Error('No es pot accedir a la càmera: ' + error.message);
-            }
-        }
-        
         function getLocation() {
             return new Promise((resolve, reject) => {
                 if (!navigator.geolocation) {
@@ -312,6 +352,8 @@
                             speed: position.coords.speed
                         };
                         
+                        positionInfo.textContent = `Posició: ${userPosition.lat.toFixed(6)}, ${userPosition.lon.toFixed(6)}`;
+                        
                         // Calcular distàncies a totes les destinacions
                         destinations.forEach(dest => {
                             distances[dest.id] = calculateDistance(
@@ -324,7 +366,7 @@
                         resolve();
                     },
                     (error) => {
-                        reject(new Error('Error de geolocalització: ' + error.message));
+                        showError('Error de geolocalització: ' + error.message);
                     },
                     options
                 );
@@ -350,67 +392,224 @@
             return totalDistance;
         }
         
-        function renderAR(timestamp) {
-            // Limitar el frame rate
-            if (timestamp - lastFrameTime < 1000 / FPS) {
-                requestAnimationFrame(renderAR);
-                return;
-            }
-            lastFrameTime = timestamp;
+        function calculateBearing(lat1, lon1, lat2, lon2) {
+            // Convertir graus a radians
+            const φ1 = lat1 * Math.PI / 180;
+            const φ2 = lat2 * Math.PI / 180;
+            const Δλ = (lon2 - lon1) * Math.PI / 180;
             
-            // Netejar el canvas
-            arContext.clearRect(0, 0, arCanvas.width, arCanvas.height);
+            // Calcular azimut (bearing)
+            const y = Math.sin(Δλ) * Math.cos(φ2);
+            const x = Math.cos(φ1) * Math.sin(φ2) - Math.sin(φ1) * Math.cos(φ2) * Math.cos(Δλ);
+            const θ = Math.atan2(y, x);
             
-            // Dibuixar el vídeo de la càmera
-            if (cameraFeed.readyState === cameraFeed.HAVE_ENOUGH_DATA) {
-                arContext.drawImage(cameraFeed, 0, 0, arCanvas.width, arCanvas.height);
-            }
-            
-            // Dibuixar les línies AR si tenim la posició de l'usuari
-            if (userPosition) {
-                destinations.forEach(dest => {
-                    drawARLine(dest);
-                });
-            }
-            
-            requestAnimationFrame(renderAR);
+            return (θ * 180 / Math.PI + 360) % 360; // en graus, normalitzat a 0-360
         }
         
-        function drawARLine(destination) {
-            // Aquest és un exemple simplificat. En una aplicació real, hauries de:
-            // 1. Calcular l'azimut i l'elevació des de la posició actual fins a la destinació
-            // 2. Utilitzar els sensors de l'dispositiu (giroscopi, acceleròmetre) per orientar les línies correctament
+        function calculateElevation(lat1, lon1, alt1, lat2, lon2, alt2) {
+            const distance = calculateDistance(lat1, lon1, alt1, lat2, lon2, alt2) * 1000; // en metres
+            const altDiff = alt2 - alt1; // en metres
             
-            // Com que no tenim accés als sensors de l'dispositiu en aquest exemple,
-            // farem una simulació simplificada on les línies surten del centre de la pantalla
+            // Elevació en radians
+            return Math.atan2(altDiff, distance);
+        }
+        
+        function onStartAR() {
+            // Amagar missatge de càrrega
+            loadingMessage.style.display = 'none';
             
-            const centerX = arCanvas.width / 2;
-            const centerY = arCanvas.height / 2;
+            // Iniciar sessió WebXR
+            const sessionInit = { optionalFeatures: ['hit-test'] };
             
-            // Angle aleatori per a la demostració (en una aplicació real seria calculat)
-            const angle = Math.random() * Math.PI * 2;
-            const length = 100 + Math.random() * 50;
+            navigator.xr.requestSession('immersive-ar', sessionInit).then((session) => {
+                session.addEventListener('end', onSessionEnd);
+                
+                // Configurar renderer per a la sessió
+                renderer.xr.setSession(session);
+                
+                // Amagar botó AR
+                arButton.style.display = 'none';
+                
+                // Iniciar bucle d'animació
+                renderer.setAnimationLoop(render);
+            }).catch(error => {
+                showError("Error en iniciar sessió AR: " + error.message);
+            });
+        }
+        
+        function onSessionEnd() {
+            renderer.setAnimationLoop(null);
+            arButton.style.display = 'block';
             
-            const endX = centerX + Math.cos(angle) * length;
-            const endY = centerY + Math.sin(angle) * length;
+            // Netejar escena
+            destinationObjects.forEach(obj => {
+                scene.remove(obj);
+            });
+            destinationObjects = [];
+        }
+        
+        function onSelect() {
+            if (reticle.visible && userPosition && userOrientation) {
+                // Crear marcador per a la posició actual
+                createOriginMarker();
+                
+                // Crear línies cap a les destinacions
+                createDestinationLines();
+            }
+        }
+        
+        function createOriginMarker() {
+            // Crear un marcador per indicar la posició actual
+            const markerGeometry = new THREE.CylinderGeometry(0.05, 0.05, 0.01, 32);
+            const markerMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+            const marker = new THREE.Mesh(markerGeometry, markerMaterial);
+            marker.position.setFromMatrixPosition(reticle.matrix);
+            marker.rotation.x = -Math.PI / 2;
+            scene.add(marker);
+            destinationObjects.push(marker);
+        }
+        
+        function createDestinationLines() {
+            // Netejar objectes anteriors
+            destinationObjects.forEach(obj => {
+                scene.remove(obj);
+            });
+            destinationObjects = [];
             
-            // Dibuixar la línia
-            arContext.beginPath();
-            arContext.moveTo(centerX, centerY);
-            arContext.lineTo(endX, endY);
-            arContext.strokeStyle = destination.color;
-            arContext.lineWidth = 3;
-            arContext.stroke();
+            // Crear línies cap a cada destinació
+            destinations.forEach(dest => {
+                if (!userPosition) return;
+                
+                // Calcular azimut i elevació
+                const bearing = calculateBearing(
+                    userPosition.lat, userPosition.lon,
+                    dest.lat, dest.lon
+                );
+                
+                const elevation = calculateElevation(
+                    userPosition.lat, userPosition.lon, userPosition.alt,
+                    dest.lat, dest.lon, dest.alt
+                );
+                
+                // Convertir a coordenades esfèriques (per a l'escena AR)
+                const distance = distances[dest.id] * 1000; // en metres
+                const spherical = new THREE.Spherical(
+                    Math.min(distance, 1000), // Limitam la distància perquè es vegi bé
+                    Math.PI/2 - elevation,
+                    THREE.MathUtils.degToRad(bearing)
+                );
+                
+                // Crear línia
+                const lineGeometry = new THREE.BufferGeometry();
+                const points = [
+                    new THREE.Vector3(0, 0, 0),
+                    new THREE.Vector3().setFromSpherical(spherical)
+                ];
+                lineGeometry.setFromPoints(points);
+                
+                const lineMaterial = new THREE.LineBasicMaterial({ 
+                    color: new THREE.Color(dest.color),
+                    linewidth: 3
+                });
+                
+                const line = new THREE.Line(lineGeometry, lineMaterial);
+                line.position.setFromMatrixPosition(reticle.matrix);
+                scene.add(line);
+                destinationObjects.push(line);
+                
+                // Afegir etiqueta
+                const label = createLabel(dest.name, dest.color);
+                label.position.copy(points[1]);
+                label.position.add(line.position);
+                scene.add(label);
+                destinationObjects.push(label);
+            });
+        }
+        
+        function createLabel(text, color) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 256;
+            canvas.height = 128;
+            const context = canvas.getContext('2d');
             
-            // Dibuixar el nom de la destinació
-            arContext.fillStyle = destination.color;
-            arContext.font = '16px Arial';
-            arContext.fillText(destination.name, endX + 10, endY);
+            // Fons
+            context.fillStyle = 'rgba(0, 0, 0, 0.7)';
+            context.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Text
+            context.font = 'Bold 24px Arial';
+            context.fillStyle = color;
+            context.textAlign = 'center';
+            context.fillText(text, canvas.width / 2, canvas.height / 2 + 10);
+            
+            // Textura
+            const texture = new THREE.CanvasTexture(canvas);
+            
+            // Material
+            const material = new THREE.SpriteMaterial({ 
+                map: texture,
+                transparent: true
+            });
+            
+            // Sprite
+            const sprite = new THREE.Sprite(material);
+            sprite.scale.set(0.5, 0.25, 1);
+            
+            return sprite;
+        }
+        
+        function render(timestamp, frame) {
+            if (frame) {
+                // Actualitzar reticle amb hit-test
+                if (!hitTestSourceRequested) {
+                    frame.session.requestReferenceSpace('viewer').then((referenceSpace) => {
+                        return frame.session.requestHitTestSource({ space: referenceSpace });
+                    }).then((source) => {
+                        hitTestSource = source;
+                    });
+                    hitTestSourceRequested = true;
+                }
+                
+                if (hitTestSource && frame.getHitTestResults) {
+                    const hitTestResults = frame.getHitTestResults(hitTestSource);
+                    if (hitTestResults.length > 0) {
+                        const hit = hitTestResults[0];
+                        const pose = hit.getPose(renderer.xr.getReferenceSpace());
+                        reticle.visible = true;
+                        reticle.matrix.fromArray(pose.transform.matrix);
+                    } else {
+                        reticle.visible = false;
+                    }
+                }
+                
+                // Actualitzar orientació si està disponible
+                if (frame.getViewerPose) {
+                    const pose = frame.getViewerPose(renderer.xr.getReferenceSpace());
+                    if (pose) {
+                        const quaternion = new THREE.Quaternion();
+                        quaternion.fromArray(pose.transform.orientation);
+                        const euler = new THREE.Euler().setFromQuaternion(quaternion);
+                        
+                        userOrientation = {
+                            alpha: THREE.MathUtils.radToDeg(euler.z),
+                            beta: THREE.MathUtils.radToDeg(euler.x),
+                            gamma: THREE.MathUtils.radToDeg(euler.y)
+                        };
+                        
+                        orientationInfo.textContent = `Orientació: ${userOrientation.alpha.toFixed(1)}°, ${userOrientation.beta.toFixed(1)}°, ${userOrientation.gamma.toFixed(1)}°`;
+                    }
+                }
+            }
+            
+            // Renderitzar escena
+            renderer.render(scene, camera);
         }
         
         function showError(message) {
+            loadingMessage.style.display = 'none';
             errorMessage.textContent = message;
             errorMessage.style.display = 'block';
+            console.error(message);
         }
     </script>
 </body>
