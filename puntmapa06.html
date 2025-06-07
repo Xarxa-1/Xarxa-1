@@ -114,9 +114,20 @@
         renderer="logarithmicDepthBuffer: true;"
         gps-camera-debug>
         
-        <!-- Punt "ef" (sense esfera, només línia) -->
+        <!-- Punt "ef" (sense esfera, només línia)     lat: 41.3597743, lon: 1.093488, alt: 800, color: 'lime' }, 7
+                    { id: 1, name: "Esglèsia", lat: 41.396712, lon: 1.103376, alt: 412, color: '#FF0000' },
+            { id: 2, name: "Ermita", lat: 41.3731, lon: 1.11065, alt: 560, color: '#00FF00' },
+            { id: 3, name: "Sant Bernat", lat: 41.388193, lon: 1.083005, alt: 456, color: '#0000FF' },
+            { id: 4, name: "Roca de la Manxa", lat: 41.426297, lon: 1.115281, alt: 499, color: '#FFFF00' },
+            { id: 5, name: "Nou Lloc 1", lat: 41.52205, lon: 0.868813, alt: 353, color: '#FF00FF' },
+            { id: 6, name: "Novacoop", lat: 41.520159, lon: 0.0862992, alt: 353, color: '#00FFFF' },
+            { id: 7, name: "Poblet", lat: 41.380406, lon: 1.083457, alt: 460, color: 'green' },
+            { id: 8, name: "La Pena", lat: 41.3597743, lon: 1.093488, alt: 800, color: 'lime' },
+            { id: 9, name: "Tarragona", lat: 41.113685, lon: 1.256539, alt: 800, color: 'coral' },
+            { id: 10, name: "Lleida", lat: 41.615100, lon: 0.627411, alt: 800, color: 'coral' }
+        -->
         <a-entity id="target-point-ef"
-            gps-entity-place="latitude: 41.395799; longitude: 1.096335"
+            gps-entity-place="latitude: 41.396712; longitude: 1.103376; altitude: 412"
             look-at="[gps-camera]">
             <a-text 
                 value="ef" 
@@ -129,14 +140,14 @@
         </a-entity>
         
         <!-- Línia verda des de la càmera al punt "ef" -->
-        <a-entity id="connection-line-ef" line="color: #00FF00; opacity: 0.7"></a-entity>
+        <a-entity id="connection-line-ef" line="color: red; opacity: 0.7"></a-entity>
         
-        <!-- Punt "Bes" (sense esfera, només línia) -->
+        <!-- Punt "Pen" (sense esfera, només línia) -->
         <a-entity id="target-point-bes"
-            gps-entity-place="latitude: 41.4665607398; longitude: 0.8471321541; altitude: 593"
+            gps-entity-place="latitude: 41.3597743; longitude: 1.093488; altitude: 800"
             look-at="[gps-camera]">
             <a-text 
-                value="Bes" 
+                value="Pena" 
                 color="black" 
                 align="center" 
                 position="0 15 0"
@@ -146,7 +157,7 @@
         </a-entity>
         
         <!-- Línia groga des de la càmera al punt "Bes" -->
-        <a-entity id="connection-line-bes" line="color: #FFFF00; opacity: 0.7"></a-entity>
+        <a-entity id="connection-line-bes" line="color: coral; opacity: 0.7"></a-entity>
         
         <!-- Indicador de posició actual -->
         <a-entity id="user-position">
