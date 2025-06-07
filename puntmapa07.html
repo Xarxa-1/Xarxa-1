@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>00Realitat Augmentada - Línies de Destinació</title>
+    <title>*Realitat Augmentada - Línies de Destinació</title>
     <style>
         body {
             margin: 0;
@@ -11,6 +11,7 @@
             overflow: hidden;
             font-family: Arial, sans-serif;
             color: white;
+            touch-action: none;
         }
         
         #cameraContainer {
@@ -26,6 +27,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: none;
         }
         
         #arCanvas {
@@ -112,11 +114,18 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.8);
             padding: 20px;
             border-radius: 10px;
             z-index: 100;
             text-align: center;
+            max-width: 80%;
+        }
+        
+        #loadingProgress {
+            margin-top: 10px;
+            color: #4CAF50;
+            font-weight: bold;
         }
         
         #errorMessage {
@@ -124,12 +133,24 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: rgba(200, 0, 0, 0.7);
+            background-color: rgba(200, 0, 0, 0.8);
             padding: 20px;
             border-radius: 10px;
             z-index: 100;
             text-align: center;
+            max-width: 80%;
             display: none;
+        }
+        
+        #retryButton {
+            margin-top: 15px;
+            padding: 8px 16px;
+            background-color: white;
+            color: #d32f2f;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
         }
         
         #startButton {
@@ -138,13 +159,29 @@
             left: 50%;
             transform: translateX(-50%);
             z-index: 100;
-            padding: 10px 20px;
+            padding: 12px 24px;
             background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        #permissionHelp {
+            position: fixed;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 100;
+            text-align: center;
+            font-size: 14px;
+            display: none;
+            max-width: 90%;
         }
     </style>
 </head>
@@ -154,7 +191,8 @@
         <canvas id="arCanvas"></canvas>
     </div>
     
-    <button id="startButton">Iniciar AR</button>
+    <button id="startButton">Iniciar Realitat Augmentada</button>
+    <div id="permissionHelp">Si no veus la càmera, comprova que has donat permisos</div>
     
     <div id="controlPanel" class="minimized">
         <div id="togglePanel">
@@ -167,11 +205,14 @@
     </div>
     
     <div id="loadingMessage">
-        Carregant realitat augmentada...
-        <div>Permet l'accés a la càmera i la ubicació</div>
+        <div>Preparant la realitat augmentada...</div>
+        <div id="loadingProgress">Pass 1/3: Sol·licitant permisos</div>
     </div>
     
-    <div id="errorMessage"></div>
+    <div id="errorMessage">
+        <div id="errorText"></div>
+        <button id="retryButton">Tornar a intentar</button>
+    </div>
     
     <script>
         // Configuració de destinacions
@@ -192,6 +233,8 @@
         let userPosition = null;
         let cameraStream = null;
         let animationFrameId = null;
+        let distances = {};
+        let isARActive = false;
         
         // Elements del DOM
         const cameraFeed = document.getElementById('cameraFeed');
@@ -204,7 +247,11 @@
         const distancesContainer = document.getElementById('distancesContainer');
         const legend = document.getElementById('legend');
         const loadingMessage = document.getElementById('loadingMessage');
+        const loadingProgress = document.getElementById('loadingProgress');
         const errorMessage = document.getElementById('errorMessage');
+        const errorText = document.getElementById('errorText');
+        const retryButton = document.getElementById('retryButton');
+        const permissionHelp = document.getElementById('permissionHelp');
         
         // Inicialització
         window.addEventListener('load', init);
@@ -219,6 +266,9 @@
             
             // Configurar botó d'inici
             startButton.addEventListener('click', startAR);
+            
+            // Configurar botó de reintentar
+            retryButton.addEventListener('click', startAR);
             
             // Inicialitzar la llegenda
             initLegend();
@@ -284,23 +334,53 @@
         
         async function startAR() {
             try {
-                startButton.style.display = 'none';
-                loadingMessage.style.display = 'block';
+                // Reset estat anterior
+                if (animationFrameId) {
+                    cancelAnimationFrame(animationFrameId);
+                    animationFrameId = null;
+                }
                 
-                // Iniciar càmera
+                if (cameraStream) {
+                    cameraStream.getTracks().forEach(track => track.stop());
+                    cameraStream = null;
+                }
+                
+                // Configurar interfície
+                startButton.style.display = 'none';
+                errorMessage.style.display = 'none';
+                loadingMessage.style.display = 'block';
+                permissionHelp.style.display = 'none';
+                cameraFeed.style.display = 'none';
+                
+                // Pass 1: Sol·licitar permisos de càmera
+                loadingProgress.textContent = 'Pass 1/3: Sol·licitant permisos de càmera...';
                 await startCamera();
                 
-                // Obtenir ubicació
+                // Pass 2: Obtenir ubicació
+                loadingProgress.textContent = 'Pass 2/3: Obtenint ubicació...';
                 await getLocation();
                 
+                // Pass 3: Iniciar realitat augmentada
+                loadingProgress.textContent = 'Pass 3/3: Iniciant realitat augmentada...';
+                
+                // Esperar 500ms perquè l'usuari vegi l'últim missatge
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                // Amagar missatge de càrrega
                 loadingMessage.style.display = 'none';
+                cameraFeed.style.display = 'block';
+                
+                // Mostrar ajuda de permisos temporalment
+                permissionHelp.style.display = 'block';
+                setTimeout(() => {
+                    permissionHelp.style.display = 'none';
+                }, 3000);
                 
                 // Iniciar renderitzat AR
+                isARActive = true;
                 animationFrameId = requestAnimationFrame(renderAR);
             } catch (error) {
-                loadingMessage.style.display = 'none';
                 showError(error.message);
-                startButton.style.display = 'block';
             }
         }
         
@@ -313,11 +393,22 @@
                         height: { ideal: 1080 }
                     }
                 });
+                
                 cameraFeed.srcObject = cameraStream;
                 
-                return new Promise((resolve) => {
+                return new Promise((resolve, reject) => {
+                    const timeout = setTimeout(() => {
+                        reject(new Error('El temps de càrrega de la càmera ha expirat'));
+                    }, 10000);
+                    
                     cameraFeed.onloadedmetadata = () => {
+                        clearTimeout(timeout);
                         resolve();
+                    };
+                    
+                    cameraFeed.onerror = () => {
+                        clearTimeout(timeout);
+                        reject(new Error('Error en carregar el flux de la càmera'));
                     };
                 });
             } catch (error) {
@@ -329,6 +420,7 @@
             return new Promise((resolve, reject) => {
                 if (!navigator.geolocation) {
                     reject(new Error('Geolocalització no suportada pel navegador'));
+                    return;
                 }
                 
                 const options = {
@@ -337,39 +429,53 @@
                     maximumAge: 0
                 };
                 
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        userPosition = {
-                            lat: position.coords.latitude,
-                            lon: position.coords.longitude,
-                            alt: position.coords.altitude || 0,
-                            accuracy: position.coords.accuracy,
-                            heading: position.coords.heading,
-                            speed: position.coords.speed
-                        };
-                        
-                        // Calcular distàncies a totes les destinacions
-                        destinations.forEach(dest => {
-                            distances[dest.id] = calculateDistance(
-                                userPosition.lat, userPosition.lon, userPosition.alt,
-                                dest.lat, dest.lon, dest.alt
-                            );
-                        });
-                        
-                        updateDistances();
-                        resolve();
-                    },
-                    (error) => {
-                        reject(new Error('Error de geolocalització: ' + error.message));
-                    },
-                    options
-                );
+                const success = (position) => {
+                    userPosition = {
+                        lat: position.coords.latitude,
+                        lon: position.coords.longitude,
+                        alt: position.coords.altitude || 0,
+                        accuracy: position.coords.accuracy,
+                        heading: position.coords.heading || 0,
+                        speed: position.coords.speed
+                    };
+                    
+                    // Calcular distàncies a totes les destinacions
+                    destinations.forEach(dest => {
+                        distances[dest.id] = calculateDistance(
+                            userPosition.lat, userPosition.lon, userPosition.alt,
+                            dest.lat, dest.lon, dest.alt
+                        );
+                    });
+                    
+                    updateDistances();
+                    resolve();
+                };
+                
+                const error = (err) => {
+                    let errorMessage = 'Error de geolocalització: ';
+                    switch (err.code) {
+                        case err.PERMISSION_DENIED:
+                            errorMessage += 'Permís denegat. Si us plau, activa la geolocalització als ajustos del teu dispositiu.';
+                            break;
+                        case err.POSITION_UNAVAILABLE:
+                            errorMessage += 'La informació de ubicació no està disponible.';
+                            break;
+                        case err.TIMEOUT:
+                            errorMessage += 'El temps d\'espera per obtenir la ubicació ha expirat.';
+                            break;
+                        default:
+                            errorMessage += err.message;
+                    }
+                    reject(new Error(errorMessage));
+                };
+                
+                navigator.geolocation.getCurrentPosition(success, error, options);
             });
         }
         
         function calculateDistance(lat1, lon1, alt1, lat2, lon2, alt2) {
             // Fórmula de Haversine per calcular distància en km
-            const R = 6371; // Radi de la Terra en km
+            const R = 6371;
             const dLat = (lat2 - lat1) * Math.PI / 180;
             const dLon = (lon2 - lon1) * Math.PI / 180;
             const a = 
@@ -379,34 +485,36 @@
             const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
             const distance = R * c;
             
-            // Afegim la diferència d'altitud (Pitàgores)
-            const altDiff = Math.abs(alt2 - alt1) / 1000; // Convertim a km
-            const totalDistance = Math.sqrt(distance * distance + altDiff * altDiff);
-            
-            return totalDistance;
+            // Afegir diferència d'altitud
+            const altDiff = Math.abs(alt2 - alt1) / 1000;
+            return Math.sqrt(distance * distance + altDiff * altDiff);
         }
         
         function calculateBearing(lat1, lon1, lat2, lon2) {
-            // Convertir graus a radians
             const φ1 = lat1 * Math.PI / 180;
             const φ2 = lat2 * Math.PI / 180;
             const Δλ = (lon2 - lon1) * Math.PI / 180;
             
-            // Calcular azimut (bearing)
             const y = Math.sin(Δλ) * Math.cos(φ2);
             const x = Math.cos(φ1) * Math.sin(φ2) - Math.sin(φ1) * Math.cos(φ2) * Math.cos(Δλ);
             const θ = Math.atan2(y, x);
             
-            return (θ * 180 / Math.PI + 360) % 360; // en graus, normalitzat a 0-360
+            return (θ * 180 / Math.PI + 360) % 360;
         }
         
         function renderAR() {
+            if (!isARActive) return;
+            
             // Netejar el canvas
             arContext.clearRect(0, 0, arCanvas.width, arCanvas.height);
             
             // Dibuixar el vídeo de la càmera
             if (cameraFeed.readyState === cameraFeed.HAVE_ENOUGH_DATA) {
-                arContext.drawImage(cameraFeed, 0, 0, arCanvas.width, arCanvas.height);
+                try {
+                    arContext.drawImage(cameraFeed, 0, 0, arCanvas.width, arCanvas.height);
+                } catch (e) {
+                    console.error("Error drawing camera feed:", e);
+                }
             }
             
             // Dibuixar les línies AR si tenim la posició de l'usuari
@@ -421,9 +529,13 @@
                         dest.lat, dest.lon
                     );
                     
-                    // Convertir azimut a posició a la pantalla (simplificat)
-                    const angle = (bearing - (userPosition.heading || 0)) * Math.PI / 180;
-                    const length = Math.min(arCanvas.height * 0.4, 200);
+                    // Ajustar segons l'orientació de l'usuari
+                    const adjustedBearing = (bearing - userPosition.heading + 360) % 360;
+                    const angle = adjustedBearing * Math.PI / 180;
+                    
+                    // Longitud de la línia (més curta per destinacions llunyanes)
+                    const baseLength = Math.min(arCanvas.height * 0.4, 200);
+                    const length = baseLength * (1 - Math.min(distances[dest.id] / 100, 0.9));
                     
                     const endX = centerX + Math.sin(angle) * length;
                     const endY = centerY - Math.cos(angle) * length;
@@ -438,8 +550,14 @@
                     
                     // Dibuixar el nom de la destinació
                     arContext.fillStyle = dest.color;
-                    arContext.font = '16px Arial';
+                    arContext.font = 'bold 16px Arial';
                     arContext.fillText(dest.name, endX + 10, endY);
+                    
+                    // Dibuixar un cercle al final de la línia
+                    arContext.beginPath();
+                    arContext.arc(endX, endY, 5, 0, 2 * Math.PI);
+                    arContext.fillStyle = dest.color;
+                    arContext.fill();
                 });
             }
             
@@ -447,15 +565,37 @@
         }
         
         function showError(message) {
-            errorMessage.textContent = message;
+            loadingMessage.style.display = 'none';
+            errorText.textContent = message;
             errorMessage.style.display = 'block';
-            console.error(message);
+            startButton.style.display = 'block';
             
             if (animationFrameId) {
                 cancelAnimationFrame(animationFrameId);
                 animationFrameId = null;
             }
+            
+            if (cameraStream) {
+                cameraStream.getTracks().forEach(track => track.stop());
+                cameraStream = null;
+            }
+            
+            console.error(message);
         }
+        
+        // Gestionar pausa quan la pàgina no és visible
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                if (animationFrameId) {
+                    cancelAnimationFrame(animationFrameId);
+                    animationFrameId = null;
+                }
+                isARActive = false;
+            } else if (cameraStream) {
+                isARActive = true;
+                animationFrameId = requestAnimationFrame(renderAR);
+            }
+        });
     </script>
 </body>
 </html>
