@@ -28,9 +28,9 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 50vh;
-      margin: 10px;
-      padding: 10px;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
     }
 
     .player {
@@ -38,16 +38,16 @@
       align-items: center;
       background-color: var(--dark-2);
       border-radius: 15px;
-      padding: 12px 20px;
+      padding: 15px 25px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-      gap: 15px;
+      gap: 20px;
       width: 100%;
       max-width: 1000px;
     }
 
     .cover {
-      width: 50px;
-      height: 50px;
+      width: 60px;
+      height: 60px;
       border-radius: 8px;
       overflow: hidden;
       flex-shrink: 0;
@@ -69,11 +69,11 @@
     }
 
     .info {
-      min-width: 120px;
+      min-width: 150px;
     }
 
     .title {
-      font-size: 22px;
+      font-size: 26px;
       font-weight: 500;
       margin: 0;
       white-space: nowrap;
@@ -82,9 +82,9 @@
     }
 
     .artist {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--text-light);
-      margin: 2px 0 0 0;
+      margin: 3px 0 0 0;
     }
 
     .progress-container {
@@ -93,7 +93,7 @@
       background: var(--dark-3);
       border-radius: 2px;
       cursor: pointer;
-      margin: 0 10px;
+      margin: 0 15px;
     }
 
     .progress {
@@ -106,13 +106,13 @@
 
     .controls {
       display: flex;
-      gap: 8px;
+      gap: 10px;
       align-items: center;
     }
 
     .btn {
-      width: 32px;
-      height: 32px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       background: var(--dark-3);
       border: none;
@@ -130,8 +130,8 @@
     }
 
     .btn.play {
-      width: 38px;
-      height: 38px;
+      width: 42px;
+      height: 42px;
       background: var(--primary);
     }
 
@@ -140,12 +140,12 @@
     }
 
     .clock {
-      font-size: 28px;
+      font-size: 32px;
       color: var(--text-light);
       display: flex;
       align-items: center;
       gap: 5px;
-      min-width: 70px;
+      min-width: 80px;
     }
 
     .timer-container {
@@ -158,10 +158,10 @@
       background: var(--dark-3);
       border: none;
       color: var(--text-light);
-      padding: 6px 10px;
+      padding: 8px 12px;
       border-radius: 20px;
       cursor: pointer;
-      font-size: 13px;
+      font-size: 14px;
       display: flex;
       align-items: center;
       gap: 5px;
@@ -179,11 +179,11 @@
       right: 0;
       background: var(--dark-3);
       border-radius: 8px;
-      padding: 8px;
+      padding: 10px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.3);
       z-index: 10;
       display: none;
-      min-width: 160px;
+      min-width: 180px;
     }
 
     .timer-dropdown.show {
@@ -191,7 +191,7 @@
     }
 
     .timer-option {
-      padding: 6px 10px;
+      padding: 8px 12px;
       border-radius: 4px;
       cursor: pointer;
       transition: background 0.2s;
@@ -202,7 +202,7 @@
     }
 
     .timer-display {
-      font-size: 20px;
+      font-size: 23px;
       margin-left: 5px;
       color: var(--text-light);
     }
@@ -210,12 +210,12 @@
     .volume-container {
       display: flex;
       align-items: center;
-      gap: 6px;
-      margin-left: 8px;
+      gap: 8px;
+      margin-left: 10px;
     }
 
     .volume-slider {
-      width: 70px;
+      width: 80px;
       height: 4px;
       background: var(--dark-3);
       -webkit-appearance: none;
@@ -224,8 +224,8 @@
 
     .volume-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 10px;
-      height: 10px;
+      width: 12px;
+      height: 12px;
       background: var(--primary);
       border-radius: 50%;
       cursor: pointer;
@@ -234,14 +234,14 @@
     @media (max-width: 900px) {
       .player {
         flex-wrap: wrap;
-        padding: 10px;
-        gap: 10px;
+        padding: 15px;
+        gap: 15px;
       }
 
       .progress-container {
         order: 1;
         width: 100%;
-        margin: 8px 0;
+        margin: 10px 0;
       }
 
       .timer-container {
@@ -249,9 +249,52 @@
         margin-left: auto;
       }
     }
+
+    /* Video container (ocult) */
+    .video-container {
+      position: fixed;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Preloader per millorar UX */
+    .preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--dark);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      transition: opacity 0.5s;
+    }
+
+    .preloader.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
+  <!-- Preloader -->
+  <div class="preloader" id="preloader">
+    <div style="text-align: center;">
+      <p style="font-size: 20px; margin-bottom: 20px;">Carregant ràdio...</p>
+      <div style="width: 50px; height: 50px; border: 5px solid var(--primary); border-radius: 50%; border-top-color: transparent; animation: spin 1s linear infinite; margin: 0 auto;"></div>
+    </div>
+  </div>
+
+  <!-- Element de vídeo ocult -->
+  <div class="video-container">
+    <video id="radioVideo" playsinline webkit-playsinline muted loop></video>
+  </div>
+
   <div class="player">
     <div class="cover">
       <div class="disc"></div>
@@ -273,7 +316,7 @@
     </div>
 
     <div class="volume-container">
-      <i class="fas fa-volume-up" style="font-size: 13px;"></i>
+      <i class="fas fa-volume-up" style="font-size: 14px;"></i>
       <input type="range" class="volume-slider" min="0" max="1" step="0.1" value="1">
     </div>
 
@@ -308,7 +351,7 @@
     updateClock();
 
     // Reproductor
-    const audio = new Audio();
+    const video = document.getElementById('radioVideo');
     const playBtn = document.querySelector('.play');
     const prevBtn = document.querySelector('.prev');
     const nextBtn = document.querySelector('.next');
@@ -316,6 +359,7 @@
     const title = document.getElementById('title');
     const artist = document.getElementById('artist');
     const volumeSlider = document.querySelector('.volume-slider');
+    const preloader = document.getElementById('preloader');
 
     let stations = [];
     let currentStationIndex = 0;
@@ -323,9 +367,16 @@
     let sleepTimer = null;
     let remainingTime = 0;
 
+    // Configuració avançada del vídeo per a reproducció automàtica
+    video.playsInline = true;
+    video.muted = true; // Començar mut per permetre reproducció automàtica
+    video.loop = false;
+    video.setAttribute('webkit-playsinline', '');
+    video.setAttribute('playsinline', '');
+
     // Control de volum
     volumeSlider.addEventListener('input', (e) => {
-      audio.volume = e.target.value;
+      video.volume = e.target.value;
     });
 
     // Temporitzador
@@ -351,7 +402,6 @@
     });
 
     function setSleepTimer(minutes) {
-      // Cancelar temporitzador existent
       if (sleepTimer) {
         clearInterval(sleepTimer);
         sleepTimer = null;
@@ -396,26 +446,57 @@
       try {
         const response = await fetch('https://xarxa-1.github.io/Xarxa-1/station1.json');
         stations = await response.json();
-        if (stations.length > 0) loadStation(stations[currentStationIndex]);
+        if (stations.length > 0) {
+          loadStation(stations[currentStationIndex]);
+          
+          // Estratègia avançada de reproducció automàtica
+          setTimeout(() => {
+            video.play()
+              .then(() => {
+                // Un cop comença la reproducció, intentem desmutar
+                setTimeout(() => {
+                  video.muted = false;
+                  isPlaying = true;
+                  playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                  disc.style.animationPlayState = 'running';
+                  preloader.classList.add('hidden');
+                }, 500);
+              })
+              .catch(error => {
+                console.log("Reproducció automàtica bloquejada:", error);
+                preloader.classList.add('hidden');
+              });
+          }, 1000);
+        }
       } catch (error) {
         title.textContent = "Error carregant estacions";
+        preloader.classList.add('hidden');
       }
     }
 
     function loadStation(station) {
       title.textContent = station.name;
       artist.textContent = "Ràdio en Directe";
-      audio.src = station.url;
+      video.src = station.url;
       disc.style.backgroundImage = `url('${station.logo}')`;
-      if (isPlaying) audio.play();
-      // Iniciar automàticament
-      if (!isPlaying) togglePlay();
+      if (isPlaying) video.play();
     }
 
     function togglePlay() {
-      isPlaying ? audio.pause() : audio.play();
-      playBtn.innerHTML = isPlaying ? '<i class="fas fa-play"></i>' : '<i class="fas fa-pause"></i>';
-      disc.style.animationPlayState = isPlaying ? 'paused' : 'running';
+      if (isPlaying) {
+        video.pause();
+        playBtn.innerHTML = '<i class="fas fa-play"></i>';
+        disc.style.animationPlayState = 'paused';
+      } else {
+        video.play()
+          .then(() => {
+            playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            disc.style.animationPlayState = 'running';
+          })
+          .catch(error => {
+            console.error("Error en reproduir:", error);
+          });
+      }
       isPlaying = !isPlaying;
     }
 
@@ -432,7 +513,36 @@
     playBtn.addEventListener('click', togglePlay);
     prevBtn.addEventListener('click', prevStation);
     nextBtn.addEventListener('click', nextStation);
+
+    // Carregar estacions i intentar reproduir automàticament
     loadStations();
+
+    // Estratègia addicional: Intentar reproduir en interaccions amb la pàgina
+    document.addEventListener('click', function firstInteraction() {
+      if (!isPlaying) {
+        video.muted = false;
+        video.play()
+          .then(() => {
+            isPlaying = true;
+            playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            disc.style.animationPlayState = 'running';
+          });
+      }
+      document.removeEventListener('click', firstInteraction);
+    });
+
+    document.addEventListener('scroll', function firstInteraction() {
+      if (!isPlaying) {
+        video.muted = false;
+        video.play()
+          .then(() => {
+            isPlaying = true;
+            playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            disc.style.animationPlayState = 'running';
+          });
+      }
+      document.removeEventListener('scroll', firstInteraction);
+    });
   </script>
 </body>
 </html>
