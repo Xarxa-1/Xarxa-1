@@ -190,6 +190,28 @@ https://ingest1-video.streaming-pro.com/canaltaronja/sabadell/playlist.m3u8
 #EXTINF:-1 tvg-id="MyWifiSocialTV" group-title="General",MyWifiSocial TV
 https://tv.mywifisocial.es/live.m3u8
 
+#EXTINF:-1 tvg-id="La1" group-title="General",La 1
+https://ztnr.rtve.es/ztnr/1688877.m3u8
+#EXTINF:-1 tvg-id="La1_2" group-title="General",La 1 (2)
+https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8
+#EXTINF:-1 tvg-id="La1_3" group-title="General",La 1 (3)
+https://dh6vo1bovy43s.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-x3gcl32l5ffq2/La_1_ES.m3u8
+#EXTINF:-1 tvg-id="La2" group-title="General",La 2
+https://ztnr.rtve.es/ztnr/1688885.m3u8
+#EXTINF:-1 tvg-id="La2_2" group-title="General",La 2 (2)
+https://rtvelivestream.rtve.es/rtvesec/la2/la2_main_dvr.m3u8
+#EXTINF:-1 tvg-id="La2_3" group-title="General",La 2 (3)
+https://di2qeq48iv8ps.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-o8u23e6v7vptv/La_2_ES.m3u8
+#EXTINF:-1 tvg-id="TRECE" group-title="General",TRECE
+https://live-edge-ff-1.cdn.enetres.net/091DB7AFBD77442B9BA2F141DCC182F5021/liveld/index.m3u8
+#EXTINF:-1 tvg-id="ElToroTV" group-title="General",El Toro TV
+https://streaming-1.eltorotv.com/lb0/eltorotv-streaming-web/index.m3u8
+#EXTINF:-1 tvg-id="ElToroTV_2" group-title="General",El Toro TV (2)
+https://edge-nodo-002.streaming.hitcloser.net/eltorotv-streaming-web/index.m3u8
+#EXTINF:-1 tvg-id="RNEParaTodos" group-title="General",RNE para todos
+https://ztnr.rtve.es/ztnr/6688753.m3u8
+#EXTINF:-1 tvg-id="RNEParaTodos_2" group-title="General",RNE para todos (2)
+https://rtvelivestream.rtve.es/rtvesec/rne/rne_para_todos_main.m3u8
 
 
 #EXTINF:-1 tvg-id="TVEIntEuropa" group-title="General",TVE Int. Europa
