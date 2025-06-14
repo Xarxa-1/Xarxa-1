@@ -36,7 +36,8 @@ https://directes-tv-cat.3catdirectes.cat/live-origin/oca2-hls/master.m3u8
 #EXTINF:-1 tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200" group-title="Lifestyle" tvg-name="3CAT Exclusiu 1",3CATe3
 https://directes-tv-cat.3catdirectes.cat/live-origin/oca3-hls/master.m3u8
 #EXTINF:-1 tvg-id="La1" tvg-logo="https://i.imgur.com/1jDS9UC.png" group-title="General",La1
-https://rtvelivestream.akamaized.net/rtvesec/la1/la1_main_dvr.m3u8
+https://ztnr.rtve.es/ztnr/1688877.m3u8
+****https://rtvelivestream.akamaized.net/rtvesec/la1/la1_main_dvr.m3u8
 #EXTINF:-1 tvg-id="La2Cat" tvg-logo="http://www.pesimismodigital.com/wp-content/uploads/2016/09/tve2g.jpg" group-title="General",La2 Cat
 https://ztnr.rtve.es/ztnr/3987218.m3u8
 #EXTINF:-1 tvg-id="24Horas" tvg-logo="https://i.imgur.com/IUVRm5L.png" group-title="News",24HCat
