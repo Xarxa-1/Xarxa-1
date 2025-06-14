@@ -89,53 +89,103 @@ https://d39chvnxm26pgp.cloudfront.net/v1/master/72588bff830dec7b26d7cbbf5f3c2492
 https://vhoichoi.viewlift.com/Renditions/20240918/1726653787189_88a8sna0ns9a8s7tf/hls/1726653787189_88a8sna0ns9a8s7tf.m3u8
 
 
+#EXTINF:-1 tvg-id="TV3" group-title="General",TV3
 https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
+#EXTINF:-1 tvg-id="Canal324" group-title="General",Canal 324
 https://directes-tv-int.3catdirectes.cat/live-content/canal324-hls/master.m3u8
+#EXTINF:-1 tvg-id="C33Super3CAT" group-title="General",C33/Super3 CAT
 https://directes-tv-cat.3catdirectes.cat/live-origin/c33-super3-hls/master.m3u8
+#EXTINF:-1 tvg-id="C33Super3ES" group-title="General",C33/Super3 ES
 https://directes-tv-es.3catdirectes.cat/live-origin/c33-super3-hls/master.m3u8
+#EXTINF:-1 tvg-id="Super3CAT" group-title="General",Super3 CAT
 https://directes-tv-cat.3catdirectes.cat/live-content/super3-hls/master.m3u8
+#EXTINF:-1 tvg-id="Super3ES" group-title="General",Super3 ES
 https://directes-tv-es.3catdirectes.cat/live-content/super3-hls/master.m3u8
+#EXTINF:-1 tvg-id="OCA1CAT" group-title="General",OCA 1 CAT
 https://directes-tv-cat.3catdirectes.cat/live-content/oca1-hls/master.m3u8
+#EXTINF:-1 tvg-id="OCA1ES" group-title="General",OCA 1 ES
 https://directes-tv-es.3catdirectes.cat/live-content/oca1-hls/master.m3u8
+#EXTINF:-1 tvg-id="OCA2CAT" group-title="General",OCA 2 CAT
 https://directes-tv-cat.3catdirectes.cat/live-content/oca2-hls/master.m3u8
+#EXTINF:-1 tvg-id="OCA2ES" group-title="General",OCA 2 ES
 https://directes-tv-es.3catdirectes.cat/live-content/oca2-hls/master.m3u8
+#EXTINF:-1 tvg-id="OCA3CAT" group-title="General",OCA 3 CAT
 https://directes-tv-cat.3catdirectes.cat/live-content/oca3-hls/master.m3u8
+#EXTINF:-1 tvg-id="OCA1ES2" group-title="General",OCA 1 ES (2)
 https://directes-tv-es.3catdirectes.cat/live-content/oca1-hls/master.m3u8
+#EXTINF:-1 tvg-id="CCMAChannel1" group-title="General",CCMA Channel 1
 https://fast-tailor.3catdirectes.cat/v1/channel/ccma-channel1/hls.m3u8
+#EXTINF:-1 tvg-id="CCMAChannel2" group-title="General",CCMA Channel 2
 https://fast-tailor.3catdirectes.cat/v1/channel/ccma-channel2/hls.m3u8
+#EXTINF:-1 tvg-id="La1RTVE" group-title="General",La 1 RTVE
 https://ztnr.rtve.es/ztnr/3293681.m3u8
+#EXTINF:-1 tvg-id="La1Cat" group-title="General",La 1 Catalunya
 https://rtvelivestream.akamaized.net/rtvesec/cat/la1_cat_main_dvr.m3u8
+#EXTINF:-1 tvg-id="La2RTVE" group-title="General",La 2 RTVE
 https://ztnr.rtve.es/ztnr/3987218.m3u8
+#EXTINF:-1 tvg-id="La2Cat" group-title="General",La 2 Catalunya
 https://rtvelivestream.akamaized.net/rtvesec/cat/la2_cat_main_dvr.m3u8
+#EXTINF:-1 tvg-id="Canal24h" group-title="General",Canal 24h
 https://ztnr.rtve.es/ztnr/4952053.m3u8
+#EXTINF:-1 tvg-id="BonDiaTV" group-title="General",Bon Dia TV
 https://directes-tv-int.3catdirectes.cat/live-content/bondia-hls/master.m3u8
+#EXTINF:-1 tvg-id="Beteve" group-title="General",Betevé
 https://cdnapisec.kaltura.com/p/2346171/sp/234617100/playManifest/entryId/1_n6442jz0/protocol/https/format/applehttp/a.m3u8?referrer=aHR0cHM6Ly9iZXRldmUuY2F0
+#EXTINF:-1 tvg-id="Mitjans" group-title="General",Mitjans
 https://limited35.todostreaming.es/live/mitjans-livestream.m3u8
+#EXTINF:-1 tvg-id="CanalTE" group-title="General",Canal TE
 https://ingest1-video.streaming-pro.com/canalteABR/ctestream/playlist.m3u8
+#EXTINF:-1 tvg-id="EsportsTE" group-title="General",Esports TE
 https://ingest1-video.streaming-pro.com/esportsteABR/etestream/playlist.m3u8
+#EXTINF:-1 tvg-id="Creus" group-title="General",Creus
 https://ingest2-video.streaming-pro.com/creus/stream/playlist.m3u8
+#EXTINF:-1 tvg-id="9TV" group-title="General",9TV
 https://liveingesta318.cdnmedia.tv/9tvlive/smil:live.smil/playlist.m3u8?DVR
+#EXTINF:-1 tvg-id="EmpordaTV" group-title="General",Empordà TV
 https://video3.lhdserver.es/empordatv2/live.m3u8
+#EXTINF:-1 tvg-id="BadalonaTV" group-title="General",Badalona TV
 https://liveingesta318.cdnmedia.tv/badalonatvlive/smil:live.smil/playlist.m3u8?DVR
+#EXTINF:-1 tvg-id="TAC12" group-title="General",TAC12
 https://ingest1-video.streaming-pro.com/tac12_ABR/stream/playlist.m3u8
+#EXTINF:-1 tvg-id="CanalTerrassa" group-title="General",Canal Terrassa
 https://ingest2-video.streaming-pro.com/canalterrassa/stream/playlist.m3u8
+#EXTINF:-1 tvg-id="LleidaTV" group-title="General",Lleida TV
 https://liveingesta318.cdnmedia.tv/lleidatvlive/smil:live.smil/playlist.m3u8?DVR
+#EXTINF:-1 tvg-id="CostaBravaTV" group-title="General",Costa Brava TV
 https://liveingesta318.cdnmedia.tv/costabravatvlive/smil:live.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="CanalTaronjaCentral" group-title="General",Canal Taronja Central
 https://ingest1-video.streaming-pro.com/canaltaronja/central/playlist.m3u8
+#EXTINF:-1 tvg-id="TVHospitalet" group-title="General",TV Hospitalet
 https://liveingesta318.cdnmedia.tv/tvhospitaletlive/smil:tvhospitalet.smil/playlist.m3u8?DVR
+#EXTINF:-1 tvg-id="BerguedaTV" group-title="General",Berguedà TV
 https://liveingesta118.cdnmedia.tv/berguedatvlive/smil:live.smil/playlist.m3u8?DVR
+#EXTINF:-1 tvg-id="TVVendrell" group-title="General",TV Vendrell
 https://liveingesta318.cdnmedia.tv/tvvendrelllive/smil:directe.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="CanalTaronjaAnoia" group-title="General",Canal Taronja Anoia
 https://ingest1-video.streaming-pro.com/canaltaronja/anoia/playlist.m3u8
+#EXTINF:-1 tvg-id="CugatCat" group-title="General",Cugat.cat
 https://liveingesta318.cdnmedia.tv/cugatcatlive/smil:rtmp01.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="VOTV" group-title="General",VOTV
 https://ingest2-video.streaming-pro.com/votv/streaming_web/playlist.m3u8
+#EXTINF:-1 tvg-id="CanalTaronjaOsona" group-title="General",Canal Taronja Osona
 https://ingest1-video.streaming-pro.com/canaltaronja/osona/playlist.m3u8
+#EXTINF:-1 tvg-id="RTVVilafranca" group-title="General",RTV Vilafranca
 https://liveingesta318.cdnmedia.tv/rtvvilafrancalive/smil:live.smil/playlist.m3u8?DVR
+#EXTINF:-1 tvg-id="VentdelNordGirona" group-title="General",Vent del Nord Girona
 https://ventdelnord.tv:8080/girona/directe.m3u8
+#EXTINF:-1 tvg-id="PieraTV" group-title="General",Piera TV
 https://5d776b1861da1.streamlock.net/piera/smil:piera.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="TVCardedeu" group-title="General",TV Cardedeu
 https://liveingesta318.cdnmedia.tv/tvcardedeulive/smil:rtmp01.smil/playlist.m3u8?DVR
+#EXTINF:-1 tvg-id="VentdelNordEscala" group-title="General",Vent del Nord Escala
 https://ventdelnord.tv:8080/escala/directe.m3u8
+#EXTINF:-1 tvg-id="VallesVisio" group-title="General",Vallès Visió
 https://liveingesta118.cdnmedia.tv/vallesvisiotvlive/smil:live.smil/playlist.m3u8?DVR
+#EXTINF:-1 tvg-id="TVETV" group-title="General",TVE TV
 https://liveingesta318.cdnmedia.tv/tvetvlive/smil:rtmp01.smil/playlist.m3u8?DVR
+#EXTINF:-1 tvg-id="TVMC05" group-title="General",TVMC05
 https://rfe-ingest.akamaized.net/hls/live/2033043/tvmc05/master.m3u8
+#EXTINF:-1 tvg-id="CanalTaronjaSabadell" group-title="General",Canal Taronja Sabadell
 https://ingest1-video.streaming-pro.com/canaltaronja/sabadell/playlist.m3u8
+#EXTINF:-1 tvg-id="MyWifiSocialTV" group-title="General",MyWifiSocial TV
 https://tv.mywifisocial.es/live.m3u8
