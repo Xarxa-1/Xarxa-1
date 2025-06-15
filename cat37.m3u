@@ -306,3 +306,45 @@ http://streamvideol1.luxnet.ua/news24/news24.stream/playlist.m3u8
 https://freedom.cdn-01.cosmonova.net.ua/mobile-app/main/freedom/master.m3u8
 #EXTINF:-1 tvg-id="CurrentTimeTV" group-title="General",Current Time TV
 https://rfe-ingest.akamaized.net/hls/live/2033043/tvmc05/master.m3u8
+#EXTINF:-1 tvg-id="PressTV.ir" tvg-name="Press TV" tvg-country="IR" tvg-language="English" group-title="News",Press TV
+https://live.presstv.ir/hls/presstv.m3u8
+
+
+#EXTM3U
+#EXTINF:-1 tvg-id="QatarTV.qa" tvg-name="Qatar TV" tvg-country="QA" tvg-language="Arabic" group-title="General",Qatar TV
+https://qatartv.akamaized.net/hls/live/2026573/qtv1/master.m3u8
+
+#EXTINF:-1 tvg-id="QatarTV2.qa" tvg-name="Qatar TV 2" tvg-country="QA" tvg-language="Arabic" group-title="General",Qatar TV 2
+https://iptv-org.github.io/channels/qa/QatarTelevision2.m3u8
+
+#EXTINF:-1 tvg-id="AlJazeeraArabic.qa" tvg-name="Al Jazeera Arabic" tvg-country="QA" tvg-language="Arabic" group-title="News",Al Jazeera Arabic
+https://live-hls-web-aje.getaj.net/AJE/01.m3u8
+
+#EXTINF:-1 tvg-id="AlKassOne.qa" tvg-name="Al Kass One" tvg-country="QA" tvg-language="Arabic" group-title="Sports",Al Kass One
+https://alkass-1-apple-live.akamaized.net/alkass1/index.m3u8
+
+#EXTM3U
+#EXTINF:-1 tvg-id="DubaiTV.ae" tvg-name="Dubai TV" tvg-country="AE" tvg-language="Arabic" group-title="General",Dubai TV
+http://www.elahmad.com/tv/m3u8/dubaitv.m3u8?id=dubaitv
+
+#EXTINF:-1 tvg-id="DubaiOne.ae" tvg-name="Dubai One" tvg-country="AE" tvg-language="English" group-title="General",Dubai One
+http://dmithrvll.cdn.mangomolo.com/dubaione/smil:dubaione.smil/playlist.m3u8
+
+#EXTINF:-1 tvg-id="DubaiZaman.ae" tvg-name="Dubai Zaman" tvg-country="AE" tvg-language="Arabic" group-title="General",Dubai Zaman
+http://www.elahmad.com/tv/m3u8/dubaitv.m3u8?id=dubaitv
+
+#EXTINF:-1 tvg-id="EmaratTV.ae" tvg-name="Emarat TV" tvg-country="AE" tvg-language="Arabic" group-title="General",Emarat TV
+http://www.elahmad.com/tv/m3u8/adtv.m3u8?id=abudhabi_alemarat
+
+#EXTM3U
+#EXTINF:-1 tvg-id="AlKassOne.qa" tvg-name="Al Kass One" tvg-country="QA" tvg-language="Arabic" group-title="Sports",Al Kass One (Qatar)
+https://alkass-1-apple-live.akamaized.net/alkass1/index.m3u8
+
+#EXTINF:-1 tvg-id="AlJazeeraSports.qa" tvg-name="Al Jazeera Sports" tvg-country="QA" tvg-language="Arabic" group-title="Sports",Al Jazeera Sports
+https://live-hls-web-aje.getaj.net/AJE/01.m3u8
+
+#EXTINF:-1 tvg-id="DubaiSports.ae" tvg-name="Dubai Sports" tvg-country="AE" tvg-language="Arabic" group-title="Sports",Dubai Sports
+http://dubaidigital.ae/live/dubaisports1.m3u8
+
+#EXTINF:-1 tvg-id="AbuDhabiSports.ae" tvg-name="Abu Dhabi Sports" tvg-country="AE" tvg-language="Arabic" group-title="Sports",Abu Dhabi Sports
+http://adlive1-lh.akamaihd.net/i/ad_sports1_1@119857/master.m3u8
