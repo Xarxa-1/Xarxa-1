@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dades Meteorològiques</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px; 
+            color: white;
+            background-color: black;
+        }
+        table {
+            width: 100%;
+            background-color: #f0f0f0;       
+            color: black;   
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            table-layout: fixed; /* Assegura que les columnes s'ajustin a l'amplada de la pàgina */
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+            white-space: normal; /* Permet que el text es trenqui i salti a una altra línia */
+            overflow: hidden;
+            text-overflow: ellipsis; /* Afegeix punts suspensius si el contingut és massa llarg */
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+        }
+        #loading {
+            display: none;
+        }
+        tr:not(:last-child) {
+            border-bottom: 1px solid #ddd;
+        }
+        .key-cell {
+            font-size: 0.9em; /* Ajusta la mida del text de la primera columna */
+        }
+        
+        /* Estils per als canvis de valors */
+        .value-increase {
+            animation: flashRed 3s;
+        }
+        
+        .value-decrease {
+            animation: flashGreen 3s;
+        }
+        
+        @keyframes flashRed {
+            0% { background-color: rgba(255, 0, 0, 0.5); }
+            100% { background-color: transparent; }
+        }
+        
+        @keyframes flashGreen {
+            0% { background-color: rgba(0, 255, 0, 0.5); }
+            100% { background-color: transparent; }
+        }
+        
+        .value-change {
+            position: relative;
+        }
+        
+        .value-change::before {
+            content: attr(data-old-value);
+            position: absolute;
+            animation: fadeOut 1.5s forwards;
+            left: 8px;
+        }
+        
+        .value-change::after {
+            content: attr(data-new-value);
+            position: absolute;
+            animation: fadeIn 1.5s forwards;
+            left: 8px;
+        }
+        
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+Dades Meteorològiques
+    <div id="loading">Carregant...</div>
+    <table id="weatherTable">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Espluga</th>
+                <th>Borges</th>
+            </tr>
+        </thead>
+        <tbody id="weatherData">
+            <!-- Les dades meteorològiques es mostraran aquí -->
+        </tbody>
+    </table>
+
+    <script>
+        // Objecte per emmagatzemar els valors anteriors
+        let previousValues = {
+            Espluga: {},
+            Borges: {}
+        };
+
+        async function fetchWeatherData() {
+            const urls = [
+                'https://api.weather.com/v3/wx/observations/current?apiKey=e1f10a1e78da46f5b10a1e78da96f525&geocode=41.397%2C1.102&units=m&language=en-US&format=json',
+                'https://api.weather.com/v3/wx/observations/current?apiKey=e1f10a1e78da46f5b10a1e78da96f525&geocode=41.52%2C0.868&units=m&language=en-US&format=json'
+            ];
+            try {
+                const [response1, response2] = await Promise.all(urls.map(url => fetch(url)));
+                if (!response1.ok || !response2.ok) {
+                    throw new Error('Error en obtenir les dades');
+                }
+                const data1 = await response1.json();
+                const data2 = await response2.json();
+                updateWeatherTable(data1, data2);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        function updateWeatherTable(data1, data2) {
+            const tableBody = document.getElementById('weatherData');
+            
+            // Creem un objecte temporal per emmagatzemar els nous valors
+            const currentValues = {
+                Espluga: {},
+                Borges: {}
+            };
+
+            const weatherElements = {
+                "Temperatura": {loc1: data1.temperature, loc2: data2.temperature},
+                "Temperatura Màxima": {loc1: data1.temperatureMax24Hour, loc2: data2.temperatureMax24Hour},
+                "Temperatura Mínima": {loc1: data1.temperatureMin24Hour, loc2: data2.temperatureMin24Hour},
+                "Sensació Tèrmica": {loc1: data1.temperatureFeelsLike, loc2: data2.temperatureFeelsLike},
+                "Humitat Relativa": {loc1: data1.relativeHumidity, loc2: data2.relativeHumidity},
+                "Punt de Rosada": {loc1: data1.temperatureDewPoint, loc2: data2.temperatureDewPoint},
+                "Índex de Calor": {loc1: data1.heatIndex, loc2: data2.heatIndex},
+                "Velocitat del Vent": {loc1: data1.windSpeed, loc2: data2.windSpeed},
+                "Ràfegues de Vent": {loc1: data1.windGust, loc2: data2.windGust},
+                "Direcció del Vent": {loc1: translateDirection(data1.windDirection), loc2: translateDirection(data2.windDirection)},
+                "Pressió": {loc1: data1.pressureAltimeter, loc2: data2.pressureAltimeter},
+                "Índex UV": {loc1: data1.uvIndex, loc2: data2.uvIndex},
+                "Descripció UV": {loc1: translateUVDescription(data1.uvDescription), loc2: translateUVDescription(data2.uvDescription)},
+                "Visibilitat": {loc1: data1.visibility, loc2: data2.visibility},
+                "Condició": {loc1: translateCondition(data1.wxPhraseLong), loc2: translateCondition(data2.wxPhraseLong)},
+                "Índex de Qualitat de l'Aire": {loc1: data1.airQuality, loc2: data2.airQuality},
+                "Precipitació (última hora)": {loc1: data1.precipHrly, loc2: data2.precipHrly},
+                "Precipitació (últimes 24 hores)": {loc1: data1.precip24Hr, loc2: data2.precip24Hr},
+                "Data i Hora de l'Observació": {loc1: formatDate(data1.validTimeLocal), loc2: formatDate(data2.validTimeLocal)}
+            };
+
+            // Primer, emmagatzemem els valors actuals per comparar després
+            for (const [key, value] of Object.entries(weatherElements)) {
+                currentValues.Espluga[key] = value.loc1;
+                currentValues.Borges[key] = value.loc2;
+            }
+
+            // Netegem la taula per reconstruir-la
+            tableBody.innerHTML = '';
+
+            for (const [key, value] of Object.entries(weatherElements)) {
+                const row = document.createElement('tr');
+                const cellKey = document.createElement('td');
+                cellKey.textContent = key;
+                cellKey.className = 'key-cell';
+                
+                // Creem les cel·les per a cada ubicació
+                const cellValue1 = document.createElement('td');
+                const cellValue2 = document.createElement('td');
+                
+                // Processem els valors per a Espluga
+                processValue(cellValue1, key, value.loc1, previousValues.Espluga[key], 'Espluga');
+                
+                // Processem els valors per a Borges
+                processValue(cellValue2, key, value.loc2, previousValues.Borges[key], 'Borges');
+                
+                row.appendChild(cellKey);
+                row.appendChild(cellValue1);
+                row.appendChild(cellValue2);
+                tableBody.appendChild(row);
+            }
+            
+            // Actualitzem els valors anteriors amb els nous valors
+            previousValues = currentValues;
+        }
+
+        function processValue(cell, key, newValue, oldValue, location) {
+            const unit = typeof newValue === 'number' ? getUnit(key) : '';
+            const displayValue = newValue !== undefined ? newValue + unit : '';
+            
+            // Si és un número i tenim un valor anterior, comparem
+            if (typeof newValue === 'number' && oldValue !== undefined && oldValue !== newValue) {
+                const oldDisplayValue = oldValue + unit;
+                
+                // Afegim les classes segons si el valor ha augmentat o disminuït
+                if (newValue > oldValue) {
+                    cell.classList.add('value-increase');
+                } else if (newValue < oldValue) {
+                    cell.classList.add('value-decrease');
+                }
+                
+                // Configurem l'animació de canvi de valor
+                cell.classList.add('value-change');
+                cell.setAttribute('data-old-value', oldDisplayValue);
+                cell.setAttribute('data-new-value', displayValue);
+                
+                // Eliminem les classes després de l'animació
+                setTimeout(() => {
+                    cell.classList.remove('value-change', 'value-increase', 'value-decrease');
+                    cell.textContent = displayValue;
+                }, 3000);
+            } else {
+                // Si no hi ha canvi, mostrem el valor directament
+                cell.textContent = displayValue;
+            }
+        }
+
+        function getUnit(key) {
+            const units = {
+                "Temperatura": " °C",
+                "Temperatura Màxima": " °C",
+                "Temperatura Mínima": " °C",
+                "Sensació Tèrmica": " °C",
+                "Humitat Relativa": " %",
+                "Punt de Rosada": " °C",
+                "Índex de Calor": " °C",
+                "Velocitat del Vent": " km/h",
+                "Ràfegues de Vent": " km/h",
+                "Direcció del Vent": " °",
+                "Pressió": " hPa",
+                "Visibilitat": " km",
+                "Precipitació (última hora)": " mm",
+                "Precipitació (últimes 24 hores)": " mm"
+            };
+            return units[key] || '';
+        }
+
+        function formatDate(dateTime) {
+            const date = new Date(dateTime);
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = String(date.getFullYear()).slice(-2);
+            return `${hours}:${minutes} ${day}/${month}/${year}`;
+        }
+
+        function translateDirection(direction) {
+            const directions = {
+                "N": "Nord",
+                "NNE": "Nord-Nord-est",
+                "NE": "Nord-est",
+                "ENE": "Est-Nord-est",
+                "E": "Est",
+                "ESE": "Est-Sud-est",
+                "SE": "Sud-est",
+                "SSE": "Sud-Sud-est",
+                "S": "Sud",
+                "SSW": "Sud-Sud-oest",
+                "SW": "Sud-oest",
+                "WSW": "Oest-Sud-oest",
+                "W": "Oest",
+                "WNW": "Oest-Nord-oest",
+                "NW": "Nord-oest",
+                "NNW": "Nord-Nord-oest"
+            };
+            return directions[direction] || direction;
+        }
+
+        function translateUVDescription(uvDescription) {
+            const uvTranslations = {
+                "Low": "Baix",
+                "Moderate": "Moderada",
+                "High": "Alt",
+                "Very High": "Molt alt",
+                "Extreme": "Extrem"
+            };
+            return uvTranslations[uvDescription] || uvDescription;
+        }
+
+        function translateCondition(condition) {
+            const conditionTranslations = {
+                "Clear": "Clar",
+                "Partly Cloudy": "Parcialment ennuvolat",
+                "Cloudy": "Ennuvolat",
+                "Overcast": "Cobert",
+                "Rain": "Pluja",
+                "Thunderstorm": "Tempesta",
+                "Snow": "Neu",
+                "Fog": "Boira",
+                "Haze": "Calitja"
+            };
+            return conditionTranslations[condition] || condition;
+        }
+
+        // Actualitza les dades cada minut (60000 mil·lisegons)
+        setInterval(fetchWeatherData, 60000);
+
+        // Carrega les dades inicials
+        fetchWeatherData();
+    </script>
+</body>
+</html>
