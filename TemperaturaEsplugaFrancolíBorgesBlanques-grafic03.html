@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <title>Meteo Espluga de Francolí i Les Borges Blanques</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #e9f5ff;
+      color: #222;
+      padding: 2em;
+    }
+    .weather-table {
+      width: 100%;
+      max-width: 1050px;
+      margin: auto;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    .weather-table th, .weather-table td {
+      padding: 0.7em 1em;
+      text-align: left;
+      border-bottom: 1px solid #e0e0e0;
+      transition: background 0.5s;
+    }
+    .weather-table th {
+      background: #0073bb;
+      color: #fff;
+      font-size: 1.1em;
+    }
+    .weather-table tr:last-child td {
+      border-bottom: none;
+    }
+    .error {
+      color: #c00;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 1em;
+    }
+    .up {
+      background: #ffb3b3 !important;
+      transition: background 0.5s;
+    }
+    .down {
+      background: #b3d0ff !important;
+      transition: background 0.5s;
+    }
+    @media (max-width: 700px) {
+      .weather-table, .weather-table th, .weather-table td {
+        font-size: 0.95em;
+      }
+    }
+    .chart-container {
+      max-width: 1050px;
+      margin: 2em auto;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 2em 1em;
+    }
+  </style>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <h2 style="text-align:center;">Dades meteorològiques actuals</h2>
+  <table class="weather-table">
+    <thead>
+      <tr>
+        <th>Dada</th>
+        <th>Espluga</th>
+        <th>Borges</th>
+      </tr>
+    </thead>
+    <tbody id="weather">
+      <tr><td colspan="3" style="text-align:center;">Carregant dades...</td></tr>
+    </tbody>
+  </table>
+  <div id="error" class="error"></div>
+  <div class="chart-container">
+    <h3 style="text-align:center;">Precipitació diària últims 30 dies</h3>
+    <canvas id="precChart" width="900" height="300"></canvas>
+  </div>
+<script>
+const municipis = [
+  { nom: "Espluga de Francolí", lat: 41.3862, lon: 1.1022 },
+  { nom: "Les Borges Blanques", lat: 41.5194, lon: 0.8670 }
+];
+const dailyVars = [
+  { key: "temperature_2m_max", label: "Temperatura màxima", unit: "°C", decimals: 1 },
+  { key: "temperature_2m_min", label: "Temperatura mínima", unit: "°C", decimals: 1 },
+  { key: "apparent_temperature_max", label: "Temperatura de sensació màxima", unit: "°C", decimals: 1 },
+  { key: "apparent_temperature_min", label: "Temperatura de sensació mínima", unit: "°C", decimals: 1 },
+  { key: "dew_point_2m_max", label: "Punt de rosada màxim", unit: "°C", decimals: 1 },
+  { key: "dew_point_2m_min", label: "Punt de rosada mínim", unit: "°C", decimals: 1 },
+  { key: "relative_humidity_2m_mean", label: "Humitat relativa mitjana", unit: "%", decimals: 0 },
+  { key: "precipitation_sum", label: "Precipitació acumulada (avui)", unit: "mm", decimals: 1 },
+  { key: "wind_speed_10m_max", label: "Velocitat màxima del vent", unit: "km/h", decimals: 1 },
+  { key: "wind_direction_10m_dominant", label: "Direcció dominant del vent", unit: "°", decimals: 0 },
+  { key: "pressure_msl_mean", label: "Pressió atmosfèrica mitjana", unit: "hPa", decimals: 1 },
+  { key: "uv_index_max", label: "Índex UV màxim", unit: "", decimals: 1 },
+  { key: "cloud_cover_mean", label: "Cobertura de núvols mitjana", unit: "%", decimals: 0 }
+];
+const sunriseVar = { key: "sunrise", label: "Sortida de sol" };
+const sunsetVar = { key: "sunset", label: "Posta de sol" };
+
+function horaHM(str) {
+  if (!str) return "-";
+  return str.slice(11,16);
+}
+function getUrl(lat, lon) {
+  return `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&daily=temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,dew_point_2m_max,dew_point_2m_min,relative_humidity_2m_mean,precipitation_sum,wind_speed_10m_max,wind_direction_10m_dominant,pressure_msl_mean,uv_index_max,cloud_cover_mean,sunrise,sunset&hourly=precipitation&forecast_days=7&timezone=Europe/Madrid`;
+}
+function getHistoricalUrl(lat, lon, start, end) {
+  return `https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}&daily=precipitation_sum&start_date=${start}&end_date=${end}&timezone=Europe/Madrid`;
+}
+
+let previousValues = {};
+let precChart = null; // Referència a la gràfica Chart.js
+
+function fetchAndUpdate() {
+  const today = new Date();
+  const endDate = today.toISOString().slice(0,10);
+  const startDate = new Date(today.getTime() - 29 * 24 * 3600 * 1000).toISOString().slice(0,10);
+
+  // 1. Primer, obtenim les dades diàries i horàries
+  Promise.all(municipis.map(m => fetch(getUrl(m.lat, m.lon)).then(r => r.json())))
+  .then(results => {
+    const actuals = results.map(r => r.current_weather);
+    const dailys = results.map(r => r.daily);
+    const hourlys = results.map(r => r.hourly);
+
+    let prec24h = [null, null];
+    let prec7d = [null, null];
+    let prec24hForecast = [null, null];
+    let prec3hForecast = [null, null];
+
+    // Precipitació avui (primer valor del diari)
+    for (let i = 0; i < municipis.length; i++) {
+      prec24h[i] = dailys[i].precipitation_sum[0] !== undefined ? dailys[i].precipitation_sum[0] : null;
+      prec7d[i] = dailys[i].precipitation_sum
+        .slice(0, 7)
+        .reduce((a, b) => a + (b !== null && b !== undefined ? b : 0), 0);
+      // Precipitació prevista properes 24h (demà)
+      prec24hForecast[i] = dailys[i].precipitation_sum[1] !== undefined ? dailys[i].precipitation_sum[1] : null;
+      // Precipitació prevista properes 3 hores (sumem les 3 hores següents)
+      if (hourlys[i] && hourlys[i].precipitation && hourlys[i].time) {
+        const now = new Date();
+        let idx = hourlys[i].time.findIndex(t => new Date(t) >= now);
+        if (idx === -1) idx = hourlys[i].time.length - 3;
+        let sum = 0;
+        for (let h = 0; h < 3; h++) {
+          if (hourlys[i].precipitation[idx + h] !== undefined)
+            sum += hourlys[i].precipitation[idx + h];
+        }
+        prec3hForecast[i] = sum;
+      } else {
+        prec3hForecast[i] = null;
+      }
+    }
+
+    // 2. Ara, obtenim l´històric per a la taula i la gràfica
+    Promise.all(municipis.map(m => fetch(getHistoricalUrl(m.lat, m.lon, startDate, endDate)).then(r => r.json())))
+    .then(histResults => {
+      let precDays = [];
+      for (let i = 0; i < municipis.length; i++) {
+        precDays[i] = [];
+        if (histResults[i].daily && histResults[i].daily.precipitation_sum) {
+          let arr = histResults[i].daily.precipitation_sum;
+          for (let d = 2; d <= 30; d++) {
+            let sum = arr.slice(-d).reduce((a, b) => a + (b !== null && b !== undefined ? b : 0), 0);
+            precDays[i][d] = sum;
+          }
+        } else {
+          for (let d = 2; d <= 30; d++) precDays[i][d] = null;
+        }
+      }
+
+      // --- TAULA: NOMÉS ELS VALORS DEMANATS ---
+      let html = "";
+
+      // 1. Temperatura actual
+      html += `<tr>
+      <td>Temperatura actual</td>
+      <td id="actual_0">${actuals[0].temperature !== undefined ? actuals[0].temperature.toFixed(1) + " °C" : "-"}</td>
+      <td id="actual_1">${actuals[1].temperature !== undefined ? actuals[1].temperature.toFixed(1) + " °C" : "-"}</td>
+      </tr>`;
+
+      // 2-13. Altres valors diaris
+      const order = [
+        {key: "temperature_2m_max", label: "Temperatura màxima"},
+        {key: "temperature_2m_min", label: "Temperatura mínima"},
+        {key: "apparent_temperature_max", label: "Temperatura de sensació màxima"},
+        {key: "apparent_temperature_min", label: "Temperatura de sensació mínima"},
+        {key: "dew_point_2m_max", label: "Punt de rosada màxim"},
+        {key: "dew_point_2m_min", label: "Punt de rosada mínim"},
+        {key: "relative_humidity_2m_mean", label: "Humitat relativa mitjana"},
+        {key: "precipitation_sum", label: "Precipitació acumulada (avui)"},
+        {key: "wind_speed_10m_max", label: "Velocitat màxima del vent"},
+        {key: "wind_direction_10m_dominant", label: "Direcció dominant del vent"},
+        {key: "pressure_msl_mean", label: "Pressió atmosfèrica mitjana"},
+        {key: "uv_index_max", label: "Índex UV màxim"},
+        {key: "cloud_cover_mean", label: "Cobertura de núvols mitjana"}
+      ];
+      order.forEach(v => {
+        const dv = dailyVars.find(dv => dv.key === v.key);
+        html += `<tr>
+        <td>${v.label}</td>
+        <td id="${v.key}_0">${dailys[0][v.key][0] !== undefined ? dailys[0][v.key][0].toFixed(dv.decimals) + " " + dv.unit : "-"}</td>
+        <td id="${v.key}_1">${dailys[1][v.key][0] !== undefined ? dailys[1][v.key][0].toFixed(dv.decimals) + " " + dv.unit : "-"}</td>
+        </tr>`;
+      });
+
+      // 14. Precipitació prevista properes 3 hores
+      html += `<tr>
+      <td>Precipitació prevista properes 3 hores</td>
+      <td id="prec3hForecast_0">${prec3hForecast[0] !== null ? prec3hForecast[0].toFixed(1) + " mm" : "-"}</td>
+      <td id="prec3hForecast_1">${prec3hForecast[1] !== null ? prec3hForecast[1].toFixed(1) + " mm" : "-"}</td>
+      </tr>`;
+
+      // 15. Precipitació prevista properes 24h
+      html += `<tr>
+      <td>Precipitació prevista properes 24h</td>
+      <td id="prec24hForecast_0">${prec24hForecast[0] !== null ? prec24hForecast[0].toFixed(1) + " mm" : "-"}</td>
+      <td id="prec24hForecast_1">${prec24hForecast[1] !== null ? prec24hForecast[1].toFixed(1) + " mm" : "-"}</td>
+      </tr>`;
+
+      // 16. Precipitació acumulada últimes 24h
+      html += `<tr>
+      <td>Precipitació acumulada últimes 24h</td>
+      <td id="prec24_0">${prec24h[0] !== null ? prec24h[0].toFixed(1) + " mm" : "-"}</td>
+      <td id="prec24_1">${prec24h[1] !== null ? prec24h[1].toFixed(1) + " mm" : "-"}</td>
+      </tr>`;
+
+      // 17. Precipitació acumulada últims 7 dies
+      html += `<tr>
+      <td>Precipitació acumulada últims 7 dies</td>
+      <td id="prec7d_0">${precDays[0][7] !== null ? precDays[0][7].toFixed(1) + " mm" : "-"}</td>
+      <td id="prec7d_1">${precDays[1][7] !== null ? precDays[1][7].toFixed(1) + " mm" : "-"}</td>
+      </tr>`;
+
+      // 18. Precipitació acumulada últims 15 dies
+      html += `<tr>
+      <td>Precipitació acumulada últims 15 dies</td>
+      <td id="prec15d_0">${precDays[0][15] !== null ? precDays[0][15].toFixed(1) + " mm" : "-"}</td>
+      <td id="prec15d_1">${precDays[1][15] !== null ? precDays[1][15].toFixed(1) + " mm" : "-"}</td>
+      </tr>`;
+
+      // 19. Precipitació acumulada últims 30 dies
+      html += `<tr>
+      <td>Precipitació acumulada últims 30 dies</td>
+      <td id="prec30d_0">${precDays[0][30] !== null ? precDays[0][30].toFixed(1) + " mm" : "-"}</td>
+      <td id="prec30d_1">${precDays[1][30] !== null ? precDays[1][30].toFixed(1) + " mm" : "-"}</td>
+      </tr>`;
+
+      // 20. Sortida de sol
+      html += `<tr>
+      <td>Sortida de sol</td>
+      <td id="sunrise_0">${horaHM(dailys[0][sunriseVar.key][0])}</td>
+      <td id="sunrise_1">${horaHM(dailys[1][sunriseVar.key][0])}</td>
+      </tr>`;
+
+      // 21. Posta de sol
+      html += `<tr>
+      <td>Posta de sol</td>
+      <td id="sunset_0">${horaHM(dailys[0][sunsetVar.key][0])}</td>
+      <td id="sunset_1">${horaHM(dailys[1][sunsetVar.key][0])}</td>
+      </tr>`;
+
+      document.getElementById('weather').innerHTML = html;
+
+      // Marcatge de canvis
+      checkAndMarkChange('actual_0', actuals[0].temperature);
+      checkAndMarkChange('actual_1', actuals[1].temperature);
+      order.forEach(v => {
+        checkAndMarkChange(`${v.key}_0`, dailys[0][v.key][0]);
+        checkAndMarkChange(`${v.key}_1`, dailys[1][v.key][0]);
+      });
+      checkAndMarkChange('prec3hForecast_0', prec3hForecast[0]);
+      checkAndMarkChange('prec3hForecast_1', prec3hForecast[1]);
+      checkAndMarkChange('prec24hForecast_0', prec24hForecast[0]);
+      checkAndMarkChange('prec24hForecast_1', prec24hForecast[1]);
+      checkAndMarkChange('prec24_0', prec24h[0]);
+      checkAndMarkChange('prec24_1', prec24h[1]);
+      checkAndMarkChange('prec7d_0', precDays[0][7]);
+      checkAndMarkChange('prec7d_1', precDays[1][7]);
+      checkAndMarkChange('prec15d_0', precDays[0][15]);
+      checkAndMarkChange('prec15d_1', precDays[1][15]);
+      checkAndMarkChange('prec30d_0', precDays[0][30]);
+      checkAndMarkChange('prec30d_1', precDays[1][30]);
+
+      previousValues = {
+        'actual_0': actuals[0].temperature,
+        'actual_1': actuals[1].temperature,
+        'prec3hForecast_0': prec3hForecast[0],
+        'prec3hForecast_1': prec3hForecast[1],
+        'prec24hForecast_0': prec24hForecast[0],
+        'prec24hForecast_1': prec24hForecast[1],
+        'prec24_0': prec24h[0],
+        'prec24_1': prec24h[1],
+        'prec7d_0': precDays[0][7],
+        'prec7d_1': precDays[1][7],
+        'prec15d_0': precDays[0][15],
+        'prec15d_1': precDays[1][15],
+        'prec30d_0': precDays[0][30],
+        'prec30d_1': precDays[1][30]
+      };
+      order.forEach(v => {
+        previousValues[`${v.key}_0`] = dailys[0][v.key][0];
+        previousValues[`${v.key}_1`] = dailys[1][v.key][0];
+      });
+
+      // --- GRAFICA Chart.js ---
+      const precip30_0 = histResults[0].daily.precipitation_sum;
+      const precip30_1 = histResults[1].daily.precipitation_sum;
+      const total0 = precip30_0.reduce((a, b) => a + (b !== null && b !== undefined ? b : 0), 0);
+      const total1 = precip30_1.reduce((a, b) => a + (b !== null && b !== undefined ? b : 0), 0);
+      const dates30 = histResults[0].daily.time;
+      if (precChart) {
+        precChart.destroy();
+      }
+      const ctx = document.getElementById('precChart').getContext('2d');
+      precChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: dates30,
+          datasets: [
+            {
+              label: `Espluga de Francolí (${total0.toFixed(1)} mm)`,
+              data: precip30_0,
+              backgroundColor: 'rgba(54, 162, 235, 0.5)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+            },
+            {
+              label: `Les Borges Blanques (${total1.toFixed(1)} mm)`,
+              data: precip30_1,
+              backgroundColor: 'rgba(255, 99, 132, 0.5)',
+              borderColor: 'rgba(255, 99, 132, 1)',
+              borderWidth: 1
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            x: { title: { display: true, text: 'Data' } },
+            y: { title: { display: true, text: 'mm' }, beginAtZero: true }
+          }
+        }
+      });
+      // --- FI GRAFICA ---
+    })
+    .catch(error => {
+      document.getElementById('error').textContent = "No s'han pogut carregar les dades històriques.";
+      document.getElementById('weather').innerHTML = "";
+      console.error(error);
+    });
+  })
+  .catch(error => {
+    document.getElementById('error').textContent = "No s'han pogut carregar les dades.";
+    document.getElementById('weather').innerHTML = "";
+    console.error(error);
+  });
+}
+
+function checkAndMarkChange(id, newValue) {
+  const cell = document.getElementById(id);
+  if (!cell || newValue === undefined) return;
+  const prev = previousValues[id];
+  if (prev === undefined) return;
+  if (newValue > prev) {
+    cell.classList.add('up');
+    setTimeout(() => cell.classList.remove('up'), 50000);
+  } else if (newValue < prev) {
+    cell.classList.add('down');
+    setTimeout(() => cell.classList.remove('down'), 50000);
+  }
+}
+
+fetchAndUpdate();
+setInterval(fetchAndUpdate, 60000);
+</script>
+</body>
+</html>
