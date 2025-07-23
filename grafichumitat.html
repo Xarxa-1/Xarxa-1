@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8" />
+<title>Gràfic Humitat Relativa</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #e9f5ff;
+  color: #222;
+  padding: 2em;
+}
+.chart-container {
+  max-width: 1050px;
+  margin: 2em auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 2em 1em;
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div class="chart-container">
+  <h3 style="text-align:center;">Humitat relativa mitjana últims 30 dies</h3>
+  <canvas id="humChart" width="900" height="350"></canvas>
+</div>
+<script>
+const municipis = [
+  { nom: "Espluga de Francolí", lat: 41.3862, lon: 1.1022 },
+  { nom: "Les Borges Blanques", lat: 41.5194, lon: 0.8670 }
+];
+function getHistoricalUrl(lat, lon, start, end) {
+  return `https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}&daily=relative_humidity_2m_mean&start_date=${start}&end_date=${end}&timezone=Europe/Madrid`;
+}
+function fetchAndDrawHumidityChart() {
+  const today = new Date();
+  const endDate = today.toISOString().slice(0,10);
+  const startDate = new Date(today.getTime() - 29*24*3600*1000).toISOString().slice(0,10);
+
+  Promise.all(municipis.map(m =>
+    fetch(getHistoricalUrl(m.lat, m.lon, startDate, endDate)).then(r => r.json())
+  )).then(histResults => {
+    const dates30 = histResults[0].daily.time;
+    const hum0 = histResults[0].daily.relative_humidity_2m_mean;
+    const hum1 = histResults[1].daily.relative_humidity_2m_mean;
+
+    const ctxH = document.getElementById('humChart').getContext('2d');
+    new Chart(ctxH, {
+      type: 'line',
+      data: {
+        labels: dates30,
+        datasets: [
+          {
+            label: 'Espluga de Francolí',
+            data: hum0,
+            borderColor: 'rgba(54, 162, 235, 1)',
+            backgroundColor: 'rgba(54, 162, 235, 0.15)',
+            tension: 0.3,
+            pointRadius: 0
+          },
+          {
+            label: 'Les Borges Blanques',
+            data: hum1,
+            borderColor: 'rgba(255, 99, 132, 1)',
+            backgroundColor: 'rgba(255, 99, 132, 0.15)',
+            tension: 0.3,
+            pointRadius: 0
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          x: { title: { display: true, text: 'Data' } },
+          y: { title: { display: true, text: '%' }, beginAtZero: true, max: 100 }
+        }
+      }
+    });
+  }).catch(error => {
+    document.getElementById('humChart').insertAdjacentHTML('afterend',
+      "<div style='color:#c00;text-align:center;'>No s'han pogut carregar les dades.</div>");
+    console.error(error);
+  });
+}
+fetchAndDrawHumidityChart();
+</script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8" />
+<title>Gràfic Previsió Pluja Hora a Hora (7 dies)</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #e9f5ff;
+  color: #222;
+  padding: 2em;
+}
+.chart-container {
+  max-width: 1050px;
+  margin: 2em auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 2em 1em;
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div class="chart-container">
+  <h3 style="text-align:center;">Previsió pluja hora a hora (7 dies)</h3>
+  <canvas id="rainHourChart" width="900" height="320"></canvas>
+</div>
+<script>
+const municipis = [
+  { nom: "Espluga de Francolí", lat: 41.3862, lon: 1.1022 },
+  { nom: "Les Borges Blanques", lat: 41.5194, lon: 0.8670 }
+];
+function getUrl(lat, lon) {
+  return `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=precipitation&forecast_days=7&timezone=Europe/Madrid`;
+}
+function fetchAndDrawRainHourChart() {
+  Promise.all(municipis.map(m =>
+    fetch(getUrl(m.lat, m.lon)).then(r => r.json())
+  )).then(results => {
+    // Use hourly times and precipitations from the first municipality as labels
+    const hourlys0 = results[0].hourly;
+    const hourlys1 = results[1].hourly;
+    const rainLabels = hourlys0.time.map(t => t.slice(5,16).replace('T',' ')); // "MM-DD HH:mm"
+    const rainData0 = hourlys0.precipitation;
+    const rainData1 = hourlys1.precipitation;
+
+    const ctx = document.getElementById('rainHourChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: rainLabels,
+        datasets: [
+          {
+            label: 'Espluga de Francolí',
+            data: rainData0,
+            backgroundColor: 'rgba(54, 162, 235, 0.5)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+          },
+          {
+            label: 'Les Borges Blanques',
+            data: rainData1,
+            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { position: 'top' } },
+        scales: {
+          x: { title: { display: true, text: 'Hora' }, ticks: { maxTicksLimit: 24 } },
+          y: { title: { display: true, text: 'mm/hora' }, beginAtZero: true }
+        }
+      }
+    });
+  }).catch(error => {
+    document.getElementById('rainHourChart').insertAdjacentHTML('afterend',
+      "<div style='color:#c00;text-align:center;'>No s'han pogut carregar les dades.</div>");
+    console.error(error);
+  });
+}
+fetchAndDrawRainHourChart();
+</script>
+</body>
+</html>
