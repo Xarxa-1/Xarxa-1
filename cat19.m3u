@@ -29,6 +29,10 @@ https://linear417-gb-hls1-prd-ak.cdn.skycdp.com/100e/Content/HLS_001_1080_30/Liv
 ****https://185.189.225.149/HitTV/index.m3u8
 #EXTINF:-1 tvg-id="TV3.Cat.es" tvg-name="" group-title="Food" tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200",JocCartes
 https://fast-tailor.3catdirectes.cat/v1/channel/ccma-channel1/hls.m3u8
+#EXTINF:-1 tvg-id="TV3.Cat.es" tvg-name="" group-title="Food" tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200",Bunquer
+https://fast-tailor.3catdirectes.cat/v1/channel/bunquer/hls.m3u8
+#EXTINF:-1 tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200" group-title="Lifestyle" tvg-name="3CAT Càmares",Càmares
+https://directes-tv-int.3catdirectes.cat/live-content/beauties-hls/bitrate_3.m3u8
 #EXTINF:-1 tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200" group-title="Lifestyle" tvg-name="3CAT Exclusiu 1",3CATe1
 https://directes-tv-cat.3catdirectes.cat/live-origin/oca1-hls/master.m3u8
 #EXTINF:-1 tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200" group-title="Lifestyle" tvg-name="3CAT Exclusiu 1",3CATe2
