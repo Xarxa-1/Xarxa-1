@@ -1,38 +1,29 @@
 <?php
-if (!isset($_GET['url'])) {
-    die("Falta el paràmetre 'url'");
+// URL de la pÃ gina a llegir
+$url = "https://lecturesdelamissa.blogspot.com/";
+
+// Obtenir tot el contingut HTML de la pÃ gina
+$html = file_get_contents($url);
+
+if ($html === false) {
+    die("No s'ha pogut obtenir el contingut de la URL.");
 }
 
-$url = $_GET['url'];
-
-// Configura cURL
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-// Segueix redireccions
-curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-// User-Agent d'un navegador real
-curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115 Safari/537.36");
-// Accepta HTTPS sense problemes (no recomanable en producció sense validació)
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-
-$contingut = curl_exec($ch);
-curl_close($ch);
-
-// Si cURL falla, mostra un error
-if (!$contingut) {
-    die("No s'ha pogut carregar el contingut");
+// Buscar la posiciÃ³ inicial de la paraula "Lectures"
+$start = strpos($html, "Lectures");
+if ($start === false) {
+    die("No s'ha trobat la paraula 'Lectures' en el contingut.");
 }
 
-// Filtrat mínim — només anuncis evidents:
-$patrons = [
-    '#<script[^>]*>.*?</script>#is',               // tots els scripts
-    '#<iframe[^>]*>.*?</iframe>#is',               // iframes
-    '#<div[^>]*class="[^"]*(ads|advert|banner)[^"]*"[^>]*>.*?</div>#is', // DIVs amb classe d'anunci
-];
-$net = preg_replace($patrons, '', $contingut);
+// Buscar la posiciÃ³ final de la paraula "Inici" desprÃ©s de la paraula "Lectures"
+$end = strpos($html, "Inici", $start);
+if ($end === false) {
+    die("No s'ha trobat la paraula 'Inici' en el contingut desprÃ©s de 'Lectures'.");
+}
 
-// Mostra el contingut net
-echo $net;
+// Extreure el text entre les dues posicions
+$substring = substr($html, $start, $end - $start);
+
+// Mostrar el resultat
+echo $substring;
 ?>
