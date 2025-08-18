@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ca">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" data-next-head=""/>
+<link rel="shortcut icon" href="/favicon.ico?v2" sizes="16x16 24x24 32x32 48x48 64x64 72x72 96x96" type="image/x-icon"/><link rel="icon" type="image/png" href="https://www.ionos.eshttps://www.ionos.es/favicon-16x16.png" sizes="16x16"/><link rel="icon" type="image/png" href="https://www.ionos.es/favicon-24x24.png" sizes="24x24"/><link rel="icon" type="image/png" href="https://www.ionos.es/favicon-32x32.png" sizes="32x32"/><link rel="icon" type="image/png" href="https://www.ionos.es/favicon-48x48.png" sizes="48x48"/><link rel="icon" type="image/png" href="https://www.ionos.es/favicon-64x64.png" sizes="64x64"/><link rel="icon" type="image/png" href="https://www.ionos.es/favicon-72x72.png" sizes="72x72"/><link rel="icon" type="image/png" href="https://www.ionos.es/favicon-96x96.png" sizes="96x96"/><link rel="icon" type="image/png" href="https://www.ionos.es/favicon-256x256.png" sizes="256x256"/><link rel="icon" href="https://www.ionos.es/favicon.svg" sizes="any" type="image/svg+xml"/>
+<head>
+  <meta charset="UTF-8">
+  <title>NavegadorSimple</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      background: #ecf0f1;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      padding: 8px;
+      background: #2c3e50;
+      color: white;
+      gap: 8px;
+    }
+    input[type="text"], select {
+      padding: 6px;
+      font-size: 16px;
+      border: none;
+      border-radius: 3px;
+      flex: 1;
+    }
+    button {
+      padding: 6px 12px;
+      font-size: 16px;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #2980b9;
+    }
+    iframe {
+      flex: 1;
+      width: 100%;
+      border: none;
+      background: white;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <input id="urlInput" type="text" value="https://www.segre.com/ca/"/>
+    <select id="urlOptions">
+      <option value="">-- Altres webs --</option>
+      <option value="https://www.segre.com/ca/">Segre</option>
+      <option value="https://www.elnacional.cat/">El Nacional</option>
+      <option value="https://www.somgarrigues.cat">Som Garrigues</option>
+      <option value="https://www.ara.cat/">Ara</option>
+    </select>
+    <button onclick="carregaURL()">Carrega</button>
+  </header>
+
+  <!-- IMPORTANT: iframe amb sandbox sense allow-scripts -->
+  <iframe id="navegadorIframe"
+          src="https://www.segre.com/ca/"
+          sandbox="allow-same-origin allow-forms allow-popups"
+  ></iframe>
+
+  <script>
+    const iframe = document.getElementById("navegadorIframe");
+    const input = document.getElementById("urlInput");
+    const select = document.getElementById("urlOptions");
+
+    function carregaURL(){
+      let url = input.value.trim();
+      if(!url.startsWith("http")) {
+        url = "https://" + url;
+      }
+      iframe.src = url;
+    }
+
+    // Carrega URL quan es fa ENTER
+    input.addEventListener("keypress", function(e) {
+      if (e.key === "Enter") {
+        carregaURL();
+      }
+    });
+
+    // Quan canvia el select -> posa la URL al camp de text i carrega
+    select.addEventListener("change", function() {
+      if (this.value) {
+        input.value = this.value;
+        carregaURL();
+      }
+    });
+  </script>
+</body>
+</html>
