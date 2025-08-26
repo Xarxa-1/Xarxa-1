@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>De text a PDF</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: coral;
+    }
+    #recuadre {
+      width: 795px;            /* A4 ample - marges */
+      min-height: 500px;
+      border: none;            /* Sense línia */
+      border-radius: 0;
+      padding: 24px 24px 24px 24px;
+      background: #fff;
+      margin-bottom: 20px;
+      overflow: auto;
+      margin-left: auto;
+      margin-right: auto;
+      box-sizing: border-box;
+      word-break: break-word;
+      outline: none;
+    }
+    #recuadre:focus {
+      outline: 2px solid #1976d2;
+    }
+    #exportarBtn {
+      padding: 12px 22px;
+      border: none;
+      border-radius: 5px;
+      background: #1976d2;
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <h2 style="text-align:center;">TEXT &rarr; Exporta PDF</h2>Pots enganxar text formatat i imatges aquí.<br>
+    <em>Enganxa, arrossega fotos i escriu amb estil!</em>
+  <div id="recuadre" contenteditable="true" spellcheck="true">
+    
+  </div>
+  <button id="exportarBtn">Exporta a PDF</button>
+
+  <script>
+    document.getElementById("exportarBtn").addEventListener("click", function() {
+      // Assegura CORS en imatges
+      let images = document.getElementById("recuadre").getElementsByTagName("img");
+      for (let im of images) {
+        im.setAttribute("crossorigin", "anonymous");
+      }
+      let element = document.getElementById("recuadre");
+      // Mides per a A4 sense retallar res, sense marges excessius
+      let opt = {
+        margin: 0, // sense marges extra
+        filename: 'recuadre.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0 },
+        jsPDF: { unit: 'pt', format: 'a4', orientation: 'portrait' }
+      };
+      html2pdf().set(opt).from(element).save();
+    });
+  </script>
+</body>
+</html>
