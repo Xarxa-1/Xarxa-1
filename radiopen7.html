@@ -1,10 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="ca">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📻</text></svg>">
+      <link rel="icon" href="radio1.png" type="image/png">
+      <link rel="shortcut icon" href="radio1.png">
+    <link rel="apple-touch-icon" href="radio1.png">
   <title>-Ràdio-</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
@@ -57,7 +58,6 @@
     .disc {
       width: 100%;
       height: 100%;
-      background: linear-gradient(45deg, var(--primary), var(--secondary));
       background-size: cover;
       background-position: center;
       animation: spin 20s linear infinite;
@@ -140,7 +140,7 @@
     }
 
     .clock {
-      font-size: 40px;
+      font-size: 32px;
       color: var(--text-light);
       display: flex;
       align-items: center;
@@ -166,7 +166,6 @@
       align-items: center;
       gap: 5px;
       transition: all 0.2s;
-      font-family: 'Antonio', sans-serif; /* AFEGIT: font per al botó del temporitzador */
     }
 
     .timer-btn:hover {
@@ -185,7 +184,6 @@
       z-index: 10;
       display: none;
       min-width: 180px;
-      font-family: 'Antonio', sans-serif; /* AFEGIT: font per al menú desplegable */
     }
 
     .timer-dropdown.show {
@@ -197,7 +195,6 @@
       border-radius: 4px;
       cursor: pointer;
       transition: background 0.2s;
-      font-family: 'Antonio', sans-serif; /* AFEGIT: font per a les opcions */
     }
 
     .timer-option:hover {
@@ -208,7 +205,6 @@
       font-size: 23px;
       margin-left: 5px;
       color: var(--text-light);
-      font-family: 'Antonio', sans-serif; /* AFEGIT: font per al display del temporitzador */
     }
 
     .volume-container {
@@ -248,10 +244,12 @@
         margin: 10px 0;
       }
       .timer-display {
+        font-family: 'Antonio', sans-serif;
         order: 2;
         margin-left: auto;
       }
       .timer-container {
+        font-family: 'Antonio', sans-serif;
         order: 2;
         margin-left: auto;
       }
@@ -265,8 +263,8 @@
     </div>
 
     <div class="info">
-      <h3 class="title" id="title">Ràdio Catalunya</h3>
-      <p class="artist" id="artist">Emissió en directe</p>
+      <h3 class="title" id="title">Carregant...</h3>
+      <p class="artist" id="artist">Ràdio en Directe</p>
     </div>
 
     <div class="progress-container">
@@ -399,13 +397,14 @@
         `${seconds.toString().padStart(2, '0')}`;
     }
 
-    // Simulem l'execució amb dades de prova
-    function loadStations() {
-      stations = [
-        { name: "Ràdio Catalunya", url: "https://example.com/stream", logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%239370DB'/%3E%3C/svg%3E" },
-        { name: "Música 80/90", url: "https://example.com/stream2", logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='lime'/%3E%3C/svg%3E" }
-      ];
-      loadStation(stations[currentStationIndex]);
+    async function loadStations() {
+      try {
+        const response = await fetch('https://xarxa-1.github.io/Xarxa-1/station1.json');
+        stations = await response.json();
+        if (stations.length > 0) loadStation(stations[currentStationIndex]);
+      } catch (error) {
+        title.textContent = "Error carregant estacions";
+      }
     }
 
     function loadStation(station) {
@@ -417,16 +416,10 @@
     }
 
     function togglePlay() {
+      isPlaying ? audio.pause() : audio.play();
+      playBtn.innerHTML = isPlaying ? '<i class="fas fa-play"></i>' : '<i class="fas fa-pause"></i>';
+      disc.style.animationPlayState = isPlaying ? 'paused' : 'running';
       isPlaying = !isPlaying;
-      playBtn.innerHTML = isPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
-      disc.style.animationPlayState = isPlaying ? 'running' : 'paused';
-      
-      if (isPlaying) {
-        // Simulem la reproducció
-        document.querySelector('.progress').style.width = '30%';
-      } else {
-        // En una implementació real, aturaríem l'àudio aquí
-      }
     }
 
     function prevStation() {
@@ -442,10 +435,8 @@
     playBtn.addEventListener('click', togglePlay);
     prevBtn.addEventListener('click', prevStation);
     nextBtn.addEventListener('click', nextStation);
-    
-    // Inicialitzem amb dades de prova
     loadStations();
   </script>
 </body>
-</html>
 
+</html>
