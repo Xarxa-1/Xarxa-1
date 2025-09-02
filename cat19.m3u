@@ -369,3 +369,7 @@ https://janus.xpbroadcasting.com:8443/hls/xptv1.m3u8
 http://45.186.106.220:5550/play/a04w/index.m3u8
 #EXTINF:-1 group-title="-",SKY LIGA ALEMANA
 http://200.12.41.194:8000/play/a04f/index.m3u8
+#EXTINF:-1 group-title="-",TENNIS
+http://fl5.moveonjoy.com/TENNIS_CHANNEL/index.m3u8
+#EXTINF:-1 group-title="-",FOX NEWS
+http://fl5.moveonjoy.com/FOX_NEWS_CHANNEL/index.m3u8
