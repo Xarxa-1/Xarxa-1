@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canals de Televisió</title>
+    <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .description {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .main-content {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            align-items: flex-start;
+        }
+
+        .player-section {
+            flex: 3;
+            min-width: 300px;
+        }
+
+        .channels-section {
+            flex: 1;
+            min-width: 250px;
+            max-width: 350px;
+            height: 100%;
+        }
+
+        .player-container {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .channel-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .channel-logo {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            margin-right: 15px;
+            background: white;
+            padding: 5px;
+            border-radius: 8px;
+        }
+
+        .channel-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* Relación de aspecto 16:9 */
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #222;
+        }
+
+        #video-player {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+
+        .video-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #333;
+            z-index: 1;
+        }
+
+        .placeholder-content {
+            text-align: center;
+            color: #999;
+        }
+
+        .placeholder-content i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-prev::before {
+            content: "◀";
+        }
+
+        .btn-next::after {
+            content: "▶";
+        }
+
+        .channels-list {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .channels-list h2 {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .channels-container {
+            overflow-y: auto;
+            flex: 1;
+            max-height: calc(56.25vw * 0.75 * 0.5625); /* Misma altura que el reproductor */
+        }
+
+        .channel-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .channel-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
+        }
+
+        .channel-item.active {
+            background: rgba(255, 107, 107, 0.3);
+            border-left: 4px solid #ff6b6b;
+        }
+
+        .channel-item-logo {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            margin-right: 12px;
+            background: white;
+            padding: 3px;
+            border-radius: 6px;
+        }
+
+        .channel-item-name {
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .channel-item-group {
+            margin-left: auto;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            white-space: nowrap;
+        }
+
+        .status {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .footer {
+            margin-top: auto;
+            padding: 20px 0;
+        }
+
+        .url-loader {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .url-loader h3 {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .url-form {
+            display: flex;
+            gap: 10px;
+        }
+
+        .url-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+        }
+
+        .url-input::placeholder {
+            color: #ccc;
+        }
+
+        .submit-btn {
+            padding: 12px 25px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #3e8e41;
+        }
+
+        .hidden-text {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        @media (max-width: 992px) {
+            .main-content {
+                flex-direction: column;
+            }
+
+            .channels-section {
+                max-width: 100%;
+            }
+
+            .channels-container {
+                max-height: 300px;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .url-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+          <div class="main-content">
+            <div class="player-section">
+                <div class="player-container">
+                    <div class="channel-info">
+                        <img id="current-channel-logo" class="channel-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/TV3.svg/300px-TV3.svg.png" alt="Logo del canal">
+                        <div class="channel-name" id="current-channel-name">TV3</div>
+                    </div>
+
+                    <div class="video-container">
+                        <video
+                            id="video-player"
+                            class="video-js vjs-default-skin vjs-big-play-centered"
+                            controls
+                            preload="auto"
+                            data-setup='{"fluid": true, "aspectRatio": "16:9"}'>
+                            <source src="https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8" type="application/x-mpegURL">
+                        </video>
+
+                        <div class="video-placeholder" id="video-placeholder">
+                            <div class="placeholder-content">
+                                <i>📺</i>
+                                <p>Selecciona un canal per començar a reproduir</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="controls">
+                        <button class="btn btn-prev" id="prev-channel">Anterior</button>
+                        <button class="btn btn-next" id="next-channel">Següent</button>
+                    </div>
+
+                    <div class="status" id="player-status">Preparat per reproduir</div>
+                </div>
+            </div>
+
+            <div class="channels-section">
+                <div class="channels-list">
+                    <h2>Llista de Canals</h2>
+                    <div class="channels-container" id="channels-container">
+                        <!-- Els canals es carregaran aquí -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="url-loader">
+                <h3>Carregar una altra llista de canals</h3>
+                <form class="url-form" id="url-form">
+                    <input type="url" class="url-input" id="playlist-url"
+                           placeholder="Introdueix l'URL d'una llista de canals M3U"
+                           value="https://xarxa-1.github.io/Xarxa-1/cat19.m3u">
+                    <button type="submit" class="submit-btn">Carregar Llista</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Texto oculto solicitado -->
+    <div class="hidden-text">ona u</div>
+
+    <!-- Video.js -->
+    <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
+
+    <script>
+        // Variables globals
+        let channels = [];
+        let currentChannelIndex = -1;
+
+        // Inicialitzar el reproductor
+        const player = videojs('video-player');
+
+        // Configurar esdeveniments del reproductor
+        player.ready(function() {
+            // Amagar el placeholder quan es reprodueixi el vídeo
+            player.on('play', function() {
+                document.getElementById('video-placeholder').style.display = 'none';
+                if (currentChannelIndex >= 0) {
+                    document.getElementById('player-status').textContent = `Reproduint: ${channels[currentChannelIndex].name}`;
+                }
+            });
+
+            // Mostrar el placeholder quan es pausi el vídeo
+            player.on('pause', function() {
+                document.getElementById('video-placeholder').style.display = 'flex';
+                if (currentChannelIndex >= 0) {
+                    document.getElementById('player-status').textContent = `${channels[currentChannelIndex].name} - Pausat`;
+                }
+            });
+
+            // Gestió d'errors
+            player.on('error', function() {
+                document.getElementById('player-status').textContent = `Error en la transmissió`;
+            });
+
+            player.on('waiting', function() {
+                document.getElementById('player-status').textContent = `Buffering...`;
+            });
+        });
+
+        // Carregar la llista de canals
+        async function loadChannels() {
+            try {
+                const url = document.getElementById('playlist-url').value;
+                document.getElementById('player-status').textContent = 'Carregant llista de canals...';
+
+                // Carregar el fitxer M3U
+                const response = await fetch(url);
+                const data = await response.text();
+
+                // Processar el fitxer M3U
+                const lines = data.split('\n');
+                channels = [];
+
+                for (let i = 0; i < lines.length; i++) {
+                    if (lines[i].startsWith('#EXTINF:')) {
+                        // Extreure informació del canal
+                        const infoLine = lines[i];
+                        const urlLine = lines[i + 1];
+
+                        if (urlLine && !urlLine.startsWith('#')) {
+                            // Extreure el nom del canal
+                            const nameMatch = infoLine.match(/,(.*)$/);
+                            const name = nameMatch ? nameMatch[1].trim() : 'Canal sense nom';
+
+                            // Extreure el logo
+                            const logoMatch = infoLine.match(/tvg-logo="([^"]*)"/);
+                            const logo = logoMatch ? logoMatch[1] : '';
+
+                            // Extreure el grup
+                            const groupMatch = infoLine.match(/group-title="([^"]*)"/);
+                            const group = groupMatch ? groupMatch[1] : '';
+
+                            // Afegir el canal a la llista
+                            channels.push({
+                                name: name,
+                                logo: logo,
+                                group: group,
+                                url: urlLine.trim()
+                            });
+                        }
+                    }
+                }
+
+                // Renderitzar la llista de canals
+                renderChannelsList();
+
+                document.getElementById('player-status').textContent = `Llista carregada: ${channels.length} canals disponibles`;
+
+            } catch (error) {
+                console.error('Error carregant els canals:', error);
+                document.getElementById('player-status').textContent = 'Error carregant la llista de canals.';
+            }
+        }
+
+        // Renderitzar la llista de canals
+        function renderChannelsList() {
+            const container = document.getElementById('channels-container');
+            container.innerHTML = '';
+
+            channels.forEach((channel, index) => {
+                const channelElement = document.createElement('div');
+                channelElement.className = 'channel-item';
+                if (index === currentChannelIndex) {
+                    channelElement.classList.add('active');
+                }
+
+                channelElement.innerHTML = `
+                    <img src="${channel.logo}" alt="${channel.name}" class="channel-item-logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iIzMzMyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMC40cmVtOyIgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TG9nbzwvdGV4dD48L3N2Zz4='">
+                    <div class="channel-item-name">${channel.name}</div>
+                    <div class="channel-item-group">${channel.group}</div>
+                `;
+
+                channelElement.addEventListener('click', () => {
+                    changeChannel(index);
+                });
+
+                container.appendChild(channelElement);
+            });
+
+            // Mantenir el canal activo visible
+            if (currentChannelIndex >= 0) {
+                const activeChannel = container.querySelector('.channel-item.active');
+                if (activeChannel) {
+                    activeChannel.scrollIntoView({behavior: 'smooth', block: 'center'});
+                }
+            }
+        }
+
+        // Canviar de canal
+        function changeChannel(index) {
+            if (index < 0 || index >= channels.length) return;
+
+            const channel = channels[index];
+            currentChannelIndex = index;
+
+            // Actualitzar la informació del canal
+            document.getElementById('current-channel-name').textContent = channel.name;
+            document.getElementById('current-channel-logo').src = channel.logo;
+
+            // Actualitzar el vídeo
+            document.getElementById('player-status').textContent = `Canviant a ${channel.name}...`;
+
+            // Canviar la font del vídeo
+            player.src({
+                src: channel.url,
+                type: 'application/x-mpegURL'
+            });
+
+            player.play().catch(error => {
+                console.log('Reproducció automàtica prevenida:', error);
+                document.getElementById('player-status').textContent = `${channel.name} - Prem play per reproduir`;
+                document.getElementById('video-placeholder').style.display = 'flex';
+            });
+
+            // Actualitzar la llista de canals
+            renderChannelsList();
+        }
+
+        // Canal anterior
+        function prevChannel() {
+            if (channels.length === 0) return;
+
+            let newIndex = currentChannelIndex - 1;
+            if (newIndex < 0) newIndex = channels.length - 1;
+            changeChannel(newIndex);
+        }
+
+        // Canal següent
+        function nextChannel() {
+            if (channels.length === 0) return;
+
+            let newIndex = currentChannelIndex + 1;
+            if (newIndex >= channels.length) newIndex = 0;
+            changeChannel(newIndex);
+        }
+
+        // Configurar el formulari per carregar llistes
+        document.getElementById('url-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            loadChannels();
+        });
+
+        // Configurar esdeveniments dels botons
+        document.getElementById('prev-channel').addEventListener('click', prevChannel);
+        document.getElementById('next-channel').addEventListener('click', nextChannel);
+
+        // Iniciar la càrrega dels canals quan la pàgina estigui carregada
+        window.addEventListener('DOMContentLoaded', function() {
+            loadChannels();
+
+            // Ajustar la altura del contenedor de canales después de cargar
+            setTimeout(() => {
+                const videoContainer = document.querySelector('.video-container');
+                const channelsContainer = document.querySelector('.channels-container');
+
+                if (videoContainer && channelsContainer) {
+                    channelsContainer.style.maxHeight = videoContainer.offsetHeight + 'px';
+                }
+            }, 500);
+        });
+
+        // Ajustar la altura cuando cambia el tamaño de la ventana
+        window.addEventListener('resize', function() {
+            const videoContainer = document.querySelector('.video-container');
+            const channelsContainer = document.querySelector('.channels-container');
+
+            if (videoContainer && channelsContainer) {
+                channelsContainer.style.maxHeight = videoContainer.offsetHeight + 'px';
+            }
+        });
+
+        // Manejar errors de càrrega d'imatges
+        document.addEventListener('error', function(e) {
+            if (e.target.tagName === 'IMG') {
+                e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iIzMzMyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnS-c2VyaWY7IGZvbnQtc2l6ZTogMC40cmVtOyIgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TG9nbzwvdGV4dD48L3N2Zz4=';
+            }
+        }, true);
+    </script>
+</body>
+</html>
