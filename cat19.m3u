@@ -365,11 +365,11 @@ https://d1cctoeg0n48w5.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68
 
 #EXTINF:-1 tvg-id="XPTV1.es" tvg-logo="https://i.imgur.com/Ty7GkoN.png" group-title="Music",XPTV1 (720p)
 https://janus.xpbroadcasting.com:8443/hls/xptv1.m3u8
-#EXTINF:-1 tvg-id="XPTV1.es" tvg-logo="https://i.imgur.com/Ty7GkoN.png" group-title="sport",sky
+#EXTINF:-1 tvg-id="SKY LIGA" tvg-logo="http://i.imgur.com/z3NWzkm.png" group-title="sport",SKY LIGA
 http://45.186.106.220:5550/play/a04w/index.m3u8
-#EXTINF:-1 group-title="-",SKY LIGA ALEMANA
+#EXTINF:-1 group-title="http://i.imgur.com/z3NWzkm.png" group-title="Sport",SKY LIGA ALEMANA
 http://200.12.41.194:8000/play/a04f/index.m3u8
-#EXTINF:-1 group-title="-",TENNIS
+#EXTINF:-1 group-title="-" group-title="Ssport",TENNIS
 http://fl5.moveonjoy.com/TENNIS_CHANNEL/index.m3u8
-#EXTINF:-1 group-title="-",FOX NEWS
+#EXTINF:-1 group-title="-" group-title="News",FOX NEWS
 http://fl5.moveonjoy.com/FOX_NEWS_CHANNEL/index.m3u8
