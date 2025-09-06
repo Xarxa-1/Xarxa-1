@@ -321,3 +321,78 @@ http://fl2.moveonjoy.com/HBO_FAMILY/index.m3u8
 http://212.102.60.231/HBO_FAMILY/index.m3u8
 #EXTINF:-1 tvg-id="BORGES" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/TV3.svg/300px-TV3.svg.png" group-title="General",BORGES TV
 https://rtmp-live-ingest-us-east-1-universe-dacast-com.akamaized.net/transmuxv1/streams/3b8b6b56-2d98-d7c8-dd21-769b1dd12229.m3u8
+#EXTM3U
+#EXTINF:7200,BBC News (1080p)
+https://vs-cmaf-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/iptv_mse_v0_hevc.mpd
+#EXTINF:7200,BBC Persian (720p)
+https://vs-cmaf-pushb-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_persian_tv/pc_hd_abr_v2.mpd
+#EXTINF:300,Tekyesokhanrani
+https://ncdn.telewebion.com/tekyesokhanrani/live/playlist.m3u8
+#EXTINF:300,Tekyemadahi
+https://ncdn.telewebion.com/tekyemadahi/live/playlist.m3u8
+#EXTINF:60,BBC News (North America) (1080p)
+https://d2vnbkvjbims7j.cloudfront.net/containerA/LTN/playlist.m3u8
+#EXTINF:60,BBC Top Gear
+https://amg00793-amg00793c5-xumo-us-2664.playouts.now.amagi.tv/bbcstudios-bbctopgear8min-all/playlist.m3u8
+#EXTINF:60,BBC News Europe
+https://viamotionhsi.netplus.ch/live/eds/bbcworld/browser-HLS8/bbcworld.m3u8
+#EXTINF:60,MyZen Wellbeing TV (French)
+https://amg01492-secomsasmediart-myzen-fr-rakuten-spvgz.amagi.tv/hls/amagi_hls_data_rakutenAA-myzen-fr-rakuten/CDN/master.m3u8
+#EXTINF:60,MyZen Wellbeing TV (1080p)
+https://rakutenaa-myzen-en-rakuten-5sex7.amagi.tv/playlist/rakutenAA-myzen-en-rakuten/playlist.m3u8
+#EXTINF:59,BBC Three/CBBC (1080p)
+https://viamotionhsi.netplus.ch/live/eds/bbc3cbbc/browser-HLS8/bbc3cbbc.m3u8
+#EXTINF:40,Sky News Extra 1 (540p)
+https://skynewsau-live.akamaized.net/hls/live/2002689/skynewsau-extra1/master.m3u8
+#EXTINF:40,Sky News Extra 2 (540p) [Not 24/7]
+https://skynewsau-live.akamaized.net/hls/live/2002690/skynewsau-extra2/master.m3u8
+#EXTINF:29,BBS Buddhist Broadcasting (1080p)
+http://bbstv.clouducs.com:1935/bbstv-live/livestream/playlist.m3u8
+#EXTINF:27,Sky News Arabia (1080p) [Not 24/7]
+https://stream.skynewsarabia.com/ott/ott.m3u8
+#EXTINF:26,https://streamer.nexyl.uk/69ef899e-8ca9-4537-9f1a-fe8b4216afbb/oembed.json
+https://streamer.nexyl.uk/69ef899e-8ca9-4537-9f1a-fe8b4216afbb.m3u8
+#EXTINF:26,Sky News Arabia (Portrait) (1280p) [Not 24/7]
+https://stream.skynewsarabia.com/vertical/vertical.m3u8
+#EXTINF:25,00s Replay
+http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/62ba60f059624e000781c436/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=6c25e430-30d3-11ef-9cf5-e9ddff8ff496&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=1b7de8e4-d114-4438-b098-6f7aee77b4be
+#EXTINF:25,South Park: Kyle Collection
+http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/65df49b30d45610008172c5b/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=2c7c0257-35fc-11ef-a031-2b5d494037a2&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=ebeb9902-6395-475c-8273-2bf296ed2ee5
+#EXTINF:25,BBC Travel
+http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/60e4519e6873180007d3cddb/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=1b1ca064-4b81-11ef-a8ac-e146e4e7be02&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=12cb58bd-609a-4a2f-9905-c2bb4ea0def1
+#EXTINF:25,BBC Travel
+http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/60e4519e6873180007d3cddb/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=bc830921-4b91-11ef-8a44-83c5e90e038f&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=88187eab-d70d-4b26-a9c4-a5c998b271ff
+#EXTINF:25,BBC Home & Garden
+http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/5fb5836fe745b600070fc743/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=6c26f5a1-30d3-11ef-9cf5-e9ddff8ff496&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=844b6663-bad2-462b-9aef-d0f33d5dfaa0
+#EXTINF:25,South Park: Kyle Collection
+http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/646b14d0e1979c0008915a09/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=bc863d76-4b91-11ef-8a44-83c5e90e038f&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=04fcb2ed-2241-4868-82f2-0f8118712200
+#EXTINF:25,Sky News
+http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/55b285cd2665de274553d66f/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=6c2bb092-30d3-11ef-9cf5-e9ddff8ff496&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=7161f04a-ca8e-48a5-ba86-50e1f09b73b7
+#EXTINF:25,South Park: Kyle Collection
+http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/646b14d0e1979c0008915a09/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=1b20e623-4b81-11ef-a8ac-e146e4e7be02&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=d6fa536e-6e7a-4576-8788-3d009b2f80ae
+#EXTINF:25,BBC Food
+http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/5fb5844bf5514d0007945bda/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=6c26f5a0-30d3-11ef-9cf5-e9ddff8ff496&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=c628f2e9-ff30-4bd0-9ff6-99fb1649f628
+#EXTINF:25,BBC Travel
+http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/60e4519e6873180007d3cddb/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=84ac5694-4b92-11ef-aece-533610f1ea34&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=6c128a45-6314-4183-a002-254731ea91a6
+#EXTINF:24,Sky Folk TV (720p) [Not 24/7]
+https://eu.live.skyfolk.mk/live.m3u8
+#EXTINF:23,https://streamer.nexyl.uk/39290a19-b8dd-43ea-b8dc-081c37790f24/oembed.json
+https://streamer.nexyl.uk/39290a19-b8dd-43ea-b8dc-081c37790f24.m3u8
+#EXTINF:20,beIN Sports USA
+http://fl3.moveonjoy.com/BEIN_SPORTS/index.m3u8
+#EXTINF:11,BUNDESLIGA
+http://190.92.10.66:4000/play/a006/index.m3u8
+#EXTINF:20, US: FS 1
+http://fl4.moveonjoy.com/FOX_Sports_1/index.m3u8
+#EXTINF:20, US: YES NETWORK
+http://fl5.moveonjoy.com/YES_NETWORK/index.m3u8
+#EXTINF:24, US: YES NETWORK tac12
+https://ingest1-video.streaming-pro.com/tac12_ABR/stream/playlist.m3u8
+#EXTINF:24, US: ESPN 2
+http://fl5.moveonjoy.com/ESPN_2/index.m3u8
+#EXTINF:59,Dubai Sports 3+
+http://dmitwlvvll.cdn.mangomolo.com/dubaisportshd5/smil:dubaisportshd5.smil/chunklist.m3u8
+#EXTINF:60,Dubai Sports 2
+http://dmitwlvvll.cdn.mangomolo.com/dubaisportshd/smil:dubaisportshd.smil/chunklist_b1300000.m3u8
+#EXTINF:61,Dubai Sports 2+
+http://dmitwlvvll.cdn.mangomolo.com/dubaisportshd/smil:dubaisportshd.smil/chunklist.m3u8
