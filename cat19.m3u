@@ -387,13 +387,13 @@ http://fl5.moveonjoy.com/AMC_NETWORK/index.m3u8
 #EXTINF:-1 tvg-id="CNBC USAus" tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s10139_dark_360w_270h.png" tvg-name="CNBC"  group-title="Information",CNBC 
 http://fl5.moveonjoy.com/CNBC/index.m3u8
 
-#EXTINF:-1 tvg-id="NoEPG" tvg-logo="InsertLogoHere" tvg-name="HBO"  group-title="Movies",HBO*
+#EXTINF:-1 tvg-id="NoEPG"tvg-logo="https://images.seeklogo.com/logo-png/6/1/hbo-logo-png_seeklogo-65764.png" tvg-name="HBO"  group-title="Movies",HBO*
 http://143.244.60.30/HBO/index.m3u8
 
-#EXTINF:-1 tvg-id="NoEPG" tvg-logo="InsertLogoHere" tvg-name="HBO"  group-title="Movies",HBO
+#EXTINF:-1 tvg-id="NoEPG"tvg-logo="https://images.seeklogo.com/logo-png/6/1/hbo-logo-png_seeklogo-65764.png" tvg-name="HBO"  group-title="Movies",HBO
 http://212.102.60.231/HBO/index.m3u8
 
-#EXTINF:-1 tvg-id="NoEPG" tvg-logo="InsertLogoHere" tvg-name="HBO 2"  group-title="Movies",HBO 2
+#EXTINF:-1 tvg-id="NoEPG" tvg-logo="https://images.seeklogo.com/logo-png/6/1/hbo-logo-png_seeklogo-65764.png" tvg-name="HBO 2"  group-title="Movies",HBO 2
 https://fl5.moveonjoy.com/HBO_2/index.m3u8
 
 #EXTINF:-1 tvg-id="NoEPG" tvg-logo="InsertLogoHere" tvg-name="HBO Family"  group-title="Movies",HBO Family 
