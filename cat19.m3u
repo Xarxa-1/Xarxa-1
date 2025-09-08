@@ -404,7 +404,7 @@ http://212.102.60.231/HBO_FAMILY/index.m3u8
 
 
 
-#EXTINF:-1,HBO
+#EXTINF:-1 tvg-logo="https://i.imgur.com/LCWWFNR.png" ,HBO
 http://45.228.234.30:16000/play/a008/index.m3u8
 
 #EXTINF:-1,GOLDEN EDGE 
