@@ -402,6 +402,17 @@ http://fl2.moveonjoy.com/HBO_FAMILY/index.m3u8
 #EXTINF:-1 tvg-id="NoEPG" tvg-logo="InsertLogoHere" tvg-name="HBO Family "  group-title="Movies",HBO Family es
 http://212.102.60.231/HBO_FAMILY/index.m3u8
 
+
+
+#EXTINF:-1,HBO
+http://45.228.234.30:16000/play/a008/index.m3u8
+
+#EXTINF:-1,GOLDEN EDGE 
+http://45.228.234.30:16000/play/a03d/index.m3u8
+
+#EXTINF:-1, Sky Liga 
+http://200.6.255.146:8090/play/a0to/index.m3u8
+
 #EXTINF:-1 tvg-id="BORGES" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/TV3.svg/300px-TV3.svg.png" group-title="General",BORGES TV
 https://rtmp-live-ingest-us-east-1-universe-dacast-com.akamaized.net/transmuxv1/streams/3b8b6b56-2d98-d7c8-dd21-769b1dd12229.m3u8
 
