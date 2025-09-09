@@ -77,20 +77,18 @@
             border: 1px solid white;
             display: inline-block;
         }
-    #searchContainer {
-        display: flex;
-        align-items: center;
-        justify-content: space-between; /* Aquesta línia és clau */
-        gap: 10px;
-        margin-top: 10px;
-    }
-
-    /* Opcional: si vols que els elements de la dreta estiguin més junts */
-    #searchContainer > div:last-child {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-    }
+        #searchContainer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        #searchContainer > div:last-child {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
         #m3uUrlInput {
             width: 280px;
             padding: 5px;
@@ -119,11 +117,18 @@
             position: relative;
             display: inline-block;
         }
-
         iframe{width: 100%;}
         video {font-size: 24px;}
         .container {
             display: flex;
+        }
+        .info-badge {
+            background-color: #ffcc00;
+            color: black;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 8px;
         }
     </style>
     <link href="https://unpkg.com/video.js@7/dist/video-js.min.css" rel="stylesheet">
@@ -131,42 +136,44 @@
     <script src="https://cdn.jsdelivr.net/npm/videojs-hls-quality-selector@1.1.4/dist/videojs-hls-quality-selector.min.js"></script>
 </head>
 <body>
-    <video muted autoplay id="videojs" class="video-js vjs-fluid vjs-default-skin vjs-big-play-centered" controls preload="auto" style="width: 100vw;font-size: 24px;" poster="negre.jpg">
+    <video muted autoplay id="videojs" class="video-js vjs-fluid vjs-default-skin vjs-big-play-centered" controls preload="auto" style="width: 100vw;font-size: 24px;" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9'%3E%3Crect width='16' height='9' fill='black'/%3E%3C/svg%3E">
         <source src="https://directes-tv-cat.ccma.cat/live-origin/tv3-hls/master.m3u8" type="application/x-mpegURL">
     </video>
     <h4 style="display: flex; justify-content: space-between; align-items: center;">
         <div id="selectedChannel" style="flex-grow: 1;">
             <img src="" alt="" id="selectedChannelLogo" style="background:darkgray; border-width: 3px; border-style: solid; border-color: darkgray;">
             <span id="selectedChannelTitle"></span>
+            <span id="streamingTypeBadge" class="info-badge">HTTPS</span>
         </div>
         <div id="controlsContainer" style="text-align: right;">
             <button onclick="playPreviousChannel()">&lt;&lt; Anterior</button>
             <button onclick="playNextChannel()">Següent &gt;&gt;</button>
             <button id="zappingButton">Zapping</button>
         </div>
-    <button onclick="playPreviousChannel()">&lt;&lt; Anterior</button>
-            <button onclick="playNextChannel()">Següent &gt;&gt;</button>
-            <button onclick="skipTime(-1800)">&laquo; 30m.</button>
-            <button onclick="skipTime(-600)">&laquo; 10m.</button>
-            <button onclick="skipTime(-60)">&laquo; 1m.</button>
-            <button onclick="skipTime(-30)">&laquo; 30s.</button>
-            <button onclick="goLive()">&nbsp;&nbsp;O&nbsp;&nbsp;</button>
-            <button onclick="skipTime(30)">30s. &raquo;</button>
-            <button onclick="skipTime(60)"> 1m. &raquo;</button>
-            <button onclick="skipTime(600)"> 10m. &raquo;</button>
-            <button onclick="skipTime(1800)"> 30m. &raquo;</button>
-
     </h4>
+    <div style="margin: 10px 0;">
+        <button onclick="playPreviousChannel()">&lt;&lt; Anterior</button>
+        <button onclick="playNextChannel()">Següent &gt;&gt;</button>
+        <button onclick="skipTime(-1800)">&laquo; 30m.</button>
+        <button onclick="skipTime(-600)">&laquo; 10m.</button>
+        <button onclick="skipTime(-60)">&laquo; 1m.</button>
+        <button onclick="skipTime(-30)">&laquo; 30s.</button>
+        <button onclick="goLive()">&nbsp;&nbsp;O&nbsp;&nbsp;</button>
+        <button onclick="skipTime(30)">30s. &raquo;</button>
+        <button onclick="skipTime(60)"> 1m. &raquo;</button>
+        <button onclick="skipTime(600)"> 10m. &raquo;</button>
+        <button onclick="skipTime(1800)"> 30m. &raquo;</button>
+    </div>
     <div id="container">
- <div id="searchContainer">
-     <div id="currentTime" style="font-size: 24px;"></div>
-     <div>
-         <input type="text" id="channelSearch" placeholder="Cercar canals..." oninput="filterChannels()">
-         <input type="time" id="timeInput" placeholder="hh:mm">
-         <button onclick="jumpToTime()">Salta</button>
-         <div id="speedControl"><button onclick="adjustPlaybackSpeed()">Velocitat: 1x</button></div>
-     </div>
-</div>
+        <div id="searchContainer">
+            <div id="currentTime" style="font-size: 24px;"></div>
+            <div>
+                <input type="text" id="channelSearch" placeholder="Cercar canals..." oninput="filterChannels()">
+                <input type="time" id="timeInput" placeholder="hh:mm">
+                <button onclick="jumpToTime()">Salta</button>
+                <div id="speedControl"><button onclick="adjustPlaybackSpeed()">Velocitat: 1x</button></div>
+            </div>
+        </div>
         <div id="channelListContainer"></div>
         <div style="color: white; margin-top: 10px;">
             <label for="m3uUrlInput">URL de la llista:</label>
@@ -177,6 +184,8 @@
             <button onclick="loadNewM3U()">Carregar</button>
         </div>
     </div>
+    <iframe id="externalIframe" src="https://xarxa-1.github.io/Xarxa-1/radiopen6.html" style="height: 100px; margin-top: 20px;"></iframe>
+
     <script>
         var player = videojs('videojs');
         var channels = [];
@@ -185,7 +194,24 @@
         var zappingIndex = 0;
         var playbackSpeed = 1;
 
-        // Función para actualizar la hora actual
+        // Funció per convertir URLs HTTP a HTTPS mitjançant un proxy CORS
+        function convertToHttps(url) {
+            // Si ja és HTTPS, retorna directament
+            if (url.toLowerCase().startsWith('https://')) {
+                return url;
+            }
+            
+            // Si és HTTP, converteix a HTTPS mitjançant un proxy CORS
+            if (url.toLowerCase().startsWith('http://')) {
+                // Utilitzem un proxy CORS per evitar problemes de contingut mixt
+                return 'https://corsproxy.io/?' + encodeURIComponent(url);
+            }
+            
+            // Si no comença amb http o https, assumim que és relativa i retornem sense canvis
+            return url;
+        }
+
+        // Funció per actualizar la hora actual
         function updateCurrentTime() {
             const now = new Date();
             const hours = String(now.getHours()).padStart(2, '0');
@@ -201,7 +227,6 @@
         // Llista de suggeriments M3U
         const m3uSuggestions = [
             "https://xarxa-1.github.io/Xarxa-1/cat19.m3u",
-            "https://xarxa-1.github.io/Xarxa-1/cat38.m3u",
             "https://xarxa-1.github.io/Xarxa-1/cat33.m3u",
             "https://xarxa-1.github.io/Xarxa-1/cat35.m3u",
             "https://xarxa-1.github.io/Xarxa-1/cat36.m3u",
@@ -310,6 +335,9 @@
                 if (channel.logoUrl) {
                     const logo = document.createElement('img');
                     logo.src = channel.logoUrl;
+                    logo.onerror = function() {
+                        this.style.display = 'none';
+                    };
                     channelDiv.appendChild(logo);
                 }
                 const title = document.createElement('span');
@@ -337,32 +365,39 @@
         }
 
         function playChannel(url, title, logoUrl, element, duringZapping = false) {
-            // Comprovar si l'URL és HTTP (no HTTPS) i aplicar les mesures necessàries
-            if (url.startsWith('http://')) {
-                // Per a contingut mixte (HTTP en una pàgina HTTPS), cal assegurar-se
-                // que el navegador permeti la càrrega. En alguns casos, pot ser necessari
-                // utilitzar un proxy o altres solucions.
-                console.log("Reproduint streaming HTTP: " + url);
-
-                // Assegurar que el reproductor pugui carregar contingut mixte
-                // Això pot variar segons el navegador i la seva configuració
-                try {
-                    player.src({ type: 'application/x-mpegURL', src: url });
-                } catch (e) {
-                    console.error("Error carregant streaming HTTP: ", e);
-                    alert("No s'ha pogut carregar el streaming HTTP. Assegura't que el teu navegador permet contingut mixte.");
-                    return;
-                }
+            const httpsUrl = convertToHttps(url);
+            
+            // Actualitzar badge per mostrar el tipus de streaming
+            const badge = document.getElementById('streamingTypeBadge');
+            if (url.toLowerCase().startsWith('https://')) {
+                badge.textContent = 'HTTPS';
+                badge.style.backgroundColor = '#4CAF50';
+            } else if (url.toLowerCase().startsWith('http://')) {
+                badge.textContent = 'HTTP (via Proxy)';
+                badge.style.backgroundColor = '#FF9800';
             } else {
-                // Per a HTTPS, el comportament normal
-                player.src({ type: 'application/x-mpegURL', src: url });
+                badge.textContent = 'Altres';
+                badge.style.backgroundColor = '#9E9E9E';
             }
-
+            
+            player.src({ type: 'application/x-mpegURL', src: httpsUrl });
             player.play();
+            
             document.querySelectorAll('.channel-item').forEach(item => item.classList.remove('active'));
             if (element) element.classList.add('active');
             document.getElementById('selectedChannelTitle').innerText = title;
-            document.getElementById('selectedChannelLogo').src = logoUrl || '';
+            
+            const logoElement = document.getElementById('selectedChannelLogo');
+            if (logoUrl) {
+                logoElement.src = logoUrl;
+                logoElement.style.display = 'inline';
+                logoElement.onerror = function() {
+                    this.style.display = 'none';
+                };
+            } else {
+                logoElement.style.display = 'none';
+            }
+            
             if (!duringZapping) stopZapping();
         }
 
@@ -397,6 +432,9 @@
                 const nextChannel = channels[zappingIndex];
                 playChannel(nextChannel.url, nextChannel.title, nextChannel.logoUrl, document.querySelectorAll('.channel-item')[zappingIndex], true);
             }, 7000);
+            
+            document.getElementById('zappingButton').textContent = 'Aturar Zapping';
+            document.getElementById('zappingButton').onclick = stopZapping;
         }
 
         function stopZapping() {
@@ -404,6 +442,8 @@
                 clearInterval(zappingInterval);
                 zappingInterval = null;
             }
+            document.getElementById('zappingButton').textContent = 'Zapping';
+            document.getElementById('zappingButton').onclick = startZapping;
         }
 
         function jumpToTime() {
@@ -438,7 +478,5 @@
         document.getElementById('zappingButton').addEventListener('click', startZapping);
         window.addEventListener('load', loadNewM3U);
     </script>
-
-    <iframe id="externalIframe" src="https://xarxa-1.github.io/Xarxa-1/radiopen6.html"></iframe>
 </body>
 </html>
