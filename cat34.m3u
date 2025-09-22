@@ -6,11 +6,17 @@ http://185.189.225.157/EuroSport1/index.m3u8
 #EXTINF:-1,EUROSPORT 2 🇪🇸
 http://185.189.225.157/EuroSport2/index.m3u8
 
+#EXTINF:-1,LA LIGA
+http://190.52.105.146:8000/play/a045/index.m3u8
+
 #EXTINF:-1 tvg-id="" tvg-logo="" group-title="",EUROSPORT 1
 http://185.189.225.157/EuroSport1/index.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-logo="" group-title="",EUROSPORT 2
 http://185.189.225.157/EuroSport2/index.m3u8
+
+#EXTINF:-1,Israel: Sport אתר ספורט 5
+https://sport5-lh.akamaihd.net/i/radiolivev_0@698733/index_1_av-p.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-logo="" group-title="cham",Sport5
 https://rgelive.akamaized.net/hls/live/2043151/radiolive/playlist.m3u8
