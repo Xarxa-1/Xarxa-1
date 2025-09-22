@@ -23,6 +23,10 @@ https://live-edge-par-1.cdn.enetres.net/0A0F71E9CC1B44ABA095DF1459442350027/live
 https://play.cdn.enetres.net/0A0F71E9CC1B44ABA095DF1459442350027/021/ab/playlist.m3u8
 #EXTINF:-1 tvg-id="LaXarxa" tvg-logo="https://ott.instantvideocloud.net/admin/storage/logos/3VdActjefSf3IdjxknnOH4Bt4xMt2ciYIXe7DDtj.png" group-title="General",LleidaTV
 https://d1pgniwg61j6fm.cloudfront.net/out/v1/f32d8fe5be7a4ababd6894109683254b/index_2.m3u8?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkaXN0cmlidXRpb24iOiJmMzJkOGZlNWJlN2E0YWJhYmQ2ODk0MTA5NjgzMjU0YiIsImlzcyI6Imh0dHBzOi8vbGF4YXJ4YW1lcy5jb20iLCJhdWQiOiJodHRwczovL2xheGFyeGFtZXMuY29tIiwidGltZUJhc2UiOm51bGwsInRpbWVGcmFtZXMiOltdLCJleHAiOjE3NDQ5NTQwNzgwMDAsImlhdCI6MTc0NDg1Njg3ODAwMCwibmJmIjoxNzQ0ODU2ODczMDAwfQ.5j5lR1-4ZFo6ULEtK6W4W7xeiE7eRNVb5IkIGKRZ5-Q&_t=1744856878&hash=c-6314323916112&_tc=1704883765
+
+#EXTINF:-1 tvg-id="" tvg-logo="" group-title="cham",Sport5
+https://rgelive.akamaized.net/hls/live/2043151/radiolive/playlist.m3u8
+
 #EXTINF:-1 tvg-logo="https://www.pngmart.com/files/23/Fox-News-Logo-PNG-Image.png" group-title="INTERNACIONAL", FOX NEWS
 https://stream.livenewsplay.com:9443/hls/foxnews/foxsd.m3u8
 
