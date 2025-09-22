@@ -1,16 +1,19 @@
 #EXTM3U
 
-#EXTINF:-1, Bien sport 4 🇶🇦
-http://45.139.122.148:8000/play/a007
-
-#EXTINF:-1, Setanta Sports 1 🇺🇦
-https://hls.sweet.tv/stream/qfq2fp954aui9guc8e4d5526tu8uudcnyj342af9kxq8sry8g7n44bwe5rw4k6q68mxhy99h7z5abid8gkju2pcund6c4x89hq96789999.m3u8
-
 #EXTINF:-1,EUROSPORT 1 🇪🇸
 http://185.189.225.157/EuroSport1/index.m3u8
 
 #EXTINF:-1,EUROSPORT 2 🇪🇸
 http://185.189.225.157/EuroSport2/index.m3u8
+
+#EXTINF:-1 tvg-id="" tvg-logo="" group-title="",EUROSPORT 1
+http://185.189.225.157/EuroSport1/index.m3u8
+
+#EXTINF:-1 tvg-id="" tvg-logo="" group-title="",EUROSPORT 2
+http://185.189.225.157/EuroSport2/index.m3u8
+
+#EXTINF:-1 tvg-id="" tvg-logo="" group-title="cham",Sport5
+https://rgelive.akamaized.net/hls/live/2043151/radiolive/playlist.m3u8
 
 #EXTINF:-1,La liga Inside 🇪🇸
 https://is.gd/P9HFAg?LaligaInside.m3u8
