@@ -87,5 +87,56 @@ https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master_1660.m3u8
 #EXTINF:-1 tvg-id="PROSportInternational.my" tvg-logo="https://i.postimg.cc/7hjCP4mf/PROSport-International.png" group-title="Sports",PRO Sport International
 https://proshls.wns.live/hls/stream.m3u8
 
+#EXTINF:1,Sky Sports 1 DE***
+http://169.45.89.106:1935/app/sky1delsh/playlist.m3u8
+#EXTINF:1,Sky Sports 2 DE
+http://169.45.89.106:1935/app/sky2delsh/playlist.m3u8
+#EXTINF:-1,beIN Sport max 4
+http://169.45.89.106:1935/app/max4lsh/playlist.m3u8
+#EXTINF:-1,beIN Sport max 5
+http://169.45.89.106:1935/app/max5lsh/playlist.m3u8
+#EXTINF:-1,Eurosport 1
+http://169.45.89.106:1935/app/vesplsh/playlist.m3u8
+#EXTINF:-1,Eurosport 2
+http://169.45.89.106:1935/app/vesp2lsh/playlist.m3u8
+#EXTINF:-1,SkySport 1
+http://169.45.89.106:1935/app/skysports1lsh/playlist.m3u8
+#EXTINF:-1,SkySport 2
+http://169.45.89.106:1935/app/skysports2lsh/playlist.m3u8
+#EXTINF:-1,SkySport 3
+http://169.45.89.106:1935/app/skysports3lsh/playlist.m3u8
+#EXTINF:-1,SkySport 4
+http://169.45.89.106:1935/app/skysports4lsh/playlist.m3u8
+#EXTINF:-1,SkySport 5
+http://169.45.89.106:1935/app/skysports5lsh/playlist.m3u8
+#EXTINF:-1,BT Sport 1
+http://169.45.89.106:1935/app/btsports1lsh/playlist.m3u8
+#EXTINF:-1,BT Sport 2
+http://169.45.89.106:1935/app/btsports2lsh/playlist.m3u8
+#EXTINF:1, BT Sport ESPN
+http://169.45.89.106:1935/app/espnuklsh/playlist.m3u8
+#EXTINF:-1,Premier sports
+http://169.45.89.106:1935/app/vpremsplsh/playlist.m3u8
+#EXTINF:-1, beIN Sports 1 HD
+http://169.45.89.106:1935/app/bein1frlsh58/playlist.m3u8
+#EXTINF:-1, beIN Sports 2 HD
+http://169.45.89.106:1935/app/bein2frlsh/playlist.m3u8
+#EXTINF:-1, beIN Sports 3 HD
+http://169.45.89.106:1935/app/bein3frlsh/playlist.m3u8
+#EXTINF:-1,ArenaSport 1
+http://169.45.89.106:1935/app/arhd1lsh58/playlist.m3u8
+#EXTINF:-1,ArenaSport 2
+http://169.45.89.106:1935/app/arhd2lsh/playlist.m3u8
+#EXTINF:-1,ArenaSport 3
+http://169.45.89.106:1935/app/arhd3lsh58/playlist.m3u8
+#EXTINF:-1,ArenaSport 4
+http://169.45.89.106:1935/app/arhd4lsh/playlist.m3u8
+#EXTINF:-1,SportKlub 1
+http://169.45.89.106:1935/app/skhd1lsh/playlist.m3u8
+#EXTINF:-1,SportKlub 2
+http://169.45.89.106:1935/app/skhd2lsh/playlist.m3u8
+#EXTINF:-1,SportKlub 3
+http://169.45.89.106:1935/app/skhd3lsh/playlist.m3u8
+
 #EXTINF:-1 tvg-logo="https://i.postimg.cc/d34hZkDX/Ednar33-TV.png" group-title="Rakuten & Runtime", Rakuten Trailers
 https://1c4952408fa947df9b6aee4225ff9fd3.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-4452/master.m3u8?ads.amznbrmid=&ads.amznregion=&ads.amznslots=&ads.app_bundle=com.rakuten.tv&ads.app_store_url=rakuten.tv&ads.app_version=&ads.brand_name=&ads.content_classification=16&ads.device_lmt=1&ads.device_make=&ads.device_model=&ads.device_type=web&ads.device_year=&ads.env=prod&ads.gam_correlator=&ads.gdpr_consent=&ads.ifa_type=ppid&ads.market=es&ads.os_language=&ads.player_height=&ads.player_width=&ads.pod_type=playerpage_midroll&ads.ppid=&ads.rakutentv_channel=4452&ads.rtv_content_id=4452&ads.rtv_content_language=spa&ads.rtvid=271859&ads.streaming_id=7090ff5e-6256-4007-bc30-2d8d01031d1e&ads.tivo_devcountry=&ads.tivo_devmakedate=&ads.tivo_mvpd=&ads.tivo_platform=&ads.tivo_usid=&ads.tivo_uxloc=&ads.user_type=visitor&channel_id=4452
