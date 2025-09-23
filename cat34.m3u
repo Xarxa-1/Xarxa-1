@@ -6,6 +6,15 @@ http://185.189.225.157/EuroSport1/index.m3u8
 #EXTINF:-1,EUROSPORT 2 🇪🇸
 http://185.189.225.157/EuroSport2/index.m3u8
 
+#EXTINF:22,ABC
+http://41.205.93.154/ABC/index.m3u8
+
+#EXTINF:0,FOX Business (1080p)
+http://41.205.93.154/FOXBUSINESS/index.m3u8
+
+#EXTINF:0,MSNBC (720p)
+http://41.205.93.154/MSNBC/index.m3u8
+
 #EXTINF:-1,LA LIGA
 http://190.52.105.146:8000/play/a045/index.m3u8
 
@@ -94,86 +103,3 @@ http://stream.tvcdn.net/spor/tivibu-spor.m3u8
 
 #EXTINF:-1 tvg-id="LA3" tvg-logo="https://od.lk/s/M18yOTgyODg3Njlf/laTrois.png" group-title="General",LA 3
 http://69.64.57.208/la3/playlist.m3u8
-
-#EXTINF:7200,BBC News (1080p)
-https://vs-cmaf-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/iptv_mse_v0_hevc.mpd
-#EXTINF:3600,Travel TV (576p)
-https://streamer103.neterra.tv/travel/live.m3u8
-#EXTINF:120,1-2-3 TV (270p)
-https://123tv-mx1.flex-cdn.net/index.m3u8
-#EXTINF:108,Go2Travel (1080p)
-https://go2thls.wns.live/hls/stream.m3u8
-#EXTINF:100,France 24 Español (1080p)
-https://live.france24.com/hls/live/2037220-b/F24_ES_HI_HLS/master_5000.m3u8
-#EXTINF:69,Rai News 24 HD
-https://viamotionhsi.netplus.ch/live/eds/rainews/browser-dash/rainews.mpd
-#EXTINF:66,BBC News Europe
-https://viamotionhsi.netplus.ch/live/eds/bbcworld/browser-HLS8/bbcworld.m3u8
-#EXTINF:60,ABC 4 Pittsburg PA (WTAE) (720p)
-https://livetv-fa.tubi.video/wtae/playlist.m3u8
-#EXTINF:60,ABC 3 Lafayette LA (KATC) (720p)
-https://livetv-fa.tubi.video/katc/playlist.m3u8
-#EXTINF:60,ABC 5 Boston MA (WCVB) (720p)
-https://livetv-fa.tubi.video/wcvb/playlist.m3u8
-#EXTINF:60,GB News
-https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg01076-lightningintern-gbnewsnz-samsungnz/playlist.m3u8
-#EXTINF:60,Euronews
-https://7060743b4b224241b86325460b14d152.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6769/bitok/eyJzdGlkIjoiMTE3OTllNGEtYmU1OC00ZjQyLTkxOTYtY2VlYWQzZGU2MDJjIiwibWt0IjoicGwiLCJjaCI6Njc2OSwicHRmIjo1fQ==/26235/euronews-pl.m3u8
-#EXTINF:36,Travelxp Germany (720p)
-https://travelxp-travelxp-2-de.rakuten.wurl.tv/playlist.m3u8
-#EXTINF:32,Travelxp Spain (720p)
-https://travelxp-travelxp-5-eu.rakuten.wurl.tv/playlist.m3u8
-#EXTINF:32,Travelxp France (720p)
-https://travelxp-travelxp-4-fr.rakuten.wurl.tv/playlist.m3u8
-#EXTINF:25,Sky News
-http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/55b285cd2665de274553d66f/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=6c2bb092-30d3-11ef-9cf5-e9ddff8ff496&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=7161f04a-ca8e-48a5-ba86-50e1f09b73b7
-#EXTINF:25,00s Replay
-http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/62ba60f059624e000781c436/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=6c25e430-30d3-11ef-9cf5-e9ddff8ff496&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=1b7de8e4-d114-4438-b098-6f7aee77b4be
-#EXTINF:25,Euronews
-http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/6639d7d4b18d700008da5316/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=bc83f381-4b91-11ef-8a44-83c5e90e038f&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=2a6fb319-bbbb-4ced-9cfb-de66da2dec34
-#EXTINF:25,Global News BC
-http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/62cbf063257170000724590c/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=2c7a54a4-35fc-11ef-a031-2b5d494037a2&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=dbc1416e-8c70-4097-a89c-835beacc1b11
-#EXTINF:25,CBS News 24/7
-http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/62441d6ded1827000763dcda/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=1b1cee83-4b81-11ef-a8ac-e146e4e7be02&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=4bddfb08-ac57-4769-a092-8bfc7ce71e23
-#EXTINF:25,Service
-http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/60e4519e6873180007d3cddb/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=84ac5694-4b92-11ef-aece-533610f1ea34&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=6c128a45-6314-4183-a002-254731ea91a6
-#EXTINF:25,BBC Travel
-http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/60e4519e6873180007d3cddb/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=1b1ca064-4b81-11ef-a8ac-e146e4e7be02&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=12cb58bd-609a-4a2f-9905-c2bb4ea0def1
-#EXTINF:25,BBC Travel
-http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/60e4519e6873180007d3cddb/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=bc830921-4b91-11ef-8a44-83c5e90e038f&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=88187eab-d70d-4b26-a9c4-a5c998b271ff
-#EXTINF:25,Euronews
-http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/6639d7d4b18d700008da5316/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=1b1d8ac5-4b81-11ef-a8ac-e146e4e7be02&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=c0d21e0b-3cc9-4c67-81b6-e33e50a7d888
-#EXTINF:24,FoodTime
-http://31.148.48.15/Eda_Premium_HD/index.m3u8
-#EXTINF:22,ABC
-http://41.205.93.154/ABC/index.m3u8
-#EXTINF:0,3AW Melbourne (1080p)
-https://3awlive.akamaized.net/hls/live/2032295/3AW/index.m3u8
-#EXTINF:0,3HD
-https://lb1-live-mv.v2h-cdn.com/hls/ffae/muulk/muulk.m3u8
-#EXTINF:0,3sat (720p) [Geo-blocked]
-https://zdf-hls-18.akamaized.net/hls/live/2016501/dach/high/master.m3u8
-#EXTINF:0,3sat HD (1080p)
-https://viamotionhsi.netplus.ch/live/eds/3sathd/browser-HLS8/3sathd.m3u8
-#EXTINF:0,3 Stones TV (240p) [Not 24/7]
-https://goliveafrica.media:9998/live/64d21e682fd26/index.m3u8
-#EXTINF:0,4Afghanistan
-https://4afghls.persiana.live/hls/stream.m3u8
-#EXTINF:0,4 Afghanistan
-https://4afghls.wns.live/hls/stream.m3u8
-#EXTINF:0,4DmásNoticias TV (1080p) [Not 24/7]
-https://rds3.desdeparaguay.net/4dmasnoticiastv/4dmasnoticiastv/playlist.m3u8
-#EXTINF:0,4E (1080p)
-http://eu2.tv4e.gr:554/live/smil:myStream.sdp.smil/playlist.m3u8
-#EXTINF:0,4 Fun TV (288p) [Not 24/7]
-https://stream.4fun.tv:8888/hls/4f.m3u8
-#EXTINF:0,4K Travel TV
-https://streams2.sofast.tv/sofastplayout/33c31ac4-51fa-46ae-afd0-0d1fe5e60a80_0_HLS/master.m3u8
-#EXTINF:0,4Music
-https://4muhls.persiana.live/hls/stream.m3u8
-#EXTINF:0,4 Music
-https://itthls.wns.live/hls/stream.m3u8
-#EXTINF:0,4Sport
-https://pepsi.abntv.live/hls/4spstream.m3u8
-#EXTINF:0,4U TV (720p)
-https://hls.4utv.live/hls/stream.m3u8
