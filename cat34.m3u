@@ -1,19 +1,30 @@
 #EXTM3U
-
 #EXTINF:-1,EUROSPORT 1 🇪🇸
 http://185.189.225.157/EuroSport1/index.m3u8
 
 #EXTINF:-1,EUROSPORT 2 🇪🇸
 http://185.189.225.157/EuroSport2/index.m3u8
 
-#EXTINF:22,ABC
+#EXTINF:-1,ABC
 http://41.205.93.154/ABC/index.m3u8
 
-#EXTINF:0,FOX Business (1080p)
+#EXTINF:-1,FOX Business (1080p)
 http://41.205.93.154/FOXBUSINESS/index.m3u8
 
-#EXTINF:0,MSNBC (720p)
+#EXTINF:-1,BBC ONE
+http://41.205.93.154/BBCONE/index.m3u8
+
+#EXTINF:-1,BBC TWO
+http://41.205.93.154/BBCTWO/index.m3u8
+
+#EXTINF:-1,BBC TWO
+http://41.205.93.154/STARSPORTS1/index.m3u8
+
+#EXTINF:-1,MSNBC (720p)
 http://41.205.93.154/MSNBC/index.m3u8
+
+#EXTINF:-1,ESPN
+http://41.205.93.154/ESPN/index.m3u8
 
 #EXTINF:-1,LA LIGA
 http://190.52.105.146:8000/play/a045/index.m3u8
@@ -79,27 +90,9 @@ https://live444.xyz/stream/8/index.m3u8
 #EXTINF:-1 tvg-id="INFOSPORTS1" tvg-logo="https://od.lk/s/M18yOTczMTIwOTVf/canal%2BFoot.png" group-title="Sports",INFO SPORTS 1
 http://99.27.51.147:8080/Infosport/index.m3u8
 
-
 #EXTINF:-1 tvg-id="FUTBOLLIGA" tvg-logo="https://od.lk/s/M18zMDg5MTQwMDRf/liga.png" group-title="Sports",FUTBOL LIGA
 https://live444.xyz/stream/23/index.m3u8
-
-#EXTINF:-1 tvg-id="REALMADRID" tvg-logo="https://od.lk/s/M18yNjUzMDI0OTlf/madrid" group-title="Sports",REAL MADRID
-https://stream.ads.ottera.tv/playlist.m3u8?network_id=1545
-
-#EXTINF:-1 tvg-id="SETANTASPORTS1" tvg-logo="https://od.lk/s/NDZfNjA1OTE0MjZf/SetantaSports1.png" group-title="Sports",SETANTA SPORTS 1
-https://stream2.cinerama.uz/1263/tracks-v1a1/mono.m3u8
-
-#EXTINF:-1 tvg-id="SETANTASPORTS" tvg-logo="https://od.lk/s/NDZfNjA1OTE0NjVf/SetantaSport.png" group-title="Sports",SETANTA SPORTS
-https://hls.sweet.tv/stream/qfq2fp954aui9guc8e4d5526tu8uudcnyj342af9kxq8sry8g7n44bwe5rw4k6q68mxhy99h7z5abid8gkju2pcund6c4x89hq96789999.m3u8
-
-#EXTINF:-1 tvg-id="SPORTS5" tvg-logo="https://od.lk/s/NDZfNjA1OTE3MjNf/Sport5israel.png" group-title="Sports",SPORTS 5
-https://rgelive.akamaized.net/hls/live/2043151/radiolive/playlist.m3u8
 
 #EXTINF:-1 tvg-id="CBCSPORTS" tvg-logo="https://od.lk/s/NDZfNjA1OTE4MzNf/cbcsport.png" group-title="Sports",CBC SPORTS
 http://50.7.144.122:1935/livetv/cbcsport.stream/sec-f5-v1-a1.m3u8
 
-#EXTINF:-1 tvg-id="TIVIBUSPOR" tvg-logo="https://od.lk/s/NDZfNjA1OTIxMTVf/Tivibus.png" group-title="Sports",TIVIBU SPOR
-http://stream.tvcdn.net/spor/tivibu-spor.m3u8
-
-#EXTINF:-1 tvg-id="LA3" tvg-logo="https://od.lk/s/M18yOTgyODg3Njlf/laTrois.png" group-title="General",LA 3
-http://69.64.57.208/la3/playlist.m3u8
