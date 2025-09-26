@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Navegador YouTube Sense Publicitat</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            flex-shrink: 0;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, #ff416c, #ff4b2b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .video-container {
+            flex: 2;
+            min-width: 300px;
+            background: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+
+        .video-player {
+            width: 100%;
+            flex: 1;
+            min-height: 0;
+            position: relative;
+            padding-top: 56.25%; /* Relació d'aspecte 16:9 */
+        }
+
+        .video-player iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .player-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .autoplay-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #ff4b2b;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .ad-notice {
+            text-align: center;
+            padding: 8px;
+            background: rgba(0, 255, 0, 0.1);
+            border-radius: 0 0 10px 10px;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .playlist {
+            flex: 1;
+            min-width: 250px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            /* CANVI CRÍTIC: Eliminem max-height fixa */
+            height: auto;
+            max-height: none;
+        }
+
+        .playlist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            flex-shrink: 0;
+        }
+
+        .playlist-header h2 {
+            font-size: 1.3rem;
+            margin: 0;
+        }
+
+        .add-video-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            min-height: 36px;
+        }
+
+        .add-video-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        #playlist-items {
+            overflow-y: auto;
+            flex: 1;
+            min-height: 0;
+            /* CANVI: altura mínima per assegurar visibilitat */
+            min-height: 200px;
+            max-height: 400px;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.1);
+        }
+
+        /* Estils per a la barra de scroll en WebKit (Chrome, Safari) */
+        #playlist-items::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #playlist-items::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        #playlist-items::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+        }
+
+        #playlist-items::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .video-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            /* CANVI: reduïm l'altura dels items */
+            min-height: 60px;
+        }
+
+        .video-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
+        }
+
+        .video-item.active {
+            background: rgba(255, 75, 43, 0.3);
+            border-left: 4px solid #ff4b2b;
+        }
+
+        .video-item.playing::after {
+            content: "▶";
+            position: absolute;
+            right: 10px;
+            color: #ff4b2b;
+            font-size: 0.8rem;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .thumbnail {
+            width: 70px;
+            height: 50px;
+            border-radius: 5px;
+            margin-right: 8px;
+            background-size: cover;
+            background-position: center;
+            flex-shrink: 0;
+        }
+
+        .video-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .video-title {
+            font-weight: bold;
+            margin-bottom: 4px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .video-duration {
+            font-size: 0.75rem;
+            opacity: 0.7;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+            flex-shrink: 0;
+        }
+
+        .clock-container {
+            font-size: 1.2rem;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 15px;
+            border-radius: 5px;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 15px;
+            background: linear-gradient(90deg, #ff416c, #ff4b2b);
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(255, 75, 43, 0.3);
+            font-size: 0.9rem;
+            min-height: 40px;
+            min-width: 80px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 75, 43, 0.4);
+        }
+
+        .timer-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .timer-display {
+            font-size: 1rem;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 8px 12px;
+            border-radius: 5px;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .timer-options {
+            display: none;
+            position: absolute;
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 5px;
+            padding: 8px;
+            z-index: 10;
+            top: 100%;
+            left: 0;
+            width: 130px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .timer-options button {
+            display: block;
+            width: 100%;
+            margin: 4px 0;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            text-align: left;
+            font-size: 0.8rem;
+            min-height: auto;
+            min-width: auto;
+        }
+
+        .timer-options button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .timer-active {
+            background: linear-gradient(90deg, #4CAF50, #45a049) !important;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #1a1a2e;
+            padding: 15px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal h3 {
+            margin-bottom: 12px;
+            font-size: 1.3rem;
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 12px;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+
+        .modal-buttons button {
+            padding: 8px 12px;
+            font-size: 0.85rem;
+            min-height: auto;
+        }
+
+        .modal-buttons button.cancel {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 15px;
+            padding: 15px;
+            opacity: 0.7;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        /* Millores específiques per a mòbils */
+        @media (max-width: 768px) {
+            body {
+                padding: 5px;
+            }
+
+            .main-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .video-container, .playlist {
+                min-width: 100%;
+            }
+
+            /* CANVI CRÍTIC: En mòbils, la llista ocupa més espai */
+            .playlist {
+                flex: 1;
+                max-height: none;
+            }
+
+            #playlist-items {
+                max-height: 300px; /* Suficient per a tots els vídeos */
+                min-height: 150px;
+            }
+
+            .controls {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .clock-container {
+                order: -1;
+                width: 100%;
+                max-width: 200px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .subtitle {
+                font-size: 0.9rem;
+            }
+
+            .player-controls {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+
+            .video-player {
+                padding-top: 56.25%; /* Mantenir la relació d'aspecte */
+            }
+
+            button {
+                padding: 12px 15px;
+                min-height: 44px; /* Mida mínima per a toc */
+                font-size: 1rem;
+            }
+
+            .add-video-btn {
+                padding: 10px 12px;
+                min-height: 40px;
+            }
+
+            .video-item {
+                padding: 8px; /* Reduïm padding per cabre més */
+                min-height: 55px;
+            }
+
+            .thumbnail {
+                width: 60px; /* Reduïm thumbnail */
+                height: 45px;
+            }
+
+            .video-title {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 1.3rem;
+            }
+
+            .video-item {
+                padding: 6px;
+                min-height: 50px;
+            }
+
+            .thumbnail {
+                width: 50px;
+                height: 40px;
+            }
+
+            .video-title {
+                font-size: 0.75rem;
+            }
+
+            button {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+                min-height: 42px;
+            }
+
+            .player-controls {
+                padding: 10px;
+            }
+
+            .autoplay-toggle {
+                font-size: 0.85rem;
+            }
+
+            #playlist-items {
+                max-height: 250px; /* Encara més alt en pantalles petites */
+            }
+        }
+
+        @media (max-height: 600px) {
+            .video-player {
+                min-height: 200px;
+            }
+
+            #playlist-items {
+                max-height: 200px; /* Ajust per a pantalles molt baixes */
+            }
+        }
+
+        /* Prevenir zoom en inputs en iOS */
+        @media screen and (-webkit-min-device-pixel-ratio:0) {
+            select,
+            textarea,
+            input {
+                font-size: 16px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Navegador YouTube Sense Publicitat</h1>
+            <p class="subtitle">Gaudeix dels teus vídeos preferits sense interrupcions</p>
+        </header>
+
+        <div class="main-content">
+            <div class="video-container">
+                <div class="video-player">
+                    <iframe id="youtube-player" src="https://www.youtube.com/embed/CuQkNTCmh00?autoplay=1&modestbranding=1&rel=0&enablejsapi=1&controls=1&fs=1&iv_load_policy=3&disablekb=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                </div>
+                <div class="player-controls">
+                    <div class="autoplay-toggle">
+                        <span>Reproducció automàtica:</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="autoplay-toggle" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div id="player-status">Reproduint: 1/13</div>
+                </div>
+                <div class="ad-notice">
+                    ✅ Reproducció sense publicitat activada
+                </div>
+            </div>
+
+            <div class="playlist">
+                <div class="playlist-header">
+                    <h2>Llista de Reproducció (13 vídeos)</h2>
+                    <button class="add-video-btn" id="add-video-btn">+ Afegir vídeo</button>
+                </div>
+                <div id="playlist-items">
+                    <!-- Els 13 vídeos es carregaran aquí -->
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div class="clock-container" id="clock">00:00:00</div>
+            <button id="prev-btn">Anterior</button>
+            <button id="next-btn">Següent</button>
+            <button id="fullscreen-btn">Pantalla Completa</button>
+
+            <div class="timer-container">
+                <button id="timer-btn">Temporitzador</button>
+                <div class="timer-options" id="timer-options">
+                    <button data-time="0">Off</button>
+                    <button data-time="30">30 segons</button>
+                    <button data-time="300">5 minuts</button>
+                    <button data-time="900">15 minuts</button>
+                    <button data-time="1200">20 minuts</button>
+                    <button data-time="1800">30 minuts</button>
+                    <button data-time="3600">1 hora</button>
+                    <button data-time="7200">2 hores</button>
+                </div>
+                <div class="timer-display" id="timer-display">00:00:00</div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Navegador YouTube Sense Publicitat - Dissenyat per a una experiència de visualització sense interrupcions</p>
+        </footer>
+    </div>
+
+    <!-- Modal per afegir vídeos -->
+    <div class="modal" id="add-video-modal">
+        <div class="modal-content">
+            <h3>Afegir nou vídeo</h3>
+            <p>Introdueix l'ID del vídeo de YouTube (exemple: dQw4w9WgXcQ)</p>
+            <input type="text" class="modal-input" id="video-id-input" placeholder="ID del vídeo">
+            <p>O enganxa l'URL completa del vídeo</p>
+            <input type="text" class="modal-input" id="video-url-input" placeholder="URL del vídeo">
+            <div class="modal-buttons">
+                <button class="cancel" id="cancel-add-btn">Cancel·lar</button>
+                <button id="confirm-add-btn">Afegir vídeo</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Llista de vídeos per defecte (13 vídeos)
+        const defaultVideos = [
+            { id: 'CuQkNTCmh00', title: 'Música Relaxant - Mix Cançons Suaus', duration: '1:23:45' },
+            { id: 'JvaGf29novg', title: 'Música per a Concentrar-se i Estudiar', duration: '2:15:30' },
+            { id: 'TgYYtdK00ic', title: 'Música Relaxant per a Treballar', duration: '1:45:20' },
+            { id: '4X3VSw5Gcuc', title: 'Música Instrumental Relaxant', duration: '2:30:15' },
+            { id: 'KnWdP6Am-D0', title: 'Música per a Meditar i Relaxar-se', duration: '1:55:40' },
+            { id: 'WsDyRAPFBC8', title: 'Música Suau per a Dormir', duration: '3:10:25' },
+            { id: 'YDvsBbKfLPA', title: 'Sky News', duration: '3:10:25' },
+            { id: 'y2_4Jdzu9OQ', title: 'NBC News', duration: '3:10:25' },
+            { id: 'QYPB8cakuPU', title: 'CBS News', duration: '1:00:00' },
+            { id: 'cdGlM7GmrFo', title: 'ABC News', duration: '1:00:00' },
+            { id: '4nMfRpesYfw', title: 'FOX News', duration: '1:00:00' },
+            { id: 'ku09JnYKhz0', title: '24h RTVE', duration: '1:10:25' },
+            { id: 'uCa8ZiWsO9o', title: 'Música Relaxant amb So de Natura', duration: '2:05:10' }
+        ];
+
+        // ... (la resta del JavaScript es manté igual)
+        document.addEventListener('DOMContentLoaded', function() {
+            const player = document.getElementById('youtube-player');
+            const playlistItems = document.getElementById('playlist-items');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const fullscreenBtn = document.getElementById('fullscreen-btn');
+            const clock = document.getElementById('clock');
+            const timerBtn = document.getElementById('timer-btn');
+            const timerOptions = document.getElementById('timer-options');
+            const timerDisplay = document.getElementById('timer-display');
+            const addVideoBtn = document.getElementById('add-video-btn');
+            const addVideoModal = document.getElementById('add-video-modal');
+            const videoIdInput = document.getElementById('video-id-input');
+            const videoUrlInput = document.getElementById('video-url-input');
+            const confirmAddBtn = document.getElementById('confirm-add-btn');
+            const cancelAddBtn = document.getElementById('cancel-add-btn');
+            const autoplayToggle = document.getElementById('autoplay-toggle');
+            const playerStatus = document.getElementById('player-status');
+            const playlistHeader = document.querySelector('.playlist-header h2');
+
+            let videos = [];
+            let currentVideoIndex = 0;
+            let timerInterval = null;
+            let remainingTime = 0;
+            let autoplayEnabled = true;
+            let playerAPI = null;
+
+            // Inicialitzar l'API de YouTube
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+            // Carregar vídeos des de localStorage o utilitzar els per defecte
+            function loadVideos() {
+                const savedVideos = localStorage.getItem('youtubePlayerVideos');
+                if (savedVideos) {
+                    videos = JSON.parse(savedVideos);
+                } else {
+                    videos = [...defaultVideos];
+                    saveVideos();
+                }
+                renderPlaylist();
+            }
+
+            // Guardar vídeos a localStorage
+            function saveVideos() {
+                localStorage.setItem('youtubePlayerVideos', JSON.stringify(videos));
+            }
+
+            // Renderitzar la llista de reproducció
+            function renderPlaylist() {
+                playlistItems.innerHTML = '';
+
+                // Actualitzar el títol de la llista amb el nombre de vídeos
+                playlistHeader.textContent = `Llista de Reproducció (${videos.length} vídeos)`;
+
+                videos.forEach((video, index) => {
+                    const videoItem = document.createElement('div');
+                    videoItem.className = `video-item ${index === currentVideoIndex ? 'active playing' : ''}`;
+                    videoItem.setAttribute('data-video-id', video.id);
+
+                    videoItem.innerHTML = `
+                        <div class="thumbnail" style="background-image: url('https://img.youtube.com/vi/${video.id}/hqdefault.jpg');"></div>
+                        <div class="video-info">
+                            <div class="video-title">${video.title}</div>
+                            <div class="video-duration">${video.duration}</div>
+                        </div>
+                    `;
+
+                    videoItem.addEventListener('click', function() {
+                        changeVideo(video.id, index);
+                    });
+
+                    playlistItems.appendChild(videoItem);
+                });
+
+                updatePlayerStatus();
+                
+                // DEBUG: Mostrar quantes files es veuen realment
+                console.log(`Total vídeos: ${videos.length}`);
+                console.log(`Altura del contenidor: ${playlistItems.clientHeight}px`);
+                console.log(`Altura per vídeo: ${document.querySelector('.video-item')?.clientHeight || 0}px`);
+            }
+
+            // Actualitzar l'estat del reproductor
+            function updatePlayerStatus() {
+                playerStatus.textContent = `Reproduint: ${currentVideoIndex + 1}/${videos.length}`;
+            }
+
+            // Funció per canviar de vídeo
+            function changeVideo(videoId, index) {
+                // Paràmetres addicionals per minimitzar publicitat
+                const params = '?autoplay=1&modestbranding=1&rel=0&enablejsapi=1&controls=1&fs=1&iv_load_policy=3&disablekb=0';
+                
+                if (playerAPI) {
+                    playerAPI.loadVideoById(videoId);
+                    playerAPI.playVideo();
+                } else {
+                    // Fallback si l'API no està carregada
+                    player.src = `https://www.youtube.com/embed/${videoId}${params}`;
+                }
+
+                // Actualitzar l'índex actual
+                currentVideoIndex = index;
+
+                // Actualitzar la llista de reproducció
+                renderPlaylist();
+            }
+
+            // Reproduir el següent vídeo
+            function playNextVideo() {
+                if (!autoplayEnabled) return;
+
+                let newIndex = currentVideoIndex + 1;
+                if (newIndex >= videos.length) newIndex = 0; // Tornar al primer vídeo
+
+                changeVideo(videos[newIndex].id, newIndex);
+            }
+
+            // Inicialitzar l'API de YouTube
+            window.onYouTubeIframeAPIReady = function() {
+                playerAPI = new YT.Player('youtube-player', {
+                    events: {
+                        'onStateChange': onPlayerStateChange,
+                        'onError': onPlayerError
+                    }
+                });
+            };
+
+            // Controlar l'estat del reproductor
+            function onPlayerStateChange(event) {
+                // 0 = acabat, 1 = reproduint, 2 = pausat, 3 = buffering, 5 = cued
+                if (event.data === YT.PlayerState.ENDED) {
+                    // El vídeo ha acabat, reproduir el següent
+                    setTimeout(playNextVideo, 1000);
+                }
+            }
+
+            // Controlar errors del reproductor
+            function onPlayerError(event) {
+                console.error('Error en el reproductor de YouTube:', event.data);
+                // En cas d'error, passar al següent vídeo
+                setTimeout(playNextVideo, 2000);
+            }
+
+            // Actualitzar rellotge digital
+            function updateClock() {
+                const now = new Date();
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                const seconds = String(now.getSeconds()).padStart(2, '0');
+                clock.textContent = `${hours}:${minutes}:${seconds}`;
+            }
+
+            // Actualitzar el rellotge cada segon
+            setInterval(updateClock, 1000);
+            updateClock();
+
+            // Botó anterior
+            prevBtn.addEventListener('click', function() {
+                let newIndex = currentVideoIndex - 1;
+                if (newIndex < 0) newIndex = videos.length - 1;
+
+                changeVideo(videos[newIndex].id, newIndex);
+            });
+
+            // Botó següent
+            nextBtn.addEventListener('click', function() {
+                playNextVideo();
+            });
+
+            // Pantalla completa
+            fullscreenBtn.addEventListener('click', function() {
+                const videoContainer = document.querySelector('.video-container');
+
+                if (!document.fullscreenElement) {
+                    if (videoContainer.requestFullscreen) {
+                        videoContainer.requestFullscreen();
+                    } else if (videoContainer.webkitRequestFullscreen) {
+                        videoContainer.webkitRequestFullscreen();
+                    } else if (videoContainer.msRequestFullscreen) {
+                        videoContainer.msRequestFullscreen();
+                    }
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    } else if (document.webkitExitFullscreen) {
+                        document.webkitExitFullscreen();
+                    } else if (document.msExitFullscreen) {
+                        document.msExitFullscreen();
+                    }
+                }
+            });
+
+            // Controlar la reproducció automàtica
+            autoplayToggle.addEventListener('change', function() {
+                autoplayEnabled = this.checked;
+            });
+
+            // Mostrar/amagar opcions del temporitzador
+            timerBtn.addEventListener('click', function() {
+                timerOptions.style.display = timerOptions.style.display === 'block' ? 'none' : 'block';
+            });
+
+            // Tancar opcions del temporitzador en fer clic fora
+            document.addEventListener('click', function(event) {
+                if (!timerBtn.contains(event.target) && !timerOptions.contains(event.target)) {
+                    timerOptions.style.display = 'none';
+                }
+            });
+
+            // Iniciar temporitzador
+            function startTimer(seconds) {
+                // Aturar qualsevol temporitzador existent
+                if (timerInterval) {
+                    clearInterval(timerInterval);
+                }
+
+                remainingTime = seconds;
+                updateTimerDisplay();
+                timerDisplay.style.display = 'block';
+                timerBtn.classList.add('timer-active');
+
+                timerInterval = setInterval(function() {
+                    remainingTime--;
+                    updateTimerDisplay();
+
+                    if (remainingTime <= 0) {
+                        clearInterval(timerInterval);
+                        timerInterval = null;
+                        timerBtn.classList.remove('timer-active');
+                        // Redirigir a Google.cat
+                        window.location.href = 'https://www.google.cat';
+                    }
+                }, 1000);
+            }
+
+            // Aturar temporitzador
+            function stopTimer() {
+                if (timerInterval) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                }
+                timerDisplay.style.display = 'none';
+                timerBtn.classList.remove('timer-active');
+            }
+
+            // Actualitzar visualització del temporitzador
+            function updateTimerDisplay() {
+                const hours = Math.floor(remainingTime / 3600);
+                const minutes = Math.floor((remainingTime % 3600) / 60);
+                const seconds = remainingTime % 60;
+
+                timerDisplay.textContent =
+                    `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            }
+
+            // Configurar opcions del temporitzador
+            timerOptions.querySelectorAll('button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const time = parseInt(this.getAttribute('data-time'));
+
+                    if (time === 0) {
+                        stopTimer();
+                    } else {
+                        startTimer(time);
+                    }
+
+                    timerOptions.style.display = 'none';
+                });
+            });
+
+            // Modal per afegir vídeos
+            addVideoBtn.addEventListener('click', function() {
+                addVideoModal.style.display = 'flex';
+                videoIdInput.value = '';
+                videoUrlInput.value = '';
+            });
+
+            cancelAddBtn.addEventListener('click', function() {
+                addVideoModal.style.display = 'none';
+            });
+
+            confirmAddBtn.addEventListener('click', function() {
+                let videoId = videoIdInput.value.trim();
+
+                // Si s'ha introduït una URL, extreure l'ID
+                if (!videoId && videoUrlInput.value.trim()) {
+                    const url = videoUrlInput.value.trim();
+                    const match = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
+                    if (match) {
+                        videoId = match[1];
+                    }
+                }
+
+                if (videoId && videoId.length === 11) {
+                    // Afegir el nou vídeo
+                    videos.push({
+                        id: videoId,
+                        title: `Nou vídeo (${videoId})`,
+                        duration: '--:--'
+                    });
+
+                    saveVideos();
+                    renderPlaylist();
+                    addVideoModal.style.display = 'none';
+                } else {
+                    alert('Si us plau, introdueix un ID de vídeo vàlid (11 caràcters) o una URL de YouTube vàlida.');
+                }
+            });
+
+            // Tancar modal en fer clic fora
+            addVideoModal.addEventListener('click', function(e) {
+                if (e.target === addVideoModal) {
+                    addVideoModal.style.display = 'none';
+                }
+            });
+
+            // Navegació amb teclat
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowLeft') {
+                    prevBtn.click();
+                } else if (e.key === 'ArrowRight') {
+                    nextBtn.click();
+                } else if (e.key === 'f' || e.key === 'F') {
+                    fullscreenBtn.click();
+                } else if (e.key === 'Escape') {
+                    addVideoModal.style.display = 'none';
+                }
+            });
+
+            // Inicialitzar l'aplicació
+            loadVideos();
+            // Iniciar amb el primer vídeo
+            if (videos.length > 0) {
+                changeVideo(videos[0].id, 0);
+            }
+        });
+    </script>
+</body>
+</html>
