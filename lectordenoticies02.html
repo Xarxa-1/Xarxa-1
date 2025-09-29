@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/ico" href="https://www.lavanguardia.com/favicon.ico"/>
+	<link rel="shortcut icon" href="https://www.lavanguardia.com/favicon.ico" />
+
+	<link rel="apple-touch-icon" sizes="180x180" href="https://www.lavanguardia.com/xlv-apple-icon-180x180.png.pagespeed.ic.YwI-K2mNIG.webp" />
+	<link rel="icon" type="image/png" sizes="192x192" href="https://www.lavanguardia.com/xlv-android-icon-192x192.png.pagespeed.ic._ODxVr2OkP.webp" />
+	<link rel="icon" type="image/png" sizes="32x32" href="https://www.lavanguardia.com/xlv-favicon-32x32.png.pagespeed.ic.5937V8MMmI.webp" />
+	<link rel="icon" type="image/png" sizes="16x16" href="https://www.lavanguardia.com/xlv-favicon-16x16.png.pagespeed.ic.cJHTo1iqYV.webp" />
+
+    <title>Lector de Notícies - La Vanguardia</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1a3a8f 0%, #2a5bd7 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .input-section {
+            padding: 25px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .url-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: nowrap;
+        }
+
+        .btn {
+            background-color: #1a3a8f;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .btn:hover {
+            background-color: #152c6e;
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+        .font-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            padding: 8px 12px;
+            border-radius: 25px;
+            border: 2px solid #e9ecef;
+            flex-shrink: 0;
+        }
+
+        .font-btn {
+            background-color: #495057;
+            color: white;
+            border: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .font-btn:hover {
+            background-color: #343a40;
+            transform: scale(1.1);
+        }
+
+        .font-btn:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .font-btn-reset {
+            background-color: #6c757d;
+            font-size: 0.9rem;
+            width: 45px;
+        }
+
+        .font-btn-reset:hover {
+            background-color: #5a6268;
+        }
+
+        .font-size-display {
+            font-size: 0.85rem;
+            color: #495057;
+            margin: 0 8px;
+            min-width: 50px;
+            text-align: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .content-section {
+            padding: 30px;
+        }
+
+        .article-header {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .article-title {
+            font-size: 1.8em;
+            color: #1a3a8f;
+            margin-bottom: 10px;
+        }
+
+        .article-subtitle {
+            font-size: 1.2em;
+            color: #555;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .meta-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .article-images {
+            width: 100%;
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 1px solid #eaeaea;
+        }
+
+        .article-image {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .article-image:last-child {
+            margin-bottom: 0;
+        }
+
+        .article-image img {
+            max-width: 100%;
+            max-height: 500px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #eaeaea;
+        }
+
+        .image-caption {
+            font-style: italic;
+            color: #666;
+            margin-top: 12px;
+            font-size: 0.9em;
+            line-height: 1.4;
+            padding: 0 10px;
+        }
+
+        .image-counter {
+            display: inline-block;
+            background-color: #1a3a8f;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .summary {
+            background-color: #f0f7ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 4px solid #1a3a8f;
+        }
+
+        .summary h3 {
+            color: #1a3a8f;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .article-body {
+            font-size: 1.05em;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .article-body p {
+            margin-bottom: 15px;
+        }
+
+        .keywords {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eaeaea;
+        }
+
+        .keywords h3 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #1a3a8f;
+        }
+
+        .keywords span {
+            display: inline-block;
+            background-color: #eef2ff;
+            color: #1a3a8f;
+            padding: 5px 12px;
+            border-radius: 20px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            font-size: 0.85em;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            display: none;
+        }
+
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #1a3a8f;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .error {
+            background-color: #ffeaea;
+            color: #d63031;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #d63031;
+        }
+
+        .images-info {
+            background-color: #e9ecef;
+            padding: 12px 15px;
+            border-radius: 5px;
+            margin: 15px 0 25px 0;
+            font-size: 0.9em;
+            color: #666;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9em;
+            border-top: 1px solid #eaeaea;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                border-radius: 0;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .article-title {
+                font-size: 1.5em;
+            }
+
+            .article-subtitle {
+                font-size: 1.1em;
+            }
+
+            .controls {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .btn {
+                flex: 1;
+                min-width: 140px;
+                justify-content: center;
+            }
+
+            .font-controls {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Lector de Notícies</h1>
+            <p class="subtitle">Visualitza articles de La Vanguardia en format llegible</p>
+        </header>
+
+        <section class="input-section">
+            <input type="text" class="url-input" id="urlInput"
+                   placeholder="Enganxa la URL de la notícia de La Vanguardia"
+                   value="https://www.lavanguardia.com/qf/20250725/10924059/aceites-virgenes-extra-mas-mediterraneos-brl.html">
+
+            <div class="controls">
+                <button class="btn" id="loadBtn">
+                    <span>📰</span> Carregar Contingut
+                </button>
+
+                <div class="font-controls">
+                    <button class="font-btn" id="decreaseFontBtn" title="Disminuir mida de lletra">A-</button>
+                    <button class="font-btn font-btn-reset" id="resetFontBtn" title="Mida de lletra normal">100%</button>
+                    <button class="font-btn" id="increaseFontBtn" title="Augmentar mida de lletra">A+</button>
+                    <span class="font-size-display" id="fontSizeDisplay">100%</span>
+                </div>
+
+                <button class="btn btn-success" id="pdfBtn">
+                    <span>📄</span> Generar PDF
+                </button>
+            </div>
+        </section>
+
+        <div class="loading" id="loadingIndicator">
+            <div class="spinner"></div>
+            <p>Carregant contingut...</p>
+        </div>
+
+        <section class="content-section" id="contentSection">
+            <!-- El contingut es carregarà aquí -->
+        </section>
+
+        <footer>
+            <p>Lector de notícies - Dissenyat per millorar la llegibilitat d'articles periodístics</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlInput = document.getElementById('urlInput');
+            const loadBtn = document.getElementById('loadBtn');
+            const contentSection = document.getElementById('contentSection');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const decreaseFontBtn = document.getElementById('decreaseFontBtn');
+            const increaseFontBtn = document.getElementById('increaseFontBtn');
+            const resetFontBtn = document.getElementById('resetFontBtn');
+            const fontSizeDisplay = document.getElementById('fontSizeDisplay');
+            const pdfBtn = document.getElementById('pdfBtn');
+
+            let currentFontSize = 100;
+            let articleData = null;
+            let articleImages = [];
+
+            // Carregar contingut en fer clic al botó
+            loadBtn.addEventListener('click', loadContent);
+
+            // També carregar contingut en prémer Enter al camp de URL
+            urlInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    loadContent();
+                }
+            });
+
+            // Controls de mida de lletra
+            decreaseFontBtn.addEventListener('click', decreaseFontSize);
+            increaseFontBtn.addEventListener('click', increaseFontSize);
+            resetFontBtn.addEventListener('click', resetFontSize);
+
+            // Generar PDF
+            pdfBtn.addEventListener('click', generatePDF);
+
+            function decreaseFontSize() {
+                if (currentFontSize > 70) {
+                    currentFontSize -= 10;
+                    updateFontSize();
+                }
+            }
+
+            function increaseFontSize() {
+                if (currentFontSize < 150) {
+                    currentFontSize += 10;
+                    updateFontSize();
+                }
+            }
+
+            function resetFontSize() {
+                currentFontSize = 100;
+                updateFontSize();
+            }
+
+            function updateFontSize() {
+                // Aplicar el tamaño de fuente al contenido
+                const contentElements = contentSection.querySelectorAll('*');
+                contentElements.forEach(element => {
+                    element.style.fontSize = currentFontSize + '%';
+                });
+
+                // Actualizar el display
+                fontSizeDisplay.textContent = currentFontSize + '%';
+
+                // Actualizar estado de los botones
+                decreaseFontBtn.disabled = currentFontSize <= 70;
+                increaseFontBtn.disabled = currentFontSize >= 150;
+
+                // Resaltar botón reset cuando no está en 100%
+                if (currentFontSize === 100) {
+                    resetFontBtn.style.backgroundColor = '#6c757d';
+                } else {
+                    resetFontBtn.style.backgroundColor = '#1a3a8f';
+                }
+            }
+
+            async function generatePDF() {
+                if (!articleData) {
+                    showError('Primer ha de carregar un article');
+                    return;
+                }
+
+                try {
+                    loadingIndicator.style.display = 'block';
+                    pdfBtn.disabled = true;
+
+                    const { jsPDF } = window.jspdf;
+                    const pdf = new jsPDF('p', 'mm', 'a4');
+
+                    // Configuración del PDF
+                    const pageWidth = pdf.internal.pageSize.getWidth();
+                    const margin = 20;
+                    const contentWidth = pageWidth - (2 * margin);
+
+                    let yPosition = margin;
+
+                    // Título
+                    pdf.setFontSize(20);
+                    pdf.setFont('helvetica', 'bold');
+                    pdf.setTextColor(26, 58, 143);
+                    const titleLines = pdf.splitTextToSize(articleData.title, contentWidth);
+                    pdf.text(titleLines, margin, yPosition);
+                    yPosition += (titleLines.length * 8) + 5;
+
+                    // Subtítulo
+                    if (articleData.subtitle) {
+                        pdf.setFontSize(14);
+                        pdf.setFont('helvetica', 'normal');
+                        pdf.setTextColor(85, 85, 85);
+                        const subtitleLines = pdf.splitTextToSize(articleData.subtitle, contentWidth);
+                        pdf.text(subtitleLines, margin, yPosition);
+                        yPosition += (subtitleLines.length * 6) + 10;
+                    }
+
+                    // Línea separadora
+                    pdf.setDrawColor(26, 58, 143);
+                    pdf.setLineWidth(0.5);
+                    pdf.line(margin, yPosition, pageWidth - margin, yPosition);
+                    yPosition += 15;
+
+                    // Metadatos
+                    pdf.setFontSize(10);
+                    pdf.setTextColor(102, 102, 102);
+                    const metadata = [
+                        `Data: ${articleData.date}`,
+                        `Autor: ${articleData.author}`,
+                        `Secció: ${articleData.section}`
+                    ];
+
+                    pdf.text(metadata, margin, yPosition);
+                    yPosition += 15;
+
+                    // Resumen
+                    if (articleData.summary) {
+                        pdf.setFontSize(12);
+                        pdf.setFont('helvetica', 'bold');
+                        pdf.setTextColor(26, 58, 143);
+                        pdf.text('RESUM', margin, yPosition);
+                        yPosition += 8;
+
+                        pdf.setFontSize(11);
+                        pdf.setFont('helvetica', 'normal');
+                        pdf.setTextColor(0, 0, 0);
+                        const summaryLines = pdf.splitTextToSize(articleData.summary, contentWidth);
+                        pdf.text(summaryLines, margin, yPosition);
+                        yPosition += (summaryLines.length * 5) + 15;
+                    }
+
+                    // Cuerpo del artículo
+                    pdf.setFontSize(11);
+                    const bodyText = articleData.body.replace(/<[^>]*>/g, '');
+                    const bodyLines = pdf.splitTextToSize(bodyText, contentWidth);
+
+                    for (let i = 0; i < bodyLines.length; i++) {
+                        if (yPosition > 270) {
+                            pdf.addPage();
+                            yPosition = margin;
+                        }
+                        pdf.text(bodyLines[i], margin, yPosition);
+                        yPosition += 6;
+                    }
+
+                    yPosition += 10;
+
+                    // Añadir imágenes al PDF
+                    if (articleImages.length > 0) {
+                        if (yPosition > 200) {
+                            pdf.addPage();
+                            yPosition = margin;
+                        }
+
+                        pdf.setFontSize(12);
+                        pdf.setFont('helvetica', 'bold');
+                        pdf.setTextColor(26, 58, 143);
+                        pdf.text('IMATGES DE LA NOTÍCIA', margin, yPosition);
+                        yPosition += 10;
+
+                        for (let i = 0; i < articleImages.length; i++) {
+                            const image = articleImages[i];
+
+                            try {
+                                // Crear una imagen para cargarla
+                                const img = new Image();
+                                img.crossOrigin = 'Anonymous';
+
+                                // Usar un proxy para evitar problemas CORS
+                                const imageUrl = `https://corsproxy.io/?${encodeURIComponent(image.src)}`;
+
+                                await new Promise((resolve, reject) => {
+                                    img.onload = resolve;
+                                    img.onerror = reject;
+                                    img.src = imageUrl;
+                                });
+
+                                // Calcular dimensiones de la imagen para el PDF
+                                const maxImageWidth = contentWidth;
+                                const maxImageHeight = 120;
+                                let imgWidth = img.width;
+                                let imgHeight = img.height;
+
+                                // Escalar la imagen para que quepa en el PDF
+                                if (imgWidth > maxImageWidth) {
+                                    const ratio = maxImageWidth / imgWidth;
+                                    imgWidth = maxImageWidth;
+                                    imgHeight = imgHeight * ratio;
+                                }
+
+                                if (imgHeight > maxImageHeight) {
+                                    const ratio = maxImageHeight / imgHeight;
+                                    imgHeight = maxImageHeight;
+                                    imgWidth = imgWidth * ratio;
+                                }
+
+                                // Verificar si necesitamos nueva página
+                                if (yPosition + imgHeight + 20 > pdf.internal.pageSize.getHeight() - margin) {
+                                    pdf.addPage();
+                                    yPosition = margin;
+                                }
+
+                                // Añadir la imagen al PDF
+                                const xPosition = margin + (contentWidth - imgWidth) / 2;
+                                pdf.addImage(img, 'JPEG', xPosition, yPosition, imgWidth, imgHeight);
+                                yPosition += imgHeight + 5;
+
+                                // Añadir descripción de la imagen
+                                pdf.setFontSize(9);
+                                pdf.setFont('helvetica', 'italic');
+                                pdf.setTextColor(102, 102, 102);
+                                const captionLines = pdf.splitTextToSize(`Imatge ${i + 1}: ${image.alt}`, contentWidth);
+                                pdf.text(captionLines, margin, yPosition);
+                                yPosition += (captionLines.length * 4) + 15;
+
+                            } catch (imageError) {
+                                console.error(`Error cargando imagen ${i + 1}:`, imageError);
+                                // Si falla la imagen, continuar con la siguiente
+                                continue;
+                            }
+                        }
+                    }
+
+                    // Palabras clave
+                    if (articleData.keywords && articleData.keywords.length > 0) {
+                        if (yPosition > 250) {
+                            pdf.addPage();
+                            yPosition = margin;
+                        }
+
+                        pdf.setFontSize(12);
+                        pdf.setFont('helvetica', 'bold');
+                        pdf.setTextColor(26, 58, 143);
+                        pdf.text('PARAULES CLAU', margin, yPosition);
+                        yPosition += 8;
+
+                        pdf.setFontSize(10);
+                        pdf.setFont('helvetica', 'normal');
+                        const keywordsText = articleData.keywords.join(', ');
+                        const keywordLines = pdf.splitTextToSize(keywordsText, contentWidth);
+                        pdf.text(keywordLines, margin, yPosition);
+                    }
+
+                    // Pie de página
+                    const totalPages = pdf.internal.getNumberOfPages();
+                    for (let i = 1; i <= totalPages; i++) {
+                        pdf.setPage(i);
+                        pdf.setFontSize(8);
+                        pdf.setTextColor(128, 128, 128);
+                        pdf.text(
+                            `Pàgina ${i} de ${totalPages} - Generat el ${new Date().toLocaleDateString('ca-ES')} - Lector de Notícies`,
+                            margin,
+                            pdf.internal.pageSize.getHeight() - 10
+                        );
+                    }
+
+                    // Guardar PDF
+                    pdf.save(`noticia-${Date.now()}.pdf`);
+                    loadingIndicator.style.display = 'none';
+                    pdfBtn.disabled = false;
+
+                } catch (error) {
+                    loadingIndicator.style.display = 'none';
+                    pdfBtn.disabled = false;
+                    showError(`Error en generar el PDF: ${error.message}`);
+                    console.error('Error generant PDF:', error);
+                }
+            }
+
+            async function loadContent() {
+                const url = urlInput.value.trim();
+
+                if (!url) {
+                    showError('Si us plau, introdueix una URL vàlida');
+                    return;
+                }
+
+                if (!url.includes('lavanguardia.com')) {
+                    showError('Si us plau, introdueix una URL de La Vanguardia');
+                    return;
+                }
+
+                try {
+                    // Mostrar indicador de càrrega
+                    loadingIndicator.style.display = 'block';
+                    contentSection.innerHTML = '';
+                    loadBtn.disabled = true;
+
+                    // Utilitzar un proxy CORS per evitar problemes de same-origin policy
+                    const proxyUrl = 'https://api.allorigins.win/raw?url=';
+                    const response = await fetch(proxyUrl + encodeURIComponent(url));
+
+                    if (!response.ok) {
+                        throw new Error(`Error en carregar la pàgina: ${response.status}`);
+                    }
+
+                    const html = await response.text();
+
+                    // Extreure les dades del JSON-LD
+                    articleData = extractArticleData(html);
+
+                    // Extreure totes les imatges de la notícia
+                    articleImages = extractAllArticleImages(html);
+
+                    // Ocultar indicador de càrrega
+                    loadingIndicator.style.display = 'none';
+                    loadBtn.disabled = false;
+
+                    // Mostrar el contingut processat
+                    displayContent(articleData, articleImages);
+
+                    // Aplicar el tamaño de fuente actual
+                    updateFontSize();
+
+                } catch (error) {
+                    loadingIndicator.style.display = 'none';
+                    loadBtn.disabled = false;
+                    showError(`Error en carregar el contingut: ${error.message}`);
+                    console.error('Error:', error);
+                }
+            }
+
+            function extractArticleData(html) {
+                // Buscar el script amb JSON-LD
+                const scriptRegex = /<script type="application\/ld\+json">(.*?)<\/script>/s;
+                const match = html.match(scriptRegex);
+
+                if (!match || !match[1]) {
+                    throw new Error('No es van trobar dades estructurades a la pàgina');
+                }
+
+                try {
+                    const jsonData = JSON.parse(match[1]);
+
+                    // Extreure la informació rellevant
+                    return {
+                        title: jsonData.headline || 'Títol no disponible',
+                        subtitle: jsonData.alternativeHeadline || '',
+                        date: formatDate(jsonData.datePublished) || 'Data no disponible',
+                        source: jsonData.publisher?.name || 'La Vanguardia',
+                        section: jsonData.articleSection || 'Secció no disponible',
+                        summary: jsonData.description || '',
+                        body: jsonData.articleBody ? formatArticleBody(jsonData.articleBody) : 'Contingut no disponible',
+                        keywords: jsonData.keywords ? (Array.isArray(jsonData.keywords) ? jsonData.keywords : jsonData.keywords.split(',')) : [],
+                        author: jsonData.author ? (Array.isArray(jsonData.author) ? jsonData.author.map(a => a.name).join(', ') : jsonData.author.name) : 'Autor no disponible'
+                    };
+                } catch (parseError) {
+                    throw new Error('Error en processar les dades estructurades');
+                }
+            }
+
+            function extractAllArticleImages(html) {
+                const images = [];
+
+                // Buscar totes les etiquetes img amb src que contengan "uploads"
+                const imgRegex = /<img[^>]*src="([^"]*uploads[^"]*)"[^>]*alt="([^"]*)"[^>]*>/gi;
+                let imgMatch;
+
+                while ((imgMatch = imgRegex.exec(html)) !== null) {
+                    const src = imgMatch[1];
+                    const alt = imgMatch[2] || 'Imatge de la notícia';
+
+                    // Solo añadir si no existe ya y es una imagen de contenido
+                    if (src && !images.some(img => img.src === src)) {
+                        images.push({
+                            src: src,
+                            alt: alt,
+                            type: 'content'
+                        });
+                    }
+                }
+
+                // Si no encontramos imágenes con "uploads", buscar cualquier imagen que no sea logo
+                if (images.length === 0) {
+                    const allImgRegex = /<img[^>]*src="([^"]*)"[^>]*alt="([^"]*)"[^>]*>/gi;
+                    while ((imgMatch = allImgRegex.exec(html)) !== null) {
+                        const src = imgMatch[1];
+                        const alt = imgMatch[2] || 'Imatge de la notícia';
+
+                        // Filtrar logos y favicons
+                        if (src &&
+                            !src.includes('logo') &&
+                            !src.includes('favicon') &&
+                            !src.includes('icon') &&
+                            src.includes('lavanguardia.com') &&
+                            !images.some(img => img.src === src)) {
+                            images.push({
+                                src: src,
+                                alt: alt,
+                                type: 'content'
+                            });
+                        }
+                    }
+                }
+
+                return images;
+            }
+
+            function formatDate(dateString) {
+                if (!dateString) return '';
+                try {
+                    const date = new Date(dateString);
+                    return date.toLocaleDateString('ca-ES', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+                } catch {
+                    return dateString;
+                }
+            }
+
+            function formatArticleBody(body) {
+                if (!body) return '';
+
+                // Netejar i formatar el cos de l'article
+                let formattedBody = body
+                    .replace(/&nbsp;/g, ' ')
+                    .replace(/\s+/g, ' ')
+                    .trim();
+
+                // Dividir en paràgrafs (basat en punts o salts de línia)
+                const paragraphs = formattedBody.split(/\.\s+/);
+
+                // Crear paràgrafs HTML
+                return paragraphs.map(paragraph => {
+                    if (paragraph.trim()) {
+                        return `<p>${paragraph.trim()}.</p>`;
+                    }
+                    return '';
+                }).join('');
+            }
+
+            function displayContent(articleData, articleImages) {
+                // Construir l'HTML de l'article
+                const articleHTML = `
+                    <div class="article-header">
+                        <h2 class="article-title">${articleData.title}</h2>
+                        ${articleData.subtitle ? `<p class="article-subtitle">${articleData.subtitle}</p>` : ''}
+
+                        <div class="meta-info">
+                            <div class="meta-item"><strong>Data:</strong> ${articleData.date}</div>
+                            <div class="meta-item"><strong>Mitjà:</strong> ${articleData.source}</div>
+                            <div class="meta-item"><strong>Secció:</strong> ${articleData.section}</div>
+                            <div class="meta-item"><strong>Autor:</strong> ${articleData.author}</div>
+                        </div>
+                    </div>
+
+                    ${articleData.summary ? `
+                    <div class="summary">
+                        <h3>Resum</h3>
+                        <p>${articleData.summary}</p>
+                    </div>
+                    ` : ''}
+
+                    <div class="article-body">
+                        ${articleData.body}
+                    </div>
+
+                    ${articleImages.length > 0 ? `
+                    <div class="article-images">
+                        <div class="images-info">
+                            📷 S'han trobat ${articleImages.length} imatge(s) en aquest article
+                        </div>
+                        ${articleImages.map((image, index) => `
+                            <div class="article-image">
+                                <div class="image-counter">Imatge ${index + 1} de ${articleImages.length}</div>
+                                <img src="${image.src}" alt="${image.alt}" onerror="this.style.display='none'">
+                                <div class="image-caption">${image.alt}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    ` : ''}
+
+                    ${articleData.keywords && articleData.keywords.length > 0 ? `
+                    <div class="keywords">
+                        <h3>Paraules clau</h3>
+                        ${articleData.keywords.map(keyword => `<span>${keyword.trim()}</span>`).join('')}
+                    </div>
+                    ` : ''}
+                `;
+
+                // Inserir el contingut a la pàgina
+                contentSection.innerHTML = articleHTML;
+            }
+
+            function showError(message) {
+                contentSection.innerHTML = `
+                    <div class="error">
+                        <strong>Error:</strong> ${message}
+                    </div>
+                `;
+            }
+
+            // Inicializar controles de fuente
+            updateFontSize();
+
+            // Carregar contingut automàticament en obrir la pàgina
+            loadContent();
+        });
+    </script>
+</body>
+</html>
