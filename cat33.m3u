@@ -1,5 +1,11 @@
 #EXTM3U
 #EXTINF:-1 tvg-id="Sky-News" tvg-name="Sky News" tvg-language="English" tvg-country="UK" tvg-logo="https://i.imgur.com/uFKLmbL.png" group-title="News",Sky News
 https://linear417-gb-hls1-prd-ak.cdn.skycdp.com/100e/Content/HLS_001_1080_30/Live/channel(skynews)/04_1080-30.m3u8
+#EXTINF:-1 tvg-id="Sky-News" tvg-name="Sky News" tvg-language="English" tvg-country="UK" tvg-logo="https://i.imgur.com/uFKLmbL.png" group-title="News",Sky News
+https://linear417-gb-hls1-prd-ak.cdn.skycdp.com/100e/Content/HLS_001_720_30/Live/channel(skynews)/index_mob.m3u8
+#EXTINF:-1 tvg-id="Sky-News" tvg-name="Sky News" tvg-language="English" tvg-country="AU" tvg-logo="https://i.imgur.com/uFKLmbL.png" group-title="News",Sky News
+https://amg00663-skynews-skynewsau-samsungau-r7n40.amagi.tv/playlist1080p.m3u8
 #EXTINF:-1 tvg-id="" tvg-logo="" group-title="News",  Sky News
 https://amg00663-skynews-skynewsau-samsungau-r7n40.amagi.tv/playlist720p.m3u8
+#EXTINF:-1 tvg-id="" tvg-logo="" group-title="News",  00 Replay
+http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/62ba60f059624e000781c436/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=6c25e430-30d3-11ef-9cf5-e9ddff8ff496&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=1b7de8e4-d114-4438-b098-6f7aee77b4behttps://iptv-org.github.io/iptv/index.m3u
