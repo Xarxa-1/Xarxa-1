@@ -1,7 +1,7 @@
 #EXTM3U
 #EXTINF:-1 tvg-id="TV3" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/TV3.svg/300px-TV3.svg.png" group-title="General",TV3
 https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
-#EXTINF:-1 tvg-id="324" tvg-logo="https://graph.facebook.com/324cat/picture?width=200&height=200" group-title="News",3/24
+#EXTINF:-1 tvg-id="324" tvg-logo="https://graph.facebook.com/3catinfo/picture?width=200&height=200" group-title="News",3CAT INFO
 https://directes-tv-cat.3catdirectes.cat/live-content/canal324-hls/master.m3u8
 #EXTINF:-1 tvg-id="Esport3" tvg-logo="https://graph.facebook.com/Esport3/picture?width=200&height=200" group-title="Esports",Esport3
 https://directes-tv-cat.3catdirectes.cat/live-content/esport3-hls/master.m3u8
