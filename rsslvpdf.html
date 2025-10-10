@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://stories.lavanguardia.com/xlv-apple-icon-180x180.png.pagespeed.ic.YwI-K2mNIG.webp" />
+    <link rel="apple-touch-icon" sizes="192x192" href="https://stories.lavanguardia.com/xlv-android-icon-192x192.png.pagespeed.ic._ODxVr2OkP.webp" />
+    <link rel="apple-touch-icon" sizes="32x32" href="https://stories.lavanguardia.com/xlv-favicon-32x32.png.pagespeed.ic.5937V8MMmI.webp" />
+    <link rel="apple-touch-icon" sizes="96x96" href="https://stories.lavanguardia.com/xlv-favicon-96x96.png.pagespeed.ic.bi49KItJKY.webp" />
+    <link rel="apple-touch-icon" sizes="16x16" href="https://stories.lavanguardia.com/xlv-favicon-16x16.png.pagespeed.ic.cJHTo1iqYV.webp" />
+    <link type="image/ico" href="https://www.lavanguardia.com/favicon.ico" rel="icon" />
+
+    <title>La Vanguardia RSS Reader</title>
+    
+    <!-- Bibliotecas para generar PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <style>
+        /* Estils CSS aquí */
+        body {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 22px;
+            font-weight: 400;
+            margin: 10px;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        img { max-width: 100%; }
+        li { list-style-type: none; margin-left: -38px; }
+
+        /* Estils per a la barra de navegació */
+        #nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            overflow-x: auto;
+            z-index: 1000;
+        }
+        #nav-links {
+            white-space: nowrap;
+            margin: 0;
+            padding: 0;
+        }
+        #nav-links a {
+            display: inline-block;
+            padding: 15px 20px;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s ease-in-out;
+        }
+        #nav-links a.active {
+            background-color: #555;
+        }
+
+        /* Estils per al contingut de les notícies */
+        .news-item {
+            margin-bottom: 30px;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .news-content {
+            margin-top: 15px;
+            line-height: 1.5;
+        }
+        .read-more {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 15px;
+            background-color: #0056b3;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Estils per al visor de pantalla completa */
+        #fullscreen-viewer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            z-index: 2000;
+            overflow-y: auto;
+            display: none;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        #fullscreen-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            font-size: 18px;
+        }
+        #close-viewer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 2001;
+        }
+
+        /* Controles de fuente en el visor */
+        #viewer-controls {
+            position: fixed;
+            top: 20px;
+            right: 70px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            z-index: 2001;
+        }
+        
+        #viewer-font-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            background: white;
+            padding: 8px 12px;
+            border-radius: 25px;
+            border: 2px solid #e9ecef;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .viewer-font-btn {
+            background-color: #495057;
+            color: white;
+            border: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        .viewer-font-btn:hover {
+            background-color: #343a40;
+            transform: scale(1.1);
+        }
+        .viewer-font-btn:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .viewer-font-reset {
+            background-color: #6c757d;
+            font-size: 0.9rem;
+            width: 45px;
+        }
+        .viewer-font-reset:hover {
+            background-color: #5a6268;
+        }
+        .viewer-font-size-display {
+            font-size: 0.85rem;
+            color: #495057;
+            margin: 0 8px;
+            min-width: 50px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        /* Botón PDF en el visor */
+        #viewer-pdf-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        #viewer-pdf-btn:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+        #viewer-pdf-btn:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Estilos para el contenido del artículo */
+        .article-header {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eaeaea;
+        }
+        .article-title {
+            font-size: 1.8em;
+            color: #1a3a8f;
+            margin-bottom: 10px;
+        }
+        .article-subtitle {
+            font-size: 1.2em;
+            color: #555;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        .meta-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+            color: #666;
+            font-size: 0.9em;
+        }
+        .meta-item {
+            display: flex;
+            align-items: center;
+        }
+        .summary {
+            background-color: #f0f7ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 4px solid #1a3a8f;
+        }
+        .summary h3 {
+            color: #1a3a8f;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        .article-body {
+            font-size: 1.05em;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+        .article-body p {
+            margin-bottom: 15px;
+        }
+        .article-images {
+            width: 100%;
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 1px solid #eaeaea;
+        }
+        .article-image {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .article-image img {
+            max-width: 100%;
+            max-height: 500px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #eaeaea;
+        }
+        .image-caption {
+            font-style: italic;
+            color: #666;
+            margin-top: 12px;
+            font-size: 0.9em;
+            line-height: 1.4;
+            padding: 0 10px;
+        }
+        .image-counter {
+            display: inline-block;
+            background-color: #1a3a8f;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .keywords {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eaeaea;
+        }
+        .keywords h3 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #1a3a8f;
+        }
+        .keywords span {
+            display: inline-block;
+            background-color: #eef2ff;
+            color: #1a3a8f;
+            padding: 5px 12px;
+            border-radius: 20px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            font-size: 0.85em;
+        }
+
+        /* Botón flotante */
+        #scroll-to-top-button button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: white;
+            color: gray;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 24px;
+            text-align: center;
+            cursor: pointer;
+            margin: 5px;
+            border: gray 3px solid;
+            z-index: 999;
+        }
+
+        /* Menú flotante */
+        #floating-menu {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 999;
+        }
+        #floating-menu button {
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            margin: 5px;
+            background: white;
+            color: gray;
+            border-radius: 50%;
+            border: gray 3px solid;
+        }
+
+        /* Indicador de carga */
+        .loading {
+            text-align: center;
+            padding: 20px;
+            display: none;
+        }
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #1a3a8f;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .error {
+            background-color: #ffeaea;
+            color: #d63031;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #d63031;
+        }
+    </style>
+    <link href='https://fonts.googleapis.com/css?family=Barlow+Condensed' rel='stylesheet'>
+</head>
+<body>
+    <div id="nav-bar">
+        <div id="nav-links">
+            <a><b>LA VANGUARDIA</b></a>
+            <a href="#" id="portada-link">Portada</a>
+            <a href="#" id="internacional-link">Internacional</a>
+            <a href="#" id="deportes-link">Deportes</a>
+            <a href="#" id="catalunya-link">Catalunya</a>
+            <a href="#" id="tarragona-link">Tarragona</a>
+            <a href="#" id="lleida-link">Lleida</a>
+            <a href="#" id="cultura-link">Cultura</a>
+            <a href="#" id="economia-link">Economía</a>
+            <a href="#" id="tecnologia-link">Tecnologia</a>
+            <a href="#" id="comer-link">Comer</a>
+            <a href="#" id="gente-link">Gente</a>
+            <a href="#" id="magazine-link">Magazine</a>
+            <a href="#" id="vida-link">Vida</a>
+        </div>
+    </div>
+    
+    <h1>.</h1>
+    <div id="content">
+        <div class="loading" id="loadingIndicator">
+            <div class="spinner"></div>
+            <p>Carregant notícies...</p>
+        </div>
+        <ul id="news-list">
+            <!-- Aquí es mostraran les notícies -->
+        </ul>
+    </div>
+
+    <!-- Visor de pantalla completa -->
+    <div id="fullscreen-viewer">
+        <button id="close-viewer">X</button>
+        
+        <!-- Controles para el visor -->
+        <div id="viewer-controls">
+            <!-- Controles de fuente -->
+            <div id="viewer-font-controls">
+                <button class="viewer-font-btn" id="viewer-decrease-font" title="Disminuir mida de lletra">A-</button>
+                <button class="viewer-font-btn viewer-font-reset" id="viewer-reset-font" title="Mida de lletra normal">100%</button>
+                <button class="viewer-font-btn" id="viewer-increase-font" title="Augmentar mida de lletra">A+</button>
+                <span class="viewer-font-size-display" id="viewer-font-size-display">100%</span>
+            </div>
+            
+            <!-- Botón PDF -->
+            <button id="viewer-pdf-btn">
+                <span>📄</span> Generar PDF
+            </button>
+        </div>
+        
+        <div class="loading" id="articleLoadingIndicator">
+            <div class="spinner"></div>
+            <p>Carregant article...</p>
+        </div>
+        <div id="fullscreen-content">
+            <!-- Aquí es mostrará el contingut complet de la notícia -->
+        </div>
+    </div>
+
+    <!-- Botón flotante -->
+    <div id="scroll-to-top-button">
+        <button id="scroll-to-top-button"><b>↑</b></button>
+    </div>
+
+    <!-- Menú flotante -->
+    <div id="floating-menu">
+        <button id="decrease-font">-</button>
+        <button id="increase-font">+</button>
+    </div>
+
+    <script>
+        // Variables para control del tamaño de fuente en el visor
+        let viewerFontSize = 100;
+        let currentArticleData = null;
+        let currentArticleImages = [];
+
+        // Función para obtener y mostrar noticias
+        async function fetchNews(rssUrl) {
+            try {
+                document.getElementById('loadingIndicator').style.display = 'block';
+                
+                const response = await fetch(rssUrl);
+                const data = await response.json();
+
+                const newsList = document.getElementById('news-list');
+                newsList.innerHTML = ''; // Netegem la llista
+
+                data.items.forEach(item => {
+                    const li = document.createElement('li');
+                    li.className = 'news-item';
+                    
+                    // Extraer contenido de content:encoded si está disponible
+                    let contentHtml = '';
+                    if (item.content) {
+                        contentHtml = `<div class="news-content">${item.content}</div>`;
+                    } else if (item.description) {
+                        contentHtml = `<div class="news-content">${item.description}</div>`;
+                    }
+                    
+                    li.innerHTML = `
+                        <h2>${item.title}</h2>
+                        <p>${item.pubDate} - ${data.feed.title}</p>
+                        ${item.enclosure && item.enclosure.link ? `<img src="${item.enclosure.link}" alt="Imatge">` : ''}
+                        ${contentHtml}
+                        ${item.link ? `<a class="read-more" data-url="${item.link}">Seguir leyendo...</a>` : ''}
+                        <hr>
+                    `;
+                    newsList.appendChild(li);
+                });
+                
+                document.getElementById('loadingIndicator').style.display = 'none';
+                
+                // Añadir event listeners a los botones "Seguir leyendo..."
+                document.querySelectorAll('.read-more').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const url = this.getAttribute('data-url');
+                        showFullArticle(url);
+                    });
+                });
+            } catch (error) {
+                console.error('Error en carregar les notícies:', error);
+                document.getElementById('loadingIndicator').style.display = 'none';
+                document.getElementById('news-list').innerHTML = `
+                    <div class="error">
+                        <strong>Error:</strong> No s'han pogut carregar les notícies
+                    </div>
+                `;
+            }
+        }
+
+        // Función para mostrar el artículo completo en pantalla completa
+        async function showFullArticle(url) {
+            try {
+                // Mostrar el visor
+                const viewer = document.getElementById('fullscreen-viewer');
+                const content = document.getElementById('fullscreen-content');
+                const loadingIndicator = document.getElementById('articleLoadingIndicator');
+                
+                // Mostrar mensaje de carga
+                content.innerHTML = '';
+                loadingIndicator.style.display = 'block';
+                viewer.style.display = 'block';
+                
+                // Resetear tamaño de fuente al abrir un nuevo artículo
+                viewerFontSize = 100;
+                updateViewerFontSize();
+                
+                // Obtener el contenido del artículo usando CORS proxy
+                const proxyUrl = 'https://api.allorigins.win/raw?url=';
+                const response = await fetch(proxyUrl + encodeURIComponent(url));
+                
+                if (!response.ok) {
+                    throw new Error(`Error en carregar la pàgina: ${response.status}`);
+                }
+                
+                const html = await response.text();
+                
+                // Extraer los datos del artículo
+                currentArticleData = extractArticleData(html);
+                currentArticleImages = extractAllArticleImages(html);
+                
+                // Ocultar indicador de carga
+                loadingIndicator.style.display = 'none';
+                
+                // Mostrar el contenido en el visor
+                displayArticleContent(content, currentArticleData, currentArticleImages);
+                
+            } catch (error) {
+                console.error('Error al cargar el artículo completo:', error);
+                document.getElementById('articleLoadingIndicator').style.display = 'none';
+                document.getElementById('fullscreen-content').innerHTML = 
+                    '<div class="error">Error al cargar el artículo. Por favor, intente nuevamente.</div>';
+            }
+        }
+
+        // Funciones para control del tamaño de fuente en el visor
+        function setupViewerFontControls() {
+            const decreaseBtn = document.getElementById('viewer-decrease-font');
+            const increaseBtn = document.getElementById('viewer-increase-font');
+            const resetBtn = document.getElementById('viewer-reset-font');
+            const pdfBtn = document.getElementById('viewer-pdf-btn');
+            
+            decreaseBtn.addEventListener('click', decreaseViewerFontSize);
+            increaseBtn.addEventListener('click', increaseViewerFontSize);
+            resetBtn.addEventListener('click', resetViewerFontSize);
+            pdfBtn.addEventListener('click', generatePDFFromViewer);
+            
+            updateViewerFontSize();
+        }
+
+        function decreaseViewerFontSize() {
+            if (viewerFontSize > 70) {
+                viewerFontSize -= 10;
+                updateViewerFontSize();
+            }
+        }
+
+        function increaseViewerFontSize() {
+            if (viewerFontSize < 150) {
+                viewerFontSize += 10;
+                updateViewerFontSize();
+            }
+        }
+
+        function resetViewerFontSize() {
+            viewerFontSize = 100;
+            updateViewerFontSize();
+        }
+
+        function updateViewerFontSize() {
+            const content = document.getElementById('fullscreen-content');
+            const display = document.getElementById('viewer-font-size-display');
+            const decreaseBtn = document.getElementById('viewer-decrease-font');
+            const increaseBtn = document.getElementById('viewer-increase-font');
+            const resetBtn = document.getElementById('viewer-reset-font');
+            
+            // Aplicar el tamaño de fuente al contenido del visor
+            if (content) {
+                content.style.fontSize = viewerFontSize + '%';
+            }
+            
+            // Actualizar el display
+            display.textContent = viewerFontSize + '%';
+            
+            // Actualizar estado de los botones
+            decreaseBtn.disabled = viewerFontSize <= 70;
+            increaseBtn.disabled = viewerFontSize >= 150;
+            
+            // Resaltar botón reset cuando no está en 100%
+            if (viewerFontSize === 100) {
+                resetBtn.style.backgroundColor = '#6c757d';
+            } else {
+                resetBtn.style.backgroundColor = '#1a3a8f';
+            }
+        }
+
+        // Función para generar PDF desde el visor
+        async function generatePDFFromViewer() {
+            if (!currentArticleData) {
+                alert('Primero debe cargar un artículo');
+                return;
+            }
+
+            try {
+                const pdfBtn = document.getElementById('viewer-pdf-btn');
+                pdfBtn.disabled = true;
+                pdfBtn.innerHTML = '<span>⏳</span> Generando...';
+
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('p', 'mm', 'a4');
+
+                // Configuración del PDF
+                const pageWidth = pdf.internal.pageSize.getWidth();
+                const margin = 20;
+                const contentWidth = pageWidth - (2 * margin);
+
+                let yPosition = margin;
+
+                // Título
+                pdf.setFontSize(20);
+                pdf.setFont('helvetica', 'bold');
+                pdf.setTextColor(26, 58, 143);
+                const titleLines = pdf.splitTextToSize(currentArticleData.title, contentWidth);
+                pdf.text(titleLines, margin, yPosition);
+                yPosition += (titleLines.length * 8) + 5;
+
+                // Subtítulo
+                if (currentArticleData.subtitle) {
+                    pdf.setFontSize(14);
+                    pdf.setFont('helvetica', 'normal');
+                    pdf.setTextColor(85, 85, 85);
+                    const subtitleLines = pdf.splitTextToSize(currentArticleData.subtitle, contentWidth);
+                    pdf.text(subtitleLines, margin, yPosition);
+                    yPosition += (subtitleLines.length * 6) + 10;
+                }
+
+                // Línea separadora
+                pdf.setDrawColor(26, 58, 143);
+                pdf.setLineWidth(0.5);
+                pdf.line(margin, yPosition, pageWidth - margin, yPosition);
+                yPosition += 15;
+
+                // Metadatos
+                pdf.setFontSize(10);
+                pdf.setTextColor(102, 102, 102);
+                const metadata = [
+                    `Fecha: ${currentArticleData.date}`,
+                    `Autor: ${currentArticleData.author}`,
+                    `Sección: ${currentArticleData.section}`
+                ];
+
+                pdf.text(metadata, margin, yPosition);
+                yPosition += 15;
+
+                // Resumen
+                if (currentArticleData.summary) {
+                    pdf.setFontSize(12);
+                    pdf.setFont('helvetica', 'bold');
+                    pdf.setTextColor(26, 58, 143);
+                    pdf.text('RESUMEN', margin, yPosition);
+                    yPosition += 8;
+
+                    pdf.setFontSize(11);
+                    pdf.setFont('helvetica', 'normal');
+                    pdf.setTextColor(0, 0, 0);
+                    const summaryLines = pdf.splitTextToSize(currentArticleData.summary, contentWidth);
+                    pdf.text(summaryLines, margin, yPosition);
+                    yPosition += (summaryLines.length * 5) + 15;
+                }
+
+                // Cuerpo del artículo
+                pdf.setFontSize(11);
+                const bodyText = currentArticleData.body.replace(/<[^>]*>/g, '');
+                const bodyLines = pdf.splitTextToSize(bodyText, contentWidth);
+
+                for (let i = 0; i < bodyLines.length; i++) {
+                    if (yPosition > 270) {
+                        pdf.addPage();
+                        yPosition = margin;
+                    }
+                    pdf.text(bodyLines[i], margin, yPosition);
+                    yPosition += 6;
+                }
+
+                yPosition += 10;
+
+                // Añadir imágenes al PDF
+                if (currentArticleImages.length > 0) {
+                    if (yPosition > 200) {
+                        pdf.addPage();
+                        yPosition = margin;
+                    }
+
+                    pdf.setFontSize(12);
+                    pdf.setFont('helvetica', 'bold');
+                    pdf.setTextColor(26, 58, 143);
+                    pdf.text('IMÁGENES DE LA NOTICIA', margin, yPosition);
+                    yPosition += 10;
+
+                    for (let i = 0; i < currentArticleImages.length; i++) {
+                        const image = currentArticleImages[i];
+
+                        try {
+                            // Crear una imagen para cargarla
+                            const img = new Image();
+                            img.crossOrigin = 'Anonymous';
+
+                            // Usar un proxy para evitar problemas CORS
+                            const imageUrl = `https://corsproxy.io/?${encodeURIComponent(image.src)}`;
+
+                            await new Promise((resolve, reject) => {
+                                img.onload = resolve;
+                                img.onerror = reject;
+                                img.src = imageUrl;
+                            });
+
+                            // Calcular dimensiones de la imagen para el PDF
+                            const maxImageWidth = contentWidth;
+                            const maxImageHeight = 120;
+                            let imgWidth = img.width;
+                            let imgHeight = img.height;
+
+                            // Escalar la imagen para que quepa en el PDF
+                            if (imgWidth > maxImageWidth) {
+                                const ratio = maxImageWidth / imgWidth;
+                                imgWidth = maxImageWidth;
+                                imgHeight = imgHeight * ratio;
+                            }
+
+                            if (imgHeight > maxImageHeight) {
+                                const ratio = maxImageHeight / imgHeight;
+                                imgHeight = maxImageHeight;
+                                imgWidth = imgWidth * ratio;
+                            }
+
+                            // Verificar si necesitamos nueva página
+                            if (yPosition + imgHeight + 20 > pdf.internal.pageSize.getHeight() - margin) {
+                                pdf.addPage();
+                                yPosition = margin;
+                            }
+
+                            // Añadir la imagen al PDF
+                            const xPosition = margin + (contentWidth - imgWidth) / 2;
+                            pdf.addImage(img, 'JPEG', xPosition, yPosition, imgWidth, imgHeight);
+                            yPosition += imgHeight + 5;
+
+                            // Añadir descripción de la imagen
+                            pdf.setFontSize(9);
+                            pdf.setFont('helvetica', 'italic');
+                            pdf.setTextColor(102, 102, 102);
+                            const captionLines = pdf.splitTextToSize(`Imagen ${i + 1}: ${image.alt}`, contentWidth);
+                            pdf.text(captionLines, margin, yPosition);
+                            yPosition += (captionLines.length * 4) + 15;
+
+                        } catch (imageError) {
+                            console.error(`Error cargando imagen ${i + 1}:`, imageError);
+                            // Si falla la imagen, continuar con la siguiente
+                            continue;
+                        }
+                    }
+                }
+
+                // Palabras clave
+                if (currentArticleData.keywords && currentArticleData.keywords.length > 0) {
+                    if (yPosition > 250) {
+                        pdf.addPage();
+                        yPosition = margin;
+                    }
+
+                    pdf.setFontSize(12);
+                    pdf.setFont('helvetica', 'bold');
+                    pdf.setTextColor(26, 58, 143);
+                    pdf.text('PALABRAS CLAVE', margin, yPosition);
+                    yPosition += 8;
+
+                    pdf.setFontSize(10);
+                    pdf.setFont('helvetica', 'normal');
+                    const keywordsText = currentArticleData.keywords.join(', ');
+                    const keywordLines = pdf.splitTextToSize(keywordsText, contentWidth);
+                    pdf.text(keywordLines, margin, yPosition);
+                }
+
+                // Pie de página
+                const totalPages = pdf.internal.getNumberOfPages();
+                for (let i = 1; i <= totalPages; i++) {
+                    pdf.setPage(i);
+                    pdf.setFontSize(8);
+                    pdf.setTextColor(128, 128, 128);
+                    pdf.text(
+                        `Página ${i} de ${totalPages} - Generado el ${new Date().toLocaleDateString('es-ES')} - Lector de Noticias`,
+                        margin,
+                        pdf.internal.pageSize.getHeight() - 10
+                    );
+                }
+
+                // Restaurar el botón
+                pdfBtn.disabled = false;
+                pdfBtn.innerHTML = '<span>📄</span> Generar PDF';
+
+                // Guardar PDF
+                pdf.save(`noticia-${Date.now()}.pdf`);
+
+            } catch (error) {
+                const pdfBtn = document.getElementById('viewer-pdf-btn');
+                pdfBtn.disabled = false;
+                pdfBtn.innerHTML = '<span>📄</span> Generar PDF';
+                alert(`Error al generar el PDF: ${error.message}`);
+                console.error('Error generando PDF:', error);
+            }
+        }
+
+        function extractArticleData(html) {
+            // Buscar el script con JSON-LD
+            const scriptRegex = /<script type="application\/ld\+json">(.*?)<\/script>/s;
+            const match = html.match(scriptRegex);
+
+            if (!match || !match[1]) {
+                throw new Error('No se encontraron datos estructurados en la página');
+            }
+
+            try {
+                const jsonData = JSON.parse(match[1]);
+
+                // Extraer la información relevante
+                return {
+                    title: jsonData.headline || 'Título no disponible',
+                    subtitle: jsonData.alternativeHeadline || '',
+                    date: formatDate(jsonData.datePublished) || 'Fecha no disponible',
+                    source: jsonData.publisher?.name || 'La Vanguardia',
+                    section: jsonData.articleSection || 'Sección no disponible',
+                    summary: jsonData.description || '',
+                    body: jsonData.articleBody ? formatArticleBody(jsonData.articleBody) : 'Contenido no disponible',
+                    keywords: jsonData.keywords ? (Array.isArray(jsonData.keywords) ? jsonData.keywords : jsonData.keywords.split(',')) : [],
+                    author: jsonData.author ? (Array.isArray(jsonData.author) ? jsonData.author.map(a => a.name).join(', ') : jsonData.author.name) : 'Autor no disponible'
+                };
+            } catch (parseError) {
+                throw new Error('Error al procesar los datos estructurados');
+            }
+        }
+
+        function extractAllArticleImages(html) {
+            const images = [];
+
+            // Buscar todas las etiquetas img con src que contengan "uploads"
+            const imgRegex = /<img[^>]*src="([^"]*uploads[^"]*)"[^>]*alt="([^"]*)"[^>]*>/gi;
+            let imgMatch;
+
+            while ((imgMatch = imgRegex.exec(html)) !== null) {
+                const src = imgMatch[1];
+                const alt = imgMatch[2] || 'Imagen de la noticia';
+
+                // Solo añadir si no existe ya y es una imagen de contenido
+                if (src && !images.some(img => img.src === src)) {
+                    images.push({
+                        src: src,
+                        alt: alt,
+                        type: 'content'
+                    });
+                }
+            }
+
+            // Si no encontramos imágenes con "uploads", buscar cualquier imagen que no sea logo
+            if (images.length === 0) {
+                const allImgRegex = /<img[^>]*src="([^"]*)"[^>]*alt="([^"]*)"[^>]*>/gi;
+                while ((imgMatch = allImgRegex.exec(html)) !== null) {
+                    const src = imgMatch[1];
+                    const alt = imgMatch[2] || 'Imagen de la noticia';
+
+                    // Filtrar logos y favicons
+                    if (src &&
+                        !src.includes('logo') &&
+                        !src.includes('favicon') &&
+                        !src.includes('icon') &&
+                        src.includes('lavanguardia.com') &&
+                        !images.some(img => img.src === src)) {
+                        images.push({
+                            src: src,
+                            alt: alt,
+                            type: 'content'
+                        });
+                    }
+                }
+            }
+
+            return images;
+        }
+
+        function formatDate(dateString) {
+            if (!dateString) return '';
+            try {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('es-ES', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+            } catch {
+                return dateString;
+            }
+        }
+
+        function formatArticleBody(body) {
+            if (!body) return '';
+
+            // Limpiar y formatear el cuerpo del artículo
+            let formattedBody = body
+                .replace(/&nbsp;/g, ' ')
+                .replace(/\s+/g, ' ')
+                .trim();
+
+            // Dividir en párrafos (basado en puntos o saltos de línea)
+            const paragraphs = formattedBody.split(/\.\s+/);
+
+            // Crear párrafos HTML
+            return paragraphs.map(paragraph => {
+                if (paragraph.trim()) {
+                    return `<p>${paragraph.trim()}.</p>`;
+                }
+                return '';
+            }).join('');
+        }
+
+        function displayArticleContent(container, articleData, articleImages) {
+            // Construir el HTML del artículo
+            const articleHTML = `
+                <div class="article-header">
+                    <h2 class="article-title">${articleData.title}</h2>
+                    ${articleData.subtitle ? `<p class="article-subtitle">${articleData.subtitle}</p>` : ''}
+
+                    <div class="meta-info">
+                        <div class="meta-item"><strong>Fecha:</strong> ${articleData.date}</div>
+                        <div class="meta-item"><strong>Medio:</strong> ${articleData.source}</div>
+                        <div class="meta-item"><strong>Sección:</strong> ${articleData.section}</div>
+                        <div class="meta-item"><strong>Autor:</strong> ${articleData.author}</div>
+                    </div>
+                </div>
+
+                ${articleData.summary ? `
+                <div class="summary">
+                    <h3>Resumen</h3>
+                    <p>${articleData.summary}</p>
+                </div>
+                ` : ''}
+
+                <div class="article-body">
+                    ${articleData.body}
+                </div>
+
+                ${articleImages.length > 0 ? `
+                <div class="article-images">
+                    <div style="text-align: center; margin-bottom: 20px; font-weight: bold; color: #666;">
+                        📷 Se han encontrado ${articleImages.length} imagen(es) en este artículo
+                    </div>
+                    ${articleImages.map((image, index) => `
+                        <div class="article-image">
+                            <div class="image-counter">Imagen ${index + 1} de ${articleImages.length}</div>
+                            <img src="${image.src}" alt="${image.alt}" onerror="this.style.display='none'">
+                            <div class="image-caption">${image.alt}</div>
+                        </div>
+                    `).join('')}
+                </div>
+                ` : ''}
+
+                ${articleData.keywords && articleData.keywords.length > 0 ? `
+                <div class="keywords">
+                    <h3>Palabras clave</h3>
+                    ${articleData.keywords.map(keyword => `<span>${keyword.trim()}</span>`).join('')}
+                </div>
+                ` : ''}
+            `;
+
+            // Insertar el contenido en el contenedor
+            container.innerHTML = articleHTML;
+        }
+
+        // Cerrar el visor de pantalla completa
+        document.getElementById('close-viewer').addEventListener('click', function() {
+            document.getElementById('fullscreen-viewer').style.display = 'none';
+        });
+
+        // Gestiona els enllaços per canviar rssUrl i recarregar la pàgina
+        const portadaLink = document.getElementById('portada-link');
+        const internacionalLink = document.getElementById('internacional-link');
+        const deportesLink = document.getElementById('deportes-link');
+        const catalunyaLink = document.getElementById('catalunya-link');
+        const tarragonaLink = document.getElementById('tarragona-link');
+        const lleidaLink = document.getElementById('lleida-link');
+        const culturaLink = document.getElementById('cultura-link');
+        const economiaLink = document.getElementById('economia-link');
+        const tecnologiaLink = document.getElementById('tecnologia-link');
+        const comerLink = document.getElementById('comer-link');
+        const genteLink = document.getElementById('gente-link');
+        const magazineLink = document.getElementById('magazine-link');
+        const vidaLink = document.getElementById('vida-link');
+
+        portadaLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            fetchNews('https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/home.xml');
+            updateActiveLink(portadaLink);
+        });
+
+        internacionalLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            fetchNews('https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/internacional.xml');
+            updateActiveLink(internacionalLink);
+        });
+
+        deportesLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            fetchNews('https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/deportes.xml');
+            updateActiveLink(deportesLink);
+        });
+
+        catalunyaLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            fetchNews('https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/local/catalunya.xml');
+            updateActiveLink(catalunyaLink);
+        });
+
+        tarragonaLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            fetchNews('https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/local/tarragona.xml');
+            updateActiveLink(tarragonaLink);
+        });
+
+        lleidaLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            fetchNews('https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/local/lleida.xml');
+            updateActiveLink(lleidaLink);
+        });
+
+        culturaLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            fetchNews('https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/cultura.xml');
+            updateActiveLink(culturaLink);
+        });
+
+        economiaLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            fetchNews('https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/economia.xml');
+            updateActiveLink(economiaLink);
+        });
+
+        tecnologiaLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            fetchNews('https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/tecnologia.xml');
+            updateActiveLink(tecnologiaLink);
+        });
+
+        comerLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            fetchNews('https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/comer.xml');
+            updateActiveLink(comerLink);
+        });
+
+        genteLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            fetchNews('https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/gente.xml');
+            updateActiveLink(genteLink);
+        });
+
+        magazineLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            fetchNews('https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/magazine.xml');
+            updateActiveLink(magazineLink);
+        });
+
+        vidaLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            fetchNews('https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/vida.xml');
+            updateActiveLink(vidaLink);
+        });
+
+        // Funció per actualitzar l'estat actiu dels enllaços
+        function updateActiveLink(clickedLink) {
+            const allLinks = document.querySelectorAll('#nav-links a');
+            allLinks.forEach(link => link.classList.remove('active'));
+            clickedLink.classList.add('active');
+        }
+
+        // Control del tamaño de fuente en la página principal
+        document.addEventListener("DOMContentLoaded", function () {
+            const contentElement = document.getElementById("content");
+            const increaseFontButton = document.getElementById("increase-font");
+            const decreaseFontButton = document.getElementById("decrease-font");
+
+            let fontSize = 22; // Tamaño de fuente inicial
+
+            increaseFontButton.addEventListener("click", function () {
+                fontSize += 2;
+                contentElement.style.fontSize = `${fontSize}px`;
+            });
+
+            decreaseFontButton.addEventListener("click", function () {
+                fontSize -= 2;
+                contentElement.style.fontSize = `${fontSize}px`;
+            });
+
+            // Configurar controles de fuente del visor
+            setupViewerFontControls();
+        });
+
+        // Botón para volver al inicio
+        document.getElementById("scroll-to-top-button").addEventListener("click", function() {
+            window.scrollTo(0, 0);
+        });
+
+        // Cargar noticias inicialmente
+        fetchNews('https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/home.xml');
+        updateActiveLink(portadaLink);
+    </script>
+</body>
+</html>
