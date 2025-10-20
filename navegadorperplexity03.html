@@ -1,19 +1,18 @@
-
 <!DOCTYPE html>
 <html lang="ca">
-<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"/>
-<link rel="shortcut icon" href="/favicon.ico?v2" sizes="16x16 24x24 32x32 48x48 64x64 72x72 96x96" type="image/x-icon"/>
-<link rel="icon" type="image/png" href="https://www.ionos.es/favicon-16x16.png" sizes="16x16"/>
-<link rel="icon" type="image/png" href="https://www.ionos.es/favicon-24x24.png" sizes="24x24"/>
-<link rel="icon" type="image/png" href="https://www.ionos.es/favicon-32x32.png" sizes="32x32"/>
-<link rel="icon" type="image/png" href="https://www.ionos.es/favicon-48x48.png" sizes="48x48"/>
-<link rel="icon" type="image/png" href="https://www.ionos.es/favicon-64x64.png" sizes="64x64"/>
-<link rel="icon" type="image/png" href="https://www.ionos.es/favicon-72x72.png" sizes="72x72"/>
-<link rel="icon" type="image/png" href="https://www.ionos.es/favicon-96x96.png" sizes="96x96"/>
-<link rel="icon" type="image/png" href="https://www.ionos.es/favicon-256x256.png" sizes="256x256"/>
-<link rel="icon" href="https://www.ionos.es/favicon.svg" sizes="any" type="image/svg+xml"/>
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"/>
+  <link rel="shortcut icon" href="/favicon.ico?v2" sizes="16x16 24x24 32x32 48x48 64x64 72x72 96x96" type="image/x-icon"/>
+  <link rel="icon" type="image/png" href="https://www.ionos.es/favicon-16x16.png" sizes="16x16"/>
+  <link rel="icon" type="image/png" href="https://www.ionos.es/favicon-24x24.png" sizes="24x24"/>
+  <link rel="icon" type="image/png" href="https://www.ionos.es/favicon-32x32.png" sizes="32x32"/>
+  <link rel="icon" type="image/png" href="https://www.ionos.es/favicon-48x48.png" sizes="48x48"/>
+  <link rel="icon" type="image/png" href="https://www.ionos.es/favicon-64x64.png" sizes="64x64"/>
+  <link rel="icon" type="image/png" href="https://www.ionos.es/favicon-72x72.png" sizes="72x72"/>
+  <link rel="icon" type="image/png" href="https://www.ionos.es/favicon-96x96.png" sizes="96x96"/>
+  <link rel="icon" type="image/png" href="https://www.ionos.es/favicon-256x256.png" sizes="256x256"/>
+  <link rel="icon" href="https://www.ionos.es/favicon.svg" sizes="any" type="image/svg+xml"/>
   <title>NavegadorSimple</title>
   <style>
     * {
@@ -29,6 +28,7 @@
     }
     header {
       display: flex;
+      flex-wrap: wrap; /* Permet que els elements saltin a la següent línia */
       align-items: center;
       padding: 8px;
       background: #2c3e50;
@@ -41,6 +41,7 @@
       border: none;
       border-radius: 3px;
       flex: 1;
+      min-width: 150px; /* Amplada mínima per a camps d'entrada */
     }
     button {
       padding: 6px 12px;
@@ -50,6 +51,7 @@
       border: none;
       border-radius: 3px;
       cursor: pointer;
+      white-space: nowrap; /* Evita que el text del botó es trenqui */
     }
     button:hover {
       background: #2980b9;
@@ -157,4 +159,3 @@
   </script>
 </body>
 </html>
-
