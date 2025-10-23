@@ -219,7 +219,7 @@
     }
 
     .timer-display {
-      font-size: 18px;
+      font-size: 24px;
       color: var(--text-light);
     }
 
@@ -392,6 +392,96 @@
       100% { opacity: 1; }
     }
 
+    /* Estils per al botó de llista d'emissores */
+    .stations-btn {
+      background: var(--dark-3);
+      border: none;
+      color: var(--text-light);
+      padding: 8px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: background 0.2s, color 0.2s;
+      font-family: 'Antonio', sans-serif;
+    }
+
+    .stations-btn:hover {
+      background: var(--primary);
+      color: black;
+    }
+
+    /* Modal per a la llista d'emissores */
+    .stations-modal .modal-content {
+      max-width: 700px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .stations-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .stations-header h3 {
+      margin: 0;
+      color: var(--primary);
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 24px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .close-btn:hover {
+      color: var(--primary);
+    }
+
+    .stations-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 15px;
+    }
+
+    .station-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 15px;
+      border-radius: 10px;
+      background: var(--dark-3);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .station-item:hover {
+      background: var(--primary);
+      color: black;
+      transform: scale(1.05);
+    }
+
+    .station-logo {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+
+    .station-name {
+      font-size: 14px;
+      text-align: center;
+      font-weight: 500;
+    }
+
     @media (max-width: 600px) {
       .player {
         flex-direction: column;
@@ -412,6 +502,10 @@
       .recording-controls {
         flex-direction: column;
         gap: 5px;
+      }
+
+      .stations-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
       }
     }
   </style>
@@ -463,6 +557,12 @@
       <span>--:--:--</span>
     </div>
 
+    <!-- Botó per obrir la llista d'emissores -->
+    <button class="stations-btn" id="stationsBtn" title="Llista d'emissores" aria-label="Obre la llista d'emissores">
+      <i class="fas fa-list"></i>
+      <span>Emissores</span>
+    </button>
+
     <div class="timer-container">
       <button class="timer-btn" id="timerBtn" aria-haspopup="true" aria-expanded="false" aria-controls="timerDropdown">
         <i class="fas fa-hourglass-half"></i>
@@ -487,6 +587,19 @@
       <div class="modal-buttons">
         <button class="modal-btn cancel" id="cancelSave">Cancel·lar</button>
         <button class="modal-btn save" id="confirmSave">Guardar com a MP3</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal per a la llista d'emissores -->
+  <div class="modal stations-modal" id="stationsModal">
+    <div class="modal-content">
+      <div class="stations-header">
+        <h3>Totes les emissores</h3>
+        <button class="close-btn" id="closeStationsModal" aria-label="Tanca el llistat d'emissores">&times;</button>
+      </div>
+      <div class="stations-grid" id="stationsList">
+        <!-- Aquí es carregaran les emissores dinàmicament -->
       </div>
     </div>
   </div>
@@ -519,6 +632,12 @@
     const filenameInput = document.getElementById("filename");
     const cancelSaveBtn = document.getElementById("cancelSave");
     const confirmSaveBtn = document.getElementById("confirmSave");
+
+    // Elements per a la llista d'emissores
+    const stationsBtn = document.getElementById("stationsBtn");
+    const stationsModal = document.getElementById("stationsModal");
+    const closeStationsModal = document.getElementById("closeStationsModal");
+    const stationsList = document.getElementById("stationsList");
 
     let stations = [];
     let currentStationIndex = 0;
@@ -958,6 +1077,58 @@
       }
     });
 
+    // Funcionalitat per a la llista d'emissores
+    stationsBtn.addEventListener("click", () => {
+      openStationsModal();
+    });
+
+    closeStationsModal.addEventListener("click", () => {
+      closeStationsModalFunc();
+    });
+
+    // Tancar modal en fer clic fora
+    stationsModal.addEventListener("click", (e) => {
+      if (e.target === stationsModal) {
+        closeStationsModalFunc();
+      }
+    });
+
+    // Funció per obrir el modal i carregar les emissores
+    function openStationsModal() {
+      stationsList.innerHTML = ""; // Netejar la llista
+
+      stations.forEach((station, index) => {
+        const stationItem = document.createElement("div");
+        stationItem.className = "station-item";
+        stationItem.setAttribute("role", "button");
+        stationItem.setAttribute("tabindex", "0");
+        stationItem.innerHTML = `
+          <img src="${station.logo}" alt="${station.name}" class="station-logo" onerror="this.src='radio1.png'">
+          <span class="station-name">${station.name}</span>
+        `;
+        stationItem.addEventListener("click", () => {
+          currentStationIndex = index;
+          loadStation(station);
+          closeStationsModalFunc();
+        });
+        stationItem.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            stationItem.click();
+          }
+        });
+        stationsList.appendChild(stationItem);
+      });
+
+      stationsModal.classList.add("show");
+    }
+
+    // Funció per tancar el modal
+    function closeStationsModalFunc() {
+      stationsModal.classList.remove("show");
+    }
+
+    // Carregar les estacions inicials
     loadStations();
   </script>
 </body>
