@@ -17,7 +17,7 @@
       --dark-2: #1e1e1e;
       --dark-3: #2a2a2a;
       --text: #ffffff;
-      --text-light: #cccccc;
+      --text-light: #ffffff;
     }
 
     body {
@@ -55,7 +55,7 @@
     .cover {
       width: 70px;
       height: 70px;
-      border-radius: 10px;
+      border-radius: 0px;
       overflow: hidden;
       background-color: var(--dark-3);
       display: flex;
@@ -68,7 +68,7 @@
       height: 100%;
       background-size: cover;
       background-position: center;
-      border-radius: 50%;
+      border-radius: 5%;
       animation: spin 20s linear infinite paused;
       transition: transform 0.3s ease-in-out;
     }
@@ -153,7 +153,7 @@
     .clock {
       display: flex;
       align-items: center;
-      font-size: 18px;
+      font-size: 24px;
       color: var(--text-light);
       gap: 6px;
       min-width: 95px;
@@ -219,7 +219,7 @@
     }
 
     .timer-display {
-      font-size: 24px;
+      font-size: 18px;
       color: var(--text-light);
     }
 
@@ -382,7 +382,7 @@
       width: 10px;
       height: 10px;
       background-color: red;
-      border-radius: 50%;
+      border-radius: 0%;
       animation: blink 1.5s infinite;
     }
 
@@ -418,6 +418,7 @@
       max-width: 700px;
       max-height: 80vh;
       overflow-y: auto;
+      color: orange;
     }
 
     .stations-header {
@@ -471,7 +472,7 @@
     .station-logo {
       width: 60px;
       height: 60px;
-      border-radius: 50%;
+      border-radius: 0%;
       object-fit: cover;
       margin-bottom: 10px;
     }
