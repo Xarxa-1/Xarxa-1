@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flipbook PDF Interactiu</title>
+    <style>
+        /* Variables CSS */
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --background-color: #1a1a1a;
+            --control-bg: rgba(44, 62, 80, 0.8);
+            --text-color: #ecf0f1;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Estils generals */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Capçalera */
+        header {
+            background-color: var(--secondary-color);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        /* Contingut principal */
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Contenidor del flipbook */
+        .flipbook-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background: #2c3e50;
+        }
+
+        /* Contenidor de les pàgines */
+        .pages-container {
+            position: relative;
+            width: 80%;
+            height: 80%;
+            perspective: 1200px;
+        }
+
+        /* Pàgines */
+        .page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+            transform-style: preserve-3d;
+            transition: transform 0.6s ease;
+            transform-origin: left center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .page canvas {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .page.flipping {
+            z-index: 10;
+        }
+
+        /* Controls principals */
+        .controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            background-color: var(--control-bg);
+            padding: 10px 20px;
+            border-radius: 30px;
+            backdrop-filter: blur(5px);
+            z-index: 50;
+        }
+
+        .control-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .control-btn:hover {
+            background-color: #2980b9;
+            transform: scale(1.1);
+        }
+
+        /* Indicador de pàgina */
+        .page-indicator {
+            background-color: var(--control-bg);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Zoom controls */
+        .zoom-controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background-color: var(--control-bg);
+            padding: 10px;
+            border-radius: 10px;
+            z-index: 50;
+        }
+
+        .zoom-slider-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .zoom-slider {
+            width: 100px;
+        }
+
+        /* Panel de miniatures */
+        .thumbnails-panel {
+            width: 200px;
+            background-color: var(--control-bg);
+            padding: 15px;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+            z-index: 40;
+        }
+
+        .thumbnails-panel.hidden {
+            transform: translateX(-100%);
+        }
+
+        .thumbnail {
+            width: 100%;
+            margin-bottom: 10px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .thumbnail:hover {
+            border-color: var(--primary-color);
+        }
+
+        .thumbnail.active {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 5px var(--primary-color);
+        }
+
+        /* Botó per mostrar/amagar miniatures */
+        .toggle-thumbnails {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 50;
+        }
+
+        /* Mode pantalla completa */
+        body.fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1000;
+        }
+
+        /* Loader */
+        .loader {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .loader-spinner {
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 5px solid var(--primary-color);
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Grid view */
+        .grid-view {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--background-color);
+            padding: 20px;
+            overflow-y: auto;
+            z-index: 60;
+            display: none;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .grid-view.active {
+            display: grid;
+        }
+
+        .grid-thumbnail {
+            width: 100%;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: transform 0.2s ease;
+        }
+
+        .grid-thumbnail:hover {
+            transform: scale(1.05);
+        }
+
+        /* Cercador */
+        .search-container {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--control-bg);
+            padding: 10px 15px;
+            border-radius: 30px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            z-index: 50;
+        }
+
+        .search-container.active {
+            display: flex;
+        }
+
+        .search-input {
+            background: transparent;
+            border: 1px solid var(--primary-color);
+            border-radius: 20px;
+            padding: 5px 15px;
+            color: var(--text-color);
+            outline: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .pages-container {
+                width: 95%;
+                height: 70%;
+            }
+
+            .controls {
+                bottom: 10px;
+            }
+
+            .zoom-controls {
+                top: 10px;
+                right: 10px;
+            }
+
+            .toggle-thumbnails {
+                top: 10px;
+                left: 10px;
+            }
+
+            .thumbnails-panel {
+                width: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Flipbook PDF</div>
+        <div class="page-indicator">
+            <span id="current-page">1</span> de <span id="total-pages">0</span>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Panel de miniatures -->
+        <div class="thumbnails-panel" id="thumbnails-panel">
+            <!-- Les miniatures es generaran aquí -->
+        </div>
+
+        <!-- Contenidor principal del flipbook -->
+        <div class="flipbook-container">
+            <!-- Loader -->
+            <div class="loader" id="loader">
+                <div class="loader-spinner"></div>
+            </div>
+
+            <!-- Contenidor de pàgines -->
+            <div class="pages-container" id="pages-container">
+                <!-- Les pàgines es generaran aquí -->
+            </div>
+
+            <!-- Controls principals -->
+            <div class="controls">
+                <button class="control-btn" id="prev-btn" title="Pàgina anterior">←</button>
+                <button class="control-btn" id="first-btn" title="Primera pàgina">⇤</button>
+                <button class="control-btn" id="grid-view-btn" title="Vista de quadrícula">⧉</button>
+                <button class="control-btn" id="search-btn" title="Cercar">🔍</button>
+                <button class="control-btn" id="share-btn" title="Compartir">↗</button>
+                <button class="control-btn" id="fullscreen-btn" title="Pantalla completa">⛶</button>
+                <button class="control-btn" id="last-btn" title="Última pàgina">⇥</button>
+                <button class="control-btn" id="next-btn" title="Pàgina següent">→</button>
+            </div>
+
+            <!-- Controls de zoom -->
+            <div class="zoom-controls">
+                <button class="control-btn" id="zoom-in-btn" title="Ampliar">+</button>
+                <div class="zoom-slider-container">
+                    <span id="zoom-level">100%</span>
+                    <input type="range" min="50" max="200" value="100" class="zoom-slider" id="zoom-slider">
+                </div>
+                <button class="control-btn" id="zoom-out-btn" title="Reduir">-</button>
+            </div>
+
+            <!-- Botó per mostrar/amagar miniatures -->
+            <button class="control-btn toggle-thumbnails" id="toggle-thumbnails" title="Mostrar/Amagar miniatures">☰</button>
+
+            <!-- Cercador -->
+            <div class="search-container" id="search-container">
+                <input type="text" class="search-input" id="search-input" placeholder="Cercar text...">
+                <button class="control-btn" id="prev-search-btn" title="Anterior">▲</button>
+                <button class="control-btn" id="next-search-btn" title="Següent">▼</button>
+                <button class="control-btn" id="close-search-btn" title="Tancar">✕</button>
+            </div>
+
+            <!-- Vista de quadrícula -->
+            <div class="grid-view" id="grid-view">
+                <!-- Les miniatures de la vista de quadrícula es generaran aquí -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuració de PDF.js
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+
+        // Variables globals
+        let pdfDoc = null;
+        let currentPage = 1;
+        let totalPages = 0;
+        let zoomLevel = 1.0;
+        let isFlipping = false;
+        let thumbnailsVisible = true;
+        let searchMatches = [];
+        let currentMatchIndex = -1;
+
+        // Elements DOM
+        const pagesContainer = document.getElementById('pages-container');
+        const thumbnailsPanel = document.getElementById('thumbnails-panel');
+        const gridView = document.getElementById('grid-view');
+        const loader = document.getElementById('loader');
+        const currentPageSpan = document.getElementById('current-page');
+        const totalPagesSpan = document.getElementById('total-pages');
+        const zoomLevelSpan = document.getElementById('zoom-level');
+        const searchContainer = document.getElementById('search-container');
+        const searchInput = document.getElementById('search-input');
+
+        // Botons
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const firstBtn = document.getElementById('first-btn');
+        const lastBtn = document.getElementById('last-btn');
+        const zoomInBtn = document.getElementById('zoom-in-btn');
+        const zoomOutBtn = document.getElementById('zoom-out-btn');
+        const zoomSlider = document.getElementById('zoom-slider');
+        const fullscreenBtn = document.getElementById('fullscreen-btn');
+        const toggleThumbnailsBtn = document.getElementById('toggle-thumbnails');
+        const gridViewBtn = document.getElementById('grid-view-btn');
+        const searchBtn = document.getElementById('search-btn');
+        const shareBtn = document.getElementById('share-btn');
+        const prevSearchBtn = document.getElementById('prev-search-btn');
+        const nextSearchBtn = document.getElementById('next-search-btn');
+        const closeSearchBtn = document.getElementById('close-search-btn');
+
+        // Inicialització
+        document.addEventListener('DOMContentLoaded', function() {
+            // Carregar el PDF
+            loadPDF('report.pdf');
+
+            // Configurar esdeveniments
+            setupEventListeners();
+        });
+
+        // Carregar el PDF
+        async function loadPDF(url) {
+            try {
+                // Mostrar loader
+                loader.style.display = 'flex';
+
+                // Carregar el PDF
+                const loadingTask = pdfjsLib.getDocument(url);
+                pdfDoc = await loadingTask.promise;
+
+                totalPages = pdfDoc.numPages;
+                totalPagesSpan.textContent = totalPages;
+
+                // Amagar loader
+                loader.style.display = 'none';
+
+                // Carregar la primera pàgina
+                await renderPage(currentPage);
+
+                // Generar miniatures
+                await generateThumbnails();
+
+            } catch (error) {
+                console.error('Error carregant el PDF:', error);
+                loader.innerHTML = '<p>Error carregant el PDF. Assegura\'t que el fitxer "report.pdf" estigui a la mateixa carpeta.</p>';
+            }
+        }
+
+        // Renderitzar una pàgina
+        async function renderPage(pageNum, container = pagesContainer) {
+            if (!pdfDoc || pageNum < 1 || pageNum > totalPages) return;
+
+            const page = await pdfDoc.getPage(pageNum);
+
+            // Calcular dimensions
+            const viewport = page.getViewport({ scale: zoomLevel });
+
+            // Crear canvas
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+
+            // Renderitzar la pàgina al canvas
+            const renderContext = {
+                canvasContext: context,
+                viewport: viewport
+            };
+
+            await page.render(renderContext).promise;
+
+            // Netejar el contenidor i afegir el canvas
+            container.innerHTML = '';
+            container.appendChild(canvas);
+
+            // Actualitzar l'indicador de pàgina
+            currentPageSpan.textContent = pageNum;
+            currentPage = pageNum;
+
+            // Actualitzar les miniatures actives
+            updateActiveThumbnail();
+        }
+
+        // Generar miniatures
+        async function generateThumbnails() {
+            // Per al panell de miniatures
+            for (let i = 1; i <= totalPages; i++) {
+                const page = await pdfDoc.getPage(i);
+                const viewport = page.getViewport({ scale: 0.2 });
+
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+                canvas.classList.add('thumbnail');
+                canvas.dataset.page = i;
+
+                const renderContext = {
+                    canvasContext: context,
+                    viewport: viewport
+                };
+
+                await page.render(renderContext).promise;
+
+                // Afegir al panell de miniatures
+                thumbnailsPanel.appendChild(canvas);
+
+                // Afegir a la vista de quadrícula
+                const gridCanvas = canvas.cloneNode(true);
+                gridCanvas.classList.add('grid-thumbnail');
+                gridView.appendChild(gridCanvas);
+            }
+
+            // Actualitzar la miniatura activa
+            updateActiveThumbnail();
+        }
+
+        // Actualitzar la miniatura activa
+        function updateActiveThumbnail() {
+            // Netejar estats actius anteriors
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            thumbnails.forEach(thumb => thumb.classList.remove('active'));
+
+            // Marcar la miniatura activa
+            const activeThumb = document.querySelector(`.thumbnail[data-page="${currentPage}"]`);
+            if (activeThumb) {
+                activeThumb.classList.add('active');
+
+                // Desplaçar-se per assegurar que la miniatura activa sigui visible
+                activeThumb.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        // Configurar esdeveniments
+        function setupEventListeners() {
+            // Navegació de pàgines
+            prevBtn.addEventListener('click', () => changePage(-1));
+            nextBtn.addEventListener('click', () => changePage(1));
+            firstBtn.addEventListener('click', () => goToPage(1));
+            lastBtn.addEventListener('click', () => goToPage(totalPages));
+
+            // Zoom
+            zoomInBtn.addEventListener('click', () => changeZoom(0.1));
+            zoomOutBtn.addEventListener('click', () => changeZoom(-0.1));
+            zoomSlider.addEventListener('input', () => {
+                const value = parseInt(zoomSlider.value);
+                zoomLevel = value / 100;
+                zoomLevelSpan.textContent = `${value}%`;
+                renderPage(currentPage);
+            });
+
+            // Pantalla completa
+            fullscreenBtn.addEventListener('click', toggleFullscreen);
+
+            // Mostrar/amagar miniatures
+            toggleThumbnailsBtn.addEventListener('click', toggleThumbnails);
+
+            // Vista de quadrícula
+            gridViewBtn.addEventListener('click', toggleGridView);
+
+            // Cercador
+            searchBtn.addEventListener('click', toggleSearch);
+            prevSearchBtn.addEventListener('click', () => navigateSearch(-1));
+            nextSearchBtn.addEventListener('click', () => navigateSearch(1));
+            closeSearchBtn.addEventListener('click', toggleSearch);
+            searchInput.addEventListener('keyup', (e) => {
+                if (e.key === 'Enter') performSearch();
+            });
+
+            // Compartir
+            shareBtn.addEventListener('click', shareDocument);
+
+            // Navegació amb tecles
+            document.addEventListener('keydown', handleKeydown);
+
+            // Clic a les miniatures
+            thumbnailsPanel.addEventListener('click', (e) => {
+                if (e.target.classList.contains('thumbnail')) {
+                    const pageNum = parseInt(e.target.dataset.page);
+                    goToPage(pageNum);
+                }
+            });
+
+            // Clic a la vista de quadrícula
+            gridView.addEventListener('click', (e) => {
+                if (e.target.classList.contains('grid-thumbnail')) {
+                    const pageNum = parseInt(e.target.dataset.page);
+                    goToPage(pageNum);
+                    toggleGridView();
+                }
+            });
+        }
+
+        // Canviar de pàgina
+        function changePage(direction) {
+            if (isFlipping) return;
+
+            const newPage = currentPage + direction;
+            if (newPage >= 1 && newPage <= totalPages) {
+                // Aplicar animació de flip
+                isFlipping = true;
+
+                // Simular l'animació de flip
+                setTimeout(() => {
+                    goToPage(newPage);
+                    isFlipping = false;
+                }, 300);
+            }
+        }
+
+        // Anar a una pàgina específica
+        function goToPage(pageNum) {
+            if (pageNum >= 1 && pageNum <= totalPages) {
+                renderPage(pageNum);
+            }
+        }
+
+        // Canviar el zoom
+        function changeZoom(delta) {
+            zoomLevel = Math.max(0.5, Math.min(2.0, zoomLevel + delta));
+            const zoomPercent = Math.round(zoomLevel * 100);
+            zoomLevelSpan.textContent = `${zoomPercent}%`;
+            zoomSlider.value = zoomPercent;
+            renderPage(currentPage);
+        }
+
+        // Commutar pantalla completa
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.error(`Error intentant activar el mode pantalla completa: ${err.message}`);
+                });
+                document.body.classList.add('fullscreen');
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                    document.body.classList.remove('fullscreen');
+                }
+            }
+        }
+
+        // Commutar visibilitat de miniatures
+        function toggleThumbnails() {
+            thumbnailsVisible = !thumbnailsVisible;
+            if (thumbnailsVisible) {
+                thumbnailsPanel.classList.remove('hidden');
+            } else {
+                thumbnailsPanel.classList.add('hidden');
+            }
+        }
+
+        // Commutar vista de quadrícula
+        function toggleGridView() {
+            gridView.classList.toggle('active');
+
+            // Actualitzar les miniatures a la vista de quadrícula si s'està mostrant
+            if (gridView.classList.contains('active')) {
+                const gridThumbnails = document.querySelectorAll('.grid-thumbnail');
+                gridThumbnails.forEach(async (thumb, index) => {
+                    const pageNum = index + 1;
+                    const page = await pdfDoc.getPage(pageNum);
+                    const viewport = page.getViewport({ scale: 0.15 });
+
+                    const canvas = thumb;
+                    const context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+
+                    const renderContext = {
+                        canvasContext: context,
+                        viewport: viewport
+                    };
+
+                    await page.render(renderContext).promise;
+                });
+            }
+        }
+
+        // Commutar cercador
+        function toggleSearch() {
+            searchContainer.classList.toggle('active');
+            if (searchContainer.classList.contains('active')) {
+                searchInput.focus();
+            } else {
+                searchInput.value = '';
+                searchMatches = [];
+                currentMatchIndex = -1;
+            }
+        }
+
+        // Realitzar cerca
+        async function performSearch() {
+            const searchText = searchInput.value.trim();
+            if (!searchText) return;
+
+            searchMatches = [];
+            currentMatchIndex = -1;
+
+            // Cercar a totes les pàgines
+            for (let i = 1; i <= totalPages; i++) {
+                const page = await pdfDoc.getPage(i);
+                const textContent = await page.getTextContent();
+
+                // Cercar el text a la pàgina
+                textContent.items.forEach((item, index) => {
+                    if (item.str.toLowerCase().includes(searchText.toLowerCase())) {
+                        searchMatches.push({
+                            page: i,
+                            str: item.str,
+                            index: index
+                        });
+                    }
+                });
+            }
+
+            if (searchMatches.length > 0) {
+                currentMatchIndex = 0;
+                navigateToMatch();
+            } else {
+                alert("No s'ha trobat el text cercat.");
+            }
+        }
+
+        // Navegar pels resultats de la cerca
+        function navigateSearch(direction) {
+            if (searchMatches.length === 0) return;
+
+            currentMatchIndex += direction;
+
+            // Assegurar que l'índex estigui dins dels límits
+            if (currentMatchIndex < 0) {
+                currentMatchIndex = searchMatches.length - 1;
+            } else if (currentMatchIndex >= searchMatches.length) {
+                currentMatchIndex = 0;
+            }
+
+            navigateToMatch();
+        }
+
+        // Anar al resultat de cerca actual
+        function navigateToMatch() {
+            if (currentMatchIndex >= 0 && currentMatchIndex < searchMatches.length) {
+                const match = searchMatches[currentMatchIndex];
+                goToPage(match.page);
+
+                // Aquí es podria implementar ressaltat del text trobat
+                // però requereix una implementació més complexa amb PDF.js
+            }
+        }
+
+        // Compartir document
+        function shareDocument() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Flipbook PDF',
+                    text: 'Mira aquest document PDF interactiu',
+                    url: window.location.href
+                })
+                .catch(error => console.log('Error compartint:', error));
+            } else {
+                // Fallback: copiar l'URL al porta-retalls
+                navigator.clipboard.writeText(window.location.href)
+                    .then(() => alert('URL copiada al porta-retalls'))
+                    .catch(err => console.error('Error copiant l\'URL: ', err));
+            }
+        }
+
+        // Manejar esdeveniments de teclat
+        function handleKeydown(e) {
+            // Evitar comportament per defecte de les tecles utilitzades
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowRight' ||
+                e.key === '+' || e.key === '-' ||
+                e.key === 'f' || e.key === 'F') {
+                e.preventDefault();
+            }
+
+            switch(e.key) {
+                case 'ArrowLeft':
+                    changePage(-1);
+                    break;
+                case 'ArrowRight':
+                    changePage(1);
+                    break;
+                case '+':
+                    changeZoom(0.1);
+                    break;
+                case '-':
+                    changeZoom(-0.1);
+                    break;
+                case 'f':
+                case 'F':
+                    if (e.ctrlKey) {
+                        toggleSearch();
+                    } else {
+                        toggleFullscreen();
+                    }
+                    break;
+                case 'Escape':
+                    if (document.fullscreenElement) {
+                        toggleFullscreen();
+                    }
+                    if (searchContainer.classList.contains('active')) {
+                        toggleSearch();
+                    }
+                    if (gridView.classList.contains('active')) {
+                        toggleGridView();
+                    }
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>
