@@ -9,11 +9,10 @@
         :root {
             --primary-color: #3498db;
             --secondary-color: #2c3e50;
-            --background-color: #f5f5f5; /* Gris clar */
+            --background-color: #f0f0f0; /* Fons gris clar */
             --control-bg: rgba(44, 62, 80, 0.8);
             --text-color: #2c3e50;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --page-color: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         }
 
         /* Estils generals */
@@ -35,14 +34,13 @@
 
         /* Capçalera */
         header {
-            background-color: var(--secondary-color);
+            background-color: white;
             padding: 10px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             box-shadow: var(--shadow);
             z-index: 100;
-            color: white;
         }
 
         .logo {
@@ -66,69 +64,60 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            overflow: auto; /* Permet desplaçament en zoom */
-            background: var(--background-color);
-            padding: 20px;
+            overflow: hidden;
+            background: #f0f0f0;
         }
 
         /* Contenidor de les pàgines */
         .pages-container {
             position: relative;
+            width: 80%;
+            height: 80%;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 20px;
-            min-width: min-content;
-            min-height: min-content;
-            transition: transform 0.3s ease;
+            perspective: 1200px;
         }
 
-        /* Pàgines */
+        /* Pàgina actual i següent per l'efecte de flip */
         .page-wrapper {
             position: relative;
-            width: 500px;
-            height: 700px;
-            perspective: 2000px;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
         }
 
         .page {
             position: absolute;
             width: 100%;
             height: 100%;
-            background-color: var(--page-color);
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
             border-radius: 5px;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
-            transform-style: preserve-3d;
-            transition: transform 0.7s ease;
-            transform-origin: left center;
-        }
-
-        .page.left {
-            transform-origin: right center;
-        }
-
-        .page.flipping {
-            transform: rotateY(-180deg);
-            z-index: 10;
-        }
-
-        .page.flipping.left {
-            transform: rotateY(180deg);
+            overflow: auto; /* Permet scroll quan el zoom és gran */
+            backface-visibility: hidden;
         }
 
         .page canvas {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
+            max-width: none; /* Permet que el canvas sigui més gran que el contenidor */
+            max-height: none;
+        }
+
+        .page.next {
+            transform: rotateY(180deg);
+        }
+
+        .page-wrapper.flipping {
+            transform: rotateY(-180deg);
         }
 
         /* Controls principals */
         .controls {
-            position: fixed;
+            position: absolute;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
@@ -175,7 +164,7 @@
 
         /* Zoom controls */
         .zoom-controls {
-            position: fixed;
+            position: absolute;
             top: 20px;
             right: 20px;
             display: flex;
@@ -191,6 +180,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            color: white;
         }
 
         .zoom-slider {
@@ -200,11 +190,12 @@
         /* Panel de miniatures */
         .thumbnails-panel {
             width: 200px;
-            background-color: var(--control-bg);
+            background-color: white;
             padding: 15px;
             overflow-y: auto;
             transition: transform 0.3s ease;
             z-index: 40;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
         }
 
         .thumbnails-panel.hidden {
@@ -231,7 +222,7 @@
 
         /* Botó per mostrar/amagar miniatures */
         .toggle-thumbnails {
-            position: fixed;
+            position: absolute;
             top: 20px;
             left: 20px;
             z-index: 50;
@@ -303,7 +294,7 @@
             cursor: pointer;
             border-radius: 5px;
             transition: transform 0.2s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         .grid-thumbnail:hover {
@@ -312,7 +303,7 @@
 
         /* Cercador */
         .search-container {
-            position: fixed;
+            position: absolute;
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
@@ -330,24 +321,20 @@
         }
 
         .search-input {
-            background: transparent;
+            background: white;
             border: 1px solid var(--primary-color);
             border-radius: 20px;
             padding: 5px 15px;
-            color: white;
+            color: var(--text-color);
             outline: none;
             width: 200px;
         }
 
-        .search-input::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
         /* Responsive */
         @media (max-width: 768px) {
-            .page-wrapper {
-                width: 90vw;
-                height: 70vh;
+            .pages-container {
+                width: 95%;
+                height: 70%;
             }
             
             .controls {
@@ -389,7 +376,7 @@
         </div>
 
         <!-- Contenidor principal del flipbook -->
-        <div class="flipbook-container" id="flipbook-container">
+        <div class="flipbook-container">
             <!-- Loader -->
             <div class="loader" id="loader">
                 <div class="loader-spinner"></div>
@@ -398,7 +385,10 @@
 
             <!-- Contenidor de pàgines -->
             <div class="pages-container" id="pages-container">
-                <!-- Les pàgines es generaran aquí -->
+                <div class="page-wrapper" id="page-wrapper">
+                    <div class="page current" id="current-page-canvas"></div>
+                    <div class="page next" id="next-page-canvas"></div>
+                </div>
             </div>
 
             <!-- Controls principals -->
@@ -456,10 +446,14 @@
         let thumbnailsVisible = false;
         let searchMatches = [];
         let currentMatchIndex = -1;
-        let pageCache = {};
+        let currentPageCanvas = null;
+        let nextPageCanvas = null;
 
         // Elements DOM
         const pagesContainer = document.getElementById('pages-container');
+        const pageWrapper = document.getElementById('page-wrapper');
+        const currentPageElement = document.getElementById('current-page-canvas');
+        const nextPageElement = document.getElementById('next-page-canvas');
         const thumbnailsPanel = document.getElementById('thumbnails-panel');
         const gridView = document.getElementById('grid-view');
         const loader = document.getElementById('loader');
@@ -468,7 +462,6 @@
         const zoomLevelSpan = document.getElementById('zoom-level');
         const searchContainer = document.getElementById('search-container');
         const searchInput = document.getElementById('search-input');
-        const flipbookContainer = document.getElementById('flipbook-container');
 
         // Botons
         const prevBtn = document.getElementById('prev-btn');
@@ -513,7 +506,7 @@
                 loader.style.display = 'none';
                 
                 // Carregar la primera pàgina
-                await renderPages(currentPage);
+                await renderCurrentPage();
                 
                 // Generar miniatures
                 await generateThumbnails();
@@ -524,94 +517,75 @@
                     <div class="loader-spinner" style="border-top-color: #e74c3c;"></div>
                     <p>Error carregant el PDF.</p>
                     <p style="font-size: 0.8rem; margin-top: 10px;">Assegura't que el fitxer "report.pdf" estigui a la mateixa carpeta.</p>
+                    <button onclick="location.reload()" style="margin-top: 15px; padding: 8px 15px; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;">Tornar a intentar</button>
                 `;
             }
         }
 
-        // Renderitzar les pàgines (mode llibre)
-        async function renderPages(pageNum) {
-            if (!pdfDoc || pageNum < 1 || pageNum > totalPages) return;
+        // Renderitzar la pàgina actual
+        async function renderCurrentPage() {
+            if (!pdfDoc || currentPage < 1 || currentPage > totalPages) return;
             
-            // Netejar el contenidor
-            pagesContainer.innerHTML = '';
+            const page = await pdfDoc.getPage(currentPage);
             
-            // Determinar quines pàgines mostrar
-            let leftPageNum = null;
-            let rightPageNum = null;
+            // Calcular dimensions
+            const viewport = page.getViewport({ scale: zoomLevel });
             
-            if (pageNum === 1) {
-                // Primera pàgina - només mostrar la pàgina 1 a la dreta
-                rightPageNum = 1;
-            } else if (pageNum % 2 === 0) {
-                // Pàgina parell - mostrar pàgina actual a l'esquerra i següent a la dreta
-                leftPageNum = pageNum;
-                rightPageNum = pageNum + 1 <= totalPages ? pageNum + 1 : null;
-            } else {
-                // Pàgina senar - mostrar pàgina anterior a l'esquerra i actual a la dreta
-                leftPageNum = pageNum - 1;
-                rightPageNum = pageNum;
-            }
+            // Crear canvas per a la pàgina actual
+            currentPageCanvas = document.createElement('canvas');
+            const context = currentPageCanvas.getContext('2d');
+            currentPageCanvas.height = viewport.height;
+            currentPageCanvas.width = viewport.width;
             
-            // Renderitzar pàgina esquerra si existeix
-            if (leftPageNum) {
-                const leftPage = await createPageElement(leftPageNum, 'left');
-                pagesContainer.appendChild(leftPage);
-            }
+            // Renderitzar la pàgina al canvas
+            const renderContext = {
+                canvasContext: context,
+                viewport: viewport
+            };
             
-            // Renderitzar pàgina dreta si existeix
-            if (rightPageNum) {
-                const rightPage = await createPageElement(rightPageNum, 'right');
-                pagesContainer.appendChild(rightPage);
-            }
+            await page.render(renderContext).promise;
+            
+            // Netejar i afegir el canvas
+            currentPageElement.innerHTML = '';
+            currentPageElement.appendChild(currentPageCanvas);
             
             // Actualitzar l'indicador de pàgina
-            currentPageSpan.textContent = pageNum;
-            currentPage = pageNum;
+            currentPageSpan.textContent = currentPage;
             
             // Actualitzar les miniatures actives
             updateActiveThumbnail();
+            
+            // Preparar la següent pàgina per a l'efecte de flip
+            if (currentPage < totalPages) {
+                await renderNextPage();
+            }
         }
 
-        // Crear un element de pàgina
-        async function createPageElement(pageNum, side) {
-            const pageWrapper = document.createElement('div');
-            pageWrapper.classList.add('page-wrapper');
+        // Renderitzar la següent pàgina (per a l'efecte de flip)
+        async function renderNextPage() {
+            const nextPageNum = currentPage + 1;
+            if (nextPageNum > totalPages) return;
             
-            const pageElement = document.createElement('div');
-            pageElement.classList.add('page', side);
-            pageElement.dataset.page = pageNum;
+            const page = await pdfDoc.getPage(nextPageNum);
+            const viewport = page.getViewport({ scale: zoomLevel });
             
-            // Comprovar si la pàgina està a la cache
-            if (pageCache[pageNum] && pageCache[pageNum].scale === zoomLevel) {
-                pageElement.appendChild(pageCache[pageNum].canvas.cloneNode(true));
-            } else {
-                // Renderitzar la pàgina
-                const page = await pdfDoc.getPage(pageNum);
-                const viewport = page.getViewport({ scale: zoomLevel });
-                
-                const canvas = document.createElement('canvas');
-                const context = canvas.getContext('2d');
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
-                
-                const renderContext = {
-                    canvasContext: context,
-                    viewport: viewport
-                };
-                
-                await page.render(renderContext).promise;
-                
-                // Guardar a la cache
-                pageCache[pageNum] = {
-                    canvas: canvas.cloneNode(true),
-                    scale: zoomLevel
-                };
-                
-                pageElement.appendChild(canvas);
-            }
+            // Crear canvas per a la pàgina següent
+            nextPageCanvas = document.createElement('canvas');
+            const context = nextPageCanvas.getContext('2d');
+            nextPageCanvas.height = viewport.height;
+            nextPageCanvas.width = viewport.width;
             
-            pageWrapper.appendChild(pageElement);
-            return pageWrapper;
+            // Renderitzar la pàgina al canvas
+            const renderContext = {
+                canvasContext: context,
+                viewport: viewport
+            };
+            
+            await page.render(renderContext).promise;
+            
+            // Netejar i afegir el canvas
+            nextPageElement.innerHTML = '';
+            nextPageElement.appendChild(nextPageCanvas);
         }
 
         // Generar miniatures
@@ -679,7 +653,7 @@
                 const value = parseInt(zoomSlider.value);
                 zoomLevel = value / 100;
                 zoomLevelSpan.textContent = `${value}%`;
-                renderPages(currentPage);
+                renderCurrentPage();
             });
             
             // Pantalla completa
@@ -722,41 +696,62 @@
                     toggleGridView();
                 }
             });
+            
+            // Clic a les pàgines per navegar
+            currentPageElement.addEventListener('click', handlePageClick);
+            nextPageElement.addEventListener('click', handlePageClick);
+        }
+
+        // Manejar clic a les pàgines per navegar
+        function handlePageClick(e) {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const width = rect.width;
+            
+            // Si es fa clic a la part esquerra de la pàgina, anar a l'anterior
+            if (x < width / 2) {
+                changePage(-1);
+            } else {
+                // Si es fa clic a la part dreta de la pàgina, anar a la següent
+                changePage(1);
+            }
         }
 
         // Canviar de pàgina amb efecte de flip
-        async function changePage(direction) {
+        function changePage(direction) {
             if (isFlipping) return;
             
             const newPage = currentPage + direction;
             if (newPage >= 1 && newPage <= totalPages) {
                 isFlipping = true;
                 
-                // Determinar quina pàgina fer flip
-                const flipSide = direction > 0 ? 'right' : 'left';
-                const pageToFlip = document.querySelector(`.page.${flipSide}`);
-                
-                if (pageToFlip) {
-                    // Aplicar l'efecte de flip
-                    pageToFlip.classList.add('flipping');
-                    
-                    // Esperar a que acabi l'animació
-                    setTimeout(async () => {
-                        await renderPages(newPage);
-                        isFlipping = false;
-                    }, 700);
+                // Aplicar l'efecte de flip
+                if (direction > 0) {
+                    pageWrapper.classList.add('flipping');
                 } else {
-                    // Si no hi ha pàgina per fer flip, canviar directament
-                    await renderPages(newPage);
-                    isFlipping = false;
+                    // Per anar enrere, invertim l'efecte
+                    pageWrapper.style.transform = 'rotateY(180deg)';
+                    setTimeout(() => {
+                        pageWrapper.classList.add('flipping');
+                        pageWrapper.style.transform = 'rotateY(0deg)';
+                    }, 10);
                 }
+                
+                // Esperar a que acabi l'animació i canviar la pàgina
+                setTimeout(() => {
+                    goToPage(newPage);
+                    pageWrapper.classList.remove('flipping');
+                    pageWrapper.style.transform = '';
+                    isFlipping = false;
+                }, 600);
             }
         }
 
         // Anar a una pàgina específica
-        async function goToPage(pageNum) {
+        function goToPage(pageNum) {
             if (pageNum >= 1 && pageNum <= totalPages) {
-                await renderPages(pageNum);
+                currentPage = pageNum;
+                renderCurrentPage();
             }
         }
 
@@ -766,11 +761,7 @@
             const zoomPercent = Math.round(zoomLevel * 100);
             zoomLevelSpan.textContent = `${zoomPercent}%`;
             zoomSlider.value = zoomPercent;
-            
-            // Netejar la cache de pàgines
-            pageCache = {};
-            
-            renderPages(currentPage);
+            renderCurrentPage();
         }
 
         // Commutar pantalla completa
@@ -801,17 +792,6 @@
         // Commutar vista de quadrícula
         function toggleGridView() {
             gridView.classList.toggle('active');
-            
-            // Amagar altres elements quan la vista de quadrícula està activa
-            if (gridView.classList.contains('active')) {
-                pagesContainer.style.display = 'none';
-                controls.style.display = 'none';
-                zoomControls.style.display = 'none';
-            } else {
-                pagesContainer.style.display = 'flex';
-                controls.style.display = 'flex';
-                zoomControls.style.display = 'flex';
-            }
         }
 
         // Commutar cercador
