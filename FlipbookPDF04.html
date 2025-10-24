@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flipbook PDF Interactiu</title>
+    <title>PDF Viewer Real 3D FlipBook</title>
     <style>
-        /* Variables CSS */
         :root {
             --primary-color: #3498db;
             --secondary-color: #2c3e50;
@@ -15,7 +14,6 @@
             --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         }
 
-        /* Estils generals */
         * {
             margin: 0;
             padding: 0;
@@ -32,7 +30,6 @@
             flex-direction: column;
         }
 
-        /* Capçalera */
         header {
             background-color: white;
             padding: 10px 20px;
@@ -49,7 +46,6 @@
             color: var(--primary-color);
         }
 
-        /* Contingut principal */
         .main-container {
             display: flex;
             flex: 1;
@@ -57,7 +53,6 @@
             position: relative;
         }
 
-        /* Contenidor del flipbook */
         .flipbook-container {
             flex: 1;
             display: flex;
@@ -65,64 +60,86 @@
             align-items: center;
             position: relative;
             overflow: hidden;
-            background: #f0f0f0;
+            background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
         }
 
-        /* Contenidor de les pàgines */
-        .pages-container {
+        .book-container {
             position: relative;
             width: 80%;
             height: 80%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             perspective: 2000px;
         }
 
-        /* Contenidor del llibre */
         .book {
-            position: relative;
+            position: absolute;
             width: 100%;
             height: 100%;
             transform-style: preserve-3d;
+            transition: transform 0.7s;
         }
 
-        /* Pàgines */
+        .hard-cover {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #2c3e50, #34495e);
+            border-radius: 5px 15px 15px 5px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+        }
+
+        .hard-cover.front {
+            z-index: 20;
+        }
+
+        .hard-cover.back {
+            transform: rotateY(180deg);
+            z-index: 1;
+        }
+
         .page {
             position: absolute;
             width: 100%;
             height: 100%;
             background-color: white;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+            transition: transform 0.7s ease-in-out;
+            transform-origin: left center;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .page .page-content {
+            width: 100%;
+            height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: auto;
             backface-visibility: hidden;
-            transition: transform 0.7s ease-in-out;
-            transform-origin: left center;
         }
 
-        .page canvas {
-            max-width: none;
-            max-height: none;
+        .page .page-content canvas {
+            max-width: 100%;
+            max-height: 100%;
         }
 
         .page.left {
             transform: rotateY(-180deg);
-            z-index: 1;
+            z-index: 10;
         }
 
         .page.right {
             transform: rotateY(0deg);
-            z-index: 2;
+            z-index: 5;
         }
 
         .page.flipping {
-            z-index: 10;
+            z-index: 15;
         }
 
-        /* Controls principals */
         .controls {
             position: absolute;
             bottom: 20px;
@@ -158,7 +175,6 @@
             transform: scale(1.1);
         }
 
-        /* Indicador de pàgina */
         .page-indicator {
             background-color: var(--control-bg);
             padding: 8px 15px;
@@ -170,7 +186,6 @@
             color: white;
         }
 
-        /* Zoom controls */
         .zoom-controls {
             display: flex;
             align-items: center;
@@ -188,7 +203,6 @@
             width: 100px;
         }
 
-        /* Panel de miniatures */
         .thumbnails-panel {
             width: 200px;
             background-color: white;
@@ -221,7 +235,6 @@
             box-shadow: 0 0 5px var(--primary-color);
         }
 
-        /* Botó per mostrar/amagar miniatures */
         .toggle-thumbnails {
             position: absolute;
             top: 20px;
@@ -229,7 +242,6 @@
             z-index: 50;
         }
 
-        /* Mode pantalla completa */
         body.fullscreen {
             position: fixed;
             top: 0;
@@ -239,7 +251,6 @@
             z-index: 1000;
         }
 
-        /* Loader */
         .loader {
             position: absolute;
             top: 0;
@@ -270,7 +281,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Grid view */
         .grid-view {
             position: absolute;
             top: 0;
@@ -302,7 +312,6 @@
             transform: scale(1.05);
         }
 
-        /* Cercador */
         .search-container {
             position: absolute;
             top: 20px;
@@ -331,9 +340,21 @@
             width: 200px;
         }
 
-        /* Responsive */
+        .book-shadow {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 50%;
+            filter: blur(10px);
+            z-index: 0;
+        }
+
         @media (max-width: 768px) {
-            .pages-container {
+            .book-container {
                 width: 95%;
                 height: 70%;
             }
@@ -362,32 +383,34 @@
 </head>
 <body>
     <header>
-        <div class="logo">Flipbook PDF</div>
+        <div class="logo">PDF Viewer Real 3D FlipBook</div>
         <div class="page-indicator">
             <span id="current-page">1</span> de <span id="total-pages">0</span>
         </div>
     </header>
 
     <div class="main-container">
-        <!-- Panel de miniatures -->
         <div class="thumbnails-panel hidden" id="thumbnails-panel">
-            <!-- Les miniatures es generaran aquí -->
+            <!-- Miniatures es generaran aquí -->
         </div>
 
-        <!-- Contenidor principal del flipbook -->
         <div class="flipbook-container">
-            <!-- Loader -->
             <div class="loader" id="loader">
                 <div class="loader-spinner"></div>
                 <p>Carregant PDF...</p>
             </div>
 
-            <!-- Contenidor de pàgines -->
-            <div class="pages-container" id="pages-container">
-                <!-- El contingut del flipbook es generarà aquí -->
+            <div class="book-container">
+                <div class="book-shadow"></div>
+                <div class="book" id="book">
+                    <!-- Portada i contraportada -->
+                    <div class="hard-cover front" id="front-cover"></div>
+                    <div class="hard-cover back" id="back-cover"></div>
+                    
+                    <!-- Pàgines del llibre es generaran aquí -->
+                </div>
             </div>
 
-            <!-- Controls principals -->
             <div class="controls">
                 <button class="control-btn" id="prev-btn" title="Pàgina anterior">←</button>
                 <button class="control-btn" id="first-btn" title="Primera pàgina">⇤</button>
@@ -395,7 +418,6 @@
                 <button class="control-btn" id="search-btn" title="Cercar">🔍</button>
                 <button class="control-btn" id="share-btn" title="Compartir">↗</button>
                 
-                <!-- Controls de zoom -->
                 <div class="zoom-controls">
                     <button class="control-btn" id="zoom-out-btn" title="Reduir">-</button>
                     <div class="zoom-slider-container">
@@ -410,10 +432,8 @@
                 <button class="control-btn" id="next-btn" title="Pàgina següent">→</button>
             </div>
 
-            <!-- Botó per mostrar/amagar miniatures -->
             <button class="control-btn toggle-thumbnails" id="toggle-thumbnails" title="Mostrar/Amagar miniatures">☰</button>
 
-            <!-- Cercador -->
             <div class="search-container" id="search-container">
                 <input type="text" class="search-input" id="search-input" placeholder="Cercar text...">
                 <button class="control-btn" id="prev-search-btn" title="Anterior">▲</button>
@@ -421,14 +441,12 @@
                 <button class="control-btn" id="close-search-btn" title="Tancar">✕</button>
             </div>
 
-            <!-- Vista de quadrícula -->
             <div class="grid-view" id="grid-view">
-                <!-- Les miniatures de la vista de quadrícula es generaran aquí -->
+                <!-- Miniatures de la vista de quadrícula es generaran aquí -->
             </div>
         </div>
     </div>
 
-    <!-- Incloure PDF.js des d'un CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <script>
         // Configurar PDF.js
@@ -445,7 +463,9 @@
         let currentMatchIndex = -1;
 
         // Elements DOM
-        const pagesContainer = document.getElementById('pages-container');
+        const book = document.getElementById('book');
+        const frontCover = document.getElementById('front-cover');
+        const backCover = document.getElementById('back-cover');
         const thumbnailsPanel = document.getElementById('thumbnails-panel');
         const gridView = document.getElementById('grid-view');
         const loader = document.getElementById('loader');
@@ -474,33 +494,24 @@
 
         // Inicialització
         document.addEventListener('DOMContentLoaded', function() {
-            // Carregar el PDF
             loadPDF('report.pdf');
-            
-            // Configurar esdeveniments
             setupEventListeners();
         });
 
         // Carregar el PDF
         async function loadPDF(url) {
             try {
-                // Mostrar loader
                 loader.style.display = 'flex';
                 
-                // Carregar el PDF
                 const loadingTask = pdfjsLib.getDocument(url);
                 pdfDoc = await loadingTask.promise;
                 
                 totalPages = pdfDoc.numPages;
                 totalPagesSpan.textContent = totalPages;
                 
-                // Amagar loader
                 loader.style.display = 'none';
                 
-                // Inicialitzar el flipbook
-                await initializeFlipbook();
-                
-                // Generar miniatures
+                await initializeBook();
                 await generateThumbnails();
                 
             } catch (error) {
@@ -514,22 +525,73 @@
             }
         }
 
-        // Inicialitzar el flipbook
-        async function initializeFlipbook() {
-            // Crear l'estructura del llibre
-            const book = document.createElement('div');
-            book.className = 'book';
-            book.id = 'book';
-            pagesContainer.appendChild(book);
+        // Inicialitzar el llibre
+        async function initializeBook() {
+            // Crear portada frontal
+            const frontCoverContent = document.createElement('div');
+            frontCoverContent.className = 'page-content';
+            frontCoverContent.innerHTML = `
+                <div style="width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(45deg, #2c3e50, #34495e); color: white; padding: 20px;">
+                    <h1 style="font-size: 2.5rem; margin-bottom: 20px;">PDF Viewer</h1>
+                    <h2 style="font-size: 1.8rem; margin-bottom: 30px;">Real 3D FlipBook</h2>
+                    <p style="font-size: 1.2rem; text-align: center;">Carregant contingut...</p>
+                </div>
+            `;
+            frontCover.appendChild(frontCoverContent);
+
+            // Crear portada posterior
+            const backCoverContent = document.createElement('div');
+            backCoverContent.className = 'page-content';
+            backCoverContent.innerHTML = `
+                <div style="width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(45deg, #2c3e50, #34495e); color: white; padding: 20px;">
+                    <h2 style="font-size: 1.8rem; margin-bottom: 20px;">Fi del Document</h2>
+                    <p style="font-size: 1.2rem; text-align: center;">Gràcies per utilitzar el nostre visor PDF</p>
+                </div>
+            `;
+            backCover.appendChild(backCoverContent);
+
+            // Crear pàgines del PDF
+            for (let i = 1; i <= totalPages; i++) {
+                const page = document.createElement('div');
+                page.className = 'page';
+                page.id = `page-${i}`;
+                
+                if (i % 2 === 0) {
+                    page.classList.add('left');
+                } else {
+                    page.classList.add('right');
+                }
+                
+                const pageContent = document.createElement('div');
+                pageContent.className = 'page-content';
+                page.appendChild(pageContent);
+                
+                book.appendChild(page);
+            }
             
-            // Crear la primera pàgina (solitaria)
-            const firstPage = document.createElement('div');
-            firstPage.className = 'page right';
-            firstPage.id = 'page-1';
-            book.appendChild(firstPage);
+            // Posicionar les pàgines correctament
+            updatePagePositions();
             
             // Carregar la primera pàgina
             await renderPage(1);
+        }
+
+        // Actualitzar les posicions de les pàgines
+        function updatePagePositions() {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach((page, index) => {
+                const pageNum = parseInt(page.id.split('-')[1]);
+                
+                // Calcular la profunditat (z-index) basada en la posició de la pàgina
+                let zIndex = 5;
+                if (pageNum <= currentPage) {
+                    zIndex = 10 - (currentPage - pageNum);
+                } else {
+                    zIndex = 5 + (pageNum - currentPage);
+                }
+                
+                page.style.zIndex = Math.max(1, zIndex);
+            });
         }
 
         // Renderitzar una pàgina
@@ -537,23 +599,8 @@
             if (!pdfDoc || pageNum < 1 || pageNum > totalPages) return;
             
             const page = await pdfDoc.getPage(pageNum);
-            let pageElement = document.getElementById(`page-${pageNum}`);
-            
-            // Si la pàgina no existeix, crear-la
-            if (!pageElement) {
-                pageElement = document.createElement('div');
-                pageElement.className = 'page';
-                pageElement.id = `page-${pageNum}`;
-                
-                // Determinar si és pàgina esquerra o dreta
-                if (pageNum % 2 === 0) {
-                    pageElement.classList.add('left');
-                } else {
-                    pageElement.classList.add('right');
-                }
-                
-                document.getElementById('book').appendChild(pageElement);
-            }
+            const pageElement = document.getElementById(`page-${pageNum}`);
+            const pageContent = pageElement.querySelector('.page-content');
             
             // Calcular dimensions
             const viewport = page.getViewport({ scale: zoomLevel });
@@ -573,8 +620,8 @@
             await page.render(renderContext).promise;
             
             // Netejar i afegir el canvas
-            pageElement.innerHTML = '';
-            pageElement.appendChild(canvas);
+            pageContent.innerHTML = '';
+            pageContent.appendChild(canvas);
             
             // Actualitzar l'indicador de pàgina
             currentPageSpan.textContent = pageNum;
@@ -583,60 +630,12 @@
             // Actualitzar les miniatures actives
             updateActiveThumbnail();
             
-            // Actualitzar la visualització de pàgines
-            updatePageDisplay();
-        }
-
-        // Actualitzar la visualització de pàgines
-        function updatePageDisplay() {
-            // Amagar totes les pàgines
-            const allPages = document.querySelectorAll('.page');
-            allPages.forEach(page => {
-                page.style.display = 'none';
-            });
-            
-            // Mostrar les pàgines visibles
-            if (currentPage === 1) {
-                // Primera pàgina - mostrar només la pàgina 1
-                const page1 = document.getElementById('page-1');
-                if (page1) {
-                    page1.style.display = 'flex';
-                    page1.style.zIndex = '10';
-                }
-            } else if (currentPage % 2 === 0) {
-                // Pàgina parella - mostrar la pàgina actual i l'anterior
-                const currentPageElement = document.getElementById(`page-${currentPage}`);
-                const prevPageElement = document.getElementById(`page-${currentPage - 1}`);
-                
-                if (currentPageElement) {
-                    currentPageElement.style.display = 'flex';
-                    currentPageElement.style.zIndex = '2';
-                }
-                
-                if (prevPageElement) {
-                    prevPageElement.style.display = 'flex';
-                    prevPageElement.style.zIndex = '1';
-                }
-            } else {
-                // Pàgina senar (excepte la primera) - mostrar la pàgina actual i la següent
-                const currentPageElement = document.getElementById(`page-${currentPage}`);
-                const nextPageElement = document.getElementById(`page-${currentPage + 1}`);
-                
-                if (currentPageElement) {
-                    currentPageElement.style.display = 'flex';
-                    currentPageElement.style.zIndex = '2';
-                }
-                
-                if (nextPageElement) {
-                    nextPageElement.style.display = 'flex';
-                    nextPageElement.style.zIndex = '1';
-                }
-            }
+            // Actualitzar les posicions de les pàgines
+            updatePagePositions();
         }
 
         // Generar miniatures
         async function generateThumbnails() {
-            // Per al panell de miniatures
             for (let i = 1; i <= totalPages; i++) {
                 const page = await pdfDoc.getPage(i);
                 const viewport = page.getViewport({ scale: 0.15 });
@@ -664,35 +663,28 @@
                 gridView.appendChild(gridCanvas);
             }
             
-            // Actualitzar la miniatura activa
             updateActiveThumbnail();
         }
 
         // Actualitzar la miniatura activa
         function updateActiveThumbnail() {
-            // Netejar estats actius anteriors
             const thumbnails = document.querySelectorAll('.thumbnail');
             thumbnails.forEach(thumb => thumb.classList.remove('active'));
             
-            // Marcar la miniatura activa
             const activeThumb = document.querySelector(`.thumbnail[data-page="${currentPage}"]`);
             if (activeThumb) {
                 activeThumb.classList.add('active');
-                
-                // Desplaçar-se per assegurar que la miniatura activa sigui visible
                 activeThumb.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         }
 
         // Configurar esdeveniments
         function setupEventListeners() {
-            // Navegació de pàgines
             prevBtn.addEventListener('click', () => changePage(-1));
             nextBtn.addEventListener('click', () => changePage(1));
             firstBtn.addEventListener('click', () => goToPage(1));
             lastBtn.addEventListener('click', () => goToPage(totalPages));
             
-            // Zoom
             zoomInBtn.addEventListener('click', () => changeZoom(0.1));
             zoomOutBtn.addEventListener('click', () => changeZoom(-0.1));
             zoomSlider.addEventListener('input', () => {
@@ -702,16 +694,10 @@
                 renderPage(currentPage);
             });
             
-            // Pantalla completa
             fullscreenBtn.addEventListener('click', toggleFullscreen);
-            
-            // Mostrar/amagar miniatures
             toggleThumbnailsBtn.addEventListener('click', toggleThumbnails);
-            
-            // Vista de quadrícula
             gridViewBtn.addEventListener('click', toggleGridView);
             
-            // Cercador
             searchBtn.addEventListener('click', toggleSearch);
             prevSearchBtn.addEventListener('click', () => navigateSearch(-1));
             nextSearchBtn.addEventListener('click', () => navigateSearch(1));
@@ -720,13 +706,10 @@
                 if (e.key === 'Enter') performSearch();
             });
             
-            // Compartir
             shareBtn.addEventListener('click', shareDocument);
             
-            // Navegació amb tecles
             document.addEventListener('keydown', handleKeydown);
             
-            // Clic a les miniatures
             thumbnailsPanel.addEventListener('click', (e) => {
                 if (e.target.classList.contains('thumbnail')) {
                     const pageNum = parseInt(e.target.dataset.page);
@@ -734,7 +717,6 @@
                 }
             });
             
-            // Clic a la vista de quadrícula
             gridView.addEventListener('click', (e) => {
                 if (e.target.classList.contains('grid-thumbnail')) {
                     const pageNum = parseInt(e.target.dataset.page);
@@ -744,22 +726,20 @@
             });
             
             // Clic a les pàgines per navegar
-            pagesContainer.addEventListener('click', handlePageClick);
+            book.addEventListener('click', handlePageClick);
         }
 
         // Manejar clic a les pàgines per navegar
         function handlePageClick(e) {
             if (isFlipping) return;
             
-            const rect = pagesContainer.getBoundingClientRect();
+            const rect = book.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const width = rect.width;
             
-            // Si es fa clic a la part esquerra de la pàgina, anar a l'anterior
             if (x < width / 3) {
                 changePage(-1);
             } else if (x > width * 2/3) {
-                // Si es fa clic a la part dreta de la pàgina, anar a la següent
                 changePage(1);
             }
         }
@@ -775,23 +755,24 @@
                 // Obtenir l'element de la pàgina que es girarà
                 let pageToFlip;
                 if (direction > 0) {
-                    // Anant cap endavant, la pàgina dreta es gira
-                    pageToFlip = document.querySelector(`.page.right`);
+                    pageToFlip = document.getElementById(`page-${currentPage}`);
                 } else {
-                    // Anant cap enrere, la pàgina esquerra es gira
-                    pageToFlip = document.querySelector(`.page.left`);
+                    pageToFlip = document.getElementById(`page-${newPage}`);
                 }
                 
                 if (pageToFlip) {
                     // Aplicar l'efecte de gir
+                    pageToFlip.classList.add('flipping');
+                    
                     if (direction > 0) {
                         pageToFlip.style.transform = 'rotateY(-180deg)';
                     } else {
                         pageToFlip.style.transform = 'rotateY(0deg)';
                     }
                     
-                    // Esperar a que acabi l'animació i canviar la pàgina
+                    // Esperar a que acabi l'animació
                     setTimeout(() => {
+                        pageToFlip.classList.remove('flipping');
                         goToPage(newPage);
                         isFlipping = false;
                     }, 700);
@@ -808,7 +789,9 @@
                 // Restablir les transformacions de totes les pàgines
                 const allPages = document.querySelectorAll('.page');
                 allPages.forEach(page => {
-                    if (page.classList.contains('left')) {
+                    const pageId = parseInt(page.id.split('-')[1]);
+                    
+                    if (pageId < pageNum) {
                         page.style.transform = 'rotateY(-180deg)';
                     } else {
                         page.style.transform = 'rotateY(0deg)';
@@ -879,12 +862,10 @@
             searchMatches = [];
             currentMatchIndex = -1;
             
-            // Cercar a totes les pàgines
             for (let i = 1; i <= totalPages; i++) {
                 const page = await pdfDoc.getPage(i);
                 const textContent = await page.getTextContent();
                 
-                // Cercar el text a la pàgina
                 textContent.items.forEach((item, index) => {
                     if (item.str.toLowerCase().includes(searchText.toLowerCase())) {
                         searchMatches.push({
@@ -910,7 +891,6 @@
             
             currentMatchIndex += direction;
             
-            // Assegurar que l'índex estigui dins dels límits
             if (currentMatchIndex < 0) {
                 currentMatchIndex = searchMatches.length - 1;
             } else if (currentMatchIndex >= searchMatches.length) {
@@ -932,13 +912,12 @@
         function shareDocument() {
             if (navigator.share) {
                 navigator.share({
-                    title: 'Flipbook PDF',
+                    title: 'PDF Viewer Real 3D FlipBook',
                     text: 'Mira aquest document PDF interactiu',
                     url: window.location.href
                 })
                 .catch(error => console.log('Error compartint:', error));
             } else {
-                // Fallback: copiar l'URL al porta-retalls
                 navigator.clipboard.writeText(window.location.href)
                     .then(() => alert('URL copiada al porta-retalls'))
                     .catch(err => console.error('Error copiant l\'URL: ', err));
@@ -947,7 +926,6 @@
 
         // Manejar esdeveniments de teclat
         function handleKeydown(e) {
-            // Evitar comportament per defecte de les tecles utilitzades
             if (e.key === 'ArrowLeft' || e.key === 'ArrowRight' || 
                 e.key === '+' || e.key === '-' || 
                 e.key === 'f' || e.key === 'F') {
