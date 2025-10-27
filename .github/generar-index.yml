@@ -1,0 +1,39 @@
+name: Generar index.html automàtic
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  generate-index:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clona el repositori
+        uses: actions/checkout@v4
+
+      - name: Genera index.html amb la llista d'arxius HTML
+        run: |
+          echo "<!DOCTYPE html>
+          <html lang='ca'>
+          <head>
+            <meta charset='UTF-8'>
+            <title>Llista d'arxius HTML</title>
+          </head>
+          <body>
+          <h1>Llista d'arxius HTML</h1>
+          <ul>" > index.html
+          for file in *.html; do
+            if [ \"$file\" != "index.html" ]; then
+              echo "<li><a href='$file'>$file</a></li>" >> index.html
+            fi
+          done
+          echo "</ul></body></html>" >> index.html
+
+      - name: Puja l'index.html generat
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add index.html
+          git commit -m "Actualitza index.html automàtic"
+          git push
