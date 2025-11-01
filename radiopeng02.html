@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="theme-color" content="#000000">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000000">
+
+  <title>-Ràdio-</title>
+  <link rel="icon" href="radio1.png" type="image/png" />
+  <link rel="apple-touch-icon" href="radio1.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/lamejs@1.2.0/lame.min.js"></script>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Antonio:wght@300;400;500;600&display=swap");
+
+    :root {
+      --primary: lime;
+      --secondary: #9370db;
+      --dark: #121212;
+      --dark-2: #1e1e1e;
+      --dark-3: #2a2a2a;
+      --text: #ffffff;
+      --text-light: #ffffff;
+    }
+
+    body {
+      font-family: "Antonio", sans-serif;
+      background-color: var(--dark);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      margin: 0;
+      padding: 10px 20px 20px 20px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.light {
+      background-color: #424242;
+      color: #222;
+    }
+
+    .player {
+      background-color: var(--dark-2);
+      border-radius: 15px;
+      padding: 15px 25px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 20px;
+      max-width: 900px;
+      width: 100%;
+      position: relative;
+    }
+
+    .cover {
+      width: 70px;
+      height: 70px;
+      border-radius: 0px;
+      overflow: hidden;
+      background-color: var(--dark-3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .disc {
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      border-radius: 5%;
+      animation: spin 20s linear infinite paused;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .info {
+      flex: 1 1 auto;
+      min-width: 150px;
+      overflow: hidden;
+    }
+
+    .title {
+      font-size: 24px;
+      margin: 0;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: var(--text);
+    }
+
+    .artist {
+      font-size: 14px;
+      color: var(--text-light);
+      margin: 2px 0 0 0;
+    }
+
+    .progress-container {
+      flex: 1 0 100%;
+      height: 5px;
+      background: var(--dark-3);
+      border-radius: 3px;
+      cursor: pointer;
+      margin: 10px 0;
+    }
+
+    .progress {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 3px;
+      transition: width 0.2s linear;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: var(--dark-3);
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn:hover {
+      background: var(--primary);
+      color: black;
+      transform: scale(1.1);
+    }
+
+    .btn.play {
+      background: var(--primary);
+      color: black;
+      font-size: 18px;
+    }
+
+    .clock {
+      display: flex;
+      align-items: center;
+      font-size: 24px;
+      color: var(--text-light);
+      gap: 6px;
+      min-width: 95px;
+      justify-content: center;
+    }
+
+    .timer-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+    }
+
+    .timer-btn {
+      background: var(--dark-3);
+      border: none;
+      color: var(--text-light);
+      padding: 8px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: background 0.2s, color 0.2s;
+      font-family: 'Antonio', sans-serif;
+    }
+
+    .timer-btn:hover {
+      background: var(--primary);
+      color: black;
+    }
+
+    .timer-dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: var(--dark-3);
+      border-radius: 8px;
+      padding: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      z-index: 20;
+      display: none;
+      min-width: 160px;
+    }
+
+    .timer-dropdown.show {
+      display: block;
+    }
+
+    .timer-option {
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+      user-select: none;
+      color: var(--text-light);
+    }
+
+    .timer-option:hover {
+      background: var(--primary);
+      color: black;
+    }
+
+    .timer-display {
+      font-size: 18px;
+      color: var(--text-light);
+    }
+
+    .volume-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: 10px;
+    }
+
+    .volume-slider {
+      width: 80px;
+      height: 4px;
+      background: var(--dark-3);
+      border-radius: 4px;
+      -webkit-appearance: none;
+    }
+
+    .volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 12px;
+      height: 12px;
+      background: var(--primary);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    #loading {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: var(--primary);
+      color: black;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-weight: 600;
+      display: none;
+      z-index: 30;
+    }
+
+    /* Modal per guardar l'enregistrament */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+    }
+
+    .modal.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background-color: var(--dark-2);
+      padding: 25px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal h3 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 22px;
+      color: var(--primary);
+    }
+
+    .modal label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: var(--text-light);
+    }
+
+    .modal input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid var(--dark-3);
+      background-color: var(--dark);
+      color: var(--text);
+      font-family: 'Antonio', sans-serif;
+      margin-bottom: 20px;
+      box-sizing: border-box;
+    }
+
+    .modal-buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .modal-btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-family: 'Antonio', sans-serif;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+
+    .modal-btn.cancel {
+      background-color: var(--dark-3);
+      color: var(--text);
+    }
+
+    .modal-btn.save {
+      background-color: var(--primary);
+      color: black;
+    }
+
+    .modal-btn:hover {
+      opacity: 0.9;
+    }
+
+    /* Estats del botó d'enregistrament */
+    .btn.recording {
+      background: red;
+      color: white;
+      animation: pulse 1.5s infinite;
+    }
+
+    .btn.paused {
+      background: orange;
+      color: black;
+    }
+
+    .btn.stop-recording {
+      background: #ff4444;
+      color: white;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    .recording-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-light);
+      font-size: 14px;
+    }
+
+    .recording-dot {
+      width: 10px;
+      height: 10px;
+      background-color: red;
+      border-radius: 0%;
+      animation: blink 1.5s infinite;
+    }
+
+    @keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0.3; }
+      100% { opacity: 1; }
+    }
+
+    /* Estils per al botó de llista d'emissores */
+    .stations-btn {
+      background: var(--dark-3);
+      border: none;
+      color: var(--text-light);
+      padding: 8px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: background 0.2s, color 0.2s;
+      font-family: 'Antonio', sans-serif;
+    }
+
+    .stations-btn:hover {
+      background: var(--primary);
+      color: black;
+    }
+
+    /* Modal per a la llista d'emissores */
+    .stations-modal .modal-content {
+      max-width: 700px;
+      max-height: 80vh;
+      overflow-y: auto;
+      color: orange;
+    }
+
+    .stations-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .stations-header h3 {
+      margin: 0;
+      color: var(--primary);
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 24px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .close-btn:hover {
+      color: var(--primary);
+    }
+
+    .stations-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 15px;
+    }
+
+    .station-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 15px;
+      border-radius: 10px;
+      background: var(--dark-3);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .station-item:hover {
+      background: var(--primary);
+      color: black;
+      transform: scale(1.05);
+    }
+
+    .station-logo {
+      width: 60px;
+      height: 60px;
+      border-radius: 0%;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+
+    .station-name {
+      font-size: 14px;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    @media (max-width: 600px) {
+      .player {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .timer-container {
+        margin-left: 0;
+        margin-top: 10px;
+        justify-content: center;
+      }
+
+      .clock {
+        min-width: auto;
+        justify-content: flex-start;
+      }
+
+      .recording-controls {
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .stations-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      }
+    }
+
+    /* Preloader */
+    .preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--dark);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      transition: opacity 0.5s;
+    }
+
+    .preloader.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Estils per a la conversió MP3 */
+    .conversion-progress {
+      margin: 10px 0;
+      text-align: center;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 10px;
+      background: var(--dark-3);
+      border-radius: 5px;
+      overflow: hidden;
+      margin: 5px 0;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--primary);
+      width: 0%;
+      transition: width 0.3s;
+    }
+  </style>
+</head>
+<body>
+  <!-- Preloader -->
+  <div class="preloader" id="preloader">
+    <div style="text-align: center;">
+      <p style="font-size: 20px; margin-bottom: 20px;">Carregant ràdio...</p>
+      <div style="width: 50px; height: 50px; border: 5px solid var(--primary); border-radius: 50%; border-top-color: transparent; animation: spin 1s linear infinite; margin: 0 auto;"></div>
+    </div>
+  </div>
+
+  <div id="loading" role="alert" aria-live="assertive">Carregant...</div>
+
+  <div class="player" role="region" aria-label="Reproductor de ràdio">
+    <div class="cover" aria-hidden="true">
+      <div class="disc"></div>
+    </div>
+
+    <div class="info">
+      <h3 class="title" id="title">Carregant...</h3>
+      <p class="artist" id="artist">Ràdio en directe</p>
+    </div>
+
+    <div class="progress-container" aria-label="Progrés de reproducció" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <div class="progress"></div>
+    </div>
+
+    <div class="controls">
+      <button class="btn prev" title="Estació anterior" aria-label="Anterior"><i class="fas fa-backward"></i></button>
+      <button class="btn play" title="Reprodueix/Pausa" aria-label="Reproduir o Pausar"><i class="fas fa-play"></i></button>
+      <button class="btn next" title="Estació següent" aria-label="Següent"><i class="fas fa-forward"></i></button>
+      <button class="btn mute" title="Silencia" aria-label="Silencia"><i class="fas fa-volume-up"></i></button>
+
+      <div class="recording-controls" style="display: flex; align-items: center; gap: 5px;">
+        <button class="btn record" title="Enregistra" aria-label="Enregistra">
+          <i class="fas fa-circle" style="color: red;"></i>
+        </button>
+        <button class="btn stop-recording" title="Atura enregistrament" aria-label="Atura enregistrament" style="display: none;">
+          <i class="fas fa-stop"></i>
+        </button>
+      </div>
+
+      <div class="recording-indicator" id="recordingIndicator" style="display: none;">
+        <div class="recording-dot"></div>
+        <span id="recordingTime">00:00</span>
+      </div>
+    </div>
+
+    <div class="volume-container" aria-label="Control de volum">
+      <input type="range" class="volume-slider" min="0" max="1" step="0.05" value="1" title="Volum" aria-valuemin="0" aria-valuemax="1" aria-valuenow="1" aria-label="Volum" />
+    </div>
+
+    <div class="clock" id="clock" aria-live="polite">
+      <i class="far fa-clock"></i>
+      <span>--:--:--</span>
+    </div>
+
+    <!-- Botó per obrir la llista d'emissores -->
+    <button class="stations-btn" id="stationsBtn" title="Llista d'emissores" aria-label="Obre la llista d'emissores">
+      <i class="fas fa-list"></i>
+      <span>Emissores</span>
+    </button>
+
+    <div class="timer-container">
+      <button class="timer-btn" id="timerBtn" aria-haspopup="true" aria-expanded="false" aria-controls="timerDropdown">
+        <i class="fas fa-hourglass-half"></i>
+        <span class="timer-display" id="timerDisplay">OFF</span>
+      </button>
+      <div class="timer-dropdown" id="timerDropdown" role="menu" aria-label="Opcions de temporitzador">
+        <div class="timer-option" data-minutes="5" role="menuitem" tabindex="0">5 minuts</div>
+        <div class="timer-option" data-minutes="15" role="menuitem" tabindex="0">15 minuts</div>
+        <div class="timer-option" data-minutes="30" role="menuitem" tabindex="0">30 minuts</div>
+        <div class="timer-option" data-minutes="60" role="menuitem" tabindex="0">1 hora</div>
+        <div class="timer-option" data-minutes="0" role="menuitem" tabindex="0">Desactivar</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal per guardar l'enregistrament -->
+  <div class="modal" id="saveModal">
+    <div class="modal-content">
+      <h3>Guardar enregistrament</h3>
+      <label for="filename">Nom del fitxer:</label>
+      <input type="text" id="filename" placeholder="Introdueix el nom del fitxer">
+      <div class="conversion-progress" id="conversionProgress" style="display: none;">
+        <p>Convertint a MP3...</p>
+        <div class="progress-bar">
+          <div class="progress-fill" id="conversionBar"></div>
+        </div>
+        <p id="conversionStatus">0%</p>
+      </div>
+      <div class="modal-buttons">
+        <button class="modal-btn cancel" id="cancelSave">Cancel·lar</button>
+        <button class="modal-btn save" id="confirmSave">Guardar com a MP3</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal per a la llista d'emissores -->
+  <div class="modal stations-modal" id="stationsModal">
+    <div class="modal-content">
+      <div class="stations-header">
+        <h3>Totes les emissores</h3>
+        <button class="close-btn" id="closeStationsModal" aria-label="Tanca el llistat d'emissores">&times;</button>
+      </div>
+      <div class="stations-grid" id="stationsList">
+        <!-- Aquí es carregaran les emissores dinàmicament -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Afegim gestió d'errors global
+    window.onerror = function(msg, url, lineNo, columnNo, error) {
+      console.error('Error: ' + msg + '\nURL: ' + url + '\nLine: ' + lineNo);
+      return false;
+    };
+
+    // Variables i elements
+    const audio = new Audio();
+    const title = document.getElementById("title");
+    const artist = document.getElementById("artist");
+    const playBtn = document.querySelector(".play");
+    const prevBtn = document.querySelector(".prev");
+    const nextBtn = document.querySelector(".next");
+    const muteBtn = document.querySelector(".mute");
+    const recordBtn = document.querySelector(".record");
+    const stopRecordBtn = document.querySelector(".stop-recording");
+    const disc = document.querySelector(".disc");
+    const volumeSlider = document.querySelector(".volume-slider");
+    const loadingIndicator = document.getElementById("loading");
+    const progressBar = document.querySelector(".progress");
+    const progressContainer = document.querySelector(".progress-container");
+    const recordingIndicator = document.getElementById("recordingIndicator");
+    const recordingTime = document.getElementById("recordingTime");
+    const preloader = document.getElementById('preloader');
+    const conversionProgress = document.getElementById('conversionProgress');
+    const conversionBar = document.getElementById('conversionBar');
+    const conversionStatus = document.getElementById('conversionStatus');
+
+    const timerBtn = document.getElementById("timerBtn");
+    const timerDisplay = document.getElementById("timerDisplay");
+    const timerDropdown = document.getElementById("timerDropdown");
+
+    // Elements del modal
+    const saveModal = document.getElementById("saveModal");
+    const filenameInput = document.getElementById("filename");
+    const cancelSaveBtn = document.getElementById("cancelSave");
+    const confirmSaveBtn = document.getElementById("confirmSave");
+
+    // Elements per a la llista d'emissores
+    const stationsBtn = document.getElementById("stationsBtn");
+    const stationsModal = document.getElementById("stationsModal");
+    const closeStationsModal = document.getElementById("closeStationsModal");
+    const stationsList = document.getElementById("stationsList");
+
+    let stations = [];
+    let currentStationIndex = 0;
+    let isPlaying = false;
+    let sleepTimer = null;
+    let remainingTime = 0;
+
+    // Variables per a l'enregistrament
+    let mediaRecorder = null;
+    let recordedChunks = [];
+    let recordingState = 'stopped'; // 'stopped', 'recording', 'paused'
+    let recordingBlob = null;
+    let recordingStartTime = 0;
+    let recordingTimer = null;
+    let audioContext = null;
+    let sourceNode = null;
+    let streamDestination = null;
+
+    // Configuració de l'àudio
+    audio.crossOrigin = "anonymous";
+    audio.preload = "auto";
+
+    // Funció mostrar/ocultar loading
+    function showLoading(show) {
+      loadingIndicator.style.display = show ? "block" : "none";
+    }
+
+    // Actualitza rellotge del sistema
+    function updateClock() {
+      const now = new Date();
+      const timeString = now.toLocaleTimeString("ca-ES", { hour12: false });
+      document.querySelector(".clock span").textContent = timeString;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Volum - marcar volum guardat a localStorage
+    volumeSlider.value = localStorage.getItem("playerVolume") ?? 1;
+    audio.volume = volumeSlider.value;
+
+    volumeSlider.addEventListener("input", e => {
+      audio.volume = e.target.value;
+      localStorage.setItem("playerVolume", e.target.value);
+
+      if (+e.target.value === 0) {
+        audio.muted = true;
+        muteBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+      } else {
+        audio.muted = false;
+        muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+      }
+    });
+
+    // Botó mute
+    muteBtn.addEventListener("click", () => {
+      audio.muted = !audio.muted;
+      muteBtn.innerHTML = audio.muted ? '<i class="fas fa-volume-mute"></i>' : '<i class="fas fa-volume-up"></i>';
+      volumeSlider.value = audio.muted ? 0 : audio.volume;
+      localStorage.setItem("playerVolume", volumeSlider.value);
+    });
+
+    // Temporitzador
+    timerBtn.addEventListener("click", e => {
+      e.stopPropagation();
+      const isExpanded = timerBtn.getAttribute("aria-expanded") === "true";
+      timerBtn.setAttribute("aria-expanded", !isExpanded);
+      timerDropdown.classList.toggle("show");
+    });
+
+    document.addEventListener("click", () => {
+      timerBtn.setAttribute("aria-expanded", "false");
+      timerDropdown.classList.remove("show");
+    });
+
+    document.querySelectorAll(".timer-option").forEach(option => {
+      option.addEventListener("click", e => {
+        const minutes = parseInt(e.target.dataset.minutes);
+        setSleepTimer(minutes);
+        timerDropdown.classList.remove("show");
+        timerBtn.setAttribute("aria-expanded", "false");
+      });
+      option.addEventListener("keydown", e => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          e.target.click();
+        }
+      });
+    });
+
+    function setSleepTimer(minutes) {
+      if (sleepTimer) clearInterval(sleepTimer);
+      if (minutes === 0) {
+        timerDisplay.textContent = "OFF";
+        remainingTime = 0;
+        sleepTimer = null;
+        return;
+      }
+      remainingTime = minutes * 60;
+      updateTimerDisplay();
+      sleepTimer = setInterval(() => {
+        remainingTime--;
+        updateTimerDisplay();
+        if (remainingTime <= 0) {
+          clearInterval(sleepTimer);
+          sleepTimer = null;
+          if (isPlaying) togglePlay();
+          timerDisplay.textContent = "OFF";
+        }
+      }, 1000);
+    }
+
+    function updateTimerDisplay() {
+      const h = Math.floor(remainingTime / 3600);
+      const m = Math.floor((remainingTime % 3600) / 60);
+      const s = remainingTime % 60;
+      timerDisplay.textContent = `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
+    }
+
+    // Guardar emisora i restaurar
+    function saveCurrentStation() {
+      localStorage.setItem("lastStationIndex", currentStationIndex);
+    }
+
+    function loadLastStation() {
+      const saved = localStorage.getItem("lastStationIndex");
+      if (saved !== null) currentStationIndex = parseInt(saved);
+    }
+
+    // Funció de fallback per carregar emissores locals
+    function loadFallbackStations() {
+      stations = [
+        {
+          name: "RAC 1",
+          url: "https://streaming.rac1.cat/rac1.mp3",
+          logo: "radio1.png"
+        },
+        {
+          name: "Catalunya Ràdio",
+          url: "https://shoutcast.ccma.cat/ccma/catalunyaradio.mp3",
+          logo: "radio1.png"
+        },
+        {
+          name: "RAC 105",
+          url: "https://streaming.rac105.cat/rac105.mp3",
+          logo: "radio1.png"
+        },
+        {
+          name: "Flaixbac",
+          url: "https://flaixbac.streaming-pro.com:8003/flaixbac.aacp",
+          logo: "radio1.png"
+        },
+        {
+          name: "Cadena SER",
+          url: "https://playerservices.streamtheworld.com/api/livestream-redirect/SER_CAT.mp3",
+          logo: "radio1.png"
+        },
+        {
+          name: "Los 40",
+          url: "https://playerservices.streamtheworld.com/api/livestream-redirect/LOS40_CAT.mp3",
+          logo: "radio1.png"
+        }
+      ];
+
+      loadLastStation();
+      loadStation(stations[currentStationIndex]);
+      showLoading(false);
+    }
+
+    // Carregar estacions (versió simplificada)
+    async function loadStations() {
+      try {
+        showLoading(true);
+        // Intent directe sense proxy
+        const response = await fetch('https://xarxa-1.github.io/Xarxa-1/station1.json');
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        stations = await response.json();
+        if (stations && stations.length > 0) {
+          loadLastStation();
+          loadStation(stations[currentStationIndex]);
+
+          // Ocultar preloader després d'un temps
+          setTimeout(() => {
+            preloader.classList.add('hidden');
+          }, 1500);
+        } else {
+          throw new Error('No stations found');
+        }
+      } catch (e) {
+        console.error("Error carregant emissores:", e);
+        // En cas d'error, carreguem les emissores de fallback
+        loadFallbackStations();
+
+        // Ocultar preloader
+        setTimeout(() => {
+          preloader.classList.add('hidden');
+        }, 1500);
+      }
+    }
+
+    // Carregar emisora
+    function loadStation(station) {
+      showLoading(true);
+      title.textContent = station.name;
+      artist.textContent = "Ràdio en directe";
+
+      // Aturar l'àudio actual abans de canviar
+      if (isPlaying) {
+        audio.pause();
+        isPlaying = false;
+        playBtn.innerHTML = '<i class="fas fa-play"></i>';
+        disc.style.animationPlayState = "paused";
+      }
+
+      audio.src = station.url;
+      disc.style.backgroundImage = `url('${station.logo}')`;
+
+      // Carregar la nova font d'àudio
+      audio.load();
+      saveCurrentStation();
+
+      setTimeout(() => {
+        if (title.scrollWidth > title.clientWidth) title.classList.add("long");
+        else title.classList.remove("long");
+      }, 100);
+
+      audio.oncanplay = () => {
+        showLoading(false);
+        // No reproduïm automàticament, esperem que l'usuari premi play
+      };
+
+      // Gestió d'errors de càrrega d'àudio
+      audio.onerror = () => {
+        showLoading(false);
+        title.textContent = "Error carregant l'àudio";
+        artist.textContent = "Tria una altra emissora";
+      };
+    }
+
+    // Reproducció
+    function togglePlay() {
+      if (isPlaying) {
+        audio.pause();
+        disc.style.animationPlayState = "paused";
+        playBtn.innerHTML = '<i class="fas fa-play"></i>';
+      } else {
+        // Assegurar-nos que l'àudio no està mut
+        audio.muted = false;
+
+        audio.play().catch(error => {
+          console.error("Error en reproduir:", error);
+          title.textContent = "Error en reproduir - Prem Play";
+
+          // Intentar reproduir després d'una interacció de l'usuari
+          document.addEventListener('click', function tryPlayOnce() {
+            audio.play().then(() => {
+              isPlaying = true;
+              playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+              disc.style.animationPlayState = "running";
+            }).catch(e => {
+              console.error("Segon intent fallat:", e);
+            });
+            document.removeEventListener('click', tryPlayOnce);
+          });
+        });
+
+        disc.style.animationPlayState = "running";
+        playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+      }
+      isPlaying = !isPlaying;
+      saveCurrentStation();
+    }
+
+    function prevStation() {
+      // Aturar enregistrament si està actiu
+      if (recordingState !== 'stopped') {
+        stopRecording();
+      }
+
+      currentStationIndex = (currentStationIndex - 1 + stations.length) % stations.length;
+      loadStation(stations[currentStationIndex]);
+    }
+
+    function nextStation() {
+      // Aturar enregistrament si està actiu
+      if (recordingState !== 'stopped') {
+        stopRecording();
+      }
+
+      currentStationIndex = (currentStationIndex + 1) % stations.length;
+      loadStation(stations[currentStationIndex]);
+    }
+
+    playBtn.addEventListener("click", togglePlay);
+    prevBtn.addEventListener("click", prevStation);
+    nextBtn.addEventListener("click", nextStation);
+
+    // Controls teclat (espai, fletxes)
+    document.addEventListener("keydown", e => {
+      if (e.code === "Space") {
+        e.preventDefault();
+        togglePlay();
+      } else if (e.code === "ArrowRight") {
+        nextStation();
+      } else if (e.code === "ArrowLeft") {
+        prevStation();
+      }
+    });
+
+    // Mode fosc / clar automàtic
+    function applyTheme() {
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.body.classList.toggle("light", !prefersDark);
+    }
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", applyTheme);
+    applyTheme();
+
+    // Funcionalitat d'enregistrament
+    recordBtn.addEventListener("click", async () => {
+      if (recordingState === 'stopped') {
+        startRecording();
+      } else if (recordingState === 'recording') {
+        pauseRecording();
+      } else if (recordingState === 'paused') {
+        resumeRecording();
+      }
+    });
+
+    stopRecordBtn.addEventListener("click", () => {
+      stopRecording();
+    });
+
+    // Funció per capturar l'àudio
+    function startRecording() {
+      // Assegurar-nos que estem reproduint alguna cosa
+      if (!isPlaying) {
+        alert("Primer has de reproduir alguna emissora per poder enregistrar.");
+        return;
+      }
+
+      recordedChunks = [];
+      try {
+        // Crear un context d'àudio si no existeix
+        if (!audioContext) {
+          audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        }
+
+        // Crear un node de destí per al stream
+        streamDestination = audioContext.createMediaStreamDestination();
+
+        // Crear un node de font per a l'element d'àudio
+        sourceNode = audioContext.createMediaElementSource(audio);
+
+        // Connectar la font al destí i també a la sortida (perquè es continui sentint)
+        sourceNode.connect(streamDestination);
+        sourceNode.connect(audioContext.destination);
+
+        // Obtenir el stream del destí
+        const audioStream = streamDestination.stream;
+
+        // Provar diferents codecs
+        const mimeTypes = [
+          'audio/webm;codecs=opus',
+          'audio/webm',
+          'audio/ogg;codecs=opus',
+          'audio/mp4',
+          'audio/mpeg'
+        ];
+
+        let selectedType = '';
+        for (const type of mimeTypes) {
+          if (MediaRecorder.isTypeSupported(type)) {
+            selectedType = type;
+            break;
+          }
+        }
+
+        if (!selectedType) {
+          alert("El teu navegador no suporta cap format d'àudio per enregistrar.");
+          return;
+        }
+
+        mediaRecorder = new MediaRecorder(audioStream, {
+          mimeType: selectedType,
+          audioBitsPerSecond: 128000
+        });
+
+        mediaRecorder.ondataavailable = e => {
+          if (e.data.size > 0) recordedChunks.push(e.data);
+        };
+
+        mediaRecorder.onstop = () => {
+          recordingBlob = new Blob(recordedChunks, { type: mediaRecorder.mimeType });
+          showSaveModal();
+          stopRecordingTimer();
+
+          // IMPORTANT: No desconectem els nodes d'àudio per mantenir el so
+          // Només desconnectem la destinació de l'enregistrament
+          if (sourceNode && streamDestination) {
+            sourceNode.disconnect(streamDestination);
+          }
+          // Mantenim sourceNode connectat a audioContext.destination
+        };
+
+        mediaRecorder.onpause = () => {
+          updateRecordButton('paused');
+        };
+
+        mediaRecorder.onresume = () => {
+          updateRecordButton('recording');
+        };
+
+        // Iniciar l'enregistrament
+        mediaRecorder.start(1000); // Recopilar dades cada segon
+        recordingState = 'recording';
+        updateRecordButton('recording');
+        startRecordingTimer();
+
+      } catch (err) {
+        alert("Error en iniciar l'enregistrament: " + err.message);
+        console.error("Error d'enregistrament:", err);
+      }
+    }
+
+    function pauseRecording() {
+      if (mediaRecorder && recordingState === 'recording') {
+        mediaRecorder.pause();
+        recordingState = 'paused';
+        updateRecordButton('paused');
+        stopRecordingTimer();
+      }
+    }
+
+    function resumeRecording() {
+      if (mediaRecorder && recordingState === 'paused') {
+        mediaRecorder.resume();
+        recordingState = 'recording';
+        updateRecordButton('recording');
+        startRecordingTimer();
+      }
+    }
+
+    function stopRecording() {
+      if (mediaRecorder && (recordingState === 'recording' || recordingState === 'paused')) {
+        mediaRecorder.stop();
+        recordingState = 'stopped';
+        updateRecordButton('stopped');
+        stopRecordingTimer();
+      }
+    }
+
+    function updateRecordButton(state) {
+      recordBtn.classList.remove('recording', 'paused');
+
+      switch(state) {
+        case 'recording':
+          recordBtn.classList.add('recording');
+          recordBtn.innerHTML = '<i class="fas fa-pause"></i>';
+          recordBtn.title = "Pausa enregistrament";
+          stopRecordBtn.style.display = 'flex';
+          recordingIndicator.style.display = 'flex';
+          break;
+        case 'paused':
+          recordBtn.classList.add('paused');
+          recordBtn.innerHTML = '<i class="fas fa-play"></i>';
+          recordBtn.title = "Reprèn enregistrament";
+          stopRecordBtn.style.display = 'flex';
+          recordingIndicator.style.display = 'flex';
+          break;
+        case 'stopped':
+          recordBtn.innerHTML = '<i class="fas fa-circle" style="color: red;"></i>';
+          recordBtn.title = "Enregistra";
+          stopRecordBtn.style.display = 'none';
+          recordingIndicator.style.display = 'none';
+          break;
+      }
+    }
+
+    // Timer per a l'enregistrament
+    function startRecordingTimer() {
+      recordingStartTime = Date.now();
+      recordingTimer = setInterval(() => {
+        const elapsed = Math.floor((Date.now() - recordingStartTime) / 1000);
+        const minutes = Math.floor(elapsed / 60);
+        const seconds = elapsed % 60;
+        recordingTime.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      }, 1000);
+    }
+
+    function stopRecordingTimer() {
+      if (recordingTimer) {
+        clearInterval(recordingTimer);
+        recordingTimer = null;
+      }
+      recordingTime.textContent = '00:00';
+    }
+
+    // Funció per convertir WebM a MP3
+    function convertToMP3(webmBlob, progressCallback) {
+      return new Promise((resolve, reject) => {
+        // Crear un lector d'àudio per processar el WebM
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const fileReader = new FileReader();
+
+        fileReader.onload = function() {
+          audioContext.decodeAudioData(this.result, function(buffer) {
+            // Configurar l'encoder MP3
+            const mp3Encoder = new lamejs.Mp3Encoder(2, buffer.sampleRate, 128);
+            const samples = buffer.getChannelData(0); // Canal esquerre
+            const samplesRight = buffer.numberOfChannels > 1 ? buffer.getChannelData(1) : samples; // Canal dret
+
+            const sampleBlockSize = 1152; // Tamany de bloc per a l'encoder MP3
+            const mp3Data = [];
+
+            let progress = 0;
+            const totalSamples = samples.length;
+
+            for (let i = 0; i < totalSamples; i += sampleBlockSize) {
+              const leftChunk = samples.subarray(i, i + sampleBlockSize);
+              const rightChunk = samplesRight.subarray(i, i + sampleBlockSize);
+
+              const mp3buf = mp3Encoder.encodeBuffer(leftChunk, rightChunk);
+              if (mp3buf.length > 0) {
+                mp3Data.push(mp3buf);
+              }
+
+              // Actualitzar progrés
+              progress = Math.floor((i / totalSamples) * 100);
+              if (progressCallback) progressCallback(progress);
+            }
+
+            // Finalitzar l'encoding
+            const mp3buf = mp3Encoder.flush();
+            if (mp3buf.length > 0) {
+              mp3Data.push(mp3buf);
+            }
+
+            // Crear el blob MP3
+            const mp3Blob = new Blob(mp3Data, { type: 'audio/mp3' });
+            resolve(mp3Blob);
+          }, reject);
+        };
+
+        fileReader.onerror = reject;
+        fileReader.readAsArrayBuffer(webmBlob);
+      });
+    }
+
+    // Modal per guardar
+    function showSaveModal() {
+      // Generar un nom automàtic amb el nom de l'emisora, data i hora
+      const now = new Date();
+      const stationName = title.textContent.replace(/[^a-zA-Z0-9À-ÿ\s]/g, '').replace(/\s+/g, '_');
+      const dateStr = now.toISOString().slice(0, 19).replace(/:/g, '-').replace('T', '_');
+      filenameInput.value = `${stationName}_${dateStr}`;
+      saveModal.classList.add('show');
+    }
+
+    function hideSaveModal() {
+      saveModal.classList.remove('show');
+      recordingBlob = null;
+      recordedChunks = [];
+      conversionProgress.style.display = 'none';
+      conversionBar.style.width = '0%';
+      conversionStatus.textContent = '0%';
+    }
+
+    cancelSaveBtn.addEventListener('click', () => {
+      hideSaveModal();
+    });
+
+    confirmSaveBtn.addEventListener('click', async () => {
+      if (recordingBlob) {
+        const filename = filenameInput.value.trim() || 'enregistrament_radio';
+
+        // Mostrar progrés de conversió
+        conversionProgress.style.display = 'block';
+        confirmSaveBtn.disabled = true;
+
+        try {
+          // Convertir a MP3
+          const mp3Blob = await convertToMP3(recordingBlob, (progress) => {
+            conversionBar.style.width = `${progress}%`;
+            conversionStatus.textContent = `${progress}%`;
+          });
+
+          // Crear i descarregar l'arxiu MP3
+          const url = URL.createObjectURL(mp3Blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = `${filename}.mp3`;
+          a.click();
+          URL.revokeObjectURL(url);
+
+        } catch (error) {
+          console.error("Error en la conversió a MP3:", error);
+          alert("Error en convertir l'àudio a MP3. Es descarregarà en el format original.");
+
+          // Descarregar l'arxiu original com a fallback
+          const url = URL.createObjectURL(recordingBlob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = `${filename}.${getFileExtension(mediaRecorder.mimeType)}`;
+          a.click();
+          URL.revokeObjectURL(url);
+        } finally {
+          confirmSaveBtn.disabled = false;
+          hideSaveModal();
+        }
+      }
+    });
+
+    // Funció per obtenir l'extensió del fitxer
+    function getFileExtension(mimeType) {
+      const extensions = {
+        'audio/webm': 'webm',
+        'audio/webm;codecs=opus': 'webm',
+        'audio/ogg;codecs=opus': 'ogg',
+        'audio/mp4': 'm4a',
+        'audio/mpeg': 'mp3'
+      };
+      return extensions[mimeType] || 'audio';
+    }
+
+    // Tancar modal fent clic fora
+    saveModal.addEventListener('click', (e) => {
+      if (e.target === saveModal) {
+        hideSaveModal();
+      }
+    });
+
+    // Aturar enregistrament amb tecla Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && recordingState !== 'stopped') {
+        stopRecording();
+      }
+    });
+
+    // Implementar barra de progrés i clic per avançar
+    audio.addEventListener("timeupdate", () => {
+      if (audio.duration) {
+        const percent = (audio.currentTime / audio.duration) * 100;
+        progressBar.style.width = percent + "%";
+        progressContainer.setAttribute("aria-valuenow", Math.floor(percent));
+      }
+    });
+
+    progressContainer.addEventListener("click", e => {
+      const rect = progressContainer.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const width = rect.width;
+      if (audio.duration) {
+        audio.currentTime = (clickX / width) * audio.duration;
+      }
+    });
+
+    // Funcionalitat per a la llista d'emissores
+    stationsBtn.addEventListener("click", () => {
+      openStationsModal();
+    });
+
+    closeStationsModal.addEventListener("click", () => {
+      closeStationsModalFunc();
+    });
+
+    // Tancar modal en fer clic fora
+    stationsModal.addEventListener("click", (e) => {
+      if (e.target === stationsModal) {
+        closeStationsModalFunc();
+      }
+    });
+
+    // Funció per obrir el modal i carregar les emissores
+    function openStationsModal() {
+      stationsList.innerHTML = ""; // Netejar la llista
+
+      stations.forEach((station, index) => {
+        const stationItem = document.createElement("div");
+        stationItem.className = "station-item";
+        stationItem.setAttribute("role", "button");
+        stationItem.setAttribute("tabindex", "0");
+        stationItem.innerHTML = `
+          <img src="${station.logo}" alt="${station.name}" class="station-logo" onerror="this.src='radio1.png'">
+          <span class="station-name">${station.name}</span>
+        `;
+        stationItem.addEventListener("click", () => {
+          currentStationIndex = index;
+          loadStation(station);
+          closeStationsModalFunc();
+        });
+        stationItem.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            stationItem.click();
+          }
+        });
+        stationsList.appendChild(stationItem);
+      });
+
+      stationsModal.classList.add("show");
+    }
+
+    // Funció per tancar el modal
+    function closeStationsModalFunc() {
+      stationsModal.classList.remove("show");
+    }
+
+    // Carregar les estacions inicials
+    loadStations();
+  </script>
+</body>
+</html>
