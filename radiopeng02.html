@@ -24,6 +24,14 @@
       --text-light: #ffffff;
     }
 
+    * {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
     body {
       font-family: "Antonio", sans-serif;
       background-color: var(--dark);
@@ -35,10 +43,11 @@
       margin: 0;
       padding: 10px 20px 20px 20px;
       transition: background-color 0.3s, color 0.3s;
+      touch-action: manipulation;
     }
 
     body.light {
-      background-color: #f7f7f7;
+      background-color: green;
       color: #222;
     }
 
@@ -140,6 +149,7 @@
       justify-content: center;
       align-items: center;
       transition: background 0.2s, transform 0.1s;
+      touch-action: manipulation;
     }
 
     .btn:hover {
@@ -184,6 +194,7 @@
       gap: 5px;
       transition: background 0.2s, color 0.2s;
       font-family: 'Antonio', sans-serif;
+      touch-action: manipulation;
     }
 
     .timer-btn:hover {
@@ -215,6 +226,7 @@
       transition: background 0.2s;
       user-select: none;
       color: var(--text-light);
+      touch-action: manipulation;
     }
 
     .timer-option:hover {
@@ -240,6 +252,7 @@
       background: var(--dark-3);
       border-radius: 4px;
       -webkit-appearance: none;
+      touch-action: manipulation;
     }
 
     .volume-slider::-webkit-slider-thumb {
@@ -335,6 +348,7 @@
       font-family: 'Antonio', sans-serif;
       font-weight: 500;
       transition: background 0.2s;
+      touch-action: manipulation;
     }
 
     .modal-btn.cancel {
@@ -410,6 +424,7 @@
       gap: 5px;
       transition: background 0.2s, color 0.2s;
       font-family: 'Antonio', sans-serif;
+      touch-action: manipulation;
     }
 
     .stations-btn:hover {
@@ -444,6 +459,7 @@
       font-size: 24px;
       cursor: pointer;
       transition: color 0.2s;
+      touch-action: manipulation;
     }
 
     .close-btn:hover {
@@ -465,6 +481,7 @@
       background: var(--dark-3);
       cursor: pointer;
       transition: background 0.2s, transform 0.2s;
+      touch-action: manipulation;
     }
 
     .station-item:hover {
@@ -742,33 +759,60 @@
       localStorage.setItem("playerVolume", volumeSlider.value);
     });
 
-    // Temporitzador
-    timerBtn.addEventListener("click", e => {
-      e.stopPropagation();
-      const isExpanded = timerBtn.getAttribute("aria-expanded") === "true";
-      timerBtn.setAttribute("aria-expanded", !isExpanded);
-      timerDropdown.classList.toggle("show");
-    });
-
-    document.addEventListener("click", () => {
-      timerBtn.setAttribute("aria-expanded", "false");
-      timerDropdown.classList.remove("show");
-    });
-
-    document.querySelectorAll(".timer-option").forEach(option => {
-      option.addEventListener("click", e => {
-        const minutes = parseInt(e.target.dataset.minutes);
-        setSleepTimer(minutes);
-        timerDropdown.classList.remove("show");
-        timerBtn.setAttribute("aria-expanded", "false");
+    // SOLUCIÓ PER AL TEMPORITZADOR - Gestió millorada d'events tàctils
+    function setupTimerEvents() {
+      // Botó del temporitzador
+      timerBtn.addEventListener("click", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const isExpanded = timerBtn.getAttribute("aria-expanded") === "true";
+        timerBtn.setAttribute("aria-expanded", !isExpanded);
+        timerDropdown.classList.toggle("show");
       });
-      option.addEventListener("keydown", e => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          e.target.click();
+
+      // Tancar dropdown en fer clic fora
+      document.addEventListener("click", function(e) {
+        if (!timerBtn.contains(e.target) && !timerDropdown.contains(e.target)) {
+          timerBtn.setAttribute("aria-expanded", "false");
+          timerDropdown.classList.remove("show");
         }
       });
-    });
+
+      // Opcions del temporitzador
+      document.querySelectorAll(".timer-option").forEach(option => {
+        option.addEventListener("click", function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          const minutes = parseInt(this.getAttribute("data-minutes"));
+          setSleepTimer(minutes);
+          timerDropdown.classList.remove("show");
+          timerBtn.setAttribute("aria-expanded", "false");
+        });
+      });
+    }
+
+    // SOLUCIÓ PER A LES EMISORES - Gestió millorada d'events
+    function setupStationsEvents() {
+      // Botó per obrir modal d'emissores
+      stationsBtn.addEventListener("click", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        openStationsModal();
+      });
+
+      // Tancar modal d'emissores
+      closeStationsModal.addEventListener("click", function(e) {
+        e.preventDefault();
+        closeStationsModalFunc();
+      });
+
+      // Tancar modal en fer clic fora
+      stationsModal.addEventListener("click", function(e) {
+        if (e.target === stationsModal) {
+          closeStationsModalFunc();
+        }
+      });
+    }
 
     function setSleepTimer(minutes) {
       if (sleepTimer) clearInterval(sleepTimer);
@@ -849,29 +893,41 @@
       showLoading(false);
     }
 
-    // Carregar estacions (versió simplificada)
-    async function loadStations() {
-      try {
-        showLoading(true);
-        // Intent directe sense proxy
-        const response = await fetch('https://xarxa-1.github.io/Xarxa-1/station1.json');
-        
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
+    // SOLUCIÓ PER A CÀRREGA D'EMISORES - Utilitzem XMLHttpRequest en lloc de fetch
+    function loadStations() {
+      showLoading(true);
+      
+      // Intentem carregar des del JSON extern
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', 'https://xarxa-1.github.io/Xarxa-1/station1.json', true);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            try {
+              stations = JSON.parse(xhr.responseText);
+              if (stations && stations.length > 0) {
+                loadLastStation();
+                loadStation(stations[currentStationIndex]);
+              } else {
+                throw new Error('No stations found in JSON');
+              }
+            } catch (e) {
+              console.error("Error parsing JSON:", e);
+              loadFallbackStations();
+            }
+          } else {
+            console.error("Error loading stations:", xhr.status);
+            loadFallbackStations();
+          }
         }
-        
-        stations = await response.json();
-        if (stations && stations.length > 0) {
-          loadLastStation();
-          loadStation(stations[currentStationIndex]);
-        } else {
-          throw new Error('No stations found');
-        }
-      } catch (e) {
-        console.error("Error carregant emissores:", e);
-        // En cas d'error, carreguem les emissores de fallback
+      };
+      
+      xhr.onerror = function() {
+        console.error("Network error loading stations");
         loadFallbackStations();
-      }
+      };
+      
+      xhr.send();
     }
 
     // Carregar emisora
@@ -902,7 +958,6 @@
 
       audio.oncanplay = () => {
         showLoading(false);
-        // No reproduïm automàticament, esperem que l'usuari premi play
       };
       
       // Gestió d'errors de càrrega d'àudio
@@ -970,18 +1025,6 @@
     playBtn.addEventListener("click", togglePlay);
     prevBtn.addEventListener("click", prevStation);
     nextBtn.addEventListener("click", nextStation);
-
-    // Controls teclat (espai, fletxes)
-    document.addEventListener("keydown", e => {
-      if (e.code === "Space") {
-        e.preventDefault();
-        togglePlay();
-      } else if (e.code === "ArrowRight") {
-        nextStation();
-      } else if (e.code === "ArrowLeft") {
-        prevStation();
-      }
-    });
 
     // Mode fosc / clar automàtic
     function applyTheme() {
@@ -1305,13 +1348,6 @@
       }
     });
 
-    // Aturar enregistrament amb tecla Escape
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && recordingState !== 'stopped') {
-        stopRecording();
-      }
-    });
-
     // Implementar barra de progrés i clic per avançar
     audio.addEventListener("timeupdate", () => {
       if (audio.duration) {
@@ -1327,22 +1363,6 @@
       const width = rect.width;
       if (audio.duration) {
         audio.currentTime = (clickX / width) * audio.duration;
-      }
-    });
-
-    // Funcionalitat per a la llista d'emissores
-    stationsBtn.addEventListener("click", () => {
-      openStationsModal();
-    });
-
-    closeStationsModal.addEventListener("click", () => {
-      closeStationsModalFunc();
-    });
-
-    // Tancar modal en fer clic fora
-    stationsModal.addEventListener("click", (e) => {
-      if (e.target === stationsModal) {
-        closeStationsModalFunc();
       }
     });
 
@@ -1364,12 +1384,6 @@
           loadStation(station);
           closeStationsModalFunc();
         });
-        stationItem.addEventListener("keydown", (e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            stationItem.click();
-          }
-        });
         stationsList.appendChild(stationItem);
       });
 
@@ -1381,8 +1395,19 @@
       stationsModal.classList.remove("show");
     }
 
-    // Carregar les estacions inicials automàticament
-    loadStations();
+    // Inicialització dels events
+    function initializeApp() {
+      setupTimerEvents();
+      setupStationsEvents();
+      loadStations();
+    }
+
+    // Inicialitzar l'app quan el DOM estigui carregat
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializeApp);
+    } else {
+      initializeApp();
+    }
   </script>
 </body>
 </html>
