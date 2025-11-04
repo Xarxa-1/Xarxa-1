@@ -30,7 +30,7 @@
   { "name": "Chillout Antenne", "url": "http://stream.chillout.de/chillout/stream/mp3?aw_0_1st.playerid=tunein.com", "logo": "https://www.radio.es/300/antennechillout.png" },  
   { "name": "Costa del Mar", "url": "https://radio4.cdm-radio.com:18020/stream-mp3-Chill", "logo": "https://www.radio.es/300/costadelmar.png" },  
   { "name": "Vaughan", "url": "https://cdn-peer021.streaming-pro.com:8058/vaughanradio.mp3", "logo": "https://www.radio.es/300/vaughan-radio.png" },  
-  { "name": "theSound", "url": "https://xarxa-1.github.io/Xarxa-1/The Sound of Silence - Disturbed [Cyril Remix 2024].mp3", "logo": "" },  
+  { "name": "The Sound of Silence - Disturbed [Cyril Remix 2024]", "url": "https://xarxa-1.github.io/Xarxa-1/The Sound of Silence - Disturbed [Cyril Remix 2024].mp3", "logo": "" },  
   { "name": "BBC World Service", "url": "http://stream.live.vc.bbcmedia.co.uk/bbc_world_service", "logo": "https://asianlite.ae/wp-content/uploads/2018/09/JtNS_gjE_400x400.jpg" }
 ]
  
