@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitor de Bateria</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            padding: 30px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+        
+        h1 {
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .status-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .status-item {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        
+        .status-item:hover {
+            transform: translateY(-5px);
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        .status-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #fdbb2d;
+        }
+        
+        .status-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .battery-level {
+            width: 100%;
+            height: 30px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            margin-top: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .battery-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff4b2b, #ff416c);
+            border-radius: 15px;
+            width: 50%;
+            transition: width 1s ease-in-out;
+        }
+        
+        .charging-status {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        .not-charging {
+            color: #ff5252;
+        }
+        
+        .icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .power-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .power-icon {
+            font-size: 1.8rem;
+        }
+        
+        .disclaimer {
+            margin-top: 30px;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.4;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .status-value {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Monitor de Bateria</h1>
+        
+        <div class="status-container">
+            <div class="status-item">
+                <div class="status-title">Nivell de Bateria</div>
+                <div class="status-value" id="battery-level">Carregant...</div>
+                <div class="battery-level">
+                    <div class="battery-fill" id="battery-fill"></div>
+                </div>
+            </div>
+            
+            <div class="status-item">
+                <div class="status-title">Estat de Càrrega</div>
+                <div class="status-value">
+                    <span id="charging-status" class="charging-status">Carregant...</span>
+                </div>
+                <div class="power-status">
+                    <span class="power-icon">🔌</span>
+                    <span id="charging-time">Calculant...</span>
+                </div>
+            </div>
+            
+            <div class="status-item">
+                <div class="status-title">Potència de Càrrega</div>
+                <div class="status-value" id="charging-power">Detectant...</div>
+            </div>
+        </div>
+        
+        <p class="disclaimer">
+            Nota: La informació sobre la potència de càrrega és una estimació basada en l'estat de la bateria i pot variar segons el dispositiu.
+        </p>
+    </div>
+
+    <script>
+        // Verificar si l'API de Bateria està disponible
+        if ('getBattery' in navigator || 'battery' in navigator) {
+            // Obtenir informació de la bateria
+            navigator.getBattery().then(function(battery) {
+                updateBatteryInfo(battery);
+                
+                // Escoltar canvis a la bateria
+                battery.addEventListener('levelchange', function() {
+                    updateBatteryInfo(battery);
+                });
+                
+                battery.addEventListener('chargingchange', function() {
+                    updateBatteryInfo(battery);
+                });
+                
+                battery.addEventListener('chargingtimechange', function() {
+                    updateBatteryInfo(battery);
+                });
+            });
+        } else {
+            // Si l'API no està disponible
+            document.getElementById('battery-level').textContent = 'No disponible';
+            document.getElementById('charging-status').textContent = 'API no compatible';
+            document.getElementById('charging-power').textContent = 'No disponible';
+            document.getElementById('charging-time').textContent = 'No disponible';
+            document.getElementById('battery-fill').style.width = '0%';
+        }
+        
+        function updateBatteryInfo(battery) {
+            // Actualitzar nivell de bateria
+            const batteryLevel = Math.round(battery.level * 100);
+            document.getElementById('battery-level').textContent = batteryLevel + '%';
+            document.getElementById('battery-fill').style.width = batteryLevel + '%';
+            
+            // Actualitzar estat de càrrega
+            const chargingStatus = document.getElementById('charging-status');
+            if (battery.charging) {
+                chargingStatus.textContent = 'Connectat al corrent';
+                chargingStatus.className = 'status-value charging-status';
+                
+                // Calcular temps de càrrega restant
+                if (battery.chargingTime === Infinity) {
+                    document.getElementById('charging-time').textContent = 'Temps indeterminat';
+                } else {
+                    const hours = Math.floor(battery.chargingTime / 3600);
+                    const minutes = Math.floor((battery.chargingTime % 3600) / 60);
+                    document.getElementById('charging-time').textContent = 
+                        `${hours}h ${minutes}m restants`;
+                }
+            } else {
+                chargingStatus.textContent = 'Desconnectat';
+                chargingStatus.className = 'status-value not-charging';
+                
+                // Calcular temps restant de bateria
+                if (battery.dischargingTime === Infinity) {
+                    document.getElementById('charging-time').textContent = 'Temps indeterminat';
+                } else {
+                    const hours = Math.floor(battery.dischargingTime / 3600);
+                    const minutes = Math.floor((battery.dischargingTime % 3600) / 60);
+                    document.getElementById('charging-time').textContent = 
+                        `${hours}h ${minutes}m de bateria restants`;
+                }
+            }
+            
+            // Estimar potència de càrrega (això és una aproximació)
+            updateChargingPower(battery);
+        }
+        
+        function updateChargingPower(battery) {
+            const powerElement = document.getElementById('charging-power');
+            
+            if (battery.charging) {
+                // Aquesta és una estimació ja que l'API no proporciona informació directa sobre la potència
+                // Basat en el nivell de bateria i si està carregant
+                if (battery.level < 0.2) {
+                    powerElement.textContent = 'Càrrega ràpida (alta potència)';
+                } else if (battery.level < 0.8) {
+                    powerElement.textContent = 'Càrrega estàndard (mitjana potència)';
+                } else {
+                    powerElement.textContent = 'Càrrega lenta (baixa potència)';
+                }
+            } else {
+                powerElement.textContent = 'No s\'està carregant';
+            }
+        }
+    </script>
+</body>
+</html>
