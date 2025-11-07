@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seis Videos de YouTube en Espejo</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: white;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-size: 2.5em;
+        }
+        
+        .videos-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1400px;
+        }
+        
+        .video-wrapper {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .video-wrapper:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.5);
+        }
+        
+        .video-title {
+            padding: 15px;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.8);
+            margin: 0;
+            font-size: 1.2em;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        .mirror-effect {
+            transform: scaleX(-1);
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* Relación de aspecto 16:9 */
+            position: relative;
+        }
+        
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .video-link {
+            padding: 12px 15px;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .video-link a {
+            color: #fdbb2d;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+            word-break: break-all;
+            display: inline-block;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .video-link a:hover {
+            color: #ffcc44;
+            text-decoration: underline;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 40px 0 20px;
+            flex-wrap: wrap;
+        }
+        
+        .control-btn {
+            background-color: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+        
+        .control-btn:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+        
+        .info {
+            margin-top: 20px;
+            text-align: center;
+            max-width: 800px;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .videos-container {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Seis Videos de YouTube en Espejo</h1>
+    
+    <div class="videos-container">
+        <!-- Video 1 -->
+        <div class="video-wrapper">
+            <h3 class="video-title">Video Original</h3>
+            <div class="video-container">
+                <div class="mirror-effect">
+                    <iframe src="https://www.youtube.com/embed/KcWdjhdabAw?list=RDKcWdjhdabAw&start_radio=1" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+            <div class="video-link">
+                <a href="https://www.youtube.com/watch?v=KcWdjhdabAw&list=RDKcWdjhdabAw&start_radio=1" target="_blank">
+                    https://www.youtube.com/watch?v=KcWdjhdabAw
+                </a>
+            </div>
+        </div>
+        
+        <!-- Video 2 -->
+        <div class="video-wrapper">
+            <h3 class="video-title">YouTube Shorts 1</h3>
+            <div class="video-container">
+                <div class="mirror-effect">
+                    <iframe src="https://www.youtube.com/embed/tlhZyVuq6p4" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+            <div class="video-link">
+                <a href="https://www.youtube.com/shorts/tlhZyVuq6p4" target="_blank">
+                    https://www.youtube.com/shorts/tlhZyVuq6p4
+                </a>
+            </div>
+        </div>
+        
+        <!-- Video 3 -->
+        <div class="video-wrapper">
+            <h3 class="video-title">YouTube Shorts 2</h3>
+            <div class="video-container">
+                <div class="mirror-effect">
+                    <iframe src="https://www.youtube.com/embed/9enafZqD-6c" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+            <div class="video-link">
+                <a href="https://www.youtube.com/shorts/9enafZqD-6c" target="_blank">
+                    https://www.youtube.com/shorts/9enafZqD-6c
+                </a>
+            </div>
+        </div>
+        
+        <!-- Video 4 -->
+        <div class="video-wrapper">
+            <h3 class="video-title">YouTube Shorts 3</h3>
+            <div class="video-container">
+                <div class="mirror-effect">
+                    <iframe src="https://www.youtube.com/embed/VlE6056l8Ec" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+            <div class="video-link">
+                <a href="https://www.youtube.com/shorts/VlE6056l8Ec" target="_blank">
+                    https://www.youtube.com/shorts/VlE6056l8Ec
+                </a>
+            </div>
+        </div>
+        
+        <!-- Video 5 -->
+        <div class="video-wrapper">
+            <h3 class="video-title">YouTube Shorts 4</h3>
+            <div class="video-container">
+                <div class="mirror-effect">
+                    <iframe src="https://www.youtube.com/embed/aldZBZP1SgA" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+            <div class="video-link">
+                <a href="https://www.youtube.com/shorts/aldZBZP1SgA" target="_blank">
+                    https://www.youtube.com/shorts/aldZBZP1SgA
+                </a>
+            </div>
+        </div>
+        
+        <!-- Video 6 -->
+        <div class="video-wrapper">
+            <h3 class="video-title">YouTube Shorts 5</h3>
+            <div class="video-container">
+                <div class="mirror-effect">
+                    <iframe src="https://www.youtube.com/embed/T_vk3fXyZQI" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+            <div class="video-link">
+                <a href="https://www.youtube.com/shorts/T_vk3fXyZQI" target="_blank">
+                    https://www.youtube.com/shorts/T_vk3fXyZQI
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="controls">
+        <button class="control-btn" onclick="playAllVideos()">Reproducir Todos</button>
+        <button class="control-btn" onclick="pauseAllVideos()">Pausar Todos</button>
+        <button class="control-btn" onclick="toggleMirrorEffect()">Alternar Efecto Espejo</button>
+        <button class="control-btn" onclick="muteAllVideos()">Silenciar Todos</button>
+    </div>
+    
+    <div class="info">
+        <p>Este reproductor muestra seis videos de YouTube con efecto de espejo. Cada video incluye un enlace para abrirlo directamente en YouTube.</p>
+        <p><strong>Nota:</strong> Debido a las políticas de autoplay de los navegadores, es posible que necesites interactuar con la página para que los videos se reproduzcan automáticamente.</p>
+    </div>
+
+    <script>
+        // Obtener los iframes de video
+        const videoFrames = document.querySelectorAll('iframe');
+        let mirrorEnabled = true;
+        
+        // Función para reproducir todos los videos
+        function playAllVideos() {
+            videoFrames.forEach(frame => {
+                const src = frame.src;
+                // Añadir autoplay a la URL si no está presente
+                if (!src.includes('autoplay=1')) {
+                    frame.src = src + (src.includes('?') ? '&' : '?') + 'autoplay=1';
+                }
+            });
+        }
+        
+        // Función para pausar todos los videos
+        function pauseAllVideos() {
+            // En una implementación real con API de YouTube, aquí pausaríamos los videos
+            // Por ahora, recargamos los iframes sin autoplay
+            videoFrames.forEach(frame => {
+                const src = frame.src.replace('&autoplay=1', '').replace('?autoplay=1', '');
+                frame.src = src;
+            });
+        }
+        
+        // Función para silenciar todos los videos
+        function muteAllVideos() {
+            videoFrames.forEach(frame => {
+                const src = frame.src;
+                // Añadir parámetro de mute si no está presente
+                if (!src.includes('mute=1')) {
+                    frame.src = src + (src.includes('?') ? '&' : '?') + 'mute=1';
+                } else {
+                    // Si ya está muteado, quitar el mute
+                    frame.src = src.replace('&mute=1', '').replace('?mute=1', '');
+                }
+            });
+        }
+        
+        // Función para alternar el efecto de espejo
+        function toggleMirrorEffect() {
+            const mirrorElements = document.querySelectorAll('.mirror-effect');
+            mirrorEnabled = !mirrorEnabled;
+            
+            mirrorElements.forEach(element => {
+                element.style.transform = mirrorEnabled ? 'scaleX(-1)' : 'scaleX(1)';
+            });
+        }
+        
+        // Añadir evento de clic a cada video para facilitar la reproducción
+        document.querySelectorAll('.video-container').forEach(container => {
+            container.addEventListener('click', function() {
+                const iframe = this.querySelector('iframe');
+                const src = iframe.src;
+                if (!src.includes('autoplay=1')) {
+                    iframe.src = src + (src.includes('?') ? '&' : '?') + 'autoplay=1';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
