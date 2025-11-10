@@ -1,20 +1,27 @@
 #EXTM3U
-#EXTINF:-1 tvg-id="" tvg-name="TV3" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/TV3.svg/300px-TV3.svg.png" group-title="General",TV3
+#EXTINF:-1 tvg-id="" tvg-name="TV3" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/TV3.svg/300px-TV3.svg.png" group-title="Catalunya",TV3
 https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="3CAT INFO" tvg-logo="https://graph.facebook.com/3catinfo/picture?width=200&height=200" group-title="News",3CAT INFO
+#EXTINF:-1 tvg-id="" tvg-name="3CAT INFO" tvg-logo="https://graph.facebook.com/3catinfo/picture?width=200&height=200" group-title="Catalunya",3CAT INFO
 https://directes-tv-cat.3catdirectes.cat/live-content/canal324-hls/master.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Esport3" tvg-logo="https://graph.facebook.com/Esport3/picture?width=200&height=200" group-title="Esports",Esport3
+#EXTINF:-1 tvg-id="" tvg-name="Esport3" tvg-logo="https://graph.facebook.com/Esport3/picture?width=200&height=200" group-title="Catalunya",Esport3
 https://directes-tv-cat.3catdirectes.cat/live-content/esport3-hls/master.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="TAC12" tvg-logo="https://pbs.twimg.com/profile_images/1326929087919689729/S1zkeUh3_400x400.jpg" group-title="General",TAC12
+#EXTINF:-1 tvg-id="" tvg-name="TAC12" tvg-logo="https://pbs.twimg.com/profile_images/1326929087919689729/S1zkeUh3_400x400.jpg" group-title="Catalunya",TAC12
 https://ingest1-video.streaming-pro.com/tac12_ABR/stream/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="TV3CAT" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/TV3CAT.svg/512px-TV3CAT.svg.png" group-title="General",TV3CAT
+#EXTINF:-1 tvg-id="" tvg-name="TV3CAT" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/TV3CAT.svg/512px-TV3CAT.svg.png" group-title="Catalunya",TV3CAT
 https://directes3-tv-int.3catdirectes.cat/live-content/tvi-hls/master.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Canal33" tvg-logo="https://graph.facebook.com/Canal33/picture?width=200&height=200" group-title="General",Canal33
+#EXTINF:-1 tvg-id="" tvg-name="Canal33" tvg-logo="https://graph.facebook.com/Canal33/picture?width=200&height=200" group-title="Catalunya",Canal33
 https://directes-tv-cat.3catdirectes.cat/live-content/c33-super3-hls/master.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="SX3" tvg-logo="https://graph.facebook.com/SomSX3/picture?width=200&height=200" group-title="Juvenil",SX3
+#EXTINF:-1 tvg-id="" tvg-name="SX3" tvg-logo="https://graph.facebook.com/SomSX3/picture?width=200&height=200" group-title="Catalunya",SX3
 https://directes-tv-cat.3catdirectes.cat/live-content/super3-hls/master.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="BonDiaTV" tvg-logo="https://i.imgur.com/XaiP3nJ.png" group-title="General",BonDiaTV
+#EXTINF:-1 tvg-id="" tvg-name="BonDiaTV" tvg-logo="https://i.imgur.com/XaiP3nJ.png" group-title="General" group-title="Catalunya",BonDiaTV
 https://directes-tv-int.3catdirectes.cat/live-content/bondia-hls/master.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="La1" tvg-logo="https://i.imgur.com/1jDS9UC.png" group-title="General",La1
+https://ztnr.rtve.es/ztnr/1688877.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="La2 Cat" tvg-logo="http://www.pesimismodigital.com/wp-content/uploads/2016/09/tve2g.jpg" group-title="General",La2 Cat
+https://ztnr.rtve.es/ztnr/3987218.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="24HCat" tvg-logo="https://i.imgur.com/IUVRm5L.png" group-title="News",24HCat
+https://ztnr.rtve.es/ztnr/1694255.m3u8
+
 #EXTINF:-1 tvg-id="" tvg-name="Sport5" tvg-logo="https://od.lk/s/NDZfNjA1OTE3MjNf/Sport5israel.png" group-title="Esports",Sport5
 https://rgelive.akamaized.net/hls/live/2043151/radiolive/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="GB News UK EN" tvg-logo="https://graph.facebook.com/skynews/picture?width=200&height=200" group-title="Int. Europa",GB News UK EN
@@ -31,15 +38,9 @@ https://directes-tv-cat.3catdirectes.cat/live-origin/oca1-hls/master.m3u8
 https://directes-tv-cat.3catdirectes.cat/live-origin/oca2-hls/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="3CATe3" tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200" group-title="Lifestyle",3CATe3
 https://directes-tv-cat.3catdirectes.cat/live-origin/oca3-hls/master.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="La1" tvg-logo="https://i.imgur.com/1jDS9UC.png" group-title="General",La1
-https://ztnr.rtve.es/ztnr/1688877.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="La2 Cat" tvg-logo="http://www.pesimismodigital.com/wp-content/uploads/2016/09/tve2g.jpg" group-title="General",La2 Cat
-https://ztnr.rtve.es/ztnr/3987218.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="24HCat" tvg-logo="https://i.imgur.com/IUVRm5L.png" group-title="News",24HCat
-https://ztnr.rtve.es/ztnr/1694255.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="CanalReus" tvg-logo="https://pbs.twimg.com/profile_images/1899040884026392577/MK3u4IhA_x96.jpg" group-title="General",CanalReus
+#EXTINF:-1 tvg-id="" tvg-name="CanalReus" tvg-logo="https://pbs.twimg.com/profile_images/1899040884026392577/MK3u4IhA_x96.jpg" group-title="Catalunya",CanalReus
 https://ingest2-video.streaming-pro.com/creus/stream/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="TVReus" tvg-logo="https://i.imgur.com/Ee0C8UH.jpg" group-title="General",TVReus
+#EXTINF:-1 tvg-id="" tvg-name="TVReus" tvg-logo="https://i.imgur.com/Ee0C8UH.jpg" group-title="Catalunya",TVReus
 https://eu1.servers10.com:8081/8166/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="À Punt" tvg-logo="https://graph.facebook.com/apuntmedia/picture?width=100&height=100" group-title="General",À Punt
 https://bcovlive-a.akamaihd.net/8499d938ef904e39b58a4adec2ddeada/eu-west-1/6057955885001/playlist_dvr.m3u8
@@ -69,11 +70,11 @@ https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg01077-gustoworldwidem-gustotvnz-s
 https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg01076-lightningintern-gbnewsnz-samsungnz/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="WTVD TV News." tvg-logo="https://static-m.meteo.cat/assets-w3/images/smp/trama-smp-0.png" group-title="News",WTVD TV News.
 https://content.uplynk.com/channel/ext/f05837c508c44712aa7129d531f7dbe6/wtvd_24x7_news.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="TVSabadell" tvg-logo="negre.jpg" group-title="General",TVSabadell
+#EXTINF:-1 tvg-id="" tvg-name="TVSabadell" tvg-logo="negre.jpg" group-title="Catalunya",TVSabadell
 https://ingest1-video.streaming-pro.com/canaltaronja/sabadell/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Canal Terres de l'Ebre" tvg-logo="https://graph.facebook.com/canal.terresdelebre/picture?width=200&height=200" group-title="General",Canal Terres de l'Ebre
+#EXTINF:-1 tvg-id="" tvg-name="Canal Terres de l'Ebre" tvg-logo="https://graph.facebook.com/canal.terresdelebre/picture?width=200&height=200" group-title="Catalunya",Canal Terres de l'Ebre
 https://ingest1-video.streaming-pro.com/canalteABR/ctestream/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Canal Taronja Central" tvg-logo="https://graph.facebook.com/taronja.cat/picture?width=200&height=200" group-title="General",Canal Taronja Central
+#EXTINF:-1 tvg-id="" tvg-name="Canal Taronja Central" tvg-logo="https://graph.facebook.com/taronja.cat/picture?width=200&height=200" group-title="Catalunya",Canal Taronja Central
 https://ingest1-video.streaming-pro.com/canaltaronja/central/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="US: CNN" tvg-logo="" group-title="Bics US",US: CNN
 https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8
