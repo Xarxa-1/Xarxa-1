@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8"><meta name="theme-color" content="#c2c800">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Martha Stewart</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #121212;
+            color: #f0f0f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: #1a1a1a;
+            padding: 15px 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            padding: 20px;
+            width: 100%;
+        }
+
+        .video-container {
+            width: 100%;
+            max-width: 1200px;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            background-color: #000;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 1200px;
+            overflow-x: auto;
+            padding: 10px 0;
+        }
+
+        button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        button:hover {
+            background-color: #444;
+        }
+
+        button:active {
+            background-color: #555;
+        }
+
+        .play-btn {
+            background-color: #2e7d32;
+        }
+
+        .play-btn:hover {
+            background-color: #1b5e20;
+        }
+
+        .pause-btn {
+            background-color: #d32f2f;
+        }
+
+        .pause-btn:hover {
+            background-color: #b71c1c;
+        }
+
+        .fullscreen-btn {
+            background-color: #0066cc;
+        }
+
+        .fullscreen-btn:hover {
+            background-color: #0055aa;
+        }
+
+        .volume-btn {
+            background-color: #5d4037;
+        }
+
+        .volume-btn:hover {
+            background-color: #4e342e;
+        }
+
+        .skip-btn {
+            background-color: #5d4037;
+        }
+
+        .skip-btn:hover {
+            background-color: #4e342e;
+        }
+
+        .subtitle-btn {
+            background-color: #7b1fa2;
+        }
+
+        .subtitle-btn:hover {
+            background-color: #6a1b9a;
+        }
+
+        .muted {
+            background-color: #d32f2f;
+        }
+
+        .info {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+            color: #f0f0f0;
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        footer {
+            background-color: #1a1a1a;
+            text-align: center;
+            padding: 15px;
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        .status {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .loading {
+            background-color: #2d2d2d;
+            color: #f0f0f0;
+        }
+
+        .error {
+            background-color: #5a1e1e;
+            color: #ff6b6b;
+        }
+
+        .success {
+            background-color: #1e3a2d;
+            color: #6bff8d;
+        }
+
+        .progress-container {
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 15px;
+            background-color: #333;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background-color: #0066cc;
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            .video-container {
+                border-radius: 0;
+            }
+
+            .controls {
+                justify-content: flex-start;
+                padding-bottom: 15px;
+            }
+
+            button {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Título eliminado como se solicitó -->
+    </header>
+
+    <div class="container">
+        <div class="video-container">
+            <video id="videoPlayer" controls muted></video>
+        </div>
+
+        <div class="progress-container">
+            <div id="progressBar" class="progress-bar"></div>
+        </div>
+
+        <div id="statusMessage" class="status loading">
+            Inicializando reproductor HLS...
+        </div>
+
+        <div class="controls">
+            <button id="playBtn" class="play-btn">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M3 2v12l10-6z"/>
+                </svg>
+                Reproducir
+            </button>
+            <button id="pauseBtn" class="pause-btn">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <rect x="3" y="2" width="3" height="12"/>
+                    <rect x="10" y="2" width="3" height="12"/>
+                </svg>
+                Pausar
+            </button>
+            <button id="fullscreenBtn" class="fullscreen-btn">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M1 1v6h1V2h5V1H1zm7 0v1h5v5h1V1H8zM1 8v7h7v-1H2V8H1zm7 1v6h7V9H8z"/>
+                </svg>
+                Pantalla Completa
+            </button>
+            <button id="volumeUpBtn" class="volume-btn">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M11 5L8 8 5 5H2v6h3l3-3 3 3h3V5h-3zM10 7v2l2-2h-2z"/>
+                </svg>
+                Volumen +
+            </button>
+            <button id="volumeDownBtn" class="volume-btn">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M11 5L8 8 5 5H2v6h3l3-3 3 3h3V5h-3zM6 9H4V7h2v2z"/>
+                </svg>
+                Volumen -
+            </button>
+            <button id="skipBackBtn" class="skip-btn">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M8 2l-6 6 6 6V8h6V4H8V2z"/>
+                </svg>
+                -10s
+            </button>
+            <button id="skipForwardBtn" class="skip-btn">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M8 2v4h6v4H8v4l-6-6 6-6z"/>
+                </svg>
+                +10s
+            </button>
+            <button id="muteBtn" class="volume-btn muted">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M11 5L8 8 5 5H2v6h3l3-3 3 3h3V5h-3zM6 9H4V7h2v2z"/>
+                </svg>
+                Sonido
+            </button>
+            <button id="subtitleBtn" class="subtitle-btn">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M2 2h12v1H2V2zm0 3h12v1H2V5zm0 3h8v1H2V8zm0 3h10v1H2v-1zm0 3h6v1H2v-1z"/>
+                </svg>
+                Subtítulos
+            </button>
+        </div>
+
+        <div class="info">
+            <h2>Información Técnica</h2>
+            <p>Este reproductor utiliza la biblioteca hls.js para reproducir contenido en formato HLS (HTTP Live Streaming), que es compatible con la mayoría de navegadores modernos.</p>
+            <p>El video se carga desde una fuente m3u8 proporcionada por Plex.</p>
+            <p><strong>Nota:</strong> El reproductor comienza con el audio silenciado por defecto. Use el botón "Sonido" para activar el audio.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>Reproductor de Video HLS &copy; 2023</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const videoPlayer = document.getElementById('videoPlayer');
+            const playBtn = document.getElementById('playBtn');
+            const pauseBtn = document.getElementById('pauseBtn');
+            const fullscreenBtn = document.getElementById('fullscreenBtn');
+            const volumeUpBtn = document.getElementById('volumeUpBtn');
+            const volumeDownBtn = document.getElementById('volumeDownBtn');
+            const skipBackBtn = document.getElementById('skipBackBtn');
+            const skipForwardBtn = document.getElementById('skipForwardBtn');
+            const muteBtn = document.getElementById('muteBtn');
+            const subtitleBtn = document.getElementById('subtitleBtn');
+            const statusMessage = document.getElementById('statusMessage');
+            const progressBar = document.getElementById('progressBar');
+
+            // Estado de los subtítulos
+            let subtitlesEnabled = false;
+
+            // Configurar video para comenzar silenciado
+            videoPlayer.muted = true;
+
+            // URL m3u8 actualizada
+            const videoUrl = "https://epg.provider.plex.tv/library/parts/643054b1fc3be59477853717-672948f0297d4ea7584a2e13/variant.m3u8?x-plex-token=_zDiC2dHfExoNA4JSYX-&x-plex-advertising-identifier=&x-plex-client-identifier=hrk5hcw7yda61vh7m5jj2ku3&x-plex-playback-id=p_fbf709f7-0ae3-4fab-807e-408c498b595d&x-plex-playback-session-id=7cd637e6-fbb3-4b1f-8004-91b365aa2c41&x-plex-session-id=185455e2-9b44-452f-83d0-38ed08698f18&x-plex-device=Windows&x-plex-device-name=Chrome&x-plex-advertising-donottrack=0&x-plex-drm=&x-plex-model=standalone&x-plex-platform=Chrome&x-plex-platform-version=142.0&x-plex-product=Plex+Web&x-plex-device-screen-resolution=690x695%2C1536x864&x-plex-device-vendor=&x-plex-version=4.152.0&x-plex-provider-streaming-start=1763245478&url=fa3b9d2b31521e5d63cad2c263888e5a-a01560ee198ed016106bc60653b3ce2ea13f96f225272d60b37ccf37475b10a98cc54aaf90db2393da50c66549251a22478b5f911ab8b851cc02ea65d851c79884ae6f541e687fd5546d069ca5693647e8b05ff900a8908180a55dcfeb43a076d1b29790c380ef73a76a5457adea366ecbdbe7429e1576847185d8da02d9b6f557b2e58b579502d7dec18e94cc9efbfbe66c1f4b6ba903e21ddcd67acc80a96ff2b9eadb5d9a031f4dd0d97775f9db5d2acd50e89c85057364798563b2a4c582";
+
+            // Configurar HLS.js para reproducir el stream HLS
+            if (Hls.isSupported()) {
+                statusMessage.textContent = "Cargando video HLS...";
+                statusMessage.className = "status loading";
+
+                const hls = new Hls({
+                    enableWorker: false,
+                    lowLatencyMode: true,
+                    backBufferLength: 90
+                });
+
+                hls.loadSource(videoUrl);
+                hls.attachMedia(videoPlayer);
+
+                hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                    statusMessage.textContent = "Video HLS cargado correctamente. Listo para reproducir.";
+                    statusMessage.className = "status success";
+
+                    // Intentar reproducción automática
+                    videoPlayer.play().catch(function(error) {
+                        console.log('Reproducción automática bloqueada:', error);
+                        statusMessage.textContent = "Video cargado. Haz clic en Reproducir para iniciar.";
+                    });
+                });
+
+                hls.on(Hls.Events.ERROR, function(event, data) {
+                    console.error('Error con HLS.js:', data);
+                    if (data.fatal) {
+                        switch(data.type) {
+                            case Hls.ErrorTypes.NETWORK_ERROR:
+                                statusMessage.textContent = "Error de red. Intentando recuperar...";
+                                hls.startLoad();
+                                break;
+                            case Hls.ErrorTypes.MEDIA_ERROR:
+                                statusMessage.textContent = "Error de medios. Intentando recuperar...";
+                                hls.recoverMediaError();
+                                break;
+                            default:
+                                statusMessage.textContent = "Error fatal. No se puede reproducir el video.";
+                                statusMessage.className = "status error";
+                                break;
+                        }
+                    }
+                });
+
+                // Actualizar barra de progreso
+                videoPlayer.addEventListener('timeupdate', function() {
+                    if (videoPlayer.duration) {
+                        const progress = (videoPlayer.currentTime / videoPlayer.duration) * 100;
+                        progressBar.style.width = progress + '%';
+                    }
+                });
+            } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+                // Soporte nativo para HLS (Safari)
+                videoPlayer.src = videoUrl;
+                statusMessage.textContent = "Utilizando soporte nativo para HLS (Safari).";
+                statusMessage.className = "status success";
+
+                videoPlayer.addEventListener('loadedmetadata', function() {
+                    statusMessage.textContent = "Video HLS cargado correctamente. Listo para reproducir.";
+
+                    // Intentar reproducción automática
+                    videoPlayer.play().catch(function(error) {
+                        console.log('Reproducción automática bloqueada:', error);
+                        statusMessage.textContent = "Video cargado. Haz clic en Reproducir para iniciar.";
+                    });
+                });
+
+                // Actualizar barra de progreso
+                videoPlayer.addEventListener('timeupdate', function() {
+                    if (videoPlayer.duration) {
+                        const progress = (videoPlayer.currentTime / videoPlayer.duration) * 100;
+                        progressBar.style.width = progress + '%';
+                    }
+                });
+            } else {
+                statusMessage.textContent = "Tu navegador no soporta la reproducción de video HLS.";
+                statusMessage.className = "status error";
+            }
+
+            // Reproducir video
+            playBtn.addEventListener('click', function() {
+                videoPlayer.play().catch(function(error) {
+                    console.error('Error al reproducir:', error);
+                    statusMessage.textContent = "Error al reproducir el video: " + error.message;
+                    statusMessage.className = "status error";
+                });
+            });
+
+            // Pausar video
+            pauseBtn.addEventListener('click', function() {
+                videoPlayer.pause();
+            });
+
+            // Pantalla completa
+            fullscreenBtn.addEventListener('click', function() {
+                if (videoPlayer.requestFullscreen) {
+                    videoPlayer.requestFullscreen();
+                } else if (videoPlayer.mozRequestFullScreen) {
+                    videoPlayer.mozRequestFullScreen();
+                } else if (videoPlayer.webkitRequestFullscreen) {
+                    videoPlayer.webkitRequestFullscreen();
+                } else if (videoPlayer.msRequestFullscreen) {
+                    videoPlayer.msRequestFullscreen();
+                }
+            });
+
+            // Control de volumen
+            volumeUpBtn.addEventListener('click', function() {
+                if (videoPlayer.volume < 1) {
+                    videoPlayer.volume = Math.min(1, videoPlayer.volume + 0.1);
+                }
+            });
+
+            volumeDownBtn.addEventListener('click', function() {
+                if (videoPlayer.volume > 0) {
+                    videoPlayer.volume = Math.max(0, videoPlayer.volume - 0.1);
+                }
+            });
+
+            // Saltar hacia adelante/atrás
+            skipBackBtn.addEventListener('click', function() {
+                videoPlayer.currentTime -= 10;
+            });
+
+            skipForwardBtn.addEventListener('click', function() {
+                videoPlayer.currentTime += 10;
+            });
+
+            // Silenciar/activar sonido
+            muteBtn.addEventListener('click', function() {
+                videoPlayer.muted = !videoPlayer.muted;
+                if (videoPlayer.muted) {
+                    muteBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M11 5L8 8 5 5H2v6h3l3-3 3 3h3V5h-3zM6 9H4V7h2v2z"/></svg>Sonido';
+                    muteBtn.classList.add('muted');
+                } else {
+                    muteBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M11 5L8 8 5 5H2v6h3l3-3 3 3h3V5h-3zM10 7v2l2-2h-2z"/></svg>Silenciar';
+                    muteBtn.classList.remove('muted');
+                }
+            });
+
+            // Control de subtítulos
+            subtitleBtn.addEventListener('click', function() {
+                // Los subtítulos incrustados no se pueden activar/desactivar programáticamente
+                // ya que forman parte del video. Este botón es principalmente informativo.
+                // En un caso real, si los subtítulos estuvieran en pistas separadas, aquí
+                // iría la lógica para activarlos/desactivarlos
+
+                statusMessage.textContent = subtitlesEnabled ?
+                    "Los subtítulos incrustados no se pueden desactivar ya que forman parte del video." :
+                    "Este video contiene subtítulos incrustados que no se pueden desactivar.";
+                statusMessage.className = "status loading";
+
+                // Simulamos un cambio de estado visual aunque no sea funcional
+                subtitlesEnabled = !subtitlesEnabled;
+                subtitleBtn.style.backgroundColor = subtitlesEnabled ? "#4a148c" : "#7b1fa2";
+
+                // Ocultar el mensaje después de 3 segundos
+                setTimeout(() => {
+                    statusMessage.textContent = "Video HLS cargado correctamente. Listo para reproducir.";
+                    statusMessage.className = "status success";
+                }, 3000);
+            });
+
+            // Control de teclado
+            document.addEventListener('keydown', function(e) {
+                // Espacio para pausar/reproducir
+                if (e.code === 'Space') {
+                    e.preventDefault();
+                    if (videoPlayer.paused) {
+                        videoPlayer.play().catch(function(error) {
+                            console.error('Error al reproducir:', error);
+                            statusMessage.textContent = "Error al reproducir el video: " + error.message;
+                            statusMessage.className = "status error";
+                        });
+                    } else {
+                        videoPlayer.pause();
+                    }
+                }
+
+                // F para pantalla completa
+                if (e.code === 'KeyF') {
+                    e.preventDefault();
+                    if (videoPlayer.requestFullscreen) {
+                        videoPlayer.requestFullscreen();
+                    } else if (videoPlayer.mozRequestFullScreen) {
+                        videoPlayer.mozRequestFullScreen();
+                    } else if (videoPlayer.webkitRequestFullscreen) {
+                        videoPlayer.webkitRequestfullscreen();
+                    } else if (videoPlayer.msRequestFullscreen) {
+                        videoPlayer.msRequestFullscreen();
+                    }
+                }
+
+                // Flecha izquierda para retroceder 10 segundos
+                if (e.code === 'ArrowLeft') {
+                    e.preventDefault();
+                    videoPlayer.currentTime -= 10;
+                }
+
+                // Flecha derecha para avanzar 10 segundos
+                if (e.code === 'ArrowRight') {
+                    e.preventDefault();
+                    videoPlayer.currentTime += 10;
+                }
+
+                // Flecha arriba para subir volumen
+                if (e.code === 'ArrowUp') {
+                    e.preventDefault();
+                    if (videoPlayer.volume < 1) {
+                        videoPlayer.volume = Math.min(1, videoPlayer.volume + 0.1);
+                    }
+                }
+
+                // Flecha abajo para bajar volumen
+                if (e.code === 'ArrowDown') {
+                    e.preventDefault();
+                    if (videoPlayer.volume > 0) {
+                        videoPlayer.volume = Math.max(0, videoPlayer.volume - 0.1);
+                    }
+                }
+
+                // M para silenciar
+                if (e.code === 'KeyM') {
+                    e.preventDefault();
+                    muteBtn.click();
+                }
+
+                // S para subtítulos
+                if (e.code === 'KeyS') {
+                    e.preventDefault();
+                    subtitleBtn.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

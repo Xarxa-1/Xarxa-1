@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="es"><meta name="theme-color" content="#c2c800">   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <meta charset="UTF-8"><meta name="theme-color" content="#c2c800">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trance Latin Party</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #121212;
+            color: #f0f0f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: #1a1a1a;
+            padding: 15px 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            padding: 20px;
+            width: 100%;
+        }
+
+        .video-container {
+            width: 100%;
+            max-width: 1200px;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            background-color: #000;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        button:hover {
+            background-color: #444;
+        }
+
+        button:active {
+            background-color: #555;
+        }
+
+        .fullscreen-btn {
+            background-color: #0066cc;
+        }
+
+        .fullscreen-btn:hover {
+            background-color: #0055aa;
+        }
+
+        .info {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+            color: #f0f0f0;
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        footer {
+            background-color: #1a1a1a;
+            text-align: center;
+            padding: 15px;
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        .status {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .loading {
+            background-color: #2d2d2d;
+            color: #f0f0f0;
+        }
+
+        .error {
+            background-color: #5a1e1e;
+            color: #ff6b6b;
+        }
+
+        .success {
+            background-color: #1e3a2d;
+            color: #6bff8d;
+        }
+
+        .progress-container {
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 15px;
+            background-color: #333;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background-color: #0066cc;
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            .video-container {
+                border-radius: 0;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            button {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body><!--
+    <header>
+        <h1>Reproductor de Video HLS con Fondo Oscuro</h1>
+    </header>-->
+
+    <div class="container">
+        <div class="video-container">
+            <video id="videoPlayer" controls></video>
+        </div>
+
+        <div class="progress-container">
+            <div id="progressBar" class="progress-bar"></div>
+        </div>
+
+        <div id="statusMessage" class="status loading">
+            Inicializando reproductor HLS...
+        </div>
+
+        <div class="controls">
+            <button id="playBtn">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M3 2v12l10-6z"/>
+                </svg>
+                Reproducir
+            </button>
+            <button id="pauseBtn">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <rect x="3" y="2" width="3" height="12"/>
+                    <rect x="10" y="2" width="3" height="12"/>
+                </svg>
+                Pausar
+            </button>
+            <button id="fullscreenBtn" class="fullscreen-btn">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M1 1v6h1V2h5V1H1zm7 0v1h5v5h1V1H8zM1 8v7h7v-1H2V8H1zm7 1v6h7V9H8z"/>
+                </svg>
+                Pantalla Completa
+            </button>
+            <button id="volumeUpBtn">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M11 5L8 8 5 5H2v6h3l3-3 3 3h3V5h-3zM10 7v2l2-2h-2z"/>
+                </svg>
+                Volumen +
+            </button>
+            <button id="volumeDownBtn">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M11 5L8 8 5 5H2v6h3l3-3 3 3h3V5h-3zM6 9H4V7h2v2z"/>
+                </svg>
+                Volumen -
+            </button>
+            <button id="muteBtn">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M11 5L8 8 5 5H2v6h3l3-3 3 3h3V5h-3zM6 9H4V7h2v2z"/>
+                </svg>
+                Activar Sonido
+            </button>
+        </div>
+
+        <div class="info">
+            <h2>Información Técnica</h2>
+            <p>Este reproductor utiliza la biblioteca hls.js para reproducir contenido en formato HLS (HTTP Live Streaming), que es compatible con la mayoría de navegadores modernos.</p>
+            <p>El video se carga desde una fuente m3u8 proporcionada por Plex.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>Reproductor de Video HLS &copy; 2023</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const videoPlayer = document.getElementById('videoPlayer');
+            const playBtn = document.getElementById('playBtn');
+            const pauseBtn = document.getElementById('pauseBtn');
+            const fullscreenBtn = document.getElementById('fullscreenBtn');
+            const volumeUpBtn = document.getElementById('volumeUpBtn');
+            const volumeDownBtn = document.getElementById('volumeDownBtn');
+            const muteBtn = document.getElementById('muteBtn');
+            const statusMessage = document.getElementById('statusMessage');
+            const progressBar = document.getElementById('progressBar');
+
+            // Configurar video para comenzar silenciado
+            videoPlayer.muted = true;
+
+            // URL m3u8 proporcionada
+            const videoUrl = "https://epg.provider.plex.tv/library/parts/643054b1fc3be59477853717-63226c03e67cf9cd9011fcdf/variant.m3u8?x-plex-token=_zDiC2dHfExoNA4JSYX-&x-plex-advertising-identifier=&x-plex-client-identifier=hrk5hcw7yda61vh7m5jj2ku3&x-plex-playback-id=p_1f0a42bb-6224-4f57-b6c9-3436ae553a07&x-plex-playback-session-id=85084757-8550-409a-853a-bc40e5377fd9&x-plex-session-id=185455e2-9b44-452f-83d0-38ed08698f18&x-plex-device=Windows&x-plex-device-name=Chrome&x-plex-advertising-donottrack=0&x-plex-drm=&x-plex-model=standalone&x-plex-platform=Chrome&x-plex-platform-version=142.0&x-plex-product=Plex+Web&x-plex-device-screen-resolution=1536x695%2C1536x864&x-plex-device-vendor=&x-plex-version=4.152.0&x-plex-provider-streaming-start=1763242791&url=e1f441f3f89b8288c8e04d68eb37981d-4e741507d444ff722fa30e872508fa045b9c1ef2afa527afbac3387248e68790751abe3ca4d349ebaefd09263c72aeb583cd5b87a32b6178214e2115edcaa2bbf1248ccbdecc49174840e2093b594c6d5956c8925750a320cc36bec417b84a9551e0bad9f7a79019a4517369cffc3e702165445302ed7b751c82ff6433a29add59409193df39da91ef9d92fec7fba36989a46d940007951fe9d2b4c48a8fcd8ad5ac9f35d49f848794c5e964cb7c25f865241985a0304ad85fd15227f63c294771d51cbd693f7d102c5ef05d3a303af6d05f29e01e92fd3149a457cf16bcfa061181457bcdbdb88909ab1e80291743c2c3e80d405c4ec908ab62df2fe0b3ff74f427998353c350b614f19a2b8a1bd6a1e821f7e670df827d035c1d66456cfb12e5a305cdac42053f6a9fb3a1b8ec6e15ca224c7ebaee1b63d3849e391f82216270dcad16f91fc7ce9dec0b80bbb1ba873beb78bf18a82cbf73bfee42f4802f0e9288c785a966efa051f674ada9b4346a1ac8cbc1abee69ade18f2b54093a579136702e006678433bf76a56e2f758068efd4ba68f20a21f6b6506ecbfa987a2870f8b60cbf01a0a18d6a03b389021a6abe5ac32faa85bd6edb355efe157847a140073283b7056dc122e0c880165ba370c793f8e157ad51ac69aef1bee2e986f00ad51e1352254b413ee442d785639790f0bc7d8f36e3e31579aa3b9f456403550e31c4f2ff98c3147b2730bab1a5f8446f0d63ae959a7024f60fa3e23f6c49bd731c0422fd5aa67dfe549e530d984b0f2609db183d18fefa9225f5a08d4cf5ce91c4b96cb032a4a04cad5325bec5123c0597cb3ba5e68268ec6e249bc4093eadfa361b5bb74596814d3e6ea312849ec39a0ac189f35de1d3fd9f990182f00abffe3bdbaa633d876b6e42950ee5a1c84d67507b1d846e9a91750368af8062b896232bed665e37f27f60a7780ac52ac992717ea7e2e6e1206548120aee4aff7abbf7d563c0b3cc5de0f7363fba75414fdd687ffa8c93a583a5bb82f8f95353ced70fa9abc202e45560fc58c15637d373c7ee16929118d581d1cc1cbb569f8a2c20007c5040eeea66e80b703636e600dd671c5c9daf86f58afc8a85d8f5134ebe2c186be68f05662d4ff8311981c0e0f6eef2604a24f5dd7342e64958420df9c44dbdb0aca3d0c4989e5af80deaa40efbcf0e790a61be92cf53de3478fa4bcfe150ba88c1b78049d722d6bfee2396ae6b38ccd6d0b02355af30d255156290587e25ef1d57ef53d10a29ab8cfb05ea0ba4d0744041c683a5987763031953da71b0268e71827cf73efe7319672b9bf0877a7621cdf403e7b07abf9dc8b92da80f4315cd5da6416261ce57ce7f288c1cb2e7b4d2dbc46af2742df70ff4bd2131b65cc4b2d103bc9a6a4b730df15d21cddad1d20882d6a06e14832cfc99957bf5a033088634b502e0611883b9d6df3ae28300952cda6e9c7b0bcdfdd9ca2bdeb244063022e3ea677a6343fb7589141598163376e5502fbef52e0b49343502a0a28d68cd9bbaddba9096bc215880fb72ebf5014ee76e2a5d8c29d2443e713131925a4870c13f1a95ead858650f67b5699eff3494eb40dcae0308afa23448fc8314c9b1a48608e213b1ed8b59046179b0c34d21dc0a59babe7ab26c1eb051142a710d4e5afc97bea616793bce7b1999ddf2e3025bc59f0a0a2f12f20f6fd646654a954884840a163bfb18573abc0a7a02344326f0bd93be56854a964d5ae4dc147e87572e4f87bd2d876e2ce405e130024d11842e8a51218547b01c60bf766bf6d72e46a70bc1c1d8f00bbcde45de20d4e7f568a431da3c7a21d384d0c35022609d0149d49b34e9f492b3ab7745d16544c2901b7bca7d82cfd12efc74ee4487b9d378de26c94f85866de0467554c05cbb129862fe679888e1fd5626bf110862265378539ffd13b83bf4841bffd3ef9548e2a235786c1ccee4b655d483b68a0b07eabf82def0676f63e9248c45f2f3a3294d98aed13eb540a840912c1eb5f4f0c8747e56d896591027680172bdb1851640c224b0dbb6856c8e3dcfb8393c71d22004c75ac55a27bca598e2e1e18527f99169834977b35680b093112878dfc868101b941f2e68c46865e87d1babdb94e4126a36198a833ebc7655a9a117f223ad0317d99684ff91af1201363cf3c3aae57041d28b8ec1884f381c4260a06b225c84b4f270d5430cb3429477e5f5105e6bd4fa73fbe45111f4896797ad71047b60a1dcb825577e7550149b27d0aea93ceff4587839aeff81a11f8e3217f99919b1570375064bbabe4041466bb484c6816c98a55fd29aadea6cffef6480c1db0e27e593221b3c458657b68790f3c20ad98c2285ca5c4b22e572bf3be5fd6408efc3471f6d72be52bbfb04d77861ef47c2fbdede6fb3803b3761f0d38687d24eb99cf74d893b80e264d9206e870ac5a9a05bb3cda6e94ec";
+
+            // Configurar HLS.js para reproducir el stream HLS
+            if (Hls.isSupported()) {
+                statusMessage.textContent = "Cargando video HLS...";
+                statusMessage.className = "status loading";
+
+                const hls = new Hls({
+                    enableWorker: false,
+                    lowLatencyMode: true,
+                    backBufferLength: 90
+                });
+
+                hls.loadSource(videoUrl);
+                hls.attachMedia(videoPlayer);
+
+                hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                    statusMessage.textContent = "Video HLS cargado correctamente. Listo para reproducir.";
+                    statusMessage.className = "status success";
+
+                    // Intentar reproducción automática
+                    videoPlayer.play().catch(function(error) {
+                        console.log('Reproducción automática bloqueada:', error);
+                        statusMessage.textContent = "Video cargado. Haz clic en Reproducir para iniciar.";
+                    });
+                });
+
+                hls.on(Hls.Events.ERROR, function(event, data) {
+                    console.error('Error con HLS.js:', data);
+                    if (data.fatal) {
+                        switch(data.type) {
+                            case Hls.ErrorTypes.NETWORK_ERROR:
+                                statusMessage.textContent = "Error de red. Intentando recuperar...";
+                                hls.startLoad();
+                                break;
+                            case Hls.ErrorTypes.MEDIA_ERROR:
+                                statusMessage.textContent = "Error de medios. Intentando recuperar...";
+                                hls.recoverMediaError();
+                                break;
+                            default:
+                                statusMessage.textContent = "Error fatal. No se puede reproducir el video.";
+                                statusMessage.className = "status error";
+                                break;
+                        }
+                    }
+                });
+
+                // Actualizar barra de progreso
+                videoPlayer.addEventListener('timeupdate', function() {
+                    if (videoPlayer.duration) {
+                        const progress = (videoPlayer.currentTime / videoPlayer.duration) * 100;
+                        progressBar.style.width = progress + '%';
+                    }
+                });
+            } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+                // Soporte nativo para HLS (Safari)
+                videoPlayer.src = videoUrl;
+                statusMessage.textContent = "Utilizando soporte nativo para HLS (Safari).";
+                statusMessage.className = "status success";
+
+                videoPlayer.addEventListener('loadedmetadata', function() {
+                    statusMessage.textContent = "Video HLS cargado correctamente. Listo para reproducir.";
+
+                    // Intentar reproducción automática
+                    videoPlayer.play().catch(function(error) {
+                        console.log('Reproducción automática bloqueada:', error);
+                        statusMessage.textContent = "Video cargado. Haz clic en Reproducir para iniciar.";
+                    });
+                });
+
+                // Actualizar barra de progreso
+                videoPlayer.addEventListener('timeupdate', function() {
+                    if (videoPlayer.duration) {
+                        const progress = (videoPlayer.currentTime / videoPlayer.duration) * 100;
+                        progressBar.style.width = progress + '%';
+                    }
+                });
+            } else {
+                statusMessage.textContent = "Tu navegador no soporta la reproducción de video HLS.";
+                statusMessage.className = "status error";
+            }
+
+            // Reproducir video
+            playBtn.addEventListener('click', function() {
+                videoPlayer.play().catch(function(error) {
+                    console.error('Error al reproducir:', error);
+                    statusMessage.textContent = "Error al reproducir el video: " + error.message;
+                    statusMessage.className = "status error";
+                });
+            });
+
+            // Pausar video
+            pauseBtn.addEventListener('click', function() {
+                videoPlayer.pause();
+            });
+
+            // Pantalla completa
+            fullscreenBtn.addEventListener('click', function() {
+                if (videoPlayer.requestFullscreen) {
+                    videoPlayer.requestFullscreen();
+                } else if (videoPlayer.mozRequestFullScreen) {
+                    videoPlayer.mozRequestFullScreen();
+                } else if (videoPlayer.webkitRequestFullscreen) {
+                    videoPlayer.webkitRequestFullscreen();
+                } else if (videoPlayer.msRequestFullscreen) {
+                    videoPlayer.msRequestFullscreen();
+                }
+            });
+
+            // Control de volumen
+            volumeUpBtn.addEventListener('click', function() {
+                if (videoPlayer.volume < 1) {
+                    videoPlayer.volume = Math.min(1, videoPlayer.volume + 0.1);
+                }
+            });
+
+            volumeDownBtn.addEventListener('click', function() {
+                if (videoPlayer.volume > 0) {
+                    videoPlayer.volume = Math.max(0, videoPlayer.volume - 0.1);
+                }
+            });
+
+            // Control de mute
+            muteBtn.addEventListener('click', function() {
+                videoPlayer.muted = !videoPlayer.muted;
+                muteBtn.innerHTML = videoPlayer.muted ?
+                    '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M11 5L8 8 5 5H2v6h3l3-3 3 3h3V5h-3zM6 9H4V7h2v2z"/></svg>Activar Sonido' :
+                    '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M11 5L8 8 5 5H2v6h3l3-3 3 3h3V5h-3zM10 7v2l2-2h-2z"/></svg>Silenciar';
+            });
+
+            // Control de teclado
+            document.addEventListener('keydown', function(e) {
+                // Espacio para pausar/reproducir
+                if (e.code === 'Space') {
+                    e.preventDefault();
+                    if (videoPlayer.paused) {
+                        videoPlayer.play().catch(function(error) {
+                            console.error('Error al reproducir:', error);
+                            statusMessage.textContent = "Error al reproducir el video: " + error.message;
+                            statusMessage.className = "status error";
+                        });
+                    } else {
+                        videoPlayer.pause();
+                    }
+                }
+
+                // F para pantalla completa
+                if (e.code === 'KeyF') {
+                    e.preventDefault();
+                    if (videoPlayer.requestFullscreen) {
+                        videoPlayer.requestFullscreen();
+                    } else if (videoPlayer.mozRequestFullScreen) {
+                        videoPlayer.mozRequestFullScreen();
+                    } else if (videoPlayer.webkitRequestFullscreen) {
+                        videoPlayer.webkitRequestFullscreen();
+                    } else if (videoPlayer.msRequestFullscreen) {
+                        videoPlayer.msRequestFullscreen();
+                    }
+                }
+
+                // Flecha izquierda para retroceder 10 segundos
+                if (e.code === 'ArrowLeft') {
+                    e.preventDefault();
+                    videoPlayer.currentTime -= 10;
+                }
+
+                // Flecha derecha para avanzar 10 segundos
+                if (e.code === 'ArrowRight') {
+                    e.preventDefault();
+                    videoPlayer.currentTime += 10;
+                }
+
+                // Flecha arriba para subir volumen
+                if (e.code === 'ArrowUp') {
+                    e.preventDefault();
+                    if (videoPlayer.volume < 1) {
+                        videoPlayer.volume = Math.min(1, videoPlayer.volume + 0.1);
+                    }
+                }
+
+                // Flecha abajo para bajar volumen
+                if (e.code === 'ArrowDown') {
+                    e.preventDefault();
+                    if (videoPlayer.volume > 0) {
+                        videoPlayer.volume = Math.max(0, videoPlayer.volume - 0.1);
+                    }
+                }
+
+                // M para silenciar/activar sonido
+                if (e.code === 'KeyM') {
+                    e.preventDefault();
+                    videoPlayer.muted = !videoPlayer.muted;
+                    muteBtn.innerHTML = videoPlayer.muted ?
+                        '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M11 5L8 8 5 5H2v6h3l3-3 3 3h3V5h-3zM6 9H4V7h2v2z"/></svg>Activar Sonido' :
+                        '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M11 5L8 8 5 5H2v6h3l3-3 3 3h3V5h-3zM10 7v2l2-2h-2z"/></svg>Silenciar';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

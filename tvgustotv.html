@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html><meta name="theme-color" content="#c2c800">   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <title>GUSTOTV</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <style>
+      body {
+        background-color: #121212; /* fons fosc */
+        color: #ffffff; /* text clar per contrast */
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden; /* Evita les barres de desplaçament */
+      }
+      .video-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      video {
+        width: 100%;
+        height: 100%;
+        object-fit: contain; /* Manté les proporcions i mostra tot el vídeo */
+        background-color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="video-container">
+      <video id="video" controls></video>
+    </div>
+    <script>
+      var video = document.getElementById('video');
+      // Configurar video para comenzar silenciado
+      video.muted = true;
+
+      var m3u8Url = "643054b1fc3be59477853717-5f8746eabd529300418246d9/variant.m3u8?x-plex-token=MqsphtsARNzyD6DPcGmH&x-plex-advertising-identifier=&x-plex-client-identifier=c76dfb0b-a6e3-4c26-85ff-c4737e876fba&x-plex-playback-id=p_37640f12-0909-4031-b413-09596a87a14b&x-plex-playback-session-id=&x-plex-session-id=&x-plex-device=Windows&x-plex-device-name=Plex+Mediaverse&x-plex-advertising-donottrack=0&x-plex-drm=&x-plex-model=&x-plex-platform=Chrome&x-plex-platform-version=142.0.0.0&x-plex-product=Plex+Mediaverse&x-plex-device-screen-resolution=&x-plex-device-vendor=&x-plex-version=&x-plex-provider-streaming-start=1763231019&url=18b85d6591bc6512f291b209f1043635-1cb2a95dc011ab4e0ad9419f67daf450e6776e03fabb2a9e899a26413baf07d42a6a33e1788872fc52c6948a73baf4ff0f92afc400db0040a1d65577516edfc3edabef5cd77af56f1a622f59222611579db3d4c638d0b7f500a946ee62a714bc1a862842b1a1994c7b34406c361ac4c604143369ba6d2c5c334d4fbb921696c5166f0542bcc7937acb63d524133ac10d2b67eaa32d2675fef60a059fb5d5b2ec1bfc58d3ab0fceeb396a02864152ab9e906c23cef5334f67f938969b60fd871d3e6e9714507e57e4b73db0b1832a658257ccc383ffe99ec3fade9d0826b5353521b6a1463a30bb45aa9954fbc81f6296e662954fb29df592682d33b3557c8227c65778bc93450e67ec5a5a52aed3bc62642a39aa345f4991b31da6d71ddf7e352dbe2d418395207fa9a8f0ecf61ba76eb0f0b217d96b150714cef725c354e3ed3aacad67cedb4f636c513534af9e974677fa5adbcf2eddcfb0e8109bfa5f06f5ab437215d108559988db18b141b5f8146dfce8bade9d8c418545a3ae62c266a81ff95011f8b16ca695f609537b939c2fad11fb0d3b1010a084f8ee67693db5bd2b0828aad4c77103e2619e58e5c29946a712e4ddd3b0c7fc0facf4541af999afa0b42d5e216b68e696d891b39bf8e6b9cb0cfd1d7522510563071378294a74fc4d77ce9d87e8500d315bb804bcc0fce0b2f6e3c6d043d5db8b20e21b2b99781afd9bee778abd37d9e36247625f864515fc9d2ee3d0395d39386b7199092915fcdd2953ad00422377df923a299e147f82077c173a654d49875ed967c16e42ecbe3453d3f980c675f77feff16657e12225256912d8f8fc31c68cde10b0ef620a3845d6787617653e8082467a6fcf39cfc61a3ccd7cd12fa7583ec0592b1032d7ea01427f52c3f8c4414ab4e026f785217cf043cec55887d6017d74416628413737ced4e3b32a4cd5d828e193b937c2c3aa23019b9ae4a7c1341d968203de689106fa48c6cd2f2eb71a95f7b562b0a7269566507187ec6695f00627199ace5e45e2648df7c53edcfb1cdfa6d1348cdb3ff705e48ba4970cc041584028debaf6625a6ca200b1193ce1f46ddc18ef85796dc8192b7faccba8a9894ca452e766208f817f7643c1da486e61b19df0608bda9aee4f83e8b8f547c127c4aa9b877e4220cda652fc966d0720d1788d46d1ac1e9cac632e8b5e89ec97d7b164bbf59b380e90dd7eb8635c0eb4b9c79c369a7b986c1b658404da5aa3373aa7b382476ab1b009f483be6625de0592a5e48c8bdb5daccd10561d5645938704ec57a06ad1164d34e8b254db91dbc2e06c7da01eeef348da1106ea71eb04dafa162aa21be1b68d541e2ea3b62cde80d187b498e041bc548586a6d5eb3b77d5888251f6d190b44a6e691b9d192036c17475248111e614d02b67f41717eac82dac6b56b4164f3df1cde049ab4ecfb312ded7498ba92259bbdca696e87f01b398ff53e49d545de1006ed62e9eb0ff8519da500dade1cba3771bb6964cd43100c2c1902fce3baad3a482f7d8355cdacf448f1726ad6b97e39691a94943f53c6d3d0a9cdb14b1abe2d83e0e71cce26abe66b9f3315dac92353295901071cfc127550e804b4e4239c6fc7c38e147e1cb7a07ff080121e29e21b094ec3c85ea9dd4bab295a06e44a7d4b59e51068402fe9a1985ce6fd16838bd4d106fcc3d6af9967e3e3bdc368eb0ac00fff99d6e2c0f84a621037208d1c2559452714341c374361132ea806821c45991b23e6deeb14a3c7acb4f10b5b5e9bbdbf4e81c0d22449275cede2f7177f688e61f857132c1bb22f40b3d27f170784ef91a5cad5920524571f4732a87e1e488b782f77204ac3e9c9884afc9c896e6c865fbe5624f04ce366ae04bed7c1be4f5ba974093edd75023d96cc8eac1348c9dbf8ec6e291452dfe57b0c75fe87e5eb24e91f14a4b285c3903e5206f0dd6a3f8d6a57f192ad6836d807116efd52284c7e1ad1bf264b8f0f08c376ddfcbf4c54f1a088d450db4b61813410df499442aff414a6f77cf641bd7c8a6f0dc100189121a8531b4fd8b6457e2ec232718a4bae5e1d2d92d6a68fd1c23df91a312566b31a76bca9eb83c731c8a2b134d1d08077fc26712dab4a3a077d1d6c911b247d96ce820786dc5dd13dced0bbbb89d786d5ef470dca8f5cdaebcd3a09b4e3e93b31e043d56364ac347e64f385bb6b6ede0716914dd410398d2846366781a2400fb6036794f9f2989aac48dd84536ff5071070ec0dcfbfbca98badfc459949eab16b5280b28a27d7f93b21ad30a2d63d4310aa129170cbecae3c6af304586e945007c9bd7493e1d1303996c32274dbc62358de54e5e619e6e38ca534ca2f4f258178286e1b167641eeefc51243008d9b39a7475ace57e9aae1e97b4c50eb17b6cc6aa649a";
+      if (Hls.isSupported()) {
+        var hls = new Hls();
+        hls.loadSource(m3u8Url);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, function() {
+          video.play();
+        });
+      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = m3u8Url;
+        video.addEventListener('loadedmetadata', function() {
+          video.play();
+        });
+      }
+    </script>
+  </body>
+</html>
