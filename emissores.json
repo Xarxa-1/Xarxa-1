@@ -4,7 +4,7 @@
   { "name": "Espluga FM Ràdio", "url": "https://relay.stream.enacast-cloud.com:40319/esplugafmHD.mp3", "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXqXmPg1EAVWBEd0r22iNCu1uv5K95a2C7gWIJkhuxcsCkydjPe-_fkTKOyQ&s" },
   { "name": "Ràdio Borges", "url": "https://nodo102.liveradio.com.es/8030/stream", "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSj77WahI4xb_MKmLkevDEJfjgycVL34r2O6XVUeJt7_Gi1R9rMabM-C7XNpg&s"},
   { "name": "Ràdio Montblanc", "url": "http://relay.stream.enacast-cloud.com:30045/radiomontblanc56.mp3", "logo": "https://pbs.twimg.com/profile_images/3780121799/bb6b214b85614c9e167e3207af6accfa.jpeg" },
-  { "name": "Hit103 Valls", "playlist": "https://api.instant.audio/data/playlist/38/hit-103", url": "https://streaming.enacast.com/radiovalls128.mp3", "logo": "https://pbs.twimg.com/profile_images/1438766759813787653/EM_oF1FH.jpg" },
+  { "name": "Hit103 Valls", "playlist": "https://api.instant.audio/data/playlist/38/hit-103", "url": "https://streaming.enacast.com/radiovalls128.mp3", "logo": "https://pbs.twimg.com/profile_images/1438766759813787653/EM_oF1FH.jpg" },
   { "name": "Tarragona Ràdio", "url": "http://relay.stream.enacast-cloud.com:30007/tarragona56.mp3", "logo": "https://www.tarragonaradio.cat/wp-content/uploads/2021/02/logo-tarragona-radio-footer.png" },
   { "name": "Ser Catalunya", "url": "https://25483.live.streamtheworld.com/SER_CATAAC.aac", "logo": "https://cdn-profiles.tunein.com/p1830031/images/logod.png" },
   { "name": "Lleida Ràdio Ua1", "url": "http://panel5.soydigital.fm/8032/stream", "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKBmtbu8i1oORV8JfMLLqN1FRL1vXDvHKj_yQ26b3GH0Y_QbCwAM10lh09zQ&s" },
@@ -33,4 +33,5 @@
   { "name": "The Sound of Silence - Disturbed [Cyril Remix 2024]", "url": "https://xarxa-1.github.io/Xarxa-1/The Sound of Silence - Disturbed [Cyril Remix 2024].mp3", "logo": "" },
   { "name": "BBC World Service", "url": "http://stream.live.vc.bbcmedia.co.uk/bbc_world_service", "logo": "https://asianlite.ae/wp-content/uploads/2018/09/JtNS_gjE_400x400.jpg" }
 ]
+
 
