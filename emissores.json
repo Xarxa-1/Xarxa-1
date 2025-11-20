@@ -9,7 +9,7 @@
   { "name": "Ser Catalunya", "url": "https://25483.live.streamtheworld.com/SER_CATAAC.aac", "logo": "https://cdn-profiles.tunein.com/p1830031/images/logod.png" },
   { "name": "Lleida Ràdio Ua1", "url": "http://panel5.soydigital.fm/8032/stream", "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKBmtbu8i1oORV8JfMLLqN1FRL1vXDvHKj_yQ26b3GH0Y_QbCwAM10lh09zQ&s" },
   { "name": "Ràdio Ponent", "url": "http://relay.stream.enacast-cloud.com:30305/radioponentSD.mp3", "logo": "https://pbs.twimg.com/profile_images/1176595590521769984/PQOPtUsi.jpg" },
-  { "name": "Flaix FM",  "playlist": "https://api.instant.audio/data/playlist/38/falix-barcelona", url": "https://stream.flaixfm.cat/icecast", "logo": "https://static.mytuner.mobi/media/radios-150px/275/flaix-fm.a95b9f21.png" },
+  { "name": "Flaix FM",  "playlist": "https://api.instant.audio/data/playlist/38/falix-barcelona", "url": "https://stream.flaixfm.cat/icecast", "logo": "https://static.mytuner.mobi/media/radios-150px/275/flaix-fm.a95b9f21.png" },
   { "name": "Flaixbac", "playlist": "https://api.instant.audio/data/playlist/38/flaixbac", "url": "https://stream.flaixbac.cat/icecast", "logo": "https://static.mytuner.mobi/media/radios-150px/274/flaixbac.f6d8cd83.jpg" },
   { "name": "RAC105", "playlist": "https://api.instant.audio/data/playlist/38/rac1", "url": "https://23553.live.streamtheworld.com/RAC105AAC/HLS/playlist.m3u8", "logo": "https://static.mytuner.mobi/media/radios-150px/616/rac-105.a84bf07c.jpg" },
   { "name": "Catalunya Ràdio", "url": "https://shoutcast.ccma.cat/ccma/catalunyaradioHD.mp3", "logo": "https://static.mytuner.mobi/media/radios-150px/876/catalunya-radio-directe.c8154d75.png" },
@@ -34,4 +34,5 @@
   { "name": "BBC World Service", "url": "http://stream.live.vc.bbcmedia.co.uk/bbc_world_service", "logo": "https://asianlite.ae/wp-content/uploads/2018/09/JtNS_gjE_400x400.jpg" }
 ]
  
+
  
