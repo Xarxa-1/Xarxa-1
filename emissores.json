@@ -1,6 +1,11 @@
 [
   { "name": "RAC1", "playlist": "https://api.instant.audio/data/playlist/38/rac1", "url": "https://20103.live.streamtheworld.com/RAC_1.mp3", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Logotip_de_RAC_1.svg/1200px-Logotip_de_RAC_1.svg.png" },
   { "name": "RAC+1", "url": "https://25633.live.streamtheworld.com/RAC_MES_1.mp3", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Logotip_de_RAC_1.svg/1200px-Logotip_de_RAC_1.svg.png" },
+  { "name": "Flaix FM",  "playlist": "https://api.instant.audio/data/playlist/38/falix", "url": "https://stream.flaixfm.cat/icecast", "logo": "https://static.mytuner.mobi/media/radios-150px/275/flaix-fm.a95b9f21.png" },
+  { "name": "Flaixbac", "playlist": "https://api.instant.audio/data/playlist/38/flaixbac", "url": "https://stream.flaixbac.cat/icecast", "logo": "https://static.mytuner.mobi/media/radios-150px/274/flaixbac.f6d8cd83.jpg" },
+  { "name": "RAC105", "playlist": "https://api.instant.audio/data/playlist/38/rac-105", "url": "https://23553.live.streamtheworld.com/RAC105AAC/HLS/playlist.m3u8", "logo": "https://static.mytuner.mobi/media/radios-150px/616/rac-105.a84bf07c.jpg" },
+  { "name": "Catalunya Ràdio", "playlist": "https://api.instant.audio/data/playlist/38/catalunya", "url": "https://shoutcast.ccma.cat/ccma/catalunyaradioHD.mp3", "logo": "https://static.mytuner.mobi/media/radios-150px/876/catalunya-radio-directe.c8154d75.png" },
+  { "name": "Catalunya Informació", "url": "https://shoutcast.ccma.cat/ccma/catalunyainformacioHD.mp3", "logo": "https://static.mytuner.mobi/media/tvos_radios/AHxQzFyFbJ.png" },
   { "name": "Espluga FM Ràdio", "url": "https://relay.stream.enacast-cloud.com:40319/esplugafmHD.mp3", "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXqXmPg1EAVWBEd0r22iNCu1uv5K95a2C7gWIJkhuxcsCkydjPe-_fkTKOyQ&s" },
   { "name": "Ràdio Borges", "url": "https://nodo102.liveradio.com.es/8030/stream", "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSj77WahI4xb_MKmLkevDEJfjgycVL34r2O6XVUeJt7_Gi1R9rMabM-C7XNpg&s"},
   { "name": "Ràdio Montblanc", "url": "http://relay.stream.enacast-cloud.com:30045/radiomontblanc56.mp3", "logo": "https://pbs.twimg.com/profile_images/3780121799/bb6b214b85614c9e167e3207af6accfa.jpeg" },
@@ -9,11 +14,6 @@
   { "name": "Ser Catalunya", "url": "https://25483.live.streamtheworld.com/SER_CATAAC.aac", "logo": "https://cdn-profiles.tunein.com/p1830031/images/logod.png" },
   { "name": "Lleida Ràdio Ua1", "url": "http://panel5.soydigital.fm/8032/stream", "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKBmtbu8i1oORV8JfMLLqN1FRL1vXDvHKj_yQ26b3GH0Y_QbCwAM10lh09zQ&s" },
   { "name": "Ràdio Ponent", "url": "http://relay.stream.enacast-cloud.com:30305/radioponentSD.mp3", "logo": "https://pbs.twimg.com/profile_images/1176595590521769984/PQOPtUsi.jpg" },
-  { "name": "Flaix FM",  "playlist": "https://api.instant.audio/data/playlist/38/falix-barcelona", "url": "https://stream.flaixfm.cat/icecast", "logo": "https://static.mytuner.mobi/media/radios-150px/275/flaix-fm.a95b9f21.png" },
-  { "name": "Flaixbac", "playlist": "https://api.instant.audio/data/playlist/38/flaixbac", "url": "https://stream.flaixbac.cat/icecast", "logo": "https://static.mytuner.mobi/media/radios-150px/274/flaixbac.f6d8cd83.jpg" },
-  { "name": "RAC105", "playlist": "https://api.instant.audio/data/playlist/38/rac1", "url": "https://23553.live.streamtheworld.com/RAC105AAC/HLS/playlist.m3u8", "logo": "https://static.mytuner.mobi/media/radios-150px/616/rac-105.a84bf07c.jpg" },
-  { "name": "Catalunya Ràdio", "playlist": "https://api.instant.audio/data/playlist/38/catalunya", "url": "https://shoutcast.ccma.cat/ccma/catalunyaradioHD.mp3", "logo": "https://static.mytuner.mobi/media/radios-150px/876/catalunya-radio-directe.c8154d75.png" },
-  { "name": "Catalunya Informació", "url": "https://shoutcast.ccma.cat/ccma/catalunyainformacioHD.mp3", "logo": "https://static.mytuner.mobi/media/tvos_radios/AHxQzFyFbJ.png" },
   { "name": "Catalunya Música", "url": "https://shoutcast.ccma.cat/ccma/catalunyamusicaHD.mp3", "logo": "https://static.mytuner.mobi/media/radios-150px/Ld3QR4ngWx.png" },
   { "name": "iCatFM", "url": "https://shoutcast.ccma.cat/ccma/icatHD.mp3", "logo": "https://static.mytuner.mobi/media/radios-150px/QBGW9H6g6e.jpg" },
   { "name": "Europa FM", "playlist": "https://api.instant.audio/data/playlist/38/europa", "url": "http://agregadores-atres-live.atresmedia.com/tunein/live/europafm/bitrate_1.m3u8", "logo": "https://static.mytuner.mobi/media/radios-150px/kJNNNSDknk.png" },
@@ -23,7 +23,8 @@
   { "name": "SER", "url": "https://23543.live.streamtheworld.com/SER_CAT.mp3", "logo": "https://static.mytuner.mobi/media/radios-150px/82524pxgweqy.jpg" },
   { "name": "Ràdio Estel", "playlist": "https://api.instant.audio/data/playlist/38/estel", "url": "https://srv6021.dns-lcinternet.com:10244/stream", "logo": "https://static.mytuner.mobi/media/radios-150px/dgXKZcXWcG.jpg" },
   { "name": "Ràdio4", "url": "https://rtvelivestream.akamaized.net/rtvesec/rne/rne_r4_main.m3u8", "logo": "https://static.mytuner.mobi/media/radios-150px/qKNDUJm6q9.png" },
-  { "name": "Radio5 rne", "url": "https://dispatcher.rndfnk.com/crtve/rne5/main/mp3/high?aggregator=tunein", "logo": "https://static.mytuner.mobi/media/radios-150px/745/radio-5.9b6b99b4.png" },
+  { "name": "Neo1", "playlist": "https://api.instant.audio/data/playlist/38/neo1", "url": "https://neo1.ice.infomaniak.ch/neo1.mp3", "logo": "https://cdn.instant.audio/images/logos/emisora-org-es/neo1.png" },
+  { "name": "Radio5 rne", "playlist": "https://api.instant.audio/data/playlist/38/radio-5", "url": "https://dispatcher.rndfnk.com/crtve/rne5/main/mp3/high?aggregator=tunein", "logo": "https://static.mytuner.mobi/media/radios-150px/745/radio-5.9b6b99b4.png" },
   { "name": "COPE", "playlist": "https://api.instant.audio/data/playlist/38/cope", "url": "https://wecast14-h-cloud.flumotion.com/copesedes/tarragona.mp3", "logo": "https://static.mytuner.mobi/media/tvos_radios/889/cadena-cope-tarragona.a08d276e.png" },
   { "name": "Radio Marca", "playlist": "https://api.instant.audio/data/playlist/38/marca", "url": "https://radiomarcabcnmedia.dns-lcinternet.com:9000/stream", "logo": "https://static.mytuner.mobi/media/radios-150px/076/radio-marca.60356e7b.png" },
   { "name": "Fox News", "url": "https://live.amperwave.net/direct/foxnewsradio-foxnewsradioaac-imc?source=worldradiomap", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Fox_News_Channel_logo.svg/1024px-Fox_News_Channel_logo.svg.png" },
@@ -33,6 +34,7 @@
   { "name": "The Sound of Silence - Disturbed [Cyril Remix 2024]", "url": "https://xarxa-1.github.io/Xarxa-1/The Sound of Silence - Disturbed [Cyril Remix 2024].mp3", "logo": "" },
   { "name": "BBC World Service", "url": "http://stream.live.vc.bbcmedia.co.uk/bbc_world_service", "logo": "https://asianlite.ae/wp-content/uploads/2018/09/JtNS_gjE_400x400.jpg" }
 ]
+
 
 
 
