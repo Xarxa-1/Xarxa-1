@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ca"><link href='https://lecturesdelamissa.blogspot.com/favicon.ico' rel='icon' type='image/x-icon'/>
+<head>
+  <meta charset="UTF-8" />
+  <title>Lectures</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 80px auto 40px auto;
+      padding: 24px;
+      background: #f2f4f7;
+      color: #344;
+    }
+    /* Barra fixa superior */
+    #top-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 50px;
+      background: #2a3d66;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      z-index: 1000;
+      padding: 0 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    #top-bar button {
+      background: #4671d5;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 14px;
+      color: white;
+      font-size: 1em;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.2s ease;
+    }
+    #top-bar button:hover {
+      background-color: #3554a7;
+    }
+    h1 {
+      color: #2a3d66;
+      margin-bottom: 24px;
+    }
+    #content {
+      font-size: 16px; /* mida font inicial */
+      transition: font-size 0.3s ease;
+    }
+    .entry {
+      background: white;
+      padding: 16px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+    }
+    .entry-title {
+      font-weight: bold;
+      font-size: 1.2em;
+      margin-bottom: 5px;
+    }
+    .entry-date {
+      color: #666;
+      font-size: 0.9em;
+      margin-bottom: 10px;
+    }
+    .entry-content {
+      color: #222;
+    }
+  </style>
+</head>
+<body>
+  <div id="top-bar">
+    <button id="decrease-font" title="Disminuir la mida de la lletra">A-</button>
+    <button id="reset-font" title="Restablir al 100%">100%</button>
+    <button id="increase-font" title="Augmentar la mida de la lletra">A+</button>
+  </div>
+
+  <h1>Lectures de la Missa - Feed</h1>
+  <div id="content">Carregant...</div>
+
+  <script>
+    const feedUrl = 'https://lecturesdelamissa.blogspot.com/feeds/posts/default';
+    const contentDiv = document.getElementById('content');
+
+    // Control del tamany de la font del div content
+    let fontSize = 16; // px
+    const minFontSize = 10;
+    const maxFontSize = 30;
+
+    function updateFontSize() {
+      contentDiv.style.fontSize = fontSize + 'px';
+    }
+
+    document.getElementById('increase-font').addEventListener('click', () => {
+      if (fontSize < maxFontSize) {
+        fontSize += 2;
+        updateFontSize();
+      }
+    });
+
+    document.getElementById('decrease-font').addEventListener('click', () => {
+      if (fontSize > minFontSize) {
+        fontSize -= 2;
+        updateFontSize();
+      }
+    });
+
+    document.getElementById('reset-font').addEventListener('click', () => {
+      fontSize = 16;
+      updateFontSize();
+    });
+
+    updateFontSize();
+
+    async function carregar() {
+      try {
+        const response = await fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(feedUrl));
+        const data = await response.json();
+
+        if (!data.items || data.items.length === 0) {
+          contentDiv.innerText = 'No s\'han trobat entrades';
+          return;
+        }
+
+        contentDiv.innerHTML = data.items.map(entry => `
+          <div class="entry">
+            <div class="entry-title">${entry.title}</div>
+            <div class="entry-date">${new Date(entry.pubDate).toLocaleDateString('ca-ES')}</div>
+            <div class="entry-content">${entry.content}</div>
+          </div>
+        `).join('');
+
+      } catch (e) {
+        contentDiv.innerText = 'Error carregant el feed: ' + e.message;
+      }
+    }
+
+    carregar();
+  </script>
+</body>
+</html>
