@@ -7,12 +7,12 @@
     <link rel="icon" type="image/png" href="https://www.livehdtv.com/uploads/img/2022/03/31583vector2.png" />
     <title>TV Streaming</title>
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
-    <link href='https://fonts.googleapis.com/css?family=Barlow+Condensed' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet'>
     <style>
         body, button, input {
             background: black;
             color: white;
-            font-family: 'Barlow Condensed', sans-serif;
+            font-family: 'Roboto Condensed', sans-serif;
             caret-color: darkgray;
         }
         #channelListContainer {
@@ -135,37 +135,37 @@
         <source src="https://directes-tv-cat.ccma.cat/live-origin/tv3-hls/master.m3u8" type="application/x-mpegURL">
     </video>
     <h4 style="display: flex; justify-content: space-between; align-items: center;">
-        <div id="selectedChannel" style="flex-grow: 1;">
+        <div id="selectedChannel" style="flex-grow: 1;"><div id="currentTime" style="font-size: 24px;"></div>
+    <button onclick="playPreviousChannel()">&lt;&lt; Ant</button>
+            <button onclick="playNextChannel()">Seg &gt;&gt;</button>
+
             <img src="" alt="" id="selectedChannelLogo" style="background:darkgray; border-width: 3px; border-style: solid; border-color: darkgray;">
             <span id="selectedChannelTitle"></span>
         </div>
-        <div id="controlsContainer" style="text-align: right;">
+   <!--     <div id="controlsContainer" style="text-align: right;">
             <button onclick="playPreviousChannel()">&lt;&lt; Anterior</button>
             <button onclick="playNextChannel()">Següent &gt;&gt;</button>
-            <button id="zappingButton">Zapping</button>
-        </div>
-    <button onclick="playPreviousChannel()">&lt;&lt; Anterior</button>
-            <button onclick="playNextChannel()">Següent &gt;&gt;</button>
-            <button onclick="skipTime(-1800)">&laquo; 30m.</button>
-            <button onclick="skipTime(-600)">&laquo; 10m.</button>
-            <button onclick="skipTime(-60)">&laquo; 1m.</button>
-            <button onclick="skipTime(-30)">&laquo; 30s.</button>
+        </div>-->
+            <button id="zappingButton">Zapp</button>
+            <button onclick="skipTime(-1800)">&laquo; 30m</button>
+            <button onclick="skipTime(-600)">&laquo; 10m</button>
+            <button onclick="skipTime(-60)">&laquo; 1m</button>
+            <button onclick="skipTime(-30)">&laquo; 30s</button>
             <button onclick="goLive()">&nbsp;&nbsp;O&nbsp;&nbsp;</button>
-            <button onclick="skipTime(30)">30s. &raquo;</button>
-            <button onclick="skipTime(60)"> 1m. &raquo;</button>
-            <button onclick="skipTime(600)"> 10m. &raquo;</button>
-            <button onclick="skipTime(1800)"> 30m. &raquo;</button>
-
+            <button onclick="skipTime(30)">30s &raquo;</button>
+            <button onclick="skipTime(60)"> 1m &raquo;</button>
+            <button onclick="skipTime(600)"> 10m &raquo;</button>
+            <button onclick="skipTime(1800)"> 30m &raquo;</button>
+ <div id="searchContainer">
+     <div>
+         <input type="text" id="channelSearch" placeholder="Cercar canals..." oninput="filterChannels()" style="width:70px">
+         <input type="time" id="timeInput" placeholder="hh:mm" value="14:30" style="width:70px">
+         <button onclick="jumpToTime()">Salta</button>
+         <div id="speedControl"><button onclick="adjustPlaybackSpeed()">Velo: 1x</button></div>
+     </div>
     </h4>
     <div id="container">
- <div id="searchContainer">
-     <div id="currentTime" style="font-size: 24px;"></div>
-     <div>
-         <input type="text" id="channelSearch" placeholder="Cercar canals..." oninput="filterChannels()">
-         <input type="time" id="timeInput" placeholder="hh:mm">
-         <button onclick="jumpToTime()">Salta</button>
-         <div id="speedControl"><button onclick="adjustPlaybackSpeed()">Velocitat: 1x</button></div>
-     </div>
+
 </div>
         <div id="channelListContainer"></div>
         <div style="color: white; margin-top: 10px;">
@@ -411,13 +411,13 @@
             const speedButton = document.querySelector("#speedControl button");
             playbackSpeed = playbackSpeed === 2 ? 0.5 : playbackSpeed + 0.5;
             player.playbackRate(playbackSpeed);
-            speedButton.textContent = `Velocitat: ${playbackSpeed}x`;
+            speedButton.textContent = `Velo: ${playbackSpeed}x`;
         }
 
         document.getElementById('zappingButton').addEventListener('click', startZapping);
         window.addEventListener('load', loadNewM3U);
     </script>
 
-    <iframe id="externalIframe" src="https://xarxa-1.github.io/Xarxa-1/radiopen6.html"></iframe>
+    <iframe id="externalIframe" src="https://xarxa-1.github.io/Xarxa-1/radiopen9.html"></iframe>
 </body>
 </html>
