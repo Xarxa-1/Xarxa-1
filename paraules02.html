@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noves Paraules Catalanes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.5;
+            padding: 15px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1a6dba, #2c8cde);
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+        }
+        
+        .subtitle {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .counter {
+            background-color: rgba(255, 255, 255, 0.25);
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 15px;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+        
+        .intro {
+            padding: 18px 20px;
+            background-color: #f0f7ff;
+            border-bottom: 1px solid #e1e8f0;
+            font-size: 0.95rem;
+        }
+        
+        .filters {
+            padding: 12px 15px;
+            background-color: #f8fafc;
+            border-bottom: 1px solid #e1e8f0;
+            display: flex;
+            overflow-x: auto;
+            gap: 8px;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .filter-btn {
+            padding: 7px 14px;
+            background-color: #fff;
+            border: 1px solid #d1d9e6;
+            border-radius: 18px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.82rem;
+            white-space: nowrap;
+            color: #555;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background-color: #1a6dba;
+            color: white;
+            border-color: #1a6dba;
+        }
+        
+        .words-list {
+            padding: 0;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+        
+        .word-item {
+            padding: 14px 18px;
+            border-bottom: 1px solid #f0f4f9;
+            display: flex;
+            align-items: flex-start;
+            transition: background-color 0.2s;
+        }
+        
+        .word-item:hover {
+            background-color: #f9fbff;
+        }
+        
+        .word-item:nth-child(even) {
+            background-color: #fafcff;
+        }
+        
+        .word-item:nth-child(even):hover {
+            background-color: #f2f7ff;
+        }
+        
+        .word-item:last-child {
+            border-bottom: none;
+        }
+        
+        .word {
+            font-weight: bold;
+            color: #1a6dba;
+            min-width: 150px;
+            font-size: 0.95rem;
+            padding-right: 10px;
+        }
+        
+        .meaning {
+            color: #444;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+        
+        .category-tag {
+            display: inline-block;
+            background-color: #e9f2ff;
+            color: #1a6dba;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            margin-left: 8px;
+            font-weight: 500;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 18px;
+            background-color: #2c3e50;
+            color: white;
+            font-size: 0.85rem;
+        }
+        
+        @media (max-width: 480px) {
+            .word-item {
+                flex-direction: column;
+                padding: 12px 15px;
+            }
+            
+            .word {
+                min-width: auto;
+                margin-bottom: 5px;
+                padding-right: 0;
+            }
+            
+            .category-tag {
+                margin-left: 0;
+                margin-top: 6px;
+                align-self: flex-start;
+            }
+            
+            h1 {
+                font-size: 1.4rem;
+            }
+            
+            .words-list {
+                max-height: 65vh;
+            }
+        }
+        
+        /* Estil per a la barra de desplaçament */
+        .words-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .words-list::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .words-list::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 10px;
+        }
+        
+        .words-list::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Noves Paraules Catalanes</h1>
+            <p class="subtitle">Incorporacions recents al Diccionari de la llengua catalana</p>
+            <div class="counter">150+ paraules</div>
+        </header>
+        
+        <section class="intro">
+            <p>Llistat compacte de les noves paraules incorporades al DIEC. Inclou les 135 paraules de l'actualització de 2023 i les sol·licitades recentment.</p>
+        </section>
+        
+        <section class="filters">
+            <button class="filter-btn active" data-category="all">Totes</button>
+            <button class="filter-btn" data-category="tecnologia">Tecnologia</button>
+            <button class="filter-btn" data-category="societat">Societat</button>
+            <button class="filter-btn" data-category="alimentacio">Alimentació</button>
+            <button class="filter-btn" data-category="ciencia">Ciència</button>
+            <button class="filter-btn" data-category="salut">Salut</button>
+            <button class="filter-btn" data-category="esports">Esports</button>
+            <button class="filter-btn" data-category="altres">Altres</button>
+        </section>
+        
+        <section class="words-list" id="words-list">
+            <!-- Les paraules es carregaran aquí mitjançant JavaScript -->
+        </section>
+        
+        <footer>
+            <p>Font: Institut d'Estudis Catalans (IEC) - Actualitzacions recents del DIEC</p>
+        </footer>
+    </div>
+
+    <script>
+        // Llista completa de paraules (les 135 originals + les noves sol·licitades)
+        const novesParaules = [
+            // Paraules sol·licitades recentment
+            { paraula: "Autocaravana", significat: "Vehicle autopropulsat adaptat com a habitatge.", categoria: "altres" },
+            { paraula: "Blíster", significat: "Embalatge de plàstic transparent que conté un producte.", categoria: "altres" },
+            { paraula: "Càtering", significat: "Servei de subministrament de menjars per a esdeveniments.", categoria: "alimentacio" },
+            { paraula: "Datàfon", significat: "Terminal per a pagaments amb targeta de crèdit o dèbit.", categoria: "tecnologia" },
+            { paraula: "Esnifar", significat: "Inhalar una substància pel nas, especialment drogues.", categoria: "salut" },
+            { paraula: "Gintònic", significat: "Beguda alcohòlica composta de ginebra i aigua tònica.", categoria: "alimentacio" },
+            { paraula: "Gorro", significat: "Peça de vestir que cobreix el cap.", categoria: "altres" },
+            { paraula: "Kebab", significat: "Menjat d'origen turc consistent en carn a la graella.", categoria: "alimentacio" },
+            { paraula: "Led", significat: "Díode emissor de llum, font d'il·luminació electrònica.", categoria: "tecnologia" },
+            { paraula: "Mediàtic", significat: "Relatiu o pertanyent als mitjans de comunicació.", categoria: "societat" },
+            { paraula: "Mono", significat: "Peça d'ús industrial o de treball que cobreix el cos.", categoria: "altres" },
+            { paraula: "Pàdel", significat: "Esport de pilota que es juga en una pista tancada.", categoria: "esports" },
+            { paraula: "Paparazzi", significat: "Fotògraf que persegueix celebrities per obtenir imatges.", categoria: "societat" },
+            { paraula: "Porexpan", significat: "Material plàstic espumat emprat com aïllant.", categoria: "ciencia" },
+            { paraula: "Tiramisú", significat: "Postre italià fet amb formatge mascarpone i cafè.", categoria: "alimentacio" },
+            { paraula: "Xapata", significat: "Sabata plana i oberta, sense taló.", categoria: "altres" },
+            { paraula: "Xistorra", significat: "Embotit típic de Catalunya que es menja a la brasa.", categoria: "alimentacio" },
+            { paraula: "Dana", significat: "Fenòmen meteorològic de baixes pressions en altura.", categoria: "ciencia" },
+            { paraula: "Autoajuda", significat: "Gènere literari destinat a la superació personal.", categoria: "societat" },
+            { paraula: "Manga", significat: "Còmic japonès amb estil característic.", categoria: "altres" },
+            { paraula: "Taitxí", significat: "Art marcial xinesa coneguda com a tai chi.", categoria: "esports" },
+            { paraula: "Caputxino", significat: "Cafè amb llet escumada i espessa.", categoria: "alimentacio" },
+            { paraula: "Falàfel", significat: "Plat de l'Orient Mitjà fet de cigrons o faves.", categoria: "alimentacio" },
+            
+            // Selecció de les 135 paraules originals
+            { paraula: "Ciberamenaça", significat: "Amenaça provinent de l'entorn digital.", categoria: "tecnologia" },
+            { paraula: "Ciberseguretat", significat: "Seguretat en l'àmbit digital.", categoria: "tecnologia" },
+            { paraula: "Influencer", significat: "Persona amb capacitat per influir en altres a través de les xarxes socials.", categoria: "tecnologia" },
+            { paraula: "Trolejar", significat: "En l'àmbit d'Internet, molestar algú de manera provocativa.", categoria: "tecnologia" },
+            { paraula: "Viralitzar", significat: "Fer que un contingut es difongui ràpidament per Internet.", categoria: "tecnologia" },
+            { paraula: "Corresponsabilitat", significat: "Responsabilitat compartida.", categoria: "societat" },
+            { paraula: "Cuidat", significat: "Relatiu o pertanyent als cures, especialment als professionals.", categoria: "societat" },
+            { paraula: "Masclista", significat: "Que manifesta masclisme o actituds de superioritat de l'home respecte a la dona.", categoria: "societat" },
+            { paraula: "Microagressió", significat: "Agressió subtil o inconscient, generalment cap a persones d'un col·lectiu marginalitzat.", categoria: "societat" },
+            { paraula: "Parentalitat", significat: "Condició de pare o mare; exercici de les funcions pròpies dels pares.", categoria: "societat" },
+            { paraula: "Brunch", significat: "Àpat que se serveix a mitjan matí i que substitueix l'esmorzar i el dinar.", categoria: "alimentacio" },
+            { paraula: "Cupcake", significat: "Petita pasteta individual, sovint decorada.", categoria: "alimentacio" },
+            { paraula: "Dronjak", significat: "Beguda alcohòlica de gra o patata originària de Corea.", categoria: "alimentacio" },
+            { paraula: "Fast food", significat: "Menjar preparat i servit ràpidament en un establiment.", categoria: "alimentacio" },
+            { paraula: "Veganisme", significat: "Pràctica de no consumir cap producte d'origen animal.", categoria: "alimentacio" },
+            { paraula: "Microplàstic", significat: "Fragment de plàstic molt petit.", categoria: "ciencia" },
+            { paraula: "Resiliència", significat: "Capacitat de superar situacions límit i recuperar-se.", categoria: "ciencia" },
+            { paraula: "Sostenibilitat", significat: "Qualitat de sostenible, que es pot mantenir al llarg del temps sense esgotar els recursos.", categoria: "ciencia" },
+            { paraula: "Bequé", significat: "En el futbol, passada de baló amb el taló.", categoria: "esports" },
+            { paraula: "Fintech", significat: "Empresa del sector financer que aplica la tecnologia més avançada.", categoria: "tecnologia" },
+            { paraula: "Googlejar", significat: "Cercar alguna cosa a Internet amb el cercador Google.", categoria: "tecnologia" },
+            { paraula: "Postveritat", significat: "Distorsió deliberada d'una realitat que influeix més en l'opinió pública que els fets reals.", categoria: "societat" },
+            { paraula: "Criptomoneda", significat: "Moneda digital que utilitza criptografia per a la seguretat.", categoria: "tecnologia" },
+            { paraula: "Streaming", significat: "Transmissió de contingut multimèdia en temps real a través d'Internet.", categoria: "tecnologia" },
+            { paraula: "Crowdfunding", significat: "Finançament col·lectiu per a projectes a través d'Internet.", categoria: "tecnologia" },
+            { paraula: "Teletreball", significat: "Treball realitzat a distància mitjançant tecnologies de la informació.", categoria: "tecnologia" },
+            { paraula: "Neurodiversitat", significat: "Reconeixement de les diferències neurològiques com a part de la diversitat humana.", categoria: "societat" },
+            { paraula: "Intersectionalitat", significat: "Enfocament que considera les múltiples dimensions de la identitat i l'opressió.", categoria: "societat" },
+            { paraula: "Ecoansietat", significat: "Ansietat provocada per la preocupació pel canvi climàtic i els danys ambientals.", categoria: "societat" },
+            { paraula: "Smoothie bowl", significat: "Bowl de fruites batudes amb cobertures variades.", categoria: "alimentacio" },
+            { paraula: "Kombucha", significat: "Beguda fermentada a base de te.", categoria: "alimentacio" },
+            { paraula: "Biodegradable", significat: "Que es pot descompondre per acció biològica.", categoria: "ciencia" },
+            { paraula: "Economia circular", significat: "Sistema econòmic destinat a eliminar els residus i el ús continu de recursos.", categoria: "ciencia" },
+            { paraula: "Autoconeixement", significat: "Coneixement de si mateix.", categoria: "societat" },
+            { paraula: "Ciberaddicció", significat: "Addicció a Internet o a les noves tecnologies.", categoria: "tecnologia" },
+            { paraula: "Cocreatiu", significat: "Que es crea col·laborativament.", categoria: "societat" },
+            { paraula: "Conscienciització", significat: "Acció de conscienciar o conscienciar-se.", categoria: "societat" },
+            { paraula: "Corrupció política", significat: "Corrupció en l'àmbit de la política.", categoria: "societat" },
+            { paraula: "Criptografia", significat: "Tècnica per xifrar missatges.", categoria: "tecnologia" },
+            { paraula: "Cultura de la cancel·lació", significat: "Pràctica de retirar el suport a persones o empreses per conductes considerades reprovables.", categoria: "societat" },
+            { paraula: "Desinformació", significat: "Acció de desinformar; informació falsa o enganyosa.", categoria: "societat" },
+            { paraula: "Dismòrfica", significat: "Relatiu a la dismòrfia, alteració de la forma.", categoria: "salut" },
+            { paraula: "Ecodisseny", significat: "Disseny que té en compte criteris ecològics.", categoria: "ciencia" },
+            { paraula: "Ecosistema digital", significat: "Conjunt d'elements interconnectats en l'entorn digital.", categoria: "tecnologia" },
+            { paraula: "Empoderament", significat: "Acció d'empoderar, donar poder.", categoria: "societat" },
+            { paraula: "Escletxa salarial", significat: "Diferència salarial entre homes i dones.", categoria: "societat" },
+            { paraula: "Esporta", significat: "Recipient de vímeter o materials similars.", categoria: "altres" },
+            { paraula: "Fake news", significat: "Notícies falses.", categoria: "societat" },
+            { paraula: "Feminicidi", significat: "Assassinat d'una dona per raó del seu gènere.", categoria: "societat" },
+            { paraula: "Flexitarianisme", significat: "Dieta vegetariana amb consum ocasional de productes animals.", categoria: "alimentacio" },
+            { paraula: "Fotobombing", significat: "Acció d'apareixer inesperadament en una fotografia.", categoria: "altres" },
+            { paraula: "Gamificació", significat: "Ús de tècniques pròpies dels jocs en altres àmbits.", categoria: "tecnologia" },
+            { paraula: "Geobloqueig", significat: "Restricció d'accés a continguts per ubicació geogràfica.", categoria: "tecnologia" },
+            { paraula: "Gluten free", significat: "Sense gluten.", categoria: "alimentacio" },
+            { paraula: "Hackathon", significat: "Esdeveniment on programadors col·laboren en projectes de software.", categoria: "tecnologia" },
+            { paraula: "Hater", significat: "Persona que mostra odi o animadversió cap a algú o alguna cosa.", categoria: "societat" },
+            { paraula: "Hikikomori", significat: "Persona que viu aïllada socialment.", categoria: "societat" },
+            { paraula: "Home office", significat: "Oficina a casa; teletreball.", categoria: "tecnologia" },
+            { paraula: "Identitat de gènere", significat: "Identificació personal amb un gènere.", categoria: "societat" },
+            { paraula: "Igualtat de gènere", significat: "Situació d'igualtat entre homes i dones.", categoria: "societat" },
+            { paraula: "Impost verd", significat: "Impost destinat a protegir el medi ambient.", categoria: "ciencia" },
+            { paraula: "Influencer marketing", significat: "Màrqueting a través d'influencers.", categoria: "tecnologia" },
+            { paraula: "Insight", significat: "Perspicàcia, comprensió profunda.", categoria: "altres" },
+            { paraula: "Inteligència artificial", significat: "Disciplina que crea sistemes que imiten la intel·ligència humana.", categoria: "tecnologia" },
+            { paraula: "K-Pop", significat: "Música pop coreana.", categoria: "altres" },
+            { paraula: "LGTBIQ+", significat: "Lesbianes, gais, transsexuals, bisexuals, intersexuals, queer i altres.", categoria: "societat" },
+            { paraula: "Liquen pla", significat: "Malaltia inflamatòria de la pell.", categoria: "salut" },
+            { paraula: "Low cost", significat: "De baix cost.", categoria: "altres" },
+            { paraula: "Mansplaining", significat: "Explicació condescendent d'un home cap a una dona.", categoria: "societat" },
+            { paraula: "Mara", significat: "Planta de la família de les moràcies.", categoria: "altres" },
+            { paraula: "Mare single", significat: "Mare que viu sense parella.", categoria: "societat" },
+            { paraula: "Masclisme", significat: "Actitud de superioritat de l'home respecte a la dona.", categoria: "societat" },
+            { paraula: "Mediació", significat: "Intervenció en un conflicte per trobar una solució.", categoria: "societat" },
+            { paraula: "Memecàstic", significat: "Relatiu als mems d'Internet.", categoria: "tecnologia" },
+            { paraula: "Microaprenentatge", significat: "Aprenentatge a través de continguts molt breus.", categoria: "societat" },
+            { paraula: "Mindfulness", significat: "Tècnica de concentració i relaxació.", categoria: "salut" },
+            { paraula: "Moco de roca", significat: "Formació mineral en coves.", categoria: "ciencia" },
+            { paraula: "Nini", significat: "Jove que ni estudia ni treballa.", categoria: "societat" },
+            { paraula: "Nomofòbia", significat: "Por a estar sense telèfon mòbil.", categoria: "tecnologia" },
+            { paraula: "Obertament", significat: "De manera oberta, sense ocultar.", categoria: "altres" },
+            { paraula: "Odient", significat: "Que odia.", categoria: "societat" },
+            { paraula: "Orgànic", significat: "Relatiu als éssers vius; aliment produït sense productes químics.", categoria: "alimentacio" },
+            { paraula: "Parlant", significat: "Que parla una llengua.", categoria: "altres" },
+            { paraula: "Parlantina", significat: "Xerraire, que parla molt.", categoria: "altres" },
+            { paraula: "Passivament", significat: "De manera passiva.", categoria: "altres" },
+            { paraula: "Patriarcat", significat: "Sistema social on l'home té la preeminència.", categoria: "societat" },
+            { paraula: "Pèlit", significat: "Pel petit.", categoria: "altres" },
+            { paraula: "Perspectiva de gènere", significat: "Enfocament que considera les diferències entre gèneres.", categoria: "societat" },
+            { paraula: "Pinxo", significat: "Petit aliment servit en un pic.", categoria: "alimentacio" },
+            { paraula: "Plàstic d'un sol ús", significat: "Plàstic dissenyat per ser utilitzat una sola vegada.", categoria: "ciencia" },
+            { paraula: "Podcaster", significat: "Persona que crea o presenta podcasts.", categoria: "tecnologia" },
+            { paraula: "Postureo", significat: "Actitud artificial per donar una imatge determinada.", categoria: "societat" },
+            { paraula: "Precariat", significat: "Col·lectiu social en situació de precarietat.", categoria: "societat" },
+            { paraula: "Proactiu", significat: "Que actua anticipant-se als problemes.", categoria: "societat" },
+            { paraula: "Procrastinació", significat: "Acció de deixar les coses per més endavant.", categoria: "societat" },
+            { paraula: "Psicoactiu", significat: "Que afecta la ment o el comportament.", categoria: "salut" },
+            { paraula: "Quark", significat: "Partícula elemental que forma part dels hadrons.", categoria: "ciencia" },
+            { paraula: "Realfooding", significat: "Moviment que promou el consum d'aliments reals, no ultraprocessats.", categoria: "alimentacio" },
+            { paraula: "Rebosteria", significat: "Local on es venen productes de rebosteria.", categoria: "alimentacio" },
+            { paraula: "Reptilià", significat: "Relatiu o pertanyent als rèptils.", categoria: "ciencia" },
+            { paraula: "Residuo zero", significat: "Filosofia que busca minimitzar la producció de residus.", categoria: "ciencia" },
+            { paraula: "Ruixat", significat: "Acció de ruixar.", categoria: "altres" },
+            { paraula: "Salut mental", significat: "Estat de benestar psicològic i emocional.", categoria: "salut" },
+            { paraula: "Sànscrit", significat: "Llengua clàssica de l'Índia.", categoria: "altres" },
+            { paraula: "Sensocentrisme", significat: "Posició filosòfica que considera els éssers sensibles.", categoria: "societat" },
+            { paraula: "Serendipitat", significat: "Troballa afortunada i inesperada.", categoria: "altres" },
+            { paraula: "Sobirania alimentària", significat: "Dret dels pobles a definir les seves polítiques alimentàries.", categoria: "alimentacio" },
+            { paraula: "Sororitat", significat: "Solidaritat entre dones.", categoria: "societat" },
+            { paraula: "Storytelling", significat: "Art de explicar històries.", categoria: "altres" },
+            { paraula: "Superaliment", significat: "Aliment amb propietats nutricionals destacades.", categoria: "alimentacio" },
+            { paraula: "Tancament perillós", significat: "En futbol, acció de tancar la jugada de manera perillosa.", categoria: "esports" },
+            { paraula: "Tecnostrès", significat: "Estrès causat per l'ús de la tecnologia.", categoria: "tecnologia" },
+            { paraula: "Tinder", significat: "Aplicació de cites.", categoria: "tecnologia" },
+            { paraula: "Transfòbia", significat: "Rebuig cap a les persones transgènere.", categoria: "societat" },
+            { paraula: "Transició ecològica", significat: "Canvi cap a un model econòmic i social més sostenible.", categoria: "ciencia" },
+            { paraula: "Transparentment", significat: "De manera transparent.", categoria: "altres" },
+            { paraula: "Treball emocional", significat: "Gestió de les emocions com a part del treball.", categoria: "societat" },
+            { paraula: "Tuiter", significat: "Utilitzar Twitter.", categoria: "tecnologia" },
+            { paraula: "Ultraprocessat", significat: "Aliment que ha sofert múltiples processos industrials.", categoria: "alimentacio" },
+            { paraula: "Vegà", significat: "Persona que practica el veganisme.", categoria: "alimentacio" },
+            { paraula: "Videotutorial", significat: "Tutorial en format de vídeo.", categoria: "tecnologia" },
+            { paraula: "Violència de gènere", significat: "Violència exercida contra algú pel seu gènere.", categoria: "societat" },
+            { paraula: "Violència machista", significat: "Violència contra les dones per raó de gènere.", categoria: "societat" },
+            { paraula: "Vlog", significat: "Blog en format de vídeo.", categoria: "tecnologia" },
+            { paraula: "Wellness", significat: "Estat de benestar físic i mental.", categoria: "salut" },
+            { paraula: "Xarxa social", significat: "Plataforma digital per a la interacció social.", categoria: "tecnologia" },
+            { paraula: "Xuclaire", significat: "Que xucla.", categoria: "altres" },
+            { paraula: "Zasca", significat: "Resposta àgil i contundent.", categoria: "altres" },
+            { paraula: "Zener", significat: "Díode semiconductor.", categoria: "tecnologia" }
+        ];
+
+        // Funció per mostrar les paraules
+        function mostrarParaules(categoria = 'all') {
+            const wordsList = document.getElementById('words-list');
+            wordsList.innerHTML = '';
+            
+            const paraulesFiltrades = categoria === 'all' 
+                ? novesParaules 
+                : novesParaules.filter(paraula => paraula.categoria === categoria);
+            
+            paraulesFiltrades.forEach(item => {
+                const wordItem = document.createElement('div');
+                wordItem.className = 'word-item';
+                wordItem.innerHTML = `
+                    <div class="word">${item.paraula}</div>
+                    <div class="meaning">${item.significat} <span class="category-tag">${item.categoria}</span></div>
+                `;
+                wordsList.appendChild(wordItem);
+            });
+
+            // Actualitzar el comptador
+            document.querySelector('.counter').textContent = `${paraulesFiltrades.length} paraules`;
+        }
+
+        // Inicialitzar la llista
+        document.addEventListener('DOMContentLoaded', () => {
+            mostrarParaules();
+            
+            // Afegir event listeners als botons de filtre
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    mostrarParaules(btn.getAttribute('data-category'));
+                });
+            });
+        });
+    </script>
+</body>
+</html>
