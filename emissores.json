@@ -20,8 +20,7 @@
   { "name": "HitFM", "playlist": "https://api.instant.audio/data/playlist/38/hit-fm", "url": "https://adhandler.kissfmradio.cires21.com/get_link?url=https://bbhitfm.kissfmradio.cires21.com/bbhitfm.mp3", "logo": "https://static.mytuner.mobi/media/radios-150px/640/hit-fm.477231d3.png" },
   { "name": "Kiss FM", "playlist": "https://api.instant.audio/data/playlist/38/kiss-fm", "url": "https://bbhitfm.kissfmradio.cires21.com/bbhitfm.mp3", "logo": "https://static.mytuner.mobi/media/radios-150px/640/kiss-fm.477231d3.png" },
   { "name": "HeartRadio", "playlist": "https://api.instant.audio/data/playlist/42/heart", "url": "https://media-ice.musicradio.com/HeartLondonMP3", "logo": "https://cdn.instant.audio/images/logos/internetradiouk-com/heart.png" },
-  { "name": "", "playlist": "", "url": "", "logo": "" },
-  { "name": "", "playlist": "", "url": "", "logo": "" },
+  { "name": "TV3", "playlist": "", "url": "https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/TV3.svg/300px-TV3.svg.png" },
   { "name": "24 7 Christmas", "playlist": "https://api.instant.audio/data/playlist/42/24-7-christmas", "url": "https://antares.dribbcast.com/proxy/s8330/stream", "logo": "https://cdn.instant.audio/images/logos/internetradiouk-com/24-7-christmas.png" },
   { "name": "RockFM", "playlist": "https://api.instant.audio/data/playlist/38/rock-fm", "url": "https://rockfm-cope.flumotion.com/playlist.m3u8", "logo": "https://static.mytuner.mobi/media/radios-150px/7WH7nKXkwa.png" },
   { "name": "Los40", "url": "https://playerservices.streamtheworld.com/api/livestream-redirect/LOS40_CATAAC_SC?dist=los40", "logo": "https://static.mytuner.mobi/media/radios-150px/qjzuzc6que9c.jpg" },
@@ -37,9 +36,16 @@
   { "name": "Costa del Mar", "url": "https://radio4.cdm-radio.com:18020/stream-mp3-Chill", "logo": "https://www.radio.es/300/costadelmar.png" },
   { "name": "Vaughan", "url": "https://cdn-peer021.streaming-pro.com:8058/vaughanradio.mp3", "logo": "https://www.radio.es/300/vaughan-radio.png" },
   { "name": "The Sound of Silence - Disturbed [Cyril Remix 2024]", "url": "https://xarxa-1.github.io/Xarxa-1/The Sound of Silence - Disturbed [Cyril Remix 2024].mp3", "logo": "" },
-  { "name": "PerfectDeepHouse", "playlist": "https://api.instant.audio/data/playlist/38/perfect-deep-house", "url": "https:\/\/stream.radiojar.com\/asngk2sg798uv", "logo": "https://cdn.instant.audio/images/logos/emisora-org-es/perfect-deep-house.png" },
+  { "name": "PerfectDeepHouse", "playlist": "https://api.instant.audio/data/playlist/38/perfect-deep-house", "url": "https://stream.radiojar.com/asngk2sg798uv", "logo": "https://cdn.instant.audio/images/logos/emisora-org-es/perfect-deep-house.png" },
+  { "name": "", "playlist": "", "url": "", "logo": "" },
+  { "name": "", "playlist": "", "url": "", "logo": "" },
+  { "name": "", "playlist": "", "url": "", "logo": "" },
+  { "name": "", "playlist": "", "url": "", "logo": "" },
+  { "name": "", "playlist": "", "url": "", "logo": "" },
+  { "name": "", "playlist": "", "url": "", "logo": "" },
   { "name": "BBC World Service", "url": "http://stream.live.vc.bbcmedia.co.uk/bbc_world_service", "logo": "https://asianlite.ae/wp-content/uploads/2018/09/JtNS_gjE_400x400.jpg" }
 ]
+
 
 
 
