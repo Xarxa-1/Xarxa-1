@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="radio1.png" type="image/png">
+  <link rel="shortcut icon" href="radio1.png">
+  <link rel="apple-touch-icon" href="radio1.png">
+  <title>-Ràdio-</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Antonio:wght@300;400;500;600&display=swap');
+
+    :root {
+      --primary: lime;
+      --secondary: #9370DB;
+      --dark: #121212;
+      --dark-2: #1E1E1E;
+      --dark-3: #2A2A2A;
+      --dark-4: black;
+      --text: #E0E0E0;
+      --text-light: #A0A0A0;
+    }
+
+    body {
+      font-family: 'Antonio', sans-serif;
+      background-color: var(--dark);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      padding-top: 40px;
+      gap: 20px;
+    }
+
+    .player {
+      display: flex;
+      align-items: center;
+      background-color: var(--dark-2);
+      border-radius: 15px;
+      padding: 15px 25px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      gap: 20px;
+      width: 100%;
+      max-width: 1000px;
+      position: relative;
+    }
+
+    .close-player {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 0, 0, 0.7);
+      border: none;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      transition: all 0.2s;
+    }
+
+    .close-player:hover {
+      background: rgba(255, 0, 0, 1);
+      transform: scale(1.1);
+    }
+
+    .add-player-btn {
+      background: var(--dark-3);
+      border: none;
+      color: var(--text-light);
+      padding: 10px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s;
+      font-family: 'Antonio', sans-serif;
+      margin-top: 10px;
+    }
+
+    .add-player-btn:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .cover {
+      width: 160px;
+      height: 160px;
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background-color: var(--dark-3);
+      position: relative;
+    }
+
+    .disc {
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      animation: spin 20s linear infinite;
+      animation-play-state: paused;
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    .info {
+      min-width: 200px;
+      position: relative;
+    }
+
+    .title {
+      font-size: 26px;
+      font-weight: 500;
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .title:hover {
+      color: var(--primary);
+    }
+
+    .artist {
+      font-size: 22px;
+      color: var(--text-light);
+      margin: 3px 0 0 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      max-width: 100%;
+      line-height: 1.3;
+    }
+
+    .progress-container {
+      flex-grow: 1;
+      height: 4px;
+      background: var(--dark-3);
+      border-radius: 2px;
+      cursor: pointer;
+      margin: 0 15px;
+    }
+
+    .progress {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 2px;
+      width: 0%;
+      transition: width 0.1s;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--dark-3);
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn:hover {
+      background: var(--primary);
+      color:  var(--dark-3);
+      transform: scale(1.05);
+    }
+
+    .btn.play {
+      width: 42px;
+      height: 42px;
+      color:  var(--dark-3);
+      background: var(--primary);
+    }
+
+    .btn.play:hover {
+      color:  var(--dark-3);
+      background: var(--secondary);
+    }
+
+    .clock {
+      font-size: 56px;
+      color: var(--text-light);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      min-width: 80px;
+    }
+
+    .timer-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .timer-btn {
+      background: var(--dark-3);
+      border: none;
+      color: var(--text-light);
+      padding: 8px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s;
+    }
+
+    .timer-btn:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .timer-dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: var(--dark-3);
+      border-radius: 8px;
+      padding: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      z-index: 10;
+      display: none;
+      min-width: 180px;
+    }
+
+    .timer-dropdown.show {
+      display: block;
+    }
+
+    .timer-option {
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .timer-option:hover {
+      background: var(--primary);
+    }
+
+    .timer-display {
+      font-size: 23px;
+      margin-left: 5px;
+      color: var(--text-light);
+    }
+
+    .volume-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: 10px;
+    }
+
+    .volume-slider {
+      width: 80px;
+      height: 4px;
+      background: var(--dark-3);
+      -webkit-appearance: none;
+      border-radius: 2px;
+    }
+
+    .volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 12px;
+      height: 12px;
+      background: var(--primary);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    /* Estils per a la finestra modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: var(--dark-2);
+      border-radius: 15px;
+      width: 90%;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 25px 25px 15px 25px;
+      border-bottom: 1px solid var(--dark-3);
+      background-color: var(--dark-2);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      flex-shrink: 0;
+    }
+
+    .modal-title {
+      font-size: 24px;
+      margin: 0;
+      color: var(--primary);
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 24px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .close-btn:hover {
+      color: var(--primary);
+    }
+
+    .modal-body {
+      padding: 0 25px 25px 25px;
+      overflow-y: auto;
+      flex-grow: 1;
+    }
+
+    .stations-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 15px;
+    }
+
+    .station-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: var(--dark-3);
+      border-radius: 10px;
+      padding: 15px;
+      cursor: pointer;
+      transition: all 0.2s;
+      width: 170px; /* Amplada fixa per a la mida del logo + 10px */
+    }
+
+    .station-item:hover {
+      background-color: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    .station-logo {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      background-size: cover;
+      background-position: center;
+      margin-bottom: 10px;
+    }
+
+    .station-name {
+      font-size: 16px;
+      text-align: center;
+      margin: 0;
+      margin-bottom: 5px;
+    }
+
+    .station-track {
+      font-size: 12px;
+      color: var(--text-light);
+      text-align: center;
+      margin: 0;
+      height: 36px;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    /* Nou botó per obrir llista d'emissores */
+    .stations-btn {
+      background: var(--dark-3);
+      border: none;
+      color: var(--text-light);
+      padding: 8px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s;
+      font-family: 'Antonio', sans-serif;
+    }
+
+    .stations-btn:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    @media (max-width: 900px) {
+      .player {
+        flex-wrap: wrap;
+        padding: 15px;
+        gap: 15px;
+      }
+
+      .progress-container {
+        order: 1;
+        width: 100%;
+        margin: 10px 0;
+      }
+
+      .timer-container {
+        order: 2;
+        margin-left: auto;
+      }
+
+      .stations-list {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      }
+
+      .station-item {
+        width: 140px; /* Amplada reduïda per a mòbils */
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="player" id="mainPlayer">
+    <div class="cover">
+      <div class="disc"></div>
+    </div>
+    <div class="progress-container">
+      <div class="progress"></div>
+    </div>
+
+    <div class="controls">
+      <button class="btn prev"><i class="fas fa-backward"></i></button>
+      <button class="btn play"><i class="fas fa-play"></i></button>
+      <button class="btn next"><i class="fas fa-forward"></i></button>
+    </div>
+
+    <div class="clock" id="clock">
+      <span>--:--:--</span>
+    </div>
+    <div class="volume-container">
+      <i class="fas fa-volume-up" style="font-size: 14px;"></i>
+      <input type="range" class="volume-slider" min="0" max="1" step="0.1" value="1">
+    </div>
+
+    <div class="info">
+      <h3 class="title" id="title">Carregant...</h3>
+      <p class="artist" id="artist">Ràdio en Directe</p>
+    </div>
+
+    <div class="timer-container">
+      <button class="stations-btn" id="stationsBtn">
+        <i class="fas fa-list"></i>
+        <span>Emissores</span>
+      </button>
+      <button class="timer-btn" id="timerBtn" style="font-family: 'Antonio', sans-serif;">
+        <i class="fas fa-hourglass-half"></i>
+        <span class="timer-display" id="timerDisplay">OFF</span>
+      </button>
+      <div class="timer-dropdown" id="timerDropdown">
+        <div class="timer-option" data-minutes="5">5 minuts</div>
+        <div class="timer-option" data-minutes="15">15 minuts</div>
+        <div class="timer-option" data-minutes="30">30 minuts</div>
+        <div class="timer-option" data-minutes="60">1 hora</div>
+        <div class="timer-option" data-minutes="0">Desactivar</div>
+      </div>
+    </div>
+  </div>
+
+  <button class="add-player-btn" id="addPlayerBtn">
+    <i class="fas fa-plus"></i>
+    <span>Nou Player</span>
+  </button>
+
+  <!-- Finestra modal per a la llista d'emissores -->
+  <div class="modal" id="stationsModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Totes les emissores</h2>
+        <button class="close-btn" id="closeModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="stations-list" id="stationsList">
+          <!-- Les emissores es carregaran aquí dinàmicament -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Rellotge
+    function updateClock() {
+      const now = new Date();
+      const timeString = now.toLocaleTimeString('ca-ES', {hour12: false});
+      document.querySelector('.clock span').textContent = timeString;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Variables globals
+    let stations = [];
+    let modalUpdateInterval = null;
+    let activePlayer = null; // Per saber quin reproductor ha de canviar d'emissora
+
+    // Función para actualizar la información de las pistas en la modal
+    async function updateModalTracks() {
+      for (let i = 0; i < stations.length; i++) {
+        const station = stations[i];
+        if (station.playlist) {
+          try {
+            const response = await fetch(station.playlist);
+            const data = await response.json();
+
+            if (data.success && data.result && data.result.length > 0) {
+              const currentTrack = data.result[0];
+              const trackElement = document.getElementById(`station-track-${i}`);
+
+              if (trackElement) {
+                if (currentTrack.track_artist && currentTrack.track_title) {
+                  trackElement.textContent = `${currentTrack.track_artist} - ${currentTrack.track_title}`;
+                } else if (currentTrack.track_artist) {
+                  trackElement.textContent = currentTrack.track_artist;
+                } else if (currentTrack.track_title) {
+                  trackElement.textContent = currentTrack.track_title;
+                } else {
+                  trackElement.textContent = "Ràdio en Directe";
+                }
+              }
+            }
+          } catch (error) {
+            console.error(`Error obteniendo información para ${station.name}:`, error);
+            const trackElement = document.getElementById(`station-track-${i}`);
+            if (trackElement) {
+              trackElement.textContent = "Ràdio en Directe";
+            }
+          }
+        }
+      }
+    }
+
+    // Omplir la llista d'emissores
+    function populateStationsList() {
+      const stationsList = document.getElementById('stationsList');
+      stationsList.innerHTML = '';
+
+      stations.forEach((station, index) => {
+        const stationItem = document.createElement('div');
+        stationItem.className = 'station-item';
+        stationItem.innerHTML = `
+          <div class="station-logo" style="background-image: url('${station.logo}')"></div>
+          <h3 class="station-name">${station.name}</h3>
+          <p class="station-track" id="station-track-${index}">Ràdio en Directe</p>
+        `;
+
+        stationItem.addEventListener('click', () => {
+          // Canviar l'emissora del reproductor actiu
+          if (activePlayer) {
+            activePlayer.currentStationIndex = index;
+            activePlayer.loadStation(station);
+          }
+          stationsModal.style.display = 'none';
+          // Detener la actualización periódica al seleccionar una emisora
+          if (modalUpdateInterval) {
+            clearInterval(modalUpdateInterval);
+            modalUpdateInterval = null;
+          }
+        });
+
+        stationsList.appendChild(stationItem);
+      });
+    }
+
+    // Funcionalitat per a la finestra modal
+    const stationsModal = document.getElementById('stationsModal');
+    const closeModalBtn = document.getElementById('closeModal');
+
+    // Tancar modal
+    closeModalBtn.addEventListener('click', () => {
+      stationsModal.style.display = 'none';
+      // Detener la actualización periódica al cerrar la modal
+      if (modalUpdateInterval) {
+        clearInterval(modalUpdateInterval);
+        modalUpdateInterval = null;
+      }
+    });
+
+    // Tancar modal en fer clic fora del contingut
+    window.addEventListener('click', (e) => {
+      if (e.target === stationsModal) {
+        stationsModal.style.display = 'none';
+        // Detener la actualización periódica al cerrar la modal
+        if (modalUpdateInterval) {
+          clearInterval(modalUpdateInterval);
+          modalUpdateInterval = null;
+        }
+      }
+    });
+
+    // Classe RadioPlayer
+    class RadioPlayer {
+      constructor(playerElement, isMain = false) {
+        this.playerElement = playerElement;
+        this.isMain = isMain;
+        this.audio = new Audio();
+        this.currentStationIndex = 0;
+        this.isPlaying = false;
+        this.sleepTimer = null;
+        this.remainingTime = 0;
+        this.playlistInterval = null;
+
+        // Elements del DOM dins d'aquest reproductor
+        this.playBtn = this.playerElement.querySelector('.play');
+        this.prevBtn = this.playerElement.querySelector('.prev');
+        this.nextBtn = this.playerElement.querySelector('.next');
+        this.disc = this.playerElement.querySelector('.disc');
+        this.title = this.playerElement.querySelector('.title');
+        this.artist = this.playerElement.querySelector('.artist');
+        this.volumeSlider = this.playerElement.querySelector('.volume-slider');
+        this.closeBtn = this.playerElement.querySelector('.close-player');
+        this.stationsBtn = this.playerElement.querySelector('.stations-btn');
+        this.timerBtn = this.playerElement.querySelector('.timer-btn');
+        this.timerDisplay = this.playerElement.querySelector('.timer-display');
+        this.timerDropdown = this.playerElement.querySelector('.timer-dropdown');
+
+        // Inicialitzar esdeveniments
+        this.initEvents();
+      }
+
+      initEvents() {
+        // Control de volum
+        this.volumeSlider.addEventListener('input', (e) => {
+          this.audio.volume = e.target.value;
+        });
+
+        // Temporitzador
+        this.timerBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.timerDropdown.classList.toggle('show');
+        });
+
+        this.playerElement.querySelectorAll('.timer-option').forEach(option => {
+          option.addEventListener('click', (e) => {
+            const minutes = parseInt(e.target.dataset.minutes);
+            this.setSleepTimer(minutes);
+            this.timerDropdown.classList.remove('show');
+          });
+        });
+
+        // Botons de control
+        this.playBtn.addEventListener('click', () => this.togglePlay());
+        this.prevBtn.addEventListener('click', () => this.prevStation());
+        this.nextBtn.addEventListener('click', () => this.nextStation());
+
+        // Botó de tancar (només per a reproductors addicionals)
+        if (this.closeBtn) {
+          this.closeBtn.addEventListener('click', () => {
+            this.audio.pause();
+            this.playerElement.remove();
+          });
+        }
+
+        // Botó per obrir la llista d'emissores
+        this.stationsBtn.addEventListener('click', () => {
+          // Obrir el modal i assignar aquest reproductor com a actiu
+          activePlayer = this;
+          stationsModal.style.display = 'flex';
+          updateModalTracks();
+          // Iniciar actualización periódica cada 20 segundos
+          if (modalUpdateInterval) {
+            clearInterval(modalUpdateInterval);
+          }
+          modalUpdateInterval = setInterval(updateModalTracks, 20000);
+        });
+      }
+
+      setSleepTimer(minutes) {
+        if (this.sleepTimer) {
+          clearInterval(this.sleepTimer);
+          this.sleepTimer = null;
+        }
+
+        if (minutes === 0) {
+          this.timerDisplay.textContent = 'OFF';
+          this.remainingTime = 0;
+          return;
+        }
+
+        this.remainingTime = minutes * 60;
+        this.updateTimerDisplay();
+
+        this.sleepTimer = setInterval(() => {
+          this.remainingTime--;
+          this.updateTimerDisplay();
+
+          if (this.remainingTime <= 0) {
+            clearInterval(this.sleepTimer);
+            this.sleepTimer = null;
+            if (this.isPlaying) {
+              this.togglePlay();
+            }
+            this.timerDisplay.textContent = 'OFF';
+          }
+        }, 1000);
+      }
+
+      updateTimerDisplay() {
+        const hours = Math.floor(this.remainingTime / 3600);
+        const minutes = Math.floor((this.remainingTime % 3600) / 60);
+        const seconds = this.remainingTime % 60;
+
+        this.timerDisplay.textContent =
+          `${hours.toString().padStart(2, '0')}:` +
+          `${minutes.toString().padStart(2, '0')}:` +
+          `${seconds.toString().padStart(2, '0')}`;
+      }
+
+      loadStation(station) {
+        this.title.textContent = station.name;
+        this.artist.textContent = "Carregant informació...";
+        this.audio.src = station.url;
+        this.disc.style.backgroundImage = `url('${station.logo}')`;
+
+        if (station.playlist) {
+          this.startPlaylistUpdates(station.playlist);
+        } else {
+          this.artist.textContent = "Ràdio en Directe";
+          if (this.playlistInterval) {
+            clearInterval(this.playlistInterval);
+            this.playlistInterval = null;
+          }
+        }
+
+        if (this.isPlaying) this.audio.play();
+      }
+
+      async updatePlaylistInfo(playlistUrl) {
+        try {
+          const response = await fetch(playlistUrl);
+          const data = await response.json();
+
+          if (data.success && data.result && data.result.length > 0) {
+            const currentTrack = data.result[0];
+
+            if (currentTrack.track_artist && currentTrack.track_title) {
+              this.artist.textContent = `${currentTrack.track_artist} - ${currentTrack.track_title}`;
+            } else if (currentTrack.track_artist) {
+              this.artist.textContent = currentTrack.track_artist;
+            } else if (currentTrack.track_title) {
+              this.artist.textContent = currentTrack.track_title;
+            } else {
+              this.artist.textContent = "Ràdio en Directe";
+            }
+
+            if (currentTrack.track_image) {
+              this.disc.style.backgroundImage = `url('${currentTrack.track_image}')`;
+            }
+          } else {
+            this.artist.textContent = "Ràdio en Directe";
+          }
+        } catch (error) {
+          console.error("Error obteniendo información de la playlist:", error);
+          this.artist.textContent = "Ràdio en Directe";
+
+          setTimeout(() => {
+            if (this.playlistInterval) {
+              this.updatePlaylistInfo(playlistUrl);
+            }
+          }, 5000);
+        }
+      }
+
+      startPlaylistUpdates(playlistUrl) {
+        if (this.playlistInterval) {
+          clearInterval(this.playlistInterval);
+        }
+
+        this.updatePlaylistInfo(playlistUrl);
+
+        this.playlistInterval = setInterval(() => {
+          this.updatePlaylistInfo(playlistUrl);
+        }, 10000);
+      }
+
+      togglePlay() {
+        this.isPlaying ? this.audio.pause() : this.audio.play();
+        this.playBtn.innerHTML = this.isPlaying ? '<i class="fas fa-play"></i>' : '<i class="fas fa-pause"></i>';
+        this.disc.style.animationPlayState = this.isPlaying ? 'paused' : 'running';
+        this.isPlaying = !this.isPlaying;
+      }
+
+      prevStation() {
+        this.currentStationIndex = (this.currentStationIndex - 1 + stations.length) % stations.length;
+        this.loadStation(stations[this.currentStationIndex]);
+      }
+
+      nextStation() {
+        this.currentStationIndex = (this.currentStationIndex + 1) % stations.length;
+        this.loadStation(stations[this.currentStationIndex]);
+      }
+    }
+
+    // Carregar les emissores
+    async function loadStations() {
+      try {
+        const response = await fetch('https://xarxa-1.github.io/Xarxa-1/emissores.json');
+        stations = await response.json();
+        if (stations.length > 0) {
+          mainPlayer.loadStation(stations[mainPlayer.currentStationIndex]);
+          populateStationsList();
+        }
+      } catch (error) {
+        console.error("Error carregant estacions:", error);
+      }
+    }
+
+    // Crear el reproductor principal
+    const mainPlayerElement = document.getElementById('mainPlayer');
+    const mainPlayer = new RadioPlayer(mainPlayerElement, true);
+
+    // Afegir nou reproductor
+    const addPlayerBtn = document.getElementById('addPlayerBtn');
+    let playerCounter = 0;
+
+    addPlayerBtn.addEventListener('click', () => {
+      createNewPlayer();
+    });
+
+    function createNewPlayer() {
+      playerCounter++;
+      
+      // Crear un nou element de reproductor (sense rellotge)
+      const newPlayer = document.createElement('div');
+      newPlayer.className = 'player';
+      newPlayer.id = `player-${playerCounter}`;
+      
+      // Copiar l'estructura del reproductor principal, però sense el rellotge
+      newPlayer.innerHTML = `
+        <button class="close-player">&times;</button>
+        <div class="cover">
+          <div class="disc"></div>
+        </div>
+        <div class="progress-container">
+          <div class="progress"></div>
+        </div>
+
+        <div class="controls">
+          <button class="btn prev"><i class="fas fa-backward"></i></button>
+          <button class="btn play"><i class="fas fa-play"></i></button>
+          <button class="btn next"><i class="fas fa-forward"></i></button>
+        </div>
+
+        <div class="volume-container">
+          <i class="fas fa-volume-up" style="font-size: 14px;"></i>
+          <input type="range" class="volume-slider" min="0" max="1" step="0.1" value="1">
+        </div>
+
+        <div class="info">
+          <h3 class="title">Carregant...</h3>
+          <p class="artist">Ràdio en Directe</p>
+        </div>
+
+        <div class="timer-container">
+          <button class="stations-btn">
+            <i class="fas fa-list"></i>
+            <span>Emissores</span>
+          </button>
+          <button class="timer-btn" style="font-family: 'Antonio', sans-serif;">
+            <i class="fas fa-hourglass-half"></i>
+            <span class="timer-display">OFF</span>
+          </button>
+          <div class="timer-dropdown">
+            <div class="timer-option" data-minutes="5">5 minuts</div>
+            <div class="timer-option" data-minutes="15">15 minuts</div>
+            <div class="timer-option" data-minutes="30">30 minuts</div>
+            <div class="timer-option" data-minutes="60">1 hora</div>
+            <div class="timer-option" data-minutes="0">Desactivar</div>
+          </div>
+        </div>
+      `;
+      
+      // Afegir el nou reproductor abans del botó d'afegir
+      document.body.insertBefore(newPlayer, addPlayerBtn);
+      
+      // Inicialitzar el nou reproductor
+      const newRadioPlayer = new RadioPlayer(newPlayer);
+
+      // Carregar la primera emissora
+      if (stations.length > 0) {
+        newRadioPlayer.loadStation(stations[newRadioPlayer.currentStationIndex]);
+      }
+    }
+
+    // Iniciar càrrega d'emissores
+    loadStations();
+  </script>
+</body>
+</html>
