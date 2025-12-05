@@ -125,13 +125,33 @@
         .container {
             display: flex;
         }
+        
+        /* Estil per al botó de captura */
+        #captureButton {
+            background-color: #444;
+            color: white;
+            border: 1px solid white;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+            margin-right: 5px;
+        }
+
+        #captureButton:hover {
+            background-color: #555;
+        }
+
+        #captureButton:active {
+            background-color: #666;
+        }
     </style>
     <link href="https://unpkg.com/video.js@7/dist/video-js.min.css" rel="stylesheet">
     <script src="https://unpkg.com/video.js@7/dist/video.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/videojs-hls-quality-selector@1.1.4/dist/videojs-hls-quality-selector.min.js"></script>
 </head>
 <body>
-    <video muted autoplay id="videojs" class="video-js vjs-fluid vjs-default-skin vjs-big-play-centered" controls preload="auto" style="width: 100vw;font-size: 24px;" poster="negre.jpg">
+    <video muted autoplay id="videojs" class="video-js vjs-fluid vjs-default-skin vjs-big-play-centered" controls preload="auto" style="width: 100vw;font-size: 24px;" poster="negre.jpg" crossorigin="anonymous">
         <source src="https://directes-tv-cat.ccma.cat/live-origin/tv3-hls/master.m3u8" type="application/x-mpegURL">
     </video>
     <h4 style="display: flex; justify-content: space-between; align-items: center;">
@@ -158,6 +178,7 @@
             <button onclick="skipTime(1800)"> 30m &raquo;</button>
  <div id="searchContainer">
      <div>
+         <button id="captureButton" title="Capturar pantalla actual">📸</button>
          <input type="text" id="channelSearch" placeholder="Cercar canals..." oninput="filterChannels()" style="width:70px">
          <input type="time" id="timeInput" placeholder="hh:mm" value="14:30" style="width:70px">
          <button onclick="jumpToTime()">Salta</button>
@@ -207,6 +228,156 @@
             "https://xarxa-1.github.io/Xarxa-1/cat37.m3u",
             "https://xarxa-1.github.io/Xarxa-1/futbol.m3u"
         ];
+
+        // Función para capturar y descargar la imagen
+        function captureScreenshot() {
+            // Buscar el elemento de video real dentro del reproductor video.js
+            const videoElement = player.el().querySelector('video, .vjs-tech');
+            
+            if (!videoElement) {
+                console.error('No se encontró el elemento de video');
+                alert('No se pudo encontrar el elemento de video para capturar.');
+                return;
+            }
+            
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            
+            // Intentar obtener las dimensiones del video
+            let width, height;
+            
+            // Primero intentar con videoWidth/videoHeight
+            if (videoElement.videoWidth && videoElement.videoHeight) {
+                width = videoElement.videoWidth;
+                height = videoElement.videoHeight;
+            } 
+            // Si no, intentar con offsetWidth/offsetHeight
+            else if (videoElement.offsetWidth && videoElement.offsetHeight) {
+                width = videoElement.offsetWidth;
+                height = videoElement.offsetHeight;
+            }
+            // Si no, usar valores por defecto
+            else {
+                width = 640;
+                height = 360;
+            }
+            
+            canvas.width = width;
+            canvas.height = height;
+            
+            try {
+                // Configurar el canvas para evitar problemas CORS
+                context.fillStyle = '#000000';
+                context.fillRect(0, 0, width, height);
+                
+                // Intentar dibujar el video
+                context.drawImage(videoElement, 0, 0, width, height);
+            } catch (error) {
+                console.error('Error al capturar video:', error);
+                
+                // Intentar método alternativo: capturar el contenedor completo
+                try {
+                    const container = document.querySelector('.video-js');
+                    if (container) {
+                        // Capturar el contenedor completo
+                        const tempCanvas = document.createElement('canvas');
+                        const tempCtx = tempCanvas.getContext('2d');
+                        tempCanvas.width = container.offsetWidth;
+                        tempCanvas.height = container.offsetHeight;
+                        
+                        // Usar html2canvas si está disponible
+                        if (typeof html2canvas !== 'undefined') {
+                            html2canvas(container).then(canvas => {
+                                downloadCanvas(canvas);
+                            });
+                            return;
+                        } else {
+                            // Método de respaldo: capturar pantalla del visor
+                            tempCtx.fillStyle = '#000000';
+                            tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+                            tempCtx.fillStyle = '#FFFFFF';
+                            tempCtx.font = '20px Arial';
+                            tempCtx.textAlign = 'center';
+                            tempCtx.fillText('Streaming en vivo', tempCanvas.width / 2, tempCanvas.height / 2);
+                            downloadCanvas(tempCanvas);
+                            return;
+                        }
+                    }
+                } catch (secondError) {
+                    console.error('Error en método alternativo:', secondError);
+                }
+                
+                // Si todo falla, crear imagen negra
+                context.fillStyle = '#000000';
+                context.fillRect(0, 0, width, height);
+                context.fillStyle = '#FFFFFF';
+                context.font = '20px Arial';
+                context.textAlign = 'center';
+                context.fillText('Streaming en vivo', width / 2, height / 2);
+            }
+            
+            // Descargar el canvas
+            downloadCanvas(canvas);
+        }
+
+        // Función auxiliar para descargar el canvas
+        function downloadCanvas(canvas) {
+            // Obtener nombre del canal actual
+            let channelName = document.getElementById('selectedChannelTitle').textContent;
+            if (!channelName || channelName.trim() === '') {
+                channelName = 'captura';
+            }
+            
+            // Limpiar nombre del canal para nombre de archivo
+            channelName = channelName
+                .toLowerCase()
+                .replace(/[^a-z0-9]/g, '_')
+                .substring(0, 30);
+            
+            // Obtener hora actual
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            // Crear nombre de archivo
+            const fileName = `${channelName}_${hours}${minutes}${seconds}.jpg`;
+            
+            // Convertir canvas a imagen y descargar
+            canvas.toBlob(function(blob) {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = fileName;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }, 'image/jpeg', 0.95);
+        }
+
+        // Event listener para el botón de captura
+        document.getElementById('captureButton').addEventListener('click', function() {
+            try {
+                captureScreenshot();
+            } catch (error) {
+                console.error('Error al capturar:', error);
+                alert('Error al capturar la imagen. Inténtalo de nuevo.');
+            }
+        });
+
+        // Opcional: Agregar indicador visual al capturar
+        document.getElementById('captureButton').addEventListener('mousedown', function() {
+            this.style.backgroundColor = '#555';
+        });
+
+        document.getElementById('captureButton').addEventListener('mouseup', function() {
+            this.style.backgroundColor = '';
+        });
+
+        document.getElementById('captureButton').addEventListener('mouseleave', function() {
+            this.style.backgroundColor = '';
+        });
 
         function showAllM3USuggestions() {
             const suggestionsContainer = document.getElementById('m3uSuggestions');
@@ -417,6 +588,9 @@
         document.getElementById('zappingButton').addEventListener('click', startZapping);
         window.addEventListener('load', loadNewM3U);
     </script>
+
+    <!-- Incluir html2canvas como alternativa para captura -->
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
     <iframe id="externalIframe" src="https://xarxa-1.github.io/Xarxa-1/radiopen9.html"></iframe>
 </body>
