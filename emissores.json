@@ -37,7 +37,7 @@
   { "name": "Vaughan", "url": "https://cdn-peer021.streaming-pro.com:8058/vaughanradio.mp3", "logo": "https://www.radio.es/300/vaughan-radio.png" },
   { "name": "The Sound of Silence - Disturbed [Cyril Remix 2024]", "url": "https://xarxa-1.github.io/Xarxa-1/The Sound of Silence - Disturbed [Cyril Remix 2024].mp3", "logo": "" },
   { "name": "PerfectDeepHouse", "playlist": "https://api.instant.audio/data/playlist/38/perfect-deep-house", "url": "https://stream.radiojar.com/asngk2sg798uv", "logo": "https://cdn.instant.audio/images/logos/emisora-org-es/perfect-deep-house.png" },
-  { "name": "", "playlist": "", "url": "", "logo": "" },
+  { "name": "Likexmas", "playlist": "https://api.instant.audio/data/playlist/42/like-christmas-dab", "url": "https://likeradiostream.com//likexmas", "logo": "" },
   { "name": "", "playlist": "", "url": "", "logo": "" },
   { "name": "", "playlist": "", "url": "", "logo": "" },
   { "name": "", "playlist": "", "url": "", "logo": "" },
@@ -45,6 +45,7 @@
   { "name": "", "playlist": "", "url": "", "logo": "" },
   { "name": "BBC World Service", "url": "http://stream.live.vc.bbcmedia.co.uk/bbc_world_service", "logo": "https://asianlite.ae/wp-content/uploads/2018/09/JtNS_gjE_400x400.jpg" }
 ]
+
 
 
 
