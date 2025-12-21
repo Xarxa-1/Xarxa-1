@@ -21,3 +21,38 @@ http://dmitwlvvll.cdn.mangomolo.com/dubaisportshd/smil:dubaisportshd.smil/chunkl
 http://dmitwlvvll.cdn.mangomolo.com/dubaisportshd/smil:dubaisportshd.smil/chunklist.m3u8
 #EXTINF:-1 tvg-id="Dubai" tvg-name="Dubai" tvg-language="Arabic" tvg-logo="http://admango.cdn.mangomolo.com/analytics/uploads/71/5d934da293.png" tvg-country="AE" tvg-url="http://195.154.221.171/epg/guidearab.xml.gz" group-title="Sport",Dubai Sports 3+
 http://dmitwlvvll.cdn.mangomolo.com/dubaisportshd5/smil:dubaisportshd5.smil/chunklist.m3u8
+#EXTM3U
+#EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1605211963096801282/3flU1i5o_200x200.jpg",ABC
+http://41.205.93.154/ABC/index.m3u8
+#EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1450745843603083267/uSloYi8l_200x200.jpg",BBC ONE
+http://41.205.93.154/BBCONE/index.m3u8
+#EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1450745686572650497/d-njUG_H_200x200.jpg",BBC TWO
+http://41.205.93.154/BBCTWO/index.m3u8
+#EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1731336840383184896/XMhEBdPu_200x200.jpg",MSNBC
+http://41.205.93.154/MSNBC/index.m3u8
+#EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/831655258602532865/3KyagoY6_200x200.jpg",ESPN
+http://41.205.93.154/ESPN/index.m3u8
+#EXTINF:-1,La liga Inside 🇪🇸
+https://is.gd/P9HFAg?LaligaInside.m3u8
+#EXTINF:-1,BEIN SPORT EXTRA Ñ 🇪🇸
+https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/bein-sports-xtra-en-espanol/playlist.m3u8
+#EXTINF:-1, SoloCalcioᴴᴰ 🇮🇹
+https://bit.ly/48XfUCc?profile=inspirationFreetv.m3u8
+#EXTINF:-1, SPORT ITALIA 🇮🇹
+https://amg01370-italiansportcom-sportitalia-rakuten-3hmdb.amagi.tv/amRdirect/ads_pod_type=playerpage_midroll&ads_env=prod&ads_ppid=&ads_rtvid=271861&ads_streaming_id=4f185419-74f6-4564-8ea9-4cdc60746e2f&ads_amagi_channel=781&ads_device_type=web&ads_device_model=&ads_device_year=&ads_player_width=&ads_rtv_content_language=ita&ads_market=it&ads_rtv_content_id=3741&ads_device_make=&ads_user_type=visitor&ads_content_classification=6&ads_gdpr_consent=&ads_device_lmt=1&ads_player_height=&uid=1gnmqg5gu-qsvc-bfo-gaq3-3dgjgexshpe/hls/amagi_hls_data_rakutenAA-sportitalia-rakuten/CDN/1920x1080_4540800/chunklist.m3u8
+#EXTINF:-1 tvg-id="" tvg-logo="" group-title="",BEIN SPORT EXTRA Ñ
+https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/bein-sports-xtra-en-espanol/playlist.m3u8
+#EXTINF:-1 tvg-name="Redbull TV" tvg-language="English" tvg-country="US" tvg-id="Redbull-TV" tvg-logo="https://i.imgur.com/iFNScQ6.png" group-title="Sports",Redbull TV
+https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master_1660.m3u8
+#EXTINF:-1 tvg-id="PROSportInternational.my" tvg-logo="https://i.postimg.cc/7hjCP4mf/PROSport-International.png" group-title="Sports",PRO Sport International
+https://proshls.wns.live/hls/stream.m3u8
+#EXTINF:-1,Golden
+http://181.78.106.127:9000/play/ca076/index.m3u8
+#EXTINF:-1,Cinemax
+http://181.78.106.127:9000/play/ca079/index.m3u8
+#EXTINF:-1 group-title="© Cinemax" language="Español" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/MaxGO.svg/125px-MaxGO.svg.png",CineMax
+http://45.5.119.43:4000/play/a0il/index.m3u8
+#EXTINF:-1,DE PELICULA
+http://179.49.163.34:45000/play/a013/index.m3u8
+#EXTINF:-1,Studio Universal
+http://181.78.106.127:9000/play/ca074/index.m3u8
