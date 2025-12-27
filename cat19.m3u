@@ -243,4 +243,5 @@ http://188.26.25.175:40000/play/a03g/index.m3u8
 http://188.26.25.175:40000/play/a03h/index.m3u8
 #EXTINF:-1 group-title="-",Eleven 6
 http://188.26.25.175:40000/play/a03k/index.m3u8
-
+#EXTINF:-1 tvg-id="" tvg-name="BBC Two HD (720p)" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/BBC_Two_logo_2021.svg/512px-BBC_Two_logo_2021.svg.png" group-title="General",BBC Two HD (720p)
+https://viamotionhsi.netplus.ch/live/eds/bbc2/browser-HLS8/bbc2.m3u8
