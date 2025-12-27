@@ -245,14 +245,12 @@ http://188.26.25.175:40000/play/a03h/index.m3u8
 http://188.26.25.175:40000/play/a03k/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="BBC W",BBC World
 https://viamotionhsi.netplus.ch/live/eds/bbcworld/browser-HLS8/bbcworld.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="BBC Two HD (720p)" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/BBC_Two_logo_2021.svg/512px-BBC_Two_logo_2021.svg.png" group-title="General",BBC Two HD (720p)
+#EXTINF:-1 tvg-id="" tvg-name="BBC Two HD (720p)" group-title="UK" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/BBC_Two_logo_2021.svg/512px-BBC_Two_logo_2021.svg.png" group-title="General",BBC Two HD (720p)
 https://viamotionhsi.netplus.ch/live/eds/bbc2/browser-HLS8/bbc2.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="itv1",itv1
-https://viamotionhsi.netplus.ch/live/eds/itv1/browser-HLS8/itv1.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="itv2",itv2
+#EXTINF:-1 tvg-id="" tvg-name="itv2" group-title="UK",itv2
 https://viamotionhsi.netplus.ch/live/eds/itv2/browser-HLS8/itv2.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="itv3",itv3
+#EXTINF:-1 tvg-id="" tvg-name="itv3" group-title="UK",itv3
 https://viamotionhsi.netplus.ch/live/eds/itv3/browser-HLS8/itv3.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="itv4",itv4
+#EXTINF:-1 tvg-id="" tvg-name="itv4"  group-title="UK",itv4
 https://viamotionhsi.netplus.ch/live/eds/itv4/browser-HLS8/itv4.m3u8
 
