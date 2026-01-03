@@ -255,3 +255,7 @@ https://viamotionhsi.netplus.ch/live/eds/itv3/browser-HLS8/itv3.m3u8
 https://viamotionhsi.netplus.ch/live/eds/itv4/browser-HLS8/itv4.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="itv2" group-title="UK"  tvg-logo="https://images.seeklogo.com/logo-png/21/2/itv2-logo-png_seeklogo-216927.png",itv2
 https://viamotionhsi.netplus.ch/live/eds/itv2/browser-HLS/itv2.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="itv4"  group-title="Design",ElMueble
+https://epg.provider.plex.tv/library/parts/643054b1fc3be59477853717-693cb1af58076a970420f591.m3u8?includeAllStreams=1&X-Plex-Product=Plex+Mediaverse&X-Plex-Token=5XdCskTxmw1jirrUr_8d
+#EXTINF:-1 tvg-id="" tvg-name="deco"  group-title="Design",Deco
+https://amg00441-amg00441c1-plex-us-5231.playouts.now.amagi.tv/playlistR1080p.m3u8
