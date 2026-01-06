@@ -1,0 +1,207 @@
+/* style.css - Versió amb transició gradual */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #e9f5ff;
+    color: #222;
+    padding: 2em;
+    padding-top: 80px; /* Espacio para el menú fijo */
+}
+
+/* Estilos del menú hamburguesa */
+.menu-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #0073bb;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.hamburger-menu {
+    display: flex;
+    align-items: center;
+    padding: 1em;
+    color: white;
+    cursor: pointer;
+}
+
+.hamburger-menu span {
+    font-size: 1.5em;
+    margin-right: 10px;
+}
+
+.hamburger-menu h1 {
+    font-size: 1.2em;
+    font-weight: normal;
+}
+
+.nav-links {
+    display: none;
+    background: #0073bb;
+    padding: 1em;
+}
+
+.nav-links.active {
+    display: block;
+}
+
+.nav-links a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 0.7em 1em;
+    margin: 0.2em 0;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+.nav-links a:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-links a.active {
+    background: rgba(255, 255, 255, 0.2);
+    font-weight: bold;
+}
+
+/* Estilos comunes de la taula */
+.weather-table {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.weather-table th, .weather-table td {
+    padding: 0.7em 1em;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+    transition: background 0.5s;
+}
+
+.weather-table th {
+    background: #0073bb;
+    color: #fff;
+    font-size: 1.1em;
+    position: sticky;
+    top: 0;
+}
+
+.weather-table tr:last-child td {
+    border-bottom: none;
+}
+
+.error {
+    color: #c00;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 1em;
+}
+
+/* Estils per als canvis de color amb transició gradual */
+.up {
+    background-color: #ffb3b3 !important;
+    animation: fadeRedToWhite 60s linear forwards;
+}
+
+.down {
+    background-color: #b3d0ff !important;
+    animation: fadeBlueToWhite 60s linear forwards;
+}
+
+@keyframes fadeRedToWhite {
+    0% {
+        background-color: #ff9999; /* Vermell més intens */
+    }
+    25% {
+        background-color: #ffb3b3; /* Vermell mitjà */
+    }
+    50% {
+        background-color: #ffcccc; /* Vermell clar */
+    }
+    75% {
+        background-color: #ffe6e6; /* Vermell molt clar */
+    }
+    100% {
+        background-color: #ffffff; /* Blanc */
+    }
+}
+
+@keyframes fadeBlueToWhite {
+    0% {
+        background-color: #80b3ff; /* Blau més intens */
+    }
+    25% {
+        background-color: #b3d0ff; /* Blau mitjà */
+    }
+    50% {
+        background-color: #d9e6ff; /* Blau clar */
+    }
+    75% {
+        background-color: #ecf2ff; /* Blau molt clar */
+    }
+    100% {
+        background-color: #ffffff; /* Blanc */
+    }
+}
+
+/* Estilos comunes dels gràfics */
+.chart-container {
+    max-width: 1200px;
+    margin: 2em auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 2em 1em;
+}
+
+.chart-title {
+    text-align: center;
+    margin-bottom: 1.5em;
+    color: #333;
+}
+
+.countdown {
+    text-align: center;
+    margin-top: 2em;
+    font-size: 0.9em;
+    color: #666;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 1.5em;
+    color: #333;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+    body {
+        padding: 1em;
+        padding-top: 70px;
+    }
+    
+    .weather-table, .weather-table th, .weather-table td {
+        font-size: 0.95em;
+    }
+    
+    .chart-container {
+        padding: 1em 0.5em;
+        margin: 1em auto;
+    }
+    
+    .hamburger-menu h1 {
+        font-size: 1em;
+    }
+}
