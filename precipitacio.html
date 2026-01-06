@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <title>Precipitació - Últims 30 Dies</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="common.js" defer></script>
+    <script src="charts.js" defer></script>
+</head>
+<body>
+    <!-- Menú hamburguesa -->
+    <div class="menu-container">
+        <div class="hamburger-menu">
+            <span>☰</span>
+            <h1>Precipitació 30 Dies</h1>
+        </div>
+        <nav class="nav-links">
+            <a href="index.html">Dades Completes</a>
+            <a href="precipitacio.html" class="active">Precipitació 30 dies</a>
+            <a href="temperatures.html">Temperatures 30 dies</a>
+            <a href="pressio.html">Pressió 30 dies</a>
+            <a href="humitat.html">Humitat 30 dies</a>
+            <a href="pluja_hora.html">Pluja Hora a Hora</a>
+            <a href="temperatura_hora.html">Temperatura Hora a Hora</a>
+            <a href="sensacio_hora.html">Sensació Tèrmica Hora a Hora</a>
+        </nav>
+    </div>
+
+    <div class="chart-container">
+        <h3 class="chart-title">Precipitació diària últims 30 dies</h3>
+        <canvas id="precChart" width="1000" height="300"></canvas>
+    </div>
+    
+    <div class="countdown" id="countdown">
+        Pròxima actualització en 60 segons
+    </div>
+</body>
+</html>
