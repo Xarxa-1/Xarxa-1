@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <title>Dades Meteorològiques - Taula Completa</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="common.js" defer></script>
+    <script src="table.js" defer></script>
+</head>
+<body>
+    <!-- Menú hamburguesa -->
+    <div class="menu-container">
+        <div class="hamburger-menu">
+            <span>☰</span>
+            <h1>Dades Meteorològiques Completes</h1>
+        </div>
+        <nav class="nav-links">
+            <a href="index.html" class="active">Dades Completes</a>
+            <a href="precipitacio.html">Precipitació 30 dies</a>
+            <a href="temperatures.html">Temperatures 30 dies</a>
+            <a href="pressio.html">Pressió 30 dies</a>
+            <a href="humitat.html">Humitat 30 dies</a>
+            <a href="pluja_hora.html">Pluja Hora a Hora</a>
+            <a href="temperatura_hora.html">Temperatura Hora a Hora</a>
+            <a href="sensacio_hora.html">Sensació Tèrmica Hora a Hora</a>
+        </nav>
+    </div>
+
+    <h2>Dades meteorològiques completes</h2>
+    <table class="weather-table">
+        <thead>
+            <tr>
+                <th>Dada</th>
+                <th>Espluga de Francolí</th>
+                <th>Les Borges Blanques</th>
+            </tr>
+        </thead>
+        <tbody id="weather">
+            <tr><td colspan="3" style="text-align:center;">Carregant dades...</td></tr>
+        </tbody>
+    </table>
+    <div id="error" class="error"></div>
+
+    <div class="countdown" id="countdown">
+        Pròxima actualització en 60 segons
+    </div>
+</body>
+</html>
