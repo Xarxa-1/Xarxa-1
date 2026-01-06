@@ -259,5 +259,5 @@ https://viamotionhsi.netplus.ch/live/eds/itv2/browser-HLS/itv2.m3u8
 https://epg.provider.plex.tv/library/parts/643054b1fc3be59477853717-693cb1af58076a970420f591.m3u8?includeAllStreams=1&X-Plex-Product=Plex+Mediaverse&X-Plex-Token=5XdCskTxmw1jirrUr_8d
 #EXTINF:-1 tvg-id="" tvg-name="deco"  group-title="Design",Deco
 https://amg00441-amg00441c1-plex-us-5231.playouts.now.amagi.tv/playlistR1080p.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="uk"  group-title="SkyNews",SkyNews
+#EXTINF:-1 tvg-id="" tvg-name="uk" #EXTINF:-1 tvg-id="" tvg-name="Sky News" tvg-logo="https://graph.facebook.com/skynews/picture?width=200&height=200" group-title="UK" group-title="SkyNews",SkyNews
 https://linear417-gb-hls1-prd-ak.cdn.skycdp.com/100e/Content/HLS_001_1080_30/Live/channel(skynews)/index_1080-30.m3u8
