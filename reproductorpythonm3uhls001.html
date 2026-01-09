@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reproductor M3U HLS</title>
+    
+    <!-- PyScript -->
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.7.1/core.css">
+    <script type="module" src="https://pyscript.net/releases/2024.7.1/core.js"></script>
+    
+    <!-- HLS.js per reproduir .m3u8 -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #1a1a1a; color: white; }
+        
+        .container { display: flex; height: 100vh; }
+        .video-section { flex: 2; display: flex; flex-direction: column; padding: 20px; }
+        .channels-section { flex: 1; background: #2a2a2a; padding: 20px; overflow-y: auto; }
+        
+        #videoPlayer { width: 100%; height: 70vh; background: #000; border-radius: 8px; }
+        #currentChannel { margin: 15px 0; font-size: 1.5em; font-weight: bold; }
+        
+        .controls { margin-bottom: 20px; }
+        input[type="url"] { width: 70%; padding: 10px; background: #333; color: white; border: 1px solid #555; }
+        button { padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; margin-left: 10px; }
+        button:hover { background: #0056b3; }
+        
+        .channel-btn { width: 100%; padding: 12px; margin: 5px 0; background: #444; color: white; border: none; border-radius: 6px; cursor: pointer; text-align: left; }
+        .channel-btn:hover, .channel-btn.active { background: #007bff; }
+        .channel-btn:active { transform: scale(0.98); }
+        
+        #channelList { max-height: 80vh; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="video-section">
+            <div class="controls">
+                <input type="url" id="m3uUrl" value="https://xarxa-1.github.io/Xarxa-1/cat19.m3u" placeholder="URL M3U">
+                <button onclick="loadChannels()">Carrega canals</button>
+            </div>
+            
+            <h2 id="currentChannel">Selecciona un canal</h2>
+            <video id="videoPlayer" controls preload="none" poster="https://via.placeholder.com/640x360/000/fff?text=Carregant...">
+                El teu navegador no suporta vídeo HTML5.
+            </video>
+        </div>
+        
+        <div class="channels-section">
+            <h3>📺 Canals</h3>
+            <div id="channelList"></div>
+        </div>
+    </div>
+
+    <py-script>
+import js, asyncio
+from pyodide.http import open_url
+from js import document, console, JSON
+
+async def parse_m3u(content):
+    """Parseja fitxer M3U i retorna llista de canals"""
+    channels = []
+    lines = content.split('\n')
+    i = 0
+    
+    while i < len(lines):
+        if lines[i].startswith('#EXTINF'):
+            # Extreu nom del canal
+            name = lines[i].split(',')[-1].strip()
+            i += 1
+            if i < len(lines) and not lines[i].startswith('#'):
+                url = lines[i].strip()
+                if url.endswith('.m3u8') or url.endswith('.ts'):
+                    channels.append({"name": name, "url": url})
+        i += 1
+    
+    return channels
+
+def load_channels_py(m3u_url):
+    """Funció Python per carregar canals"""
+    async def _load():
+        try:
+            content = await open_url(m3u_url)
+            channels = await parse_m3u(content)
+            
+            # Converteix a JSON per passar a JavaScript
+            channels_json = JSON.stringify(channels)
+            js.document.getElementById('channelList').innerHTML = ""
+            createChannelButtons(channels_json)
+            
+        except Exception as e:
+            console.error(f"Error carregant M3U: {e}")
+    
+    asyncio.create_task(_load())
+
+# Exposeix funció Python a JavaScript
+loadChannelsPy = load_channels_py
+    </py-script>
+
+    <script>
+        let hls = null;
+        let currentChannel = null;
+        
+        const video = document.getElementById('videoPlayer');
+        const channelList = document.getElementById('channelList');
+        const currentChannelEl = document.getElementById('currentChannel');
+        const m3uInput = document.getElementById('m3uUrl');
+        
+        // Configura HLS.js
+        function initHLS() {
+            if (Hls.isSupported()) {
+                hls = new Hls();
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                    video.play();
+                });
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                // Safari natiu
+                video.addEventListener('loadedmetadata', () => video.play());
+            }
+        }
+        
+        // Crea botons de canals
+        function createChannelButtons(channelsJson) {
+            const channels = JSON.parse(channelsJson);
+            channelList.innerHTML = '';
+            
+            channels.forEach((channel, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'channel-btn';
+                btn.textContent = channel.name;
+                btn.dataset.url = channel.url;
+                btn.onclick = () => playChannel(channel);
+                channelList.appendChild(btn);
+            });
+        }
+        
+        // Reprodueix canal
+        function playChannel(channel) {
+            currentChannel = channel;
+            currentChannelEl.textContent = channel.name;
+            
+            // Actualitza botó actiu
+            document.querySelectorAll('.channel-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Carrega vídeo
+            if (hls) {
+                hls.loadSource(channel.url);
+                hls.startLoad();
+            } else {
+                video.src = channel.url;
+                video.load();
+            }
+        }
+        
+        // Carrega canals des de Python
+        function loadChannels() {
+            const url = m3uInput.value;
+            window.loadChannelsPy(url);
+        }
+        
+        // Inicialització
+        initHLS();
+        loadChannels(); // Carrega automàticament l'URL per defecte
+    </script>
+</body>
+</html>
