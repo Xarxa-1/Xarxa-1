@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/pyscript@2024.7.1"></script>
+    <py-config>
+        packages = ["requests", "beautifulsoup4", "lxml"]
+    </py-config>
+</head>
+<body>
+    <h1>Comparador de Preus: Aigua Font Vella</h1>
+    <table id="preus-table" border="1">
+        <thead><tr><th>Producte</th><th>Condis (€)</th><th>Bonàrea (€)</th><th>Millor Preu</th></tr></thead>
+        <tbody id="taula-body"></tbody>
+    </table>
+
+    <py-script>
+import requests
+from bs4 import BeautifulSoup
+import json
+
+# Selector genèric (adapta segons inspecciona les pàgines amb DevTools)
+def scrape_condis(url):
+    try:
+        resp = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'})
+        soup = BeautifulSoup(resp.text, 'lxml')
+        # Exemple selectors (inspecciona: cerca 'price', 'product-name')
+        preu = soup.select_one('.price-selector')['data-preu'] or 'N/D'
+        nom = soup.select_one('.product-name-selector').text.strip()
+        return {'nom': nom, 'preu': float(preu.replace(',', '.')) if preu != 'N/D' else None}
+    except:
+        return {'nom': 'Error', 'preu': None}
+
+def scrape_bonarea(url):
+    try:
+        resp = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'})
+        soup = BeautifulSoup(resp.text, 'lxml')
+        preu = soup.select_one('.preu')['content'] or soup.find(class_='price').text
+        nom = soup.find(class_='product-title').text.strip()
+        return {'nom': nom, 'preu': float(preu.replace('€', '').replace(',', '.'))}
+    except:
+        return {'nom': 'Error', 'preu': None}
+
+# URLs de l'usuari
+condis_url = "https://compraonline.condis.es/bebidas_aguas-y-gaseosas/c/c07__cat00280001/es_ES"
+bonarea_url = "https://www.bonarea-online.com/online/producto/agua-mineral-font-vella-garrafa/13_0086895"
+
+# Scraping
+condis_data = scrape_condis(condis_url)
+bonarea_data = scrape_bonarea(bonarea_url)
+
+# Comparació
+millor = min([d['preu'] for d in [condis_data, bonarea_data] if d['preu'] is not None], default='Empat')
+
+# Genera taula
+taula = Element("taula-body")
+html = f"""
+<tr>
+    <td>{condis_data['nom']}</td>
+    <td>{condis_data['preu'] or 'N/D'}</td>
+    <td>{bonarea_data['preu'] or 'N/D'}</td>
+    <td style="color:green">{millor}</td>
+</tr>
+"""
+taula.write(html)
+    </py-script>
+</body>
+</html>
