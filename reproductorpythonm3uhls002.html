@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reproductor M3U HLS</title>
+
+    <!-- HLS.js per .m3u8 -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #1a1a1a; color: white; height: 100vh; }
+
+        .container { display: flex; height: 100vh; }
+        .video-section { flex: 2; display: flex; flex-direction: column; padding: 20px; gap: 15px; }
+        .channels-section { flex: 1; background: #2a2a2a; padding: 20px; overflow-y: auto; }
+
+        #videoPlayer {
+            width: 100%;
+            height: 70vh;
+            background: #000;
+            border-radius: 8px;
+            max-height: 500px;
+        }
+        #currentChannel { font-size: 1.5em; font-weight: bold; }
+
+        .controls { display: flex; gap: 10px; align-items: center; }
+        input[type="url"] {
+            flex: 1;
+            padding: 12px;
+            background: #333;
+            color: white;
+            border: 1px solid #555;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        button {
+            padding: 12px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover { background: #0056b3; }
+        button:disabled { background: #666; cursor: not-allowed; }
+
+        .channel-btn {
+            width: 100%;
+            padding: 15px;
+            margin: 8px 0;
+            background: #444;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s;
+        }
+        .channel-btn:hover { background: #555; transform: translateX(2px); }
+        .channel-btn.active { background: #007bff !important; }
+
+        .channel-logo {
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            background: #666;
+            flex-shrink: 0;
+        }
+        .channel-name { font-weight: 500; }
+
+        #channelList { max-height: calc(100vh - 120px); }
+        .loading { text-align: center; color: #aaa; padding: 40px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="video-section">
+            <div class="controls">
+                <input type="url" id="m3uUrl" value="https://xarxa-1.github.io/Xarxa-1/cat19.m3u" placeholder="URL del fitxer M3U">
+                <button id="loadBtn" onclick="loadChannels()">🔄 Carrega canals</button>
+            </div>
+
+            <h2 id="currentChannel">🎥 Selecciona un canal</h2>
+            <video id="videoPlayer" controls preload="none" poster="https://via.placeholder.com/640x360/111/fff?text=▶️+Clic+canal">
+                El teu navegador no suporta vídeo HLS. Utilitza Chrome/Firefox/Edge.
+            </video>
+        </div>
+
+        <div class="channels-section">
+            <h3>📺 Llista de canals</h3>
+            <div id="channelList">
+                <div class="loading">Clica "Carrega canals" per importar la llista M3U</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let hls = null;
+        let channels = [];
+        let currentChannelIndex = -1;
+
+        const video = document.getElementById('videoPlayer');
+        const channelList = document.getElementById('channelList');
+        const currentChannelEl = document.getElementById('currentChannel');
+        const m3uInput = document.getElementById('m3uUrl');
+        const loadBtn = document.getElementById('loadBtn');
+
+        // Inicialitza reproductor HLS
+        function initHLS() {
+            if (Hls.isSupported()) {
+                hls = new Hls({
+                    enableWorker: true,
+                    lowLatencyMode: true,
+                    backBufferLength: 90
+                });
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                    video.play().catch(e => console.log("Autoplay bloquejat:", e));
+                });
+                hls.on(Hls.Events.ERROR, function(event, data) {
+                    if (data.fatal) {
+                        console.error("HLS Error fatal:", data);
+                    }
+                });
+            }
+        }
+
+        // Parseja fitxer M3U
+        async function parseM3U(content) {
+            const lines = content.split('\n');
+            const parsedChannels = [];
+
+            for (let i = 0; i < lines.length; i++) {
+                if (lines[i].startsWith('#EXTINF:')) {
+                    const nameMatch = lines[i].match(/,(.+)$/);
+                    const name = nameMatch ? nameMatch[1].trim().replace(/"/g, '') : 'Canal sense nom';
+
+                    i++; // Salta a l'URL
+                    if (i < lines.length) {
+                        let url = lines[i].trim();
+                        if (url && (url.includes('.m3u8') || url.includes('.ts'))) {
+                            // Extreu logo si n'hi ha
+                            const logoMatch = lines[i-1].match(/tvg-logo="([^"]+)"/);
+                            const logo = logoMatch ? logoMatch[1] : '';
+
+                            parsedChannels.push({
+                                name: name,
+                                url: url,
+                                logo: logo
+                            });
+                        }
+                    }
+                }
+            }
+            return parsedChannels;
+        }
+
+        // Crea botons dels canals
+        function createChannelButtons(channelsList) {
+            channelList.innerHTML = '';
+            channels = channelsList;
+
+            if (channels.length === 0) {
+                channelList.innerHTML = '<div class="loading">No s\'han trobat canals en aquest fitxer M3U</div>';
+                return;
+            }
+
+            channels.forEach((channel, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'channel-btn';
+                btn.dataset.index = index;
+
+                // Logo o placeholder
+                const logoImg = document.createElement('img');
+                logoImg.className = 'channel-logo';
+                logoImg.src = channel.logo || 'https://via.placeholder.com/30x30/007bff/fff?text=📺';
+                logoImg.onerror = () => { logoImg.src = 'https://via.placeholder.com/30x30/007bff/fff?text=📺'; };
+                logoImg.alt = channel.name;
+
+                const nameSpan = document.createElement('span');
+                nameSpan.className = 'channel-name';
+                nameSpan.textContent = channel.name;
+
+                btn.appendChild(logoImg);
+                btn.appendChild(nameSpan);
+
+                btn.onclick = () => playChannel(index);
+                channelList.appendChild(btn);
+            });
+
+            console.log(`✅ ${channels.length} canals carregats correctament`);
+        }
+
+        // Reprodueix canal seleccionat
+        function playChannel(index) {
+            if (index < 0 || index >= channels.length) return;
+
+            currentChannelIndex = index;
+            const channel = channels[index];
+            currentChannelEl.textContent = `📺 ${channel.name}`;
+
+            // Actualitza estils dels botons
+            document.querySelectorAll('.channel-btn').forEach((btn, i) => {
+                btn.classList.toggle('active', i === index);
+            });
+
+            console.log(`▶️ Reproduint: ${channel.name}`);
+
+            // Carrega el vídeo HLS
+            if (hls && hls.media !== video) {
+                hls.attachMedia(video);
+            }
+
+            if (hls) {
+                hls.loadSource(channel.url);
+                hls.startLoad();
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = channel.url;
+                video.load();
+                video.play();
+            } else {
+                alert('Aquest navegador no suporta HLS. Utilitza Chrome, Firefox o Safari.');
+            }
+        }
+
+        // Carrega llista de canals
+        async function loadChannels() {
+            loadBtn.disabled = true;
+            loadBtn.textContent = '⏳ Carregant...';
+            channelList.innerHTML = '<div class="loading">Importat fitxer M3U... espereu...</div>';
+
+            try {
+                const response = await fetch(m3uInput.value);
+                if (!response.ok) throw new Error('URL no accessible');
+
+                const m3uContent = await response.text();
+                const channelsList = await parseM3U(m3uContent);
+
+                createChannelButtons(channelsList);
+
+            } catch (error) {
+                console.error('Error:', error);
+                channelList.innerHTML = `
+                    <div class="loading">
+                        ❌ Error carregant M3U:<br>
+                        ${error.message}<br><br>
+                        <small>Comprova que l'URL sigui correcta i accessible</small>
+                    </div>
+                `;
+            } finally {
+                loadBtn.disabled = false;
+                loadBtn.textContent = '🔄 Carrega canals';
+            }
+        }
+
+        // Inicialització
+        window.onload = function() {
+            initHLS();
+            // Carrega automàticament en 1 segon
+            setTimeout(loadChannels, 1000);
+        };
+    </script>
+</body>
+</html>
