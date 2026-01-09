@@ -1,67 +1,120 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Comparador Preus</title>
     <script src="https://cdn.jsdelivr.net/npm/pyscript@2024.7.1"></script>
     <py-config>
-        packages = ["requests", "beautifulsoup4", "lxml"]
+        packages = ["requests", "beautifulsoup4", "lxml", "pandas"]
     </py-config>
+    <style>
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .millor { background-color: #d4edda; font-weight: bold; color: green; }
+    </style>
 </head>
 <body>
-    <h1>Comparador de Preus: Aigua Font Vella</h1>
-    <table id="preus-table" border="1">
-        <thead><tr><th>Producte</th><th>Condis (€)</th><th>Bonàrea (€)</th><th>Millor Preu</th></tr></thead>
-        <tbody id="taula-body"></tbody>
+    <h1>🔍 Comparador de Preus - Aigua Font Vella</h1>
+    <p><em>Actualitzant preus... (pot trigar uns segons)</em></p>
+    
+    <table id="preus-table">
+        <thead>
+            <tr>
+                <th>Producte</th>
+                <th>Condis (€)</th>
+                <th>Bonàrea (€)</th>
+                <th>🟢 Millor Preu</th>
+            </tr>
+        </thead>
+        <tbody id="taula-body">
+            <tr><td colspan="4">Carregant...</td></tr>
+        </tbody>
     </table>
 
     <py-script>
-import requests
-from bs4 import BeautifulSoup
+import asyncio
 import json
+from bs4 import BeautifulSoup
+from pyweb_io import document
+from js import fetch
+import re
 
-# Selector genèric (adapta segons inspecciona les pàgines amb DevTools)
-def scrape_condis(url):
+async def scrape_condis(url):
+    """Scraping Condis - cal inspeccionar selectors reals"""
     try:
-        resp = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'})
-        soup = BeautifulSoup(resp.text, 'lxml')
-        # Exemple selectors (inspecciona: cerca 'price', 'product-name')
-        preu = soup.select_one('.price-selector')['data-preu'] or 'N/D'
-        nom = soup.select_one('.product-name-selector').text.strip()
-        return {'nom': nom, 'preu': float(preu.replace(',', '.')) if preu != 'N/D' else None}
-    except:
-        return {'nom': 'Error', 'preu': None}
+        response = await fetch(url)
+        text = await response.text()
+        soup = BeautifulSoup(text, 'lxml')
+        
+        # SELECTORS PROVISIONALS - INSPECCIONA LA WEB!
+        preu_elem = soup.select_one('[class*="price"], [class*="Price"], .precio')
+        nom_elem = soup.select_one('[class*="product"], [class*="Product"], h1, h2')
+        
+        preu = preu_elem.text.strip() if preu_elem else "N/D"
+        nom = nom_elem.text.strip() if nom_elem else "Aigua Font Vella"
+        
+        # Neteja preu (exemple)
+        preu_net = re.sub(r'[^\d.,]', '', preu)
+        preu_float = float(preu_net.replace(',', '.')) if preu_net != "N/D" else None
+        
+        return {'nom': nom[:50], 'preu': preu_float, 'preu_text': preu}
+    except Exception as e:
+        return {'nom': 'Error Condis', 'preu': None, 'preu_text': 'N/D'}
 
-def scrape_bonarea(url):
+async def scrape_bonarea(url):
+    """Scraping Bonàrea"""
     try:
-        resp = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'})
-        soup = BeautifulSoup(resp.text, 'lxml')
-        preu = soup.select_one('.preu')['content'] or soup.find(class_='price').text
-        nom = soup.find(class_='product-title').text.strip()
-        return {'nom': nom, 'preu': float(preu.replace('€', '').replace(',', '.'))}
-    except:
-        return {'nom': 'Error', 'preu': None}
+        response = await fetch(url)
+        text = await response.text()
+        soup = BeautifulSoup(text, 'lxml')
+        
+        # SELECTORS PROVISIONALS - INSPECCIONA LA WEB!
+        preu_elem = soup.select_one('[itemprop="price"], .price, [class*="precio"]')
+        nom_elem = soup.select_one('[itemprop="name"], .product-title, h1')
+        
+        preu = preu_elem.get('content') or preu_elem.text.strip() if preu_elem else "N/D"
+        nom = nom_elem.text.strip() if nom_elem else "Aigua Font Vella Garrafa"
+        
+        preu_net = re.sub(r'[^\d.,€]', '', preu)
+        preu_float = float(preu_net.replace(',', '.').replace('€', '')) if preu_net != "N/D" else None
+        
+        return {'nom': nom[:50], 'preu': preu_float, 'preu_text': preu}
+    except Exception as e:
+        return {'nom': 'Error Bonàrea', 'preu': None, 'preu_text': 'N/D'}
 
-# URLs de l'usuari
-condis_url = "https://compraonline.condis.es/bebidas_aguas-y-gaseosas/c/c07__cat00280001/es_ES"
-bonarea_url = "https://www.bonarea-online.com/online/producto/agua-mineral-font-vella-garrafa/13_0086895"
+# Execució principal
+async def main():
+    condis_url = "https://compraonline.condis.es/bebidas_aguas-y-gaseosas/c/c07__cat00280001/es_ES"
+    bonarea_url = "https://www.bonarea-online.com/online/producto/agua-mineral-font-vella-garrafa/13_0086895"
+    
+    print("🔄 Carregant dades...")
+    
+    condis_data, bonarea_data = await asyncio.gather(
+        scrape_condis(condis_url),
+        scrape_bonarea(bonarea_url)
+    )
+    
+    # Troba millor preu
+    preus = [d['preu'] for d in [condis_data, bonarea_data] if d['preu']]
+    millor_preu = min(preus) if preus else None
+    millor_text = f"{min(preus):.2f}€" if millor_preu else "Empat/N/D"
+    
+    # Genera fila de taula
+    tbody = document.getElementById("taula-body")
+    html_row = f"""
+    <tr>
+        <td>{condis_data['nom']}</td>
+        <td>{condis_data['preu_text'] or 'N/D'}</td>
+        <td>{bonarea_data['preu_text'] or 'N/D'}</td>
+        <td class="millor">{millor_text}</td>
+    </tr>
+    """
+    tbody.innerHTML = html_row
+    
+    print("✅ Dades actualitzades!")
 
-# Scraping
-condis_data = scrape_condis(condis_url)
-bonarea_data = scrape_bonarea(bonarea_url)
-
-# Comparació
-millor = min([d['preu'] for d in [condis_data, bonarea_data] if d['preu'] is not None], default='Empat')
-
-# Genera taula
-taula = Element("taula-body")
-html = f"""
-<tr>
-    <td>{condis_data['nom']}</td>
-    <td>{condis_data['preu'] or 'N/D'}</td>
-    <td>{bonarea_data['preu'] or 'N/D'}</td>
-    <td style="color:green">{millor}</td>
-</tr>
-"""
-taula.write(html)
+# Executa
+await main()
     </py-script>
 </body>
 </html>
