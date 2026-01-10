@@ -7,15 +7,8 @@ https://linear417-gb-hls1-prd-ak.cdn.skycdp.com/100e/Content/HLS_001_720_30/Live
 https://amg00663-skynews-skynewsau-samsungau-r7n40.amagi.tv/playlist1080p.m3u8
 #EXTINF:-1 tvg-id="" tvg-logo="" group-title="News",  Sky News
 https://amg00663-skynews-skynewsau-samsungau-r7n40.amagi.tv/playlist720p.m3u8
-#EXTINF:-1 tvg-id="" tvg-logo="" group-title="News",  00 Replay
-http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/62ba60f059624e000781c436/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=6c25e430-30d3-11ef-9cf5-e9ddff8ff496&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=1b7de8e4-d114-4438-b098-6f7aee77b4behttps://iptv-org.github.io/iptv/index.m3u
 #EXTINF:-1 tvg-id="Sky-News" tvg-name="Sky News" tvg-language="English" tvg-country="UK" tvg-logo="https://i.imgur.com/uFKLmbL.png" group-title="News",Sky News NOW
 https://amg00663-skynews-skynewsau-samsungau-r7n40.amagi.tv/playlist1080p.m3u8
 #EXTINF:-1 tvg-id="" tvg-url="https://www.bevy.be/bevyfiles/indonesia.xml" tvg-logo="https://static.wikia.nocookie.net/logopedia/images/b/b5/XTRA_2.png" group-title="Sports",BeinSport Xtra
 https://amg01334-beinsportsllc-beinxtra-localnow-kcy6r.amagi.tv/playlist.m3u8Ç
-#EXTINF:-1 tvg-id="" tvg-url="" tvg-logo="" group-title="Sports",BeinSport
-http://192.168.5.124:6878/play/Y1CWbRw/86
-#EXTINF:-1 tvg-id="" tvg-url="" tvg-logo="" group-title="Sports",BeinSport1
-http://185.188.188.235/live/novasport1/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-url="" tvg-logo="" group-title="Sports",BeinSportFR
-http://93.152.174.144:4000/play/bein2fr/index.m3u8
+
