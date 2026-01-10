@@ -1,4 +1,6 @@
 #EXTM3U
+#EXTINF:-1 tvg-id="3CatCameresdeltemps.es@SD" tvg-logo="https://i.imgur.com/zXy2kbe.png" group-title="Public;Weather",3Cat temps
+https://directes-tv-int.3catdirectes.cat/live-content/beauties-hls/master.m3u8
 #EXTINF:-1 tvg-id="Sky-News" tvg-name="Sky News" tvg-language="English" tvg-country="UK" tvg-logo="https://i.imgur.com/uFKLmbL.png" group-title="News",Sky News
 https://linear417-gb-hls1-prd-ak.cdn.skycdp.com/100e/Content/HLS_001_1080_30/Live/channel(skynews)/04_1080-30.m3u8
 #EXTINF:-1 tvg-id="Sky-News" tvg-name="Sky News" tvg-language="English" tvg-country="UK" tvg-logo="https://i.imgur.com/uFKLmbL.png" group-title="News",Sky News
@@ -9,6 +11,41 @@ https://amg00663-skynews-skynewsau-samsungau-r7n40.amagi.tv/playlist1080p.m3u8
 https://amg00663-skynews-skynewsau-samsungau-r7n40.amagi.tv/playlist720p.m3u8
 #EXTINF:-1 tvg-id="Sky-News" tvg-name="Sky News" tvg-language="English" tvg-country="UK" tvg-logo="https://i.imgur.com/uFKLmbL.png" group-title="News",Sky News NOW
 https://amg00663-skynews-skynewsau-samsungau-r7n40.amagi.tv/playlist1080p.m3u8
-#EXTINF:-1 tvg-id="" tvg-url="https://www.bevy.be/bevyfiles/indonesia.xml" tvg-logo="https://static.wikia.nocookie.net/logopedia/images/b/b5/XTRA_2.png" group-title="Sports",BeinSport Xtra
+#EXTINF:-1 tvg-id="" tvg-url="https://www.bevy.be/bevyfiles/indonesia.xml"tvg-logo="https://static.wikia.nocookie.net/logopedia/images/b/b5/XTRA_2.png" group-title="Sports",BeinSport Xtra
 https://amg01334-beinsportsllc-beinxtra-localnow-kcy6r.amagi.tv/playlist.m3u8
-
+#EXTINF:-1 group-title="Bics DEPORTES", US: TUBI FOX SPORTS
+https://live-news-manifest.tubi.video/live-news-manifest/csm/extlive/tubiprd01,Fox-Sports-Espanol2.m3u8
+#EXTINF:-1 tvg-id="WXIIDT1.us@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/NBC_logo_2022_%28vertical%29.svg/512px-NBC_logo_2022_%28vertical%29.svg.png" group-title="News",NBC 12 Winston-Salem NC (WXII) (720p)
+https://aegis-cloudfront-1.tubi.video/54b357b4-bf4b-4356-97b4-b1acb6ab62f7/playlist.m3u8
+#EXTINF:-1 tvg-id="bonappetit.us@SD" tvg-logo="https://i.imgur.com/YhFFxlE.png" group-title="Cooking",bon appÃ©tit (1080p)
+https://bonappetit-samsung.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="" tvg-logo="" group-title="",RakutenAA
+https://rakutenaa-tm-intl-aus-rakuten-eu-n1gtg.amagi.tv/playlist/rakutenAA-tm-intl-aus-rakuten-eu/playlist.m3u8
+#EXTINF:-1 tvg-id="MyZenTV.fr@SD" tvg-logo="https://i.imgur.com/fIi8o0C.png" group-title="Relax",MyZen TV (1080p)
+https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01255-secomcofites-my-myzen-en-plex/playlist.m3u8
+#EXTINF:-1 tvg-id="SuperTV.it@SD" tvg-logo="https://i.imgur.com/hxF3yhw.png" group-title="General;Series",Super TV (720p)
+http://wms.shared.streamshow.it/supertv/mp4:supertv/playlist.m3u8
+#EXTINF:-1 tvg-id="SamsungMovieSphere.us@SD",MovieSphere (1080p)
+https://moviesphereuk-samsunguk.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="DiscoverFilm.uk@SD" tvg-logo="https://i.imgur.com/oMnpsQ5.png" group-title="Movies",DiscoverFilm
+https://discoverfilm-discoverfilm-1-nl.samsung.wurl.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="BBCThree.uk@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/BBC_Three_2022.svg/512px-BBC_Three_2022.svg.png" group-title="General",BBC Three
+https://x.canlitvapp.com/u-bbc3/index.m3u8
+#EXTINF:-1 tvg-id="BBCThree.uk@HD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/BBC_Three_2022.svg/512px-BBC_Three_2022.svg.png" group-title="General",BBC Three HD (720p)
+https://streamer.nexyl.uk/39290a19-b8dd-43ea-b8dc-081c37790f24.m3u8
+#EXTINF:-1 tvg-id="BBCThreeCBBC.uk@HD" tvg-logo="https://i.imgur.com/CGXC5fp.png" group-title="Animation;Family;Kids",BBC Three/CBBC (1080p)
+https://viamotionhsi.netplus.ch/live/eds/bbc3cbbc/browser-HLS8/bbc3cbbc.m3u8
+#EXTINF:-1 tvg-id="BBCTwo.uk@England" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/BBC_Two_logo_2021.svg/512px-BBC_Two_logo_2021.svg.png" group-title="General",BBC Two
+https://x.canlitvapp.com/u-bbc2/index.m3u8
+#EXTINF:-1 tvg-id="BBCTwo.uk@HD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/BBC_Two_logo_2021.svg/512px-BBC_Two_logo_2021.svg.png" group-title="General",BBC Two HD (1080p)
+https://viamotionhsi.netplus.ch/live/eds/bbc2/browser-HLS8/bbc2.m3u8
+#EXTINF:-1 tvg-id="BBCFour.uk@UK" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/BBC_Four_logo_2021.svg/512px-BBC_Four_logo_2021.svg.png" group-title="Culture;Documentary",BBC Four (540p) [Geo-blocked]
+https://vs-hls-pushb-uk-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_four_hd/pc_hd_abr_v2.m3u8
+#EXTINF:-1 tvg-id="BBCFour.uk@UKHD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/BBC_Four_logo_2021.svg/512px-BBC_Four_logo_2021.svg.png" group-title="Culture;Documentary",BBC Four UK HD
+https://streamer.nexyl.uk/48559ccd-6400-457d-8acc-06b9e24c2ed8.m3u8
+#EXTINF:-1 tvg-id="BBCFourCBeebies.uk@HD" tvg-logo="https://i.imgur.com/aH0PCPy.png" group-title="Animation;General;Kids",BBC Four/CBeebies (1080p)
+https://viamotionhsi.netplus.ch/live/eds/bbc4cbeebies/browser-HLS8/bbc4cbeebies.m3u8
+#EXTINF:-1 tvg-id="Channel5.uk@SD" tvg-logo="https://d2n0069hmnqmmx.cloudfront.net/epgdata/1.0/newchanlogos/512/512/skychb1800.png" group-title="General",Channel 5
+https://x.canlitvapp.com/u-channel-5/index.m3u8
+#EXTINF:-1 tvg-id="Channel5.uk@HD" tvg-logo="https://d2n0069hmnqmmx.cloudfront.net/epgdata/1.0/newchanlogos/512/512/skychb1800.png" group-title="General",Channel 5 HD (1080p)
+https://viamotionhsi.netplus.ch/live/eds/channel5/browser-HLS8/channel5.m3u8
