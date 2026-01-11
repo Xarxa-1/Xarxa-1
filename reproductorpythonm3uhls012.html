@@ -1,0 +1,1645 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reproductor M3U HLS</title>
+
+    <!-- HLS.js per .m3u8 -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #1a1a1a; color: white; height: 100vh; }
+
+        .container { display: flex; height: 100vh; }
+        .video-section { flex: 2; display: flex; flex-direction: column; padding: 20px; gap: 15px; }
+        .channels-section {
+            flex: 1;
+            background: #2a2a2a;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* HEADER FIXA */
+        .channels-header {
+            padding: 20px;
+            background: #2a2a2a;
+            border-bottom: 2px solid #444;
+            flex-shrink: 0;
+        }
+
+        /* SCROLLS NOMÉS CANALS */
+        .channels-scrollable {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 20px 20px;
+        }
+
+        #videoPlayer {
+            width: 100%;
+            height: 70vh;
+            background: #000;
+            border-radius: 8px;
+            max-height: 500px;
+            cursor: pointer;
+        }
+
+        /* Contenedor de video con controles personalizados */
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 70vh;
+            max-height: 500px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        /* ESTILOS PARA PANTALLA COMPLETA SIN MARGENES */
+        .video-container:fullscreen {
+            background: #000;
+            padding: 0;
+            border-radius: 0;
+            max-height: none;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: none; /* Cursor invisible en pantalla completa cuando controles ocultos */
+        }
+
+        .video-container:fullscreen #videoPlayer {
+            width: 100%;
+            height: 100%;
+            max-height: none;
+            border-radius: 0;
+            object-fit: contain;
+        }
+
+        /* Controles en pantalla completa - posicionados en el centro inferior */
+        .video-container:fullscreen .custom-controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1200px;
+            border-radius: 10px;
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            transition: opacity 0.5s ease, bottom 0.5s ease;
+            z-index: 1000;
+        }
+
+        /* Clase para ocultar controles en pantalla completa */
+        .video-container:fullscreen .custom-controls.hidden {
+            opacity: 0;
+            bottom: -60px;
+            pointer-events: none;
+        }
+
+        .video-container:fullscreen.show-cursor {
+            cursor: default;
+        }
+
+        .video-container:-webkit-full-screen {
+            background: #000;
+            padding: 0;
+            border-radius: 0;
+            max-height: none;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: none;
+        }
+
+        .video-container:-webkit-full-screen #videoPlayer {
+            width: 100%;
+            height: 100%;
+            max-height: none;
+            border-radius: 0;
+            object-fit: contain;
+        }
+
+        .video-container:-webkit-full-screen .custom-controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1200px;
+            border-radius: 10px;
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            transition: opacity 0.5s ease, bottom 0.5s ease;
+            z-index: 1000;
+        }
+
+        .video-container:-webkit-full-screen .custom-controls.hidden {
+            opacity: 0;
+            bottom: -60px;
+            pointer-events: none;
+        }
+
+        .video-container:-webkit-full-screen.show-cursor {
+            cursor: default;
+        }
+
+        /* Controles personalizados */
+        .custom-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 10;
+        }
+
+        .video-container:hover .custom-controls {
+            opacity: 1;
+        }
+
+        /* Botones de control */
+        .control-btn {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Barra de progreso */
+        .progress-container {
+            flex: 1;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: #007bff;
+            border-radius: 2px;
+            width: 0%;
+        }
+
+        .progress-time {
+            position: absolute;
+            top: -20px;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 12px;
+            white-space: nowrap;
+            display: none;
+        }
+
+        .progress-container:hover .progress-time {
+            display: block;
+        }
+
+        /* Control de volumen */
+        .volume-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .volume-slider {
+            width: 60px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .volume-level {
+            height: 100%;
+            background: white;
+            border-radius: 2px;
+            width: 100%;
+        }
+
+        /* Control de AUDIO */
+        .audio-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            position: relative;
+        }
+
+        .audio-btn {
+            position: relative;
+        }
+
+        .audio-btn.active {
+            color: #007bff;
+        }
+
+        .audio-menu {
+            position: absolute;
+            bottom: 40px;
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 6px;
+            padding: 8px;
+            display: none;
+            flex-direction: column;
+            min-width: 150px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 20;
+        }
+
+        .audio-container:hover .audio-menu {
+            display: flex;
+        }
+
+        .audio-option {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            text-align: left;
+            cursor: pointer;
+            border-radius: 3px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .audio-option:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .audio-option.active {
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .audio-option.disabled {
+            color: #666;
+            cursor: not-allowed;
+        }
+
+        .audio-option.disabled:hover {
+            background: transparent;
+        }
+
+        /* Control de subtítulos */
+        .subtitles-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            position: relative;
+        }
+
+        .subtitles-btn {
+            position: relative;
+        }
+
+        .subtitles-btn.active {
+            color: #007bff;
+        }
+
+        .subtitles-menu {
+            position: absolute;
+            bottom: 40px;
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 6px;
+            padding: 8px;
+            display: none;
+            flex-direction: column;
+            min-width: 150px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 20;
+        }
+
+        .subtitles-container:hover .subtitles-menu {
+            display: flex;
+        }
+
+        .subtitles-option {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            text-align: left;
+            cursor: pointer;
+            border-radius: 3px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .subtitles-option:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .subtitles-option.active {
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .subtitles-option.disabled {
+            color: #666;
+            cursor: not-allowed;
+        }
+
+        .subtitles-option.disabled:hover {
+            background: transparent;
+        }
+
+        /* Control de velocidad */
+        .speed-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            position: relative;
+        }
+
+        .speed-display-btn {
+            background: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 3px;
+            min-width: 45px;
+            text-align: center;
+        }
+
+        .speed-display-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Menu de velocidad */
+        .speed-menu {
+            position: absolute;
+            bottom: 40px;
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 6px;
+            padding: 8px;
+            display: none;
+            flex-direction: column;
+            min-width: 80px;
+            z-index: 20;
+        }
+
+        .speed-container:hover .speed-menu {
+            display: flex;
+        }
+
+        .speed-option {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 6px 10px;
+            text-align: left;
+            cursor: pointer;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+
+        .speed-option:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .speed-option.active {
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        /* Botón de pantalla completa */
+        .fullscreen-btn {
+            margin-left: auto;
+        }
+
+        /* Tiempo */
+        .time-display {
+            font-size: 14px;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        #currentChannel { font-size: 1.5em; font-weight: bold; }
+
+        /* CONTROLS URL */
+        .controls { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; }
+        input[type="url"] {
+            flex: 1;
+            padding: 12px;
+            background: #333;
+            color: white;
+            border: 1px solid #555;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        /* BOTONS HEADER */
+        button {
+            padding: 12px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        button:hover:not(:disabled) { background: #0056b3; }
+        button:disabled { background: #666; cursor: not-allowed; opacity: 0.6; }
+        button.nav-btn, button.refresh-btn {
+            padding: 12px 16px;
+            font-size: 16px;
+            background: #28a745;
+        }
+        button.refresh-btn { background: #ffc107; color: #000; }
+        button.refresh-btn:hover:not(:disabled) { background: #e0a800; }
+        button.status-filter {
+            padding: 8px 12px;
+            font-size: 12px;
+            margin: 0 2px;
+            background: #6c757d;
+        }
+        button.status-filter.active { background: #007bff; }
+        button.status-filter.online-only { background: #28a745; }
+        button.status-filter.working-only { background: #007bff; }
+        button.status-filter.offline-only { background: #dc3545; }
+
+        /* HEADER LAYOUT */
+        .header-top { display: flex; gap: 10px; margin-bottom: 15px; }
+        .header-search { position: relative; flex: 1; }
+        #searchInput {
+            width: 100%;
+            padding: 12px 45px 12px 15px;
+            background: #333;
+            color: white;
+            border: 1px solid #555;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        #searchInput:focus { outline: none; border-color: #007bff; box-shadow: 0 0 5px rgba(0,123,255,0.5); }
+        .search-clear {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #666;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            display: none;
+            color: white; font-size: 12px; line-height: 1;
+        }
+
+        .header-nav { display: flex; gap: 10px; align-items: center; justify-content: center; margin-bottom: 15px; }
+
+        /* FILTRAT ESTAT */
+        .status-filters { display: flex; gap: 5px; justify-content: center; margin-bottom: 15px; flex-wrap: wrap; }
+
+        /* CANALS */
+        .channel-btn {
+            width: 100%;
+            padding: 15px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .channel-btn:hover:not(.status-offline) { background: #555; transform: translateX(2px); }
+        .channel-btn.active { background: #007bff !important; }
+        .channel-btn.hidden { display: none; }
+        .channel-btn.status-offline { background: #3a1a1a; border: 2px solid #dc3545; opacity: 0.7; }
+        .channel-btn.status-online { background: #1a3a1a; border: 2px solid #28a745; }
+        .channel-btn.status-working { background: #1a2a3a; border: 2px solid #007bff; }
+
+        .channel-logo { width: 30px; height: 30px; border-radius: 4px; background: #666; flex-shrink: 0; object-fit: cover; }
+        .channel-name { font-weight: 500; flex: 1; }
+        .status-indicator { width: 10px; height: 10px; border-radius: 50%; margin-left: auto; flex-shrink: 0; }
+        .status-online .status-indicator { background: #28a745; box-shadow: 0 0 5px #28a745; animation: pulse-green 2s infinite; }
+        .status-working .status-indicator { background: #007bff; box-shadow: 0 0 5px #007bff; animation: pulse-blue 1.5s infinite; }
+        .status-offline .status-indicator { background: #dc3545; animation: blink 1.5s infinite; }
+
+        @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(40,167,69,0.7); } 70% { box-shadow: 0 0 0 10px rgba(40,167,69,0); } 100% { box-shadow: 0 0 0 0 rgba(40,167,69,0); } }
+        @keyframes pulse-blue { 0% { box-shadow: 0 0 0 0 rgba(0,123,255,0.7); } 70% { box-shadow: 0 0 0 10px rgba(0,123,255,0); } 100% { box-shadow: 0 0 0 0 rgba(0,123,255,0); } }
+        @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0.3; } }
+
+        .results-count { text-align: center; color: #aaa; font-size: 12px; margin-bottom: 10px; }
+        .status-info { font-size: 11px; opacity: 0.8; margin-top: 5px; }
+        .loading { text-align: center; color: #aaa; padding: 40px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="video-section">
+            <div class="controls">
+                <!-- DATALIST CON SUGERENCIAS DE URLS M3U -->
+                <input type="url" id="m3uUrl" list="m3uSuggestions" value="https://xarxa-1.github.io/Xarxa-1/cat19.m3u" placeholder="URL del fitxer M3U">
+                <datalist id="m3uSuggestions">
+                    <option value="https://xarxa-1.github.io/Xarxa-1/cat19.m3u">
+                    <option value="https://xarxa-1.github.io/Xarxa-1/cat34.m3u">
+                    <option value="https://xarxa-1.github.io/Xarxa-1/Dubai.m3u">
+                    <option value="https://xarxa-1.github.io/Xarxa-1/futbol.m3u">
+                </datalist>
+                <button id="loadBtn" onclick="loadChannels()">🔄 Carrega canals</button>
+            </div>
+
+            <h2 id="currentChannel">🎥 Selecciona un canal</h2>
+
+            <div class="video-container">
+                <video id="videoPlayer" preload="metadata" crossorigin="anonymous" playsinline poster="https://via.placeholder.com/640x360/111/fff?text=▶️+Clic+canal">
+                    El teu navegador no suporta vídeo HLS.
+                </video>
+
+                <!-- Controles personalizados -->
+                <div class="custom-controls">
+                    <!-- Play/Pause -->
+                    <button class="control-btn play-btn" id="playBtn">▶️</button>
+
+                    <!-- Mute/Volume -->
+                    <button class="control-btn mute-btn" id="muteBtn">🔊</button>
+                    <div class="volume-container">
+                        <div class="volume-slider" id="volumeSlider">
+                            <div class="volume-level" id="volumeLevel"></div>
+                        </div>
+                    </div>
+
+                    <!-- AUDIO - Selecció d'idioma/àudio -->
+                    <div class="audio-container">
+                        <button class="control-btn audio-btn" id="audioBtn" title="Àudio">📢</button>
+                        <div class="audio-menu" id="audioMenu">
+                            <!-- Opcions d'àudio s'afegiran dinàmicament -->
+                        </div>
+                    </div>
+
+                    <!-- SUBTÍTOLS - Amb menú desplegable -->
+                    <div class="subtitles-container">
+                        <button class="control-btn subtitles-btn" id="subtitlesBtn" title="Subtítols">CC</button>
+                        <div class="subtitles-menu" id="subtitlesMenu">
+                            <button class="subtitles-option disabled" id="noSubtitlesOption" data-track="-1">
+                                <span>Sense subtítols</span>
+                            </button>
+                            <!-- Opcions de subtítols s'afegiran dinàmicament -->
+                        </div>
+                    </div>
+
+                    <!-- Velocidad -->
+                    <div class="speed-container">
+                        <button class="speed-display-btn" id="speedDisplayBtn">1.0x</button>
+                        <div class="speed-menu" id="speedMenu">
+                            <button class="speed-option" data-speed="0.25">0.25x</button>
+                            <button class="speed-option" data-speed="0.5">0.5x</button>
+                            <button class="speed-option active" data-speed="1.0">1.0x</button>
+                            <button class="speed-option" data-speed="1.25">1.25x</button>
+                            <button class="speed-option" data-speed="1.5">1.5x</button>
+                            <button class="speed-option" data-speed="2.0">2.0x</button>
+                        </div>
+                    </div>
+
+                    <!-- Progreso -->
+                    <div class="progress-container" id="progressContainer">
+                        <div class="progress-bar" id="progressBar"></div>
+                        <div class="progress-time" id="progressTime">00:00</div>
+                    </div>
+
+                    <!-- Tiempo -->
+                    <span class="time-display" id="timeDisplay">00:00 / 00:00</span>
+
+                    <!-- Pantalla completa -->
+                    <button class="control-btn fullscreen-btn" id="fullscreenBtn">⛶</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="channels-section">
+            <!-- HEADER FIXA -->
+            <div class="channels-header">
+                <h3>📺 Llista de canals</h3>
+
+                <!-- CERCA NOM -->
+                <div class="header-top">
+                    <div class="header-search">
+                        <input type="text" id="searchInput" placeholder="🔍 Cerca canals... (TV3, Esport3, La1)">
+                        <button class="search-clear" id="clearSearch" onclick="clearSearch()">✕</button>
+                    </div>
+                    <button class="refresh-btn" id="refreshStatusBtn" onclick="refreshChannelStatus()" disabled>🔄 Estat</button>
+                </div>
+
+                <!-- FILTRAT ESTAT -->
+                <div class="status-filters">
+                    <button class="status-filter active" onclick="setStatusFilter('all')">Tots</button>
+                    <button class="status-filter" onclick="setStatusFilter('online')">🟢 En línia</button>
+                    <button class="status-filter" onclick="setStatusFilter('working')">🔵 Funcionant</button>
+                    <button class="status-filter" onclick="setStatusFilter('offline')">🔴 Offline</button>
+                </div>
+
+                <!-- NAVEGACIÓ -->
+                <div class="header-nav">
+                    <button class="nav-btn" id="prevBtn" onclick="prevChannel()" disabled>⏮ Anterior</button>
+                    <button class="nav-btn" id="nextBtn" onclick="nextChannel()" disabled>Següent ⏭</button>
+                </div>
+
+                <div id="resultsCount" class="results-count" style="display: none;"></div>
+            </div>
+
+            <!-- SCROLLS NOMÉS CANALS -->
+            <div class="channels-scrollable">
+                <div id="channelList">
+                    <div class="loading">Clica "Carrega canals" per importar la llista M3U</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let hls = null;
+        let channels = [];
+        let currentChannelIndex = -1;
+        let channelStatus = {};
+        let currentStatusFilter = 'all';
+        let currentSpeed = 1.0;
+        let isFullscreen = false;
+        let activeSubtitlesTrack = -1; // -1 = sense subtítols
+        let subtitlesTracks = []; // Array per emmagatzemar les pistes de subtítols
+        let audioTracks = []; // Array per emmagatzemar les pistes d'àudio
+        let activeAudioTrack = 0; // Índex de la pista d'àudio activa
+        let controlsTimeout = null; // Timeout per ocultar controls en pantalla completa
+        let mouseMoveTimeout = null; // Timeout per detectar inactivitat del ratolí
+
+        const video = document.getElementById('videoPlayer');
+        const channelList = document.getElementById('channelList');
+        const currentChannelEl = document.getElementById('currentChannel');
+        const m3uInput = document.getElementById('m3uUrl');
+        const loadBtn = document.getElementById('loadBtn');
+        const searchInput = document.getElementById('searchInput');
+        const clearSearchBtn = document.getElementById('clearSearch');
+        const resultsCount = document.getElementById('resultsCount');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const refreshStatusBtn = document.getElementById('refreshStatusBtn');
+
+        // Elementos de controles personalizados
+        const playBtn = document.getElementById('playBtn');
+        const muteBtn = document.getElementById('muteBtn');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const volumeLevel = document.getElementById('volumeLevel');
+        const audioBtn = document.getElementById('audioBtn');
+        const audioMenu = document.getElementById('audioMenu');
+        const subtitlesBtn = document.getElementById('subtitlesBtn');
+        const subtitlesMenu = document.getElementById('subtitlesMenu');
+        const noSubtitlesOption = document.getElementById('noSubtitlesOption');
+        const speedDisplayBtn = document.getElementById('speedDisplayBtn');
+        const speedMenu = document.getElementById('speedMenu');
+        const progressContainer = document.getElementById('progressContainer');
+        const progressBar = document.getElementById('progressBar');
+        const progressTime = document.getElementById('progressTime');
+        const timeDisplay = document.getElementById('timeDisplay');
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        const videoContainer = document.querySelector('.video-container');
+        const customControls = document.querySelector('.custom-controls');
+
+        // Inicializar controles personalizados
+        function initCustomControls() {
+            // Configurar volumen inicial
+            volumeLevel.style.width = (video.volume * 100) + '%';
+
+            // Configurar velocidad inicial
+            video.playbackRate = currentSpeed;
+            speedDisplayBtn.textContent = currentSpeed.toFixed(2) + 'x';
+
+            // Actualizar tiempo periódicamente
+            setInterval(updateTimeDisplay, 1000);
+
+            // Eventos de controles
+            playBtn.addEventListener('click', togglePlay);
+            video.addEventListener('click', togglePlay);
+
+            muteBtn.addEventListener('click', toggleMute);
+
+            volumeSlider.addEventListener('click', (e) => {
+                const rect = volumeSlider.getBoundingClientRect();
+                const percent = (e.clientX - rect.left) / rect.width;
+                setVolume(Math.max(0, Math.min(1, percent)));
+            });
+
+            // SUBTÍTOLS - Configurar opción "Sense subtítols"
+            noSubtitlesOption.addEventListener('click', () => {
+                if (!noSubtitlesOption.classList.contains('disabled')) {
+                    disableSubtitles();
+                }
+            });
+
+            // Velocidad
+            document.querySelectorAll('.speed-option').forEach(option => {
+                option.addEventListener('click', (e) => {
+                    const speed = parseFloat(e.target.dataset.speed);
+                    setPlaybackSpeed(speed);
+
+                    // Actualizar menú
+                    document.querySelectorAll('.speed-option').forEach(opt => {
+                        opt.classList.remove('active');
+                    });
+                    e.target.classList.add('active');
+                });
+            });
+
+            // Barra de progreso
+            progressContainer.addEventListener('click', (e) => {
+                const rect = progressContainer.getBoundingClientRect();
+                const percent = (e.clientX - rect.left) / rect.width;
+                if (video.duration) {
+                    video.currentTime = percent * video.duration;
+                }
+            });
+
+            // Mostrar tiempo en barra de progreso
+            progressContainer.addEventListener('mousemove', (e) => {
+                const rect = progressContainer.getBoundingClientRect();
+                const percent = (e.clientX - rect.left) / rect.width;
+                if (video.duration) {
+                    const time = percent * video.duration;
+                    progressTime.textContent = formatTime(time);
+                    progressTime.style.left = (percent * 100) + '%';
+                }
+            });
+
+            // Pantalla completa
+            fullscreenBtn.addEventListener('click', toggleFullscreen);
+
+            // Mostrar/Ocultar controles al hacer hover (solo si no está en pantalla completa)
+            videoContainer.addEventListener('mouseenter', () => {
+                if (!isFullscreen) {
+                    customControls.style.opacity = '1';
+                }
+            });
+
+            videoContainer.addEventListener('mouseleave', () => {
+                if (!isFullscreen) {
+                    customControls.style.opacity = '0';
+                }
+            });
+
+            // Eventos del video
+            video.addEventListener('timeupdate', updateProgressBar);
+            video.addEventListener('volumechange', updateVolumeDisplay);
+            video.addEventListener('play', () => {
+                playBtn.textContent = '⏸️';
+            });
+
+            video.addEventListener('pause', () => {
+                playBtn.textContent = '▶️';
+            });
+
+            video.addEventListener('loadedmetadata', () => {
+                updateTimeDisplay();
+                // Detectar pistes d'àudio i subtítols quan es carrega el vídeo
+                setTimeout(() => {
+                    detectAudioTracks();
+                    detectSubtitlesTracks();
+                }, 500);
+            });
+        }
+
+        // Detectar pistes d'àudio
+        function detectAudioTracks() {
+            audioTracks = [];
+            audioMenu.innerHTML = '';
+
+            // Si HLS està actiu, utilitzar les pistes d'àudio de HLS
+            if (hls && hls.audioTracks && hls.audioTracks.length > 0) {
+                for (let i = 0; i < hls.audioTracks.length; i++) {
+                    const track = hls.audioTracks[i];
+                    audioTracks.push({
+                        index: i,
+                        language: track.lang || `Àudio ${i + 1}`,
+                        label: track.name || track.lang || `Àudio ${i + 1}`,
+                        track: track
+                    });
+
+                    // Crear opció al menú
+                    const option = document.createElement('button');
+                    option.className = 'audio-option';
+                    option.dataset.track = i;
+
+                    const flag = getLanguageFlag(track.lang);
+                    option.innerHTML = `<span>${flag} ${track.name || track.lang || `Àudio ${i + 1}`}</span>`;
+
+                    option.addEventListener('click', () => {
+                        selectAudioTrack(i);
+                    });
+
+                    audioMenu.appendChild(option);
+                }
+
+                // Activar la primera pista per defecte
+                if (audioTracks.length > 0) {
+                    selectAudioTrack(0);
+                }
+            } else if (video.audioTracks && video.audioTracks.length > 0) {
+                // Intentar amb l'API nativa d'àudio
+                for (let i = 0; i < video.audioTracks.length; i++) {
+                    const track = video.audioTracks[i];
+                    audioTracks.push({
+                        index: i,
+                        language: track.language || `Àudio ${i + 1}`,
+                        label: track.label || track.language || `Àudio ${i + 1}`,
+                        track: track
+                    });
+
+                    // Crear opció al menú
+                    const option = document.createElement('button');
+                    option.className = 'audio-option';
+                    option.dataset.track = i;
+
+                    const flag = getLanguageFlag(track.language);
+                    option.innerHTML = `<span>${flag} ${track.label || track.language || `Àudio ${i + 1}`}</span>`;
+
+                    option.addEventListener('click', () => {
+                        selectAudioTrack(i);
+                    });
+
+                    audioMenu.appendChild(option);
+                }
+
+                // Activar la primera pista per defecte
+                if (audioTracks.length > 0) {
+                    selectAudioTrack(0);
+                }
+            } else {
+                // Simular pistes d'àudio per a demostració
+                const demoAudio = [
+                    { language: 'ca', label: 'Català' },
+                    { language: 'es', label: 'Espanyol' },
+                    { language: 'en', label: 'Anglès' },
+                    { language: 'original', label: 'Àudio original' }
+                ];
+
+                demoAudio.forEach((audio, index) => {
+                    audioTracks.push({
+                        index: index,
+                        language: audio.language,
+                        label: audio.label,
+                        track: null
+                    });
+
+                    const option = document.createElement('button');
+                    option.className = 'audio-option';
+                    option.dataset.track = index;
+
+                    const flag = getLanguageFlag(audio.language);
+                    option.innerHTML = `<span>${flag} ${audio.label}</span>`;
+
+                    option.addEventListener('click', () => {
+                        selectAudioTrack(index);
+                    });
+
+                    audioMenu.appendChild(option);
+                });
+
+                // Activar la primera pista per defecte
+                if (audioTracks.length > 0) {
+                    selectAudioTrack(0);
+                }
+            }
+
+            // Actualitzar el títol del botó amb el nombre de pistes
+            if (audioTracks.length > 0) {
+                audioBtn.title = `Àudio (${audioTracks.length} disponibles)`;
+            } else {
+                audioBtn.title = "No hi ha pistes d'àudio alternatives";
+            }
+        }
+
+        // Seleccionar pista d'àudio
+        function selectAudioTrack(trackIndex) {
+            // Actualitzar estat actiu
+            activeAudioTrack = trackIndex;
+
+            // Actualitzar menú
+            document.querySelectorAll('.audio-option').forEach(option => {
+                option.classList.remove('active');
+            });
+
+            const selectedOption = document.querySelector(`.audio-option[data-track="${trackIndex}"]`);
+            if (selectedOption) {
+                selectedOption.classList.add('active');
+            }
+
+            // Actualitzar botó d'àudio
+            audioBtn.classList.add('active');
+
+            const track = audioTracks.find(t => t.index === trackIndex);
+            if (track) {
+                audioBtn.title = `Àudio: ${track.label}`;
+
+                // Canviar la pista d'àudio si és possible
+                if (hls && hls.audioTracks && hls.audioTracks[trackIndex]) {
+                    hls.audioTrack = trackIndex;
+                    console.log(`Canviat a pista d'àudio: ${track.label}`);
+                } else if (video.audioTracks && video.audioTracks[trackIndex]) {
+                    // API nativa (no sempre suportada)
+                    for (let i = 0; i < video.audioTracks.length; i++) {
+                        video.audioTracks[i].enabled = (i === trackIndex);
+                    }
+                    console.log(`Canviat a pista d'àudio: ${track.label}`);
+                } else {
+                    // Per a pistes de demostració
+                    console.log(`Àudio seleccionat: ${track.label}`);
+                }
+            }
+        }
+
+        // Detectar pistes de subtítols
+        function detectSubtitlesTracks() {
+            subtitlesTracks = [];
+
+            // Netejar menú de subtítols (excepte l'opció "Sense subtítols")
+            const existingOptions = subtitlesMenu.querySelectorAll('.subtitles-option:not(#noSubtitlesOption)');
+            existingOptions.forEach(option => option.remove());
+
+            if (video.textTracks && video.textTracks.length > 0) {
+                // Hi ha pistes de subtítols reals
+                for (let i = 0; i < video.textTracks.length; i++) {
+                    const track = video.textTracks[i];
+                    if (track.kind === 'subtitles' || track.kind === 'captions') {
+                        subtitlesTracks.push({
+                            index: i,
+                            language: track.language || `Subtítols ${i + 1}`,
+                            label: track.label || track.language || `Subtítols ${i + 1}`,
+                            track: track
+                        });
+
+                        // Crear opció al menú
+                        const option = document.createElement('button');
+                        option.className = 'subtitles-option';
+                        option.dataset.track = i;
+
+                        const flag = getLanguageFlag(track.language);
+                        option.innerHTML = `<span>${flag} ${track.label || track.language || `Subtítols ${i + 1}`}</span>`;
+
+                        option.addEventListener('click', () => {
+                            selectSubtitlesTrack(i);
+                        });
+
+                        subtitlesMenu.appendChild(option);
+                    }
+                }
+
+                // Si hi ha pistes, activar la primera per defecte
+                if (subtitlesTracks.length > 0) {
+                    noSubtitlesOption.classList.remove('disabled');
+                    noSubtitlesOption.classList.remove('active');
+
+                    // Marcar l'opció "Sense subtítols" com a activa per defecte
+                    activeSubtitlesTrack = -1;
+                    noSubtitlesOption.classList.add('active');
+                    subtitlesBtn.classList.remove('active');
+                    subtitlesBtn.title = "Subtítols (desactivats)";
+                } else {
+                    noSubtitlesOption.classList.add('disabled');
+                    subtitlesBtn.title = "No hi ha subtítols disponibles";
+                }
+            } else {
+                // Simular pistes de subtítols per a demostració
+                noSubtitlesOption.classList.remove('disabled');
+                noSubtitlesOption.classList.add('active');
+
+                // Afegir opcions de demostració
+                const demoSubtitles = [
+                    { language: 'ca', label: 'Català' },
+                    { language: 'es', label: 'Espanyol' },
+                    { language: 'en', label: 'Anglès' },
+                    { language: 'fr', label: 'Francès' }
+                ];
+
+                demoSubtitles.forEach((sub, index) => {
+                    subtitlesTracks.push({
+                        index: index,
+                        language: sub.language,
+                        label: sub.label,
+                        track: null
+                    });
+
+                    const option = document.createElement('button');
+                    option.className = 'subtitles-option';
+                    option.dataset.track = index;
+
+                    const flag = getLanguageFlag(sub.language);
+                    option.innerHTML = `<span>${flag} ${sub.label}</span>`;
+
+                    option.addEventListener('click', () => {
+                        selectSubtitlesTrack(index);
+                    });
+
+                    subtitlesMenu.appendChild(option);
+                });
+
+                activeSubtitlesTrack = -1;
+                subtitlesBtn.classList.remove('active');
+                subtitlesBtn.title = "Subtítols (desactivats)";
+            }
+
+            // Actualitzar el títol del botó amb el nombre de pistes
+            if (subtitlesTracks.length > 0) {
+                subtitlesBtn.title = `Subtítols (${subtitlesTracks.length} disponibles)`;
+            }
+        }
+
+        // Obtenir bandera per idioma
+        function getLanguageFlag(language) {
+            if (!language) return '🌐';
+
+            const flags = {
+                'ca': '🇪🇸', // Catalunya
+                'es': '🇪🇸', // Espanya
+                'en': '🇺🇸', // Anglès (USA)
+                'us': '🇺🇸', // USA
+                'gb': '🇬🇧', // Regne Unit
+                'fr': '🇫🇷', // França
+                'de': '🇩🇪', // Alemanya
+                'it': '🇮🇹', // Itàlia
+                'pt': '🇵🇹', // Portugal
+                'ru': '🇷🇺', // Rússia
+                'zh': '🇨🇳', // Xina
+                'ja': '🇯🇵', // Japó
+                'ko': '🇰🇷', // Corea
+                'ar': '🇸🇦', // Àrab
+                'original': '🎬', // Àudio original
+            };
+
+            return flags[language.toLowerCase()] || '🌐';
+        }
+
+        // Seleccionar pista de subtítols
+        function selectSubtitlesTrack(trackIndex) {
+            // Actualitzar estat actiu
+            activeSubtitlesTrack = trackIndex;
+
+            // Actualitzar menú
+            document.querySelectorAll('.subtitles-option').forEach(option => {
+                option.classList.remove('active');
+            });
+
+            if (trackIndex === -1) {
+                // Desactivar subtítols
+                noSubtitlesOption.classList.add('active');
+                subtitlesBtn.classList.remove('active');
+                subtitlesBtn.textContent = "CC";
+                subtitlesBtn.title = "Subtítols (desactivats)";
+
+                // Desactivar totes les pistes reals
+                if (video.textTracks) {
+                    for (let i = 0; i < video.textTracks.length; i++) {
+                        video.textTracks[i].mode = 'hidden';
+                    }
+                }
+            } else {
+                // Activar subtítols específics
+                noSubtitlesOption.classList.remove('active');
+                const selectedOption = document.querySelector(`.subtitles-option[data-track="${trackIndex}"]`);
+                if (selectedOption) {
+                    selectedOption.classList.add('active');
+                }
+
+                subtitlesBtn.classList.add('active');
+                subtitlesBtn.textContent = "CC ON";
+
+                const track = subtitlesTracks.find(t => t.index === trackIndex);
+                if (track) {
+                    subtitlesBtn.title = `Subtítols: ${track.label}`;
+
+                    // Activar pista real si existeix
+                    if (track.track) {
+                        // Desactivar totes les altres pistes
+                        for (let i = 0; i < video.textTracks.length; i++) {
+                            video.textTracks[i].mode = 'hidden';
+                        }
+                        // Activar la pista seleccionada
+                        track.track.mode = 'showing';
+                    } else {
+                        // Per a pistes de demostració
+                        console.log(`Subtítols activats: ${track.label}`);
+                    }
+                }
+            }
+        }
+
+        // Desactivar subtítols
+        function disableSubtitles() {
+            selectSubtitlesTrack(-1);
+        }
+
+        // Funciones de control
+        function togglePlay() {
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        }
+
+        function toggleMute() {
+            video.muted = !video.muted;
+            muteBtn.textContent = video.muted ? '🔇' : '🔊';
+        }
+
+        function setVolume(level) {
+            video.volume = level;
+            video.muted = level === 0;
+            volumeLevel.style.width = (level * 100) + '%';
+            muteBtn.textContent = level === 0 ? '🔇' : '🔊';
+        }
+
+        function setPlaybackSpeed(speed) {
+            currentSpeed = speed;
+            video.playbackRate = speed;
+            speedDisplayBtn.textContent = speed.toFixed(2) + 'x';
+        }
+
+        function updateProgressBar() {
+            if (video.duration && !isNaN(video.duration)) {
+                const percent = (video.currentTime / video.duration) * 100;
+                progressBar.style.width = percent + '%';
+            }
+        }
+
+        function updateVolumeDisplay() {
+            volumeLevel.style.width = (video.volume * 100) + '%';
+            muteBtn.textContent = video.muted ? '🔇' : '🔊';
+        }
+
+        function updateTimeDisplay() {
+            if (video.duration && !isNaN(video.duration)) {
+                const current = formatTime(video.currentTime);
+                const total = formatTime(video.duration);
+                timeDisplay.textContent = `${current} / ${total}`;
+            } else {
+                timeDisplay.textContent = "00:00 / 00:00";
+            }
+        }
+
+        function formatTime(seconds) {
+            if (isNaN(seconds) || seconds === Infinity) return "00:00";
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Mostrar controls en pantalla completa
+        function showFullscreenControls() {
+            if (isFullscreen) {
+                customControls.classList.remove('hidden');
+                videoContainer.classList.add('show-cursor');
+
+                // Programar l'ocultació automàtica després de 3 segons
+                clearTimeout(controlsTimeout);
+                controlsTimeout = setTimeout(hideFullscreenControls, 3000);
+            }
+        }
+
+        // Ocultar controls en pantalla completa
+        function hideFullscreenControls() {
+            if (isFullscreen && !isMouseOverControls()) {
+                customControls.classList.add('hidden');
+                videoContainer.classList.remove('show-cursor');
+            }
+        }
+
+        // Comprovar si el ratolí està sobre els controls
+        function isMouseOverControls() {
+            const controlsRect = customControls.getBoundingClientRect();
+            return (
+                mouseX >= controlsRect.left &&
+                mouseX <= controlsRect.right &&
+                mouseY >= controlsRect.top &&
+                mouseY <= controlsRect.bottom
+            );
+        }
+
+        // Variables per trackejar la posició del ratolí
+        let mouseX = 0;
+        let mouseY = 0;
+
+        // Funció per gestionar el moviment del ratolí en pantalla completa
+        function handleFullscreenMouseMove(e) {
+            if (!isFullscreen) return;
+
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            // Mostrar controls quan es mou el ratolí
+            showFullscreenControls();
+
+            // Resetear timeout d'inactivitat
+            clearTimeout(mouseMoveTimeout);
+            mouseMoveTimeout = setTimeout(() => {
+                if (isFullscreen && !isMouseOverControls()) {
+                    hideFullscreenControls();
+                }
+            }, 3000);
+        }
+
+        function toggleFullscreen() {
+            if (!isFullscreen) {
+                if (videoContainer.requestFullscreen) {
+                    videoContainer.requestFullscreen();
+                } else if (videoContainer.webkitRequestFullscreen) {
+                    videoContainer.webkitRequestFullscreen();
+                } else if (videoContainer.msRequestFullscreen) {
+                    videoContainer.msRequestFullscreen();
+                }
+                fullscreenBtn.textContent = '✕';
+                isFullscreen = true;
+
+                // Afegir event listener per moviment del ratolí
+                document.addEventListener('mousemove', handleFullscreenMouseMove);
+
+                // Mostrar controls inicialment
+                setTimeout(() => {
+                    showFullscreenControls();
+                }, 100);
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+                fullscreenBtn.textContent = '⛶';
+                isFullscreen = false;
+
+                // Eliminar event listener
+                document.removeEventListener('mousemove', handleFullscreenMouseMove);
+
+                // Netejar timeouts
+                clearTimeout(controlsTimeout);
+                clearTimeout(mouseMoveTimeout);
+
+                // Restaurar cursor
+                videoContainer.classList.remove('show-cursor');
+                customControls.classList.remove('hidden');
+            }
+        }
+
+        // Test d'estat de canal
+        async function testChannelStatus(channelUrl, index) {
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 4000);
+
+                const headResponse = await fetch(channelUrl, {
+                    method: 'HEAD',
+                    signal: controller.signal
+                });
+                clearTimeout(timeoutId);
+
+                if (!headResponse.ok) throw new Error('HEAD fallit');
+
+                const manifestResponse = await fetch(channelUrl);
+                const manifestText = await manifestResponse.text();
+
+                if (!manifestText.includes('#EXT-X-STREAM-INF') && !manifestText.includes('#EXTINF')) {
+                    throw new Error('Manifest invàlid');
+                }
+
+                channelStatus[index] = 'online';
+                updateChannelStatus(index);
+                return true;
+
+            } catch (error) {
+                channelStatus[index] = 'offline';
+                updateChannelStatus(index);
+                return false;
+            }
+        }
+
+        // Actualitza estat visual
+        function updateChannelStatus(index) {
+            const btn = document.querySelector(`[data-index="${index}"]`);
+            if (!btn) return;
+
+            const status = channelStatus[index] || 'offline';
+            btn.className = `channel-btn status-${status}`;
+
+            let statusEl = btn.querySelector('.status-info');
+            if (!statusEl) {
+                statusEl = document.createElement('div');
+                statusEl.className = 'status-info';
+                btn.appendChild(statusEl);
+            }
+
+            const statusText = {
+                'online': '🟢 En línia',
+                'working': '🔵 Funcionant',
+                'offline': '🔴 Desconnectat'
+            };
+            statusEl.textContent = statusText[status] || '⏳ Comprovant...';
+
+            applyFilters();
+        }
+
+        // Filtre per estat
+        function setStatusFilter(filter) {
+            currentStatusFilter = filter;
+
+            // Actualitza botons actius
+            document.querySelectorAll('.status-filter').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            applyFilters();
+            updateResultsCount();
+        }
+
+        // Aplica tots els filtres
+        function applyFilters() {
+            const searchQuery = searchInput.value.toLowerCase().trim();
+
+            document.querySelectorAll('.channel-btn').forEach((btn, index) => {
+                const channel = channels[index];
+                const status = channelStatus[index] || 'offline';
+
+                // Filtre cerca nom
+                const nameMatch = !searchQuery || channel.name.toLowerCase().includes(searchQuery);
+
+                // Filtre estat
+                const statusMatch = currentStatusFilter === 'all' ||
+                                  (currentStatusFilter === 'online' && status === 'online') ||
+                                  (currentStatusFilter === 'working' && status === 'working') ||
+                                  (currentStatusFilter === 'offline' && status === 'offline');
+
+                btn.classList.toggle('hidden', !(nameMatch && statusMatch));
+            });
+        }
+
+        // Actualitza comptador
+        function updateResultsCount() {
+            const visibleButtons = document.querySelectorAll('.channel-btn:not(.hidden)');
+            resultsCount.innerHTML = `📊 ${visibleButtons.length} canals visibles`;
+            resultsCount.style.display = 'block';
+        }
+
+        // ACTUALITZA ESTAT MANUAL
+        async function refreshChannelStatus() {
+            refreshStatusBtn.disabled = true;
+            refreshStatusBtn.textContent = '⏳ Comprovant...';
+
+            const testPromises = channels.map((channel, index) =>
+                testChannelStatus(channel.url, index)
+            );
+
+            await Promise.allSettled(testPromises);
+            applyFilters();
+            updateResultsCount();
+
+            refreshStatusBtn.disabled = false;
+            refreshStatusBtn.textContent = '🔄 Estat';
+        }
+
+        // Inicialitza HLS
+        function initHLS() {
+            if (Hls.isSupported()) {
+                hls = new Hls({
+                    enableWorker: true,
+                    lowLatencyMode: true,
+                    backBufferLength: 90,
+                    liveSyncDurationCount: 3,
+                    enableWebVTT: true, // Important per subtítols
+                    subtitleTrackLabel: 'Label',
+                    audioTrackLabel: 'Label'
+                });
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                    video.play().catch(e => console.log('Autoplay:', e));
+                    updateTimeDisplay();
+                    // Esperar a que es carreguin les pistes d'àudio i subtítols
+                    setTimeout(() => {
+                        detectAudioTracks();
+                        detectSubtitlesTracks();
+                    }, 1000);
+                });
+
+                // Detectar quan hi ha canvis en les pistes d'àudio
+                hls.on(Hls.Events.AUDIO_TRACKS_UPDATED, (event, data) => {
+                    console.log('Pistes d\'àudio actualitzades:', data);
+                    setTimeout(detectAudioTracks, 500);
+                });
+
+                // Detectar quan hi ha canvis en les pistes de subtítols
+                hls.on(Hls.Events.SUBTITLE_TRACKS_UPDATED, (event, data) => {
+                    console.log('Pistes de subtítols actualitzades:', data);
+                    setTimeout(detectSubtitlesTracks, 500);
+                });
+            }
+        }
+
+        // Parseja M3U
+        async function parseM3U(content) {
+            const lines = content.split('\n');
+            const parsedChannels = [];
+
+            for (let i = 0; i < lines.length; i++) {
+                if (lines[i].startsWith('#EXTINF:')) {
+                    const nameMatch = lines[i].match(/,(.+)$/);
+                    const name = nameMatch ? nameMatch[1].trim().replace(/"/g, '') : 'Canal sense nom';
+
+                    i++;
+                    if (i < lines.length) {
+                        let url = lines[i].trim();
+                        if (url && (url.includes('.m3u8') || url.includes('.ts'))) {
+                            const logoMatch = lines[i-1].match(/tvg-logo="([^"]+)"/);
+                            const logo = logoMatch ? logoMatch[1] : '';
+
+                            parsedChannels.push({ name, url, logo });
+                        }
+                    }
+                }
+            }
+            return parsedChannels;
+        }
+
+        // Crea botons
+        async function createChannelButtons(channelsList) {
+            channelList.innerHTML = '<div class="loading">Comprovant estat dels canals...</div>';
+            channels = channelsList;
+
+            channelList.innerHTML = '';
+
+            channels.forEach((channel, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'channel-btn status-offline';
+                btn.dataset.index = index;
+
+                const logoImg = document.createElement('img');
+                logoImg.className = 'channel-logo';
+                logoImg.src = channel.logo || 'https://via.placeholder.com/30x30/007bff/fff?text=📺';
+                logoImg.onerror = () => logoImg.src = 'https://via.placeholder.com/30x30/007bff/fff?text=📺';
+
+                const nameSpan = document.createElement('span');
+                nameSpan.className = 'channel-name';
+                nameSpan.textContent = channel.name;
+
+                const statusIndicator = document.createElement('div');
+                statusIndicator.className = 'status-indicator';
+
+                btn.appendChild(logoImg);
+                btn.appendChild(nameSpan);
+                btn.appendChild(statusIndicator);
+
+                btn.onclick = () => playChannel(index);
+                channelList.appendChild(btn);
+            });
+
+            refreshStatusBtn.disabled = false;
+            await refreshChannelStatus();
+        }
+
+        function playChannel(index) {
+            if (index < 0 || index >= channels.length) return;
+
+            currentChannelIndex = index;
+            const channel = channels[index];
+            currentChannelEl.textContent = `📺 ${channel.name}`;
+
+            document.querySelectorAll('.channel-btn').forEach((btn, i) => {
+                btn.classList.toggle('active', i === index);
+            });
+
+            if (hls) {
+                hls.loadSource(channel.url);
+                hls.startLoad();
+            }
+
+            // Resetear controles
+            setPlaybackSpeed(1.0);
+
+            // Resetear subtítulos
+            disableSubtitles();
+
+            // Resetear tiempo
+            setTimeout(() => {
+                updateProgressBar();
+                updateTimeDisplay();
+            }, 500);
+
+            updateNavButtons();
+        }
+
+        function updateNavButtons() {
+            prevBtn.disabled = currentChannelIndex <= 0;
+            nextBtn.disabled = currentChannelIndex >= channels.length - 1;
+        }
+
+        function prevChannel() { if (currentChannelIndex > 0) playChannel(currentChannelIndex - 1); }
+        function nextChannel() { if (currentChannelIndex < channels.length - 1) playChannel(currentChannelIndex + 1); }
+        function clearSearch() {
+            searchInput.value = '';
+            applyFilters();
+            searchInput.focus();
+        }
+
+        async function loadChannels() {
+            loadBtn.disabled = true;
+            loadBtn.textContent = '⏳ Carregant...';
+            channelList.innerHTML = '<div class="loading">Importat fitxer M3U...</div>';
+
+            try {
+                const response = await fetch(m3uInput.value);
+                if (!response.ok) throw new Error('URL no accessible');
+
+                const m3uContent = await response.text();
+                const channelsList = await parseM3U(m3uContent);
+                await createChannelButtons(channelsList);
+
+            } catch (error) {
+                channelList.innerHTML = `<div class="loading">❌ Error: ${error.message}</div>`;
+            } finally {
+                loadBtn.disabled = false;
+                loadBtn.textContent = '🔄 Carrega canals';
+            }
+        }
+
+        // EVENTS
+        searchInput.addEventListener('input', (e) => {
+            applyFilters();
+            clearSearchBtn.style.display = e.target.value ? 'block' : 'none';
+            updateResultsCount();
+        });
+
+        // Detectar cambios en pantalla completa
+        document.addEventListener('fullscreenchange', updateFullscreenButton);
+        document.addEventListener('webkitfullscreenchange', updateFullscreenButton);
+        document.addEventListener('mozfullscreenchange', updateFullscreenButton);
+        document.addEventListener('MSFullscreenChange', updateFullscreenButton);
+
+        function updateFullscreenButton() {
+            if (!document.fullscreenElement && !document.webkitFullscreenElement &&
+                !document.mozFullScreenElement && !document.msFullscreenElement) {
+                fullscreenBtn.textContent = '⛶';
+                isFullscreen = false;
+
+                // Eliminar event listener
+                document.removeEventListener('mousemove', handleFullscreenMouseMove);
+
+                // Netejar timeouts
+                clearTimeout(controlsTimeout);
+                clearTimeout(mouseMoveTimeout);
+
+                // Restaurar cursor i controls
+                videoContainer.classList.remove('show-cursor');
+                customControls.classList.remove('hidden');
+            }
+        }
+
+        window.onload = function() {
+            initHLS();
+            initCustomControls();
+            setTimeout(loadChannels, 1000);
+        };
+    </script>
+</body>
+</html>
