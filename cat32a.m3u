@@ -1,4 +1,6 @@
 #EXTM3U
+#EXTINF:23, Borges TV
+https://cdn-us-east-prod-ingest-infra-dacast-com.akamaized.net/32011a068810a1f6c94243c33451d725/source/index.m3u8
 #EXTINF:23, Animal Planet
 http://fl2.moveonjoy.com/Animal_Planet/index.m3u8
 #EXTINF:24, BET HER
@@ -91,3 +93,4 @@ http://fl2.moveonjoy.com/TV_ONE/index.m3u8
 http://fl1.moveonjoy.com/UFC/index.m3u8
 #EXTINF:24, VH1 
 http://fl2.moveonjoy.com/VH1/index.m3u8
+
