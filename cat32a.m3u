@@ -1,96 +1,93 @@
 #EXTM3U
-#EXTINF:23, Borges TV
-https://cdn-us-east-prod-ingest-infra-dacast-com.akamaized.net/32011a068810a1f6c94243c33451d725/source/index.m3u8
-#EXTINF:23, Animal Planet
-http://fl2.moveonjoy.com/Animal_Planet/index.m3u8
-#EXTINF:24, BET HER
-http://fl2.moveonjoy.com/BET_HER/index.m3u8
-#EXTINF:22, BET SOUL
-http://fl2.moveonjoy.com/BET_SOUL/index.m3u8
-#EXTINF:20, BLOOMBERG
-http://fl2.moveonjoy.com/BLOOMBERG/index.m3u8
-#EXTINF:24, CARTOON NETWORK
-http://fl2.moveonjoy.com/CARTOON_NETWORK/index.m3u8
-#EXTINF:24, CINEMAX EAST
-http://fl2.moveonjoy.com/CINEMAX_EAST/index.m3u8
-#EXTINF:20, CNBC
-http://fl2.moveonjoy.com/CNBC/index.m3u8
-#EXTINF:20, CNN
-http://fl2.moveonjoy.com/CNN/index.m3u8
-#EXTINF:24, CRAVE 2
-http://fl2.moveonjoy.com/CRAVE_2/index.m3u8
-#EXTINF:22, CRAVE 4
-http://fl2.moveonjoy.com/CRAVE_4/index.m3u8
-#EXTINF:20, DIY
-http://fl2.moveonjoy.com/DIY/index.m3u8
-#EXTINF:24, E!
-http://fl2.moveonjoy.com/E_ENTERTAINMENT_TELEVISION/index.m3u8
-#EXTINF:24, ESPN 2
-http://fl2.moveonjoy.com/ESPN_2/index.m3u8
-#EXTINF:24, ESPN NETWORK
-http://fl2.moveonjoy.com/FOOD_NETWORK/index.m3u8
-#EXTINF:24, ESPN U
-http://fl2.moveonjoy.com/ESPN_U/index.m3u8
-#EXTINF:24, FOX SOUL
-http://fl1.moveonjoy.com/FOX_SOUL/index.m3u8
-#EXTINF:20, FOX SPORTS 1
-http://fl2.moveonjoy.com/FOX_Sports_1/index.m3u8
-#EXTINF:24, FX
-http://fl2.moveonjoy.com/FX/index.m3u8
-#EXTINF:24, FX MOVIE
-http://fl2.moveonjoy.com/FX_MOVIE/index.m3u8
-#EXTINF:18, FXX
-http://fl2.moveonjoy.com/FXX/index.m3u8
-#EXTINF:24, HALLMARK CHANNEL
-http://fl2.moveonjoy.com/HALLMARK_CHANNEL/index.m3u8
-#EXTINF:24, HALLMARK DRAMA
-http://fl2.moveonjoy.com/HALLMARK_DRAMA/index.m3u8
-#EXTINF:24, INSP
-http://fl2.moveonjoy.com/INSP/index.m3u8
-#EXTINF:24, LIFETIME
-http://fl2.moveonjoy.com/LIFETIME/index.m3u8
-#EXTINF:24, LIFETIME MOVIE NET
-http://fl2.moveonjoy.com/LIFETIME_MOVIE_NETWORK/index.m3u8
-#EXTINF:22, ME TV
-http://fl2.moveonjoy.com/ME_TV/index.m3u8
-#EXTINF:24, MTV
-http://fl2.moveonjoy.com/MTV/index.m3u8
-#EXTINF:24, MTV 2
-http://fl2.moveonjoy.com/MTV_2/index.m3u8
-#EXTINF:24, MTV CLASSIC
-http://fl2.moveonjoy.com/MTV_CLASSIC/index.m3u8
-#EXTINF:24, MTV LIVE
+#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/d/de/MTV_Live_2021_logo.svg", MTV LIVE
 http://fl2.moveonjoy.com/MTV_LIVE/index.m3u8
-#EXTINF:20, NEWS NATION
+#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/e/ee/E%21_Logo_2012.svg", E!
+http://fl2.moveonjoy.com/E_ENTERTAINMENT_TELEVISION/index.m3u8
+#EXTINF:23 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/2/20/2018_Animal_Planet_logo.svg", Animal Planet
+http://fl2.moveonjoy.com/Animal_Planet/index.m3u8
+#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/e/e4/BET_Her_logo.png", BET HER
+http://fl2.moveonjoy.com/BET_HER/index.m3u8
+#EXTINF:22 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/0/0e/BET_Soul_logo.png", BET SOUL
+http://fl2.moveonjoy.com/BET_SOUL/index.m3u8
+#EXTINF:20 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/5/56/Bloomberg_Television_logo.svg", BLOOMBERG
+http://fl2.moveonjoy.com/BLOOMBERG/index.m3u8
+#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/8/80/Cartoon_Network_2010_logo.svg", CARTOON NETWORK
+http://fl2.moveonjoy.com/CARTOON_NETWORK/index.m3u8
+#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/1/11/Cinemax_%28Yellow%29.svg", CINEMAX EAST
+http://fl2.moveonjoy.com/CINEMAX_EAST/index.m3u8
+#EXTINF:20 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/e/e3/CNBC_logo.svg", CNBC
+http://fl2.moveonjoy.com/CNBC/index.m3u8
+#EXTINF:20 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/b/b1/CNN.svg", CNN
+http://fl2.moveonjoy.com/CNN/index.m3u8
+#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/8/87/Crave_logo.svg", CRAVE 2
+http://fl2.moveonjoy.com/CRAVE_2/index.m3u8
+#EXTINF:22 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/8/87/Crave_logo.svg", CRAVE 4
+http://fl2.moveonjoy.com/CRAVE_4/index.m3u8
+#EXTINF:20 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/f/f5/DIY_Network_logo.svg", DIY
+http://fl2.moveonjoy.com/DIY/index.m3u8
+#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/9/92/ESPN2_logo.svg", ESPN 2
+http://fl2.moveonjoy.com/ESPN_2/index.m3u8
+#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/d/d9/Food_Network_logo.svg", ESPN NETWORK
+http://fl2.moveonjoy.com/FOOD_NETWORK/index.m3u8
+#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/9/93/ESPNU_logo.svg", ESPN U
+http://fl2.moveonjoy.com/ESPN_U/index.m3u8
+#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/a/a1/Fox_Soul_logo.svg", FOX SOUL
+http://fl1.moveonjoy.com/FOX_SOUL/index.m3u8
+#EXTINF:20 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/e/e7/Fox_Sports_1_logo.svg", FOX SPORTS 1
+http://fl2.moveonjoy.com/FOX_Sports_1/index.m3u8
+#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/4/4d/FX_International_logo.svg", FX
+http://fl2.moveonjoy.com/FX/index.m3u8
+#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/5/5d/FXM_Logo.svg", FX MOVIE
+http://fl2.moveonjoy.com/FX_MOVIE/index.m3u8
+#EXTINF:18 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/1/16/FXX_Logo.svg", FXX
+http://fl2.moveonjoy.com/FXX/index.m3u8
+#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/5/53/Hallmark_Channel.svg", HALLMARK CHANNEL
+http://fl2.moveonjoy.com/HALLMARK_CHANNEL/index.m3u8
+#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/e/ee/Hallmark_Drama_logo.png", HALLMARK DRAMA
+http://fl2.moveonjoy.com/HALLMARK_DRAMA/index.m3u8
+#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/6/65/INSP_TV_logo.png", INSP
+http://fl2.moveonjoy.com/INSP/index.m3u8
+#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/9/98/Lifetime_2020.svg", LIFETIME
+http://fl2.moveonjoy.com/LIFETIME/index.m3u8
+#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/2/20/Lifetime_Movies_2020.svg", LIFETIME MOVIE NET
+http://fl2.moveonjoy.com/LIFETIME_MOVIE_NETWORK/index.m3u8
+#EXTINF:22 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/7/7f/MeTV_Logo.svg", ME TV
+http://fl2.moveonjoy.com/ME_TV/index.m3u8
+#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/6/68/MTV_2021_%28brand_version%29.svg", MTV
+http://fl2.moveonjoy.com/MTV/index.m3u8
+#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/f/f8/MTV2_logo_2013.png", MTV 2
+http://fl2.moveonjoy.com/MTV_2/index.m3u8
+#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/0/0f/MTV_Classic_2016_logo.svg", MTV CLASSIC
+http://fl2.moveonjoy.com/MTV_CLASSIC/index.m3u8
+#EXTINF:20 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/3/35/NewsNation_Logo.svg", NEWS NATION
 http://fl2.moveonjoy.com/NEWS_NATION/index.m3u8
-#EXTINF:21, NICK JR
+#EXTINF:21 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/a/a1/Nick_Jr._logo_2009.png", NICK JR
 http://fl2.moveonjoy.com/NICK_JR/index.m3u8
-#EXTINF:20, NICKTOONS
+#EXTINF:20 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/2/27/Nicktoons_Network_logo_2009.png", NICKTOONS
 http://fl2.moveonjoy.com/NICKTOONS/index.m3u8
-#EXTINF:24, OUTDOOR CHANNEL
+#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/9/91/Outdoor_Channel_logo_2017.png", OUTDOOR CHANNEL
 http://fl2.moveonjoy.com/OUTDOOR_CHANNEL/index.m3u8
-#EXTINF:20, OWN
+#EXTINF:20 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/c/c8/OWN_Logo.svg", OWN
 http://fl2.moveonjoy.com/OWN/index.m3u8
-#EXTINF:20, OXYGEN
+#EXTINF:20 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/d/df/Oxygen_TV_%282017%29.svg", OXYGEN
 http://fl2.moveonjoy.com/OXYGEN/index.m3u8
-#EXTINF:20, QVC
+#EXTINF:20 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/3/39/QVC_logo_2019.svg", QVC
 http://fl2.moveonjoy.com/QVC/index.m3u8
-#EXTINF:24, SHOWTIME 2
+#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/2/22/Showtime_2024.svg", SHOWTIME 2
 http://fl2.moveonjoy.com/SHOWTIME_2/index.m3u8
-#EXTINF:24, SHOWTIME EXTREME
+#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/2/22/Showtime_2024.svg", SHOWTIME EXTREME
 http://fl2.moveonjoy.com/SHOWTIME_EXTREME/index.m3u8
-#EXTINF:24, STADIUM
+#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/f/f3/Stadium_TV_Logo.png", STADIUM
 http://fl2.moveonjoy.com/STADIUM/index.m3u8
-#EXTINF:24, SUNDANCE
+#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/0/0d/Sundance_TV_2014.svg", SUNDANCE
 http://fl2.moveonjoy.com/SUNDANCE/index.m3u8
-#EXTINF:24, TBS
+#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/0/09/TBS_logo_2016.svg", TBS
 http://fl2.moveonjoy.com/TBS/index.m3u8
-#EXTINF:24, TCM
+#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/f/f6/TCM_logo.svg", TCM
 http://fl2.moveonjoy.com/TCM/index.m3u8
-#EXTINF:24, TV ONE
+#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/d/dc/TV_One_2019_logo.svg", TV ONE
 http://fl2.moveonjoy.com/TV_ONE/index.m3u8
-#EXTINF:20, UFC
+#EXTINF:20 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/5/56/UFC_Logo.svg", UFC
 http://fl1.moveonjoy.com/UFC/index.m3u8
-#EXTINF:24, VH1 
+#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/9/96/VH1_logonew.svg", VH1
 http://fl2.moveonjoy.com/VH1/index.m3u8
-
