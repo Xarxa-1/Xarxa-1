@@ -1,93 +1,95 @@
 #EXTM3U
-#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/d/de/MTV_Live_2021_logo.svg", MTV LIVE
-http://fl2.moveonjoy.com/MTV_LIVE/index.m3u8
-#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/e/ee/E%21_Logo_2012.svg", E!
-http://fl2.moveonjoy.com/E_ENTERTAINMENT_TELEVISION/index.m3u8
-#EXTINF:23 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/2/20/2018_Animal_Planet_logo.svg", Animal Planet
+#EXTINF:23 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/argentina/borges-tv-ar.png", Borges TV
+https://cdn-us-east-prod-ingest-infra-dacast-com.akamaized.net/32011a068810a1f6c94243c33451d725/source/index.m3u8
+#EXTINF:23 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/animal-planet-us.png", Animal Planet
 http://fl2.moveonjoy.com/Animal_Planet/index.m3u8
-#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/e/e4/BET_Her_logo.png", BET HER
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/bet-her-us.png", BET HER
 http://fl2.moveonjoy.com/BET_HER/index.m3u8
-#EXTINF:22 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/0/0e/BET_Soul_logo.png", BET SOUL
+#EXTINF:22 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/bet-soul-us.png", BET SOUL
 http://fl2.moveonjoy.com/BET_SOUL/index.m3u8
-#EXTINF:20 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/5/56/Bloomberg_Television_logo.svg", BLOOMBERG
+#EXTINF:20 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/bloomberg-television-us.png", BLOOMBERG
 http://fl2.moveonjoy.com/BLOOMBERG/index.m3u8
-#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/8/80/Cartoon_Network_2010_logo.svg", CARTOON NETWORK
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/cartoon-network-us.png", CARTOON NETWORK
 http://fl2.moveonjoy.com/CARTOON_NETWORK/index.m3u8
-#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/1/11/Cinemax_%28Yellow%29.svg", CINEMAX EAST
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/cinemax-east-us.png", CINEMAX EAST
 http://fl2.moveonjoy.com/CINEMAX_EAST/index.m3u8
-#EXTINF:20 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/e/e3/CNBC_logo.svg", CNBC
+#EXTINF:20 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/cnbc-us.png", CNBC
 http://fl2.moveonjoy.com/CNBC/index.m3u8
-#EXTINF:20 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/b/b1/CNN.svg", CNN
+#EXTINF:20 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/cnn-us.png", CNN
 http://fl2.moveonjoy.com/CNN/index.m3u8
-#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/8/87/Crave_logo.svg", CRAVE 2
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/canada/crave-2-ca.png", CRAVE 2
 http://fl2.moveonjoy.com/CRAVE_2/index.m3u8
-#EXTINF:22 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/8/87/Crave_logo.svg", CRAVE 4
+#EXTINF:22 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/canada/crave-4-ca.png", CRAVE 4
 http://fl2.moveonjoy.com/CRAVE_4/index.m3u8
-#EXTINF:20 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/f/f5/DIY_Network_logo.svg", DIY
+#EXTINF:20 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/diy-network-us.png", DIY
 http://fl2.moveonjoy.com/DIY/index.m3u8
-#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/9/92/ESPN2_logo.svg", ESPN 2
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/e-us.png", E!
+http://fl2.moveonjoy.com/E_ENTERTAINMENT_TELEVISION/index.m3u8
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/espn-2-us.png", ESPN 2
 http://fl2.moveonjoy.com/ESPN_2/index.m3u8
-#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/d/d9/Food_Network_logo.svg", ESPN NETWORK
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/food-network-us.png", ESPN NETWORK
 http://fl2.moveonjoy.com/FOOD_NETWORK/index.m3u8
-#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/9/93/ESPNU_logo.svg", ESPN U
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/espnu-us.png", ESPN U
 http://fl2.moveonjoy.com/ESPN_U/index.m3u8
-#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/a/a1/Fox_Soul_logo.svg", FOX SOUL
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fox-soul-us.png", FOX SOUL
 http://fl1.moveonjoy.com/FOX_SOUL/index.m3u8
-#EXTINF:20 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/e/e7/Fox_Sports_1_logo.svg", FOX SPORTS 1
+#EXTINF:20 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fs1-us.png", FOX SPORTS 1
 http://fl2.moveonjoy.com/FOX_Sports_1/index.m3u8
-#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/4/4d/FX_International_logo.svg", FX
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fx-us.png", FX
 http://fl2.moveonjoy.com/FX/index.m3u8
-#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/5/5d/FXM_Logo.svg", FX MOVIE
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fxm-us.png", FX MOVIE
 http://fl2.moveonjoy.com/FX_MOVIE/index.m3u8
-#EXTINF:18 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/1/16/FXX_Logo.svg", FXX
+#EXTINF:18 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fxx-us.png", FXX
 http://fl2.moveonjoy.com/FXX/index.m3u8
-#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/5/53/Hallmark_Channel.svg", HALLMARK CHANNEL
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hallmark-channel-us.png", HALLMARK CHANNEL
 http://fl2.moveonjoy.com/HALLMARK_CHANNEL/index.m3u8
-#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/e/ee/Hallmark_Drama_logo.png", HALLMARK DRAMA
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hallmark-drama-us.png", HALLMARK DRAMA
 http://fl2.moveonjoy.com/HALLMARK_DRAMA/index.m3u8
-#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/6/65/INSP_TV_logo.png", INSP
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/insp-us.png", INSP
 http://fl2.moveonjoy.com/INSP/index.m3u8
-#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/9/98/Lifetime_2020.svg", LIFETIME
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/lifetime-us.png", LIFETIME
 http://fl2.moveonjoy.com/LIFETIME/index.m3u8
-#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/2/20/Lifetime_Movies_2020.svg", LIFETIME MOVIE NET
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/lifetime-movies-us.png", LIFETIME MOVIE NET
 http://fl2.moveonjoy.com/LIFETIME_MOVIE_NETWORK/index.m3u8
-#EXTINF:22 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/7/7f/MeTV_Logo.svg", ME TV
+#EXTINF:22 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/metv-us.png", ME TV
 http://fl2.moveonjoy.com/ME_TV/index.m3u8
-#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/6/68/MTV_2021_%28brand_version%29.svg", MTV
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/mtv-us.png", MTV
 http://fl2.moveonjoy.com/MTV/index.m3u8
-#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/f/f8/MTV2_logo_2013.png", MTV 2
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/mtv2-us.png", MTV 2
 http://fl2.moveonjoy.com/MTV_2/index.m3u8
-#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/0/0f/MTV_Classic_2016_logo.svg", MTV CLASSIC
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/mtv-classic-us.png", MTV CLASSIC
 http://fl2.moveonjoy.com/MTV_CLASSIC/index.m3u8
-#EXTINF:20 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/3/35/NewsNation_Logo.svg", NEWS NATION
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/mtv-live-us.png", MTV LIVE
+http://fl2.moveonjoy.com/MTV_LIVE/index.m3u8
+#EXTINF:20 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/newsnation-us.png", NEWS NATION
 http://fl2.moveonjoy.com/NEWS_NATION/index.m3u8
-#EXTINF:21 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/a/a1/Nick_Jr._logo_2009.png", NICK JR
+#EXTINF:21 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/nick-jr-us.png", NICK JR
 http://fl2.moveonjoy.com/NICK_JR/index.m3u8
-#EXTINF:20 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/2/27/Nicktoons_Network_logo_2009.png", NICKTOONS
+#EXTINF:20 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/nicktoons-us.png", NICKTOONS
 http://fl2.moveonjoy.com/NICKTOONS/index.m3u8
-#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/9/91/Outdoor_Channel_logo_2017.png", OUTDOOR CHANNEL
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/outdoor-channel-us.png", OUTDOOR CHANNEL
 http://fl2.moveonjoy.com/OUTDOOR_CHANNEL/index.m3u8
-#EXTINF:20 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/c/c8/OWN_Logo.svg", OWN
+#EXTINF:20 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/own-us.png", OWN
 http://fl2.moveonjoy.com/OWN/index.m3u8
-#EXTINF:20 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/d/df/Oxygen_TV_%282017%29.svg", OXYGEN
+#EXTINF:20 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/oxygen-us.png", OXYGEN
 http://fl2.moveonjoy.com/OXYGEN/index.m3u8
-#EXTINF:20 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/3/39/QVC_logo_2019.svg", QVC
+#EXTINF:20 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/qvc-us.png", QVC
 http://fl2.moveonjoy.com/QVC/index.m3u8
-#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/2/22/Showtime_2024.svg", SHOWTIME 2
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/showtime-2-us.png", SHOWTIME 2
 http://fl2.moveonjoy.com/SHOWTIME_2/index.m3u8
-#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/2/22/Showtime_2024.svg", SHOWTIME EXTREME
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/showtime-extreme-us.png", SHOWTIME EXTREME
 http://fl2.moveonjoy.com/SHOWTIME_EXTREME/index.m3u8
-#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/f/f3/Stadium_TV_Logo.png", STADIUM
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/stadium-us.png", STADIUM
 http://fl2.moveonjoy.com/STADIUM/index.m3u8
-#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/0/0d/Sundance_TV_2014.svg", SUNDANCE
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/sundancetv-us.png", SUNDANCE
 http://fl2.moveonjoy.com/SUNDANCE/index.m3u8
-#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/0/09/TBS_logo_2016.svg", TBS
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/tbs-us.png", TBS
 http://fl2.moveonjoy.com/TBS/index.m3u8
-#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/f/f6/TCM_logo.svg", TCM
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/tcm-us.png", TCM
 http://fl2.moveonjoy.com/TCM/index.m3u8
-#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/d/dc/TV_One_2019_logo.svg", TV ONE
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/tvone-us.png", TV ONE
 http://fl2.moveonjoy.com/TV_ONE/index.m3u8
-#EXTINF:20 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/5/56/UFC_Logo.svg", UFC
+#EXTINF:20 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/ufc-fight-pass-us.png", UFC
 http://fl1.moveonjoy.com/UFC/index.m3u8
-#EXTINF:24 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/9/96/VH1_logonew.svg", VH1
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/vh1-us.png", VH1
 http://fl2.moveonjoy.com/VH1/index.m3u8
