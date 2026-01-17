@@ -1,6 +1,12 @@
 #EXTM3U
-#EXTINF:23 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/argentina/borges-tv-ar.png", Borges TV
-https://cdn-us-east-prod-ingest-infra-dacast-com.akamaized.net/32011a068810a1f6c94243c33451d725/source/index.m3u8
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/mtv-live-us.png", MTV LIVE
+http://fl2.moveonjoy.com/MTV_LIVE/index.m3u8
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/e-us.png", E!
+http://fl2.moveonjoy.com/E_ENTERTAINMENT_TELEVISION/index.m3u8
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-us.png", HBO
+http://fl2.moveonjoy.com/HBO/index.m3u8
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hgtv-us.png", HGTV
+http://fl2.moveonjoy.com/HGTV/index.m3u8
 #EXTINF:23 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/animal-planet-us.png", Animal Planet
 http://fl2.moveonjoy.com/Animal_Planet/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/bet-her-us.png", BET HER
@@ -59,8 +65,6 @@ http://fl2.moveonjoy.com/MTV/index.m3u8
 http://fl2.moveonjoy.com/MTV_2/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/mtv-classic-us.png", MTV CLASSIC
 http://fl2.moveonjoy.com/MTV_CLASSIC/index.m3u8
-#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/mtv-live-us.png", MTV LIVE
-http://fl2.moveonjoy.com/MTV_LIVE/index.m3u8
 #EXTINF:20 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/newsnation-us.png", NEWS NATION
 http://fl2.moveonjoy.com/NEWS_NATION/index.m3u8
 #EXTINF:21 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/nick-jr-us.png", NICK JR
@@ -93,3 +97,4 @@ http://fl2.moveonjoy.com/TV_ONE/index.m3u8
 http://fl1.moveonjoy.com/UFC/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/vh1-us.png", VH1
 http://fl2.moveonjoy.com/VH1/index.m3u8
+
