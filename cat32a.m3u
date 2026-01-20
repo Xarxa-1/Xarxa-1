@@ -7,6 +7,18 @@ https://dash4.antik.sk/live/test_euronews/playlist.m3u8
 http://fl2.moveonjoy.com/E_ENTERTAINMENT_TELEVISION/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-us.png", HBO
 http://fl2.moveonjoy.com/HBO/index.m3u8
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/cinemax-east-us.png", CINEMAX EAST
+http://fl2.moveonjoy.com/CINEMAX_EAST/index.m3u8
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fx-us.png", FX
+http://fl2.moveonjoy.com/FX/index.m3u8
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fxm-us.png", FX MOVIE
+http://fl2.moveonjoy.com/FX_MOVIE/index.m3u8
+#EXTINF:18 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fxx-us.png", FXX
+http://fl2.moveonjoy.com/FXX/index.m3u8
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hallmark-channel-us.png", HALLMARK CHANNEL
+http://fl2.moveonjoy.com/HALLMARK_CHANNEL/index.m3u8
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hallmark-drama-us.png", HALLMARK DRAMA
+http://fl2.moveonjoy.com/HALLMARK_DRAMA/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hgtv-us.png", HGTV
 http://fl2.moveonjoy.com/HGTV/index.m3u8
 #EXTINF:23 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/animal-planet-us.png", Animal Planet
@@ -19,8 +31,6 @@ http://fl2.moveonjoy.com/BET_SOUL/index.m3u8
 http://fl2.moveonjoy.com/BLOOMBERG/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/cartoon-network-us.png", CARTOON NETWORK
 http://fl2.moveonjoy.com/CARTOON_NETWORK/index.m3u8
-#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/cinemax-east-us.png", CINEMAX EAST
-http://fl2.moveonjoy.com/CINEMAX_EAST/index.m3u8
 #EXTINF:20 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/cnbc-us.png", CNBC
 http://fl2.moveonjoy.com/CNBC/index.m3u8
 #EXTINF:20 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/cnn-us.png", CNN
@@ -43,16 +53,6 @@ http://fl2.moveonjoy.com/ESPN_U/index.m3u8
 http://fl1.moveonjoy.com/FOX_SOUL/index.m3u8
 #EXTINF:20 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fs1-us.png", FOX SPORTS 1
 http://fl2.moveonjoy.com/FOX_Sports_1/index.m3u8
-#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fx-us.png", FX
-http://fl2.moveonjoy.com/FX/index.m3u8
-#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fxm-us.png", FX MOVIE
-http://fl2.moveonjoy.com/FX_MOVIE/index.m3u8
-#EXTINF:18 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fxx-us.png", FXX
-http://fl2.moveonjoy.com/FXX/index.m3u8
-#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hallmark-channel-us.png", HALLMARK CHANNEL
-http://fl2.moveonjoy.com/HALLMARK_CHANNEL/index.m3u8
-#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hallmark-drama-us.png", HALLMARK DRAMA
-http://fl2.moveonjoy.com/HALLMARK_DRAMA/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/insp-us.png", INSP
 http://fl2.moveonjoy.com/INSP/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/lifetime-us.png", LIFETIME
@@ -99,5 +99,6 @@ http://fl2.moveonjoy.com/TV_ONE/index.m3u8
 http://fl1.moveonjoy.com/UFC/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/vh1-us.png", VH1
 http://fl2.moveonjoy.com/VH1/index.m3u8
+
 
 
