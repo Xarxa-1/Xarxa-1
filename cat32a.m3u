@@ -3,8 +3,10 @@
 http://fl2.moveonjoy.com/MTV_LIVE/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-us.png", HBO Family
 http://167.250.223.26:8085/play/a04d/index.m3u8
-#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/e-us.png", E!
-http://fl2.moveonjoy.com/E_ENTERTAINMENT_TELEVISION/index.m3u8
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-us.png", HBO POP HD 
+http://167.250.223.26:8085/play/a046/index.m3u8 
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-us.png", HBO Plus 
+http://167.250.223.26:8085/play/a097/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-us.png", HBO
 http://fl2.moveonjoy.com/HBO/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/cinemax-east-us.png", CINEMAX EAST
@@ -15,10 +17,19 @@ http://fl2.moveonjoy.com/FX/index.m3u8
 http://fl2.moveonjoy.com/FX_MOVIE/index.m3u8
 #EXTINF:18 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fxx-us.png", FXX
 http://fl2.moveonjoy.com/FXX/index.m3u8
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/e-us.png", E!
+http://fl2.moveonjoy.com/E_ENTERTAINMENT_TELEVISION/index.m3u8
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/canada/crave-2-ca.png", CRAVE 2
+http://fl2.moveonjoy.com/CRAVE_2/index.m3u8
+#EXTINF:22 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/canada/crave-4-ca.png", CRAVE 4
+http://fl2.moveonjoy.com/CRAVE_4/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hallmark-channel-us.png", HALLMARK CHANNEL
 http://fl2.moveonjoy.com/HALLMARK_CHANNEL/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hallmark-drama-us.png", HALLMARK DRAMA
 http://fl2.moveonjoy.com/HALLMARK_DRAMA/index.m3u8
+http://fl2.moveonjoy.com/OXYGEN/index.m3u8
+#EXTINF:20 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/qvc-us.png", QVC
+http://fl2.moveonjoy.com/QVC/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hgtv-us.png", HGTV
 http://fl2.moveonjoy.com/HGTV/index.m3u8
 #EXTINF:23 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/animal-planet-us.png", Animal Planet
@@ -35,14 +46,8 @@ http://fl2.moveonjoy.com/CARTOON_NETWORK/index.m3u8
 http://fl2.moveonjoy.com/CNBC/index.m3u8
 #EXTINF:20 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/cnn-us.png", CNN
 http://fl2.moveonjoy.com/CNN/index.m3u8
-#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/canada/crave-2-ca.png", CRAVE 2
-http://fl2.moveonjoy.com/CRAVE_2/index.m3u8
-#EXTINF:22 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/canada/crave-4-ca.png", CRAVE 4
-http://fl2.moveonjoy.com/CRAVE_4/index.m3u8
 #EXTINF:20 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/diy-network-us.png", DIY
 http://fl2.moveonjoy.com/DIY/index.m3u8
-#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/e-us.png", E!
-http://fl2.moveonjoy.com/E_ENTERTAINMENT_TELEVISION/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/espn-2-us.png", ESPN 2
 http://fl2.moveonjoy.com/ESPN_2/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/food-network-us.png", ESPN NETWORK
@@ -78,9 +83,6 @@ http://fl2.moveonjoy.com/OUTDOOR_CHANNEL/index.m3u8
 #EXTINF:20 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/own-us.png", OWN
 http://fl2.moveonjoy.com/OWN/index.m3u8
 #EXTINF:20 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/oxygen-us.png", OXYGEN
-http://fl2.moveonjoy.com/OXYGEN/index.m3u8
-#EXTINF:20 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/qvc-us.png", QVC
-http://fl2.moveonjoy.com/QVC/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/showtime-2-us.png", SHOWTIME 2
 http://fl2.moveonjoy.com/SHOWTIME_2/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/showtime-extreme-us.png", SHOWTIME EXTREME
@@ -99,6 +101,7 @@ http://fl2.moveonjoy.com/TV_ONE/index.m3u8
 http://fl1.moveonjoy.com/UFC/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/vh1-us.png", VH1
 http://fl2.moveonjoy.com/VH1/index.m3u8
+
 
 
 
