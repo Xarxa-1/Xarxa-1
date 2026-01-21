@@ -45,6 +45,8 @@ https://directes-tv-cat.3catdirectes.cat/live-origin/oca3-hls/master.m3u8
 https://ingest2-video.streaming-pro.com/creus/stream/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="TVReus" tvg-logo="https://i.imgur.com/Ee0C8UH.jpg" group-title="Catalunya",TVReus
 https://eu1.servers10.com:8081/8166/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="cuatro" tvg-logo="https://i.imgur.com/Ee0C8UH.jpg" group-title="Catalunya",Cuatro
+http://176.65.146.237:8401/play/a09s/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="À Punt" tvg-logo="https://graph.facebook.com/apuntmedia/picture?width=100&height=100" group-title="General",À Punt
 https://bcovlive-a.akamaihd.net/8499d938ef904e39b58a4adec2ddeada/eu-west-1/6057955885001/playlist_dvr.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="TV5Monde Francia FR" tvg-logo="https://graph.facebook.com/tv5mondeofficiel/picture?width=200&height=200" group-title="News",TV5Monde Francia FR
