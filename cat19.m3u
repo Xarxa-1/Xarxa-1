@@ -45,8 +45,8 @@ https://directes-tv-cat.3catdirectes.cat/live-origin/oca3-hls/master.m3u8
 https://ingest2-video.streaming-pro.com/creus/stream/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="TVReus" tvg-logo="https://i.imgur.com/Ee0C8UH.jpg" group-title="Catalunya",TVReus
 https://eu1.servers10.com:8081/8166/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="cuatro" tvg-logo="https://i.imgur.com/Ee0C8UH.jpg" group-title="Catalunya",Cuatro
-http://176.65.146.237:8401/play/a09s/index.m3u8
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-us.png", HBO
+http://fl2.moveonjoy.com/HBO/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="À Punt" tvg-logo="https://graph.facebook.com/apuntmedia/picture?width=100&height=100" group-title="General",À Punt
 https://bcovlive-a.akamaihd.net/8499d938ef904e39b58a4adec2ddeada/eu-west-1/6057955885001/playlist_dvr.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="TV5Monde Francia FR" tvg-logo="https://graph.facebook.com/tv5mondeofficiel/picture?width=200&height=200" group-title="News",TV5Monde Francia FR
@@ -275,3 +275,5 @@ https://linear417-gb-hls1-prd-ak.cdn.skycdp.com/100e/Content/HLS_001_1080_30/Liv
 https://fl1.moveonjoy.com/Sony_Movie_Channel/index.m3u8
 #EXTINF:-1 tvg-name="Sony Channel" group-title="Cine y Series" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/b/b9/Sony_Channel_Logo.png",Sony Channel
 https://a-cdn.klowdtv.com/live1/cine_720p/chunks.m3u8
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-us.png", HBO
+http://fl2.moveonjoy.com/HBO/index.m3u8
