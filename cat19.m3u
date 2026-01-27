@@ -25,8 +25,8 @@ http://167.250.223.26:8085/play/a05r/index.m3u
 https://ztnr.rtve.es/ztnr/3987218.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="24HCat" tvg-logo="https://i.imgur.com/IUVRm5L.png" group-title="News",24HCat
 https://ztnr.rtve.es/ztnr/1694255.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Sport5"  tvg-logo="https://i.ibb.co/Yc5Yf1q/sport5il.png" group-title="Esports",Sport5
-https://rgelive.akamaized.net/hls/live/2043151/radiolive/playlist.m3u8
+#EXTINF:-1 tvg-id="TDP.TV" tvg-logo="https://graph.facebook.com/teledeporteRTVE/picture?width=200&height=200" group-title="Deportivos" tvg-name="Teledeporte",Teledeporte GEO
+https://ztnr.rtve.es/ztnr/1712295.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Sky News" tvg-logo="https://graph.facebook.com/skynews/picture?width=200&height=200" group-title="UK",GB News UK EN
 https://linear417-gb-hls1-prd-ak.cdn.skycdp.com/100e/Content/HLS_001_1080_30/Live/channel(skynews)/index_1080-30.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="BBC News North America" tvg-logo="https://i.imgur.com/vSz2WEp.png?width=200&height=200" group-title=" 📡 TV INT'L",BBC News North America
@@ -162,6 +162,8 @@ https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg00426-littledotstudio-wondernz-sa
 #EXTINF:-1 tvg-id="" tvg-name="Noovo Comédies (1080p)" tvg-logo="" group-title="Sense grup",Noovo Comédies (1080p)
 https://d2s8iafdyzconc.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-6x2p3ho0vw00a/Noovo_Comedies_Home.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Sport5 🇮🇱" tvg-logo="" group-title="Sense grup",Sport5 🇮🇱
+https://rgelive.akamaized.net/hls/live/2043151/radiolive/playlist.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Sport5"  tvg-logo="https://i.ibb.co/Yc5Yf1q/sport5il.png" group-title="Esports",Sport5
 https://rgelive.akamaized.net/hls/live/2043151/radiolive/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="BBC One" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/BBC_One_logo_2021.svg/langca-330px-BBC_One_logo_2021.svg.png" group-title="General",BBC One
 https://streamer.nexyl.uk/5c858268-a93b-45f8-9e82-41d66b526d6c_output_0.m3u8?session=9buRUmvSPEr7QipAuuSUf7
