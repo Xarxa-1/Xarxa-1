@@ -21,7 +21,7 @@ http://167.250.223.26:8085/play/a046/index.m3u8
 http://167.250.223.26:8085/play/a097/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-us.png", HBO
 http://fl2.moveonjoy.com/HBO/index.m3u8
-#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/cinemax-east-us.png", CINEMAX EAST
+#EXTINF:24 tvg-logo="https://images.seeklogo.com/logo-png/20/1/cinemax-logo-png_seeklogo-207386.png", CINEMAX EAST
 http://fl2.moveonjoy.com/CINEMAX_EAST/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fx-us.png", FX
 http://fl2.moveonjoy.com/FX/index.m3u8
@@ -490,6 +490,7 @@ http://167.250.223.26:8085/play/a08h/index.m3u8
 http://167.250.223.26:8085/play/a083/index.m3u8
 #EXTINF:-1,canal 5 chiantla
 http://167.250.223.26:8085/play/a00p/index.m3u8
+
 
 
 
