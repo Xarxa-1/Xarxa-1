@@ -50,7 +50,7 @@ http://fl2.moveonjoy.com/CNN/index.m3u8
 http://fl2.moveonjoy.com/DIY/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/espn-2-us.png", ESPN 2
 http://fl2.moveonjoy.com/ESPN_2/index.m3u8
-#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/food-network-us.png", ESPN NETWORK
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/food-network-us.png", FOOD NETWORK
 http://fl2.moveonjoy.com/FOOD_NETWORK/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/espnu-us.png", ESPN U
 http://fl2.moveonjoy.com/ESPN_U/index.m3u8
@@ -478,6 +478,7 @@ http://167.250.223.26:8085/play/a08h/index.m3u8
 http://167.250.223.26:8085/play/a083/index.m3u8
 #EXTINF:-1,canal 5 chiantla
 http://167.250.223.26:8085/play/a00p/index.m3u8
+
 
 
 
