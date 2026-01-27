@@ -1,16 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-id="" tvg-name="Tastemade" tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200" group-title="General",TastemadeX
-https://tastemade-xumo.amagi.tv/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Tastemade" tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200" group-title="General",TastemadeAu
-https://rakutenaa-tm-intl-aus-rakuten-eu-n1gtg.amagi.tv/playlist/rakutenAA-tm-intl-aus-rakuten-eu/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Tastemade" tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200" group-title="General",TastemadeGe
-https://rakutenaa-tm-germany-rakuten-ger-8jboz.amagi.tv/playlist/rakutenAA-tm-germany-rakuten-ger/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Tastemade" tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200" group-title="General",Tastemade
-https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tmintlaus-samsungnz/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Tastemade Travel"  tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200"  group-title="Food",Tastemade Travel ????
-https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tastemadetravel-tablo/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Tastemade Home ????" tvg-logo="https://tvpnlogopus.samsungcloud.tv/platform/image/sourcelogo/vc/00/02/34/USBC3200022W6_20240910T003655SQUARE.png" group-title="Lifestyle & Celebrities ???",Tastemade Home ????
-https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tastemadehome-lgus/playlist.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/mtv-live-us.png", MTV LIVE
 http://fl2.moveonjoy.com/MTV_LIVE/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-us.png", HBO Family
@@ -490,6 +478,7 @@ http://167.250.223.26:8085/play/a08h/index.m3u8
 http://167.250.223.26:8085/play/a083/index.m3u8
 #EXTINF:-1,canal 5 chiantla
 http://167.250.223.26:8085/play/a00p/index.m3u8
+
 
 
 
