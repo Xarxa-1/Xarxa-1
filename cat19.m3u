@@ -279,5 +279,23 @@ https://linear417-gb-hls1-prd-ak.cdn.skycdp.com/100e/Content/HLS_001_1080_30/Liv
 https://fl1.moveonjoy.com/Sony_Movie_Channel/index.m3u8
 #EXTINF:-1 tvg-name="Sony Channel" group-title="Cine y Series" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/b/b9/Sony_Channel_Logo.png",Sony Channel
 https://a-cdn.klowdtv.com/live1/cine_720p/chunks.m3u8
-#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-us.png", HBO
-http://fl2.moveonjoy.com/HBO/index.m3u8
+#EXTM3U
+#EXTINF:0 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-us.png", HBO HB
+#EXTGRP:Entretenimiento
+http://45.228.234.30:16000/play/a008/index.m3u8
+#EXTINF:0 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-us.png", HBO Plus 
+#EXTGRP:Entretenimiento
+http://45.228.234.30:16000/play/a00a/index.m3u8
+#EXTINF:0 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-us.png", HBO Family
+#EXTGRP:Entretenimiento
+http://45.228.234.30:16000/play/a00b/index.m3u8
+#EXTINF:0 tvg-logo="https://i.imgur.com/XMs9JPb.png",Cinecanal HD
+#EXTGRP:Entretenimiento
+http://45.228.234.30:16000/play/a01q/index.m3u8
+
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Cinemax_2016_logo.svg/512px-Cinemax_2016_logo.svg.png",CineMax
+http://45.228.234.30:16000/play/a027/index.m3u8
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/History_Logo.svg/512px-History_Logo.svg.png",History Channel
+http://45.228.234.30:16000/play/a01i/index.m3u8
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/History_Logo.svg/512px-History_Logo.svg.png",History HD
+http://45.228.234.30:16000/play/a011/index.m3u8
