@@ -12,7 +12,7 @@ http://45.228.234.30:16000/play/a00b/index.m3u8
 #EXTGRP:Entretenimiento
 http://45.228.234.30:16000/play/a01q/index.m3u8
 
-#EXTM3U
+
 #EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/3/30/A%26E_logo.png",A&E
 http://45.228.234.30:16000/play/a01e/index.m3u8
 #EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/AMC_logo.svg/512px-AMC_logo.svg.png",AMC
@@ -516,6 +516,7 @@ http://45.5.116.178:8000/play/a05v/index.m3u8
 #EXTGRP:España
 https://limited38.todostreaming.es/live/101tv-web101tv.m3u8
 #EXTINF:0 ,Aladdin (1992)
+
 
 
 
