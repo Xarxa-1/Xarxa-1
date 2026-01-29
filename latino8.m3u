@@ -13,165 +13,162 @@ http://45.228.234.30:16000/play/a00b/index.m3u8
 http://45.228.234.30:16000/play/a01q/index.m3u8
 
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://i.imgur.com/8Jw8g6W.png",A&E
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/3/30/A%26E_logo.png",A&E
 http://45.228.234.30:16000/play/a01e/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/tvxQ4c3.png",AMC
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/AMC_logo.svg/512px-AMC_logo.svg.png",AMC
 http://45.228.234.30:16000/play/a00w/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/Qy6N3p5.png",AXN
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/AXN_logo.svg/512px-AXN_logo.svg.png",AXN
 http://45.228.234.30:16000/play/a00u/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/4Tq5N9z.png",Animal Planet
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Animal_Planet_logo.svg/512px-Animal_Planet_logo.svg.png",Animal Planet
 http://45.228.234.30:16000/play/a01h/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/7VpK9n2.png",Azcorazon
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/a/a2/Az_Coraz%C3%B3n_Logo.png",Azcorazon
 http://45.228.234.30:16000/play/a00m/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/m8nXbR6.png",Azmundo
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/a/a4/Az_Mundo_Logo.png",Azmundo
 http://45.228.234.30:16000/play/a01a/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/pk9XJQH.png",BBC World
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/BBC_World_News_2022.svg/512px-BBC_World_News_2022.svg.png",BBC World
 http://45.228.234.30:16000/play/a00y/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/rQ5WxQc.png",CARTOON NT HD
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Cartoon_Network_2010_logo.svg/512px-Cartoon_Network_2010_logo.svg.png",CARTOON NT HD
 http://45.228.234.30:16000/play/a006/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/5v8Lj9F.png",CINECANAL HD
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Cinecanal_logo.svg/512px-Cinecanal_logo.svg.png",CINECANAL HD
 http://45.228.234.30:16000/play/a01q/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/6G9Jx2z.png",CNNE
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/CNN_en_Espa%C3%B1ol_logo.svg/512px-CNN_en_Espa%C3%B1ol_logo.svg.png",CNNE
 http://45.228.234.30:16000/play/a00x/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/L3WgPjN.png",Canal 3 - GUA
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Canal_3_Guatemala.png/512px-Canal_3_Guatemala.png",Canal 3 - GUA
 http://45.228.234.30:16000/play/a018/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/Kj4MpL7.png",Canal 7 - GUA
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Canal_7_Guatemala.png/512px-Canal_7_Guatemala.png",Canal 7 - GUA
 http://45.228.234.30:16000/play/a017/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/2Fp7n6V.png",Canal Antigua - GUA
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/0/0b/Canal_Antigua_Logo.png",Canal Antigua - GUA
 http://45.228.234.30:16000/play/a015/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/v5h8JxK.png",Canal Azteca - GUA
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/d/df/TV_Azteca_Guate.png",Canal Azteca - GUA
 http://45.228.234.30:16000/play/a016/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/rQ5WxQc.png",Cartoon Network
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Cartoon_Network_2010_logo.svg/512px-Cartoon_Network_2010_logo.svg.png",Cartoon Network
 http://45.228.234.30:16000/play/a00f/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/9sT5r4N.png",Cartoonito
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Cartoonito_2021.svg/512px-Cartoonito_2021.svg.png",Cartoonito
 http://45.228.234.30:16000/play/a00h/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/8N2pQvR.png",Cine Latino
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Cinelatino_logo.svg/512px-Cinelatino_logo.svg.png",Cine Latino
 http://45.228.234.30:16000/play/a026/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/5v8Lj9F.png",CineCanal
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Cinecanal_logo.svg/512px-Cinecanal_logo.svg.png",CineCanal
 http://45.228.234.30:16000/play/a029/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/7xV4r8P.png",CineMax
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Cinemax_2016_logo.svg/512px-Cinemax_2016_logo.svg.png",CineMax
 http://45.228.234.30:16000/play/a027/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/c7X9zR2.png",Concert Channel
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/d/d0/Concert_Channel.png",Concert Channel
 http://45.228.234.30:16000/play/a022/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/H8p6qJN.png",DHE
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/7/77/DHE_logo.png",DHE
 http://45.228.234.30:16000/play/a003/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/Y8v6Z9R.png",Discovery Channel
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Discovery_Channel_logo_2019.svg/512px-Discovery_Channel_logo_2019.svg.png",Discovery Channel
 http://45.228.234.30:16000/play/a01g/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/3Tq7p5L.png",Discovery Home & Health
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Discovery_Home_%26_Health_logo.svg/512px-Discovery_Home_%26_Health_logo.svg.png",Discovery Home & Health
 http://45.228.234.30:16000/play/a01x/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/6T4vN8R.png",Discovery Kids
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Discovery_Kids_logo_2009.svg/512px-Discovery_Kids_logo_2009.svg.png",Discovery Kids
 http://45.228.234.30:16000/play/a01s/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/4X7vJ9R.png",Discovery Turbo
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Discovery_Turbo_logo.svg/512px-Discovery_Turbo_logo.svg.png",Discovery Turbo
 http://45.228.234.30:16000/play/a01w/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/9Jw4r6P.png",Disney
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Disney_Channel_2019_logo.svg/512px-Disney_Channel_2019_logo.svg.png",Disney
 http://45.228.234.30:16000/play/a01u/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/7T5nV8R.png",Disney JR
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Disney_Junior_2011_logo.svg/512px-Disney_Junior_2011_logo.svg.png",Disney JR
 http://45.228.234.30:16000/play/a00i/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/5T8vX6P.png",E!
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/E%21_Logo.svg/512px-E%21_Logo.svg.png",E!
 http://45.228.234.30:16000/play/a01d/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/8V3qJ9R.png",ESPN
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/ESPN_wordmark.svg/512px-ESPN_wordmark.svg.png",ESPN
 http://45.228.234.30:16000/play/a01k/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/6T5vX9R.png",ESPN +
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/ESPN_wordmark.svg/512px-ESPN_wordmark.svg.png",ESPN +
 http://45.228.234.30:16000/play/a012/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/9V4rX8P.png",ESPN 2
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/ESPN_wordmark.svg/512px-ESPN_wordmark.svg.png",ESPN 2
 http://45.228.234.30:16000/play/a01l/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/8V3qJ9R.png",ESPN 4
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/ESPN_wordmark.svg/512px-ESPN_wordmark.svg.png",ESPN 4
 http://45.228.234.30:16000/play/a020/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/8V3qJ9R.png",ESPN 4 HD
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/ESPN_wordmark.svg/512px-ESPN_wordmark.svg.png",ESPN 4 HD
 http://45.228.234.30:16000/play/a02d/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/7T6vX8R.png",EWTN
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/EWTN_logo.svg/512px-EWTN_logo.svg.png",EWTN
 http://45.228.234.30:16000/play/a010/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/6V5rX9P.png",Exa TV
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/1/1a/EXA_TV_logo.png",Exa TV
 http://45.228.234.30:16000/play/a01m/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/8T4vJ9R.png",Film & Arts
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Film_%26_Arts_logo.png/512px-Film_%26_Arts_logo.png",Film & Arts
 http://45.228.234.30:16000/play/a002/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/9V3qX8R.png",Fox Sport 3
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Fox_Sports_3_logo.svg/512px-Fox_Sports_3_logo.svg.png",Fox Sport 3
 http://45.228.234.30:16000/play/a00r/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/5T7vX9R.png",Guatevision - GUA
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/b/b3/Guatevision_Logo.png",Guatevision - GUA
 http://45.228.234.30:16000/play/a00e/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/7T8vX6R.png",HBO Family HD
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/HBO_logo.svg/512px-HBO_logo.svg.png",HBO Family HD
 http://45.228.234.30:16000/play/a00b/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/8V9qJ9R.png",HBO HD
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/HBO_logo.svg/512px-HBO_logo.svg.png",HBO HD
 http://45.228.234.30:16000/play/a008/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/9T6vX8R.png",HBO Plus HD
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/HBO_logo.svg/512px-HBO_logo.svg.png",HBO Plus HD
 http://45.228.234.30:16000/play/a00a/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/6T7vX9R.png",HBO XTREME
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/HBO_logo.svg/512px-HBO_logo.svg.png",HBO XTREME
 http://45.228.234.30:16000/play/a00c/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/8T5vX9R.png",HBO2 HD
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/HBO_logo.svg/512px-HBO_logo.svg.png",HBO2 HD
 http://45.228.234.30:16000/play/a009/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/9V6rX8P.png",History Channel
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/History_Logo.svg/512px-History_Logo.svg.png",History Channel
 http://45.228.234.30:16000/play/a01i/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/9V6rX8P.png",History HD
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/History_Logo.svg/512px-History_Logo.svg.png",History HD
 http://45.228.234.30:16000/play/a011/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/7T9vX6R.png",ID
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Investigation_Discovery_logo.svg/512px-Investigation_Discovery_logo.svg.png",ID
 http://45.228.234.30:16000/play/a01y/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/8V7qJ9R.png",ISAT
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/I.Sat_logo.svg/512px-I.Sat_logo.svg.png",ISAT
 http://45.228.234.30:16000/play/a024/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/9T8vX6R.png",La voz de Maria
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/e/e3/La_Voz_de_Maria_Logo.png",La voz de Maria
 http://45.228.234.30:16000/play/a01z/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/6T9vX8R.png",MTV
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/MTV_logo_2021.svg/512px-MTV_logo_2021.svg.png",MTV
 http://45.228.234.30:16000/play/a021/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/7V8qJ9R.png",MTV 80s
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/MTV_80s_2021.svg/512px-MTV_80s_2021.svg.png",MTV 80s
 http://45.228.234.30:16000/play/a00t/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/6T9vX8R.png",MTV HD
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/MTV_logo_2021.svg/512px-MTV_logo_2021.svg.png",MTV HD
 http://45.228.234.30:16000/play/a013/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/6T9vX8R.png",MTV Hits
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/MTV_Hits_2021.svg/512px-MTV_Hits_2021.svg.png",MTV Hits
 http://45.228.234.30:16000/play/a00s/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/8V9qJ9P.png",Multipremier
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/2/2e/Multipremier_logo.png",Multipremier
 http://45.228.234.30:16000/play/a025/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/9T0vX6R.png",National Geographic
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/National_Geographic_logo.svg/512px-National_Geographic_logo.svg.png",National Geographic
 http://45.228.234.30:16000/play/a00q/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/7V1qJ9R.png",Nick Jr
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Nick_Jr_2023.svg/512px-Nick_Jr_2023.svg.png",Nick Jr
 http://45.228.234.30:16000/play/a00g/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/8T2vX9R.png",Nickelodeon
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Nickelodeon_2023.svg/512px-Nickelodeon_2023.svg.png",Nickelodeon
 http://45.228.234.30:16000/play/a01t/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/9V3qX8P.png",Paramount
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Paramount_Network_2022.svg/512px-Paramount_Network_2022.svg.png",Paramount
 http://45.228.234.30:16000/play/a004/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/6T4vX8R.png",RHEMA  TV
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/5/5e/Rhema_TV_Logo.png",RHEMA TV
 http://45.228.234.30:16000/play/a02c/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/8T5vX9P.png",SEMILLITAS
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/2/26/Semillitas_Logo.png",SEMILLITAS
 http://45.228.234.30:16000/play/a00j/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/9V6rX8R.png",SONY
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Sony_Channel_logo.svg/512px-Sony_Channel_logo.svg.png",SONY
 http://45.228.234.30:16000/play/a01b/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/9V6rX8R.png",SONY HD
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Sony_Channel_logo.svg/512px-Sony_Channel_logo.svg.png",SONY HD
 http://45.228.234.30:16000/play/a01p/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/7T7vX9R.png",SPACE
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Space_logo_2011.svg/512px-Space_logo_2011.svg.png",SPACE
 http://45.228.234.30:16000/play/a00n/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/7T7vX9R.png",SPACE HD
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Space_logo_2011.svg/512px-Space_logo_2011.svg.png",SPACE HD
 http://45.228.234.30:16000/play/a02e/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/8T8vX6R.png",STAR CHANNEL
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Star_Channel_2021.svg/512px-Star_Channel_2021.svg.png",STAR CHANNEL
 http://45.228.234.30:16000/play/a01v/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/8T8vX6R.png",STAR CHANNEL HD
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Star_Channel_2021.svg/512px-Star_Channel_2021.svg.png",STAR CHANNEL HD
 http://45.228.234.30:16000/play/a01n/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/9T9vX6R.png",Studio Universal
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Studio_Universal_logo.svg/512px-Studio_Universal_logo.svg.png",Studio Universal
 http://45.228.234.30:16000/play/a028/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/7V0qJ9R.png",SyFy
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Syfy_2017.svg/512px-Syfy_2017.svg.png",SyFy
 http://45.228.234.30:16000/play/a01f/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/8T1vX9R.png",TBN Enlace
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/7/77/Enlace_TBN_logo.png",TBN Enlace
 http://45.228.234.30:16000/play/a00z/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/9V2qX8R.png",TBS
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/TBS_logo_2011.svg/512px-TBS_logo_2011.svg.png",TBS
 http://45.228.234.30:16000/play/a00p/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/6T3vX8R.png",TLC
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/TLC_logo_2018.svg/512px-TLC_logo_2018.svg.png",TLC
 http://45.228.234.30:16000/play/a01j/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/7T4vX9R.png",TNT
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/TNT_logo_2016.svg/512px-TNT_logo_2016.svg.png",TNT
 http://45.228.234.30:16000/play/a00v/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/8T5vX8R.png",TNT Series
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/TNT_Series_logo.svg/512px-TNT_Series_logo.svg.png",TNT Series
 http://45.228.234.30:16000/play/a00o/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/9V6rX7R.png",Telemundo
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Telemundo_2018_logo.svg/512px-Telemundo_2018_logo.svg.png",Telemundo
 http://45.228.234.30:16000/play/a00l/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/7T7vX8R.png",Tooncast
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Tooncast_logo.svg/512px-Tooncast_logo.svg.png",Tooncast
 http://45.228.234.30:16000/play/a019/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/8T8vX7R.png",Tru TV
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/TruTV_2024_logo.svg/512px-TruTV_2024_logo.svg.png",Tru TV
 http://45.228.234.30:16000/play/a00k/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/9T9vX7R.png",Universal
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Universal_TV_logo.svg/512px-Universal_TV_logo.svg.png",Universal
 http://45.228.234.30:16000/play/a023/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/7V0qJ8R.png",WARNER HD
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Warner_Bros._Discovery_logo.svg/512px-Warner_Bros._Discovery_logo.svg.png",WARNER HD
 http://45.228.234.30:16000/play/a01o/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/7V0qJ8R.png",Warner
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Warner_Bros._Discovery_logo.svg/512px-Warner_Bros._Discovery_logo.svg.png",Warner
 http://45.228.234.30:16000/play/a01c/index.m3u8
-
-
-
 
 
 
@@ -519,5 +516,6 @@ http://45.5.116.178:8000/play/a05v/index.m3u8
 #EXTGRP:España
 https://limited38.todostreaming.es/live/101tv-web101tv.m3u8
 #EXTINF:0 ,Aladdin (1992)
+
 
 
