@@ -40,37 +40,28 @@ https://viamotionhsi.netplus.ch/live/eds/bbcworld/browser-HLS8/bbcworld.m3u8
 https://streamer.nexyl.uk/5c858268-a93b-45f8-9e82-41d66b526d6c_output_0.m3u8?session=9buRUmvSPEr7QipAuuSUf7
 #EXTINF:-1 tvg-id="BBC2" tvg-name="BBC Two HD" group-title="UK" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/BBC_Two_logo_2021.svg/512px-BBC_Two_logo_2021.svg.png" group-title="General",BBC Two HD (720p)
 https://viamotionhsi.netplus.ch/live/eds/bbc2/browser-HLS8/bbc2.m3u8
-#EXTINF:-1 tvg-id="BBC2" tvg-name="BBC Two HD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/BBC_Two_logo_2021.svg/512px-BBC_Two_logo_2021.svg.png" group-title="General",BBC Two HD (720p)
-https://streamer.nexyl.uk/69ef899e-8ca9-4537-9f1a-fe8b4216afbb.m3u8
 #EXTINF:-1 tvg-id="BBC3" tvg-name="BBC Three HD" tvg-logo="https://images.seeklogo.com/logo-png/31/1/bbc-three-logo-png_seeklogo-314629.png" group-title="General",BBC Three HD
 https://streamer.nexyl.uk/39290a19-b8dd-43ea-b8dc-081c37790f24.m3u8
 #EXTINF:-1 tvg-id="BBC4" tvg-name="BBC Four UK HD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/BBC_Four_logo_2021.svg/512px-BBC_Four_logo_2021.svg.png" group-title="Culture;Documentary",BBC Four UK HD
 https://streamer.nexyl.uk/48559ccd-6400-457d-8acc-06b9e24c2ed8.m3u8
-#EXTINF:-1 tvg-id="BBC3" tvg-name="BBC3CBBC" tvg-logo="https://mediaproxy.tvtropes.org/width/1200/https://static.tvtropes.org/pmwiki/pub/images/cbbc_3.png" group-title="General",CBBC
+#EXTINF:-1 tvg-id="BBC cbbc" tvg-name="BBC3CBBC" tvg-logo="https://mediaproxy.tvtropes.org/width/1200/https://static.tvtropes.org/pmwiki/pub/images/cbbc_3.png" group-title="General",CBBC
 https://viamotionhsi.netplus.ch/live/eds/bbc3cbbc/browser-HLS8/bbc3cbbc.m3u8 
 
 
 #EXTINF:-1 tvg-id="BBC I" tvg-name="BBC Impossible" tvg-logo="" group-title="Undefined",BBC Impossible
 https://bbc-impossible-1-us.xumo.wurl.tv/playlist.m3u8
-#EXTINF:-1 tvg-id="itv2" tvg-name="itv2" group-title="UK"  tvg-logo="https://images.seeklogo.com/logo-png/21/2/itv2-logo-png_seeklogo-216927.png",itv2
+#EXTINF:-1 tvg-id="itv2" tvg-name="itv2" group-title="UK"  tvg-logo="https://images.seeklogo.com/logo-png/21/1/itv2-logo-png_seeklogo-216927.png",itv2
 https://viamotionhsi.netplus.ch/live/eds/itv2/browser-HLS/itv2.m3u8
-#EXTINF:-1 tvg-id="itv2" tvg-name="itv2" group-title="UK"  tvg-logo="https://images.seeklogo.com/logo-png/21/2/itv2-logo-png_seeklogo-216927.png",itv2
-https://viamotionhsi.netplus.ch/live/eds/itv2/browser-HLS8/itv2.m3u8
+
 #EXTINF:-1 tvg-name="itv3" group-title="UK"  tvg-logo="https://images.seeklogo.com/logo-png/24/1/itv3-logo-png_seeklogo-242281.png" tvg-name="itv3" group-title="UK",itv3
 https://viamotionhsi.netplus.ch/live/eds/itv3/browser-HLS/itv3.m3u8
-#EXTINF:-1 tvg-name="itv3" group-title="UK"  tvg-logo="https://images.seeklogo.com/logo-png/24/1/itv3-logo-png_seeklogo-242281.png" tvg-name="itv3" group-title="UK",itv3
-https://viamotionhsi.netplus.ch/live/eds/itv3/browser-HLS8/itv3.m3u8
 #EXTINF:-1 tvg-name="itv4" group-title="UK" tvg-logo="https://images.seeklogo.com/logo-png/45/1/itv4-logo-png_seeklogo-458199.png" tvg-name="itv4"  group-title="UK",itv4
 https://viamotionhsi.netplus.ch/live/eds/itv4/browser-HLS/itv4.m3u8
-#EXTINF:-1 tvg-name="itv4" group-title="UK" tvg-logo="https://images.seeklogo.com/logo-png/45/1/itv4-logo-png_seeklogo-458199.png" tvg-name="itv4"  group-title="UK",itv4
-https://viamotionhsi.netplus.ch/live/eds/itv4/browser-HLS8/itv4.m3u8
-#EXTINF:-1 tvg-name="Channel4" group-title="UK" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Channel_4_Logo_2023.svg/250px-Channel_4_Logo_2023.svg.png" tvg-name=""  group-title="UK",Channel 4
-https://viamotionhsi.netplus.ch/live/eds/channel4/browser-HLS/channel4.m3u8
 #EXTINF:-1 tvg-name="Channel4" group-title="UK" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Channel_4_Logo_2023.svg/250px-Channel_4_Logo_2023.svg.png" tvg-name=""  group-title="UK",Channel 4
 https://viamotionhsi.netplus.ch/live/eds/channel4/browser-HLS/channel4.m3u8
 #EXTINF:-1 tvg-name="bluezoomfr" group-title="bluezoomfr" tvg-id="" tvg-name=""  group-title="FR",Bluezoomfr
 https://viamotionhsi.netplus.ch/live/eds/bluezoomfr/browser-HLS/bluezoomfr.m3u8
-#EXTINF:-1 tvg-name="" group-title="FR" tvg-id="" tvg-name=""  group-title="FR",M6 FR
+#EXTINF:-1 tvg-name="" group-title="FR" tvg-logo="https://images.seeklogo.com/logo-png/8/2/m6-tv-logo-png_seeklogo-86691.png" tvg-name=""  group-title="FR",M6 FR
 https://viamotionhsi.netplus.ch/live/eds/m6hd/browser-HLS8/m6hd.m3u8bb
 
 #EXTINF:-1 tvg-id="" tvg-name="Bunquer" tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200" group-title="Food",Bunquer
