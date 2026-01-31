@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temporitzador i Navegador Web</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        
+        .header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .url-section {
+            display: flex;
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        #url-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            font-size: 16px;
+            background-color: #ecf0f1;
+            color: #2c3e50;
+        }
+        
+        #load-btn {
+            padding: 12px 25px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        #load-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .timer-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+        }
+        
+        .timer-toggle {
+            padding: 12px 20px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+        }
+        
+        .timer-toggle:hover {
+            background-color: #c0392b;
+        }
+        
+        .timer-options {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: white;
+            border-radius: 4px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            padding: 10px 0;
+            margin-top: 5px;
+            display: none;
+            z-index: 100;
+            min-width: 180px;
+        }
+        
+        .timer-options.show {
+            display: block;
+        }
+        
+        .timer-option {
+            padding: 12px 20px;
+            color: #2c3e50;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            font-weight: 500;
+        }
+        
+        .timer-option:hover {
+            background-color: #f1f2f6;
+        }
+        
+        .timer-display-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #34495e;
+            padding: 8px 15px;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .timer-display-section.show {
+            display: flex;
+        }
+        
+        #timer-display {
+            font-family: 'Courier New', monospace;
+            font-size: 24px;
+            font-weight: bold;
+            color: #2ecc71;
+            letter-spacing: 2px;
+        }
+        
+        #cancel-timer {
+            background-color: transparent;
+            border: none;
+            color: #e74c3c;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 0 5px;
+            transition: color 0.3s;
+        }
+        
+        #cancel-timer:hover {
+            color: #ff7979;
+        }
+        
+        .webview-container {
+            flex: 1;
+            background-color: white;
+            border-top: 1px solid #ddd;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #webview {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .no-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #7f8c8d;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .no-page i {
+            font-size: 64px;
+            margin-bottom: 20px;
+            color: #bdc3c7;
+        }
+        
+        .url-examples {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #95a5a6;
+        }
+        
+        .url-examples a {
+            color: #3498db;
+            text-decoration: none;
+            cursor: pointer;
+            margin: 0 5px;
+        }
+        
+        .url-examples a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .url-section {
+                min-width: 100%;
+            }
+            
+            .timer-section {
+                justify-content: space-between;
+                width: 100%;
+            }
+            
+            .timer-options {
+                right: auto;
+                left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="controls">
+            <div class="url-section">
+                <input type="text" id="url-input" placeholder="Introdueix URL (ex: https://exemple.cat o file:///ruta/al/arxiu.html)">
+                <button id="load-btn">
+                    <i class="fas fa-search"></i> Carregar
+                </button>
+            </div>
+            
+            <div class="timer-section">
+                <button class="timer-toggle" id="timer-toggle">
+                    <i class="fas fa-clock"></i> Temporitzador
+                </button>
+                
+                <div class="timer-options" id="timer-options">
+                    <div class="timer-option" data-seconds="3">3 segons</div>
+                    <div class="timer-option" data-seconds="1800">30 minuts</div>
+                    <div class="timer-option" data-seconds="3600">1 hora</div>
+                </div>
+                
+                <div class="timer-display-section" id="timer-display-section">
+                    <span id="timer-display">00:00:00</span>
+                    <button id="cancel-timer" title="Cancel·lar temporitzador">
+                        <i class="fas fa-times-circle"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="url-examples">
+            Prova amb: 
+            <a onclick="loadExample('https://ca.wikipedia.org')">Wikipedia catalana</a> | 
+            <a onclick="loadExample('https://www.ara.cat')">Diari ARA</a> | 
+            <a onclick="loadExample('https://www.ccma.cat')">CCMA</a>
+        </div>
+    </div>
+    
+    <div class="webview-container">
+        <iframe id="webview"></iframe>
+        <div class="no-page" id="no-page">
+            <i class="fas fa-globe-europe"></i>
+            <h2>Cap pàgina carregada</h2>
+            <p>Introdueix una URL a la barra superior i prem "Carregar"</p>
+            <p>Per carregar una pàgina local, introdueix una ruta com: <code>file:///C:/ruta/al/arxiu.html</code></p>
+        </div>
+    </div>
+
+    <script>
+        // Elements del DOM
+        const urlInput = document.getElementById('url-input');
+        const loadBtn = document.getElementById('load-btn');
+        const webview = document.getElementById('webview');
+        const noPage = document.getElementById('no-page');
+        const timerToggle = document.getElementById('timer-toggle');
+        const timerOptions = document.getElementById('timer-options');
+        const timerDisplaySection = document.getElementById('timer-display-section');
+        const timerDisplay = document.getElementById('timer-display');
+        const cancelTimerBtn = document.getElementById('cancel-timer');
+        
+        // Variables del temporitzador
+        let timerInterval = null;
+        let remainingSeconds = 0;
+        
+        // Carregar URL
+        function loadUrl() {
+            let url = urlInput.value.trim();
+            
+            // Si està buit, no fem res
+            if (!url) return;
+            
+            // Afegir protocol si no el té
+            if (!url.startsWith('http://') && 
+                !url.startsWith('https://') && 
+                !url.startsWith('file://')) {
+                url = 'https://' + url;
+                urlInput.value = url;
+            }
+            
+            try {
+                // Amagar el missatge de "cap pàgina"
+                noPage.style.display = 'none';
+                webview.style.display = 'block';
+                
+                // Carregar la URL al iframe
+                webview.src = url;
+                
+                // Desar l'URL a l'historial del navegador (localStorage)
+                saveToHistory(url);
+            } catch (error) {
+                alert("Error en carregar la URL: " + error.message);
+            }
+        }
+        
+        // Desar URL a l'historial
+        function saveToHistory(url) {
+            let history = JSON.parse(localStorage.getItem('urlHistory') || '[]');
+            
+            // Afegir al principi si no existeix
+            if (!history.includes(url)) {
+                history.unshift(url);
+                // Mantenir només els últims 10
+                history = history.slice(0, 10);
+                localStorage.setItem('urlHistory', JSON.stringify(history));
+            }
+        }
+        
+        // Carregar exemple
+        function loadExample(url) {
+            urlInput.value = url;
+            loadUrl();
+        }
+        
+        // Mostrar/amagar opcions del temporitzador
+        timerToggle.addEventListener('click', function() {
+            timerOptions.classList.toggle('show');
+        });
+        
+        // Iniciar temporitzador
+        function startTimer(seconds) {
+            // Aturar qualsevol temporitzador existent
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
+            
+            // Amagar opcions i mostrar temporitzador
+            timerOptions.classList.remove('show');
+            timerDisplaySection.classList.add('show');
+            
+            // Configurar el temporitzador
+            remainingSeconds = seconds;
+            updateTimerDisplay();
+            
+            // Iniciar l'interval
+            timerInterval = setInterval(() => {
+                remainingSeconds--;
+                updateTimerDisplay();
+                
+                // Quan arribi a zero
+                if (remainingSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    
+                    // Amagar el contingut de la web
+                    noPage.style.display = 'flex';
+                    webview.style.display = 'none';
+                    webview.src = 'about:blank';
+                    
+                    // Amagar el temporitzador
+                    timerDisplaySection.classList.remove('show');
+                    
+                    // Mostrar alerta
+                    alert("El temporitzador ha finalitzat. La pàgina s'ha amagat.");
+                }
+            }, 1000);
+        }
+        
+        // Actualitzar la visualització del temporitzador
+        function updateTimerDisplay() {
+            const hours = Math.floor(remainingSeconds / 3600);
+            const minutes = Math.floor((remainingSeconds % 3600) / 60);
+            const seconds = remainingSeconds % 60;
+            
+            timerDisplay.textContent = 
+                `${hours.toString().padStart(2, '0')}:` +
+                `${minutes.toString().padStart(2, '0')}:` +
+                `${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        // Cancel·lar temporitzador
+        function cancelTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+            
+            timerDisplaySection.classList.remove('show');
+            remainingSeconds = 0;
+        }
+        
+        // Configurar esdeveniments
+        loadBtn.addEventListener('click', loadUrl);
+        
+        urlInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                loadUrl();
+            }
+        });
+        
+        // Configurar opcions del temporitzador
+        document.querySelectorAll('.timer-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const seconds = parseInt(this.getAttribute('data-seconds'));
+                startTimer(seconds);
+            });
+        });
+        
+        cancelTimerBtn.addEventListener('click', cancelTimer);
+        
+        // Tancar opcions del temporitzador en fer clic fora
+        document.addEventListener('click', function(e) {
+            if (!timerToggle.contains(e.target) && !timerOptions.contains(e.target)) {
+                timerOptions.classList.remove('show');
+            }
+        });
+        
+        // Carregar última URL de l'historial al iniciar
+        window.addEventListener('DOMContentLoaded', function() {
+            const history = JSON.parse(localStorage.getItem('urlHistory') || '[]');
+            if (history.length > 0) {
+                urlInput.value = history[0];
+                urlInput.placeholder = "Introdueix URL... (Última: " + 
+                    (history[0].length > 40 ? history[0].substring(0, 40) + "..." : history[0]) + ")";
+            }
+        });
+    </script>
+</body>
+</html>
