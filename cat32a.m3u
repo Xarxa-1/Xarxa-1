@@ -11,6 +11,8 @@ http://167.250.223.26:8085/play/a097/index.m3u8
 http://fl2.moveonjoy.com/HBO/index.m3u8
 #EXTINF:-1 tvg-name="FilmRise Sci-Fi" tvg-logo="https://i.imgur.com/FcN1OKo.png" tvg-id="FilmRiseSciFi.us" group-title="VOD Movies (EN)",FilmRise Sci-Fi
 http://dai2.xumo.com/xumocdn/p=roku/amagi_hls_data_xumo1212A-rokufilmrisesci-fi/CDN/master.m3u8
+#EXTINF:24 tvg-name="FilmRise Sci-Fi" tvg-logo="https://i.imgur.com/FcN1OKo.png" tvg-id="FilmRiseSciFi.us" group-title="VOD Movies (EN)", Sci-Fi
+http://service-stitcher.clusters.pluto.tv/stitch/hls/channel/5ba3fb9c4b078e0f37ad34e8/master.m3u8?terminate=false&deviceType=web&deviceMake=web&deviceModel=web&sid=51&deviceId=5ba3fb9c4b078e0f37ad34e8&deviceVersion=DNT&appVersion=DNT&deviceDNT=0&userId=&advertisingId=&deviceLat=&deviceLon=&app_name=&appName=web&buildVersion=&appStoreUrl=&architecture=&includeExtendedEvents=false&marketingRegion=US&serverSideAds=false
 #EXTINF:24 tvg-logo="https://images.seeklogo.com/logo-png/20/1/cinemax-logo-png_seeklogo-207386.png", CINEMAX EAST
 http://fl2.moveonjoy.com/CINEMAX_EAST/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fx-us.png", FX
@@ -480,6 +482,7 @@ http://167.250.223.26:8085/play/a08h/index.m3u8
 http://167.250.223.26:8085/play/a083/index.m3u8
 #EXTINF:-1,canal 5 chiantla
 http://167.250.223.26:8085/play/a00p/index.m3u8
+
 
 
 
