@@ -9,6 +9,8 @@ http://fl2.moveonjoy.com/ABC/index.m3u8
 http://fl2.moveonjoy.com/HBO_MAX/index.m3u8
 #EXTINF:24 tvg-id="" tvg-name="TV3" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/TV3.svg/300px-TV3.svg.png" group-title="Catalunya",TV3
 https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
+#EXTINF:24 tvg-id="" tvg-name="TV3" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/TV3.svg/300px-TV3.svg.png" group-title="Catalunya",TV3
+view-source:https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/bitrate_10.m3u8
 #EXTINF:24 tvg-id="" tvg-name="3CAT INFO" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/3CatInfo_logo.svg/512px-3CatInfo_logo.svg.png" group-title="Catalunya",3CAT INFO
 https://directes-tv-cat.3catdirectes.cat/live-content/canal324-hls/master.m3u8
 #EXTINF:24 tvg-id="" tvg-name="TAC12" tvg-logo="https://pbs.twimg.com/profile_images/1326929087919689729/S1zkeUh3_400x400.jpg" group-title="Catalunya",TAC12
@@ -496,6 +498,7 @@ http://167.250.223.26:8085/play/a08h/index.m3u8
 http://167.250.223.26:8085/play/a083/index.m3u8
 #EXTINF:-1,canal 5 chiantla
 http://167.250.223.26:8085/play/a00p/index.m3u8
+
 
 
 
