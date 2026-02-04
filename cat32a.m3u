@@ -3,6 +3,7 @@
 http://fl2.moveonjoy.com/MTV_LIVE/index.m3u8
 
 #EXTM3U x-tvg-url="https://example.com/epg.xml"
+http://epg-iptv.ru/premiere-group.xml
 #PLAYLIST:TV3 - Streaming Directe
 #GENERATED-BY:TV3 Catalunya
 #BASE-URL:https://directes3-tv-cat.3catdirectes.cat/
@@ -36,7 +37,7 @@ https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/bitrate_10.m3u8
 #COMMENT Última actualització: Stream en directe TV3
 
 
-#EXTINF:24 tvg-logo="https://images.seeklogo.com/logo-png/47/1/cbs-broadcasting-inc-logo-png_seeklogo-477611.png", CBS
+#EXTINF:24 tvg-logo="https://images.seeklogo.com/logo-png/47/1/cbs-broadcasting-inc-logo-png_seeklogo-477611.png" x-tvg-url="http://epg-iptv.ru/premiere-group.xml", CBS
 http://fl2.moveonjoy.com/CBS/index.m3u8
 #EXTINF:24 tvg-logo="https://images.seeklogo.com/logo-png/31/1/abc-logo-png_seeklogo-314499.png", ABC
 http://fl2.moveonjoy.com/ABC/index.m3u8
@@ -103,6 +104,8 @@ http://fl2.moveonjoy.com/DIY/index.m3u8
 http://fl2.moveonjoy.com/ESPN_2/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/food-network-us.png", FOOD NETWORK
 http://fl2.moveonjoy.com/FOOD_NETWORK/index.m3u8
+#EXTINF:20,Cooking Channel
+http://fl2.moveonjoy.com/COOKING_CHANNEL/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/espnu-us.png", ESPN U
 http://fl2.moveonjoy.com/ESPN_U/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fox-soul-us.png", FOX SOUL
@@ -152,6 +155,68 @@ http://fl2.moveonjoy.com/TV_ONE/index.m3u8
 http://fl1.moveonjoy.com/UFC/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/vh1-us.png", VH1
 http://fl2.moveonjoy.com/VH1/index.m3u8
+#EXTINF:23,FOX Soul
+http://fl1.moveonjoy.com/FOX_SOUL/index.m3u8
+#EXTINF:24,WeTV
+http://fl1.moveonjoy.com/WE_TV/index.m3u8
+#EXTINF:20,CNBC
+http://fl2.moveonjoy.com/CNBC/index.m3u8
+#EXTINF:24,TCM
+http://fl2.moveonjoy.com/TCM/index.m3u8
+#EXTINF:24,AMC
+http://fl2.moveonjoy.com/AMC_NETWORK/index.m3u8
+#EXTINF:24,Aspire
+http://fl2.moveonjoy.com/Aspire/index.m3u8
+#EXTINF:24,Bounce
+http://fl2.moveonjoy.com/BOUNCE_TV/index.m3u8
+#EXTINF:24,Buzzr
+http://fl2.moveonjoy.com/Buzzr/index.m3u8
+#EXTINF:23,Cleo TV
+http://fl2.moveonjoy.com/Cleo_TV/index.m3u8
+#EXTINF:24,CMT
+http://fl2.moveonjoy.com/CMT/index.m3u8
+#EXTINF:24,Comedy Central
+http://fl2.moveonjoy.com/Comedy_Central/index.m3u8
+#EXTINF:24,COMET
+http://fl2.moveonjoy.com/COMET/index.m3u8
+#EXTINF:20,COZI TV
+http://fl2.moveonjoy.com/COZI_TV/index.m3u8
+#EXTINF:20,MSG
+http://fl2.moveonjoy.com/MSG/index.m3u8
+#EXTINF:20,Discovery Science
+http://fl2.moveonjoy.com/Discovery_Science/index.m3u8
+#EXTINF:23,Sony Movie
+http://fl2.moveonjoy.com/Sony_Movie_Channel/index.m3u8
+#EXTINF:24,Sundance TV
+http://fl2.moveonjoy.com/SUNDANCE/index.m3u8
+#EXTINF:24,MTV East
+http://fl2.moveonjoy.com/MTV/index.m3u8
+#EXTINF:24,VH1
+http://fl2.moveonjoy.com/VH1/index.m3u8
+#EXTINF:24,TV One
+http://fl2.moveonjoy.com/TV_ONE/index.m3u8
+#EXTINF:24,Disney Junior
+http://fl2.moveonjoy.com/DISNEY_JR/index.m3u8
+#EXTINF:20,Nick Jr.
+http://fl2.moveonjoy.com/NICK_JR/index.m3u8
+#EXTINF:20,Disney Channel
+http://fl2.moveonjoy.com/DISNEY/index.m3u8
+#EXTINF:24,FXM
+http://fl2.moveonjoy.com/FX_MOVIE/index.m3u8
+#EXTINF:20,Outdoor Channel
+http://fl2.moveonjoy.com/OUTDOOR_CHANNEL/index.m3u8
+#EXTINF:24,Starz
+http://fl2.moveonjoy.com/STARZ/index.m3u8
+#EXTINF:23,FXX
+http://fl2.moveonjoy.com/FXX/index.m3u8
+#EXTINF:20,Oxygen East
+http://fl2.moveonjoy.com/OXYGEN/index.m3u8
+#EXTINF:20,Sportsman Channel
+http://fl2.moveonjoy.com/SPORTSMAN_CHANNEL/index.m3u8
+#EXTINF:24,ESPN U
+http://fl2.moveonjoy.com/ESPN_U/index.m3u8
+#EXTINF:0,SportsNet
+http://fl2.moveonjoy.com/SNY/index.m3u8
 
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-us.png", HBO Family
 http://167.250.223.26:8085/play/a04d/index.m3u8
@@ -537,21 +602,3 @@ http://167.250.223.26:8085/play/a08h/index.m3u8
 http://167.250.223.26:8085/play/a083/index.m3u8
 #EXTINF:-1,canal 5 chiantla
 http://167.250.223.26:8085/play/a00p/index.m3u8
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
