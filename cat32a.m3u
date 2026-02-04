@@ -1,6 +1,41 @@
 #EXTM3U
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/mtv-live-us.png", MTV LIVE
 http://fl2.moveonjoy.com/MTV_LIVE/index.m3u8
+
+#EXTM3U x-tvg-url="https://example.com/epg.xml"
+#PLAYLIST:TV3 - Streaming Directe
+#GENERATED-BY:TV3 Catalunya
+#BASE-URL:https://directes3-tv-cat.3catdirectes.cat/
+
+# Canal principal TV3
+#EXTINF:-1 tvg-id="TV3Cat.es" tvg-name="TV3" tvg-logo="https://www.ccma.cat/imatges/tv3_logo.png" group-title="Català",TV3 Català (Directe)
+https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
+
+# Variants de vídeo
+#EXTINF:-1 tvg-id="TV3Cat.es" tvg-name="TV3 480p" group-title="Català" tvg-chno="1",TV3 - 480p (1.7 Mbps)
+https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/bitrate_1.m3u8
+#EXTINF:-1 tvg-id="TV3Cat.es" tvg-name="TV3 720p" group-title="Català" tvg-chno="2",TV3 - 720p (2.1 Mbps)
+https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/bitrate_2.m3u8
+#EXTINF:-1 tvg-id="TV3Cat.es" tvg-name="TV3 1080p" group-title="Català" tvg-chno="3",TV3 - 1080p (4.1 Mbps)
+https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/bitrate_3.m3u8
+
+# Àudios alternatius
+#EXTINF:-1 tvg-id="TV3Cat.es" tvg-name="TV3 Audio CA" group-title="Àudio",TV3 - Àudio Català
+https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/bitrate_7.m3u8
+#EXTINF:-1 tvg-id="TV3Cat.es" tvg-name="TV3 Audio VO" group-title="Àudio",TV3 - Versió Original
+https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/bitrate_8.m3u8
+#EXTINF:-1 tvg-id="TV3Cat.es" tvg-name="TV3 Audio AD" group-title="Àudio;Accessibilitat",TV3 - Audiodescripció
+https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/bitrate_9.m3u8
+
+# Subtítols
+#EXTINF:-1 tvg-id="TV3Cat.es" tvg-name="TV3 Subs CA" group-title="Subtítols",TV3 - Subtítols Català
+https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/bitrate_10.m3u8
+
+# Informació tècnica
+#COMMENT Codec: H.264 + AAC, Frame rate: 25 fps, Live stream
+#COMMENT Última actualització: Stream en directe TV3
+
+
 #EXTINF:24 tvg-logo="https://images.seeklogo.com/logo-png/47/1/cbs-broadcasting-inc-logo-png_seeklogo-477611.png", CBS
 http://fl2.moveonjoy.com/CBS/index.m3u8
 #EXTINF:24 tvg-logo="https://images.seeklogo.com/logo-png/31/1/abc-logo-png_seeklogo-314499.png", ABC
@@ -502,6 +537,7 @@ http://167.250.223.26:8085/play/a08h/index.m3u8
 http://167.250.223.26:8085/play/a083/index.m3u8
 #EXTINF:-1,canal 5 chiantla
 http://167.250.223.26:8085/play/a00p/index.m3u8
+
 
 
 
