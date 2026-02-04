@@ -43,9 +43,10 @@
   { "name": "", "playlist": "", "url": "", "logo": "" },
   { "name": "", "playlist": "", "url": "", "logo": "" },
   { "name": "", "playlist": "", "url": "", "logo": "" },
-  { "name": "", "playlist": "", "url": "", "logo": "" },
+  { "name": "TV3", "url": "  https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/bitrate_8.m3u8", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/TV3.svg/300px-TV3.svg.png" },  
   { "name": "BBC World Service", "url": "http://stream.live.vc.bbcmedia.co.uk/bbc_world_service", "logo": "https://asianlite.ae/wp-content/uploads/2018/09/JtNS_gjE_400x400.jpg" }
 ]
+
 
 
 
