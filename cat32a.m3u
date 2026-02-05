@@ -2,41 +2,6 @@
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/mtv-live-us.png", MTV LIVE
 http://fl2.moveonjoy.com/MTV_LIVE/index.m3u8
 
-#EXTM3U x-tvg-url="https://example.com/epg.xml"
-http://epg-iptv.ru/premiere-group.xml
-#PLAYLIST:TV3 - Streaming Directe
-#GENERATED-BY:TV3 Catalunya
-#BASE-URL:https://directes3-tv-cat.3catdirectes.cat/
-
-# Canal principal TV3
-#EXTINF:-1 tvg-id="TV3Cat.es" tvg-name="TV3" tvg-logo="https://www.ccma.cat/imatges/tv3_logo.png" group-title="Català",TV3 Català (Directe)
-https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
-
-# Variants de vídeo
-#EXTINF:-1 tvg-id="TV3Cat.es" tvg-name="TV3 480p" group-title="Català" tvg-chno="1",TV3 - 480p (1.7 Mbps)
-https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/bitrate_1.m3u8
-#EXTINF:-1 tvg-id="TV3Cat.es" tvg-name="TV3 720p" group-title="Català" tvg-chno="2",TV3 - 720p (2.1 Mbps)
-https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/bitrate_2.m3u8
-#EXTINF:-1 tvg-id="TV3Cat.es" tvg-name="TV3 1080p" group-title="Català" tvg-chno="3",TV3 - 1080p (4.1 Mbps)
-https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/bitrate_3.m3u8
-
-# Àudios alternatius
-#EXTINF:-1 tvg-id="TV3Cat.es" tvg-name="TV3 Audio CA" group-title="Àudio",TV3 - Àudio Català
-https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/bitrate_7.m3u8
-#EXTINF:-1 tvg-id="TV3Cat.es" tvg-name="TV3 Audio VO" group-title="Àudio",TV3 - Versió Original
-https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/bitrate_8.m3u8
-#EXTINF:-1 tvg-id="TV3Cat.es" tvg-name="TV3 Audio AD" group-title="Àudio;Accessibilitat",TV3 - Audiodescripció
-https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/bitrate_9.m3u8
-
-# Subtítols
-#EXTINF:-1 tvg-id="TV3Cat.es" tvg-name="TV3 Subs CA" group-title="Subtítols",TV3 - Subtítols Català
-https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/bitrate_10.m3u8
-
-# Informació tècnica
-#COMMENT Codec: H.264 + AAC, Frame rate: 25 fps, Live stream
-#COMMENT Última actualització: Stream en directe TV3
-
-
 #EXTINF:24 tvg-logo="https://images.seeklogo.com/logo-png/47/1/cbs-broadcasting-inc-logo-png_seeklogo-477611.png" x-tvg-url="http://epg-iptv.ru/premiere-group.xml", CBS
 http://fl2.moveonjoy.com/CBS/index.m3u8
 #EXTINF:24 tvg-logo="https://images.seeklogo.com/logo-png/31/1/abc-logo-png_seeklogo-314499.png", ABC
@@ -47,27 +12,15 @@ http://fl2.moveonjoy.com/CNN/index.m3u8
 http://fl2.moveonjoy.com/TBS/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/mtv-live-us.png", HBOMAX
 http://fl2.moveonjoy.com/HBO_MAX/index.m3u8
-#EXTINF:24 tvg-id="" tvg-name="TV3" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/TV3.svg/300px-TV3.svg.png" group-title="Catalunya",TV3
-https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
-#EXTINF:24 tvg-id="" tvg-name="TV3" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/TV3.svg/300px-TV3.svg.png" group-title="Catalunya",TV3
-view-source:https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/bitrate_10.m3u8
-#EXTINF:24 tvg-id="" tvg-name="3CAT INFO" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/3CatInfo_logo.svg/512px-3CatInfo_logo.svg.png" group-title="Catalunya",3CAT INFO
-https://directes-tv-cat.3catdirectes.cat/live-content/canal324-hls/master.m3u8
-#EXTINF:24 tvg-id="" tvg-name="TAC12" tvg-logo="https://pbs.twimg.com/profile_images/1326929087919689729/S1zkeUh3_400x400.jpg" group-title="Catalunya",TAC12
-https://ingest1-video.streaming-pro.com/tac12_ABR/stream/playlist.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-us.png", HBO
 http://fl2.moveonjoy.com/HBO/index.m3u8
-#EXTINF:-1 tvg-name="FilmRise Sci-Fi" tvg-logo="https://i.imgur.com/FcN1OKo.png" tvg-id="FilmRiseSciFi.us" group-title="VOD Movies (EN)",FilmRise Sci-Fi
-http://dai2.xumo.com/xumocdn/p=roku/amagi_hls_data_xumo1212A-rokufilmrisesci-fi/CDN/master.m3u8
-#EXTINF:24 tvg-name="FilmRise Sci-Fi" tvg-logo="https://i.imgur.com/FcN1OKo.png" tvg-id="FilmRiseSciFi.us" group-title="VOD Movies (EN)", Sci-Fi
-http://service-stitcher.clusters.pluto.tv/stitch/hls/channel/5ba3fb9c4b078e0f37ad34e8/master.m3u8?terminate=false&deviceType=web&deviceMake=web&deviceModel=web&sid=51&deviceId=5ba3fb9c4b078e0f37ad34e8&deviceVersion=DNT&appVersion=DNT&deviceDNT=0&userId=&advertisingId=&deviceLat=&deviceLon=&app_name=&appName=web&buildVersion=&appStoreUrl=&architecture=&includeExtendedEvents=false&marketingRegion=US&serverSideAds=false
 #EXTINF:24 tvg-logo="https://images.seeklogo.com/logo-png/20/1/cinemax-logo-png_seeklogo-207386.png", CINEMAX EAST
 http://fl2.moveonjoy.com/CINEMAX_EAST/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fx-us.png", FX
 http://fl2.moveonjoy.com/FX/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fxm-us.png", FX MOVIE
 http://fl2.moveonjoy.com/FX_MOVIE/index.m3u8
-#EXTINF:18 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fxx-us.png", FXX
+#EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fxx-us.png", FXX
 http://fl2.moveonjoy.com/FXX/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/e-us.png", E!
 http://fl2.moveonjoy.com/E_ENTERTAINMENT_TELEVISION/index.m3u8
@@ -218,13 +171,19 @@ http://fl2.moveonjoy.com/ESPN_U/index.m3u8
 #EXTINF:0,SportsNet
 http://fl2.moveonjoy.com/SNY/index.m3u8
 
+
+
+
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-us.png", HBO Family
 http://167.250.223.26:8085/play/a04d/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-us.png", HBO POP HD 
 http://167.250.223.26:8085/play/a046/index.m3u8 
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-us.png", HBO Plus 
 http://167.250.223.26:8085/play/a097/index.m3u8
-
+#EXTINF:-1 tvg-name="FilmRise Sci-Fi" tvg-logo="https://i.imgur.com/FcN1OKo.png" tvg-id="FilmRiseSciFi.us" group-title="VOD Movies (EN)",FilmRise Sci-Fi
+http://dai2.xumo.com/xumocdn/p=roku/amagi_hls_data_xumo1212A-rokufilmrisesci-fi/CDN/master.m3u8
+#EXTINF:24 tvg-name="FilmRise Sci-Fi" tvg-logo="https://i.imgur.com/FcN1OKo.png" tvg-id="FilmRiseSciFi.us" group-title="VOD Movies (EN)", Sci-Fi
+http://service-stitcher.clusters.pluto.tv/stitch/hls/channel/5ba3fb9c4b078e0f37ad34e8/master.m3u8?terminate=false&deviceType=web&deviceMake=web&deviceModel=web&sid=51&deviceId=5ba3fb9c4b078e0f37ad34e8&deviceVersion=DNT&appVersion=DNT&deviceDNT=0&userId=&advertisingId=&deviceLat=&deviceLon=&app_name=&appName=web&buildVersion=&appStoreUrl=&architecture=&includeExtendedEvents=false&marketingRegion=US&serverSideAds=false
 
 #EXTINF:-1,13 C
 http://167.250.223.26:8085/play/a05s/index.m3u8
@@ -602,3 +561,4 @@ http://167.250.223.26:8085/play/a08h/index.m3u8
 http://167.250.223.26:8085/play/a083/index.m3u8
 #EXTINF:-1,canal 5 chiantla
 http://167.250.223.26:8085/play/a00p/index.m3u8
+
