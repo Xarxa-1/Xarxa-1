@@ -1,7 +1,8 @@
 #EXTM3U
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/mtv-live-us.png", MTV LIVE
 http://fl2.moveonjoy.com/MTV_LIVE/index.m3u8
-
+#EXTINF:-1 tvg-id="" tvg-name="TV3" tvg-logo="https://tmbroadcast.es/wp-content/uploads/2023/01/logotipo-de-TV3.jpg" group-title="Catalunya",TV3
+https://xarxa-1.github.io/Xarxa-1/tv3.m3u8
 #EXTINF:24 tvg-logo="https://images.seeklogo.com/logo-png/47/1/cbs-broadcasting-inc-logo-png_seeklogo-477611.png" x-tvg-url="http://epg-iptv.ru/premiere-group.xml", CBS
 http://fl2.moveonjoy.com/CBS/index.m3u8
 #EXTINF:24 tvg-logo="https://images.seeklogo.com/logo-png/31/1/abc-logo-png_seeklogo-314499.png", ABC
@@ -559,5 +560,6 @@ http://167.250.223.26:8085/play/a08h/index.m3u8
 http://167.250.223.26:8085/play/a083/index.m3u8
 #EXTINF:-1,canal 5 chiantla
 http://167.250.223.26:8085/play/a00p/index.m3u8
+
 
 
