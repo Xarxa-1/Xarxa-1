@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="https://xarxa-1.github.io/Xarxa-1/radio1.png" type="image/png">
+  <link rel="shortcut icon" href="https://xarxa-1.github.io/Xarxa-1/radio1.png">
+<link rel="apple-touch-icon" href="https://xarxa-1.github.io/Xarxa-1/radio1.png">
+  <title>Reproductor de ràdio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body, html {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Roboto', sans-serif;
+      background: #0f0f23;
+      color: #e0e0e0;
+    }
+    .app {
+      width: 360px;
+      max-width: 100%;
+      background: linear-gradient(145deg, #1a1a2e, #16213e);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: 1px solid #2a2a4a;
+    }
+
+    .top-info {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .clock {
+      font-size: 18px;
+      font-weight: 500;
+      color: #4fc3f7;
+    }
+    .timer-display {
+      font-size: 14px;
+      color: #888;
+    }
+
+    .station-title {
+      margin-top: 8px;
+      font-size: 18px;
+      font-weight: 500;
+      text-align: center;
+      color: #fff;
+    }
+
+    .picker-container {
+      display: flex;
+      width: 100%;
+      margin: 20px 0;
+      height: 140px;
+      position: relative;
+    }
+
+    .wheel {
+      flex: 1;
+      margin: 0 6px;
+      border-top: 1px solid #3a3a5a;
+      border-bottom: 1px solid #3a3a5a;
+      position: relative;
+      overflow: hidden;
+      background: #1e1e33;
+    }
+
+    .wheel::before,
+    .wheel::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(15,15,35,1), rgba(15,15,35,0));
+      z-index: 2;
+      pointer-events: none;
+    }
+    .wheel::before {
+      top: -1px;
+      transform: rotate(180deg);
+    }
+    .wheel::after {
+      bottom: -1px;
+    }
+
+    .wheel-list {
+      list-style: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      will-change: transform;
+    }
+
+    .wheel-item {
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      user-select: none;
+      color: #d0d0e0;
+    }
+
+    /* Línia en blanc visualment diferent (fosca) */
+    .wheel-item.empty-line {
+      background: #2a2a40;
+      border-top: 1px solid #404060;
+      opacity: 0.4;
+      color: transparent;
+    }
+
+    .indicator {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 40px;
+      margin-top: -20px;
+      border-top: 2px solid #4fc3f7;
+      border-bottom: 2px solid #4fc3f7;
+      pointer-events: none;
+      z-index: 3;
+      box-shadow: 0 0 8px rgba(79, 195, 247, 0.5);
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .controls + .controls {
+      margin-top: 4px;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 20px;
+      padding: 8px 14px;
+      font-size: 14px;
+      cursor: pointer;
+      background: #2a2a4a;
+      color: #e0e0e0;
+      transition: all 0.15s;
+      border: 1px solid #404060;
+    }
+    .btn:hover {
+      background: #3a3a5a;
+    }
+    .btn:active {
+      transform: scale(0.96);
+      background: #4a4a6a;
+    }
+    .btn-main {
+      background: #4fc3f7;
+      color: #0f0f23;
+      box-shadow: 0 4px 16px rgba(79, 195, 247, 0.4);
+      border-color: #4fc3f7;
+      font-weight: 500;
+    }
+    .btn-main:hover {
+      background: #81d4fa;
+    }
+
+    .logo {
+      margin-top: 4px;
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+    }
+
+    .timer-panel {
+      margin-top: 8px;
+      width: 100%;
+      text-align: center;
+    }
+    .timer-options {
+      margin-top: 8px;
+      display: none;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+    }
+    .timer-options.visible {
+      display: flex;
+    }
+    .timer-btn {
+      border: none;
+      border-radius: 18px;
+      padding: 6px 10px;
+      font-size: 12px;
+      background: #2a2a4a;
+      color: #ccc;
+      cursor: pointer;
+      border: 1px solid #404060;
+    }
+    .timer-btn:hover {
+      background: #3a3a5a;
+    }
+    .timer-btn:active {
+      transform: scale(0.96);
+    }
+
+    .error {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #ff6b6b;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="top-info">
+      <div class="clock" id="clock">--:--:--</div>
+      <div class="timer-display" id="timerDisplay"></div>
+    </div>
+
+    <div class="station-title" id="stationTitle">Carregant emissores...</div>
+    <img id="stationLogo" class="logo" src="" alt="Logo emissora">
+
+    <div class="picker-container">
+      <div class="wheel" id="stationWheel">
+        <div class="indicator"></div>
+        <ul class="wheel-list" id="stationWheelList"></ul>
+      </div>
+      <div class="wheel" id="volumeWheel">
+        <div class="indicator"></div>
+        <ul class="wheel-list" id="volumeWheelList"></ul>
+      </div>
+    </div>
+
+    <!-- Controls canals -->
+    <div class="controls">
+      <button class="btn" id="prevBtn">◀︎</button>
+      <button class="btn btn-main" id="playPauseBtn">Play</button>
+      <button class="btn" id="nextBtn">▶︎</button>
+    </div>
+
+    <!-- Controls volum -->
+    <div class="controls">
+      <button class="btn" id="volDownBtn">Vol -</button>
+      <button class="btn" id="volUpBtn">Vol +</button>
+    </div>
+
+    <div class="timer-panel">
+      <button class="btn" id="timerToggleBtn">Temporitzador</button>
+      <div class="timer-options" id="timerOptions">
+        <button class="timer-btn" data-min="5">5 min</button>
+        <button class="timer-btn" data-min="10">10 min</button>
+        <button class="timer-btn" data-min="15">15 min</button>
+        <button class="timer-btn" data-min="30">30 min</button>
+        <button class="timer-btn" data-min="60">60 min</button>
+        <button class="timer-btn" id="cancelTimerBtn">Cancel·la</button>
+      </div>
+    </div>
+
+    <div class="error" id="errorMsg"></div>
+  </div>
+
+  <audio id="audio" preload="none"></audio>
+
+  <script>
+    const EMISSORES_URL = 'https://xarxa-1.github.io/Xarxa-1/emissores.json';
+
+    const audio = document.getElementById('audio');
+    const stationWheelList = document.getElementById('stationWheelList');
+    const volumeWheelList = document.getElementById('volumeWheelList');
+    const stationTitle = document.getElementById('stationTitle');
+    const stationLogo = document.getElementById('stationLogo');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const clockEl = document.getElementById('clock');
+    const timerDisplay = document.getElementById('timerDisplay');
+    const timerToggleBtn = document.getElementById('timerToggleBtn');
+    const timerOptions = document.getElementById('timerOptions');
+    const cancelTimerBtn = document.getElementById('cancelTimerBtn');
+    const errorMsg = document.getElementById('errorMsg');
+    const volDownBtn = document.getElementById('volDownBtn');
+    const volUpBtn = document.getElementById('volUpBtn');
+
+    let stations = [];
+    let currentStationIndex = 0;
+    let volumeLevels = [];
+    let volumeIndex = 10; // per defecte 50%
+    let volumeDirection = 1; // 1 = pujant, -1 = baixant
+    const itemHeight = 40;
+
+    let timerId = null;
+    let timerEndTime = null;
+    let countdownInterval = null;
+
+    // ---------------- Rellotge ----------------
+    function updateClock() {
+      const now = new Date();
+      const hh = String(now.getHours()).padStart(2, '0');
+      const mm = String(now.getMinutes()).padStart(2, '0');
+      const ss = String(now.getSeconds()).padStart(2, '0');
+      clockEl.textContent = hh + ':' + mm + ':' + ss;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // ------------- Carrega emissores -------------
+    async function loadStations() {
+      try {
+        const res = await fetch(EMISSORES_URL);
+        if (!res.ok) throw new Error('No s\'ha pogut carregar el fitxer');
+        const data = await res.json();
+
+        stations = data;
+
+        if (!Array.isArray(stations) || stations.length === 0) {
+          throw new Error('No hi ha emissores disponibles');
+        }
+
+        buildStationWheel();
+        buildVolumeWheel();
+        selectStation(0);
+      } catch (err) {
+        errorMsg.textContent = 'Error carregant emissores: ' + err.message;
+      }
+    }
+
+    // ----------- Construcció wheels INFINITS -----------
+    function buildStationWheel() {
+      stationWheelList.innerHTML = '';
+
+      // Línia en blanc al principi
+      const emptyTop = document.createElement('li');
+      emptyTop.className = 'wheel-item empty-line';
+      stationWheelList.appendChild(emptyTop);
+
+      // Dupliquem les emissores x3 per efecte infinit suau
+      for (let i = 0; i < 3; i++) {
+        stations.forEach((st, idx) => {
+          const li = document.createElement('li');
+          li.className = 'wheel-item';
+          li.textContent = st.name || ('Emissora ' + (idx + 1));
+          li.dataset.stationIndex = idx;
+          stationWheelList.appendChild(li);
+        });
+      }
+
+      // Línia en blanc al final
+      const emptyBottom = document.createElement('li');
+      emptyBottom.className = 'wheel-item empty-line';
+      stationWheelList.appendChild(emptyBottom);
+    }
+
+    function buildVolumeWheel() {
+      volumeLevels = [];
+      for (let i = 0; i <= 20; i++) {
+        volumeLevels.push(i * 5); // 0,5,10,...100
+      }
+      volumeWheelList.innerHTML = '';
+
+      // Línia en blanc al principi
+      const emptyTop = document.createElement('li');
+      emptyTop.className = 'wheel-item empty-line';
+      volumeWheelList.appendChild(emptyTop);
+
+      // Dupliquem els nivells x3 per efecte infinit
+      for (let i = 0; i < 3; i++) {
+        volumeLevels.forEach((v, idx) => {
+          const li = document.createElement('li');
+          li.className = 'wheel-item';
+          li.textContent = v + '%';
+          li.dataset.volumeIndex = idx;
+          volumeWheelList.appendChild(li);
+        });
+      }
+
+      // Línia en blanc al final
+      const emptyBottom = document.createElement('li');
+      emptyBottom.className = 'wheel-item empty-line';
+      volumeWheelList.appendChild(emptyBottom);
+    }
+
+    function setWheelPosition(ul, visualIndex) {
+      const y = -(visualIndex * itemHeight);
+      ul.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+      ul.style.transform = `translateY(${y}px)`;
+    }
+
+    function snapWheel(ul, type, currentY) {
+      const itemCount = type === 'station' ? stations.length : volumeLevels.length;
+      const visualIndex = Math.round(-currentY / itemHeight);
+
+      // Calculem l'índex real dins del cicle infinit
+      let realIndex = ((visualIndex - 1) % itemCount + itemCount) % itemCount;
+
+      // Posició visual centrada
+      const centerPosition = 1 + Math.floor((visualIndex - 1) / itemCount) * itemCount + realIndex;
+
+      setWheelPosition(ul, centerPosition);
+
+      if (type === 'station') {
+        currentStationIndex = realIndex;
+        updateStationInfo();
+        if (!audio.paused) {
+          startCurrentStation();
+        }
+      } else if (type === 'volume') {
+        volumeIndex = realIndex;
+        applyVolumeFromIndex();
+      }
+    }
+
+    function addWheelDragHandlers(wheelContainer, ul, type) {
+      let dragState = null;
+
+      const onStart = (e) => {
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        const matrix = window.getComputedStyle(ul).transform;
+        let startTranslate = 0;
+        if (matrix !== 'none') {
+          const m = matrix.match(/matrix\((.+)\)/);
+          if (m) {
+            const values = m[1].split(',');
+            startTranslate = parseFloat(values[5]) || 0;
+          }
+        }
+        dragState = { startY: clientY, startTranslate, lastY: clientY };
+        ul.style.transition = 'none';
+        document.addEventListener('mousemove', onMove);
+        document.addEventListener('mouseup', onEnd);
+        document.addEventListener('touchmove', onMove, { passive: false });
+        document.addEventListener('touchend', onEnd);
+      };
+
+      const onMove = (e) => {
+        if (!dragState) return;
+        if (e.touches && e.touches.length > 0) e.preventDefault();
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        const delta = clientY - dragState.startY;
+        const newY = dragState.startTranslate + delta;
+        ul.style.transform = `translateY(${newY}px)`;
+        dragState.lastY = clientY;
+      };
+
+      const onEnd = () => {
+        if (!dragState) return;
+        const matrix = window.getComputedStyle(ul).transform;
+        let currentY = 0;
+        if (matrix !== 'none') {
+          const m = matrix.match(/matrix\((.+)\)/);
+          if (m) {
+            const values = m[1].split(',');
+            currentY = parseFloat(values[5]) || 0;
+          }
+        }
+        snapWheel(ul, type, currentY);
+        dragState = null;
+        document.removeEventListener('mousemove', onMove);
+        document.removeEventListener('mouseup', onEnd);
+        document.removeEventListener('touchmove', onMove);
+        document.removeEventListener('touchend', onEnd);
+      };
+
+      wheelContainer.addEventListener('mousedown', onStart);
+      wheelContainer.addEventListener('touchstart', onStart, { passive: false });
+    }
+
+    // ----------- Volum helpers ZIG-ZAG -----------
+    function applyVolumeFromIndex() {
+      if (!volumeLevels.length) return;
+      const vol = volumeLevels[volumeIndex] / 100;
+      audio.volume = vol;
+    }
+
+    function moveVolume(delta) {
+      if (!volumeLevels.length) return;
+
+      const maxIndex = volumeLevels.length - 1;
+
+      if (delta > 0) { // Volum +
+        if (volumeIndex === maxIndex) {
+          // Arribat al máxim, canvia direcció i baixa
+          volumeDirection = -1;
+          volumeIndex = maxIndex - 1;
+        } else {
+          volumeIndex += 1;
+        }
+      } else { // Volum -
+        if (volumeIndex === 0) {
+          // Arribat al mínim, canvia direcció i puja
+          volumeDirection = 1;
+          volumeIndex = 1;
+        } else {
+          volumeIndex -= 1;
+        }
+      }
+
+      const centerOffset = 1 + Math.floor(volumeIndex / volumeLevels.length) * volumeLevels.length;
+      setWheelPosition(volumeWheelList, centerOffset + volumeIndex);
+      applyVolumeFromIndex();
+    }
+
+    // ----------- Gestió d'emissora INFINITA -----------
+    function updateStationInfo() {
+      const st = stations[currentStationIndex];
+      stationTitle.textContent = st.name || 'Emissora';
+      if (st.logo) {
+        stationLogo.src = st.logo;
+        stationLogo.style.display = 'block';
+      } else {
+        stationLogo.style.display = 'none';
+      }
+    }
+
+    function selectStation(index) {
+      currentStationIndex = index;
+
+      // Correcció: Posem la primera emissora a la posició correcta
+      // Hi ha 1 línia en blanc al principi, després el cicle infinit
+      const centerOffset = 1 + Math.floor(index / stations.length) * stations.length;
+      setWheelPosition(stationWheelList, centerOffset + index);
+      updateStationInfo();
+
+      // Afegir els handlers de drag després de construir el wheel
+      if (!stationWheelList.dataset.handlersAdded) {
+        addWheelDragHandlers(stationWheelList.parentElement, stationWheelList, 'station');
+        addWheelDragHandlers(volumeWheelList.parentElement, volumeWheelList, 'volume');
+        stationWheelList.dataset.handlersAdded = 'true';
+      }
+
+      // Configurar volum inicial
+      setWheelPosition(volumeWheelList, 1 + volumeLevels.length + volumeIndex);
+      applyVolumeFromIndex();
+    }
+
+    function startCurrentStation() {
+      if (!stations[currentStationIndex]) return;
+      const st = stations[currentStationIndex];
+      audio.src = st.url || st.playlist || '';
+      audio.play().catch(err => {
+        errorMsg.textContent = 'No es pot reproduir l\'emissora: ' + err.message;
+        playPauseBtn.textContent = 'Play';
+      });
+    }
+
+    playPauseBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        startCurrentStation();
+        playPauseBtn.textContent = 'Pause';
+      } else {
+        audio.pause();
+        playPauseBtn.textContent = 'Play';
+      }
+    });
+
+    prevBtn.addEventListener('click', () => {
+      if (stations.length === 0) return;
+      currentStationIndex = (currentStationIndex - 1 + stations.length) % stations.length;
+      const centerOffset = 1 + Math.floor(currentStationIndex / stations.length) * stations.length;
+      setWheelPosition(stationWheelList, centerOffset + currentStationIndex);
+      updateStationInfo();
+      if (!audio.paused) startCurrentStation();
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (stations.length === 0) return;
+      currentStationIndex = (currentStationIndex + 1) % stations.length;
+      const centerOffset = 1 + Math.floor(currentStationIndex / stations.length) * stations.length;
+      setWheelPosition(stationWheelList, centerOffset + currentStationIndex);
+      updateStationInfo();
+      if (!audio.paused) startCurrentStation();
+    });
+
+    // Botons volum ZIG-ZAG
+    volDownBtn.addEventListener('click', () => {
+      moveVolume(-1);
+    });
+
+    volUpBtn.addEventListener('click', () => {
+      moveVolume(1);
+    });
+
+    audio.addEventListener('play', () => {
+      playPauseBtn.textContent = 'Pause';
+      errorMsg.textContent = '';
+    });
+    audio.addEventListener('pause', () => {
+      playPauseBtn.textContent = 'Play';
+    });
+
+    // -------------- Temporitzador --------------
+    function startTimer(minutes) {
+      clearTimer();
+      const now = Date.now();
+      timerEndTime = now + minutes * 60 * 1000;
+      timerId = setTimeout(() => {
+        audio.pause();
+        timerEndTime = null;
+        updateTimerDisplay();
+        clearInterval(countdownInterval);
+      }, minutes * 60 * 1000);
+
+      countdownInterval = setInterval(updateTimerDisplay, 500);
+      updateTimerDisplay();
+    }
+
+    function clearTimer() {
+      if (timerId) {
+        clearTimeout(timerId);
+        timerId = null;
+      }
+      if (countdownInterval) {
+        clearInterval(countdownInterval);
+        countdownInterval = null;
+      }
+      timerEndTime = null;
+      updateTimerDisplay();
+    }
+
+    function updateTimerDisplay() {
+      if (!timerEndTime) {
+        timerDisplay.textContent = '';
+        return;
+      }
+      const now = Date.now();
+      let remaining = Math.max(0, timerEndTime - now);
+      const totalSec = Math.floor(remaining / 1000);
+      const mm = String(Math.floor(totalSec / 60)).padStart(2, '0');
+      const ss = String(totalSec % 60).padStart(2, '0');
+      timerDisplay.textContent = 'S\'aturarà en ' + mm + ':' + ss;
+      if (remaining <= 0) {
+        clearTimer();
+      }
+    }
+
+    timerToggleBtn.addEventListener('click', () => {
+      timerOptions.classList.toggle('visible');
+    });
+
+    timerOptions.addEventListener('click', (e) => {
+      const btn = e.target.closest('button');
+      if (!btn) return;
+      const min = btn.getAttribute('data-min');
+      if (min) {
+        startTimer(parseInt(min, 10));
+      }
+    });
+
+    cancelTimerBtn.addEventListener('click', () => {
+      clearTimer();
+    });
+
+    // ----------- Inicialització -----------
+    loadStations();
+  </script>
+</body>
+</html>
