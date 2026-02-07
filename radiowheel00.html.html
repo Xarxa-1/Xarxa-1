@@ -2,11 +2,7 @@
 <html lang="ca">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="https://xarxa-1.github.io/Xarxa-1/radio1.png" type="image/png">
-  <link rel="shortcut icon" href="https://xarxa-1.github.io/Xarxa-1/radio1.png">
-<link rel="apple-touch-icon" href="https://xarxa-1.github.io/Xarxa-1/radio1.png">
-  <title>Reproductor de ràdio</title>
+<title>Reproductor de ràdio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Fonts -->
@@ -536,22 +532,24 @@
 
     function selectStation(index) {
       currentStationIndex = index;
-
-      // Correcció: Posem la primera emissora a la posició correcta
-      // Hi ha 1 línia en blanc al principi, després el cicle infinit
-      const centerOffset = 1 + Math.floor(index / stations.length) * stations.length;
-      setWheelPosition(stationWheelList, centerOffset + index);
+      
+      // CORRECCIÓ: La posició correcta per a l'índex 0 ha de ser
+      // 1 (línia en blanc) + stations.length (el bloc central) + 0 (l'índex dins del bloc)
+      const centerOffset = 1 + stations.length + index;
+      setWheelPosition(stationWheelList, centerOffset);
       updateStationInfo();
-
+      
       // Afegir els handlers de drag després de construir el wheel
       if (!stationWheelList.dataset.handlersAdded) {
         addWheelDragHandlers(stationWheelList.parentElement, stationWheelList, 'station');
         addWheelDragHandlers(volumeWheelList.parentElement, volumeWheelList, 'volume');
         stationWheelList.dataset.handlersAdded = 'true';
       }
-
-      // Configurar volum inicial
-      setWheelPosition(volumeWheelList, 1 + volumeLevels.length + volumeIndex);
+      
+      // Configurar volum inicial - CORRECCIÓ: Índex correcte per a 50%
+      // Per a 50%, volumeIndex = 10, i cal col·locar-ho al centre
+      const volumeCenterOffset = 1 + volumeLevels.length + volumeIndex;
+      setWheelPosition(volumeWheelList, volumeCenterOffset);
       applyVolumeFromIndex();
     }
 
@@ -578,8 +576,9 @@
     prevBtn.addEventListener('click', () => {
       if (stations.length === 0) return;
       currentStationIndex = (currentStationIndex - 1 + stations.length) % stations.length;
-      const centerOffset = 1 + Math.floor(currentStationIndex / stations.length) * stations.length;
-      setWheelPosition(stationWheelList, centerOffset + currentStationIndex);
+      // CORRECCIÓ: Cal mantenir el mateix càlcul per a navegació amb botons
+      const centerOffset = 1 + stations.length + currentStationIndex;
+      setWheelPosition(stationWheelList, centerOffset);
       updateStationInfo();
       if (!audio.paused) startCurrentStation();
     });
@@ -587,8 +586,9 @@
     nextBtn.addEventListener('click', () => {
       if (stations.length === 0) return;
       currentStationIndex = (currentStationIndex + 1) % stations.length;
-      const centerOffset = 1 + Math.floor(currentStationIndex / stations.length) * stations.length;
-      setWheelPosition(stationWheelList, centerOffset + currentStationIndex);
+      // CORRECCIÓ: Cal mantenir el mateix càlcul per a navegació amb botons
+      const centerOffset = 1 + stations.length + currentStationIndex;
+      setWheelPosition(stationWheelList, centerOffset);
       updateStationInfo();
       if (!audio.paused) startCurrentStation();
     });
