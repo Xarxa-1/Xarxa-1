@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reproductor HI‑FI Streaming Premium</title>
+<style>
+:root {
+  --bg: #0a0d12;
+  --panel: linear-gradient(145deg, #1a222c, #0f1319);
+  --text: #f0f8ff;
+  --muted: #b0c6da;
+  --led-on: #3cff8a;
+  --led-off: #5a5a5a;
+  --led-warn: #ffb703;
+  --border: #2a3946;
+  --accent: #4da6ff;
+  --accent-glow: rgba(77, 166, 255, 0.4);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.7);
+  --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.5);
+  --shadow-inset: inset 2px 2px 4px rgba(0, 0, 0, 0.6), inset -2px -2px 4px rgba(255, 255, 255, 0.05);
+  --highlight: rgba(255, 255, 255, 0.1);
+  --metal: linear-gradient(145deg, #2d3a4a, #1c2530);
+  --glass: rgba(30, 40, 55, 0.7);
+  --br-lg: 16px;
+  --br-md: 12px;
+  --br-sm: 8px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(ellipse at top, #0b1016, #070a0e),
+              radial-gradient(ellipse at bottom, #131a24, #070a0e);
+  font-family: "Segoe UI", "SF Pro Display", -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(77, 166, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(60, 255, 138, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.player {
+  width: 420px;
+  background: var(--panel);
+  border-radius: var(--br-lg);
+  box-shadow: var(--shadow-lg),
+              0 0 0 1px rgba(255, 255, 255, 0.03);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  z-index: 1;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  transform: perspective(1000px) rotateX(0.5deg);
+  transition: transform 0.3s ease;
+}
+
+.player:hover {
+  transform: perspective(1000px) rotateX(0deg);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+}
+
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #bfe8ff;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.title::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--led-on);
+  box-shadow: 0 0 8px var(--led-on);
+  animation: pulse 2s infinite;
+}
+
+.clock {
+  font-family: 'SF Mono', 'Roboto Mono', monospace;
+  font-size: 14px;
+  background: linear-gradient(145deg, #10171f, #0a0e14);
+  padding: 8px 12px;
+  border-radius: var(--br-md);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: #a0d0ff;
+  font-weight: 600;
+  letter-spacing: 1px;
+  box-shadow: var(--shadow-inset), 0 2px 4px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.clock::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.05), transparent);
+}
+
+/* Fila scroll d'emissores amb botons de navegació */
+.emissores-container {
+  position: relative;
+  padding: 4px 0;
+}
+
+.emissores-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(10, 13, 18, 0.9) 0%, transparent 10%, transparent 90%, rgba(10, 13, 18, 0.9) 100%);
+  pointer-events: none;
+  z-index: 2;
+  border-radius: var(--br-sm);
+}
+
+.emissores-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-btn {
+  background: linear-gradient(145deg, #1c2530, #151c24);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--br-md);
+  padding: 8px;
+  color: #dce7ff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 3;
+}
+
+.nav-btn:hover {
+  background: linear-gradient(145deg, #213041, #1a2330);
+  border-color: rgba(77, 166, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.nav-btn:active {
+  transform: scale(0.95);
+}
+
+.emissores {
+  display: flex;
+  overflow-x: auto;
+  gap: 12px;
+  padding: 12px 8px;
+  height: 120px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) rgba(255, 255, 255, 0.05);
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  scroll-behavior: smooth;
+}
+
+.emissores::-webkit-scrollbar {
+  height: 6px;
+}
+
+.emissores::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.emissores::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 3px;
+  box-shadow: 0 0 4px var(--accent-glow);
+}
+
+.emissores button {
+  flex: 0 0 auto;
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(145deg, #1c2530, #151c24);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--br-md);
+  padding: 10px 6px 6px 6px;
+  cursor: pointer;
+  color: #dce7ff;
+  font-size: 11px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.emissores button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.emissores button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+  background: linear-gradient(145deg, #213041, #1a2330);
+  border-color: rgba(77, 166, 255, 0.3);
+}
+
+.emissores button:hover::before {
+  opacity: 1;
+}
+
+.emissores button img {
+  width: 42px;
+  height: 42px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Now playing */
+.now {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--br-md);
+  background: linear-gradient(145deg, #101820, #0c1118);
+  padding: 14px;
+  box-shadow: var(--shadow-inset), 0 4px 12px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.now::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, transparent 60%, rgba(77, 166, 255, 0.03) 100%);
+}
+
+.art {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.art::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.info {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.info .track {
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #f0f8ff;
+  letter-spacing: 0.3px;
+}
+
+.info .artist {
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.led-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.led-label {
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+}
+
+.led {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--led-off);
+  position: relative;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+.led::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  filter: blur(1px);
+}
+
+.led.on {
+  background: var(--led-on);
+  box-shadow: 0 0 12px var(--led-on), 0 0 24px rgba(60, 255, 138, 0.3);
+  animation: pulse 1.5s infinite;
+}
+
+.led.warn {
+  background: var(--led-warn);
+  box-shadow: 0 0 12px var(--led-warn), 0 0 24px rgba(255, 183, 3, 0.3);
+  animation: pulse 1s infinite;
+}
+
+/* Controls fila */
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(145deg, #0f161f, #0a1017);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--br-md);
+  padding: 12px 16px;
+  box-shadow: var(--shadow-inset), 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn {
+  background: linear-gradient(145deg, #1c242e, #151c24);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: #dff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(145deg, #253649, #1c2838);
+  border-color: rgba(77, 166, 255, 0.3);
+}
+
+.btn:hover::before {
+  opacity: 1;
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+#playBtn {
+  padding: 12px 20px;
+  font-size: 18px;
+  background: linear-gradient(145deg, #2a3a4e, #1e2a3a);
+  border-color: rgba(77, 166, 255, 0.2);
+}
+
+.volume {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+
+.volnum {
+  font-family: 'SF Mono', 'Roboto Mono', monospace;
+  font-size: 14px;
+  width: 30px;
+  text-align: center;
+  color: #a0d0ff;
+  font-weight: 600;
+  text-shadow: 0 0 4px rgba(77, 166, 255, 0.5);
+}
+
+/* Playlist info */
+.playinfo {
+  font-size: 12px;
+  color: var(--muted);
+  background: linear-gradient(145deg, #0e141b, #0a1015);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--br-md);
+  padding: 12px;
+  height: 70px;
+  overflow-y: auto;
+  line-height: 1.5;
+  box-shadow: var(--shadow-inset);
+  position: relative;
+}
+
+.playinfo::after {
+  content: '🔄';
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  font-size: 10px;
+  color: rgba(77, 166, 255, 0.7);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.playinfo::-webkit-scrollbar {
+  width: 6px;
+}
+
+.playinfo::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.playinfo::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 3px;
+}
+
+/* Audio player */
+audio {
+  width: 100%;
+  border-radius: 8px;
+  margin-top: 8px;
+  filter: invert(0.1);
+}
+
+audio::-webkit-media-controls-panel {
+  background-color: #1a222c;
+}
+
+/* Temporitzador popup */
+.timer-panel {
+  position: absolute;
+  bottom: 70px;
+  right: 20px;
+  width: 160px;
+  background: linear-gradient(145deg, #0c1016, #080b10);
+  border: 1px solid rgba(77, 166, 255, 0.2);
+  border-radius: var(--br-md);
+  padding: 8px;
+  display: none;
+  box-shadow: var(--shadow-lg), 0 0 20px rgba(0, 0, 0, 0.6);
+  z-index: 10;
+  backdrop-filter: blur(10px);
+  transform: translateY(10px);
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.timer-panel.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.timer-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, transparent 60%, rgba(77, 166, 255, 0.05) 100%);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.timer-panel div {
+  padding: 10px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s;
+  margin: 2px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.timer-panel div:hover {
+  background: linear-gradient(90deg, rgba(77, 166, 255, 0.2), rgba(77, 166, 255, 0.1));
+  color: #bfe8ff;
+}
+
+.timer-panel div::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--accent);
+  transform: translateX(-10px);
+  transition: transform 0.3s;
+}
+
+.timer-panel div:hover::before {
+  transform: translateX(0);
+}
+
+#cancelTimer {
+  color: #ff6b6b;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  margin-top: 6px;
+  padding-top: 12px;
+}
+
+#cancelTimer:hover {
+  background: linear-gradient(90deg, rgba(255, 107, 107, 0.2), rgba(255, 107, 107, 0.1));
+}
+
+/* Animacions */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes refresh {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.refreshing::after {
+  animation: refresh 1s linear infinite;
+}
+
+/* Estats del reproductor */
+.player-loading .now,
+.player-loading .controls {
+  opacity: 0.7;
+}
+
+/* Responsive */
+@media (max-width: 460px) {
+  .player {
+    width: 100%;
+    max-width: 380px;
+    padding: 16px;
+  }
+
+  .emissores button {
+    width: 70px;
+  }
+
+  .nav-btn {
+    width: 28px;
+    height: 28px;
+    padding: 6px;
+  }
+}
+</style>
+</head>
+<body>
+<div class="player" id="player">
+  <div class="header">
+    <div class="title" id="headerTitle">Xarxa‑1 • HI‑FI Streaming</div>
+    <div class="clock" id="clock">--:--:--</div>
+  </div>
+
+  <div class="emissores-container">
+    <div class="emissores-wrapper">
+      <button class="nav-btn" id="navLeft">◀</button>
+      <div class="emissores" id="emissorList"></div>
+      <button class="nav-btn" id="navRight">▶</button>
+    </div>
+  </div>
+
+  <div class="now">
+    <div class="art">
+      <img id="artSrc" src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="Portada">
+    </div>
+    <div class="info">
+      <div class="track" id="trackTitle">Sense emissora</div>
+      <div class="artist" id="trackArtist">Selecciona una emissora per començar</div>
+    </div>
+    <div class="led-container">
+      <div class="led-label">SIGNAL</div>
+      <div class="led" id="stateLed"></div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="btn" id="playBtn">▶️</button>
+    <div class="volume">
+      <button class="btn" id="volDown">-</button>
+      <div class="volnum" id="volValue">4</div>
+      <button class="btn" id="volUp">+</button>
+    </div>
+    <button class="btn" id="timerBtn">⏱</button>
+  </div>
+
+  <audio id="audio" controls></audio>
+  <div class="playinfo" id="playlistMeta">Cap emissora seleccionada.</div>
+
+  <div id="timerPanel" class="timer-panel">
+    <div data-seconds="10">10 s</div>
+    <div data-seconds="300">5 min</div>
+    <div data-seconds="1800">30 min</div>
+    <div data-seconds="3600">1 h</div>
+    <div id="cancelTimer">Cancel·lar temporitzador</div>
+  </div>
+</div>
+
+<script>
+const emissoresUrl = "https://xarxa-1.github.io/Xarxa-1/emissores.json";
+const emissorListEl = document.getElementById("emissorList");
+const stateLed = document.getElementById("stateLed");
+const trackTitle = document.getElementById("trackTitle");
+const trackArtist = document.getElementById("trackArtist");
+const artSrc = document.getElementById("artSrc");
+const audioEl = document.getElementById("audio");
+const clockEl = document.getElementById("clock");
+const volUp = document.getElementById("volUp");
+const volDown = document.getElementById("volDown");
+const volValue = document.getElementById("volValue");
+const playlistMeta = document.getElementById("playlistMeta");
+const playBtn = document.getElementById("playBtn");
+const timerBtn = document.getElementById("timerBtn");
+const timerPanel = document.getElementById("timerPanel");
+const player = document.getElementById("player");
+const headerTitle = document.getElementById("headerTitle");
+const navLeft = document.getElementById("navLeft");
+const navRight = document.getElementById("navRight");
+
+let emissores = [], emissorActiu = null, volume = 4, timerHandle = null, timerSecondsLeft = 0;
+let playlistUpdateInterval = null;
+
+function updateClock() {
+  const now = new Date();
+  clockEl.textContent = `${String(now.getHours()).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")}:${String(now.getSeconds()).padStart(2,"0")}`;
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+function setVolume(v) {
+  volume = Math.max(0, Math.min(10, v));
+  audioEl.volume = volume / 10;
+  volValue.textContent = volume;
+
+  // Efecte visual al canviar volum
+  volValue.style.transform = "scale(1.2)";
+  setTimeout(() => {
+    volValue.style.transform = "scale(1)";
+  }, 200);
+}
+
+volUp.onclick = () => setVolume(volume + 1);
+volDown.onclick = () => setVolume(volume - 1);
+
+// Funcions per navegar les emissores
+navLeft.onclick = () => {
+  emissorListEl.scrollLeft -= 150;
+};
+
+navRight.onclick = () => {
+  emissorListEl.scrollLeft += 150;
+};
+
+async function carregarEmissores() {
+  try {
+    player.classList.add("player-loading");
+    const r = await fetch(emissoresUrl);
+    emissores = await r.json();
+    emissorListEl.innerHTML = "";
+
+    emissores.forEach((e, i) => {
+      const b = document.createElement("button");
+      b.innerHTML = `<img src="${e.logo}" alt="${e.name}"><span>${e.name}</span>`;
+      b.onclick = () => seleccionarEmissora(i);
+      emissorListEl.appendChild(b);
+    });
+
+    // Seleccionar primera emissora per defecte
+    if (emissores.length > 0) {
+      setTimeout(() => seleccionarEmissora(0), 500);
+    }
+
+    player.classList.remove("player-loading");
+  } catch(err) {
+    playlistMeta.textContent = "Error carregant emissores. Comprova la connexió.";
+    player.classList.remove("player-loading");
+  }
+}
+
+// Funció per actualitzar la informació del playlist
+async function actualitzarPlaylist() {
+  if (!emissorActiu || !emissorActiu.playlist) return;
+
+  try {
+    const pl = await (await fetch(emissorActiu.playlist)).json();
+    if (pl.result && pl.result[0]) {
+      const t = pl.result[0];
+      trackTitle.textContent = t.track_title || "Títol desconegut";
+      trackArtist.textContent = t.track_artist || "Artista desconegut";
+      if (t.track_image && t.track_image !== artSrc.src) {
+        artSrc.src = t.track_image.replace(/\\\//g, "/");
+      }
+      playlistMeta.textContent = `Sona: ${t.track_artist} — ${t.track_title}`;
+    }
+  } catch(err) {
+    // No fem res si hi ha error, mantenim la informació anterior
+  }
+}
+
+async function seleccionarEmissora(i) {
+  if (!emissores[i]) return;
+
+  // Aturar l'actualització anterior si hi ha
+  if (playlistUpdateInterval) {
+    clearInterval(playlistUpdateInterval);
+    playlistUpdateInterval = null;
+  }
+
+  emissorActiu = emissores[i];
+
+  // Actualitza el títol del header amb el nom de l'emissora
+  headerTitle.textContent = emissorActiu.name + " • ";
+
+  trackTitle.textContent = emissorActiu.name;
+  trackArtist.textContent = "Carregant...";
+  artSrc.src = emissorActiu.logo;
+  stateLed.className = "led warn";
+
+  // Efecte visual de selecció
+  const buttons = document.querySelectorAll(".emissores button");
+  buttons.forEach((btn, idx) => {
+    if (idx === i) {
+      btn.style.borderColor = "rgba(77, 166, 255, 0.5)";
+      btn.style.boxShadow = "0 0 15px rgba(77, 166, 255, 0.3)";
+    } else {
+      btn.style.borderColor = "rgba(255, 255, 255, 0.05)";
+      btn.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.3)";
+    }
+  });
+
+  audioEl.src = emissorActiu.url;
+
+  // Actualitzar informació del playlist
+  await actualitzarPlaylist();
+
+  // Iniciar l'actualització periòdica cada 10 segons
+  playlistUpdateInterval = setInterval(actualitzarPlaylist, 10000);
+
+  // Indicador visual d'actualització periòdica
+  playlistMeta.classList.add("refreshing");
+
+  audioEl.play().then(() => {
+    stateLed.className = "led on";
+    playBtn.innerHTML = "⏸";
+  }).catch(() => {
+    stateLed.className = "led warn";
+    playlistMeta.textContent = "Error de reproducció. Fes clic a Play.";
+  });
+}
+
+playBtn.onclick = () => {
+  if (audioEl.paused) {
+    audioEl.play().then(() => {
+      stateLed.className = "led on";
+      playBtn.innerHTML = "⏸";
+    });
+  } else {
+    audioEl.pause();
+    stateLed.className = "led off";
+    playBtn.innerHTML = "▶️";
+  }
+};
+
+/* Temporitzador */
+timerBtn.onclick = () => {
+  if (timerPanel.classList.contains("show")) {
+    timerPanel.classList.remove("show");
+    setTimeout(() => {
+      timerPanel.style.display = "none";
+    }, 300);
+  } else {
+    timerPanel.style.display = "block";
+    setTimeout(() => {
+      timerPanel.classList.add("show");
+    }, 10);
+  }
+};
+
+timerPanel.onclick = e => {
+  if (e.target.dataset.seconds) {
+    startTimer(parseInt(e.target.dataset.seconds));
+    timerPanel.classList.remove("show");
+    setTimeout(() => {
+      timerPanel.style.display = "none";
+    }, 300);
+  }
+
+  if (e.target.id === "cancelTimer") {
+    clearInterval(timerHandle);
+    timerPanel.classList.remove("show");
+    setTimeout(() => {
+      timerPanel.style.display = "none";
+    }, 300);
+    playlistMeta.textContent = "Temporitzador cancel·lat.";
+  }
+};
+
+function startTimer(sec) {
+  clearInterval(timerHandle);
+  timerSecondsLeft = sec;
+  playlistMeta.textContent = `⏱ Temporitzador actiu: ${formatTime(sec)}`;
+
+  timerHandle = setInterval(() => {
+    timerSecondsLeft--;
+    playlistMeta.textContent = `⏱ Atur en: ${formatTime(timerSecondsLeft)}`;
+
+    if (timerSecondsLeft <= 0) {
+      clearInterval(timerHandle);
+      // Aturar també l'actualització del playlist
+      if (playlistUpdateInterval) {
+        clearInterval(playlistUpdateInterval);
+        playlistUpdateInterval = null;
+        playlistMeta.classList.remove("refreshing");
+      }
+      audioEl.pause();
+      stateLed.className = "led off";
+      playBtn.innerHTML = "▶️";
+      playlistMeta.textContent = "Aturat pel temporitzador.";
+    }
+  }, 1000);
+}
+
+function formatTime(seconds) {
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = seconds % 60;
+
+  if (h > 0) {
+    return `${h}h ${m}m ${s}s`;
+  } else if (m > 0) {
+    return `${m}m ${s}s`;
+  } else {
+    return `${s}s`;
+  }
+}
+
+// Inicialització
+setVolume(volume);
+carregarEmissores();
+
+// Tancar temporitzador en fer clic fora
+document.addEventListener("click", (e) => {
+  if (!timerPanel.contains(e.target) && e.target !== timerBtn && timerPanel.classList.contains("show")) {
+    timerPanel.classList.remove("show");
+    setTimeout(() => {
+      timerPanel.style.display = "none";
+    }, 300);
+  }
+});
+
+// Efecte de so quan es prem botons
+document.querySelectorAll(".btn").forEach(btn => {
+  btn.addEventListener("click", function() {
+    this.style.transform = "translateY(0)";
+  });
+});
+
+// Desactivar botons de navegació quan no hi hagi més contingut
+function actualitzarNavButtons() {
+  const scrollLeft = emissorListEl.scrollLeft;
+  const scrollWidth = emissorListEl.scrollWidth;
+  const clientWidth = emissorListEl.clientWidth;
+
+  navLeft.style.opacity = scrollLeft > 0 ? "1" : "0.5";
+  navRight.style.opacity = scrollLeft + clientWidth < scrollWidth ? "1" : "0.5";
+}
+
+emissorListEl.addEventListener("scroll", actualitzarNavButtons);
+window.addEventListener("resize", actualitzarNavButtons);
+
+// Inicialitzar estat dels botons de navegació
+setTimeout(actualitzarNavButtons, 500);
+</script>
+</body>
+</html>
