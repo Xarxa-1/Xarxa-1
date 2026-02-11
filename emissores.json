@@ -39,14 +39,15 @@
   { "name": "24 7 Christmas", "playlist": "https://api.instant.audio/data/playlist/42/24-7-christmas", "url": "https://antares.dribbcast.com/proxy/s8330/stream", "logo": "https://cdn.instant.audio/images/logos/internetradiouk-com/24-7-christmas.png" },
   { "name": "Perfect Christmas", "playlist": "https://api.instant.audio/data/playlist/38/perfect-christmas", "url": "https://stream.radiojar.com/5vtvu44swk8uv", "logo": "https://impro.usercontent.one/appid/oneComWsb/domain/perfect-radio.com/media/perfect-radio.com/onewebmedia/Logo%20Perfect%20Christmas.jpg" },  
   { "name": "", "playlist": "", "url": "", "logo": "" },
-  { "name": "3CATINFO", "url": "https://directes-tv-cat.3catdirectes.cat/live-content/canal324-hls/bitrate_8.m3u8  ", "logo": "https://pbs.twimg.com/profile_images/1968163923477098496/blka6O_j_400x400.jpg" },  
   { "name": "", "playlist": "", "url": "", "logo": "" },
+  { "name": "3CATINFO", "url": "https://directes-tv-cat.3catdirectes.cat/live-content/canal324-hls/bitrate_8.m3u8  ", "logo": "https://pbs.twimg.com/profile_images/1968163923477098496/blka6O_j_400x400.jpg" },  
   { "name": "TV3", "url": "https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/bitrate_8.m3u8", "logo": "https://pbs.twimg.com/profile_images/1721466616553099264/cMm-9gpv_400x400.jpg" },  
   { "name": "TV3vo", "url": "https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/bitrate_8.m3u8", "logo": "https://pbs.twimg.com/profile_images/1721466616553099264/cMm-9gpv_400x400.jpg" },
   { "name": "24h rtve", "playlist": "", "url": "https://rtvelivestream.rtve.es/rtvesec/24h/24h_main_dvr_a_14.m3u8", "logo": "https://i.imgur.com/IUVRm5L.png" },
   { "name": "La1", "playlist": "", "url": "https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr_a_39.m3u8", "logo": "https://i.imgur.com/1jDS9UC.png" },
   { "name": "BBC World Service", "url": "http://stream.live.vc.bbcmedia.co.uk/bbc_world_service", "logo": "https://asianlite.ae/wp-content/uploads/2018/09/JtNS_gjE_400x400.jpg" }
 ]
+
 
 
 
