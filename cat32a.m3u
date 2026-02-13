@@ -33,6 +33,7 @@ http://fl2.moveonjoy.com/CRAVE_4/index.m3u8
 http://fl2.moveonjoy.com/HALLMARK_CHANNEL/index.m3u8
 #EXTINF:24 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hallmark-drama-us.png", HALLMARK DRAMA
 http://fl2.moveonjoy.com/HALLMARK_DRAMA/index.m3u8
+#EXTINF:20 tvg-logo="", OXYGEN
 http://fl2.moveonjoy.com/OXYGEN/index.m3u8
 #EXTINF:20 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/qvc-us.png", QVC
 http://fl2.moveonjoy.com/QVC/index.m3u8
@@ -167,11 +168,10 @@ http://fl2.moveonjoy.com/OXYGEN/index.m3u8
 http://fl2.moveonjoy.com/BBC_AMERICA/index.m3u8
 #EXTINF:24,Sportsman Channel
 http://fl2.moveonjoy.com/SPORTSMAN_CHANNEL/index.m3u8
-#EXTINF:24,ESPN U
-http://fl2.moveonjoy.com/ESPN_U/index.m3u8
 #EXTINF:24,SportsNet
 http://fl2.moveonjoy.com/SNY/index.m3u8
 #EXTINF:24 tvg-id="NoEPG" tvg-logo="https://i.postimg.cc/GmrkQFVf/ESPN.png" tvg-name="ESPN | (TizTV)"  group-title="Sports",ESPN
 http://41.205.93.154/ESPN/index.m3u8
-#EXTINF:24 tvg-id="NoEPG" tvg-logo="InsertLogoHere" tvg-name="ESPN 2 | (MOJ) (TizTV)"  group-title="Sports",ESPN 2
+#EXTINF:24 tvg-id="NoEPG" tvg-logo="https://i.postimg.cc/GmrkQFVf/ESPN.png"  tvg-name="ESPN 2 | (MOJ) (TizTV)"  group-title="Sports",ESPN 2
 http://fl2.moveonjoy.com/ESPN_2/index.m3u8
+
