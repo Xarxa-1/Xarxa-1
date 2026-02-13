@@ -572,7 +572,9 @@ https://dai.google.com/linear/hls/pa/event/Sid4xiTQTkCT1SLu6rjUSQ/stream/2a019fb
 http://41.205.93.154/ESPN/index.m3u8
 #EXTINF:-1, tvg-id="NoEPG" tvg-logo="InsertLogoHere" tvg-name="ESPN 2 | (MOJ) (TizTV)"  group-title="Sports",ESPN 2 | (MOJ) (TizTV)
 http://fl2.moveonjoy.com/ESPN_2/index.m3u8
-#EXTINF:-1, tvg-id="NoEPG" tvg-logo="InsertLogoHere" tvg-name="24/7 CSI: Miami (US) | (PlutoTV) (TizTV)"  group-title="24/7",24/7 CSI: Miami (US) | (PlutoTV) (TizTV)
+#EXTINF:-1, tvg-id="NoEPG" tvg-logo="InsertLogoHere" tvg-name="24/7 CSI: Miami (US) | (PlutoTV) (TizTV)"  group-title="24/7",24/7 CSI: Miami (US)Pluto
 http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/62f54c11b3af68000702c304/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=6c285533-30d3-11ef-9cf5-e9ddff8ff496&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=44c18303-2238-4f6c-aa15-2480de9dd1a8
-#EXTINF:-1, tvg-id="NoEPG" tvg-logo="InsertLogoHere" tvg-name="BBC America East | (MOJ) (TizTV)"  group-title="Entertainment",BBC America East | (MOJ) (TizTV)
+#EXTINF:-1, tvg-id="NoEPG" tvg-logo="InsertLogoHere" tvg-name="BBC America East | (MOJ) (TizTV)"  group-title="Entertainment",BBC America East
 http://fl2.moveonjoy.com/BBC_AMERICA/index.m3u8
+#EXTINF:-1, tvg-id="NoEPG" tvg-logo="InsertLogoHere" tvg-name="BBC World News | (MOJ) (TizTV)"  group-title="Information",BBC World News
+http://fl2.moveonjoy.com/BBC_WORLD_NEWS/index.m3u8
