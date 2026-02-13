@@ -559,7 +559,13 @@ http://167.250.223.26:8085/play/a083/index.m3u8
 #EXTINF:-1,canal 5 chiantla
 http://167.250.223.26:8085/play/a00p/index.m3u8
 
-#EXTINF:24 tvg-logo="https://images.seeklogo.com/logo-png/47/1/cbs-broadcasting-inc-logo-png_seeklogo-477611.png" x-tvg-url="http://epg-iptv.ru/premiere-group.xml", CBS--
-https://xarxa-1.github.io/Xarxa-1/tv3.m3u8
+#EXTINF:-1 tvg-name="Paramount Movie Channel" tvg-logo="https://i.imgur.com/CfqRav0.png" group-title="VOD Movies (EN)",Paramount Movie Channel
+http://service-stitcher.clusters.pluto.tv/stitch/hls/channel/5cb0cae7a461406ffe3f5213/master.m3u8?terminate=false&deviceType=web&deviceMake=web&deviceModel=web&sid=100&deviceId=5cb0cae7a461406ffe3f5213&deviceVersion=DNT&appVersion=DNT&deviceDNT=0&userId=&advertisingId=&deviceLat=&deviceLon=&app_name=&appName=web&buildVersion=&appStoreUrl=&architecture=&includeExtendedEvents=false&marketingRegion=US&serverSideAds=false
+
+
+#EXTINF:-1 tvg-name="Film – Pluto TV" tvg-logo="https://i.imgur.com/QeFc7F3.png" tvg-id="PlutoTVFilmItaly.it" group-title="VOD Italy",Film – Pluto TV
+https://service-stitcher.clusters.pluto.tv/v1/stitch/embed/hls/channel/608aa17fb9f4490007e6419a/master.m3u8?deviceId=channel&deviceModel=web&deviceVersion=1.0&appVersion=1.0&deviceType=rokuChannel&deviceMake=rokuChannel&deviceDNT=1&advertisingId=channel&embedPartner=rokuChannel&appName=rokuchannel&is_lat=1&bmodel=bm1&content=channel&platform=web&tags=ROKU_CONTENT_TAGS&coppa=false&content_type=livefeed&rdid=channel&genre=ROKU_ADS_CONTENT_GENRE&content_rating=ROKU_ADS_CONTENT_RATING&studio_id=viacom&channel_id=channel
+
 #EXTINF:24 tvg-logo="https://images.seeklogo.com/logo-png/47/1/cbs-broadcasting-inc-logo-png_seeklogo-477611.png" x-tvg-url="http://epg-iptv.ru/premiere-group.xml", CBS
 https://dai.google.com/linear/hls/pa/event/Sid4xiTQTkCT1SLu6rjUSQ/stream/2a019fb8-483d-4f7e-8e86-4a99c2f3188c:GRQ/master.m3u8
+
