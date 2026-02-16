@@ -174,4 +174,5 @@ http://fl2.moveonjoy.com/SNY/index.m3u8
 http://41.205.93.154/ESPN/index.m3u8
 #EXTINF:24 tvg-id="NoEPG" tvg-logo="https://i.postimg.cc/GmrkQFVf/ESPN.png"  tvg-name="ESPN 2 | (MOJ) (TizTV)"  group-title="Sports",ESPN 2
 http://fl2.moveonjoy.com/ESPN_2/index.m3u8
-
+#EXTINF:24,CBS News Los Angeles
+https://dai.google.com/linear/hls/event/TxSbNMu4R5anKrjV02VOBg/master.m3u8?iu=/4128/CBS.LA.OTT
