@@ -1,4 +1,13 @@
 #EXTM3U
+#EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1450745843603083267/uSloYi8l_200x200.jpg",BBC ONE
+http://41.205.93.154/BBCONE/index.m3u8
+#EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1450745686572650497/d-njUG_H_200x200.jpg",BBC TWO
+http://41.205.93.154/BBCTWO/index.m3u8
+#EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1731336840383184896/XMhEBdPu_200x200.jpg",MSNBC
+http://41.205.93.154/MSNBC/index.m3u8
+#EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/831655258602532865/3KyagoY6_200x200.jpg",ESPN
+http://41.205.93.154/ESPN/index.m3u8
+
 #EXTINF:-1 ,Red Bull TV SD
 https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master_1660.m3u8?checkedby:iptvcat.com
 #EXTINF:-1 ,Horizon Sports
@@ -6,7 +15,7 @@ https://dai.google.com/linear/hls/event/onG023gQQ22Tjm14B5yg1w/master.m3u8
 #EXTINF:-1 ,Sports Grid
 https://sportsgrid-tribal.amagi.tv/playlist1080p.m3u8
 #EXTINF:-1 ,Motor Racing
-https://dai.google.com/linear/hls/event/qI1pC-R_Sma0bVLVjaEOtw/master.m3u8
+https://dai.google.com/linear/hls/event/qI1pC-R_Sma0bVLVjaEOtw/master.m3ubb8
 #EXTINF:-1 group-title="Sports" tvg-logo="https://i.imgur.com/BHm0wem.png",Canal Motor (720p)
 https://digicom.hls.iptvdc.com/canalmotor/index.m3u8
 #EXTINF:-1 group-title="Sports" tvg-logo="https://i.imgur.com/47X44DD.png",MadeinBO TV (1080p)
@@ -24,14 +33,10 @@ http://dmitwlvvll.cdn.mangomolo.com/dubaisportshd5/smil:dubaisportshd5.smil/chun
 #EXTM3U
 #EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1605211963096801282/3flU1i5o_200x200.jpg",ABC
 http://41.205.93.154/ABC/index.m3u8
-#EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1450745843603083267/uSloYi8l_200x200.jpg",BBC ONE
-http://41.205.93.154/BBCONE/index.m3u8
-#EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1450745686572650497/d-njUG_H_200x200.jpg",BBC TWO
-http://41.205.93.154/BBCTWO/index.m3u8
-#EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1731336840383184896/XMhEBdPu_200x200.jpg",MSNBC
-http://41.205.93.154/MSNBC/index.m3u8
-#EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/831655258602532865/3KyagoY6_200x200.jpg",ESPN
-http://41.205.93.154/ESPN/index.m3u8
+
+
+#EXTINF:-1,HBO Extreme
+http://200.92.227.238:8000/play/a0mu/index.m3u8
 #EXTINF:-1,La liga Inside 🇪🇸
 https://is.gd/P9HFAg?LaligaInside.m3u8
 #EXTINF:-1,BEIN SPORT EXTRA Ñ 🇪🇸
@@ -56,3 +61,4 @@ http://45.5.119.43:4000/play/a0il/index.m3u8
 http://179.49.163.34:45000/play/a013/index.m3u8
 #EXTINF:-1,Studio Universal
 http://181.78.106.127:9000/play/ca074/index.m3u8
+
