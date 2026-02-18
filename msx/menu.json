@@ -1,0 +1,27 @@
+{
+   "headline": "Els Meus Streams",
+   "menu": [
+      {
+         "type": "separator",
+         "label": "Llistes de Streaming"
+      },
+      {
+         "icon": "movie",
+         "label": "Llista Cat 19",
+         "extensionLabel": "Streaming",
+         "data": "http://msx.benzac.de/services/m3u.php?type=video&url=https://xarxa-1.github.io/Xarxa-1/cat19.m3u"
+      },
+      {
+         "icon": "movie",
+         "label": "Llista Dubai",
+         "extensionLabel": "Streaming",
+         "data": "http://msx.benzac.de/services/m3u.php?type=video&url=https://xarxa-1.github.io/Xarxa-1/Dubai.m3u"
+      },
+      {
+         "icon": "movie",
+         "label": "Llista Cat 32a",
+         "extensionLabel": "Streaming",
+         "data": "http://msx.benzac.de/services/m3u.php?type=video&url=https://xarxa-1.github.io/Xarxa-1/cat32a.m3u"
+      }
+   ]
+}
