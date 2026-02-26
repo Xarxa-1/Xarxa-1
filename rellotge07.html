@@ -1,11 +1,7 @@
 <!DOCTYPE html>
+
 <html lang="ca"><head>
 <meta charset="utf-8"/>
-<!-- Indica que l'app pot funcionar en pantalla completa en iOS -->
-<meta name="apple-mobile-web-app-capable" content="yes">
-<!-- Opcional: Defineix el color de la barra d'estat superior -->
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#000000">
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Smartwatch Interface</title>
 <!-- Load Tailwind CSS v3 -->
@@ -31,7 +27,7 @@
 <style data-purpose="circular-layout">
     /* Main Watch Container - Now borderless and full-width/height */
     .watch-face {
-      width: 80%;
+      width: 100%;
       max-width: 500px;
       height: 100vh;
       background: #000;
@@ -44,7 +40,7 @@
 
     /* Central Panel - Solid black background and high z-index to hide needle */
     .central-column {
-      width: 220px;
+      width: 80px;
       height: 100%;
       background: #000;
       z-index: 50;
@@ -117,7 +113,9 @@
 <div class="left-panel text-[0.95rem]" data-purpose="weather-data">
 <div class="flex items-center gap-2">
 <span class="text-accent-green text-lg">Temperatura</span>
-<span class="text-white text-2xl font-bold" id="curr-temp">--°C</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-white text-2xl text-xl" id="curr-temp">--°C</span>
 </div>
 <div class="flex flex-col">
 <span class="text-gray-500 capitalize text-sm">Sensació</span>
@@ -313,7 +311,4 @@
       }
     }
     updateBattery();</script>
-
 </body></html>
-
-
