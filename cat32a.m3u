@@ -317,4 +317,10 @@ https://dai.google.com/linear/hls/event/TxSbNMu4R5anKrjV02VOBg/master.m3u8?iu=/4
 #EXTINF:24,NewsMax2
 https://nmxdistro.akamaized.net/hls/live/529965/Live_1/index.m3u8
 
+#EXTINF:-1 ,RTA Sports HD Ban Vs AFG
+https://rtatv.akamaized.net/Content/HLS/Live/channel(RTA3)/variant.m3u8
+
+#EXTINF:-1 ,Redbull TV
+https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master_3360.m3u8
+
 
