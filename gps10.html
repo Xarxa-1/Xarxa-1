@@ -1,92 +1,108 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Mapa Orientat amb Punts</title>
+    <title>Mapa Interactiu Orientat</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" href="https://unpkg.com" />
     <style>
-        body { margin: 0; padding: 0; }
+        body { margin: 0; padding: 0; font-family: sans-serif; overflow: hidden; }
         #map { height: 100vh; width: 100vw; transition: transform 0.1s linear; }
-        .info { position: absolute; top: 10px; left: 10px; z-index: 1000; background: white; padding: 10px; border-radius: 5px; font-family: sans-serif; }
+        .ui-overlay { position: absolute; top: 10px; left: 10px; z-index: 1000; display: flex; flex-direction: column; gap: 5px; }
+        .info { background: rgba(255,255,255,0.9); padding: 10px; border-radius: 8px; font-size: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        button { padding: 12px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
 
+<div class="ui-overlay">
+    <button id="startBtn">ACTIVAR GPS I BRÚIXOLA</button>
+    <div class="info" id="status">Fes clic al botó per començar</div>
+</div>
 <div id="map"></div>
-<div class="info" id="status">Esperant senyal GPS i brúixola...</div>
 
 <script src="https://unpkg.com"></script>
 <script>
     const points = [
-        { id: 1, name: "Esglèsia Vella", lat: 41.396712, lon: 1.103376, alt: 412, color: '#FF0000' },
-        { id: 2, name: "Ermita", lat: 41.3731, lon: 1.11065, alt: 560, color: '#00FF00' },
-        { id: 3, name: "Sant Bernat", lat: 41.388193, lon: 1.083005, alt: 456, color: '#0000FF' },
-        { id: 4, name: "Roca de la Manxa", lat: 41.426297, lon: 1.115281, alt: 499, color: '#FFFF00' },
-        { id: 7, name: "Poblet", lat: 41.380406, lon: 1.083457, alt: 460, color: '#2ecc71' },
-        { id: 8, name: "La Pena", lat: 41.3597743, lon: 1.093488, alt: 800, color: 'lime' },
-        { id: 9, name: "Tarragona", lat: 41.113685, lon: 1.256539, alt: 50, color: 'coral' },
-        { id: 10, name: "Centre", lat: 41.517056, lon: 0.8716288, alt: 304, color: 'red' },
-        { id: 11, name: "Col", lat: 41.52030, lon: 0.87288, alt: 304, color: 'green' },
-        { id: 12, name: "Lleida", lat: 41.615100, lon: 0.627411, alt: 150, color: 'coral' }
+        { id: 1, name: "Esglèsia Vella", lat: 41.396712, lon: 1.103376, color: '#FF0000' },
+        { id: 2, name: "Ermita", lat: 41.3731, lon: 1.11065, color: '#00FF00' },
+        { id: 3, name: "Sant Bernat", lat: 41.388193, lon: 1.083005, color: '#0000FF' },
+        { id: 4, name: "Roca de la Manxa", lat: 41.426297, lon: 1.115281, color: '#FFFF00' },
+        { id: 7, name: "Poblet", lat: 41.380406, lon: 1.083457, color: '#2ecc71' },
+        { id: 8, name: "La Pena", lat: 41.3597743, lon: 1.093488, color: 'lime' },
+        { id: 9, name: "Tarragona", lat: 41.113685, lon: 1.256539, color: 'coral' },
+        { id: 10, name: "Centre", lat: 41.517056, lon: 0.8716288, color: 'red' },
+        { id: 11, name: "Col", lat: 41.52030, lon: 0.87288, color: 'green' },
+        { id: 12, name: "Lleida", lat: 41.615100, lon: 0.627411, color: 'coral' }
     ];
 
-    // Inicialitzar mapa
     const map = L.map('map').setView([41.4, 1.1], 13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
     let userMarker, userCircle;
     let lines = [];
+    const statusDiv = document.getElementById('status');
 
-    // Geolocalització en temps real
-    map.locate({setView: true, maxZoom: 15, watch: true, enableHighAccuracy: true});
+    async function startExperience() {
+        document.getElementById('startBtn').style.display = 'none';
+        statusDiv.innerHTML = "Sol·licitant permisos...";
 
-    function onLocationFound(e) {
-        const radius = e.accuracy / 2;
-        const userPos = e.latlng;
-
-        if (!userMarker) {
-            userMarker = L.marker(userPos).addTo(map).bindPopup("Ets aquí");
-            userCircle = L.circle(userPos, radius).addTo(map);
+        // 1. Sol·licitar permís d'orientació (Específic per a iOS)
+        if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+            try {
+                const permission = await DeviceOrientationEvent.requestPermission();
+                if (permission === 'granted') {
+                    window.addEventListener('deviceorientation', handleOrientation);
+                } else {
+                    statusDiv.innerHTML = "Permís de brúixola denegat.";
+                }
+            } catch (e) { statusDiv.innerHTML = "Error sensors: " + e.message; }
         } else {
-            userMarker.setLatLng(userPos);
-            userCircle.setLatLng(userPos).setRadius(radius);
+            // Android o navegadors que no requereixen permís explícit
+            window.addEventListener('deviceorientation', handleOrientation);
+            // També provem l'esdeveniment absolut per a Android
+            window.addEventListener('deviceorientationabsolute', handleOrientation);
         }
 
-        // Dibuixar o actualitzar línies cap als punts
-        lines.forEach(line => map.removeLayer(line));
-        lines = [];
-
-        points.forEach(p => {
-            const line = L.polyline([userPos, [p.lat, p.lon]], {
-                color: p.color,
-                weight: 3,
-                opacity: 0.7,
-                dashArray: '5, 10'
-            }).addTo(map).bindTooltip(p.name);
-            lines.push(line);
-
-            // Afegir marcador al punt destí
-            L.circleMarker([p.lat, p.lon], { color: p.color, radius: 5 }).addTo(map).bindPopup(p.name);
-        });
-
-        document.getElementById('status').innerHTML = `Localitzat. Orientant mapa...`;
+        // 2. Iniciar Geolocalització
+        map.locate({setView: true, maxZoom: 16, watch: true, enableHighAccuracy: true});
     }
 
-    map.on('locationfound', onLocationFound);
-
-    // Orientació del dispositiu (Brúixola)
-    window.addEventListener('deviceorientationabsolute', (event) => {
-        let heading = event.alpha; // Gir en graus sobre l'eix Z
-        if (heading !== null) {
-            // Rotem el contenidor del mapa (CSS)
-            // Nota: El nord real sol ser alpha o webkitCompassHeading
-            const rotation = event.webkitCompassHeading || (360 - heading);
-            document.getElementById('map').style.transform = `rotate(${-rotation}deg)`;
+    function handleOrientation(event) {
+        // Obtenir el rumb (heading)
+        let heading = event.webkitCompassHeading || (360 - event.alpha);
+        if (heading) {
+            // Rotació visual del mapa
+            document.getElementById('map').style.transform = `rotate(${-heading}deg)`;
+            statusDiv.innerHTML = `Brúixola: ${Math.round(heading)}° | GPS actiu`;
         }
-    }, true);
+    }
 
-    map.on('locationerror', (e) => alert("No es pot accedir a la ubicació: " + e.message));
+    map.on('locationfound', (e) => {
+        const userPos = e.latlng;
+        if (!userMarker) {
+            userMarker = L.marker(userPos).addTo(map);
+            userCircle = L.circle(userPos, e.accuracy / 2).addTo(map);
+        } else {
+            userMarker.setLatLng(userPos);
+            userCircle.setLatLng(userPos).setRadius(e.accuracy / 2);
+        }
 
+        // Netejar i dibuixar línies
+        lines.forEach(l => map.removeLayer(l));
+        lines = [];
+        points.forEach(p => {
+            const line = L.polyline([userPos, [p.lat, p.lon]], {
+                color: p.color, weight: 2, opacity: 0.6, dashArray: '5, 10'
+            }).addTo(map);
+            lines.push(line);
+        });
+    });
+
+    map.on('locationerror', (e) => {
+        statusDiv.innerHTML = "Error GPS: " + e.message + ". Revisa si tens el GPS activat al mòbil.";
+    });
+
+    document.getElementById('startBtn').addEventListener('click', startExperience);
 </script>
 </body>
 </html>
