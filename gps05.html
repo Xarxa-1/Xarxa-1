@@ -9,9 +9,9 @@
         video { width: 100%; height: 100%; object-fit: cover; position: absolute; z-index: 1; }
         canvas { position: absolute; top: 0; left: 0; z-index: 2; pointer-events: none; }
         #ui { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 3; pointer-events: none; }
-        .poi { 
-            position: absolute; background: rgba(0,0,0,0.8); color: white; padding: 5px 12px; 
-            border-radius: 15px; font-size: 12px; transform: translate(-50%, -50%); 
+        .poi {
+            position: absolute; background: rgba(0,0,0,0.8); color: white; padding: 5px 12px;
+            border-radius: 15px; font-size: 12px; transform: translate(-50%, -50%);
             border: 2px solid white; white-space: nowrap; font-weight: bold;
         }
         .info-alt { display: block; font-size: 9px; font-weight: normal; color: #aaa; }
@@ -40,13 +40,19 @@
 
         const points = [
             { id: 1, name: "Esglèsia Vella", lat: 41.396712, lon: 1.103376, alt: 412, color: '#FF0000' },
+
+
+            ,
             { id: 2, name: "Ermita", lat: 41.3731, lon: 1.11065, alt: 560, color: '#00FF00' },
             { id: 3, name: "Sant Bernat", lat: 41.388193, lon: 1.083005, alt: 456, color: '#0000FF' },
             { id: 4, name: "Roca de la Manxa", lat: 41.426297, lon: 1.115281, alt: 499, color: '#FFFF00' },
             { id: 7, name: "Poblet", lat: 41.380406, lon: 1.083457, alt: 460, color: '#2ecc71' },
             { id: 8, name: "La Pena", lat: 41.3597743, lon: 1.093488, alt: 800, color: 'lime' },
             { id: 9, name: "Tarragona", lat: 41.113685, lon: 1.256539, alt: 50, color: 'coral' },
-            { id: 10, name: "Lleida", lat: 41.615100, lon: 0.627411, alt: 150, color: 'coral' }
+            { id: 10, name: "Centre", lat: 41.517056, lon: 0.8716288, alt: 304, color: 'red' },
+            { id: 11, name: "Col", lat: 41.52030, lon: 0.87288, alt: 304, color: 'green' },
+
+            { id: 12, name: "Lleida", lat: 41.615100, lon: 0.627411, alt: 150, color: 'coral' }
         ];
 
         let userLoc = null;
@@ -57,7 +63,7 @@
             try {
                 video.srcObject = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
                 navigator.geolocation.watchPosition(p => { userLoc = p.coords; }, e => console.error(e), { enableHighAccuracy: true });
-                
+
                 if (typeof DeviceOrientationEvent.requestPermission === 'function') {
                     const res = await DeviceOrientationEvent.requestPermission();
                     if (res === 'granted') window.addEventListener('deviceorientation', handleMotion);
@@ -94,7 +100,7 @@
 
         function render() {
             if (!userLoc || orient.heading === null) return;
-            
+
             const w = canvas.width = window.innerWidth;
             const h = canvas.height = window.innerHeight;
             ctx.clearRect(0, 0, w, h);
@@ -106,7 +112,7 @@
             points.forEach(p => {
                 const dist = getDistance(userLoc.latitude, userLoc.longitude, p.lat, p.lon);
                 const bearing = getBearing(userLoc.latitude, userLoc.longitude, p.lat, p.lon);
-                
+
                 // 1. Càlcul X (Horitzontal)
                 let diffH = bearing - orient.heading;
                 if (diffH > 180) diffH -= 360; if (diffH < -180) diffH += 360;
@@ -115,7 +121,7 @@
                 // Angle d'elevació real cap al punt: atan(altitud / distancia)
                 const altDiff = p.alt - (userLoc.altitude || 0);
                 const elevationAngle = Math.atan2(altDiff, dist) * 180 / Math.PI;
-                
+
                 // Diferència entre on mira el mòbil i on està el punt verticalment
                 let diffV = elevationAngle - orient.pitch;
 
