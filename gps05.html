@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>RA Altitud i Posició Reial</title>
+    <style>
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #000; font-family: sans-serif; }
+        video { width: 100%; height: 100%; object-fit: cover; position: absolute; z-index: 1; }
+        canvas { position: absolute; top: 0; left: 0; z-index: 2; pointer-events: none; }
+        #ui { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 3; pointer-events: none; }
+        .poi { 
+            position: absolute; background: rgba(0,0,0,0.8); color: white; padding: 5px 12px; 
+            border-radius: 15px; font-size: 12px; transform: translate(-50%, -50%); 
+            border: 2px solid white; white-space: nowrap; font-weight: bold;
+        }
+        .info-alt { display: block; font-size: 9px; font-weight: normal; color: #aaa; }
+        #overlay-start { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; text-align: center; }
+        button { padding: 20px 40px; font-size: 18px; border-radius: 50px; border: none; background: #007bff; color: white; cursor: pointer; }
+        #debug { position: fixed; bottom: 10px; left: 10px; background: rgba(0,0,0,0.7); color: #0f0; padding: 8px; font-family: monospace; font-size: 10px; z-index: 10; }
+    </style>
+</head>
+<body>
+
+    <div id="overlay-start">
+        <button id="btn-init">ACTIVAR RA AMB ALTITUD</button>
+    </div>
+
+    <video id="video" autoplay playsinline></video>
+    <canvas id="ar-canvas"></canvas>
+    <div id="ui"></div>
+    <div id="debug">Inicia sensors...</div>
+
+    <script>
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('ar-canvas');
+        const ctx = canvas.getContext('2d');
+        const ui = document.getElementById('ui');
+        const debug = document.getElementById('debug');
+
+        const points = [
+            { id: 1, name: "Esglèsia Vella", lat: 41.396712, lon: 1.103376, alt: 412, color: '#FF0000' },
+            { id: 2, name: "Ermita", lat: 41.3731, lon: 1.11065, alt: 560, color: '#00FF00' },
+            { id: 3, name: "Sant Bernat", lat: 41.388193, lon: 1.083005, alt: 456, color: '#0000FF' },
+            { id: 4, name: "Roca de la Manxa", lat: 41.426297, lon: 1.115281, alt: 499, color: '#FFFF00' },
+            { id: 7, name: "Poblet", lat: 41.380406, lon: 1.083457, alt: 460, color: '#2ecc71' },
+            { id: 8, name: "La Pena", lat: 41.3597743, lon: 1.093488, alt: 800, color: 'lime' },
+            { id: 9, name: "Tarragona", lat: 41.113685, lon: 1.256539, alt: 50, color: 'coral' },
+            { id: 10, name: "Lleida", lat: 41.615100, lon: 0.627411, alt: 150, color: 'coral' }
+        ];
+
+        let userLoc = null;
+        let orient = { heading: 0, pitch: 0 }; // heading (brúixola), pitch (inclinació vertical)
+
+        async function init() {
+            document.getElementById('overlay-start').style.display = 'none';
+            try {
+                video.srcObject = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+                navigator.geolocation.watchPosition(p => { userLoc = p.coords; }, e => console.error(e), { enableHighAccuracy: true });
+                
+                if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+                    const res = await DeviceOrientationEvent.requestPermission();
+                    if (res === 'granted') window.addEventListener('deviceorientation', handleMotion);
+                } else {
+                    window.addEventListener('deviceorientation', handleMotion);
+                }
+            } catch (e) { alert(e.message); }
+        }
+
+        function handleMotion(e) {
+            // Heading: rumb (0-360)
+            orient.heading = e.webkitCompassHeading || (e.absolute ? 360 - e.alpha : 360 - e.alpha);
+            // Pitch: Inclinació del mòbil (si l'apuntes al cel o al terra)
+            // En mode vertical, 'beta' ens dóna la inclinació aproximada
+            orient.pitch = e.beta - 70; // Ajust segons com agafes el mòbil
+            render();
+        }
+
+        function getDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371000; // metres
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180) * Math.cos(lat2*Math.PI/180) * Math.sin(dLon/2)**2;
+            return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        }
+
+        function getBearing(lat1, lon1, lat2, lon2) {
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const l1 = lat1 * Math.PI / 180, l2 = lat2 * Math.PI / 180;
+            const y = Math.sin(dLon) * Math.cos(l2);
+            const x = Math.cos(l1)*Math.sin(l2) - Math.sin(l1)*Math.cos(l2)*Math.cos(dLon);
+            return (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
+        }
+
+        function render() {
+            if (!userLoc || orient.heading === null) return;
+            
+            const w = canvas.width = window.innerWidth;
+            const h = canvas.height = window.innerHeight;
+            ctx.clearRect(0, 0, w, h);
+            ui.innerHTML = '';
+
+            const fovH = 60; // Camp de visió horitzontal
+            const fovV = 80; // Camp de visió vertical
+
+            points.forEach(p => {
+                const dist = getDistance(userLoc.latitude, userLoc.longitude, p.lat, p.lon);
+                const bearing = getBearing(userLoc.latitude, userLoc.longitude, p.lat, p.lon);
+                
+                // 1. Càlcul X (Horitzontal)
+                let diffH = bearing - orient.heading;
+                if (diffH > 180) diffH -= 360; if (diffH < -180) diffH += 360;
+
+                // 2. Càlcul Y (Vertical basat en Altitud i Pitch)
+                // Angle d'elevació real cap al punt: atan(altitud / distancia)
+                const altDiff = p.alt - (userLoc.altitude || 0);
+                const elevationAngle = Math.atan2(altDiff, dist) * 180 / Math.PI;
+                
+                // Diferència entre on mira el mòbil i on està el punt verticalment
+                let diffV = elevationAngle - orient.pitch;
+
+                if (Math.abs(diffH) < fovH / 2 && Math.abs(diffV) < fovV / 2) {
+                    const x = (w / 2) + (diffH * (w / fovH));
+                    const y = (h / 2) - (diffV * (h / fovV));
+
+                    // Dibuixar línia fins al terra (base de la pantalla)
+                    ctx.beginPath();
+                    ctx.moveTo(x, y);
+                    ctx.lineTo(x, h);
+                    ctx.strokeStyle = p.color;
+                    ctx.lineWidth = 2;
+                    ctx.setLineDash([5, 5]); // Línia discontínua per estil
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+
+                    // Etiqueta
+                    const div = document.createElement('div');
+                    div.className = 'poi';
+                    div.style.left = x + 'px';
+                    div.style.top = y + 'px';
+                    div.style.borderColor = p.color;
+                    div.innerHTML = `${p.name} <span class="info-alt">${Math.round(dist/1000)}km | ${p.alt}m</span>`;
+                    ui.appendChild(div);
+                }
+            });
+
+            debug.innerHTML = `Heading: ${Math.round(orient.heading)}° | Pitch: ${Math.round(orient.pitch)}°<br>La teva altitud: ${Math.round(userLoc.altitude || 0)}m`;
+        }
+
+        document.getElementById('btn-init').onclick = init;
+    </script>
+</body>
+</html>
