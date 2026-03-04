@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>Brúixola GPS Interactiva</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="https://unpkg.com" />
+    <style>
+        body { margin: 0; padding: 0; overflow: hidden; background: #000; font-family: sans-serif; }
+
+        /* Contenidor de seguretat per a la rotació */
+        #map-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Mapa més gran que la pantalla per evitar marges blancs en rotar */
+        #map {
+            position: absolute;
+            width: 200vw;
+            height: 200vh;
+            top: -50vh;
+            left: -50vw;
+            transition: transform 0.1s ease-out;
+        }
+
+        .ui {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+
+        .info {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 13px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            max-width: 250px;
+        }
+
+        button {
+            padding: 15px 25px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            pointer-events: auto;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Indicador de "Cap amunt" */
+        .north-arrow {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+
+<div class="north-arrow">↑</div>
+
+<div class="ui">
+    <button id="startBtn">ACTIVAR RUMB I GPS</button>
+    <div class="info" id="status">Fes clic per sincronitzar brúixola</div>
+</div>
+
+<div id="map-container">
+    <div id="map"></div>
+</div>
+
+<script src="https://unpkg.com"></script>
+<script>
+    const points = [
+        { id: 1, name: "Esglèsia Vella", lat: 41.396712, lon: 1.103376, color: '#FF0000' },
+        { id: 2, name: "Ermita", lat: 41.3731, lon: 1.11065, color: '#00FF00' },
+        { id: 3, name: "Sant Bernat", lat: 41.388193, lon: 1.083005, color: '#0000FF' },
+        { id: 4, name: "Roca de la Manxa", lat: 41.426297, lon: 1.115281, color: '#FFFF00' },
+        { id: 7, name: "Poblet", lat: 41.380406, lon: 1.083457, color: '#2ecc71' },
+        { id: 8, name: "La Pena", lat: 41.3597743, lon: 1.093488, color: 'lime' },
+        { id: 9, name: "Tarragona", lat: 41.113685, lon: 1.256539, color: 'coral' },
+        { id: 10, name: "Centre", lat: 41.517056, lon: 0.8716288, color: 'red' },
+        { id: 11, name: "Col", lat: 41.52030, lon: 0.87288, color: 'green' },
+        { id: 12, name: "Lleida", lat: 41.615100, lon: 0.627411, color: 'coral' }
+    ];
+
+    const map = L.map('map', {
+        zoomControl: false, // Els controls rotarien malament
+        attributionControl: false
+    }).setView([41.38, 1.1], 14);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+    let userMarker, userCircle;
+    let lines = [];
+    const statusDiv = document.getElementById('status');
+
+    async function startExperience() {
+        document.getElementById('startBtn').style.display = 'none';
+
+        // Permisos per a iOS 13+
+        if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+            try {
+                const response = await DeviceOrientationEvent.requestPermission();
+                if (response === 'granted') {
+                    window.addEventListener('deviceorientation', handleOrientation, true);
+                }
+            } catch (e) { statusDiv.innerHTML = "Error sensors: " + e; }
+        } else {
+            // Android i altres
+            window.addEventListener('deviceorientationabsolute', handleOrientation, true);
+            window.addEventListener('deviceorientation', handleOrientation, true);
+        }
+
+        map.locate({setView: true, maxZoom: 16, watch: true, enableHighAccuracy: true});
+    }
+
+    function handleOrientation(event) {
+        let heading = 0;
+
+        // Detectar el rumb segons el dispositiu
+        if (event.webkitCompassHeading) {
+            heading = event.webkitCompassHeading; // iOS
+        } else if (event.alpha !== null) {
+            heading = 360 - event.alpha; // Android
+        }
+
+        // Filtre d'inclinació: si el mòbil està massa inclinat cap al terra (beta > 70)
+        // la brúixola no és fiable
+        const tilt = Math.abs(event.beta);
+
+        if (tilt < 75) {
+            document.getElementById('map').style.transform = `rotate(${-heading}deg)`;
+            statusDiv.innerHTML = `🧭 Rumb: ${Math.round(heading)}°<br>📍 GPS Actiu`;
+        } else {
+            statusDiv.innerHTML = `⚠️ Mantén el mòbil més vertical`;
+        }
+    }
+
+    map.on('locationfound', (e) => {
+        const userPos = e.latlng;
+
+        if (!userMarker) {
+            userMarker = L.circleMarker(userPos, { radius: 8, color: 'white', fillColor: '#007bff', fillOpacity: 1, weight: 3 }).addTo(map);
+            userCircle = L.circle(userPos, e.accuracy / 2, { opacity: 0.2 }).addTo(map);
+        } else {
+            userMarker.setLatLng(userPos);
+            userCircle.setLatLng(userPos).setRadius(e.accuracy / 2);
+        }
+
+        // Actualitzar línies cap als punts
+        lines.forEach(l => map.removeLayer(l));
+        lines = [];
+
+        points.forEach(p => {
+            const dest = [p.lat, p.lon];
+            // Dibuixar línia
+            const line = L.polyline([userPos, dest], {
+                color: p.color, weight: 3, opacity: 0.7, dashArray: '10, 10'
+            }).addTo(map);
+            lines.push(line);
+
+            // Marcador del punt
+            L.circleMarker(dest, { color: p.color, radius: 5 }).addTo(map).bindTooltip(p.name);
+        });
+    });
+
+    document.getElementById('startBtn').addEventListener('click', startExperience);
+</script>
+</body>
+</html>
