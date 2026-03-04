@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Explorador RA GeoLocalitzat</title>
+    <style>
+        :root { --primary: #00f2ff; --bg: #0a0a0a; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: var(--bg); font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        
+        /* Càmera i Capes */
+        #video-preview { width: 100%; height: 100%; object-fit: cover; position: absolute; z-index: 1; }
+        #ar-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
+        #ui-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 3; pointer-events: none; }
+
+        /* Etiquetes POI */
+        .poi-label {
+            position: absolute; background: rgba(0, 0, 0, 0.75); color: white;
+            padding: 8px 15px; border-radius: 12px; border-left: 4px solid var(--primary);
+            backdrop-filter: blur(5px); transform: translate(-50%, -100%);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5); font-size: 13px; min-width: 100px;
+        }
+        .poi-name { font-weight: bold; display: block; margin-bottom: 2px; }
+        .poi-data { font-size: 10px; color: #ccc; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* Pantalla d'Inici */
+        #splash {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, #1a1a1a 0%, #000 100%);
+            z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: white; text-align: center; padding: 20px; box-sizing: border-box;
+        }
+        .btn-start {
+            background: var(--primary); color: #000; border: none; padding: 18px 40px;
+            font-size: 16px; font-weight: bold; border-radius: 50px; cursor: pointer;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.4); transition: transform 0.2s;
+        }
+        .btn-start:active { transform: scale(0.95); }
+
+        /* Debug info */
+        #status-bar {
+            position: fixed; bottom: 0; width: 100%; background: rgba(0,0,0,0.8);
+            color: #0f0; font-family: monospace; font-size: 10px; padding: 5px 10px; z-index: 10;
+            display: flex; gap: 15px; border-top: 1px solid #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="splash">
+        <h1 style="margin-bottom: 10px;">Explora el teu Entorn</h1>
+        <p style="margin-bottom: 30px; color: #888;">Es requereixen permisos de càmera, GPS i giroscopi.</p>
+        <button class="btn-start" id="start-button">ACTIVAR EXPERIÈNCIA RA</button>
+    </div>
+
+    <video id="video-preview" autoplay playsinline></video>
+    <canvas id="ar-overlay"></canvas>
+    <div id="ui-layer"></div>
+
+    <div id="status-bar">
+        <span id="stat-gps">GPS: Esperant...</span>
+        <span id="stat-compass">BRÚIXOLA: --°</span>
+    </div>
+
+    <script>
+        const config = {
+            fovH: 60, // Camp de visió horitzontal aproximat
+            fovV: 75, // Camp de visió vertical aproximat
+            poi: [
+                { name: "Montserrat", lat: 41.5933, lon: 1.8370, alt: 1236, color: "#ff3e3e" },
+                { name: "Tibidabo", lat: 41.4225, lon: 2.1186, alt: 512, color: "#3effa3" },
+                { name: "La Mola", lat: 41.6394, lon: 2.0191, alt: 1104, color: "#3e88ff" }
+            ]
+        };
+
+        let userState = { lat: 0, lon: 0, alt: 0, heading: 0, pitch: 0 };
+        const video = document.getElementById('video-preview');
+        const canvas = document.getElementById('ar-overlay');
+        const ui = document.getElementById('ui-layer');
+        const ctx = canvas.getContext('2d');
+
+        async function startApp() {
+            document.getElementById('splash').style.display = 'none';
+            
+            try {
+                // 1. Càmera
+                video.srcObject = await navigator.mediaDevices.getUserMedia({ 
+                    video: { facingMode: 'environment' } 
+                });
+
+                // 2. Sensors de Moviment (iOS requereix permís explícit)
+                if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+                    const permission = await DeviceOrientationEvent.requestPermission();
+                    if (permission === 'granted') window.addEventListener('deviceorientation', handleOrientation);
+                } else {
+                    window.addEventListener('deviceorientation', handleOrientation);
+                }
+
+                // 3. Geolocalització
+                navigator.geolocation.watchPosition(pos => {
+                    userState.lat = pos.coords.latitude;
+                    userState.lon = pos.coords.longitude;
+                    userState.alt = pos.coords.altitude || 0;
+                    document.getElementById('stat-gps').innerText = `GPS: OK (${Math.round(userState.alt)}m)`;
+                }, err => console.error(err), { enableHighAccuracy: true });
+
+                requestAnimationFrame(renderLoop);
+            } catch (err) {
+                alert("Error en iniciar: " + err.message);
+            }
+        }
+
+        function handleOrientation(e) {
+            // Heading (Nord = 0/360)
+            userState.heading = e.webkitCompassHeading || (360 - e.alpha);
+            // Pitch (Inclinació vertical aproximada per l'etiqueta)
+            userState.pitch = e.beta - 75; 
+            document.getElementById('stat-compass').innerText = `BRÚIXOLA: ${Math.round(userState.heading)}°`;
+        }
+
+        function getDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371; // km
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                      Math.sin(dLon/2) * Math.sin(dLon/2);
+            return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        }
+
+        function getBearing(lat1, lon1, lat2, lon2) {
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const y = Math.sin(dLon) * Math.cos(lat2 * Math.PI / 180);
+            const x = Math.cos(lat1 * Math.PI / 180) * Math.sin(lat2 * Math.PI / 180) -
+                      Math.sin(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.cos(dLon);
+            return (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
+        }
+
+        function renderLoop() {
+            const w = canvas.width = window.innerWidth;
+            const h = canvas.height = window.innerHeight;
+            ctx.clearRect(0, 0, w, h);
+            ui.innerHTML = '';
+
+            config.poi.forEach(p => {
+                const dist = getDistance(userState.lat, userState.lon, p.lat, p.lon);
+                const bearing = getBearing(userState.lat, userState.lon, p.lat, p.lon);
+
+                // Càlcul X
+                let diffH = bearing - userState.heading;
+                if (diffH > 180) diffH -= 360;
+                if (diffH < -180) diffH += 360;
+
+                // Càlcul Y (Basat en angle d'elevació i pitch)
+                const elev = Math.atan2((p.alt - userState.alt) / 1000, dist) * 180 / Math.PI;
+                let diffV = elev - userState.pitch;
+
+                // Dibuixar si està en el camp de visió
+                if (Math.abs(diffH) < config.fovH / 2 && Math.abs(diffV) < config.fovV / 2) {
+                    const x = (w / 2) + (diffH * (w / config.fovH));
+                    const y = (h / 2) - (diffV * (h / config.fovV));
+
+                    // Línia vertical
+                    ctx.beginPath();
+                    ctx.setLineDash([4, 4]);
+                    ctx.moveTo(x, y);
+                    ctx.lineTo(x, h);
+                    ctx.strokeStyle = p.color;
+                    ctx.stroke();
+
+                    // Etiqueta HTML
+                    const label = document.createElement('div');
+                    label.className = 'poi-label';
+                    label.style.left = `${x}px`;
+                    label.style.top = `${y}px`;
+                    label.style.borderLeftColor = p.color;
+                    label.innerHTML = `
+                        <span class="poi-name">${p.name}</span>
+                        <span class="poi-data">${dist.toFixed(1)} km · ${p.alt}m</span>
+                    `;
+                    ui.appendChild(label);
+                }
+            });
+
+            requestAnimationFrame(renderLoop);
+        }
+
+        document.getElementById('start-button').onclick = startApp;
+    </script>
+</body>
+</html>
