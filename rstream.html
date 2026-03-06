@@ -21,10 +21,9 @@
             align-items: flex-start;
             padding: 8px;
             margin: 0;
-			              transform: scale(0.5);
-			  transform-origin: top left; /* Evita que el contingut es centri i deixi buits */
-  width: 150%; /* Compensa l'amplada perquè el contingut no quedi tallat */
-
+            transform: scale(0.9);
+            transform-origin: top left;
+            width: 100%;
         }
 
         .hifi-rack {
@@ -166,16 +165,15 @@
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } }
 
         .track-info {
-                    background: #1f2c1f;
-		            border-radius: 20px;
-		            border: 2px solid #3d5a3d;
-		            box-shadow: inset 0 -3px 3px #0f130f, inset 0 3px 5px #6f8a6f, 0 5px 0 #0e170e;
-		            padding: 8px 12px;
-		            display: flex;
-		            align-items: center;
-		            gap: 8px;
-		            flex: 0 1 auto;
-
+            background: #1f2c1f;
+            border-radius: 20px;
+            border: 2px solid #3d5a3d;
+            box-shadow: inset 0 -3px 3px #0f130f, inset 0 3px 5px #6f8a6f, 0 5px 0 #0e170e;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 0 1 auto;
             max-width: 350px;
             min-width: 240px;
             flex: 2 1 auto;
@@ -333,6 +331,8 @@
             }
         }
     </style>
+    <!-- Font Awesome per les icones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 <div class="hifi-rack">
@@ -346,15 +346,16 @@
                     <select id="stationSelect" style="width:100%;"></select>
                 </div>
                 <div style="display: flex; gap: 5px;">
-                    <button id="prevStationBtn" title="Emissora anterior">⏮</button>
-                    <button id="playPauseBtn" title="Play / Pausa">▶</button>
-                    <button id="nextStationBtn" title="Emissora següent">⏭</button>
+                    <!-- Botons amb icones de Font Awesome -->
+                    <button id="prevStationBtn" title="Emissora anterior"><i class="fas fa-step-backward"></i></button>
+                    <button id="playPauseBtn" title="Play / Pausa"><i class="fas fa-play"></i></button>
+                    <button id="nextStationBtn" title="Emissora següent"><i class="fas fa-step-forward"></i></button>
 
-				        <!-- indicador led estat -->
-				        <div class="status-led module" id="statusIndicator">
-				            <span id="ledText" style="min-width: 70px;">Aturat</span>
-				            <span id="ledDot" class="led-dot stopped"></span>
-				        </div>
+                    <!-- indicador led estat -->
+                    <div class="status-led module" id="statusIndicator">
+                        <span id="ledText" style="min-width: 70px;">Aturat</span>
+                        <span id="ledDot" class="led-dot stopped"></span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -363,10 +364,10 @@
         <div style="display: flex; gap: 8px; align-items: center;">
             <div class="vol-control module">
                 <span id="volDisplay">4/10</span>
-                <button class="vol-btn" id="volDown">−</button>
-                <button class="vol-btn" id="volUp">+</button>
+                <button class="vol-btn" id="volDown"><i class="fas fa-volume-down"></i></button>
+                <button class="vol-btn" id="volUp"><i class="fas fa-volume-up"></i></button>
             </div>
-            <button class="repeat-btn" id="repeatBtn" title="Mode repetició: desactivat">O</button>
+            <button class="repeat-btn" id="repeatBtn" title="Mode repetició: desactivat"><i class="fas fa-sync-alt"></i></button>
         </div>
 
         <!-- rellotge digital hh:mm:ss -->
@@ -380,13 +381,13 @@
 
         <!-- temporitzador: botó que desplega opcions -->
         <div class="timer-menu module">
-            <button class="timer-btn" id="timerMenuBtn">⏱️ 0:00</button>
+            <button class="timer-btn" id="timerMenuBtn"><i class="fas fa-clock"></i> 0:00</button>
             <div class="dropdown-content" id="timerDropdown">
-                <button data-minutes="0.1667">10 segons</button>
-                <button data-minutes="5">5 minuts</button>
-                <button data-minutes="30">30 minuts</button>
-                <button data-minutes="60">1 hora</button>
-                <button class="cancel-timer" id="cancelTimerBtn">✖ Cancel·lar</button>
+                <button data-minutes="0.1667"><i class="fas fa-hourglass-start"></i> 10 segons</button>
+                <button data-minutes="5"><i class="fas fa-hourglass-half"></i> 5 minuts</button>
+                <button data-minutes="30"><i class="fas fa-hourglass-half"></i> 30 minuts</button>
+                <button data-minutes="60"><i class="fas fa-hourglass-end"></i> 1 hora</button>
+                <button class="cancel-timer" id="cancelTimerBtn"><i class="fas fa-times"></i> Cancel·lar</button>
                 <div class="timer-countdown" id="countdownDisplay">00:00</div>
             </div>
         </div>
@@ -402,7 +403,7 @@
         let audio = new Audio();
         audio.volume = 0.4;
         let isPlaying = false;
-        let repeatMode = false; // false = passar a següent, true = repetir mateixa emissora
+        let repeatMode = false;
 
         const stationSelect = document.getElementById('stationSelect');
         const stationLogoPreview = document.getElementById('stationLogoPreview');
@@ -427,33 +428,25 @@
         let sleepTimeout = null;
         let sleepEndTime = null;
 
-        // ===== FUNCIÓ CRÍTICA: Netejar URL d'imatge =====
         function cleanImageUrl(url) {
             if (!url) return null;
-            // Pas 1: Eliminar els backslash abans de les barres
             let cleaned = url.replace(/\\\//g, '/');
-            // Pas 2: Assegurar que no hi ha dobles barres http:/
             cleaned = cleaned.replace(/:\//g, '://');
-            // Pas 3: Eliminar qualsevol backslash solt que quedi
             cleaned = cleaned.replace(/\\/g, '');
             return cleaned;
         }
 
-        // ===== FUNCIÓ PER ACTUALITZAR LA IMATGE =====
         function updateTrackImage(trackImageUrl, stationLogoUrl) {
             if (trackImageUrl && trackImageUrl !== '') {
                 const cleanedUrl = cleanImageUrl(trackImageUrl);
                 console.log('Intentant carregar imatge track:', cleanedUrl);
 
-                // Crear un objecte Image per provar si la imatge es carrega
                 const img = new Image();
                 img.onload = function() {
-                    // Si la imatge es carrega bé, la fem servir
                     trackImage.src = cleanedUrl;
                     console.log('✅ Imatge de track carregada correctament');
                 };
                 img.onerror = function() {
-                    // Si falla, fem servir el logo de l'emissora
                     console.log('❌ Error carregant imatge track, fem servir logo emissora');
                     if (stationLogoUrl && stationLogoUrl !== '') {
                         trackImage.src = stationLogoUrl;
@@ -463,7 +456,6 @@
                 };
                 img.src = cleanedUrl;
             } else {
-                // No hi ha imatge del track, fem servir el logo de l'emissora
                 console.log('No hi ha imatge track, fem servir logo emissora');
                 if (stationLogoUrl && stationLogoUrl !== '') {
                     trackImage.src = stationLogoUrl;
@@ -503,7 +495,7 @@
             if (sleepTimerInterval) { clearInterval(sleepTimerInterval); sleepTimerInterval = null; }
             sleepEndTime = null;
             countdownDisplay.innerText = '00:00';
-            timerMenuBtn.innerText = '⏱️ 0:00';
+            timerMenuBtn.innerHTML = '<i class="fas fa-clock"></i> 0:00';
         }
 
         function startSleepTimer(minutes) {
@@ -518,12 +510,12 @@
                 const mins = Math.floor(totalSec / 60);
                 const secs = totalSec % 60;
                 countdownDisplay.innerText = `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
-                timerMenuBtn.innerText = `⏱️ ${mins}:${String(secs).padStart(2,'0')}`;
+                timerMenuBtn.innerHTML = `<i class="fas fa-clock"></i> ${mins}:${String(secs).padStart(2,'0')}`;
                 if (left <= 0) {
                     audio.pause();
                     setLedState('stopped','Timer off');
                     isPlaying = false;
-                    playPauseBtn.innerText = '▶';
+                    playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
                     stopSleepTimer();
                 }
             }, 200);
@@ -531,7 +523,7 @@
                 audio.pause();
                 setLedState('stopped','Timer off');
                 isPlaying = false;
-                playPauseBtn.innerText = '▶';
+                playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
                 stopSleepTimer();
             }, ms);
         }
@@ -546,12 +538,9 @@
                     const artist = first.track_artist || '?';
                     const title = first.track_title || '?';
                     trackArtistTitle.innerText = `${artist} - ${title}`;
-
-                    // Actualitzar la imatge (track_image o fallback a logo emissora)
                     updateTrackImage(first.track_image, stationLogo);
                 } else {
                     trackArtistTitle.innerText = stations[currentIndex]?.name || 'Sense dades';
-                    // No hi ha dades de playlist, fem servir logo emissora
                     if (stationLogo) {
                         trackImage.src = stationLogo;
                     }
@@ -559,7 +548,6 @@
             } catch (e) {
                 console.warn('Error carregant playlist:', e);
                 trackArtistTitle.innerText = stations[currentIndex]?.name || 'Error playlist';
-                // Error carregant playlist, fem servir logo emissora
                 if (stationLogo) {
                     trackImage.src = stationLogo;
                 }
@@ -569,47 +557,38 @@
         function loadStation(index) {
             if (!stations.length) return;
 
-            // Guardar l'estat de reproducció abans de canviar
             const wasPlaying = isPlaying;
 
             currentIndex = Math.min(index, stations.length-1);
             const st = stations[currentIndex];
             stationSelect.selectedIndex = currentIndex;
 
-            // Actualitzar logo de l'emissora (el del selector)
             if (st.logo) {
                 stationLogoPreview.src = st.logo;
             }
 
-            // Aturar reproducció actual
             audio.pause();
             audio.src = '';
 
-            // Actualitzar estat visual a "Aturat" temporalment
             setLedState('stopped', 'Aturat');
-            playPauseBtn.innerText = '▶';
+            playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
 
-            // Mostrar informació bàsica de l'emissora mentre carrega
             trackArtistTitle.innerText = st.name || 'Emissora';
 
-            // Mostrar logo de l'emissora per defecte
             if (st.logo) {
                 trackImage.src = st.logo;
             } else {
                 trackImage.src = 'https://via.placeholder.com/40x40/1a2a1a/88ff88?text=📻';
             }
 
-            // Configurar nova font
             if (st.url) {
                 audio.src = st.url;
                 audio.load();
 
-                // Carregar playlist si n'hi ha
                 if (st.playlist) {
                     fetchPlaylistInfo(st.playlist, st.logo);
                 }
 
-                // Si estava reproduint, començar a reproduir automàticament
                 if (wasPlaying) {
                     console.log('Reproduint automàticament després de carregar emissora');
                     audio.play().catch(e => {
@@ -617,7 +596,6 @@
                         setLedState('stopped','Error play');
                     });
                 } else {
-                    // Si no estava reproduint, mantenir en pausa
                     setLedState('stopped', 'Aturat');
                 }
             } else {
@@ -625,33 +603,26 @@
             }
         }
 
-        // Funció per gestionar el final de l'àudio
         function handleAudioEnded() {
-            // Guardar l'estat actual abans que es perdi
             const wasPlaying = isPlaying;
 
             if (repeatMode) {
-                // Mode repetició: tornar a carregar la mateixa emissora
                 console.log('Mode repetició actiu - repetint emissora actual');
-                // Forçar isPlaying temporalment perquè loadStation reprodueixi
                 isPlaying = true;
                 loadStation(currentIndex);
             } else {
-                // Mode normal: passar a la següent emissora
                 console.log('Passant a la següent emissora automàticament');
                 let newIdx = currentIndex + 1;
                 if (newIdx >= stations.length) newIdx = 0;
-                // Forçar isPlaying temporalment perquè loadStation reprodueixi
                 isPlaying = true;
                 loadStation(newIdx);
             }
         }
 
-        // Event listeners per l'audio
         audio.addEventListener('playing', () => {
             setLedState('playing','Sonant');
             isPlaying = true;
-            playPauseBtn.innerText = '⏸';
+            playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
         });
 
         audio.addEventListener('waiting', () => {
@@ -661,15 +632,13 @@
         audio.addEventListener('pause', () => {
             setLedState('stopped','Aturat');
             isPlaying = false;
-            playPauseBtn.innerText = '▶';
+            playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
         });
 
         audio.addEventListener('ended', () => {
             console.log('Àudio finalitzat');
             setLedState('stopped','Aturat');
-            playPauseBtn.innerText = '▶';
-            // No posem isPlaying a false aquí perquè volem que continuï reproduint
-            // Gestionar el final de l'àudio
+            playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
             handleAudioEnded();
         });
 
@@ -677,10 +646,9 @@
             console.warn('Error d\'àudio:', e);
             setLedState('stopped','Error');
             isPlaying = false;
-            playPauseBtn.innerText = '▶';
+            playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
         });
 
-        // Botó play/pausa
         playPauseBtn.addEventListener('click', () => {
             if (!stations.length || !stations[currentIndex]?.url) return;
 
@@ -694,7 +662,6 @@
             }
         });
 
-        // Carregar estacions
         async function loadStations() {
             try {
                 const resp = await fetch(stationsUrl);
@@ -737,7 +704,6 @@
             }
         }
 
-        // Botons anterior / següent
         prevBtn.addEventListener('click', () => {
             if (stations.length === 0) return;
             let newIdx = currentIndex - 1;
@@ -752,7 +718,6 @@
             loadStation(newIdx);
         });
 
-        // Botó de repetició
         repeatBtn.addEventListener('click', () => {
             repeatMode = !repeatMode;
             if (repeatMode) {
@@ -764,12 +729,10 @@
             }
         });
 
-        // Volum
         volUp.addEventListener('click', () => setVolume(audio.volume + 0.1));
         volDown.addEventListener('click', () => setVolume(audio.volume - 0.1));
         setVolume(0.4);
 
-        // Temporitzador desplegable
         timerMenuBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             timerDropdown.classList.toggle('show');
