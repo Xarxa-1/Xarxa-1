@@ -323,4 +323,10 @@ https://rtatv.akamaized.net/Content/HLS/Live/channel(RTA3)/variant.m3u8
 #EXTINF:-1 ,Redbull TV
 https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master_3360.m3u8
 
+#EXTINF:-1 tvg-logo="https://images.seeklogo.com/logo-png/61/1/la-liga-logo-png_seeklogo-614181.png" ,SKY SPORTS LA LIGA
+http://190.14.10.19:16000/play/a09u/index.m3u8
+#EXTINF:-1 tvg-logo="https://images.seeklogo.com/logo-png/61/1/la-liga-logo-png_seeklogo-614181.png" ,SKY SPORTS LA LIGA
+http://45.228.234.30:16000/play/a03h/index.m3u8
+#EXTINF:-1 tvg-logo="https://images.seeklogo.com/logo-png/61/1/la-liga-logo-png_seeklogo-614181.png" ,SKY SPORTS LA LIGA
+http://45.5.119.43:4000/play/a05r/index.m3u8
 
