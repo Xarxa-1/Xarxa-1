@@ -25,7 +25,7 @@
     }
 
     .hifi-rack {
-        max-width: 720px;  /* CANVIAT: Ara màxim 720px */
+        max-width: 720px;
         width: 100%;
         background: #1c2a1c;
         background: linear-gradient(145deg, #1e2b1e 0%, #0f180f 100%);
@@ -104,33 +104,49 @@
         display: flex;
         align-items: center;
         gap: 8px;
-        min-width: 180px;  /* CANVIAT: Reduït */
-        max-width: 240px;  /* CANVIAT: Reduït */
+        min-width: 180px;
+        max-width: 240px;
         flex: 1 1 auto;
     }
 
     .station-selector select {
-        background: #202d20;
-        color: #cdffcd;
-        border: 1px solid #4caf4c;
+        background: #1a2a1a;        /* CANVIAT: Verd més fosc */
+        color: #d0ffd0;              /* CANVIAT: Text més verdós */
+        border: 2px solid #3d8a3d;   /* CANVIAT: Borde més verd */
         border-radius: 30px;
         padding: 8px 12px;
         font-weight: 600;
         font-size: 0.9rem;
         outline: none;
-        box-shadow: inset 0 2px 8px black;
+        box-shadow: inset 0 2px 8px black, 0 0 10px #33aa33;  /* CANVIAT: Afegit glow verd */
         width: 100%;
         cursor: pointer;
     }
 
+    .station-selector select:hover {
+        background: #1f3a1f;         /* NOU: Més clar al fer hover */
+        border-color: #5fb05f;        /* NOU: Borde més brillant */
+    }
+
+    .station-selector select:focus {
+        background: #1f3a1f;          /* NOU: Manté verd fosc al focus */
+        border-color: #7aff7a;         /* NOU: Borde molt brillant */
+        box-shadow: inset 0 2px 8px black, 0 0 15px #55ff55;  /* NOU: Més glow */
+    }
+
     .station-selector option {
-        background: #1f2e1f;
-        color: #ddffdd;
+        background: #1a2a1a;          /* CANVIAT: Fons verd fosc */
+        color: #ddffdd;                /* CANVIAT: Text verd clar */
+        padding: 8px;
+    }
+
+    .station-selector option:hover {
+        background: #2d4a2d;           /* NOU: Efecte hover per opcions (només Firefox) */
     }
 
     .station-logo {
-        width: 80px;    /* CANVIAT: Reduït */
-        height: 80px;   /* CANVIAT: Reduït */
+        width: 80px;
+        height: 80px;
         border-radius: 10%;
         object-fit: cover;
         border: 2px solid #77dd77;
@@ -170,42 +186,52 @@
         box-shadow: inset 0 -3px 3px #0f130f, inset 0 3px 5px #6f8a6f, 0 5px 0 #0e170e;
         padding: 8px 12px;
         display: flex;
-        align-items: center;
+        align-items: flex-start;    /* CANVIAT: Alinea a dalt */
         gap: 8px;
-        max-width: 300px;  /* CANVIAT: Reduït */
-        min-width: 200px;  /* CANVIAT: Reduït */
+        max-width: 300px;
+        min-width: 200px;
         flex: 1 1 auto;
+        min-height: 70px;
     }
 
     .track-img {
-        width: 70px;    /* CANVIAT: Reduït */
-        height: 70px;   /* CANVIAT: Reduït */
+        width: 70px;
+        height: 70px;
         border-radius: 8px;
         background: #1e331e;
         border: 2px solid #9aff9a;
         object-fit: cover;
+        flex-shrink: 0;             /* NOU: Evita que la imatge es redueixi */
     }
 
     .track-text {
-        font-size: 0.85rem;  /* CANVIAT: Reduït */
+        font-size: 0.85rem;
         font-weight: 600;
         color: #ccffcc;
         text-shadow: 0 0 5px #11ee11;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        /* CANVIAT: Permet múltiples línies */
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+        word-wrap: break-word;
+        word-break: break-word;
+        line-height: 1.4;
+        max-height: 5.6em;          /* Limita a 4 línies aproximadament */
+        display: -webkit-box;
+        -webkit-line-clamp: 4;       /* Mostra màxim 4 línies */
+        -webkit-box-orient: vertical;
     }
 
     .digital-clock {
         background: #142014;
         border-radius: 30px;
-        padding: 8px 12px;    /* CANVIAT: Reduït */
+        padding: 8px 12px;
         border: 2px solid #77dd77;
         box-shadow: inset 0 0 12px black, 0 0 18px #44cc44;
         font-family: 'Courier New', monospace;
-        font-size: 1.3rem;    /* CANVIAT: Reduït de 1.7rem */
+        font-size: 1.3rem;
         font-weight: 800;
-        letter-spacing: 3px;   /* CANVIAT: Reduït */
+        letter-spacing: 3px;
         color: #b4ffb4;
         line-height: 1;
     }
@@ -215,32 +241,32 @@
         align-items: center;
         background: #1d2d1d;
         border-radius: 40px;
-        padding: 2px 2px 2px 12px;  /* CANVIAT: Reduït */
+        padding: 2px 2px 2px 12px;
         border: 2px solid #5b965b;
         gap: 2px;
     }
 
     .vol-control span {
-        font-size: 1rem;      /* CANVIAT: Reduït */
+        font-size: 1rem;
         font-weight: 800;
-        min-width: 35px;      /* CANVIAT: Reduït */
+        min-width: 35px;
         text-align: center;
         color: #9eff9e;
     }
 
     .vol-btn {
-        padding: 6px 12px;    /* CANVIAT: Reduït */
-        font-size: 1.2rem;    /* CANVIAT: Reduït */
+        padding: 6px 12px;
+        font-size: 1.2rem;
         background: #2b3c2b;
         border-bottom: 4px solid #102210;
     }
 
     .repeat-btn {
-        padding: 6px 12px;    /* CANVIAT: Reduït */
-        font-size: 1rem;      /* CANVIAT: Reduït */
+        padding: 6px 12px;
+        font-size: 1rem;
         background: #2b3c2b;
         border-bottom: 4px solid #102210;
-        min-width: 40px;      /* CANVIAT: Reduït */
+        min-width: 40px;
         border: none;
         border-radius: 40px;
         font-weight: bold;
@@ -274,53 +300,53 @@
         position: relative;
         display: inline-block;
     }
-
+    
     .timer-btn {
         background: #2f482f;
-        padding: 8px 14px;    /* CANVIAT: Reduït */
+        padding: 8px 14px;
     }
-
+    
     .dropdown-content {
         display: none;
         position: absolute;
-        bottom: 45px;         /* CANVIAT: Ajustat */
+        bottom: 45px;
         left: 0;
         background: #203020;
         border: 3px solid #7fb27f;
-        border-radius: 24px;   /* CANVIAT: Reduït */
-        padding: 12px;         /* CANVIAT: Reduït */
+        border-radius: 24px;
+        padding: 12px;
         box-shadow: 0 0 30px #22ff22;
         z-index: 20;
-        min-width: 180px;      /* CANVIAT: Reduït */
+        min-width: 180px;
         flex-direction: column;
-        gap: 10px;            /* CANVIAT: Reduït */
+        gap: 10px;
     }
-
+    
     .dropdown-content.show {
         display: flex;
     }
-
+    
     .dropdown-content button {
         background: #2b452b;
         width: 100%;
         justify-content: center;
-        font-size: 0.9rem;    /* CANVIAT: Reduït */
+        font-size: 0.9rem;
         border-bottom: 4px solid #1b2f1b;
-        padding: 8px 12px;    /* CANVIAT: Reduït */
+        padding: 8px 12px;
     }
-
+    
     .cancel-timer {
         background: #5d3a3a;
         border-bottom-color: #3d1f1f;
         color: #ffc0c0;
     }
-
+    
     .timer-countdown {
-        font-size: 1.4rem;    /* CANVIAT: Reduït de 1.7rem */
+        font-size: 1.4rem;
         text-align: center;
         background: #112211;
-        border-radius: 30px;   /* CANVIAT: Reduït */
-        padding: 6px 8px;     /* CANVIAT: Reduït */
+        border-radius: 30px;
+        padding: 6px 8px;
         border: 2px solid #22cc22;
     }
 
@@ -329,27 +355,27 @@
         .hifi-rack {
             padding: 15px 10px;
         }
-
+        
         .stream-deck {
             gap: 8px;
         }
-
+        
         .station-logo, .track-img {
             width: 60px;
             height: 60px;
         }
-
+        
         .digital-clock {
             font-size: 1.1rem;
             letter-spacing: 2px;
             padding: 6px 10px;
         }
-
+        
         .vol-control span {
             min-width: 30px;
             font-size: 0.9rem;
         }
-
+        
         .vol-btn {
             padding: 5px 10px;
             font-size: 1rem;
