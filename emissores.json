@@ -29,7 +29,7 @@
   { "name": "Radio5 rne", "playlist": "https://api.instant.audio/data/playlist/38/radio-5", "url": "https://dispatcher.rndfnk.com/crtve/rne5/main/mp3/high?aggregator=tunein", "logo": "https://static.mytuner.mobi/media/radios-150px/745/radio-5.9b6b99b4.png" },
   { "name": "COPE", "playlist": "https://api.instant.audio/data/playlist/38/cope", "url": "https://wecast14-h-cloud.flumotion.com/copesedes/tarragona.mp3", "logo": "https://static.mytuner.mobi/media/tvos_radios/889/cadena-cope-tarragona.a08d276e.png" },
   { "name": "Radio Marca", "playlist": "https://api.instant.audio/data/playlist/38/marca", "url": "https://radiomarcabcnmedia.dns-lcinternet.com:9000/stream", "logo": "https://static.mytuner.mobi/media/radios-150px/076/radio-marca.60356e7b.png" },
-  { "name": "Fox News", "url": "https://live.amperwave.net/direct/foxnewsradio-foxnewsradioaac-imc?source=worldradiomap", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Fox_News_Channel_logo.svg/1024px-Fox_News_Channel_logo.svg.png" },
+  { "name": "Fox News", "url": "https://live.amperwave.net/direct/foxnewsradio-foxnewsradioaac-imc?source=worldradiomap", "logo": "https://pbs.twimg.com/profile_images/1988465685639380992/PNFNFL7O_200x200.jpg" },
   { "name": "Chillout Antenne", "url": "http://stream.chillout.de/chillout/stream/mp3?aw_0_1st.playerid=tunein.com", "logo": "https://www.radio.es/300/antennechillout.png" },
   { "name": "Costa del Mar", "url": "https://radio4.cdm-radio.com:18020/stream-mp3-Chill", "logo": "https://www.radio.es/300/costadelmar.png" },
   { "name": "Vaughan", "url": "https://cdn-peer021.streaming-pro.com:8058/vaughanradio.mp3", "logo": "https://www.radio.es/300/vaughan-radio.png" },
@@ -47,6 +47,7 @@
   { "name": "La1", "playlist": "", "url": "https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr_a_39.m3u8", "logo": "https://i.imgur.com/1jDS9UC.png" },
   { "name": "BBC World Service", "url": "http://stream.live.vc.bbcmedia.co.uk/bbc_world_service", "logo": "https://asianlite.ae/wp-content/uploads/2018/09/JtNS_gjE_400x400.jpg" }
 ]
+
 
 
 
