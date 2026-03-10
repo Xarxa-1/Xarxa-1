@@ -402,6 +402,52 @@ http://45.228.234.30:16000/play/a03h/index.m3u8
 http://45.5.119.43:4000/play/a05r/index.m3u8
 #EXTINF:-1 tvg-logo="https://images.seeklogo.com/logo-png/61/1/la-liga-logo-png_seeklogo-614181.png" ,ESPN VIVO
 http://181.205.130.194:4000/play/a08n
+#EXTINF:-1 group-title="© ESPN" language="Español" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/ESPN%27s_Old_Logo.png/220px-ESPN%27s_Old_Logo.png",ESPN
+http://181.205.130.194:4000/play/a08n
+#EXTINF:-1 group-title="© ESPN" language="Español" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/ESPN%27s_Old_Logo.png/220px-ESPN%27s_Old_Logo.png",ESPN 1
+http://181.205.130.194:4000/play/a07j
+#EXTINF:-1 group-title="© ESPN" language="Español" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/ESPN%27s_Old_Logo.png/220px-ESPN%27s_Old_Logo.png",ESPN 2
+http://181.205.130.194:4000/play/a07i
+#EXTINF:-1 group-title="© ESPN" language="Español" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/ESPN%27s_Old_Logo.png/220px-ESPN%27s_Old_Logo.png",ESPN 6
+http://181.205.130.194:4000/play/a07t
+#EXTINF:-1 group-title="© ESPN" language="Español" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/ESPN%27s_Old_Logo.png/220px-ESPN%27s_Old_Logo.png",ESPN 7 mx
+http://181.205.130.194:4000/play/a07s
+#EXTINF:-1,DISNEY CHANNEL
+http://181.205.130.194:4000/play/a07s
+#EXTINF:-1,WARNER BROS
+http://181.205.130.194:4000/play/a07f
+#EXTINF:-1,ESPN
+http://181.205.130.194:4000/play/a07j
+#EXTINF:-1,ESPN 2
+http://181.205.130.194:4000/play/a07i
+#EXTINF:-1,ESPN 6
+http://181.205.130.194:4000/play/a07t
+#EXTINF:-1,ESPN 7
+http://181.205.130.194:4000/play/a07s
+#EXTINF:-1,A&E
+http://181.205.130.194:4000/play/a07n
+#EXTINF:-1,ESTRELLAS
+http://181.205.130.194:4000/play/a07r
+#EXTINF:-1,RCN NOVELAS
+http://181.205.130.194:4000/play/a07v
+#EXTINF:-1,CINECANAL
+http://181.205.130.194:4000/play/a06e
+#EXTINF:-1,UNIVERSAL
+http://181.205.130.194:4000/play/a06f
+#EXTINF:-1,STAR CHANNEL
+http://181.205.130.194:4000/play/a06k
+#EXTINF:-1,TCM
+http://181.205.130.194:4000/play/a06l
+#EXTINF:-1,TNT
+http://181.205.130.194:4000/play/a06n
+#EXTINF:-1,CLATO SPORTS
+http://181.205.130.194:4000/play/a06o
+#EXTINF:-1,TVE
+http://181.205.130.194:4000/play/a06s
+#EXTINF:-1,USA
+http://181.205.130.194:4000/play/a06v
+
+
 
 
 
