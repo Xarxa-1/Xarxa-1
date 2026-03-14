@@ -95,63 +95,122 @@
         color: #ffffff;
     }
 
-    .station-selector {
-        background: #172317;
-        border-radius: 60px;
-        padding: 4px 8px 4px 4px;
-        border: 2px solid #6f9f6f;
-        box-shadow: inset 0 0 15px #141414, 0 0 15px #33ff33;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        min-width: 180px;
-        max-width: 240px;
-        flex: 1 1 auto;
+    /* Selector personalitzat d'emissores */
+    .custom-station-selector {
+        position: relative;
+        width: 100%;
+        z-index: 100; /* Augmentem z-index perquè el dropdown estigui per sobre */
     }
 
-    .station-selector select {
-        background: #1a2a1a;        /* CANVIAT: Verd més fosc */
-        color: #d0ffd0;              /* CANVIAT: Text més verdós */
-        border: 2px solid #3d8a3d;   /* CANVIAT: Borde més verd */
+    .station-selector-trigger {
+        background: #1a2a1a;
+        color: #d0ffd0;
+        border: 2px solid #3d8a3d;
         border-radius: 30px;
-        padding: 8px 12px;
+        padding: 6px 12px;
         font-weight: 600;
         font-size: 0.9rem;
         outline: none;
-        box-shadow: inset 0 2px 8px black, 0 0 10px #33aa33;  /* CANVIAT: Afegit glow verd */
+        box-shadow: inset 0 2px 8px black, 0 0 10px #33aa33;
         width: 100%;
         cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-height: 40px;
     }
 
-    .station-selector select:hover {
-        background: #1f3a1f;         /* NOU: Més clar al fer hover */
-        border-color: #5fb05f;        /* NOU: Borde més brillant */
+    .station-selector-trigger:hover {
+        background: #1f3a1f;
+        border-color: #5fb05f;
     }
 
-    .station-selector select:focus {
-        background: #1f3a1f;          /* NOU: Manté verd fosc al focus */
-        border-color: #7aff7a;         /* NOU: Borde molt brillant */
-        box-shadow: inset 0 2px 8px black, 0 0 15px #55ff55;  /* NOU: Més glow */
+    .station-selector-trigger img {
+        width: 24px;
+        height: 24px;
+        border-radius: 4px;
+        object-fit: cover;
+        border: 1px solid #77dd77;
     }
 
-    .station-selector option {
-        background: #1a2a1a;          /* CANVIAT: Fons verd fosc */
-        color: #ddffdd;                /* CANVIAT: Text verd clar */
+    .station-dropdown {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #203020;
+        border: 3px solid #7fb27f;
+        border-radius: 24px;
         padding: 8px;
+        box-shadow: 0 0 30px #22ff22;
+        z-index: 200; /* Z-index molt alt per assegurar que estigui per sobre de tot */
+        max-height: 250px;
+        overflow-y: auto;
+        margin-top: 5px;
     }
 
-    .station-selector option:hover {
-        background: #2d4a2d;           /* NOU: Efecte hover per opcions (només Firefox) */
+    .station-dropdown.show {
+        display: block;
     }
 
-    .station-logo {
-        width: 80px;
-        height: 80px;
-        border-radius: 10%;
+    .station-option {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 10px;
+        cursor: pointer;
+        border-radius: 15px;
+        transition: background 0.2s;
+        border-bottom: 1px solid #3d5a3d;
+    }
+
+    .station-option:last-child {
+        border-bottom: none;
+    }
+
+    .station-option:hover {
+        background: #2d4a2d;
+    }
+
+    .station-option.selected {
+        background: #3d6a3d;
+        border: 1px solid #9aff9a;
+    }
+
+    .station-option img {
+        width: 30px;
+        height: 30px;
+        border-radius: 6px;
         object-fit: cover;
         border: 2px solid #77dd77;
-        box-shadow: 0 0 0 1px #1a3a1a, 0 0 15px #00d000;
+    }
+
+    .station-option-info {
+        flex: 1;
+    }
+
+    .station-option-name {
+        font-weight: bold;
+        color: #ccffcc;
+        font-size: 0.9rem;
+    }
+
+    /* Amaguem el select original */
+    #stationSelect {
+        display: none;
+    }
+
+    /* Logo de previsualització més petit */
+    .station-logo-preview {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        object-fit: cover;
+        border: 2px solid #77dd77;
+        box-shadow: 0 0 0 1px #1a3a1a, 0 0 10px #00d000;
         background: #112211;
+        flex-shrink: 0;
     }
 
     .status-led {
@@ -186,22 +245,23 @@
         box-shadow: inset 0 -3px 3px #0f130f, inset 0 3px 5px #6f8a6f, 0 5px 0 #0e170e;
         padding: 8px 12px;
         display: flex;
-        align-items: flex-start;    /* CANVIAT: Alinea a dalt */
+        align-items: flex-start;
         gap: 8px;
-        max-width: 300px;
+        max-width: 100%;
         min-width: 200px;
         flex: 1 1 auto;
         min-height: 70px;
+        width: 100%;
     }
 
     .track-img {
-        width: 70px;
-        height: 70px;
+        width: 60px;
+        height: 60px;
         border-radius: 8px;
         background: #1e331e;
         border: 2px solid #9aff9a;
         object-fit: cover;
-        flex-shrink: 0;             /* NOU: Evita que la imatge es redueixi */
+        flex-shrink: 0;
     }
 
     .track-text {
@@ -209,17 +269,17 @@
         font-weight: 600;
         color: #ccffcc;
         text-shadow: 0 0 5px #11ee11;
-        /* CANVIAT: Permet múltiples línies */
         white-space: normal;
-        overflow: visible;
-        text-overflow: clip;
+        overflow: hidden;
+        text-overflow: ellipsis;
         word-wrap: break-word;
         word-break: break-word;
         line-height: 1.4;
-        max-height: 5.6em;          /* Limita a 4 línies aproximadament */
+        max-height: 5.6em;
         display: -webkit-box;
-        -webkit-line-clamp: 4;       /* Mostra màxim 4 línies */
+        -webkit-line-clamp: 4;
         -webkit-box-orient: vertical;
+        flex: 1;
     }
 
     .digital-clock {
@@ -229,9 +289,9 @@
         border: 2px solid #77dd77;
         box-shadow: inset 0 0 12px black, 0 0 18px #44cc44;
         font-family: 'Courier New', monospace;
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         font-weight: 800;
-        letter-spacing: 3px;
+        letter-spacing: 2px;
         color: #b4ffb4;
         line-height: 1;
     }
@@ -247,7 +307,7 @@
     }
 
     .vol-control span {
-        font-size: 1rem;
+        font-size: 0.9rem;
         font-weight: 800;
         min-width: 35px;
         text-align: center;
@@ -255,15 +315,15 @@
     }
 
     .vol-btn {
-        padding: 6px 12px;
-        font-size: 1.2rem;
+        padding: 5px 10px;
+        font-size: 1.1rem;
         background: #2b3c2b;
         border-bottom: 4px solid #102210;
     }
 
     .repeat-btn {
         padding: 6px 12px;
-        font-size: 1rem;
+        font-size: 0.9rem;
         background: #2b3c2b;
         border-bottom: 4px solid #102210;
         min-width: 40px;
@@ -299,13 +359,15 @@
     .timer-menu {
         position: relative;
         display: inline-block;
+        z-index: 150; /* Z-index alt pel temporitzador també */
     }
-    
+
     .timer-btn {
         background: #2f482f;
-        padding: 8px 14px;
+        padding: 8px 12px;
+        font-size: 0.9rem;
     }
-    
+
     .dropdown-content {
         display: none;
         position: absolute;
@@ -314,71 +376,115 @@
         background: #203020;
         border: 3px solid #7fb27f;
         border-radius: 24px;
-        padding: 12px;
+        padding: 10px;
         box-shadow: 0 0 30px #22ff22;
-        z-index: 20;
-        min-width: 180px;
+        z-index: 250; /* Z-index molt alt pel dropdown del temporitzador */
+        min-width: 170px;
+        max-height: 280px;
+        overflow-y: auto;
         flex-direction: column;
-        gap: 10px;
+        gap: 8px;
     }
-    
+
     .dropdown-content.show {
         display: flex;
     }
-    
+
     .dropdown-content button {
         background: #2b452b;
         width: 100%;
         justify-content: center;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         border-bottom: 4px solid #1b2f1b;
-        padding: 8px 12px;
+        padding: 6px 10px;
+        flex-shrink: 0;
     }
-    
+
     .cancel-timer {
         background: #5d3a3a;
         border-bottom-color: #3d1f1f;
         color: #ffc0c0;
     }
-    
+
     .timer-countdown {
-        font-size: 1.4rem;
+        font-size: 1.2rem;
         text-align: center;
         background: #112211;
         border-radius: 30px;
         padding: 6px 8px;
         border: 2px solid #22cc22;
+        flex-shrink: 0;
+    }
+
+    .clock-timer-container {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    /* Scrollbar personalitzat */
+    .dropdown-content::-webkit-scrollbar,
+    .station-dropdown::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .dropdown-content::-webkit-scrollbar-track,
+    .station-dropdown::-webkit-scrollbar-track {
+        background: #1a2a1a;
+        border-radius: 10px;
+    }
+
+    .dropdown-content::-webkit-scrollbar-thumb,
+    .station-dropdown::-webkit-scrollbar-thumb {
+        background: #4a8a4a;
+        border-radius: 10px;
+        border: 1px solid #2a4a2a;
     }
 
     /* Media query per a pantalles molt petites */
     @media (max-width: 560px) {
         .hifi-rack {
-            padding: 15px 10px;
+            padding: 12px 8px;
         }
-        
+
         .stream-deck {
-            gap: 8px;
+            gap: 6px;
         }
-        
-        .station-logo, .track-img {
-            width: 60px;
-            height: 60px;
+
+        .station-logo-preview {
+            width: 35px;
+            height: 35px;
         }
-        
+
+        .track-img {
+            width: 50px;
+            height: 50px;
+        }
+
         .digital-clock {
-            font-size: 1.1rem;
-            letter-spacing: 2px;
-            padding: 6px 10px;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            padding: 5px 8px;
         }
-        
+
         .vol-control span {
             min-width: 30px;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
+        }
+
+        .vol-btn {
+            padding: 4px 8px;
+            font-size: 1rem;
         }
         
-        .vol-btn {
-            padding: 5px 10px;
-            font-size: 1rem;
+        .track-info {
+            min-width: 100%;
+        }
+        
+        button {
+            padding: 8px 12px;
+            font-size: 0.85rem;
         }
     }
 </style>
@@ -390,57 +496,72 @@
     <div class="stream-deck" id="streamDeck">
 
         <!-- selector d'emissores amb logo + botons navegació + botó PLAY -->
-        <div class="module" style="padding: 4px;">
-            <img id="stationLogoPreview" class="station-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Logotip_de_RAC_1.svg/1200px-Logotip_de_RAC_1.svg.png" alt="logo">
-            <div style="display: flex; flex-direction: column; gap: 4px;">
-                <div class="station-selector">
-                    <select id="stationSelect" style="width:100%;"></select>
+        <div class="module" style="padding: 4px; position: relative; z-index: 100;">
+            <!-- Logo de previsualització més petit -->
+            <img id="stationLogoPreview" class="station-logo-preview" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Logotip_de_RAC_1.svg/1200px-Logotip_de_RAC_1.svg.png" alt="logo">
+            <div style="display: flex; flex-direction: column; gap: 4px; width: 100%;">
+                <!-- Selector personalitzat d'emissores - ara amb z-index alt -->
+                <div class="custom-station-selector">
+                    <div class="station-selector-trigger" id="stationSelectorTrigger">
+                        <img id="selectedStationLogo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Logotip_de_RAC_1.svg/1200px-Logotip_de_RAC_1.svg.png" alt="logo">
+                        <span id="selectedStationName">RAC1</span>
+                    </div>
+                    <select id="stationSelect" style="display: none;"></select>
+                    <div class="station-dropdown" id="stationDropdown"></div>
                 </div>
-                <div style="display: flex; gap: 5px;">
+                <div style="display: flex; gap: 5px; flex-wrap: wrap;">
                     <!-- Botons amb icones de Font Awesome -->
                     <button id="prevStationBtn" title="Emissora anterior"><i class="fas fa-step-backward"></i></button>
                     <button id="playPauseBtn" title="Play / Pausa"><i class="fas fa-play"></i></button>
                     <button id="nextStationBtn" title="Emissora següent"><i class="fas fa-step-forward"></i></button>
-
-
+                    <button class="repeat-btn" id="repeatBtn" title="Mode repetició: desactivat"><i class="fas fa-sync-alt"></i></button>
                 </div>
             </div>
         </div>
-                    <!-- indicador led estat -->
-                    <div class="status-led module" id="statusIndicator">
-                        <span id="ledText" style="min-width: 70px;">Aturat</span>
-                        <span id="ledDot" class="led-dot stopped"></span>
-                    </div>
+
         <!-- volum amb dos botons + indicador + botó de repetició -->
-        <div style="display: flex; gap: 8px; align-items: center;">
+        <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
             <div class="vol-control module">
                 <span id="volDisplay">4/10</span>
                 <button class="vol-btn" id="volDown">-</button>
                 <button class="vol-btn" id="volUp">+</button>
             </div>
-            <button class="repeat-btn" id="repeatBtn" title="Mode repetició: desactivat"><i class="fas fa-sync-alt"></i></button>
+            <!-- indicador led estat -->
+            <div class="status-led module" id="statusIndicator">
+                <span id="ledText" style="min-width: 60px;">Aturat</span>
+                <span id="ledDot" class="led-dot stopped"></span>
+            </div>
         </div>
-
-        <!-- rellotge digital hh:mm:ss -->
-        <div class="digital-clock module" id="liveClock">00:00:00</div>
+        
+        <!-- contenidor per rellotge i temporitzador -->
+        <div class="clock-timer-container">
+            <!-- rellotge digital hh:mm:ss -->
+            <div class="digital-clock module" id="liveClock">00:00:00</div>
+            
+            <!-- temporitzador: botó que desplega opcions amb scroll -->
+            <div class="timer-menu module">
+                <button class="timer-btn" id="timerMenuBtn"><i class="fas fa-clock"></i> 0:00</button>
+                <div class="dropdown-content" id="timerDropdown">
+                    <button data-minutes="0.1667"><i class="fas fa-hourglass-start"></i> 10 segons</button>
+                    <button data-minutes="1"><i class="fas fa-hourglass-start"></i> 1 minut</button>
+                    <button data-minutes="5"><i class="fas fa-hourglass-half"></i> 5 minuts</button>
+                    <button data-minutes="10"><i class="fas fa-hourglass-half"></i> 10 minuts</button>
+                    <button data-minutes="15"><i class="fas fa-hourglass-half"></i> 15 minuts</button>
+                    <button data-minutes="30"><i class="fas fa-hourglass-half"></i> 30 minuts</button>
+                    <button data-minutes="45"><i class="fas fa-hourglass-half"></i> 45 minuts</button>
+                    <button data-minutes="60"><i class="fas fa-hourglass-end"></i> 1 hora</button>
+                    <button data-minutes="90"><i class="fas fa-hourglass-end"></i> 1.5 hores</button>
+                    <button data-minutes="120"><i class="fas fa-hourglass-end"></i> 2 hores</button>
+                    <button class="cancel-timer" id="cancelTimerBtn"><i class="fas fa-times"></i> Cancel·lar</button>
+                    <div class="timer-countdown" id="countdownDisplay">00:00</div>
+                </div>
+            </div>
+        </div>
 
         <!-- informació track: imatge + artista - títol -->
         <div class="track-info module" id="trackInfoModule">
             <img id="trackImage" class="track-img" src="https://via.placeholder.com/40x40/1a2a1a/88ff88?text=🎵" alt="cover">
             <div class="track-text" id="trackArtistTitle">Carregant...</div>
-        </div>
-
-        <!-- temporitzador: botó que desplega opcions -->
-        <div class="timer-menu module">
-            <button class="timer-btn" id="timerMenuBtn"><i class="fas fa-clock"></i> 0:00</button>
-            <div class="dropdown-content" id="timerDropdown">
-                <button data-minutes="0.1667"><i class="fas fa-hourglass-start"></i> 10 segons</button>
-                <button data-minutes="5"><i class="fas fa-hourglass-half"></i> 5 minuts</button>
-                <button data-minutes="30"><i class="fas fa-hourglass-half"></i> 30 minuts</button>
-                <button data-minutes="60"><i class="fas fa-hourglass-end"></i> 1 hora</button>
-                <button class="cancel-timer" id="cancelTimerBtn"><i class="fas fa-times"></i> Cancel·lar</button>
-                <div class="timer-countdown" id="countdownDisplay">00:00</div>
-            </div>
         </div>
 
     </div>
@@ -456,7 +577,13 @@
         let isPlaying = false;
         let repeatMode = false;
 
+        // Nous elements pel selector personalitzat
         const stationSelect = document.getElementById('stationSelect');
+        const stationSelectorTrigger = document.getElementById('stationSelectorTrigger');
+        const stationDropdown = document.getElementById('stationDropdown');
+        const selectedStationLogo = document.getElementById('selectedStationLogo');
+        const selectedStationName = document.getElementById('selectedStationName');
+        
         const stationLogoPreview = document.getElementById('stationLogoPreview');
         const prevBtn = document.getElementById('prevStationBtn');
         const nextBtn = document.getElementById('nextStationBtn');
@@ -605,6 +732,27 @@
             }
         }
 
+        // Funció per actualitzar el selector personalitzat
+        function updateCustomSelector(index) {
+            if (!stations.length || index < 0 || index >= stations.length) return;
+            
+            const station = stations[index];
+            selectedStationLogo.src = station.logo || 'https://via.placeholder.com/40x40/1a2a1a/88ff88?text=📻';
+            selectedStationName.textContent = station.name || 'Sense nom';
+            stationLogoPreview.src = station.logo || 'https://via.placeholder.com/40x40/1a2a1a/88ff88?text=📻';
+            
+            // Marcar l'opció seleccionada al dropdown
+            document.querySelectorAll('.station-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            const selectedOption = document.querySelector(`.station-option[data-index="${index}"]`);
+            if (selectedOption) {
+                selectedOption.classList.add('selected');
+                // Assegurar que l'opció seleccionada és visible
+                selectedOption.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+            }
+        }
+
         function loadStation(index) {
             if (!stations.length) return;
 
@@ -612,11 +760,9 @@
 
             currentIndex = Math.min(index, stations.length-1);
             const st = stations[currentIndex];
-            stationSelect.selectedIndex = currentIndex;
-
-            if (st.logo) {
-                stationLogoPreview.src = st.logo;
-            }
+            
+            // Actualitzar el selector personalitzat
+            updateCustomSelector(currentIndex);
 
             audio.pause();
             audio.src = '';
@@ -713,6 +859,43 @@
             }
         });
 
+        // Funció per generar el dropdown d'emissores
+        function renderStationDropdown() {
+            if (!stations.length) return;
+            
+            stationDropdown.innerHTML = '';
+            stations.forEach((station, index) => {
+                const option = document.createElement('div');
+                option.className = `station-option ${index === currentIndex ? 'selected' : ''}`;
+                option.setAttribute('data-index', index);
+                
+                const img = document.createElement('img');
+                img.src = station.logo || 'https://via.placeholder.com/40x40/1a2a1a/88ff88?text=📻';
+                img.alt = station.name || 'Emissora';
+                img.onerror = function() {
+                    this.src = 'https://via.placeholder.com/40x40/1a2a1a/88ff88?text=📻';
+                };
+                
+                const infoDiv = document.createElement('div');
+                infoDiv.className = 'station-option-info';
+                
+                const nameDiv = document.createElement('div');
+                nameDiv.className = 'station-option-name';
+                nameDiv.textContent = station.name || 'Sense nom';
+                
+                infoDiv.appendChild(nameDiv);
+                option.appendChild(img);
+                option.appendChild(infoDiv);
+                
+                option.addEventListener('click', () => {
+                    loadStation(index);
+                    stationDropdown.classList.remove('show');
+                });
+                
+                stationDropdown.appendChild(option);
+            });
+        }
+
         async function loadStations() {
             try {
                 const resp = await fetch(stationsUrl);
@@ -728,6 +911,7 @@
                 });
 
                 if (stations.length > 0) {
+                    renderStationDropdown();
                     stationSelect.selectedIndex = 0;
                     loadStation(0);
                 }
@@ -741,7 +925,10 @@
                 stations = [
                     { "name": "RAC1", "playlist": "https://api.instant.audio/data/playlist/38/rac1", "url": "https://20103.live.streamtheworld.com/RAC_1.mp3", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Logotip_de_RAC_1.svg/1200px-Logotip_de_RAC_1.svg.png" },
                     { "name": "Flaixbac", "playlist": "https://api.instant.audio/data/playlist/38/flaixbac", "url": "https://stream.flaixbac.cat/icecast", "logo": "https://static.mytuner.mobi/media/radios-150px/274/flaixbac.f6d8cd83.jpg" },
-                    { "name": "Catalunya Ràdio", "url": "https://directes-radio-int.ccma.cat/live-content/catalunyaradio-hls/bitrate_1.m3u8", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Catalunya_R%C3%A0dio_%28logo%29.svg/1200px-Catalunya_R%C3%A0dio_%28logo%29.svg.png" }
+                    { "name": "Catalunya Ràdio", "url": "https://directes-radio-int.ccma.cat/live-content/catalunyaradio-hls/bitrate_1.m3u8", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Catalunya_R%C3%A0dio_%28logo%29.svg/1200px-Catalunya_R%C3%A0dio_%28logo%29.svg.png" },
+                    { "name": "RAC105", "url": "https://stream.rac105.cat", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Rac105.png/1200px-Rac105.png" },
+                    { "name": "Catalunya Informació", "url": "https://directes-radio-int.ccma.cat/live-content/catalunyainformacio-hls/bitrate_1.m3u8", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Catalunya_Informaci%C3%B3_logo.svg/1200px-Catalunya_Informaci%C3%B3_logo.svg.png" },
+                    { "name": "iCat", "url": "https://directes-radio-int.ccma.cat/live-content/icat-hls/bitrate_1.m3u8", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/ICat_logo.svg/1200px-ICat_logo.svg.png" }
                 ];
                 stationSelect.innerHTML = '';
                 stations.forEach((s, idx) => {
@@ -750,10 +937,23 @@
                     opt.textContent = s.name;
                     stationSelect.appendChild(opt);
                 });
+                renderStationDropdown();
                 stationSelect.selectedIndex = 0;
                 loadStation(0);
             }
         }
+
+        // Esdeveniments pel selector personalitzat
+        stationSelectorTrigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            stationDropdown.classList.toggle('show');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!stationSelectorTrigger.contains(e.target) && !stationDropdown.contains(e.target)) {
+                stationDropdown.classList.remove('show');
+            }
+        });
 
         prevBtn.addEventListener('click', () => {
             if (stations.length === 0) return;
