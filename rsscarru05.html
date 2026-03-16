@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="apple-touch-icon" sizes="180x180" href="https://stories.lavanguardia.com/xlv-apple-icon-180x180.png.pagespeed.ic.YwI-K2mNIG.webp" />
+      <link rel="apple-touch-icon" sizes="192x192" href="https://stories.lavanguardia.com/xlv-android-icon-192x192.png.pagespeed.ic._ODxVr2OkP.webp" />
+      <link rel="apple-touch-icon" sizes="32x32" href="https://stories.lavanguardia.com/xlv-favicon-32x32.png.pagespeed.ic.5937V8MMmI.webp" />
+      <link rel="apple-touch-icon" sizes="96x96" href="https://stories.lavanguardia.com/xlv-favicon-96x96.png.pagespeed.ic.bi49KItJKY.webp" />
+      <link rel="apple-touch-icon" sizes="16x16" href="https://stories.lavanguardia.com/xlv-favicon-16x16.png.pagespeed.ic.cJHTo1iqYV.webp" />
+      <link type="image/ico" href="https://www.lavanguardia.com/favicon.ico" rel="icon" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Vanguardia · RSS</title>
+  <!-- Google Fonts: Barlow Condensed -->
+  <link href='https://fonts.googleapis.com/css?family=Barlow+Condensed' rel='stylesheet'>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Barlow Condensed', 'Segoe UI', Roboto, Arial, sans-serif;
+    }
+    body {
+      background: linear-gradient(145deg, #d9e2ec 0%, #cbd5e1 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+    }
+    /* ===== MODAL (pantalla completa amb scroll) ===== */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(8px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal-contingut {
+      width: 100vw;
+      height: 100vh;
+      background: #ffffff;
+      overflow-y: auto;
+      padding: 2.5rem 3rem;
+      position: relative;
+    }
+    .modal-tancar {
+      position: fixed;
+      top: 1.5rem;
+      right: 2rem;
+      background: #0b2230;
+      color: white;
+      border: none;
+      font-size: 2.5rem;
+      width: 60px;
+      height: 60px;
+      border-radius: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1010;
+      box-shadow: 0 6px 20px black;
+      transition: 0.2s;
+      line-height: 1;
+    }
+    .modal-tancar:hover {
+      background: #b02e2e;
+      transform: scale(1.1);
+    }
+    #modal-body {
+      max-width: 1000px;
+      margin: 1rem auto;
+      font-family: 'Barlow Condensed', Georgia, serif;
+      font-size: 1.3rem;
+      line-height: 1.5;
+    }
+    #modal-body h1 {
+      font-size: 2.8rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    #modal-body img {
+      max-width: 100%;
+      height: auto;
+      margin: 1rem 0;
+    }
+    #modal-body p {
+      margin: 1rem 0;
+    }
+    .modal-caption {
+      color: #2c5775;
+      text-align: center;
+      font-size: 2rem;
+      margin-top: 4rem;
+    }
+    /* ===== CARRUSEL (sense marges) ===== */
+    .carrusel-wrapper {
+      max-width: 100%;
+      width: 100%;
+      background: rgba(255,255,255,0.5);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 0;
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2), inset 0 1px 2px rgba(255,255,255,0.6);
+      padding: 1rem 0 1.2rem 0;
+      border: none;
+      border-bottom: 1px solid rgba(255,255,255,0.7);
+      border-top: 1px solid rgba(255,255,255,0.7);
+    }
+    h1 {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 500;
+      font-size: 2rem;
+      letter-spacing: -0.01em;
+      color: #0b2230;
+      margin: 0.2rem 0.8rem 1rem 0.8rem;
+      text-transform: uppercase;
+    }
+    h1 span {
+      background: #0b2230;
+      color: white;
+      font-size: 1rem;
+      padding: 0.2rem 1rem;
+      border-radius: 40px;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      margin-left: auto;
+      box-shadow: 0 2px 6px rgba(0,20,30,0.2);
+    }
+    .carrusel-container {
+      position: relative;
+      display: flex;
+      align-items: stretch;        /* PERMET QUE ELS BOTONS S'ESTIRIN */
+      justify-content: center;
+      gap: 0;
+      width: 100%;
+      padding: 0;
+    }
+    /* ESTILS DELS BOTONS PER OCUPAR TOTA L'ALÇADA */
+    .btn-nav {
+      background: rgba(255,255,255,0.85);
+      border: none;
+      width: 4rem;                 /* una mica més amples */
+      /* Treiem height fix i utilitzem align-self: stretch */
+      align-self: stretch;          /* Ocupa tota l'alçada del contenidor flex */
+      font-size: 3.5rem;
+      font-weight: 300;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2), 0 0 0 1px rgba(255,255,255,0.9);
+      transition: 0.15s;
+      color: #0b2c3f;
+      line-height: 1;
+      user-select: none;
+      z-index: 10;
+      margin: 0;                    /* eliminem marges negatius */
+      border-radius: 0;             /* vores rectes per integrar-se amb la targeta */
+    }
+    .btn-nav:hover {
+      background: white;
+      transform: scale(1.02);        /* lleuger efecte */
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    }
+    .btn-nav:active {
+      transform: scale(0.98);
+    }
+    /* targeta ocupa la resta d'espai */
+    .targeta {
+      flex: 1;
+      background: white;
+      border-radius: 0;
+      overflow: hidden;
+      box-shadow: 0 18px 30px -8px rgba(0, 40, 50, 0.3), 0 0 0 1px rgba(255,255,255,0.9) inset;
+      transition: transform 0.2s ease;
+      max-width: 100%;
+      min-height: 520px;
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+    }
+    .targeta:hover {
+      transform: scale(1.002);
+      box-shadow: 0 25px 40px -12px #0b2230;
+    }
+    .targeta-imatge {
+      width: 100%;
+      height: 340px;
+      background-color: #a3b9cc;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      padding: 1rem;
+    }
+    .targeta-imatge .categoria {
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      color: white;
+      font-size: 1rem;
+      font-weight: 500;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      border: 1px solid rgba(255,215,0,0.3);
+      box-shadow: 0 2px 8px black;
+    }
+    .targeta-content {
+      padding: 1.5rem 2rem 2rem 2rem;
+      background: #ffffff;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .targeta-content h2 {
+      font-size: 2.4rem;
+      font-weight: 500;
+      line-height: 1.1;
+      color: #0b1f2a;
+      margin-bottom: 0.6rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-transform: uppercase;
+    }
+    .targeta-content .descripcio {
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: #1e3b4f;
+      margin-bottom: 1.2rem;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      opacity: 0.9;
+    }
+    .targeta-content .llegir-mes {
+      margin-top: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px dashed #b0c7d7;
+      padding-top: 1rem;
+    }
+    .targeta-content .llegir-mes button {
+      background: #0b2230;
+      color: white;
+      border: none;
+      padding: 0.5rem 2rem;
+      border-radius: 60px;
+      font-weight: 500;
+      font-size: 1.2rem;
+      letter-spacing: 0.5px;
+      transition: background 0.15s;
+      box-shadow: 0 4px 8px rgba(0,20,30,0.2);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      cursor: pointer;
+      font-family: 'Barlow Condensed', sans-serif;
+    }
+    .targeta-content .llegir-mes button:hover {
+      background: #133f55;
+    }
+    .targeta-content .llegir-mes .data {
+      color: #2e556b;
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+    .indicadors {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.8rem;
+      margin: 1rem 0 0.2rem 0;
+      padding: 0;
+    }
+    .punt {
+      width: 10px;
+      height: 10px;
+      border-radius: 20px;
+      background: #8ba3b9;
+      border: none;
+      padding: 0;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .punt.actiu {
+      width: 34px;
+      background: #0b2230;
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.8);
+    }
+    .estat-refresh {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 1rem;
+      margin: 0.8rem 0.8rem 0 0.8rem;
+      font-size: 1rem;
+      font-weight: 450;
+      color: #1d3a4b;
+      border-top: 1px solid rgba(0,0,0,0.05);
+      padding-top: 0.5rem;
+    }
+    .comptador {
+      background: #d3e2ed;
+      padding: 0.2rem 1.2rem;
+      border-radius: 40px;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- MODAL (pantalla completa amb scroll) -->
+  <div class="modal-overlay" id="modal">
+    <button class="modal-tancar" id="tancarModal">&times;</button>
+    <div class="modal-contingut" id="modalContingut">
+      <div id="modal-body">
+        <p class="modal-caption">⏳ Carregant article...</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="carrusel-wrapper">
+    <h1>
+      📰 LAVANGUARDIA · BOTONS D'ALÇADA TOTAL
+      <span id="comptadorNoticies">0</span>
+    </h1>
+
+    <div class="carrusel-container">
+      <button class="btn-nav" id="btnAnterior">‹</button>
+
+      <div class="targeta" id="targetaNoticia">
+        <div class="targeta-imatge" id="imatgeNoticia" style="background-image: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22100%25%22%20height%3D%22100%25%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%233f5f73%22%2F%3E%3Ctext%20x%3D%2210%22%20y%3D%2255%22%20font-family%3D%22Arial%22%20font-size%3D%228%22%20fill%3D%22%23ffffff%22%3Ecarregant...%3C%2Ftext%3E%3C%2Fsvg%3E')">
+          <span class="categoria" id="categoriaNoticia">actualitat</span>
+        </div>
+        <div class="targeta-content">
+          <h2 id="titolNoticia">Carregant notícies...</h2>
+          <p class="descripcio" id="descNoticia">Esperant dades del RSS</p>
+          <div class="llegir-mes">
+            <button id="llegirBtn">Llegir +</button>
+            <span class="data" id="dataNoticia"></span>
+          </div>
+        </div>
+      </div>
+      <button class="btn-nav" id="btnSegüent">›</button>
+    </div>
+
+    <div class="indicadors" id="contenidorPunts"></div>
+    <div class="estat-refresh">
+      <span>⏱️ actualització 1 min (tres fonts)</span>
+      <span class="comptador" id="timer">60s</span>
+      <span id="missatgeError" style="color:#b02e2e;"></span>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const RSS_URLS = [
+      'https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/home.xml',
+	  'https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/internacional.xml',
+	  'https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/deportes.xml',
+	  'https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/local/catalunya.xml',
+	  'https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/local/tarragona.xml',
+	  'https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/local/lleida.xml',
+	  'https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/cultura.xml',
+	  'https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/economia.xml',
+	  'https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/tecnologia.xml',
+	  'https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/comer.xml',
+	  'https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/gente.xml',
+	  'https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/magazine.xml',
+      'https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/vida.xml'
+      ];
+
+      let noticies = [];
+      let indexActual = 0;
+      let intervalCarrusel = null;
+      let comptadorSegons = 60;
+
+      // Elements DOM
+      const imatgeDiv = document.getElementById('imatgeNoticia');
+      const categoriaSpan = document.getElementById('categoriaNoticia');
+      const titolH2 = document.getElementById('titolNoticia');
+      const descP = document.getElementById('descNoticia');
+      const dataSpan = document.getElementById('dataNoticia');
+      const btnAnt = document.getElementById('btnAnterior');
+      const btnSeg = document.getElementById('btnSegüent');
+      const contPunts = document.getElementById('contenidorPunts');
+      const comptadorNoticiesSpan = document.getElementById('comptadorNoticies');
+      const timerSpan = document.getElementById('timer');
+      const missatgeErrorSpan = document.getElementById('missatgeError');
+
+      // Modal
+      const modal = document.getElementById('modal');
+      const modalBody = document.getElementById('modal-body');
+      const tancarModalBtn = document.getElementById('tancarModal');
+      const llegirBtn = document.getElementById('llegirBtn');
+
+      // ---- FUNCIÓ PER CARREGAR ARTICLE AMB PROXIES ----
+      async function carregarArticleModal(url) {
+        if (!url || url === '#') {
+          modalBody.innerHTML = '<p class="modal-caption">❌ Enllaç no disponible</p>';
+          return;
+        }
+
+        modalBody.innerHTML = '<p class="modal-caption">⏳ Carregant article...</p>';
+
+        try {
+          // Utilitzem 'api.codetabs.com' que és molt fiable per evitar CORS i 403
+          const proxyUrl = `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`;
+
+          const resposta = await fetch(proxyUrl);
+
+          if (!resposta.ok) {
+            throw new Error(`Proxy principal: ${resposta.status}`);
+          }
+
+          const html = await resposta.text();
+
+          // Parsejar l'HTML
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+
+          // Buscar l'h1 amb class="title" (exacte)
+          let h1Title = doc.querySelector('h1.title');
+
+          // Si no el troba, busca qualsevol h1
+          if (!h1Title) {
+            h1Title = doc.querySelector('h1');
+          }
+
+          if (!h1Title) {
+            modalBody.innerHTML = '<p class="modal-caption">❌ No s\'ha trobat cap títol (H1) a l\'article</p>';
+            return;
+          }
+
+          // Estratègia: mostrar tot el contingut de l'article des de l'h1
+          let contenidor = h1Title.closest('article') ||
+                           h1Title.closest('.article-body') ||
+                           h1Title.closest('.content') ||
+                           h1Title.closest('main') ||
+                           doc.body;
+
+          // Creem un fragment net
+          const tempDiv = document.createElement('div');
+
+          // Intentem agafar des de l'h1 fins al final
+          let trobat = false;
+          for (let node of contenidor.childNodes) {
+            if (!trobat && (node === h1Title || node.contains(h1Title))) {
+              trobat = true;
+            }
+            if (trobat) {
+              if (node.nodeType === 1) { // element
+                tempDiv.appendChild(node.cloneNode(true));
+              } else if (node.nodeType === 3 && node.textContent.trim()) { // text
+                tempDiv.appendChild(node.cloneNode());
+              }
+            }
+          }
+
+          // Si no trobem res, agafem tot el contenidor
+          if (tempDiv.innerHTML.trim() === '') {
+            tempDiv.innerHTML = contenidor.innerHTML;
+          }
+
+          // Netegem elements no desitjats
+          const scripts = tempDiv.querySelectorAll('script, iframe, style, link, meta, noscript, .ads, .publicitat, .comentarios');
+          scripts.forEach(el => el.remove());
+
+          const navs = tempDiv.querySelectorAll('nav, header, footer, .menu, .navbar, .related, .share');
+          navs.forEach(el => el.remove());
+
+          let finalHtml = tempDiv.innerHTML.trim();
+
+          if (!finalHtml || finalHtml.length < 100) {
+            // Si encara és buit, mostrem almenys l'h1 i els paràgrafs
+            let backupHtml = h1Title.outerHTML;
+            const paragrafs = doc.querySelectorAll('p');
+            paragrafs.forEach(p => backupHtml += p.outerHTML);
+            finalHtml = backupHtml;
+          }
+
+          modalBody.innerHTML = finalHtml;
+
+        } catch (error) {
+          console.error('Error detallat:', error);
+
+          // Intent amb un proxy alternatiu
+          try {
+            const backupProxy = `https://cors-anywhere.herokuapp.com/${url}`;
+            const respostaBackup = await fetch(backupProxy, {
+              headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+              }
+            });
+
+            if (!respostaBackup.ok) throw new Error(`Backup proxy: ${respostaBackup.status}`);
+
+            const htmlBackup = await respostaBackup.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(htmlBackup, 'text/html');
+            const h1 = doc.querySelector('h1.title') || doc.querySelector('h1');
+
+            if (h1) {
+              let contingut = h1.outerHTML;
+              const paragrafs = doc.querySelectorAll('p');
+              paragrafs.forEach(p => contingut += p.outerHTML);
+              modalBody.innerHTML = contingut;
+            } else {
+              modalBody.innerHTML = '<p class="modal-caption">❌ No s\'ha pogut extreure el contingut</p>';
+            }
+          } catch (backupError) {
+            modalBody.innerHTML = `<p class="modal-caption">❌ Error en carregar l'article. Els servidors estan bloquejant l'accés. Prova més tard o obre l'enllaç directament.</p>`;
+          }
+        }
+      }
+
+      // Obrir modal
+      llegirBtn.addEventListener('click', () => {
+        if (!noticies.length || !noticies[indexActual]) return;
+        const url = noticies[indexActual].link;
+        modal.style.display = 'flex';
+        carregarArticleModal(url);
+      });
+
+      // Tancar modal
+      tancarModalBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+        modalBody.innerHTML = '<p class="modal-caption">⏳ Carregant article...</p>';
+      });
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.style.display = 'none';
+          modalBody.innerHTML = '<p class="modal-caption">⏳ Carregant article...</p>';
+        }
+      });
+
+      // Funcions del carrusel
+      function formatDate(pubDate) {
+        if (!pubDate) return '';
+        const d = new Date(pubDate);
+        if (isNaN(d)) return pubDate.substring(0, 10);
+        return d.toLocaleDateString('ca-ES', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+      }
+
+      function extreureImatge(item) {
+        if (item.enclosure && item.enclosure.link) return item.enclosure.link;
+        if (item.thumbnail && item.thumbnail !== '') return item.thumbnail;
+        return 'https://www.lavanguardia.com/images/logo.png';
+      }
+
+      function netejaDesc(text) {
+        if (!text) return 'Descripció no disponible';
+        let senseHtml = text.replace(/<[^>]*>?/gm, ' ');
+        return senseHtml.replace(/\s+/g, ' ').trim();
+      }
+
+      function mostrarNoticia(index) {
+        if (!noticies.length) {
+          titolH2.innerText = 'Sense notícies';
+          descP.innerText = 'Esperant dades...';
+          imatgeDiv.style.backgroundImage = 'url("https://www.lavanguardia.com/images/logo.png")';
+          categoriaSpan.innerText = '---';
+          dataSpan.innerText = '';
+          return;
+        }
+        if (index < 0) index = noticies.length - 1;
+        if (index >= noticies.length) index = 0;
+        indexActual = index;
+
+        const n = noticies[indexActual];
+        titolH2.innerText = n.title || 'Sense títol';
+        descP.innerText = n.desc || '';
+        imatgeDiv.style.backgroundImage = `url('${n.image}')`;
+        categoriaSpan.innerText = n.cat || 'general';
+        dataSpan.innerText = n.dataPublicacio;
+        actualitzarPuntsActius(indexActual);
+      }
+
+      function renderPunts() {
+        contPunts.innerHTML = '';
+        noticies.forEach((_, i) => {
+          const btn = document.createElement('button');
+          btn.classList.add('punt');
+          if (i === indexActual) btn.classList.add('actiu');
+          btn.setAttribute('data-index', i);
+          btn.addEventListener('click', (e) => {
+            const idx = parseInt(e.target.getAttribute('data-index'), 10);
+            indexActual = idx;
+            mostrarNoticia(indexActual);
+            reiniciarCarruselAuto();
+          });
+          contPunts.appendChild(btn);
+        });
+      }
+
+      function actualitzarPuntsActius(index) {
+        const punts = document.querySelectorAll('.punt');
+        punts.forEach((p, i) => {
+          if (i === index) p.classList.add('actiu');
+          else p.classList.remove('actiu');
+        });
+      }
+
+      function seguentAuto() {
+        if (noticies.length === 0) return;
+        indexActual = (indexActual + 1) % noticies.length;
+        mostrarNoticia(indexActual);
+      }
+
+      function reiniciarCarruselAuto() {
+        if (intervalCarrusel) clearInterval(intervalCarrusel);
+        intervalCarrusel = setInterval(seguentAuto, 7000);
+      }
+
+      async function carregarTotesNoticies() {
+        missatgeErrorSpan.innerText = '';
+        try {
+          const promises = RSS_URLS.map(url => fetch(url).then(res => {
+            if (!res.ok) throw new Error(`Error HTTP ${res.status} en ${url}`);
+            return res.json();
+          }));
+
+          const resultats = await Promise.all(promises);
+          let itemsCombinats = [];
+          for (const dades of resultats) {
+            if (dades.status !== 'ok') continue;
+            if (dades.items && Array.isArray(dades.items)) {
+              itemsCombinats.push(...dades.items);
+            }
+          }
+          if (itemsCombinats.length === 0) throw new Error('No s\'ha obtingut cap notícia');
+
+          const llista = itemsCombinats.map(item => ({
+            title: item.title || 'Títol',
+            desc: netejaDesc(item.description || item.content || ''),
+            image: extreureImatge(item),
+            link: item.link || '#',
+            cat: (item.categories && item.categories.length) ? item.categories[0] : 'La Vanguardia',
+            dataPublicacio: formatDate(item.pubDate)
+          }));
+
+          // eliminar duplicats bàsics
+          const unique = new Map();
+          llista.forEach(n => unique.set(n.title + n.link, n));
+          noticies = Array.from(unique.values());
+
+          comptadorNoticiesSpan.innerText = `${noticies.length}`;
+          if (indexActual >= noticies.length) indexActual = noticies.length - 1;
+          if (indexActual < 0 && noticies.length > 0) indexActual = 0;
+
+          renderPunts();
+          mostrarNoticia(indexActual);
+          reiniciarCarruselAuto();
+        } catch (error) {
+          console.error(error);
+          missatgeErrorSpan.innerText = '⚠️ Error en alguna font';
+          if (noticies.length === 0) {
+            titolH2.innerText = 'Error de càrrega';
+            descP.innerText = 'No s\'han pogut obtenir notícies.';
+          }
+        }
+      }
+
+      function actualitzarComptadorRefresh() {
+        timerSpan.innerText = `${comptadorSegons}s`;
+        if (comptadorSegons <= 0) {
+          carregarTotesNoticies();
+          comptadorSegons = 60;
+        }
+      }
+
+      btnAnt.addEventListener('click', () => {
+        if (noticies.length === 0) return;
+        indexActual = (indexActual - 1 + noticies.length) % noticies.length;
+        mostrarNoticia(indexActual);
+        reiniciarCarruselAuto();
+      });
+
+      btnSeg.addEventListener('click', () => {
+        if (noticies.length === 0) return;
+        indexActual = (indexActual + 1) % noticies.length;
+        mostrarNoticia(indexActual);
+        reiniciarCarruselAuto();
+      });
+
+      (async function init() {
+        await carregarTotesNoticies();
+        setInterval(() => {
+          carregarTotesNoticies();
+          comptadorSegons = 60;
+        }, 60000);
+        setInterval(() => {
+          comptadorSegons -= 1;
+          if (comptadorSegons < 0) comptadorSegons = 59;
+          actualitzarComptadorRefresh();
+        }, 1000);
+      })();
+
+      window.addEventListener('beforeunload', () => {
+        if (intervalCarrusel) clearInterval(intervalCarrusel);
+      });
+    })();
+  </script>
+</body>
+</html>
