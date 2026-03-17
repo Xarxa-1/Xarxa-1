@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>La Vanguardia · Mòbil 720x1600</title>
+  <!-- Google Fonts: Barlow Condensed -->
+  <link href='https://fonts.googleapis.com/css?family=Barlow+Condensed' rel='stylesheet'>
+  <style>
+    /* RESET I CONFIGURACIÓ BASE PER A MÒBIL 720x1600 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Barlow Condensed', 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      background: #cbd5e1;  /* color sòlid sense gradients pesats */
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      /* Simulem un entorn 720px ample (el viewport ho farà) */
+    }
+
+    /* MODAL (pantalla completa) amb scroll */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.98);
+      backdrop-filter: blur(5px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-contingut {
+      width: 100vw;
+      height: 100vh;
+      background: #ffffff;
+      overflow-y: auto;
+      padding: 1.2rem 1.2rem 2rem 1.2rem;  /* menys padding per aprofitar espai */
+      position: relative;
+    }
+
+    .modal-tancar {
+      position: fixed;
+      top: 0.8rem;
+      right: 1rem;
+      background: #0b2230;
+      color: white;
+      border: none;
+      font-size: 2.2rem;
+      width: 50px;
+      height: 50px;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1010;
+      box-shadow: 0 4px 12px black;
+    }
+
+    #modal-body {
+      max-width: 100%;
+      margin: 0.5rem 0;
+      font-size: 1.1rem;
+      line-height: 1.5;
+    }
+
+    #modal-body h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 0.5rem;
+    }
+
+    #modal-body img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .modal-caption {
+      color: #2c5775;
+      text-align: center;
+      font-size: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    /* CARRUSEL (sense marges) optimitzat per a 720px */
+    .carrusel-wrapper {
+      max-width: 100%;
+      width: 100%;
+      background: rgba(255,255,255,0.5);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 0;
+      box-shadow: none; /* alleugerim */
+      padding: 0.5rem 0 1rem 0;
+    }
+
+    h1 {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: #0b2230;
+      margin: 0.2rem 0.5rem 0.6rem 0.5rem;
+      text-transform: uppercase;
+    }
+
+    h1 span {
+      background: #0b2230;
+      color: white;
+      font-size: 0.8rem;
+      padding: 0.2rem 0.7rem;
+      border-radius: 40px;
+      margin-left: auto;
+      white-space: nowrap;
+    }
+
+    /* CONTENIDOR FLEX PER ALS BOTONS VERTICALMENT COMPLETS */
+    .carrusel-container {
+      display: flex;
+      align-items: stretch;       /* clau per a l'alçada total */
+      justify-content: center;
+      gap: 0;
+      width: 100%;
+      min-height: 550px;           /* estableix una alçada mínima per al conjunt */
+    }
+
+    /* BOTONS QUE OCUPEN TOTA L'ALÇADA (més gruixuts per a dit) */
+    .btn-nav {
+      background: rgba(255,255,255,0.9);
+      border: none;
+      width: 3.5rem;               /* amplada còmoda per a polze */
+      align-self: stretch;          /* s'estiren verticalment */
+      font-size: 3rem;
+      font-weight: 300;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 0 8px rgba(0,0,0,0.2);
+      color: #0b2c3f;
+      z-index: 10;
+      border-radius: 0;
+      transition: background 0.1s;
+      -webkit-tap-highlight-color: transparent; /* elimina flash en tàctil */
+    }
+
+    .btn-nav:active {
+      background: white;
+      transform: scale(0.98);
+    }
+
+    /* targeta flexible */
+    .targeta {
+      flex: 1;
+      background: white;
+      border-radius: 0;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+    }
+
+    .targeta-imatge {
+      width: 100%;
+      height: 220px;                /* alçada equilibrada per a mòbil */
+      background-color: #7f9eb5;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      padding: 0.7rem;
+    }
+
+    .targeta-imatge .categoria {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      color: white;
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 0.2rem 0.9rem;
+      border-radius: 30px;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,215,0,0.3);
+    }
+
+    .targeta-content {
+      padding: 1rem 1.2rem 1.2rem 1.2rem;
+      background: white;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .targeta-content h2 {
+      font-size: 1.8rem;            /* reduït per a 720px */
+      font-weight: 500;
+      line-height: 1.1;
+      color: #0b1f2a;
+      margin-bottom: 0.4rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-transform: uppercase;
+    }
+
+    .targeta-content .descripcio {
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: #1e3b4f;
+      margin-bottom: 0.8rem;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .targeta-content .llegir-mes {
+      margin-top: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px dashed #a0b8c9;
+      padding-top: 0.7rem;
+    }
+
+    .targeta-content .llegir-mes button {
+      background: #0b2230;
+      color: white;
+      border: none;
+      padding: 0.4rem 1.5rem;
+      border-radius: 40px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      cursor: pointer;
+      min-height: 44px;              /* accessibilitat tàctil */
+      min-width: 100px;
+    }
+
+    .targeta-content .llegir-mes .data {
+      color: #2e556b;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    /* INDICADORS (punts) més grans per a dit */
+    .indicadors {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.8rem;
+      margin: 0.8rem 0 0.2rem 0;
+      flex-wrap: wrap;
+    }
+
+    .punt {
+      width: 14px;
+      height: 14px;
+      border-radius: 20px;
+      background: #8ba3b9;
+      border: none;
+      padding: 0;
+      transition: all 0.2s;
+      cursor: pointer;
+      min-width: 14px;
+    }
+
+    .punt.actiu {
+      width: 38px;
+      background: #0b2230;
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.8);
+    }
+
+    .estat-refresh {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0.8rem 0.8rem 0.2rem 0.8rem;
+      font-size: 0.9rem;
+      font-weight: 450;
+      color: #1d3a4b;
+      border-top: 1px solid rgba(0,0,0,0.05);
+      padding-top: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .comptador {
+      background: #d3e2ed;
+      padding: 0.2rem 1rem;
+      border-radius: 40px;
+    }
+
+    /* missatge error */
+    #missatgeError {
+      font-size: 0.85rem;
+    }
+
+    /* ajust per a pantalla petita */
+    @media (max-width: 400px) {
+      .btn-nav {
+        width: 2.8rem;
+        font-size: 2.5rem;
+      }
+      .targeta-content h2 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- MODAL MÒBIL -->
+  <div class="modal-overlay" id="modal">
+    <button class="modal-tancar" id="tancarModal">&times;</button>
+    <div class="modal-contingut" id="modalContingut">
+      <div id="modal-body">
+        <p class="modal-caption">⏳ Carregant article...</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="carrusel-wrapper">
+    <h1>
+      📱 LV · MÒBIL
+      <span id="comptadorNoticies">0</span>
+    </h1>
+
+    <div class="carrusel-container">
+      <button class="btn-nav" id="btnAnterior" aria-label="anterior">‹</button>
+      
+      <div class="targeta" id="targetaNoticia">
+        <div class="targeta-imatge" id="imatgeNoticia" style="background-image: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22100%25%22%20height%3D%22100%25%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%233f5f73%22%2F%3E%3Ctext%20x%3D%2210%22%20y%3D%2255%22%20font-family%3D%22Arial%22%20font-size%3D%228%22%20fill%3D%22%23ffffff%22%3Ecarregant...%3C%2Ftext%3E%3C%2Fsvg%3E')">
+          <span class="categoria" id="categoriaNoticia">actualitat</span>
+        </div>
+        <div class="targeta-content">
+          <h2 id="titolNoticia">Carregant notícies...</h2>
+          <p class="descripcio" id="descNoticia">Esperant dades del RSS</p>
+          <div class="llegir-mes">
+            <button id="llegirBtn">Llegir +</button>
+            <span class="data" id="dataNoticia"></span>
+          </div>
+        </div>
+      </div>
+      <button class="btn-nav" id="btnSegüent" aria-label="següent">›</button>
+    </div>
+
+    <div class="indicadors" id="contenidorPunts"></div>
+    <div class="estat-refresh">
+      <span>⏱️ actualització 1m (3 fonts)</span>
+      <span class="comptador" id="timer">60s</span>
+      <span id="missatgeError"></span>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const RSS_URLS = [
+        'https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/home.xml',
+        'https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/tecnologia.xml',
+        'https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/local/catalunya.xml'
+      ];
+
+      let noticies = [];
+      let indexActual = 0;
+      let intervalCarrusel = null;
+      let comptadorSegons = 60;
+
+      // elements DOM
+      const imatgeDiv = document.getElementById('imatgeNoticia');
+      const categoriaSpan = document.getElementById('categoriaNoticia');
+      const titolH2 = document.getElementById('titolNoticia');
+      const descP = document.getElementById('descNoticia');
+      const dataSpan = document.getElementById('dataNoticia');
+      const btnAnt = document.getElementById('btnAnterior');
+      const btnSeg = document.getElementById('btnSegüent');
+      const contPunts = document.getElementById('contenidorPunts');
+      const comptadorNoticiesSpan = document.getElementById('comptadorNoticies');
+      const timerSpan = document.getElementById('timer');
+      const missatgeErrorSpan = document.getElementById('missatgeError');
+      
+      const modal = document.getElementById('modal');
+      const modalBody = document.getElementById('modal-body');
+      const tancarModalBtn = document.getElementById('tancarModal');
+      const llegirBtn = document.getElementById('llegirBtn');
+
+      // funcions auxiliars (igual que versió anterior però compactes)
+      function formatDate(pubDate) {
+        if (!pubDate) return '';
+        const d = new Date(pubDate);
+        if (isNaN(d)) return pubDate.substring(0, 10);
+        return d.toLocaleDateString('ca-ES', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+      }
+
+      function extreureImatge(item) {
+        if (item.enclosure && item.enclosure.link) return item.enclosure.link;
+        if (item.thumbnail && item.thumbnail !== '') return item.thumbnail;
+        return 'https://www.lavanguardia.com/images/logo.png';
+      }
+
+      function netejaDesc(text) {
+        if (!text) return 'Descripció no disponible';
+        let senseHtml = text.replace(/<[^>]*>?/gm, ' ');
+        return senseHtml.replace(/\s+/g, ' ').trim();
+      }
+
+      // Mostra notícia
+      function mostrarNoticia(index) {
+        if (!noticies.length) {
+          titolH2.innerText = 'Sense notícies';
+          descP.innerText = 'Esperant dades...';
+          imatgeDiv.style.backgroundImage = 'url("https://www.lavanguardia.com/images/logo.png")';
+          categoriaSpan.innerText = '---';
+          dataSpan.innerText = '';
+          return;
+        }
+        if (index < 0) index = noticies.length - 1;
+        if (index >= noticies.length) index = 0;
+        indexActual = index;
+
+        const n = noticies[indexActual];
+        titolH2.innerText = n.title || 'Sense títol';
+        descP.innerText = n.desc || '';
+        imatgeDiv.style.backgroundImage = `url('${n.image}')`;
+        categoriaSpan.innerText = n.cat || 'general';
+        dataSpan.innerText = n.dataPublicacio;
+        actualitzarPuntsActius(indexActual);
+      }
+
+      function renderPunts() {
+        contPunts.innerHTML = '';
+        noticies.forEach((_, i) => {
+          const btn = document.createElement('button');
+          btn.classList.add('punt');
+          if (i === indexActual) btn.classList.add('actiu');
+          btn.setAttribute('data-index', i);
+          btn.addEventListener('click', (e) => {
+            const idx = parseInt(e.target.getAttribute('data-index'), 10);
+            indexActual = idx;
+            mostrarNoticia(indexActual);
+            reiniciarCarruselAuto();
+          });
+          contPunts.appendChild(btn);
+        });
+      }
+
+      function actualitzarPuntsActius(index) {
+        const punts = document.querySelectorAll('.punt');
+        punts.forEach((p, i) => {
+          if (i === index) p.classList.add('actiu');
+          else p.classList.remove('actiu');
+        });
+      }
+
+      function seguentAuto() {
+        if (noticies.length === 0) return;
+        indexActual = (indexActual + 1) % noticies.length;
+        mostrarNoticia(indexActual);
+      }
+
+      function reiniciarCarruselAuto() {
+        if (intervalCarrusel) clearInterval(intervalCarrusel);
+        intervalCarrusel = setInterval(seguentAuto, 7000);
+      }
+
+      // --- càrrega combinada (amb proxy) ---
+      async function carregarArticleModal(url) {
+        if (!url || url === '#') {
+          modalBody.innerHTML = '<p class="modal-caption">❌ Enllaç no disponible</p>';
+          return;
+        }
+        modalBody.innerHTML = '<p class="modal-caption">⏳ Carregant article...</p>';
+        try {
+          const proxyUrl = `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`;
+          const resposta = await fetch(proxyUrl);
+          if (!resposta.ok) throw new Error(`Proxy: ${resposta.status}`);
+          const html = await resposta.text();
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+          let h1Title = doc.querySelector('h1.title') || doc.querySelector('h1');
+          if (!h1Title) {
+            modalBody.innerHTML = '<p class="modal-caption">❌ No s\'ha trobat H1</p>';
+            return;
+          }
+          let contenidor = h1Title.closest('article') || h1Title.closest('main') || doc.body;
+          const tempDiv = document.createElement('div');
+          let trobat = false;
+          for (let node of contenidor.childNodes) {
+            if (!trobat && (node === h1Title || node.contains(h1Title))) trobat = true;
+            if (trobat) {
+              if (node.nodeType === 1) tempDiv.appendChild(node.cloneNode(true));
+              else if (node.nodeType === 3 && node.textContent.trim()) tempDiv.appendChild(node.cloneNode());
+            }
+          }
+          if (tempDiv.innerHTML.trim() === '') tempDiv.innerHTML = contenidor.innerHTML;
+          const scripts = tempDiv.querySelectorAll('script, iframe, style, link, meta, noscript, .ads, .publicitat');
+          scripts.forEach(el => el.remove());
+          const navs = tempDiv.querySelectorAll('nav, header, footer, .menu, .navbar');
+          navs.forEach(el => el.remove());
+          let finalHtml = tempDiv.innerHTML.trim();
+          if (!finalHtml || finalHtml.length < 100) {
+            let backup = h1Title.outerHTML;
+            doc.querySelectorAll('p').forEach(p => backup += p.outerHTML);
+            finalHtml = backup;
+          }
+          modalBody.innerHTML = finalHtml;
+        } catch (error) {
+          modalBody.innerHTML = '<p class="modal-caption">❌ Error en carregar l\'article</p>';
+        }
+      }
+
+      // esdeveniments
+      llegirBtn.addEventListener('click', () => {
+        if (!noticies.length || !noticies[indexActual]) return;
+        modal.style.display = 'flex';
+        carregarArticleModal(noticies[indexActual].link);
+      });
+
+      tancarModalBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+        modalBody.innerHTML = '<p class="modal-caption">⏳ Carregant article...</p>';
+      });
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.style.display = 'none';
+          modalBody.innerHTML = '<p class="modal-caption">⏳ Carregant article...</p>';
+        }
+      });
+
+      // càrrega inicial de notícies
+      async function carregarTotesNoticies() {
+        missatgeErrorSpan.innerText = '';
+        try {
+          const promises = RSS_URLS.map(url => fetch(url).then(res => {
+            if (!res.ok) throw new Error();
+            return res.json();
+          }));
+          const resultats = await Promise.all(promises);
+          let itemsCombinats = [];
+          for (const dades of resultats) {
+            if (dades.status === 'ok' && dades.items) itemsCombinats.push(...dades.items);
+          }
+          if (itemsCombinats.length === 0) throw new Error();
+          const llista = itemsCombinats.map(item => ({
+            title: item.title || 'Títol',
+            desc: netejaDesc(item.description || item.content || ''),
+            image: extreureImatge(item),
+            link: item.link || '#',
+            cat: (item.categories && item.categories[0]) || 'LV',
+            dataPublicacio: formatDate(item.pubDate)
+          }));
+          const unique = new Map();
+          llista.forEach(n => unique.set(n.title + n.link, n));
+          noticies = Array.from(unique.values());
+          comptadorNoticiesSpan.innerText = `${noticies.length}`;
+          if (indexActual >= noticies.length) indexActual = noticies.length - 1;
+          if (indexActual < 0 && noticies.length) indexActual = 0;
+          renderPunts();
+          mostrarNoticia(indexActual);
+          reiniciarCarruselAuto();
+        } catch (error) {
+          missatgeErrorSpan.innerText = '⚠️ error fonts';
+          if (!noticies.length) {
+            titolH2.innerText = 'Error de connexió';
+            descP.innerText = 'No es poden carregar les notícies.';
+          }
+        }
+      }
+
+      // botons manuals
+      btnAnt.addEventListener('click', () => {
+        if (noticies.length === 0) return;
+        indexActual = (indexActual - 1 + noticies.length) % noticies.length;
+        mostrarNoticia(indexActual);
+        reiniciarCarruselAuto();
+      });
+      btnSeg.addEventListener('click', () => {
+        if (noticies.length === 0) return;
+        indexActual = (indexActual + 1) % noticies.length;
+        mostrarNoticia(indexActual);
+        reiniciarCarruselAuto();
+      });
+
+      // temporitzadors
+      function actualitzarComptadorRefresh() {
+        timerSpan.innerText = `${comptadorSegons}s`;
+        if (comptadorSegons <= 0) {
+          carregarTotesNoticies();
+          comptadorSegons = 60;
+        }
+      }
+
+      (async function init() {
+        await carregarTotesNoticies();
+        setInterval(() => {
+          carregarTotesNoticies();
+          comptadorSegons = 60;
+        }, 60000);
+        setInterval(() => {
+          comptadorSegons -= 1;
+          if (comptadorSegons < 0) comptadorSegons = 59;
+          actualitzarComptadorRefresh();
+        }, 1000);
+      })();
+
+      window.addEventListener('beforeunload', () => {
+        if (intervalCarrusel) clearInterval(intervalCarrusel);
+      });
+    })();
+  </script>
+</body>
+</html>
