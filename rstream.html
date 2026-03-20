@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ca">
 <head>
@@ -24,14 +23,7 @@
         margin: 0;
         width: 100%;
     }
-    button {
-        padding: 8px;
-        margin: 0;
-        width: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+
     .hifi-rack {
         max-width: 720px;
         width: 100%;
@@ -101,55 +93,6 @@
         border-bottom-color: #2d6b2d;
         box-shadow: 0 6px 0 #1e4d1e, 0 8px 12px black, inset 0 2px 10px #ffffaa;
         color: #ffffff;
-    }
-
-    .station-selector {
-        background: #172317;
-        border-radius: 60px;
-        padding: 4px 8px 4px 4px;
-        border: 2px solid #6f9f6f;
-        box-shadow: inset 0 0 15px #141414, 0 0 15px #33ff33;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        min-width: 180px;
-        max-width: 240px;
-        flex: 1 1 auto;
-    }
-
-    .station-selector select {
-        background: #1a2a1a;
-        color: #d0ffd0;
-        border: 2px solid #3d8a3d;
-        border-radius: 30px;
-        padding: 8px 12px;
-        font-weight: 600;
-        font-size: 0.9rem;
-        outline: none;
-        box-shadow: inset 0 2px 8px black, 0 0 10px #33aa33;
-        width: 100%;
-        cursor: pointer;
-    }
-
-    .station-selector select:hover {
-        background: #1f3a1f;
-        border-color: #5fb05f;
-    }
-
-    .station-selector select:focus {
-        background: #1f3a1f;
-        border-color: #7aff7a;
-        box-shadow: inset 0 2px 8px black, 0 0 15px #55ff55;
-    }
-
-    .station-selector option {
-        background: #1a2a1a;
-        color: #ddffdd;
-        padding: 8px;
-    }
-
-    .station-selector option:hover {
-        background: #2d4a2d;
     }
 
     .station-logo {
@@ -305,30 +248,119 @@
         color: #ffffff;
     }
 
+    /* Estils pel menú d'emissores - FORA DEL MODULE */
+    .station-menu {
+        position: relative;
+        display: inline-block;
+        z-index: 10000;
+    }
+
+    .station-btn {
+        background: #2f482f;
+        padding: 8px 14px;
+        width: auto;
+        min-width: 90px;
+    }
+
+    .station-dropdown {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        margin-top: 8px;
+        background: #203020;
+        border: 3px solid #7fb27f;
+        border-radius: 24px;
+        padding: 8px;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.9), 0 0 40px #22ff22;
+        z-index: 999999;
+        min-width: 220px;
+        max-height: 320px;
+        overflow-y: auto;
+        flex-direction: column;
+        gap: 6px;
+        backdrop-filter: blur(10px);
+    }
+
+    .station-dropdown.show {
+        display: flex;
+    }
+
+    .station-dropdown-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 12px;
+        background: #2b452b;
+        border-radius: 16px;
+        cursor: pointer;
+        transition: all 0.1s ease;
+        border-bottom: 2px solid #1b2f1b;
+    }
+
+    .station-dropdown-item:hover {
+        background: #3d613d;
+        transform: translateX(5px);
+        border-bottom-color: #5f9e5f;
+    }
+
+    .station-dropdown-item.active {
+        background: #4caf4c;
+        border-bottom-color: #2d6b2d;
+        box-shadow: inset 0 0 10px #aaffaa;
+    }
+
+    .station-dropdown-logo {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        object-fit: cover;
+        border: 1px solid #77dd77;
+        background: #112211;
+    }
+
+    .station-dropdown-name {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #ccffcc;
+        flex: 1;
+    }
+
+    .station-dropdown-item.active .station-dropdown-name {
+        color: #ffffff;
+        text-shadow: 0 0 5px #ffffaa;
+    }
+
+    /* Estils pel menú del temporitzador */
     .timer-menu {
         position: relative;
         display: inline-block;
+        z-index: 9000;
     }
 
     .timer-btn {
         background: #2f482f;
         padding: 8px 14px;
+        width: auto;
+        min-width: 90px;
     }
 
     .dropdown-content {
         display: none;
         position: absolute;
-        bottom: 45px;
+        top: 100%;
         left: 0;
+        margin-top: 8px;
         background: #203020;
         border: 3px solid #7fb27f;
         border-radius: 24px;
         padding: 12px;
-        box-shadow: 0 0 30px #22ff22;
-        z-index: 20;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.9), 0 0 40px #22ff22;
+        z-index: 999999;
         min-width: 180px;
         flex-direction: column;
         gap: 10px;
+        backdrop-filter: blur(10px);
     }
 
     .dropdown-content.show {
@@ -366,6 +398,19 @@
         flex-wrap: wrap;
     }
 
+    /* Contenidor per al logo i els botons (sense el menú dins) */
+    .station-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .station-controls {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
     /* Media query per a pantalles molt petites */
     @media (max-width: 560px) {
         .hifi-rack {
@@ -400,6 +445,37 @@
         .track-info {
             min-width: 100%;
         }
+
+        .dropdown-content,
+        .station-dropdown {
+            left: auto;
+            right: 0;
+            min-width: 180px;
+        }
+
+        .station-dropdown-logo {
+            width: 32px;
+            height: 32px;
+        }
+    }
+
+    /* Personalitzar scroll del menú d'emissores */
+    .station-dropdown::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .station-dropdown::-webkit-scrollbar-track {
+        background: #1a2a1a;
+        border-radius: 10px;
+    }
+
+    .station-dropdown::-webkit-scrollbar-thumb {
+        background: #5f9e5f;
+        border-radius: 10px;
+    }
+
+    .station-dropdown::-webkit-scrollbar-thumb:hover {
+        background: #7fbe7f;
     }
 </style>
     <!-- Font Awesome per les icones -->
@@ -409,24 +485,29 @@
 <div class="hifi-rack">
     <div class="stream-deck" id="streamDeck">
 
-        <!-- selector d'emissores amb logo + botons navegació + botó PLAY -->
+        <!-- selector d'emissores amb logo + menú desplegable (FORA DEL MODULE) -->
         <div class="module" style="padding: 4px;">
-            <img id="stationLogoPreview" class="station-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Logotip_de_RAC_1.svg/1200px-Logotip_de_RAC_1.svg.png" alt="logo">
-            <div style="display: flex; flex-direction: column; gap: 4px;">
-                <div class="station-selector">
-                    <select id="stationSelect" style="width:100%;"></select>
-                </div>
-                <div style="display: flex; gap: 5px;">
-                    <!-- Botons amb icones de Font Awesome -->
-                    <button id="prevStationBtn" title="Emissora anterior"><i class="fas fa-step-backward"></i></button>
-                    <button id="playPauseBtn" title="Play / Pausa"><i class="fas fa-play"></i></button>
-                    <button id="nextStationBtn" title="Emissora següent"><i class="fas fa-step-forward"></i></button>
-                    <button class="repeat-btn" id="repeatBtn" title="Mode repetició: desactivat"><i class="fas fa-sync-alt"></i></button>
+            <div class="station-info">
+                <img id="stationLogoPreview" class="station-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Logotip_de_RAC_1.svg/1200px-Logotip_de_RAC_1.svg.png" alt="logo">
+                <div class="station-controls">
+                    <!-- Botons de navegació dins del module -->
+                    <div style="display: flex; gap: 5px;">
+                        <button id="prevStationBtn" title="Emissora anterior"><i class="fas fa-step-backward"></i></button>
+                        <button id="playPauseBtn" title="Play / Pausa"><i class="fas fa-play"></i></button>
+                        <button id="nextStationBtn" title="Emissora següent"><i class="fas fa-step-forward"></i></button>
+                        <button class="repeat-btn" id="repeatBtn" title="Mode repetició: desactivat"><i class="fas fa-sync-alt"></i></button>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- volum amb dos botons + indicador + botó de repetició -->
+        <!-- Menú d'emissores - FORA DEL MODULE per evitar problemes de z-index -->
+        <div class="station-menu">
+            <button class="station-btn" id="stationMenuBtn"><i class="fas fa-radio"></i> Llista</button>
+            <div class="station-dropdown" id="stationDropdown"></div>
+        </div>
+
+        <!-- volum amb dos botons + indicador -->
         <div style="display: flex; gap: 8px; align-items: center;">
             <div class="vol-control module">
                 <span id="volDisplay">4/10</span>
@@ -439,7 +520,6 @@
                 <span id="ledDot" class="led-dot stopped"></span>
             </div>
         </div>
-            <div class="timer-menu module">
 
         <!-- contenidor per rellotge i temporitzador -->
         <div class="clock-timer-container">
@@ -447,7 +527,8 @@
             <div class="digital-clock module" id="liveClock">00:00:00</div>
 
             <!-- temporitzador: botó que desplega opcions -->
-                <button class="timer-btn" id="timerMenuBtn" style="width: 90px;><i class="fas fa-clock"></i> 0:00</button>
+            <div class="timer-menu">
+                <button class="timer-btn" id="timerMenuBtn"><i class="fas fa-clock"></i> 0:00</button>
                 <div class="dropdown-content" id="timerDropdown">
                     <button data-minutes="0.1667"><i class="fas fa-hourglass-start"></i> 10 segons</button>
                     <button data-minutes="5"><i class="fas fa-hourglass-half"></i> 5 minuts</button>
@@ -478,7 +559,6 @@
         let isPlaying = false;
         let repeatMode = false;
 
-        const stationSelect = document.getElementById('stationSelect');
         const stationLogoPreview = document.getElementById('stationLogoPreview');
         const prevBtn = document.getElementById('prevStationBtn');
         const nextBtn = document.getElementById('nextStationBtn');
@@ -496,6 +576,8 @@
         const countdownDisplay = document.getElementById('countdownDisplay');
         const cancelTimerBtn = document.getElementById('cancelTimerBtn');
         const liveClock = document.getElementById('liveClock');
+        const stationMenuBtn = document.getElementById('stationMenuBtn');
+        const stationDropdown = document.getElementById('stationDropdown');
 
         let sleepTimerInterval = null;
         let sleepTimeout = null;
@@ -512,15 +594,11 @@
         function updateTrackImage(trackImageUrl, stationLogoUrl) {
             if (trackImageUrl && trackImageUrl !== '') {
                 const cleanedUrl = cleanImageUrl(trackImageUrl);
-                console.log('Intentant carregar imatge track:', cleanedUrl);
-
                 const img = new Image();
                 img.onload = function() {
                     trackImage.src = cleanedUrl;
-                    console.log('✅ Imatge de track carregada correctament');
                 };
                 img.onerror = function() {
-                    console.log('❌ Error carregant imatge track, fem servir logo emissora');
                     if (stationLogoUrl && stationLogoUrl !== '') {
                         trackImage.src = stationLogoUrl;
                     } else {
@@ -529,13 +607,45 @@
                 };
                 img.src = cleanedUrl;
             } else {
-                console.log('No hi ha imatge track, fem servir logo emissora');
                 if (stationLogoUrl && stationLogoUrl !== '') {
                     trackImage.src = stationLogoUrl;
                 } else {
                     trackImage.src = 'https://via.placeholder.com/40x40/1a2a1a/88ff88?text=📻';
                 }
             }
+        }
+
+        function updateStationDropdown() {
+            if (!stations.length) return;
+
+            stationDropdown.innerHTML = '';
+            stations.forEach((station, idx) => {
+                const item = document.createElement('div');
+                item.className = 'station-dropdown-item';
+                if (idx === currentIndex) item.classList.add('active');
+
+                const logo = document.createElement('img');
+                logo.className = 'station-dropdown-logo';
+                logo.src = station.logo || 'https://via.placeholder.com/40x40/1a2a1a/88ff88?text=📻';
+                logo.alt = station.name;
+
+                const name = document.createElement('span');
+                name.className = 'station-dropdown-name';
+                name.textContent = station.name;
+
+                item.appendChild(logo);
+                item.appendChild(name);
+
+                item.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    loadStation(idx);
+                    stationDropdown.classList.remove('show');
+                    const shortName = station.name.length > 15 ? station.name.substring(0, 12) + '...' : station.name;
+                    stationMenuBtn.innerHTML = `<i class="fas fa-radio"></i> ${shortName}`;
+                });
+
+                stationDropdown.appendChild(item);
+            });
         }
 
         function updateClock() {
@@ -634,7 +744,6 @@
 
             currentIndex = Math.min(index, stations.length-1);
             const st = stations[currentIndex];
-            stationSelect.selectedIndex = currentIndex;
 
             if (st.logo) {
                 stationLogoPreview.src = st.logo;
@@ -654,6 +763,8 @@
                 trackImage.src = 'https://via.placeholder.com/40x40/1a2a1a/88ff88?text=📻';
             }
 
+            updateStationDropdown();
+
             if (st.url) {
                 audio.src = st.url;
                 audio.load();
@@ -663,7 +774,6 @@
                 }
 
                 if (wasPlaying) {
-                    console.log('Reproduint automàticament després de carregar emissora');
                     audio.play().catch(e => {
                         console.warn('Error reproduint després de carregar:', e);
                         setLedState('stopped','Error play');
@@ -677,8 +787,6 @@
         }
 
         function handleAudioEnded() {
-            const wasPlaying = isPlaying;
-
             if (repeatMode) {
                 console.log('Mode repetició actiu - repetint emissora actual');
                 isPlaying = true;
@@ -741,23 +849,13 @@
                 if (!resp.ok) throw new Error('Network error');
                 stations = await resp.json();
 
-                stationSelect.innerHTML = '';
-                stations.forEach((s, idx) => {
-                    const opt = document.createElement('option');
-                    opt.value = idx;
-                    opt.textContent = s.name || 'Sense nom';
-                    stationSelect.appendChild(opt);
-                });
+                updateStationDropdown();
 
                 if (stations.length > 0) {
-                    stationSelect.selectedIndex = 0;
                     loadStation(0);
+                    const shortName = stations[0].name.length > 15 ? stations[0].name.substring(0, 12) + '...' : stations[0].name;
+                    stationMenuBtn.innerHTML = `<i class="fas fa-radio"></i> ${shortName}`;
                 }
-
-                stationSelect.addEventListener('change', (e) => {
-                    const idx = parseInt(e.target.value, 10);
-                    if (!isNaN(idx)) loadStation(idx);
-                });
             } catch (err) {
                 console.warn('Error carregant emissores, fem servir dades estàtiques.');
                 stations = [
@@ -765,15 +863,10 @@
                     { "name": "Flaixbac", "playlist": "https://api.instant.audio/data/playlist/38/flaixbac", "url": "https://stream.flaixbac.cat/icecast", "logo": "https://static.mytuner.mobi/media/radios-150px/274/flaixbac.f6d8cd83.jpg" },
                     { "name": "Catalunya Ràdio", "url": "https://directes-radio-int.ccma.cat/live-content/catalunyaradio-hls/bitrate_1.m3u8", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Catalunya_R%C3%A0dio_%28logo%29.svg/1200px-Catalunya_R%C3%A0dio_%28logo%29.svg.png" }
                 ];
-                stationSelect.innerHTML = '';
-                stations.forEach((s, idx) => {
-                    const opt = document.createElement('option');
-                    opt.value = idx;
-                    opt.textContent = s.name;
-                    stationSelect.appendChild(opt);
-                });
-                stationSelect.selectedIndex = 0;
+                updateStationDropdown();
                 loadStation(0);
+                const shortName = stations[0].name.length > 15 ? stations[0].name.substring(0, 12) + '...' : stations[0].name;
+                stationMenuBtn.innerHTML = `<i class="fas fa-radio"></i> ${shortName}`;
             }
         }
 
@@ -782,6 +875,8 @@
             let newIdx = currentIndex - 1;
             if (newIdx < 0) newIdx = stations.length-1;
             loadStation(newIdx);
+            const shortName = stations[newIdx].name.length > 15 ? stations[newIdx].name.substring(0, 12) + '...' : stations[newIdx].name;
+            stationMenuBtn.innerHTML = `<i class="fas fa-radio"></i> ${shortName}`;
         });
 
         nextBtn.addEventListener('click', () => {
@@ -789,6 +884,8 @@
             let newIdx = currentIndex + 1;
             if (newIdx >= stations.length) newIdx = 0;
             loadStation(newIdx);
+            const shortName = stations[newIdx].name.length > 15 ? stations[newIdx].name.substring(0, 12) + '...' : stations[newIdx].name;
+            stationMenuBtn.innerHTML = `<i class="fas fa-radio"></i> ${shortName}`;
         });
 
         repeatBtn.addEventListener('click', () => {
@@ -806,14 +903,24 @@
         volDown.addEventListener('click', () => setVolume(audio.volume - 0.1));
         setVolume(0.4);
 
+        // Menú del temporitzador
         timerMenuBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             timerDropdown.classList.toggle('show');
         });
 
+        // Menú d'emissores
+        stationMenuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            stationDropdown.classList.toggle('show');
+        });
+
         document.addEventListener('click', (e) => {
             if (!timerMenuBtn.contains(e.target) && !timerDropdown.contains(e.target)) {
                 timerDropdown.classList.remove('show');
+            }
+            if (!stationMenuBtn.contains(e.target) && !stationDropdown.contains(e.target)) {
+                stationDropdown.classList.remove('show');
             }
         });
 
