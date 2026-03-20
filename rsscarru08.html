@@ -400,9 +400,9 @@
     <div class="modal-contingut" id="modalContingut">
       <!-- Capçalera amb botons de mida de lletra i tancar -->
       <div class="modal-cabecera">
-        <div class="modal-controls">
-          <button class="btn-font" id="augmentarLletra">A+</button>
+        <div class="modal-controls">          
           <button class="btn-font" id="disminuirLletra">A-</button>
+          <button class="btn-font" id="augmentarLletra">A+</button>
         </div>
         <button class="modal-tancar" id="tancarModal">&times;</button>
       </div>
@@ -456,9 +456,19 @@
   <script>
     (function() {
       const RSS_URLS = [
-        'https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/home.xml',
-        'https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/tecnologia.xml',
-        'https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/local/catalunya.xml'
+'https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/home.xml',
+'https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/internacional.xml',
+'https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/deportes.xml',
+'https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/local/catalunya.xml',
+'https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/local/tarragona.xml',
+'https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/local/lleida.xml',
+'https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/cultura.xml',
+'https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/economia.xml',
+'https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/tecnologia.xml',
+'https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/comer.xml',
+'https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/gente.xml',
+'https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/magazine.xml',
+'https://api.rss2json.com/v1/api.json?rss_url=https://www.lavanguardia.com/rss/vida.xml'
       ];
 
       let noticies = [];
