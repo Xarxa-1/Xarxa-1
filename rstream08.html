@@ -1,0 +1,839 @@
+
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>RÀDIO STREAM</title>
+<style>
+    /* ===== ESTIL GENERAL · TONS FOSCS + VORADA 3D HI-FI ===== */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background: #0b1a0b;
+        font-family: 'Segoe UI', 'Courier New', monospace;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 8px;
+        margin: 0;
+        width: 100%;
+    }
+    button {
+        padding: 8px;
+        margin: 0;
+        width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+    .hifi-rack {
+        max-width: 720px;
+        width: 100%;
+        background: #1c2a1c;
+        background: linear-gradient(145deg, #1e2b1e 0%, #0f180f 100%);
+        border: 2px solid #3f5a3f;
+        border-radius: 40px 40px 30px 30px;
+        box-shadow:
+            0 20px 30px rgba(0,0,0,0.8),
+            inset 0 -6px 8px rgba(0,0,0,0.7),
+            inset 0 6px 10px #5f7a5f,
+            0 0 0 4px #2e412e;
+        padding: 20px 16px 22px 16px;
+        color: #b0ffb0;
+        text-shadow: 0 0 5px #00cc00, 0 0 2px #aaffaa;
+    }
+
+    .stream-deck {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 10px 12px;
+    }
+
+    .module {
+        background: #1f2c1f;
+        border-radius: 20px;
+        border: 2px solid #3d5a3d;
+        box-shadow: inset 0 -3px 3px #0f130f, inset 0 3px 5px #6f8a6f, 0 5px 0 #0e170e;
+        padding: 8px 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex: 0 1 auto;
+        backdrop-filter: blur(1px);
+    }
+
+    button {
+        background: #2b3c2b;
+        border: none;
+        border-radius: 40px;
+        padding: 10px 16px;
+        font-weight: bold;
+        font-size: 0.95rem;
+        color: #dbffdb;
+        border-bottom: 5px solid #1b2a1b;
+        border-right: 2px solid #4a6b4a;
+        border-left: 2px solid #1c2b1c;
+        box-shadow: 0 6px 0 #102010, 0 8px 12px black, inset 0 2px 10px #aaffaa;
+        cursor: pointer;
+        transition: all 0.08s linear;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        white-space: nowrap;
+    }
+
+    button:active {
+        transform: translateY(5px);
+        border-bottom-width: 2px;
+        box-shadow: 0 2px 0 #102010, 0 5px 10px black;
+    }
+
+    button.active {
+        background: #4caf4c;
+        border-bottom-color: #2d6b2d;
+        box-shadow: 0 6px 0 #1e4d1e, 0 8px 12px black, inset 0 2px 10px #ffffaa;
+        color: #ffffff;
+    }
+
+    .station-selector {
+        background: #172317;
+        border-radius: 60px;
+        padding: 4px 8px 4px 4px;
+        border: 2px solid #6f9f6f;
+        box-shadow: inset 0 0 15px #141414, 0 0 15px #33ff33;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 180px;
+        max-width: 240px;
+        flex: 1 1 auto;
+    }
+
+    .station-selector select {
+        background: #1a2a1a;
+        color: #d0ffd0;
+        border: 2px solid #3d8a3d;
+        border-radius: 30px;
+        padding: 8px 12px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        outline: none;
+        box-shadow: inset 0 2px 8px black, 0 0 10px #33aa33;
+        width: 100%;
+        cursor: pointer;
+    }
+
+    .station-selector select:hover {
+        background: #1f3a1f;
+        border-color: #5fb05f;
+    }
+
+    .station-selector select:focus {
+        background: #1f3a1f;
+        border-color: #7aff7a;
+        box-shadow: inset 0 2px 8px black, 0 0 15px #55ff55;
+    }
+
+    .station-selector option {
+        background: #1a2a1a;
+        color: #ddffdd;
+        padding: 8px;
+    }
+
+    .station-selector option:hover {
+        background: #2d4a2d;
+    }
+
+    .station-logo {
+        width: 80px;
+        height: 80px;
+        border-radius: 10%;
+        object-fit: cover;
+        border: 2px solid #77dd77;
+        box-shadow: 0 0 0 1px #1a3a1a, 0 0 15px #00d000;
+        background: #112211;
+    }
+
+    .status-led {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: #0e1f0e;
+        border-radius: 40px;
+        padding: 5px 16px 5px 12px;
+        border: 1px solid #57aa57;
+        box-shadow: inset 0 -3px 2px #091209;
+    }
+
+    .led-dot {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #445544;
+        box-shadow: 0 0 5px white;
+        transition: background 0.15s, box-shadow 0.2s;
+    }
+
+    .led-dot.playing { background: #22ff22; box-shadow: 0 0 18px #44ff44; }
+    .led-dot.buffering { background: #ffff44; box-shadow: 0 0 18px #ffffaa; animation: pulse 1s infinite; }
+    .led-dot.stopped { background: #882222; box-shadow: 0 0 8px #ff2222; }
+    @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    .track-info {
+        background: #1f2c1f;
+        border-radius: 20px;
+        border: 2px solid #3d5a3d;
+        box-shadow: inset 0 -3px 3px #0f130f, inset 0 3px 5px #6f8a6f, 0 5px 0 #0e170e;
+        padding: 8px 12px;
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        max-width: 100%;
+        min-width: 200px;
+        flex: 1 1 auto;
+        min-height: 70px;
+        width: 100%;
+    }
+
+    .track-img {
+        width: 70px;
+        height: 70px;
+        border-radius: 8px;
+        background: #1e331e;
+        border: 2px solid #9aff9a;
+        object-fit: cover;
+        flex-shrink: 0;
+    }
+
+    .track-text {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #ccffcc;
+        text-shadow: 0 0 5px #11ee11;
+        white-space: normal;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-wrap: break-word;
+        word-break: break-word;
+        line-height: 1.4;
+        max-height: 5.6em;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        flex: 1;
+    }
+
+    .digital-clock {
+        background: #142014;
+        border-radius: 30px;
+        padding: 8px 12px;
+        border: 2px solid #77dd77;
+        box-shadow: inset 0 0 12px black, 0 0 18px #44cc44;
+        font-family: 'Courier New', monospace;
+        font-size: 1.3rem;
+        font-weight: 800;
+        letter-spacing: 3px;
+        color: #b4ffb4;
+        line-height: 1;
+    }
+
+    .vol-control {
+        display: flex;
+        align-items: center;
+        background: #1d2d1d;
+        border-radius: 40px;
+        padding: 2px 2px 2px 12px;
+        border: 2px solid #5b965b;
+        gap: 2px;
+    }
+
+    .vol-control span {
+        font-size: 1rem;
+        font-weight: 800;
+        min-width: 35px;
+        text-align: center;
+        color: #9eff9e;
+    }
+
+    .vol-btn {
+        padding: 6px 12px;
+        font-size: 1.2rem;
+        background: #2b3c2b;
+        border-bottom: 4px solid #102210;
+    }
+
+    .repeat-btn {
+        padding: 6px 12px;
+        font-size: 1rem;
+        background: #2b3c2b;
+        border-bottom: 4px solid #102210;
+        min-width: 40px;
+        border: none;
+        border-radius: 40px;
+        font-weight: bold;
+        color: #dbffdb;
+        border-bottom: 5px solid #1b2a1b;
+        border-right: 2px solid #4a6b4a;
+        border-left: 2px solid #1c2b1c;
+        box-shadow: 0 6px 0 #102010, 0 8px 12px black, inset 0 2px 10px #aaffaa;
+        cursor: pointer;
+        transition: all 0.08s linear;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+    }
+
+    .repeat-btn:active {
+        transform: translateY(5px);
+        border-bottom-width: 2px;
+        box-shadow: 0 2px 0 #102010, 0 5px 10px black;
+    }
+
+    .repeat-btn.active {
+        background: #4caf4c;
+        border-bottom-color: #2d6b2d;
+        box-shadow: 0 6px 0 #1e4d1e, 0 8px 12px black, inset 0 2px 10px #ffffaa;
+        color: #ffffff;
+    }
+
+    .timer-menu {
+        position: relative;
+        display: inline-block;
+    }
+
+    .timer-btn {
+        background: #2f482f;
+        padding: 8px 14px;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        bottom: 45px;
+        left: 0;
+        background: #203020;
+        border: 3px solid #7fb27f;
+        border-radius: 24px;
+        padding: 12px;
+        box-shadow: 0 0 30px #22ff22;
+        z-index: 20;
+        min-width: 180px;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .dropdown-content.show {
+        display: flex;
+    }
+
+    .dropdown-content button {
+        background: #2b452b;
+        width: 100%;
+        justify-content: center;
+        font-size: 0.9rem;
+        border-bottom: 4px solid #1b2f1b;
+        padding: 8px 12px;
+    }
+
+    .cancel-timer {
+        background: #5d3a3a;
+        border-bottom-color: #3d1f1f;
+        color: #ffc0c0;
+    }
+
+    .timer-countdown {
+        font-size: 1.4rem;
+        text-align: center;
+        background: #112211;
+        border-radius: 30px;
+        padding: 6px 8px;
+        border: 2px solid #22cc22;
+    }
+
+    .clock-timer-container {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    /* Media query per a pantalles molt petites */
+    @media (max-width: 560px) {
+        .hifi-rack {
+            padding: 15px 10px;
+        }
+
+        .stream-deck {
+            gap: 8px;
+        }
+
+        .station-logo, .track-img {
+            width: 60px;
+            height: 60px;
+        }
+
+        .digital-clock {
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            padding: 6px 10px;
+        }
+
+        .vol-control span {
+            min-width: 30px;
+            font-size: 0.9rem;
+        }
+
+        .vol-btn {
+            padding: 5px 10px;
+            font-size: 1rem;
+        }
+
+        .track-info {
+            min-width: 100%;
+        }
+    }
+</style>
+    <!-- Font Awesome per les icones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<div class="hifi-rack">
+    <div class="stream-deck" id="streamDeck">
+
+        <!-- selector d'emissores amb logo + botons navegació + botó PLAY -->
+        <div class="module" style="padding: 4px;">
+            <img id="stationLogoPreview" class="station-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Logotip_de_RAC_1.svg/1200px-Logotip_de_RAC_1.svg.png" alt="logo">
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+                <div class="station-selector">
+                    <select id="stationSelect" style="width:100%;"></select>
+                </div>
+                <div style="display: flex; gap: 5px;">
+                    <!-- Botons amb icones de Font Awesome -->
+                    <button id="prevStationBtn" title="Emissora anterior"><i class="fas fa-step-backward"></i></button>
+                    <button id="playPauseBtn" title="Play / Pausa"><i class="fas fa-play"></i></button>
+                    <button id="nextStationBtn" title="Emissora següent"><i class="fas fa-step-forward"></i></button>
+                    <button class="repeat-btn" id="repeatBtn" title="Mode repetició: desactivat"><i class="fas fa-sync-alt"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- volum amb dos botons + indicador + botó de repetició -->
+        <div style="display: flex; gap: 8px; align-items: center;">
+            <div class="vol-control module">
+                <span id="volDisplay">4/10</span>
+                <button class="vol-btn" id="volDown">-</button>
+                <button class="vol-btn" id="volUp">+</button>
+            </div>
+            <!-- indicador led estat -->
+            <div class="status-led module" id="statusIndicator">
+                <span id="ledText" style="min-width: 70px;">Aturat</span>
+                <span id="ledDot" class="led-dot stopped"></span>
+            </div>
+        </div>
+            <div class="timer-menu module">
+
+        <!-- contenidor per rellotge i temporitzador -->
+        <div class="clock-timer-container">
+            <!-- rellotge digital hh:mm:ss -->
+            <div class="digital-clock module" id="liveClock">00:00:00</div>
+
+            <!-- temporitzador: botó que desplega opcions -->
+                <button class="timer-btn" id="timerMenuBtn" style="width: 90px;><i class="fas fa-clock"></i> 0:00</button>
+                <div class="dropdown-content" id="timerDropdown">
+                    <button data-minutes="0.1667"><i class="fas fa-hourglass-start"></i> 10 segons</button>
+                    <button data-minutes="5"><i class="fas fa-hourglass-half"></i> 5 minuts</button>
+                    <button data-minutes="30"><i class="fas fa-hourglass-half"></i> 30 minuts</button>
+                    <button data-minutes="60"><i class="fas fa-hourglass-end"></i> 1 hora</button>
+                    <button class="cancel-timer" id="cancelTimerBtn"><i class="fas fa-times"></i> Cancel·lar</button>
+                    <div class="timer-countdown" id="countdownDisplay">00:00</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- informació track: imatge + artista - títol -->
+        <div class="track-info module" id="trackInfoModule">
+            <img id="trackImage" class="track-img" src="https://via.placeholder.com/40x40/1a2a1a/88ff88?text=🎵" alt="cover">
+            <div class="track-text" id="trackArtistTitle">Carregant...</div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    (function() {
+        const stationsUrl = 'https://xarxa-1.github.io/Xarxa-1/emissores.json';
+        let stations = [];
+        let currentIndex = 0;
+        let audio = new Audio();
+        audio.volume = 0.4;
+        let isPlaying = false;
+        let repeatMode = false;
+
+        const stationSelect = document.getElementById('stationSelect');
+        const stationLogoPreview = document.getElementById('stationLogoPreview');
+        const prevBtn = document.getElementById('prevStationBtn');
+        const nextBtn = document.getElementById('nextStationBtn');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const volDisplay = document.getElementById('volDisplay');
+        const volDown = document.getElementById('volDown');
+        const volUp = document.getElementById('volUp');
+        const repeatBtn = document.getElementById('repeatBtn');
+        const ledDot = document.getElementById('ledDot');
+        const ledText = document.getElementById('ledText');
+        const trackImage = document.getElementById('trackImage');
+        const trackArtistTitle = document.getElementById('trackArtistTitle');
+        const timerMenuBtn = document.getElementById('timerMenuBtn');
+        const timerDropdown = document.getElementById('timerDropdown');
+        const countdownDisplay = document.getElementById('countdownDisplay');
+        const cancelTimerBtn = document.getElementById('cancelTimerBtn');
+        const liveClock = document.getElementById('liveClock');
+
+        let sleepTimerInterval = null;
+        let sleepTimeout = null;
+        let sleepEndTime = null;
+
+        function cleanImageUrl(url) {
+            if (!url) return null;
+            let cleaned = url.replace(/\\\//g, '/');
+            cleaned = cleaned.replace(/:\//g, '://');
+            cleaned = cleaned.replace(/\\/g, '');
+            return cleaned;
+        }
+
+        function updateTrackImage(trackImageUrl, stationLogoUrl) {
+            if (trackImageUrl && trackImageUrl !== '') {
+                const cleanedUrl = cleanImageUrl(trackImageUrl);
+                console.log('Intentant carregar imatge track:', cleanedUrl);
+
+                const img = new Image();
+                img.onload = function() {
+                    trackImage.src = cleanedUrl;
+                    console.log('✅ Imatge de track carregada correctament');
+                };
+                img.onerror = function() {
+                    console.log('❌ Error carregant imatge track, fem servir logo emissora');
+                    if (stationLogoUrl && stationLogoUrl !== '') {
+                        trackImage.src = stationLogoUrl;
+                    } else {
+                        trackImage.src = 'https://via.placeholder.com/40x40/1a2a1a/88ff88?text=📻';
+                    }
+                };
+                img.src = cleanedUrl;
+            } else {
+                console.log('No hi ha imatge track, fem servir logo emissora');
+                if (stationLogoUrl && stationLogoUrl !== '') {
+                    trackImage.src = stationLogoUrl;
+                } else {
+                    trackImage.src = 'https://via.placeholder.com/40x40/1a2a1a/88ff88?text=📻';
+                }
+            }
+        }
+
+        function updateClock() {
+            const now = new Date();
+            const hh = String(now.getHours()).padStart(2,'0');
+            const mm = String(now.getMinutes()).padStart(2,'0');
+            const ss = String(now.getSeconds()).padStart(2,'0');
+            liveClock.innerText = `${hh}:${mm}:${ss}`;
+        }
+        setInterval(updateClock, 200);
+        updateClock();
+
+        function setLedState(state, text) {
+            ledDot.className = 'led-dot';
+            if (state === 'playing') ledDot.classList.add('playing');
+            else if (state === 'buffering') ledDot.classList.add('buffering');
+            else ledDot.classList.add('stopped');
+            ledText.innerText = text;
+        }
+
+        function setVolume(vol) {
+            vol = Math.min(1, Math.max(0, vol));
+            audio.volume = vol;
+            let display = Math.round(vol * 10);
+            volDisplay.innerText = display + '/10';
+        }
+
+        function stopSleepTimer() {
+            if (sleepTimeout) { clearTimeout(sleepTimeout); sleepTimeout = null; }
+            if (sleepTimerInterval) { clearInterval(sleepTimerInterval); sleepTimerInterval = null; }
+            sleepEndTime = null;
+            countdownDisplay.innerText = '00:00';
+            timerMenuBtn.innerHTML = '<i class="fas fa-clock"></i> 0:00';
+        }
+
+        function startSleepTimer(minutes) {
+            stopSleepTimer();
+            const ms = minutes * 60 * 1000;
+            if (ms <= 0) return;
+            sleepEndTime = Date.now() + ms;
+            sleepTimerInterval = setInterval(() => {
+                if (!sleepEndTime) { countdownDisplay.innerText = '00:00'; return; }
+                const left = Math.max(0, sleepEndTime - Date.now());
+                const totalSec = Math.floor(left / 1000);
+                const mins = Math.floor(totalSec / 60);
+                const secs = totalSec % 60;
+                countdownDisplay.innerText = `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+                timerMenuBtn.innerHTML = `<i class="fas fa-clock"></i> ${mins}:${String(secs).padStart(2,'0')}`;
+                if (left <= 0) {
+                    audio.pause();
+                    setLedState('stopped','Timer off');
+                    isPlaying = false;
+                    playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+                    stopSleepTimer();
+                }
+            }, 200);
+            sleepTimeout = setTimeout(() => {
+                audio.pause();
+                setLedState('stopped','Timer off');
+                isPlaying = false;
+                playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+                stopSleepTimer();
+            }, ms);
+        }
+
+        async function fetchPlaylistInfo(playlistUrl, stationLogo) {
+            try {
+                const resp = await fetch(playlistUrl);
+                if (!resp.ok) throw new Error();
+                const data = await resp.json();
+                if (data.success && data.result && data.result.length > 0) {
+                    const first = data.result[0];
+                    const artist = first.track_artist || '?';
+                    const title = first.track_title || '?';
+                    trackArtistTitle.innerText = `${artist} - ${title}`;
+                    updateTrackImage(first.track_image, stationLogo);
+                } else {
+                    trackArtistTitle.innerText = stations[currentIndex]?.name || 'Sense dades';
+                    if (stationLogo) {
+                        trackImage.src = stationLogo;
+                    }
+                }
+            } catch (e) {
+                console.warn('Error carregant playlist:', e);
+                trackArtistTitle.innerText = stations[currentIndex]?.name || 'Error playlist';
+                if (stationLogo) {
+                    trackImage.src = stationLogo;
+                }
+            }
+        }
+
+        function loadStation(index) {
+            if (!stations.length) return;
+
+            const wasPlaying = isPlaying;
+
+            currentIndex = Math.min(index, stations.length-1);
+            const st = stations[currentIndex];
+            stationSelect.selectedIndex = currentIndex;
+
+            if (st.logo) {
+                stationLogoPreview.src = st.logo;
+            }
+
+            audio.pause();
+            audio.src = '';
+
+            setLedState('stopped', 'Aturat');
+            playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+
+            trackArtistTitle.innerText = st.name || 'Emissora';
+
+            if (st.logo) {
+                trackImage.src = st.logo;
+            } else {
+                trackImage.src = 'https://via.placeholder.com/40x40/1a2a1a/88ff88?text=📻';
+            }
+
+            if (st.url) {
+                audio.src = st.url;
+                audio.load();
+
+                if (st.playlist) {
+                    fetchPlaylistInfo(st.playlist, st.logo);
+                }
+
+                if (wasPlaying) {
+                    console.log('Reproduint automàticament després de carregar emissora');
+                    audio.play().catch(e => {
+                        console.warn('Error reproduint després de carregar:', e);
+                        setLedState('stopped','Error play');
+                    });
+                } else {
+                    setLedState('stopped', 'Aturat');
+                }
+            } else {
+                setLedState('stopped', 'Sense URL');
+            }
+        }
+
+        function handleAudioEnded() {
+            const wasPlaying = isPlaying;
+
+            if (repeatMode) {
+                console.log('Mode repetició actiu - repetint emissora actual');
+                isPlaying = true;
+                loadStation(currentIndex);
+            } else {
+                console.log('Passant a la següent emissora automàticament');
+                let newIdx = currentIndex + 1;
+                if (newIdx >= stations.length) newIdx = 0;
+                isPlaying = true;
+                loadStation(newIdx);
+            }
+        }
+
+        audio.addEventListener('playing', () => {
+            setLedState('playing','Sonant');
+            isPlaying = true;
+            playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        });
+
+        audio.addEventListener('waiting', () => {
+            setLedState('buffering','Buffering');
+        });
+
+        audio.addEventListener('pause', () => {
+            setLedState('stopped','Aturat');
+            isPlaying = false;
+            playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+        });
+
+        audio.addEventListener('ended', () => {
+            console.log('Àudio finalitzat');
+            setLedState('stopped','Aturat');
+            playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+            handleAudioEnded();
+        });
+
+        audio.addEventListener('error', (e) => {
+            console.warn('Error d\'àudio:', e);
+            setLedState('stopped','Error');
+            isPlaying = false;
+            playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+        });
+
+        playPauseBtn.addEventListener('click', () => {
+            if (!stations.length || !stations[currentIndex]?.url) return;
+
+            if (audio.paused) {
+                audio.play().catch(e => {
+                    console.warn('Error reproduint:', e);
+                    setLedState('stopped','Error play');
+                });
+            } else {
+                audio.pause();
+            }
+        });
+
+        async function loadStations() {
+            try {
+                const resp = await fetch(stationsUrl);
+                if (!resp.ok) throw new Error('Network error');
+                stations = await resp.json();
+
+                stationSelect.innerHTML = '';
+                stations.forEach((s, idx) => {
+                    const opt = document.createElement('option');
+                    opt.value = idx;
+                    opt.textContent = s.name || 'Sense nom';
+                    stationSelect.appendChild(opt);
+                });
+
+                if (stations.length > 0) {
+                    stationSelect.selectedIndex = 0;
+                    loadStation(0);
+                }
+
+                stationSelect.addEventListener('change', (e) => {
+                    const idx = parseInt(e.target.value, 10);
+                    if (!isNaN(idx)) loadStation(idx);
+                });
+            } catch (err) {
+                console.warn('Error carregant emissores, fem servir dades estàtiques.');
+                stations = [
+                    { "name": "RAC1", "playlist": "https://api.instant.audio/data/playlist/38/rac1", "url": "https://20103.live.streamtheworld.com/RAC_1.mp3", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Logotip_de_RAC_1.svg/1200px-Logotip_de_RAC_1.svg.png" },
+                    { "name": "Flaixbac", "playlist": "https://api.instant.audio/data/playlist/38/flaixbac", "url": "https://stream.flaixbac.cat/icecast", "logo": "https://static.mytuner.mobi/media/radios-150px/274/flaixbac.f6d8cd83.jpg" },
+                    { "name": "Catalunya Ràdio", "url": "https://directes-radio-int.ccma.cat/live-content/catalunyaradio-hls/bitrate_1.m3u8", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Catalunya_R%C3%A0dio_%28logo%29.svg/1200px-Catalunya_R%C3%A0dio_%28logo%29.svg.png" }
+                ];
+                stationSelect.innerHTML = '';
+                stations.forEach((s, idx) => {
+                    const opt = document.createElement('option');
+                    opt.value = idx;
+                    opt.textContent = s.name;
+                    stationSelect.appendChild(opt);
+                });
+                stationSelect.selectedIndex = 0;
+                loadStation(0);
+            }
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (stations.length === 0) return;
+            let newIdx = currentIndex - 1;
+            if (newIdx < 0) newIdx = stations.length-1;
+            loadStation(newIdx);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (stations.length === 0) return;
+            let newIdx = currentIndex + 1;
+            if (newIdx >= stations.length) newIdx = 0;
+            loadStation(newIdx);
+        });
+
+        repeatBtn.addEventListener('click', () => {
+            repeatMode = !repeatMode;
+            if (repeatMode) {
+                repeatBtn.classList.add('active');
+                repeatBtn.title = 'Mode repetició: actiu (es repeteix la mateixa emissora)';
+            } else {
+                repeatBtn.classList.remove('active');
+                repeatBtn.title = 'Mode repetició: desactivat (passa a la següent emissora)';
+            }
+        });
+
+        volUp.addEventListener('click', () => setVolume(audio.volume + 0.1));
+        volDown.addEventListener('click', () => setVolume(audio.volume - 0.1));
+        setVolume(0.4);
+
+        timerMenuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            timerDropdown.classList.toggle('show');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!timerMenuBtn.contains(e.target) && !timerDropdown.contains(e.target)) {
+                timerDropdown.classList.remove('show');
+            }
+        });
+
+        timerDropdown.querySelectorAll('button[data-minutes]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const min = parseFloat(btn.getAttribute('data-minutes'));
+                startSleepTimer(min);
+                timerDropdown.classList.remove('show');
+            });
+        });
+
+        cancelTimerBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            stopSleepTimer();
+            timerDropdown.classList.remove('show');
+        });
+
+        loadStations();
+    })();
+</script>
+</body>
+</html>
