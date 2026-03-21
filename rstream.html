@@ -248,7 +248,7 @@
         color: #ffffff;
     }
 
-    /* Estils pel menú d'emissores - FORA DEL MODULE */
+    /* Estils pel menú d'emissores - CENTRAT HORITZONTALMENT */
     .station-menu {
         position: relative;
         display: inline-block;
@@ -265,8 +265,10 @@
     .station-dropdown {
         display: none;
         position: absolute;
+        /* Centrat horitzontal */
+        left: 50%;
+        transform: translateX(-50%);
         top: 100%;
-        right: -70px;   /* Valor negatiu el mou cap a la dreta, positiu cap a l'esquerra */        
         margin-top: 8px;
         background: #203020;
         border: 3px solid #7fb27f;
@@ -448,9 +450,11 @@
 
         .dropdown-content,
         .station-dropdown {
-            left: auto;
-            right: 0;
+            left: 50%;
+            transform: translateX(-50%);
             min-width: 180px;
+            /* Assegurem que el centrat també funciona en mòbil */
+            right: auto;
         }
 
         .station-dropdown-logo {
