@@ -64,15 +64,14 @@
     }
 
     button {
-            box-shadow: inset 0 0 12px black, 0 0 18px #44cc44;
-
+        box-shadow: inset 0 0 12px black, 0 0 18px #44cc44;
         font-family: 'Antonio','Segoe UI', 'Courier New', monospace;
         background: #2b3c2b;
         border: none;
         border-radius: 40px;
         padding: 10px 16px;
         font-weight: bold;
-        font-size: 0.95rem;
+        font-size: 2rem;
         color: #dbffdb;
         border-bottom: 5px solid #1b2a1b;
         border-right: 2px solid #4a6b4a;
@@ -87,11 +86,9 @@
     }
 
     button:active {
-        /* Eliminem el translateY per evitar que mogui el text circumdant */
         transform: none;
         border-bottom-width: 2px;
         box-shadow: 0 2px 0 #102010, 0 5px 10px black;
-        /* Afegim un petit canvi de color per feedback visual */
         background: #3c543c;
     }
 
@@ -119,7 +116,7 @@
     }
 
     .status-led {
-        width: 120px;
+        width: 170px;
         display: flex;
         align-items: center;
         gap: 6px;
@@ -171,7 +168,7 @@
     }
 
     .track-text {
-        font-size: 0.85rem;
+        font-size: 2rem;
         font-weight: 600;
         color: #ccffcc;
         text-shadow: 0 0 5px #11ee11;
@@ -190,46 +187,44 @@
 
     .digital-clock {
         background: #142014;
-        border-radius: 30px;
-        padding: 8px 12px;
-        border: 2px solid #77dd77;
-        box-shadow: inset 0 0 12px black, 0 0 18px #44cc44;
         font-family: 'Antonio','Courier New', monospace;
-        font-size: 1.3rem;
-        font-weight: 800;
-        letter-spacing: 3px;
-        color: #b4ffb4;
+        border-radius: 48px;
+        padding: 10px 20px;
+        border: 1px solid #2e352e;
+        font-size: 2rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        color: #c8ffc8;
         line-height: 1;
     }
 
-    .vol-control {
-        display: flex;
-        align-items: center;
-        background: #1d2d1d;
-        border-radius: 40px;
-        padding: 2px 2px 2px 12px;
-        border: 2px solid #5b965b;
-        gap: 2px;
-    }
+  .vol-control {
+      display: flex;
+      align-items: center;
+      background: #1d2d1d;
+      border-radius: 40px;
+      padding: 2px 2px 2px 12px;
+      border: 2px solid #5b965b;
+      gap: 2px;
+  }
 
-    .vol-control span {
-        font-size: 1rem;
-        font-weight: 800;
-        min-width: 35px;
-        text-align: center;
-        color: #9eff9e;
-    }
+  .vol-control span {
+      font-size: 2rem;
+      min-width: 55px;
+      text-align: center;
+      color: #9eff9e;
+  }
 
-    .vol-btn {
-        padding: 6px 12px;
-        font-size: 1.2rem;
-        background: #2b3c2b;
-        border-bottom: 4px solid #102210;
-    }
-
+  .vol-btn {
+         padding: 8px 16px;
+          font-size: 2rem;
+        font-weight: 600;
+      background: #2b3c2b;
+      border-bottom: 4px solid #102210;
+}
     .repeat-btn {
         padding: 6px 12px;
-        font-size: 1rem;
+        font-size: 2rem;
         background: #2b3c2b;
         border-bottom: 4px solid #102210;
         min-width: 40px;
@@ -250,7 +245,6 @@
     }
 
     .repeat-btn:active {
-        /* Eliminem el translateY per evitar que mogui el text circumdant */
         transform: none;
         border-bottom-width: 2px;
         box-shadow: 0 2px 0 #102010, 0 5px 10px black;
@@ -271,7 +265,8 @@
     }
 
     /* Estils pel menú d'emissores - CENTRAT HORITZONTALMENT */
-    .station-menu {        width: 90%;
+    .station-menu {
+        width: 90%;
         position: relative;
         display: inline-block;
         z-index: 10000;
@@ -282,12 +277,12 @@
         padding: 8px 14px;
         width: 270px;
         min-width: 90px;
+        font-size: 2rem;
     }
 
     .station-dropdown {
         display: none;
         position: absolute;
-        /* Centrat horitzontal */
         left: 50%;
         transform: translateX(-50%);
         top: 100%;
@@ -344,7 +339,7 @@
     }
 
     .station-dropdown-name {
-        font-size: 0.9rem;
+        font-size: 2rem;
         font-weight: 600;
         color: #ccffcc;
         flex: 1;
@@ -352,7 +347,6 @@
 
     .station-dropdown-item.active .station-dropdown-name {
         color: #ffffff;
-        text-shadow: 0 0 5px #ffffaa;
     }
 
     /* Estils pel menú del temporitzador */
@@ -367,6 +361,7 @@
         padding: 8px 14px;
         width: auto;
         min-width: 90px;
+        font-size: 1.4rem;
     }
 
     .dropdown-content {
@@ -395,14 +390,14 @@
         background: #2b452b;
         width: 100%;
         justify-content: center;
-        font-size: 0.9rem;
+        font-size: 1.4rem;
         border-bottom: 4px solid #1b2f1b;
         padding: 8px 12px;
     }
 
     .dropdown-content button:active {
         transform: none;
-        border-bottom-width: 2px;
+        border-bottom-width: 1.4px;
         box-shadow: 0 2px 0 #102010, 0 5px 10px black;
     }
 
@@ -441,6 +436,12 @@
         gap: 4px;
     }
 
+    /* Estil per al text d'estat LED */
+    #ledText {
+        font-size: 2rem;
+        min-width: 70px;
+    }
+
     /* Media query per a pantalles molt petites */
     @media (max-width: 560px) {
         .hifi-rack {
@@ -457,19 +458,19 @@
         }
 
         .digital-clock {
-            font-size: 1.1rem;
+            font-size: 2rem;
             letter-spacing: 2px;
             padding: 6px 10px;
         }
 
         .vol-control span {
             min-width: 30px;
-            font-size: 0.9rem;
+            font-size: 2rem;
         }
 
         .vol-btn {
             padding: 5px 10px;
-            font-size: 1rem;
+            font-size: 2rem;
         }
 
         .track-info {
@@ -481,7 +482,6 @@
             left: 50%;
             transform: translateX(-50%);
             min-width: 180px;
-            /* Assegurem que el centrat també funciona en mòbil */
             right: auto;
         }
 
@@ -489,11 +489,40 @@
             width: 32px;
             height: 32px;
         }
+
+        button {
+            font-size: 2rem;
+            padding: 6px 12px;
+        }
+
+        .track-text {
+            font-size: 2rem;
+        }
+
+        .station-btn {
+            font-size: 2rem;
+        }
+
+        .timer-btn {
+            font-size: 2rem;
+        }
+
+        .dropdown-content button {
+            font-size: 2rem;
+        }
+
+        .timer-countdown {
+            font-size: 2rem;
+        }
+
+        #ledText {
+            font-size: 2rem;
+        }
     }
 
     /* Personalitzar scroll del menú d'emissores */
     .station-dropdown::-webkit-scrollbar {
-        width: 8px;
+        width: 18px;
     }
 
     .station-dropdown::-webkit-scrollbar-track {
@@ -548,8 +577,8 @@
             </div>
             <!-- indicador led estat -->
             <div class="status-led module" id="statusIndicator">
+            <span id="ledDot" class="led-dot stopped"></span>
                 <span id="ledText" style="min-width: 70px;">Aturat</span>
-                <span id="ledDot" class="led-dot stopped"></span>
             </div>
         </div>
 
@@ -591,6 +620,11 @@
         let isPlaying = false;
         let repeatMode = false;
 
+        // Variables per la actualització periòdica de la info de la cançó
+        let updateInterval = null;
+        let currentStationPlaylistUrl = null;
+        let currentStationLogo = null;
+
         const stationLogoPreview = document.getElementById('stationLogoPreview');
         const prevBtn = document.getElementById('prevStationBtn');
         const nextBtn = document.getElementById('nextStationBtn');
@@ -614,6 +648,35 @@
         let sleepTimerInterval = null;
         let sleepTimeout = null;
         let sleepEndTime = null;
+
+        // Funció per aturar l'actualització periòdica
+        function stopPeriodicUpdate() {
+            if (updateInterval) {
+                clearInterval(updateInterval);
+                updateInterval = null;
+            }
+        }
+
+        // Funció per iniciar l'actualització periòdica (cada 5 segons)
+        function startPeriodicUpdate(playlistUrl, stationLogo) {
+            stopPeriodicUpdate();
+            if (!playlistUrl) return;
+
+            // Guardem la URL i logo actuals per comparar
+            currentStationPlaylistUrl = playlistUrl;
+            currentStationLogo = stationLogo;
+
+            // Executem la primera actualització immediatament
+            fetchAndUpdateTrackInfo(playlistUrl, stationLogo);
+
+            // Configurem l'interval per actualitzar cada 5 segons
+            updateInterval = setInterval(() => {
+                // Verifiquem que encara estem a la mateixa emissora per evitar actualitzacions fora de lloc
+                if (currentStationPlaylistUrl === playlistUrl && stations[currentIndex] && stations[currentIndex].playlist === playlistUrl) {
+                    fetchAndUpdateTrackInfo(playlistUrl, stationLogo);
+                }
+            }, 5000);
+        }
 
         function cleanImageUrl(url) {
             if (!url) return null;
@@ -643,6 +706,39 @@
                     trackImage.src = stationLogoUrl;
                 } else {
                     trackImage.src = 'https://via.placeholder.com/40x40/1a2a1a/88ff88?text=📻';
+                }
+            }
+        }
+
+        async function fetchAndUpdateTrackInfo(playlistUrl, stationLogo) {
+            if (!playlistUrl) return;
+
+            try {
+                const resp = await fetch(playlistUrl);
+                if (!resp.ok) throw new Error('Error en la petició');
+                const data = await resp.json();
+                if (data.success && data.result && data.result.length > 0) {
+                    const first = data.result[0];
+                    const artist = first.track_artist || '?';
+                    const title = first.track_title || '?';
+                    // Evitar mostrar "undefined - undefined" si no hi ha dades
+                    if (artist !== '?' || title !== '?') {
+                        trackArtistTitle.innerText = `${artist} - ${title}`;
+                    } else {
+                        trackArtistTitle.innerText = stations[currentIndex]?.name || 'Sense dades';
+                    }
+                    updateTrackImage(first.track_image, stationLogo);
+                } else {
+                    trackArtistTitle.innerText = stations[currentIndex]?.name || 'Sense dades';
+                    if (stationLogo) {
+                        trackImage.src = stationLogo;
+                    }
+                }
+            } catch (e) {
+                console.warn('Error carregant playlist:', e);
+                trackArtistTitle.innerText = stations[currentIndex]?.name || 'Error playlist';
+                if (stationLogo) {
+                    trackImage.src = stationLogo;
                 }
             }
         }
@@ -743,32 +839,6 @@
             }, ms);
         }
 
-        async function fetchPlaylistInfo(playlistUrl, stationLogo) {
-            try {
-                const resp = await fetch(playlistUrl);
-                if (!resp.ok) throw new Error();
-                const data = await resp.json();
-                if (data.success && data.result && data.result.length > 0) {
-                    const first = data.result[0];
-                    const artist = first.track_artist || '?';
-                    const title = first.track_title || '?';
-                    trackArtistTitle.innerText = `${artist} - ${title}`;
-                    updateTrackImage(first.track_image, stationLogo);
-                } else {
-                    trackArtistTitle.innerText = stations[currentIndex]?.name || 'Sense dades';
-                    if (stationLogo) {
-                        trackImage.src = stationLogo;
-                    }
-                }
-            } catch (e) {
-                console.warn('Error carregant playlist:', e);
-                trackArtistTitle.innerText = stations[currentIndex]?.name || 'Error playlist';
-                if (stationLogo) {
-                    trackImage.src = stationLogo;
-                }
-            }
-        }
-
         function loadStation(index) {
             if (!stations.length) return;
 
@@ -801,8 +871,11 @@
                 audio.src = st.url;
                 audio.load();
 
+                // Iniciem l'actualització periòdica si hi ha playlist
                 if (st.playlist) {
-                    fetchPlaylistInfo(st.playlist, st.logo);
+                    startPeriodicUpdate(st.playlist, st.logo);
+                } else {
+                    stopPeriodicUpdate();
                 }
 
                 if (wasPlaying) {
@@ -814,6 +887,7 @@
                     setLedState('stopped', 'Aturat');
                 }
             } else {
+                stopPeriodicUpdate();
                 setLedState('stopped', 'Sense URL');
             }
         }
@@ -973,6 +1047,7 @@
 
         loadStations();
     })();
+
 </script>
 </body>
 </html>
