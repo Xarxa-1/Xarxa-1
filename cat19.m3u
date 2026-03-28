@@ -29,7 +29,7 @@ https://ztnr.rtve.es/ztnr/1694255.m3u8
 https://ztnr.rtve.es/ztnr/1712295.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="uk" #EXTINF:-1 tvg-id="" tvg-name="Sky News" tvg-logo="https://graph.facebook.com/skynews/picture?width=200&height=200" group-title="UK" group-title="SkyNews",SkyNews
 https://linear417-gb-hls1-prd-ak.cdn.skycdp.com/100e/Content/HLS_001_1080_30/Live/channel(skynews)/index_1080-30.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="US: CNN" tvg-logo="" group-title="Bics US",US: CNN
+#EXTINF:-1 tvg-id="" tvg-name="US: CNN" tvg-logo="https://pbs.twimg.com/profile_images/1669780523911110656/K9gaaM1g_400x400.jpg" group-title="Bics US",US: CNN
 https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8
 
 #EXTINF:-1 tvg-id="BBC N" tvg-name="BBC.News" tvg-logo="https://pbs.twimg.com/profile_images/1001752869517910016/Xq8-sAa4.jpg" group-title="BBC",BBC.News
@@ -58,7 +58,7 @@ https://viamotionhsi.netplus.ch/live/eds/itv2/browser-HLS/itv2.m3u8
 https://viamotionhsi.netplus.ch/live/eds/itv3/browser-HLS/itv3.m3u8
 #EXTINF:-1 tvg-name="itv4" group-title="UK" tvg-logo="https://images.seeklogo.com/logo-png/45/1/itv4-logo-png_seeklogo-458199.png" tvg-name="itv4"  group-title="UK",itv4
 https://viamotionhsi.netplus.ch/live/eds/itv4/browser-HLS/itv4.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="GB News" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/3/35/GB_News_Logo.svg/512px-GB_News_Logo.svg.png" group-title="News",GB News
+#EXTINF:-1 tvg-id="" tvg-name="GB News" tvg-logo="https://pbs.twimg.com/profile_images/1571994202854100994/vYcqAgBG_400x400.jpg" group-title="News",GB News
 https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg01076-lightningintern-gbnewsnz-samsungnz/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="WTVD TV News." tvg-logo="https://static-m.meteo.cat/assets-w3/images/smp/trama-smp-0.png" group-title="News",WTVD TV News.
 https://content.uplynk.com/channel/ext/f05837c508c44712aa7129d531f7dbe6/wtvd_24x7_news.m3u8
@@ -262,9 +262,9 @@ http://45.228.234.30:16000/play/a009/index.m3u8
 
 
 
-#EXTINF:-1 tvg-id="" tvg-name="ElMuelbe"  group-title="Design",ElMueble
+#EXTINF:-1 tvg-id="https://pbs.twimg.com/profile_images/1950451888014401536/T_Q0dDmp_400x400.jpg" tvg-name="ElMuelbe"  group-title="Design",ElMueble
 https://epg.provider.plex.tv/library/parts/643054b1fc3be59477853717-693cb1af58076a970420f591.m3u8?includeAllStreams=1&X-Plex-Product=Plex+Mediaverse&X-Plex-Token=5XdCskTxmw1jirrUr_8d
-#EXTINF:-1 tvg-id="" tvg-name="deco"  group-title="Design",Deco
+#EXTINF:-1 tvg-id="https://pbs.twimg.com/profile_images/1258035922722934784/S27gb-oG_400x400.jpg" tvg-name="TheDesingNetwork"  group-title="Design",TheDesingNetwork
 https://amg00441-amg00441c1-plex-us-5231.playouts.now.amagi.tv/playlistR1080p.m3u8
 
 #EXTINF:-1 tvg-name="Sony Channel" group-title="Cine y Series" tvg-logo="https://static.wikia.nocookie.net/logopedia/images/c/c6/Sony_Channel_2023.png/revision/latest/scale-to-width-down/48?cb=20230828233601&path-prefix=es",Sony Channel
@@ -285,11 +285,11 @@ http://45.228.234.30:16000/play/a00b/index.m3u8
 #EXTGRP:Entretenimiento
 http://45.228.234.30:16000/play/a01q/index.m3u8
 
-#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Cinemax_2016_logo.svg/512px-Cinemax_2016_logo.svg.png",CineMax
+#EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1304146244563070976/tI5KnuJP_400x400.jpg",CineMax
 http://45.228.234.30:16000/play/a027/index.m3u8
-#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/History_Logo.svg/512px-History_Logo.svg.png",History Channel
+#EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1468225468642074629/k-33_Lq2_400x400.png",History Channel
 http://45.228.234.30:16000/play/a01i/index.m3u8
-#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/History_Logo.svg/512px-History_Logo.svg.png",History HD
+#EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1468225468642074629/k-33_Lq2_400x400.png",History HD
 http://45.228.234.30:16000/play/a011/index.m3u8
 #EXTINF:-1 tvg-name="Pluto TV Spotlight" tvg-logo="https://i.imgur.com/AogTmZc.png" group-title="VOD Movies (EN)",Pluto TV Spotlight
 https://service-stitcher.clusters.pluto.tv/stitch/hls/channel/5ba3fb9c4b078e0f37ad34e8/3321280/playlist.m3u8
