@@ -49,7 +49,7 @@ https://streamer.nexyl.uk/48559ccd-6400-457d-8acc-06b9e24c2ed8.m3u8
 https://viamotionhsi.netplus.ch/live/eds/bbc3cbbc/browser-HLS8/bbc3cbbc.m3u8 
 
 
-#EXTINF:-1 tvg-id="BBC I" tvg-name="BBC Impossible" tvg-logo="" group-title="Undefined",BBC Impossible
+#EXTINF:-1 tvg-id="BBC I" tvg-name="BBC Impossible" tvg-logo="https://pbs.twimg.com/profile_images/1100767317691109376/NerIe0LG_400x400.png" group-title="Undefined",BBC Impossible
 https://bbc-impossible-1-us.xumo.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="itv2" tvg-name="itv2" group-title="UK"  tvg-logo="https://images.seeklogo.com/logo-png/21/1/itv2-logo-png_seeklogo-216927.png",itv2
 https://viamotionhsi.netplus.ch/live/eds/itv2/browser-HLS/itv2.m3u8
@@ -243,20 +243,14 @@ https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26
 https://amg01370-italiansportcom-sportitalia-rakuten-3hmdb.amagi.tv/amRdirect/ads_pod_type=playerpage_midroll&ads_env=prod&ads_ppid=&ads_rtvid=271861&ads_streaming_id=4f185419-74f6-4564-8ea9-4cdc60746e2f&ads_amagi_channel=781&ads_device_type=web&ads_device_model=&ads_device_year=&ads_player_width=&ads_rtv_content_language=ita&ads_market=it&ads_rtv_content_id=3741&ads_device_make=&ads_user_type=visitor&ads_content_classification=6&ads_gdpr_consent=&ads_device_lmt=1&ads_player_height=&uid=1gnmqg5gu-qsvc-bfo-gaq3-3dgjgexshpe/hls/amagi_hls_data_rakutenAA-sportitalia-rakuten/CDN/1920x1080_4540800/chunklist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Redbull TV" tvg-logo="https://i.imgur.com/iFNScQ6.png" group-title="Sports",Redbull TV
 https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master_1660.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="SONY" tvg-logo="" group-title="Sense grup",SONY
+#EXTINF:-1 tvg-id="" tvg-name="SONY" tvg-logo="tvg-logo="https://static.wikia.nocookie.net/logopedia/images/c/c6/Sony_Channel_2023.png/revision/latest/scale-to-width-down/48?cb=20230828233601&path-prefix=es" group-title="Sense grup",SONY
 https://a-cdn.klowdtv.com/live1/cine_720p/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="AYM SPORT" tvg-logo="" group-title="Sense grup",AYM SPORT
+#EXTINF:-1 tvg-id="" tvg-name="AYM SPORT" tvg-logo="https://pbs.twimg.com/profile_images/2014443059170189312/YAQSLtyI_400x400.jpg" group-title="Sense grup",AYM SPORT
 https://aym-as.otteravision.com/aym/as/as_720p_high.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="" tvg-logo="" group-title="Plex",Merlí
-https://epg.provider.plex.tv/library/parts/643054b1fc3be59477853717-68645a8619cc2e163e38d161/variant.m3u8?x-plex-token=ARQjo91YLFxqd_TcjAgm&x-plex-advertising-identifier=&x-plex-client-identifier=qwi6kegxhwhrpttjl2aecncq&x-plex-playback-id=p_b89e8cd8-3526-49aa-85aa-b81a0724f13f&x-plex-playback-session-id=36e295e5-baa2-45f3-8a93-24403de349c0&x-plex-session-id=e55290d3-3a54-413c-8805-29dea532cb00&x-plex-device=Windows&x-plex-device-name=Chrome&x-plex-advertising-donottrack=0&x-plex-drm=&x-plex-model=standalone&x-plex-platform=Chrome&x-plex-platform-version=142.0&x-plex-product=Plex+Web&x-plex-device-screen-resolution=1536x695%2C1536x864&x-plex-device-vendor=&x-plex-version=4.152.0&x-plex-provider-streaming-start=1762886053&url=6ab8572eb160904ba7f16802a21a86cf-aae7ccc0221c062bca29908a5fee09765e83363092cafd69b97dcbccc5279d873e9441cb5d9b5f2cfa488ff1b3ea215778b1c9299c8e2a1da54c1c3a90b7a89fb924e2871044612b63bb760348304a1b9390d7b3da8cb91fa0ba665015b12cfb1ad9c80111b4e0ee1754c3060c82db26efb0fc9881b96ab9a9134885ddc54497dbed1867b586a1c88a7cc939c28b1d1946136f51d05b335948403eb65a1921de
 
-#EXTINF:-1,GOLDEN 
-http://45.228.234.30:16000/play/a03c/index.m3u8 
-#EXTINF:11,GOLDEN EDGE 
-http://45.228.234.30:16000/play/a03d/index.m3u8 
-#EXTINF:11,HBO HD 
+#EXTINF:11 tvg-logo="https://pbs.twimg.com/profile_images/1985477749926952960/N2FA5em6_400x400.jpg",HBO HD 
 http://45.228.234.30:16000/play/a008/index.m3u8 
-#EXTINF:11,HBO 2 HD 
+#EXTINF:11 tvg-logo="https://pbs.twimg.com/profile_images/1985477749926952960/N2FA5em6_400x400.jpg",HBO 2 HD 
 http://45.228.234.30:16000/play/a009/index.m3u8
 
 
