@@ -35,7 +35,7 @@ https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_35
 #EXTINF:-1 tvg-id="BBC N" tvg-name="BBC.News" tvg-logo="https://pbs.twimg.com/profile_images/1001752869517910016/Xq8-sAa4.jpg" group-title="BBC",BBC.News
 https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/mobile_wifi_main_sd_abr_v2.m3u8
 
-#EXTINF:-1 tvg-id="BBC W" tvg-name="BBC W",BBC World
+#EXTINF:-1 tvg-id="BBC W" tvg-logo="https://pbs.twimg.com/profile_images/1529107170448523264/q3VwEx38_400x400.jpg" tvg-name="BBC W",BBC World
 https://viamotionhsi.netplus.ch/live/eds/bbcworld/browser-HLS/bbcworld.m3u8
 #EXTINF:-1 tvg-id="BBC1" tvg-name="BBC One" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/BBC_One_logo_2021.svg/langca-330px-BBC_One_logo_2021.svg.png" group-title="General",BBC One
 https://streamer.nexyl.uk/5c858268-a93b-45f8-9e82-41d66b526d6c_output_0.m3u8?session=9buRUmvSPEr7QipAuuSUf7
