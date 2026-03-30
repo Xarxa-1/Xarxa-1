@@ -262,9 +262,9 @@ http://45.228.234.30:16000/play/a009/index.m3u8
 
 
 
-#EXTINF:-1 tvg-id="https://pbs.twimg.com/profile_images/1950451888014401536/T_Q0dDmp_400x400.jpg" tvg-name="ElMuelbe"  group-title="Design",ElMueble
+#EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1950451888014401536/T_Q0dDmp_400x400.jpg" tvg-name="ElMuelbe"  group-title="Design",ElMueble
 https://epg.provider.plex.tv/library/parts/643054b1fc3be59477853717-693cb1af58076a970420f591.m3u8?includeAllStreams=1&X-Plex-Product=Plex+Mediaverse&X-Plex-Token=5XdCskTxmw1jirrUr_8d
-#EXTINF:-1 tvg-id="https://pbs.twimg.com/profile_images/1258035922722934784/S27gb-oG_400x400.jpg" tvg-name="TheDesingNetwork"  group-title="Design",TheDesingNetwork
+#EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1258035922722934784/S27gb-oG_400x400.jpg" tvg-name="TheDesingNetwork"  group-title="Design",TheDesingNetwork
 https://amg00441-amg00441c1-plex-us-5231.playouts.now.amagi.tv/playlistR1080p.m3u8
 
 #EXTINF:-1 tvg-name="Sony Channel" group-title="Cine y Series" tvg-logo="https://static.wikia.nocookie.net/logopedia/images/c/c6/Sony_Channel_2023.png/revision/latest/scale-to-width-down/48?cb=20230828233601&path-prefix=es",Sony Channel
