@@ -1,97 +1,98 @@
 #EXTM3U
-#EXTINF:0,BBC NEWS
+#EXTINF:0 group-title="Notícies",BBC NEWS
 http://23.237.104.106:8080/USA_BBC_NEWS/index.m3u8
-#EXTINF:0,BEIN
+#EXTINF:0 group-title="Esports",BEIN
 http://23.237.104.106:8080/USA_BEIN/index.m3u8
-#EXTINF:0,FOX DEPORTES
+#EXTINF:0 group-title="Esports",FOX DEPORTES
 http://23.237.104.106:8080/USA_FOX_DEPORTES/index.m3u8
-#EXTINF:24,ESPNU
+#EXTINF:24 group-title="Esports",ESPNU
 http://23.237.104.106:8080/USA_ESPNU/index.m3u8
-#EXTINF:0,YES NETWORK
+#EXTINF:0 group-title="Esports",YES NETWORK
 http://23.237.104.106:8080/USA_YES_NETWORK/index.m3u8
-#EXTINF:0,FOOD NETWORK
+#EXTINF:0 group-title="Cuina i menjar",FOOD NETWORK
 http://23.237.104.106:8080/USA_FOOD_NETWORK/index.m3u8
-#EXTINF:0,Cinemax Classics
+#EXTINF:0 group-title="Pel·lícules",Cinemax Classics
 http://23.237.104.106:8080/USA_5STARMAX/index.m3u8
-#EXTINF:0,Cinemax Hits
+#EXTINF:0 group-title="Pel·lícules",Cinemax Hits
 http://23.237.104.106:8080/USA_MOREMAX/index.m3u8
-#EXTINF:0,Comedy Central
+#EXTINF:0 group-title="Comèdia",Comedy Central
 http://23.237.104.106:8080/USA_COMEDY_CENTRAL/index.m3u8
-#EXTINF:0,Cooking Channel
+#EXTINF:0 group-title="Cuina i menjar",Cooking Channel
 http://23.237.104.106:8080/USA_COOKING/index.m3u8
-#EXTINF:0,Animal Planet
+#EXTINF:0 group-title="Natura i animals",Animal Planet
 http://23.237.104.106:8080/USA_ANIMAL_PLANET/index.m3u8
-#EXTINF:0,Big Ten Network
+#EXTINF:0 group-title="Esports",Big Ten Network
 http://23.237.104.106:8080/USA_BTN/index.m3u8
-#EXTINF:0,Boomerang
+#EXTINF:0 group-title="Infantil i animació",Boomerang
 http://23.237.104.106:8080/USA_BOOMERANG/index.m3u8
-#EXTINF:0,Bounce
+#EXTINF:0 group-title="Entreteniment",Bounce
 http://23.237.104.106:8080/USA_BOUNCE/index.m3u8
-#EXTINF:0,Cartoon Network
+#EXTINF:0 group-title="Infantil i animació",Cartoon Network
 http://23.237.104.106:8080/USA_CARTOON_NETWORK/index.m3u8
-#EXTINF:0,Discovery Channel
+#EXTINF:0 group-title="Ciència i natura",Discovery Channel
 http://23.237.104.106:8080/USA_DISCOVERY/index.m3u8
-#EXTINF:0,Disney XD
+#EXTINF:0 group-title="Infantil i animació",Disney XD
 http://23.237.104.106:8080/USA_DISNEY_XD/index.m3u8
-#EXTINF:0,E!
+#EXTINF:0 group-title="Entreteniment",E!
 http://23.237.104.106:8080/USA_E/index.m3u8
-#EXTINF:24 tvg-name="ESPNU" tvg-logo="https://a.espncdn.com/watchespn/images/web/network_logos/channel_logo_espnu_2x.png" g,ESPNU
-http://23.237.104.106:8080/USA_ESPNU/index.m3u8
-#EXTINF:0,Fuse
+#EXTINF:0 group-title="Música",Fuse
 http://23.237.104.106:8080/USA_FUSE/index.m3u8
-#EXTINF:0,FX
+#EXTINF:0 group-title="Sèries i acció",FX
 http://23.237.104.106:8080/USA_FX/index.m3u8
-#EXTINF:0,Hallmark Channel
+#EXTINF:0 group-title="Pel·lícules i sèries",Hallmark Channel
 http://23.237.104.106:8080/USA_HALLMARK/index.m3u8
-#EXTINF:0,HBO
+#EXTINF:0 group-title="Pel·lícules",HBO
 http://23.237.104.106:8080/USA_HBO/index.m3u8
-#EXTINF:0,HBO Hits
+#EXTINF:0 group-title="Pel·lícules",HBO Hits
 http://23.237.104.106:8080/USA_HBO2/index.m3u8
-#EXTINF:0,HLN
+#EXTINF:0 group-title="Notícies",HLN
 http://23.237.104.106:8080/USA_HLN/index.m3u8
-#EXTINF:0,IFC
+#EXTINF:0 group-title="Pel·lícules i sèries",IFC
 http://23.237.104.106:8080/USA_IFC/index.m3u8
-#EXTINF:0,LMN
+#EXTINF:0 group-title="Pel·lícules i sèries",LMN
 http://23.237.104.106:8080/USA_LMN/index.m3u8
-#EXTINF:0,MSG
+#EXTINF:0 group-title="Esports",MSG
 http://23.237.104.106:8080/USA_MSG/index.m3u8
-#EXTINF:0,MTV
+#EXTINF:0 group-title="Música",MTV
 http://23.237.104.106:8080/USA_MTV/index.m3u8
-#EXTINF:0,National Geographic
+#EXTINF:0 group-title="Ciència i natura",National Geographic
 http://23.237.104.106:8080/USA_NAT_GEO/index.m3u8
-#EXTINF:0,NFL Network
+#EXTINF:0 group-title="Esports",NFL Network
 http://23.237.104.106:8080/USA_NFL_NETWORK/index.m3u8
-#EXTINF:0,Nickelodeon
+#EXTINF:0 group-title="Infantil i animació",Nickelodeon
 http://23.237.104.106:8080/USA_NICKELODEON/index.m3u8
-#EXTINF:0,Outdoor Channel
+#EXTINF:0 group-title="Aventura i natura",Outdoor Channel
 http://23.237.104.106:8080/USA_OUTDOOR/mpegts
-#EXTINF:0,Paramount Network
+#EXTINF:0 group-title="Pel·lícules i sèries",Paramount Network
 http://23.237.104.106:8080/USA_PARAMOUNT_NETWORK/index.m3u8
-#EXTINF:0,Paramount+ with Showtime
+#EXTINF:0 group-title="Pel·lícules",Paramount+ with Showtime
 http://23.237.104.106:8080/USA_SHOWTIME/index.m3u8
-#EXTINF:0,SEC Network
+#EXTINF:0 group-title="Esports",SEC Network
 http://23.237.104.106:8080/USA_SEC_NETWORK/index.m3u8
-#EXTINF:0,Starz
+#EXTINF:0 group-title="Pel·lícules",Starz
 http://23.237.104.106:8080/USA_STARZ/index.m3u8
-#EXTINF:0,Syfy
+#EXTINF:0 group-title="Ciència ficció i fantasia",Syfy
 http://23.237.104.106:8080/USA_SYFY/index.m3u8
-#EXTINF:0,VH1
+#EXTINF:0 group-title="Música",VH1
 http://23.237.104.106:8080/USA_VH1/index.m3u8
-#EXTINF:0,Vice TV
+#EXTINF:0 group-title="Documentals",Vice TV
 http://23.237.104.106:8080/USA_VICETV/index.m3u8
-#EXTINF:0,WE TV
+#EXTINF:0 group-title="Entreteniment",WE TV
 http://23.237.104.106:8080/USA_WE_TV/mpegts
-#EXTINF:0,YES Network
-http://23.237.104.106:8080/USA_YES_NETWORK/index.m3u8
-#EXTINF:0,WGN
+#EXTINF:0 group-title="Entreteniment",WGN
 http://23.237.104.106:8080/USA_WGN/index.m3u8
-#EXTINF:0,HLN
-http://23.237.104.106:8080/USA_HLN/index.m3u8
-#EXTINF:5,BTN
-http://23.237.104.106:8080/USA_BTN/index.m3u8
-
-
-
+#EXTINF:-1 group-title="Esports",SKY SPORTS LALIGA 🇲🇽
+http://181.78.105.146:2000/play/a08m/index.m3u8
+#EXTINF:-1 group-title="Esports",SKY SPORTS LALIGA 🇲🇽
+http://190.92.10.66:4000/play/a001/index.m3u8
+#EXTINF:-1 group-title="Esports",SKY SPORTS LALIGA 🇲🇽
+http://181.78.109.49:8000/play/a06r/index.m3u8
+#EXTINF:-1 group-title="Esports",SKY SPORTS LALIGA 🇲🇽
+http://181.78.105.146:8800/play/a07h/index.m3u8
+#EXTINF:-1 group-title="Ràdio",RAC1
+https://20103.live.streamtheworld.com/RAC_1.mp3
+#EXTINF:-1 group-title="Ràdio",EFMR
+https://relay.stream.enacast-cloud.com:40319/esplugafmHD.mp3
 
 #EXTINF:54,Love Nature 4K CA
 https://pb-ehs1glsha1juy.akamaized.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/pb-ehs1glsha1juy/f2141f37-1f48-475b-ba54-b9efb62346db/0.m3u8
