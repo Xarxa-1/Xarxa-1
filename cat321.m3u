@@ -1,6 +1,14 @@
 #EXTM3U
 #EXTINF:0,BBC NEWS
 http://23.237.104.106:8080/USA_BBC_NEWS/index.m3u8
+#EXTINF:0,BEIN
+http://23.237.104.106:8080/USA_BEIN/index.m3u8
+#EXTINF:0,FOX DEPORTES
+http://23.237.104.106:8080/USA_FOX_DEPORTES/index.m3u8
+#EXTINF:24,ESPNU
+http://23.237.104.106:8080/USA_ESPNU/index.m3u8
+#EXTINF:0,YES NETWORK
+http://23.237.104.106:8080/USA_YES_NETWORK/index.m3u8
 #EXTINF:0,FOOD NETWORK
 http://23.237.104.106:8080/USA_FOOD_NETWORK/index.m3u8
 #EXTINF:0,Cinemax Classics
@@ -21,8 +29,6 @@ http://23.237.104.106:8080/USA_BOOMERANG/index.m3u8
 http://23.237.104.106:8080/USA_BOUNCE/index.m3u8
 #EXTINF:0,Cartoon Network
 http://23.237.104.106:8080/USA_CARTOON_NETWORK/index.m3u8
-#EXTINF:0,Crime & Investigation
-http://23.237.104.106:8080/USA_CRIME_INVESTIGATION/mpegts
 #EXTINF:0,Discovery Channel
 http://23.237.104.106:8080/USA_DISCOVERY/index.m3u8
 #EXTINF:0,Disney XD
@@ -77,16 +83,16 @@ http://23.237.104.106:8080/USA_VICETV/index.m3u8
 http://23.237.104.106:8080/USA_WE_TV/mpegts
 #EXTINF:0,YES Network
 http://23.237.104.106:8080/USA_YES_NETWORK/index.m3u8
-#EXTINF:0,BEIN
-http://23.237.104.106:8080/USA_BEIN/index.m3u8
-
-
-
-
-
-
-#EXTINF:5,index.m3u8
+#EXTINF:0,WGN
+http://23.237.104.106:8080/USA_WGN/index.m3u8
+#EXTINF:0,HLN
+http://23.237.104.106:8080/USA_HLN/index.m3u8
+#EXTINF:5,BTN
 http://23.237.104.106:8080/USA_BTN/index.m3u8
+
+
+
+
 #EXTINF:54,Love Nature 4K CA
 https://pb-ehs1glsha1juy.akamaized.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/pb-ehs1glsha1juy/f2141f37-1f48-475b-ba54-b9efb62346db/0.m3u8
 #EXTINF:595,CNN US
@@ -123,8 +129,7 @@ https://amg00106-france24-france24-samsunguk-qvpp8.amagi.tv/ts-eu-w1-n2/playlist
 https://aka-live1050.delivery.roku.com/f5af26d1-822b-43f3-93f4-2301a947e1f3/t2-origin/out/v1/live_1080.m3u8
 #EXTINF:60,Al Jazeera English QA
 https://live-hls-apps-aje-v3-fa.getaj.net/AJE/01.m3u8
-#EXTINF:24,ESPNU
-http://23.237.104.106:8080/USA_ESPNU/index.m3u8
+
 #EXTINF:60,ESPN8: The Ocho
 https://d3b6q2ou5kp8ke.cloudfront.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-vz67vw1bljinm/aab88f58-adb6-4466-aceb-3b71a6f23411/4.m3u8
 #EXTINF:40,ACC Network
@@ -269,12 +274,9 @@ http://23.237.104.106:8080/USA_ANIMAL_PLANET/index.m3u8
 http://hardcoremedia.xyz/ymgiaxkw/5Hr5ZQuVfU/129953
 #EXTINF:0,Investigation Discovery
 http://1tv41.icu:8080/live/Y06DNq/295733/46810.rtmp
-#EXTINF:0,Crime & Investigation
-http://23.237.104.106:8080/USA_CRIME_INVESTIGATION/mpegts
+
 #EXTINF:0,Oxygen True Crime
 http://89.105.221.127/Oxygen/index.m3u8?token=test
-#EXTINF:0,HLN
-http://23.237.104.106:8080/USA_HLN/index.m3u8
 #EXTINF:0,REELZ
 http://cord-cutter.net:8080/30550113/30550113/10526
 #EXTINF:0,Court TV
