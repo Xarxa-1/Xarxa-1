@@ -1,0 +1,74 @@
+#EXTINF:0,Animal Planet
+http://23.237.104.106:8080/USA_ANIMAL_PLANET/index.m3u8
+#EXTINF:0,Big Ten Network
+http://23.237.104.106:8080/USA_BTN/index.m3u8
+#EXTINF:0,Boomerang
+http://23.237.104.106:8080/USA_BOOMERANG/index.m3u8
+#EXTINF:0,Bounce
+http://23.237.104.106:8080/USA_BOUNCE/index.m3u8
+#EXTINF:0,Cartoon Network
+http://23.237.104.106:8080/USA_CARTOON_NETWORK/index.m3u8
+#EXTINF:0,Cinemax Classics
+http://23.237.104.106:8080/USA_5STARMAX/index.m3u8
+#EXTINF:0,Cinemax Hits
+http://23.237.104.106:8080/USA_MOREMAX/index.m3u8
+#EXTINF:0,Comedy Central
+http://23.237.104.106:8080/USA_COMEDY_CENTRAL/index.m3u8
+#EXTINF:0,Cooking Channel
+http://23.237.104.106:8080/USA_COOKING/index.m3u8
+#EXTINF:0,Crime & Investigation
+http://23.237.104.106:8080/USA_CRIME_INVESTIGATION/mpegts
+#EXTINF:0,Discovery Channel
+http://23.237.104.106:8080/USA_DISCOVERY/index.m3u8
+#EXTINF:0,Disney XD
+http://23.237.104.106:8080/USA_DISNEY_XD/index.m3u8
+#EXTINF:0,E!
+http://23.237.104.106:8080/USA_E/index.m3u8
+#EXTINF:24,ESPNU
+http://23.237.104.106:8080/USA_ESPNU/index.m3u8
+#EXTINF:0,Fuse
+http://23.237.104.106:8080/USA_FUSE/index.m3u8
+#EXTINF:0,FX
+http://23.237.104.106:8080/USA_FX/index.m3u8
+#EXTINF:0,Hallmark Channel
+http://23.237.104.106:8080/USA_HALLMARK/index.m3u8
+#EXTINF:0,HBO
+http://23.237.104.106:8080/USA_HBO/index.m3u8
+#EXTINF:0,HBO Hits
+http://23.237.104.106:8080/USA_HBO2/index.m3u8
+#EXTINF:0,HLN
+http://23.237.104.106:8080/USA_HLN/index.m3u8
+#EXTINF:0,IFC
+http://23.237.104.106:8080/USA_IFC/index.m3u8
+#EXTINF:0,LMN
+http://23.237.104.106:8080/USA_LMN/index.m3u8
+#EXTINF:0,MSG
+http://23.237.104.106:8080/USA_MSG/index.m3u8
+#EXTINF:0,MTV
+http://23.237.104.106:8080/USA_MTV/index.m3u8
+#EXTINF:0,National Geographic
+http://23.237.104.106:8080/USA_NAT_GEO/index.m3u8
+#EXTINF:0,NFL Network
+http://23.237.104.106:8080/USA_NFL_NETWORK/index.m3u8
+#EXTINF:0,Nickelodeon
+http://23.237.104.106:8080/USA_NICKELODEON/index.m3u8
+#EXTINF:0,Outdoor Channel
+http://23.237.104.106:8080/USA_OUTDOOR/mpegts
+#EXTINF:0,Paramount Network
+http://23.237.104.106:8080/USA_PARAMOUNT_NETWORK/index.m3u8
+#EXTINF:0,Paramount+ with Showtime
+http://23.237.104.106:8080/USA_SHOWTIME/index.m3u8
+#EXTINF:0,SEC Network
+http://23.237.104.106:8080/USA_SEC_NETWORK/index.m3u8
+#EXTINF:0,Starz
+http://23.237.104.106:8080/USA_STARZ/index.m3u8
+#EXTINF:0,Syfy
+http://23.237.104.106:8080/USA_SYFY/index.m3u8
+#EXTINF:0,VH1
+http://23.237.104.106:8080/USA_VH1/index.m3u8
+#EXTINF:0,Vice TV
+http://23.237.104.106:8080/USA_VICETV/index.m3u8
+#EXTINF:0,WE TV
+http://23.237.104.106:8080/USA_WE_TV/mpegts
+#EXTINF:0,YES Network
+http://23.237.104.106:8080/USA_YES_NETWORK/index.m3u8
