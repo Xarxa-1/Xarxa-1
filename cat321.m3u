@@ -424,3 +424,13 @@ https://viamotionhsi.netplus.ch/live/eds/film4/browser-HLS8/film4.m3u8
 https://viamotionhsi.netplus.ch/live/eds/quest/browser-HLS8/quest.m3u8
 #EXTINF:0,Sky One UK
 http://iptv-premium-ott.com:8789/BSM73928/OSF19372/216106
+
+#EXTINF:0,no se
+https://stream.cammonitorplus.net/1778/index.m3u8
+#EXTINF:0,BBC news
+http://23.237.104.106:8080/USA_BBC_NEWS/tracks-v1a1/mono.m3u8
+
+#EXTINF:0,TV3
+https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/bitrate_3.m3u8
+#EXTINF:0,TV3
+https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/bitrate_7.m3u8
