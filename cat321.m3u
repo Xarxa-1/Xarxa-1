@@ -89,10 +89,28 @@ http://190.92.10.66:4000/play/a001/index.m3u8
 http://181.78.109.49:8000/play/a06r/index.m3u8
 #EXTINF:-1 group-title="Esports",SKY SPORTS LALIGA 🇲🇽
 http://181.78.105.146:8800/play/a07h/index.m3u8
-#EXTINF:-1 group-title="Ràdio",RAC1
-https://20103.live.streamtheworld.com/RAC_1.mp3
-#EXTINF:-1 group-title="Ràdio",EFMR
-https://relay.stream.enacast-cloud.com:40319/esplugafmHD.mp3
+
+#EXTINF:0 group-title="Esports",TNT Sports 1 UK
+http://kstv.us:8080/4VUyfZBQzk/95104974615/47850
+#EXTINF:0 group-title="Esports",TNT Sports 2 UK
+http://kstv.us:8080/4VUyfZBQzk/95104974615/47851
+#EXTINF:0 group-title="Esports",TNT Sports 3 UK
+http://kstv.us:8080/4VUyfZBQzk/95104974615/47852
+#EXTINF:0 group-title="Esports",TNT Sports 4 UK
+http://kstv.us:8080/4VUyfZBQzk/95104974615/47853
+#EXTINF:0 group-title="",REELZ
+http://fl51.moveonjoy.com/REELZ/index.m3u8
+
+#EXTINF:0 group-title="",CBS
+http://fl51.moveonjoy.com/CBS/index.m3u8
+#EXTINF:0 group-title="Notícies",ABC
+http://fl51.moveonjoy.com/ABC/index.m3u8
+#EXTINF:0 group-title="",Bounce
+http://fl51.moveonjoy.com/BOUNCE_TV/index.m3u8
+#EXTINF:0 group-title="Esports",bein1
+https://goldvod.org/live/hpgdiscoo/123456/345.m3u8
+#EXTINF:0 group-title="Esports",bein1
+https://goldvod.org/live/hpgdiscoo/123456/344.m3u8
 
 #EXTINF:54,Love Nature 4K CA
 https://pb-ehs1glsha1juy.akamaized.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/pb-ehs1glsha1juy/f2141f37-1f48-475b-ba54-b9efb62346db/0.m3u8
@@ -416,21 +434,7 @@ http://23.239.31.26:8989/axstv/index.m3u8
 http://kstv.us:8080/4VUyfZBQzk/95104974615/47759
 #EXTINF:0,E4 UK
 http://kstv.us:8080/4VUyfZBQzk/95104974615/47772
-#EXTINF:0,More4 UK
-https://viamotionhsi.netplus.ch/live/eds/more4/browser-HLS8/more4.m3u8
-#EXTINF:0,FILM4 UK
-https://viamotionhsi.netplus.ch/live/eds/film4/browser-HLS8/film4.m3u8
-#EXTINF:0,QUEST UK
-https://viamotionhsi.netplus.ch/live/eds/quest/browser-HLS8/quest.m3u8
-#EXTINF:0,Sky One UK
-http://iptv-premium-ott.com:8789/BSM73928/OSF19372/216106
+#EXTINF:0,TNT
+https://turnerlive.warnermediacdn.com/hls/live/2023168/tnteast/slate/VIDEO_0_3564000.m3u8
 
-#EXTINF:0,no se
-https://stream.cammonitorplus.net/1778/index.m3u8
-#EXTINF:0,BBC news
-http://23.237.104.106:8080/USA_BBC_NEWS/tracks-v1a1/mono.m3u8
 
-#EXTINF:0,TV3
-https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/bitrate_3.m3u8
-#EXTINF:0,TV3
-https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/bitrate_7.m3u8
