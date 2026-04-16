@@ -106,11 +106,12 @@ http://fl51.moveonjoy.com/CBS/index.m3u8
 #EXTINF:0 group-title="Notícies",ABC
 http://fl51.moveonjoy.com/ABC/index.m3u8
 #EXTINF:0 group-title="",Bounce
-http://fl51.moveonjoy.com/BOUNCE_TV/index.m3u8
-#EXTINF:0 group-title="Esports",bein1
-https://goldvod.org/live/hpgdiscoo/123456/345.m3u8
-#EXTINF:0 group-title="Esports",bein1
-https://goldvod.org/live/hpgdiscoo/123456/344.m3u8
+
+#EXTINF:60,Fox Business
+http://mytvstream.net:8080/live/30550113/30550113/17639.m3u8
+
+
+
 
 #EXTINF:54,Love Nature 4K CA
 https://pb-ehs1glsha1juy.akamaized.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/pb-ehs1glsha1juy/f2141f37-1f48-475b-ba54-b9efb62346db/0.m3u8
@@ -134,8 +135,6 @@ https://dbrb49pjoymg4.cloudfront.net/manifest/3fec3e5cac39a52b2132f9c66c83dae043
 http://mytvstream.net:8080/live/30550113/30550113/161450.m3u8
 #EXTINF:20,CNBC
 http://41.205.93.154/CNBC/index.m3u8
-#EXTINF:60,Fox Business
-http://mytvstream.net:8080/live/30550113/30550113/17639.m3u8
 #EXTINF:7200,BBC News UK
 https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/t=3840/v=pv14/b=5070016/main.m3u8
 #EXTINF:60,BBC News International
