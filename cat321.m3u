@@ -433,7 +433,151 @@ http://23.239.31.26:8989/axstv/index.m3u8
 http://kstv.us:8080/4VUyfZBQzk/95104974615/47759
 #EXTINF:0,E4 UK
 http://kstv.us:8080/4VUyfZBQzk/95104974615/47772
-#EXTINF:0,TNT
-https://turnerlive.warnermediacdn.com/hls/live/2023168/tnteast/slate/VIDEO_0_3564000.m3u8
 
 
+#EXTINF:-1,Channel 23349
+http://104.250.145.76/livehttpplay?channel_id=23349
+#EXTINF:-1,Channel 23351
+http://104.250.145.76/livehttpplay?channel_id=23351
+#EXTINF:-1,Channel 23352
+http://104.250.145.76/livehttpplay?channel_id=23352
+#EXTINF:-1,Channel 23353
+http://104.250.145.76/livehttpplay?channel_id=23353
+#EXTINF:-1,Channel 23354
+http://104.250.145.76/livehttpplay?channel_id=23354
+#EXTINF:-1,Channel 23355
+http://104.250.145.76/livehttpplay?channel_id=23355
+#EXTINF:-1,Channel 23355
+http://104.250.145.76/livehttpplay?channel_id=23355
+#EXTINF:-1,Channel 23356
+http://104.250.145.76/livehttpplay?channel_id=23356
+#EXTINF:-1,Channel 23357
+http://104.250.145.76/livehttpplay?channel_id=23357
+#EXTINF:-1,Channel 23358
+http://104.250.145.76/livehttpplay?channel_id=23358
+#EXTINF:-1,Channel 23359
+http://104.250.145.76/livehttpplay?channel_id=23359
+#EXTINF:-1,Channel 23360
+http://104.250.145.76/livehttpplay?channel_id=23360
+
+#EXTINF:-1,USA BEIN
+http://23.237.104.106:8080/USA_BEIN/index.m3u8
+#EXTINF:-1,USA HBO
+http://23.237.104.106:8080/USA_HBO/index.m3u8
+#EXTINF:-1,USA HBO2
+http://23.237.104.106:8080/USA_HBO2/index.m3u8
+#EXTINF:-1,USA SHOWTIME
+http://23.237.104.106:8080/USA_SHOWTIME/index.m3u8
+#EXTINF:-1,USA DISCOVERY
+http://23.237.104.106:8080/USA_DISCOVERY/index.m3u8
+#EXTINF:-1,USA MLB STRIKE ZONE
+http://23.237.104.106:8080/USA_MLB_STRIKE_ZONE/index.m3u8
+#EXTINF:-1,USA NAT GEO
+http://23.237.104.106:8080/USA_NAT_GEO/index.m3u8
+#EXTINF:-1,USA NESN
+http://23.237.104.106:8080/USA_NESN/index.m3u8
+#EXTINF:-1,USA OWN
+http://23.237.104.106:8080/USA_OWN/index.m3u8
+#EXTINF:-1,USA PARAMOUNT NETWORK
+http://23.237.104.106:8080/USA_PARAMOUNT_NETWORK/index.m3u8
+#EXTINF:-1,USA SHOWTIME FAMILY
+http://23.237.104.106:8080/USA_SHOWTIME_FAMILY/index.m3u8
+#EXTINF:-1,USA STARZ
+http://23.237.104.106:8080/USA_STARZ/index.m3u8
+#EXTINF:-1,USA STARZ CINEMA
+http://23.237.104.106:8080/USA_STARZ_CINEMA/index.m3u8
+#EXTINF:-1,USA STARZ COMEDY
+http://23.237.104.106:8080/USA_STARZ_COMEDY/index.m3u8
+#EXTINF:-1,USA STARZ FAMILY
+http://23.237.104.106:8080/USA_STARZ_FAMILY/index.m3u8
+#EXTINF:-1,USA SYFY
+http://23.237.104.106:8080/USA_SYFY/index.m3u8
+#EXTINF:-1,USA TENNIS
+http://23.237.104.106:8080/USA_TENNIS/index.m3u8
+#EXTINF:-1,USA TRUTV
+http://23.237.104.106:8080/USA_TRUTV/index.m3u8
+#EXTINF:-1,USA VH1
+http://23.237.104.106:8080/USA_VH1/index.m3u8
+#EXTINF:-1,USA VICETV
+http://23.237.104.106:8080/USA_VICETV/index.m3u8
+#EXTINF:-1,USA WE TV
+http://23.237.104.106:8080/USA_WE_TV/index.m3u8
+#EXTINF:-1,USA WGN
+http://23.237.104.106:8080/USA_WGN/index.m3u8
+#EXTINF:-1,USA YES NETWORK
+http://23.237.104.106:8080/USA_YES_NETWORK/index.m3u8
+
+#EXTINF:-1,Brazzers TV Europe
+http://31.148.48.15/Brazzers_TV_Europe/playlist.m3u8
+#EXTINF:-1,Playboy TV
+http://31.148.48.15/Playboy_TV/playlist.m3u8
+#EXTINF:-1,Dorcel TV
+http://31.148.48.15/Dorcel_TV/playlist.m3u8
+
+
+#EXTINF:-1,Bravo
+http://41.205.93.154/BRAVO/index.m3u8
+#EXTINF:-1,CNBC
+http://41.205.93.154/CNBC/index.m3u8
+#EXTINF:-1,CSPAN 2
+http://41.205.93.154/CSPAN2/index.m3u8
+#EXTINF:-1,FOX 49
+http://41.205.93.154/FOX49/index.m3u8
+#EXTINF:-1,FOX Business
+http://41.205.93.154/FOXBUSINESS/index.m3u8
+#EXTINF:-1,Lifetime
+http://41.205.93.154/LIFETIME/index.m3u8
+#EXTINF:-1,LMN
+http://41.205.93.154/LMN/index.m3u8
+#EXTINF:-1,MSNBC
+http://41.205.93.154/MSNBC/index.m3u8
+#EXTINF:-1,MTV Live
+http://41.205.93.154/MTLIVE/index.m3u8
+#EXTINF:-1,MTV USA
+http://41.205.93.154/MTVUSA/index.m3u8
+#EXTINF:-1,NBC
+http://41.205.93.154/NBC/index.m3u8
+#EXTINF:-1,Nicktoons
+http://41.205.93.154/NICKTOONS/index.m3u8
+#EXTINF:-1,Showtime
+http://41.205.93.154/SHOWTIMES/index.m3u8
+
+#EXTINF:-1,BBC News
+http://84.17.50.102/bbcnews/index.m3u8
+#EXTINF:-1,BET
+http://84.17.50.102/bet/index.m3u8
+#EXTINF:-1,Cartoon Network
+http://84.17.50.102/cartoonnetwork/index.m3u8
+#EXTINF:-1,CW
+http://84.17.50.102/cw/index.m3u8
+#EXTINF:-1,Discovery Channel
+http://84.17.50.102/discovery/index.m3u8
+#EXTINF:-1,Disney Junior
+http://84.17.50.102/disneyjunior/index.m3u8
+#EXTINF:-1,Disney XD
+http://84.17.50.102/disneyxd/index.m3u8
+#EXTINF:-1,ESPN
+http://84.17.50.102/espn/index.m3u8
+#EXTINF:-1,ESPN 2
+http://84.17.50.102/espn2/index.m3u8
+
+#EXTINF:-1,Golf Channel
+https://tx2.nexgen.bz:4000/GOLF/index.m3u8
+#EXTINF:-1,beIN Sports
+https://tx3.nexgen.bz:4000/BEIN/index.m3u8
+#EXTINF:-1,CBS Sports
+https://tx3.nexgen.bz:4000/CBS_SPORTS/index.m3u8
+#EXTINF:-1,ESPN Deportes
+https://tx3.nexgen.bz:4000/ESPN_DEPORTES/index.m3u8
+#EXTINF:-1,Fox Sports 1
+https://tx3.nexgen.bz:4000/FOX_SPORTS1/index.m3u8
+#EXTINF:-1,Fox Sports 2
+https://tx3.nexgen.bz:4000/FOX_SPORTS2/index.m3u8
+#EXTINF:-1,beIN Sports Español
+https://tx4.nexgen.bz:4000/BEIN_ESPANOL/index.m3u8
+#EXTINF:-1,Fox Deportes
+https://tx4.nexgen.bz:4000/FOX_DEPORTES/index.m3u8
+#EXTINF:-1,Fox Soccer Plus
+https://tx4.nexgen.bz:4000/FSP/index.m3u8
+#EXTINF:-1,Tennis Channel
+https://tx4.nexgen.bz:4000/TENNIS/index.m3u8
