@@ -41,7 +41,7 @@
   { "name": "Taizé - Nada te turbe (i)", "playlist": "", "url": "https://xarxa-1.github.io/Xarxa-1/taize-nadateturbe.mp3", "logo": "https://m.media-amazon.com/images/I/6197U8iBa0L._UF894,1000_QL80_.jpg" },
   { "name": "Taizé - Nada te turbe", "playlist": "", "url": "https://xarxa-1.github.io/Xarxa-1/taize-nadateturbe1.mp3", "logo": "https://shop.taize.fr/media/cache/sylius_shop_product_original/42/d5/fe7bb204b3d1446f17883879bbf6.jpg" },
   { "name": "3CATINFO", "url": "https://directes-tv-cat.3catdirectes.cat/live-content/canal324-hls/bitrate_8.m3u8  ", "logo": "https://pbs.twimg.com/profile_images/1968163923477098496/blka6O_j_400x400.jpg" },  
-  { "name": "TV3", "url": "https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/bitrate_8.m3u8", "logo": "https://pbs.twimg.com/profile_images/1721466616553099264/cMm-9gpv_400x400.jpg" },  
+  { "name": "TV3", "url": "https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/bitrate_7.m3u8", "logo": "https://pbs.twimg.com/profile_images/1721466616553099264/cMm-9gpv_400x400.jpg" },  
   { "name": "TV3vo", "url": "https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/bitrate_8.m3u8", "logo": "https://pbs.twimg.com/profile_images/1721466616553099264/cMm-9gpv_400x400.jpg" },
   { "name": "24h rtve", "playlist": "", "url": "https://rtvelivestream.rtve.es/rtvesec/24h/24h_main_dvr_a_14.m3u8", "logo": "https://i.imgur.com/IUVRm5L.png" },
   { "name": "La1", "playlist": "", "url": "https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr_a_39.m3u8", "logo": "https://i.imgur.com/1jDS9UC.png" },
