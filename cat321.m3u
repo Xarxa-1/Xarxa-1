@@ -581,3 +581,5 @@ https://tx4.nexgen.bz:4000/FOX_DEPORTES/index.m3u8
 https://tx4.nexgen.bz:4000/FSP/index.m3u8
 #EXTINF:-1,Tennis Channel
 https://tx4.nexgen.bz:4000/TENNIS/index.m3u8
+#EXTINF:-1,TNT
+http://138.121.15.230:9002/TNT/index.m3u8
