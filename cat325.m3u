@@ -1,0 +1,488 @@
+#EXTM3U
+
+
+#EXTINF:-1 tvg-id="LaLigaHypermotion.es@SD" tvg-logo="" group-title="Sports",LaLiga Hypermotion (1080p)
+http://latam-cache-sv2-cdn.latamlive.net/LA_LIGA_SMARTBANK_IP_ENC_LIVE/index.m3u8
+#EXTINF:-1 tvg-id="LaLigaTV.es@SD" tvg-logo="https://i.imgur.com/ilay5Jr.png" group-title="Sports",LaLiga TV
+http://162.19.255.233:8080/play/UNbAl57p9hXZClOu56FCTZID4SFOqZLZ81NguVP-JxM/m3u8
+#EXTINF:-1 group-title="Pel·lícules",HBO Family
+https://fl1.moveonjoy.com/HBO_FAMILY/index.m3u8
+
+#EXTINF:-1 group-title="Pel·lícules",SONY
+https://a-cdn.klowdtv.com/live1/cine_720p/playlist.m3u8
+
+#EXTINF:-1 group-title="Pel·lícules",Cine Sony
+https://a-cdn.klowdtv.com/live1/cine_720p/playlist.m3u8
+
+#EXTINF:-1 group-title="Pel·lícules",Cinevault Westerns (540p)
+https://gsn-cinevault-westerns-2-us.roku.wurl.tv/playlist.m3u8
+
+#EXTINF:-1 group-title="Pel·lícules",Mix Hollywood (1080p)
+https://ml-pull-hwc.myco.io/MixTV/hls/index.m3u8
+
+#EXTINF:-1 group-title="Pel·lícules",Hollywood
+https://jmp2.uk/plex-64305451fc3be5947773c339-66be944f8711311880995280.m3u8
+
+#EXTINF:-1 group-title="Pel·lícules",MovieSphere
+https://moviesphereuk-samsunguk.amagi.tv/playlist.m3u8
+https://moviesphereuk-samsunguk.amagi.tv/1080p-vtt/index.m3u8
+
+#EXTINF:-1 group-title="Pel·lícules",Miramax
+https://linear-798.frequency.stream/mt/plex/798/hls/master/playlist.m3u8
+
+#EXTINF:-1 group-title="Pel·lícules",Todo Cine (1080p)
+https://aegis-cloudfront-1.tubi.video/be9224ff-0bff-440d-aa84-40afcb2150b5/playlist.m3u8
+
+#EXTINF:-1 group-title="Pel·lícules",Kung Fu+
+https://streams2.sofast.tv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/06862a07-6a92-4b4d-abc3-5fea131713b5/manifest.m3u8
+
+#EXTINF:-1 group-title="Pel·lícules",Scream In
+https://amg00711-zylo-amg00711c6-plex-us-935.playouts.now.amagi.tv/zylo-Screamin-lg/playlist.m3u8
+
+#EXTINF:-1 group-title="Pel·lícules",Tele Novela TV
+https://stormcast-telenovelatv-1-fr.samsung.wurl.tv/playlist.m3u8
+
+#EXTINF:-1 group-title="Pel·lícules",IU TV HD
+https://imagenuniversaltv.net:3771/hybrid/play.m3u8?DVR0
+
+#EXTINF:-1 group-title="Pel·lícules",Faro Visión | DO
+https://streamtv.intervenhosting.net:3754/hybrid/play.m3u8
+
+#EXTINF:-1 group-title="Pel·lícules",Visión TV | GT
+https://cdn.streamhispanatv.net:3076/live/visiontvlive.m3u8
+
+#EXTINF:-1 group-title="Pel·lícules",SAS TV | GT
+https://cdn.streamhispanatv.net:3390/live/sastvgtlive.m3u8
+
+#EXTINF:-1 group-title="Pel·lícules",Cafe TV 24
+https://srvx1.selftv.video/cafe/live/playlist.m3u8
+
+#EXTINF:-1 group-title="Internacionals",TVE LA 1
+https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8
+
+#EXTINF:-1 group-title="Internacionals",TVE LA 2
+https://rtvelivestream.rtve.es/rtvesec/la2/la2_main_dvr.m3u8
+https://ztnr.rtve.es/ztnr/1688885.m3u8
+
+#EXTINF:-1 group-title="Internacionals",TVE 24 H
+https://rtvelivestream.rtve.es/rtvesec/24h/24h_main_dvr.m3u8
+https://ztnr.rtve.es/ztnr/1694255.m3u8
+
+#EXTINF:-1 group-title="Internacionals",Star TVE
+https://rtvelivestream-rtveplayplus.rtve.es/rtvesec/int/star_main_720.m3u8
+
+#EXTINF:-1 group-title="Internacionals",TVE Clan
+https://ztnr.rtve.es/ztnr/5466990.m3u8
+
+#EXTINF:-1 group-title="Internacionals",TRECE INT
+https://5940924978228.streamlock.net/8009/ngrp:8009_all/playlist.m3u8
+
+#EXTINF:-1 group-title="Internacionals",TVE TDP
+https://ztnr.rtve.es/ztnr/1712295.m3u8
+
+#EXTINF:-1 group-title="Internacionals",TVE Somos Cine
+https://ztnr.rtve.es/ztnr/6909845.m3u8
+
+#EXTINF:-1 group-title="Internacionals",MBC Movies Action
+https://shls-live-enc.edgenextcdn.net/out/v1/46079e838e65490c8299f902a7731168/index.m3u8
+
+#EXTINF:-1 group-title="Internacionals",Vive Kanal D Drama
+https://amg01602-themahqfrance-vivekanald-samsungspain-uu2zn.amagi.tv/playlist/amg01602-themahqfrance-vivekanald-samsungspain/playlist.m3u8
+
+#EXTINF:-1 group-title="Internacionals",MBC Persia
+https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-persia/818ee8e4b592dc497608f066d825bfb4/index.m3u8
+
+#EXTINF:-1 group-title="Internacionals",Spooky Nights
+https://shls-live-enc.edgenextcdn.net/out/v1/18cffab0757d448ca6c1a686d330b346/index.m3u8
+
+#EXTINF:-1 group-title="Internacionals",Porto Canal
+https://pull-live-156-1.global.ssl.fastly.net/pc5865dc25400thmb-ea6bf03b14fa318f7133/smil:pc1-jhrgyuoqe5865db-68tkgb14fa318f7133f03.smil/playlist.m3u8
+
+#EXTINF:-1 group-title="Internacionals",TF1
+https://raw.githubusercontent.com/mikekaprielian/rtnaodhor93n398/main/fr/videotf1.m3u8
+
+#EXTINF:-1 group-title="Internacionals",TF1 Séries Films
+https://viamotionhsi.netplus.ch/live/eds/hd1/browser-HLS8/hd1.m3u8
+
+#EXTINF:-1 group-title="Internacionals",TFX
+https://viamotionhsi.netplus.ch/live/eds/nt1/browser-HLS8/nt1.m3u8
+
+#EXTINF:-1 group-title="Internacionals",M6
+https://viamotionhsi.netplus.ch/live/eds/m6hd/browser-dash/m6hd.mpd
+
+#EXTINF:-1 group-title="Internacionals",W9
+https://viamotionhsi.netplus.ch/live/eds/w9/browser-HLS8/w9.m3u8
+
+#EXTINF:-1 group-title="Internacionals",SRF info HD (1080p)
+https://viamotionhsi.netplus.ch/live/eds/srfinfo/browser-HLS8/srfinfo.m3u8
+
+#EXTINF:-1 group-title="Internacionals",SRF zwei (1080p)
+https://viamotionhsi.netplus.ch/live/eds/srf2hd/browser-HLS8/srf2hd.m3u8
+
+#EXTINF:-1 group-title="Internacionals",Canal+ (1080p)
+https://viamotionhsi.netplus.ch/live/eds/canalplusclair/browser-HLS8/canalplusclair.m3u8
+
+#EXTINF:-1 group-title="Esports",Barca TV
+https://amg17560-fcb-amg17560c1-rakuten-uk-4891.playouts.now.amagi.tv/playlist/amg17560-fcbarcelona-topbarcaenglish-rakutenuk/playlist.m3u8
+
+#EXTINF:-1 group-title="Esports",BeIN Sports
+https://tx3.nexgen.bz:4000/BEIN/index.m3u8
+
+#EXTINF:-1 group-title="Esports",BeIN Sports Español
+https://tx4.nexgen.bz:4000/BEIN_ESPANOL/index.m3u8
+
+#EXTINF:-1 group-title="Esports",Canela Deportes
+https://amg00658-amg00658c10-canelatv-international-7279.playouts.now.amagi.tv/ts-us-e2-n2/playlist/amg00658-canelamediafast-deporteslt-canelatvinternational/playlist.m3u8
+
+#EXTINF:-1 group-title="Esports",CBS Sports Network
+https://tx3.nexgen.bz:4000/CBS_SPORTS/index.m3u8
+
+#EXTINF:-1 group-title="Esports",ESPN
+https://tx4.nexgen.bz:4000/ESPN/index.m3u8
+
+#EXTINF:-1 group-title="Esports",ESPN 2
+https://tx2.nexgen.bz:4000/ESPN2/index.m3u8
+
+#EXTINF:-1 group-title="Esports",ESPN Deportes
+https://tx3.nexgen.bz:4000/ESPN_DEPORTES/index.m3u8
+
+#EXTINF:-1 group-title="Esports",Flow Sports
+https://tx1.nexgen.bz:4000/FLOW_SPORTS/index.m3u8
+
+#EXTINF:-1 group-title="Esports",Fox Deportes
+https://tx4.nexgen.bz:4000/FOX_DEPORTES/index.m3u8
+
+#EXTINF:-1 group-title="Esports",FS1
+https://tx3.nexgen.bz:4000/FOX_SPORTS1/index.m3u8
+
+#EXTINF:-1 group-title="Esports",FS2
+https://tx3.nexgen.bz:4000/FOX_SPORTS2/index.m3u8
+
+#EXTINF:-1 group-title="Esports",FSP
+https://tx4.nexgen.bz:4000/FSP/index.m3u8
+
+#EXTINF:-1 group-title="Esports",Golf
+https://tx2.nexgen.bz:4000/GOLF/index.m3u8
+
+#EXTINF:-1 group-title="Esports",MLB HD
+https://tx2.nexgen.bz:4000/MLB/index.m3u8
+
+#EXTINF:-1 group-title="Esports",MLB Network
+https://d1yqxv6gx128ca.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-mmpgjr4zitcp0/playlist.m3u8
+
+#EXTINF:-1 group-title="Esports",NBA HD
+https://tx2.nexgen.bz:4000/NBA/index.m3u8
+
+#EXTINF:-1 group-title="Esports",NBC Sports
+https://xumo-xumoent-vc-122-sjv70.fast.nbcuni.com/live/master.m3u8
+
+#EXTINF:-1 group-title="Esports",Nexgen Sports 1-8
+https://tx2.nexgen.bz:4000/CTI_SPORT1/index.m3u8
+#EXTINF:-1 group-title="Esports",Nexgen Sports 1-8
+https://tx2.nexgen.bz:4000/CTI_SPORT2/index.m3u8
+#EXTINF:-1 group-title="Esports",Nexgen Sports 1-8
+https://tx2.nexgen.bz:4000/CTI_SPORT3/index.m3u8
+#EXTINF:-1 group-title="Esports",Nexgen Sports 1-8
+https://tx2.nexgen.bz:4000/CTI_SPORT4/index.m3u8
+#EXTINF:-1 group-title="Esports",Nexgen Sports 1-8
+https://tx3.nexgen.bz:4000/CTI_SPORT5/index.m3u8
+#EXTINF:-1 group-title="Esports",Nexgen Sports 1-8
+https://tx4.nexgen.bz:4000/CTI_SPORT6/index.m3u8
+#EXTINF:-1 group-title="Esports",Nexgen Sports 1-8
+https://tx4.nexgen.bz:4000/CTI_SPORT7/index.m3u8
+#EXTINF:-1 group-title="Esports",Nexgen Sports 1-8
+https://tx3.nexgen.bz:4000/CTI_SPORT8/index.m3u8
+
+#EXTINF:-1 group-title="Esports",NFL
+https://tx2.nexgen.bz:4000/NFL/index.m3u8
+
+#EXTINF:-1 group-title="Esports",Real Madrid tv Football
+https://rmtv.akamaized.net/hls/live/2043153/rmtv-es-web/bitrate_3.m3u8
+
+#EXTINF:-1 group-title="Esports",TDP Teledeportes
+https://rtvelivestream.rtve.es/rtvesec/tdp/tdp_main.m3u8
+
+#EXTINF:-1 group-title="Esports",Tennis
+https://tx4.nexgen.bz:4000/TENNIS/index.m3u8
+
+#EXTINF:-1 group-title="Esports",TUDN
+https://tx2.nexgen.bz:4000/TUDN/index.m3u8
+
+#EXTINF:-1 group-title="Esports",TYC Sports
+https://livetrx03.vodgc.net/tyc24/index.m3u8
+
+#EXTINF:-1 group-title="Esports",TRT Spor
+https://trn03.tulix.tv/gt-trt-spor1/playlist.m3u8
+
+#EXTINF:-1 group-title="Esports",Gol Classics
+https://d71gqtnep83vb.cloudfront.net/gol_classics/gol_classics.m3u8
+
+#EXTINF:-1 group-title="Esports",Live Sports
+https://starsportshindiii.pages.dev/720p.m3u8
+
+#EXTINF:-1 group-title="Esports",Sharjah Sports
+https://svs.itworkscdn.net/smc4sportslive/smc4.smil/smc4sportspublish/smc4tv_720p/chunks.m3u8
+
+#EXTINF:-1 group-title="Esports",Pro Sport International
+https://proshls.wns.live/hls/stream.m3u8
+
+#EXTINF:-1 group-title="Esports",DAZN Combat
+https://dazn-combat-rakuten.amagi.tv/hls/amagi_hls_data_rakutenAA-dazn-combat-rakuten/CDN/master.m3u8
+
+#EXTINF:-1 group-title="Esports",Dazn Ringside (1080p)
+https://aegis-cloudfront-1.tubi.video/bfad29e2-5bee-44f3-8256-127324e8b106/playlist.m3u8
+
+#EXTINF:-1 group-title="Esports",Sport Fishing TV
+https://streams2.sofast.tv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/eea68b79-bfe2-451e-a227-d637a5b9548a/manifest.m3u8
+
+#EXTINF:-1 group-title="Esports",More Than Sports TV (1080p)
+https://mts1.iptv-playoutcenter.de/mts/mts-web/playlist.m3u8
+
+#EXTINF:-1 group-title="Esports",CT Sport (720p)
+http://88.212.15.19/live/test_ctsport_25p/playlist.m3u8
+
+#EXTINF:-1 group-title="Generals",Antena Seis TV
+https://video1.azulstream.com:8081/antenaseistv/index.m3u8
+
+#EXTINF:-1 group-title="Generals",Garabito TV (720p)
+https://59ef525c24caa.streamlock.net/garabitoTV/garabitotv/playlist.m3u8
+
+#EXTINF:-1 group-title="Generals",Ecuavisa
+https://jireh-4-hls-video-us-isp.dps.live/hls-video/c54ac2799874375c81c1672abb700870537c5223/ecuavisa/ecuavisa.smil/playlist.m3u8
+
+#EXTINF:-1 group-title="Generals",Futbol (1080p)
+https://live.teleradiocom.tj/8/3m.m3u8
+
+#EXTINF:-1 group-title="Generals",Anzoátegui TV
+https://vcp2.myplaytv.com/anzoateguitv/anzoateguitv/playlist.m3u8
+
+#EXTINF:-1 group-title="Generals",Asiri TV
+https://video2.lhdserver.es/asiritv/live.m3u8
+
+#EXTINF:-1 group-title="Generals",Aurora Media Films
+https://cdn.streamhispanatv.net:3417/live/auroramflive.m3u8
+
+#EXTINF:-1 group-title="Generals",Auténtica Televisión
+https://live.obslivestream.com/autenticatvmux/index.m3u8
+
+#EXTINF:-1 group-title="Generals",Cali TV
+https://5ab772334c39c.streamlock.net/live-calitv/calitv1/playlist.m3u8
+
+#EXTINF:-1 group-title="Generals",Canal 3 Impresionante
+https://cloud2.streaminglivehd.com:2020/hls/8036/8036.m3u8
+
+#EXTINF:-1 group-title="Generals",Canal 5 Del Pueblo
+https://stmv4.voxtvhd.com.br/canal5pueblo/canal5pueblo/playlist.m3u8
+
+#EXTINF:-1 group-title="Generals",Canal 9 Barbe TV (720p)
+https://cdn.streamhispanatv.net:3549/live/barbetvlive.m3u8
+
+#EXTINF:-1 group-title="Generals",Canal 11 TuTV (349p)
+https://stream.giostreaming.app/canal11/canal11.m3u8
+
+#EXTINF:-1 group-title="Generals",Canal 15 ILCE Summa Sabres (720p)
+https://live-ilce.ovp-vivaro.digital/ovp-origin-abr/ngrp:6359ef999f3fb_all/playlist.m3u8
+
+#EXTINF:-1 group-title="Generals",Canal 33 Madrid
+https://media2.streambrothers.com:1936/8140/8140/playlist.m3u8
+
+#EXTINF:-1 group-title="Generals",Canal 17 TV Nosara
+https://latamvdo.com:3870/hybrid/play.m3u8
+
+#EXTINF:-1 group-title="Generals",Austral TV (1080p)
+https://stmv3.voxtvhd.com.br/australtv/australtv/playlist.m3u8
+
+#EXTINF:-1 group-title="Generals",Canal 11 (1080p)
+https://redirector.rudo.video/hls-video/c54ac2799874375c81c1672abb700870537c5223/canal11hn/canal11hn.smil/playlist.m3u8
+
+#EXTINF:-1 group-title="Generals",Canal 34 San Juan (720p)
+https://streamyes.alsolnet.com/canal34hd/live/playlist.m3u8
+
+#EXTINF:-1 group-title="Generals",Canal Más Televisión (720p)
+https://movil.ejeserver.com/live/teledoradahd.m3u8
+
+#EXTINF:-1 group-title="Generals",Canal San Roque (1080p)
+https://cdnlivevlc.codev8.net/aytosanroquelive/smil:channel1.smil/playlist.m3u8
+
+#EXTINF:-1 group-title="Generals",Canal Nets (720p)
+https://movil.ejeserver.com/live/nets.m3u8
+
+#EXTINF:-1 group-title="Generals",Canal Mundo Visión (720p)
+https://movil.ejeserver.com/live/mundovisiontv.m3u8
+
+#EXTINF:-1 group-title="Generals",Cananga TV (720p)
+https://cdn.streamingcpanel.com:3545/live/canangatlive.m3u8
+
+#EXTINF:-1 group-title="Generals",Canalda 26 HD
+https://canalda.rgradio.net:3084/live/canaldalive.m3u8
+
+#EXTINF:-1 group-title="Generals",Cascara TV (720p)
+https://ss2.tvrdomi.com:1936/cascaratv/cascaratv/playlist.m3u8
+
+#EXTINF:-1 group-title="Generals",Cibaeña TV
+https://streamunoapp.com:3958/live/cibaenatvlive.m3u8
+
+#EXTINF:-1 group-title="Generals",Cotubanama TV (1080p)
+https://host.streamingnation.live/p/3588/hybrid/play.m3u8
+
+#EXTINF:-1 group-title="Generals",Coral TV (480p)
+https://tv.mediacp.eu:8081/coraltv/index.m3u8
+
+#EXTINF:-1 group-title="Generals",CR Televisión Moyobamba (720p)
+https://live.obslivestream.com/crtvmux/index.m3u8
+
+#EXTINF:-1 group-title="Generals",Cosmos TV (720p)
+https://video.hostingcaaguazu.com:19360/cosmostv/cosmostv.m3u8
+
+#EXTINF:-1 group-title="Generals",Ecuador TV (720p)
+https://samson.streamerr.co:8081/shogun/index.m3u8
+
+#EXTINF:-1 group-title="Generals",Extrema TV (720p)
+http://livestreamcdn.net:1935/ExtremaTV/ExtremaTV/playlist.m3u8
+
+#EXTINF:-1 group-title="Generals",Gi Television (720p)
+https://canal.gitelevisionserver.com/live/DIEEFIh506fL8huspvl0f0c2PZF3/index.m3u8
+
+#EXTINF:-1 group-title="Generals",Guaymate TV (720p)
+https://live20.bozztv.com/akamaissh101/ssh101/guaymatetv/playlist.m3u8
+
+#EXTINF:-1 group-title="Generals",Iunior TV (1080p)
+https://5f22d76e220e1.streamlock.net/iuniortv/iuniortv/chunklist_w774879328.m3u8
+
+#EXTINF:-1 group-title="Generals",Isla TV (480p)
+https://59d39900ebfb8.streamlock.net/islatv/islatv/playlist.m3u8
+
+#EXTINF:-1 group-title="Generals",ITV Deportes
+https://thm-it-roku.otteravision.com/thm/it/it.m3u8
+
+#EXTINF:-1 group-title="Generals",JN19 (1080p)
+https://servilive.com:3028/live/jntv19live.m3u8
+
+#EXTINF:-1 group-title="Generals",Latina TV (1080p)
+https://streamtv.latinamedios.com:3413/live/latinatvlive.m3u8
+
+#EXTINF:-1 group-title="Generals",Latina Clasicos
+https://redirector.rudo.video/hls-video/plus226/latina2/latina2.smil/playlist.m3u8
+
+#EXTINF:-1 group-title="Generals",Latina (720p)
+https://redirector.rudo.video/hls-video/567ffde3fa319fadf3419efda25619456231dfea/latina/latina.smil/playlist.m3u8
+
+#EXTINF:-1 group-title="Generals",Metropoli Medios TV (720p)
+https://eu1.servers10.com:8081/8214/index.m3u8
+
+#EXTINF:-1 group-title="Generals",Multivisión Canal 3 (720p)
+https://stream.digitalgt.com:3136/live/multivisionlive.m3u8
+
+#EXTINF:-1 group-title="Generals",Next HD (480p)
+https://live.enhdtv.com:19360/nexthd/nexthd.m3u8
+
+#EXTINF:-1 group-title="Generals",Nicoya TV (720p)
+https://59ef525c24caa.streamlock.net/nicoyatv/nicoyatv/playlist.m3u8
+
+#EXTINF:-1 group-title="Generals",Platzi TV
+https://mdstrm.com/live-stream-playlist/629a63ae8df27c082901f78b.m3u8
+
+#EXTINF:-1 group-title="Generals",Los Santos TV
+https://lstv.duckdns.org:449/hls/lstv.m3u8
+
+#EXTINF:-1 group-title="Generals",PromarTV (1080p)
+http://vcp1.myplaytv.com:1935/promar/promar/playlist.m3u8
+
+#EXTINF:-1 group-title="Generals",Super Cable
+http://191.102.39.254:5000/live/5up3r5/playlist.m3u8
+
+#EXTINF:-1 group-title="Generals",TDtv (720p)
+https://cloudvideo.servers10.com:8081/8230/index.m3u8
+
+#EXTINF:-1 group-title="Generals",TeleCinco Trelew (240p)
+https://videohd.live:19360/8016/8016.m3u8
+
+#EXTINF:-1 group-title="Generals",Teleselva
+https://7.innovatestream.pe:19360/tvnoticiassatipo/tvnoticiassatipo.m3u8
+
+#EXTINF:-1 group-title="Generals",Televisora de Oriente (406p)
+https://cloud.fastchannel.es/manifiest/hls/prog9/tvo.m3u8
+
+#EXTINF:-1 group-title="Generals",Televisión Metrópolis 19.1 (1080p)
+https://5e85d90130e77.streamlock.net/6028/6028/playlist.m3u8
+
+#EXTINF:-1 group-title="Generals",Televisión Metrópolis 19.2 (1080p)
+https://5e85d90130e77.streamlock.net/6014/6014/playlist.m3u8
+
+#EXTINF:-1 group-title="Generals",Tiguerito TV (720p)
+https://ss2.tvrdomi.com:1936/tigueritostv/tigueritostv/playlist.m3u8
+
+#EXTINF:-1 group-title="Generals",TV Sur Canal 9 (620p)
+http://tv.ticosmedia.com:1935/TVSUR/TVSUR/playlist.m3u8
+
+#EXTINF:-1 group-title="Generals",TVS Classic Sports (360p)
+https://rpn.bozztv.com/gusa/gusa-tvs/index.m3u8
+
+#EXTINF:-1 group-title="Generals",Kannur Vision (1080p)
+https://stream.logichost.in/kannurvision/live/playlist.m3u8
+
+#EXTINF:-1 group-title="Generals",Padma Tv
+https://padmaonline.duckdns.org:8088/pcv/index.m3u8
+
+#EXTINF:-1 group-title="Canals Perses",AVA FAMILY
+https://familyhls.avatv.live/hls/stream.m3u8
+
+#EXTINF:-1 group-title="Canals Perses",NEJAT TV
+https://hls.nejat.live/hls/stream.m3u8
+
+#EXTINF:-1 group-title="Canals Perses",SL TWO
+https://sltwohls.wns.live/hls/stream.m3u8
+
+#EXTINF:-1 group-title="Canals Perses",OX IR
+https://hls.oxir.live/hls/stream.m3u8
+
+#EXTINF:-1 group-title="Canals Perses",YOUR TIME
+https://hls.yourtime.live/hls/stream.m3u8
+
+#EXTINF:-1 group-title="Canals Perses",AVA SERIES
+https://avaserieshls.wns.live/hls/stream.m3u8
+
+#EXTINF:-1 group-title="Canals Perses",FX TV
+https://fxtvhls.wns.live/hls/stream.m3u8
+
+#EXTINF:-1 group-title="Canals Perses",FX TV 2
+https://toonixhls.wns.live/hls/stream.m3u8
+
+#EXTINF:-1 group-title="Canals Perses",Gold Star
+https://moviethls.wns.live/hls/stream.m3u8
+
+#EXTINF:-1 group-title="Canals Perses",BEIN SPORT 2
+https://live20.bozztv.com/akamaissh101/ssh101/vipmixflix/chunks.m3u8
+
+#EXTINF:-1 group-title="Canals Perses",Bahrain Sports 1
+https://5c7b683162943.streamlock.net/live/ngrp:sportsone_all/playlist.m3u8
+
+#EXTINF:-1 group-title="Canals Perses",Bahrain Sports 2
+https://5c7b683162943.streamlock.net/live/ngrp:bahrainsportstwo_all/playlist.m3u8
+
+#EXTINF:-1 group-title="Canals Perses",Kuwait TV Sport Plus
+https://kwtsplta.cdn.mangomolo.com/spl/smil:spl.stream.smil/chunklist.m3u8
+
+#EXTINF:-1 group-title="Canals Perses",Kuwait TV Sports
+https://kwtspta.cdn.mangomolo.com/sp/smil:sp.stream.smil/chunklist.m3u8
+
+#EXTINF:-1 group-title="Anime/Pel·lícules",Dragon Ball Z La batalla de los Dioses
+http://archive.org/download/231455/02/16.mp4
+
+#EXTINF:-1 group-title="Anime/Pel·lícules",Dragon Ball Z La resurrección de Freezer
+http://archive.org/download/231455/02/17.mp4
+
+#EXTINF:-1 group-title="Anime/Pel·lícules",Dragon Ball super Broly
+http://archive.org/download/231455/03/05.mp4
+
+#EXTINF:-1 group-title="Anime/Pel·lícules",Dragon Ball
+https://jmp2.uk/plu-685a996c7c4f2ad40cb4f276.m3u8
+
+#EXTINF:-1 group-title="Anime/Pel·lícules",Dragon Ball Z
+https://jmp2.uk/plu-68e8fd7c3ede4398bc69af93.m3u8
+
+#EXTINF:-1 group-title="Esports",Claro Sports
+https://jmp2.uk/plu-6320d2755e54db000783fd87.m3u8
+
+#EXTINF:-1 group-title="Esports",DyN SPORTS MIX
+https://jmp2.uk/plu-6866525c8a412a0e95c438b4.m3u8
