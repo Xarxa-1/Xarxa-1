@@ -6,7 +6,7 @@ https://directes-tv-cat.3catdirectes.cat/live-content/canal324-hls/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Esport3" tvg-logo="https://graph.facebook.com/Esport3/picture?width=200&height=200" group-title="Catalunya",Esport3
 https://directes-tv-cat.3catdirectes.cat/live-content/esport3-hls/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="TAC12" tvg-logo="https://pbs.twimg.com/profile_images/1326929087919689729/S1zkeUh3_400x400.jpg" group-title="Catalunya",TAC12
-https://ingest1-video.streaming-pro.com/tac12_ABR/stream/playlist.m3u8
+https://ingest1-video.streaming-pro.com/tac12_ABR/stream/playlist.m3u8tast
 #EXTINF:-1 tvg-id="" tvg-name="TV3CAT" tvg-logo="https://pbs.twimg.com/profile_images/2008787263484735488/aaUjOWUv_400x400.jpg" group-title="Catalunya",TV3CAT
 https://directes3-tv-int.3catdirectes.cat/live-content/tvi-hls/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Canal33" tvg-logo="https://graph.facebook.com/Canal33/picture?width=200&height=200" group-title="Catalunya",Canal33
@@ -100,6 +100,29 @@ https://tastemade-xumo.amagi.tv/playlist.m3u8
 https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tastemadetravel-tablo/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Tastemade Home ????" tvg-logo="https://tvpnlogopus.samsungcloud.tv/platform/image/sourcelogo/vc/00/02/34/USBC3200022W6_20240910T003655SQUARE.png" group-title="Lifestyle & Celebrities ???",Tastemade Home ????
 https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tastemadehome-lgus/playlist.m3u8
+
+
+#EXTINF:-1 tvg-name="Tastemade_(720p)" group-title="Undefined",Tastemade_(720p)
+https://jmp2.uk/plu-5f998c1fc54853000797bacd.m3u8
+
+#EXTINF:-1 tvg-name="Tastemade_Casa_(720p)" group-title="Undefined",Tastemade_Casa_(720p)
+https://jmp2.uk/plu-68b88821e542386ab0bf5bef.m3u8
+
+#EXTINF:-1 tvg-name="Tastemade_Hogar_(720p)" group-title="Undefined",Tastemade_Hogar_(720p)
+https://jmp2.uk/plu-68b887c2e77777498226a0de.m3u8
+
+#EXTINF:-1 tvg-name="Tastemade_Home_(1080p)" group-title="Undefined",Tastemade_Home_(1080p)
+https://d3ca4qxsdzlrju.cloudfront.net/Tastemade_Home.m3u8
+
+#EXTINF:-1 tvg-name="Tastemade_Smokehouse_(720p)" group-title="Undefined",Tastemade_Smokehouse_(720p)
+https://jmp2.uk/plu-68509fe882d704acfc5bacd1.m3u8
+
+#EXTINF:-1 tvg-name="Tastemade_Viagem_(720p)" group-title="Undefined",Tastemade_Viagem_(720p)
+https://jmp2.uk/plu-68b8875777201ec428d9eaa5.m3u8
+
+#EXTINF:-1 tvg-name="Tastemade_Viajes_(720p)" group-title="Undefined",Tastemade_Viajes_(720p)
+https://jmp2.uk/plu-68b88712e777774982269ce9.m3u8
+
 #EXTINF:-1 tvg-id="" tvg-name="bon app?tit" tvg-logo="https://i.imgur.com/YhFFxlE.png" group-title="Food",bon app?tit
 https://bonappetit-samsung.amagi.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Cooking Panda" tvg-logo="https://i.imgur.com/bhY0Zcs.png" group-title="Food",Cooking Panda
