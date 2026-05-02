@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reproductor IPTV</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --accent-color: #007bff;
+            --accent-hover: #0056b3;
+            --focus-color: #ff9800;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar for channels */
+        .sidebar {
+            width: 320px;
+            background-color: var(--card-bg);
+            border-right: 1px solid #333;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .sidebar h2 {
+            margin: 0 0 15px 0;
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--accent-color);
+        }
+
+        .channel-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .channel-btn {
+            background-color: #2a2a2a;
+            border: 2px solid transparent;
+            color: var(--text-color);
+            padding: 10px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .channel-btn:hover, .channel-btn.active {
+            background-color: #333;
+            border-color: var(--accent-color);
+        }
+
+        .channel-btn:focus {
+            outline: none;
+            border-color: var(--focus-color);
+            box-shadow: 0 0 5px var(--focus-color);
+        }
+
+        .channel-logo {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+
+        .channel-name {
+            font-size: 0.95rem;
+            font-weight: bold;
+            flex-grow: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Main player area */
+        .main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background-color: #000;
+        }
+
+        .player-container {
+            position: relative;
+            width: 100%;
+            height: 75vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #videoPlayer {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            font-size: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+
+        .nav-btn:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+            border-color: var(--accent-color);
+        }
+
+        .nav-btn:focus {
+            outline: none;
+            border-color: var(--focus-color);
+            box-shadow: 0 0 10px var(--focus-color);
+        }
+
+        #prevBtn {
+            left: 20px;
+        }
+
+        #nextBtn {
+            right: 20px;
+        }
+
+        .controls-panel {
+            padding: 20px;
+            background-color: var(--card-bg);
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+            border-top: 1px solid #333;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .control-group label {
+            font-size: 0.85rem;
+            color: #aaa;
+        }
+
+        select {
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #555;
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: var(--focus-color);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                height: 30vh;
+            }
+            .player-container {
+                height: 50vh;
+            }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Canals de Televisió</h2>
+        <div class="channel-list" id="channelList"></div>
+    </div>
+    <div class="main">
+        <div class="player-container">
+            <button class="nav-btn" id="prevBtn" onclick="navigateChannel(-1)">&#9664;</button>
+            <video id="videoPlayer" controls autoplay></video>
+            <button class="nav-btn" id="nextBtn" onclick="navigateChannel(1)">&#9654;</button>
+        </div>
+        <div class="controls-panel">
+            <div class="control-group">
+                <label for="audioTrack">Àudio:</label>
+                <select id="audioTrack">
+                    <option value="-1">Per defecte</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="subtitleTrack">Subtítols:</label>
+                <select id="subtitleTrack">
+                    <option value="-1">Desactivats</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const m3uUrl = 'https://xarxa-1.github.io/Xarxa-1/cat325.m3u';
+        let channels = [];
+        let currentIndex = 0;
+        let hlsInstance = null;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const fetchedChannels = await loadM3U(m3uUrl);
+                if (fetchedChannels.length > 0) {
+                    channels = fetchedChannels;
+                    renderChannels();
+                    playChannel(0);
+                } else {
+                    alert('No s\'han trobat canals al fitxer M3U.');
+                }
+            } catch (error) {
+                console.error('Error carregant el fitxer M3U:', error);
+                alert('Error en carregar el fitxer M3U. Comprova la connexió o l\'URL.');
+            }
+
+            // Gestionar navegació per teclat o comandament
+            window.addEventListener('keydown', handleKeyNavigation);
+        });
+
+        async function loadM3U(url) {
+            const response = await fetch(url);
+            const text = await response.text();
+            const lines = text.split('\n');
+            const parsedChannels = [];
+            let currentChannel = {};
+
+            for (let line of lines) {
+                line = line.trim();
+                if (line.startsWith('#EXTINF:')) {
+                    currentChannel = {};
+                    const logoMatch = line.match(/tvg-logo="([^"]+)"/);
+                    if (logoMatch) {
+                        currentChannel.logo = logoMatch[1];
+                    } else {
+                        currentChannel.logo = 'https://via.placeholder.com/40?text=TV';
+                    }
+
+                    const commaIndex = line.lastIndexOf(',');
+                    if (commaIndex !== -1) {
+                        currentChannel.name = line.substring(commaIndex + 1).trim();
+                    }
+                } else if (line && !line.startsWith('#')) {
+                    if (currentChannel.name) {
+                        currentChannel.url = line;
+                        parsedChannels.push(currentChannel);
+                    }
+                }
+            }
+            return parsedChannels;
+        }
+
+        function renderChannels() {
+            const channelList = document.getElementById('channelList');
+            channelList.innerHTML = '';
+
+            channels.forEach((channel, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'channel-btn';
+                btn.id = `channel-btn-${index}`;
+                btn.onclick = () => {
+                    playChannel(index);
+                };
+
+                const img = document.createElement('img');
+                img.className = 'channel-logo';
+                img.src = channel.logo;
+                img.alt = channel.name;
+                img.onerror = () => { img.src = 'https://via.placeholder.com/40?text=TV'; };
+
+                const span = document.createElement('span');
+                span.className = 'channel-name';
+                span.innerText = channel.name;
+
+                btn.appendChild(img);
+                btn.appendChild(span);
+                channelList.appendChild(btn);
+            });
+        }
+
+        function playChannel(index) {
+            if (index < 0 || index >= channels.length) return;
+            currentIndex = index;
+
+            document.querySelectorAll('.channel-btn').forEach((btn, i) => {
+                if (i === currentIndex) {
+                    btn.classList.add('active');
+                    btn.focus();
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            const channel = channels[currentIndex];
+            const video = document.getElementById('videoPlayer');
+
+            if (hlsInstance) {
+                hlsInstance.destroy();
+                hlsInstance = null;
+            }
+
+            if (Hls.isSupported()) {
+                hlsInstance = new Hls();
+                hlsInstance.loadSource(channel.url);
+                hlsInstance.attachMedia(video);
+                hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => {
+                    video.play().catch(() => {});
+                    setupHlsTracks();
+                });
+                hlsInstance.on(Hls.Events.ERROR, (event, data) => {
+                    console.error('HLS error:', data);
+                });
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = channel.url;
+                video.addEventListener('loadedmetadata', () => {
+                    video.play().catch(() => {});
+                    setupNativeTracks();
+                });
+            } else {
+                alert('El vostre dispositiu no suporta HLS.');
+            }
+        }
+
+        function navigateChannel(direction) {
+            const nextIndex = (currentIndex + direction + channels.length) % channels.length;
+            playChannel(nextIndex);
+        }
+
+        function handleKeyNavigation(e) {
+            switch (e.key) {
+                case 'ArrowUp':
+                case 'ChannelUp':
+                    e.preventDefault();
+                    navigateChannel(-1);
+                    break;
+                case 'ArrowDown':
+                case 'ChannelDown':
+                    e.preventDefault();
+                    navigateChannel(1);
+                    break;
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    document.getElementById('prevBtn').focus();
+                    break;
+                case 'ArrowRight':
+                    e.preventDefault();
+                    document.getElementById('nextBtn').focus();
+                    break;
+                case 'Enter':
+                    break;
+            }
+        }
+
+        function setupHlsTracks() {
+            const audioSelect = document.getElementById('audioTrack');
+            audioSelect.innerHTML = '<option value="-1">Per defecte</option>';
+            if (hlsInstance && hlsInstance.audioTracks) {
+                hlsInstance.audioTracks.forEach((track, index) => {
+                    const opt = document.createElement('option');
+                    opt.value = index;
+                    opt.textContent = track.name || `Àudio ${index + 1}`;
+                    audioSelect.appendChild(opt);
+                });
+                audioSelect.onchange = (e) => {
+                    hlsInstance.audioTrack = parseInt(e.target.value);
+                };
+            }
+
+            const subtitleSelect = document.getElementById('subtitleTrack');
+            subtitleSelect.innerHTML = '<option value="-1">Desactivats</option>';
+            if (hlsInstance && hlsInstance.subtitleTracks) {
+                hlsInstance.subtitleTracks.forEach((track, index) => {
+                    const opt = document.createElement('option');
+                    opt.value = index;
+                    opt.textContent = track.name || `Subtítol ${index + 1}`;
+                    subtitleSelect.appendChild(opt);
+                });
+                subtitleSelect.onchange = (e) => {
+                    hlsInstance.subtitleTrack = parseInt(e.target.value);
+                };
+            }
+        }
+
+        function setupNativeTracks() {
+            const video = document.getElementById('videoPlayer');
+            const audioSelect = document.getElementById('audioTrack');
+            audioSelect.innerHTML = '<option value="-1">Per defecte</option>';
+            
+            for (let i = 0; i < video.audioTracks.length; i++) {
+                const track = video.audioTracks[i];
+                const opt = document.createElement('option');
+                opt.value = i;
+                opt.textContent = track.label || `Àudio ${i + 1}`;
+                audioSelect.appendChild(opt);
+            }
+            audioSelect.onchange = (e) => {
+                const idx = parseInt(e.target.value);
+                for (let i = 0; i < video.audioTracks.length; i++) {
+                    video.audioTracks[i].enabled = (i === idx);
+                }
+            };
+
+            const subtitleSelect = document.getElementById('subtitleTrack');
+            subtitleSelect.innerHTML = '<option value="-1">Desactivats</option>';
+            for (let i = 0; i < video.textTracks.length; i++) {
+                const track = video.textTracks[i];
+                const opt = document.createElement('option');
+                opt.value = i;
+                opt.textContent = track.label || `Subtítol ${i + 1}`;
+                subtitleSelect.appendChild(opt);
+            }
+            subtitleSelect.onchange = (e) => {
+                const idx = parseInt(e.target.value);
+                for (let i = 0; i < video.textTracks.length; i++) {
+                    video.textTracks[i].mode = (i === idx) ? 'showing' : 'disabled';
+                }
+            };
+        }
+    </script>
+</body>
+</html>

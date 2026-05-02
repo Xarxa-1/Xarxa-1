@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Xarxa TV - Reproductor de Canals</title>
+    <!-- Incloure hls.js per a reproducció HLS -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none; /* Evita selecció de text en TV */
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0f1e;
+            color: #fff;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Capçalera */
+        .header {
+            background: linear-gradient(90deg, #1e2a3a, #0f1724);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #ff6b35;
+            z-index: 10;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .title-section {
+            display: flex;
+            align-items: baseline;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .header h1 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        .header h1 span {
+            color: #ff6b35;
+        }
+        .current-channel-name {
+            font-size: 1rem;
+            background: rgba(255,107,53,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            border-left: 3px solid #ff6b35;
+            font-weight: 500;
+            color: #ffaa88;
+        }
+        .now-playing {
+            font-size: 0.85rem;
+            background: rgba(0,0,0,0.6);
+            padding: 6px 12px;
+            border-radius: 20px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 40%;
+        }
+
+        /* Contenidor principal: vídeo + llista */
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* Àrea de vídeo */
+        .video-area {
+            flex: 3;
+            position: relative;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 0;
+        }
+        #videoPlayer {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: #000;
+        }
+
+        /* Botons laterals (canal anterior/següent) */
+        .nav-buttons {
+            position: absolute;
+            left: 15px;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            pointer-events: none;
+            z-index: 20;
+        }
+        .nav-btn {
+            pointer-events: auto;
+            background: rgba(0,0,0,0.7);
+            border: none;
+            color: white;
+            font-size: 2.5rem;
+            font-weight: bold;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            cursor: pointer;
+            backdrop-filter: blur(4px);
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .nav-btn:hover, .nav-btn:focus {
+            background: #ff6b35;
+            transform: scale(1.05);
+            outline: none;
+        }
+        .nav-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Panell de pistes (àudio / subtítols) */
+        .tracks-panel {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px);
+            border-radius: 12px;
+            padding: 12px 18px;
+            display: flex;
+            gap: 20px;
+            z-index: 20;
+            font-size: 0.85rem;
+            border: 1px solid #ff6b35;
+            pointer-events: auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .track-control {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .track-label {
+            font-size: 0.7rem;
+            color: #ffaa88;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+        .track-dropdown {
+            background: #1e2a3a;
+            border: 1px solid #ff6b35;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            min-width: 130px;
+        }
+        .track-dropdown:hover {
+            background: #ff6b35;
+        }
+        .track-dropdown option {
+            background: #0f1724;
+            color: white;
+        }
+        .no-tracks-msg {
+            font-size: 0.7rem;
+            color: #aaa;
+            font-style: italic;
+            padding: 4px 8px;
+        }
+
+        /* Llista de canals - SCROLL MÉS AMPLA */
+        .channels-list {
+            flex: 1.2;
+            background: #0f1219;
+            border-left: 1px solid #2a3342;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 12px 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            scrollbar-width: thin; /* Per a Firefox, però el farem més ample */
+        }
+
+        /* SCROLLBAR PERSONALITZADA - MÉS AMPLA PER A SMART TV */
+        .channels-list::-webkit-scrollbar {
+            width: 16px;  /* Barra de scroll més ampla */
+            height: 16px;
+        }
+
+        .channels-list::-webkit-scrollbar-track {
+            background: #1e2432;
+            border-radius: 10px;
+            margin: 8px 0;
+        }
+
+        .channels-list::-webkit-scrollbar-thumb {
+            background: #ff6b35;
+            border-radius: 10px;
+            border: 2px solid #1e2432;
+            transition: background 0.2s;
+        }
+
+        .channels-list::-webkit-scrollbar-thumb:hover {
+            background: #ff884d;
+        }
+
+        /* Per a navegadors que suportin scrollbar width però volem més control */
+        @supports (scrollbar-width: auto) {
+            .channels-list {
+                scrollbar-width: auto;
+            }
+        }
+
+        .channel-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #1e2432;
+            border: none;
+            border-radius: 12px;
+            padding: 10px 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+            color: white;
+            width: 100%;
+        }
+        .channel-btn.active {
+            background: #ff6b35;
+            box-shadow: 0 0 8px rgba(255,107,53,0.5);
+            transform: scale(1.02);
+        }
+        .channel-btn:hover, .channel-btn:focus-visible {
+            background: #2a3446;
+            outline: 2px solid #ff6b35;
+        }
+        .channel-logo {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            background: white;
+            border-radius: 8px;
+            padding: 4px;
+            background: #fff;
+        }
+        .channel-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        /* Missatge d'error/càrrega */
+        .toast-msg {
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            background: rgba(0,0,0,0.8);
+            color: #ffaa66;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            z-index: 99;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+            .channels-list {
+                flex-direction: row;
+                overflow-x: auto;
+                overflow-y: hidden;
+                border-left: none;
+                border-top: 1px solid #2a3342;
+                min-height: 110px;
+            }
+            /* Scroll horitzontal més ample */
+            .channels-list::-webkit-scrollbar {
+                height: 36px;
+                width: 36px;
+            }
+            .channel-btn {
+                width: auto;
+                min-width: 130px;
+                flex-shrink: 0;
+            }
+            .nav-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.8rem;
+            }
+            .tracks-panel {
+                bottom: 10px;
+                right: 10px;
+                padding: 8px 12px;
+                gap: 10px;
+            }
+            .track-dropdown {
+                min-width: 100px;
+                font-size: 0.7rem;
+            }
+        }
+
+        /* Personalització addicional per a Smart TV (focus visible) */
+        .channel-btn:focus-visible {
+            outline: 3px solid #ff6b35;
+            outline-offset: 2px;
+            transform: scale(1.02);
+        }
+
+        .nav-btn:focus-visible {
+            outline: 3px solid #ffffff;
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="title-section">
+        <h1>Xarxa<span>TV</span></h1>
+        <div class="current-channel-name" id="currentChannelHeader">---</div>
+    </div>
+    <div class="now-playing" id="nowPlayingLabel">Selecciona un canal</div>
+</div>
+
+<div class="main-container">
+    <div class="video-area">
+        <video id="videoPlayer" controlslist="nodownload" playsinline></video>
+        <!-- Botons laterals següent/anterior -->
+        <div class="nav-buttons">
+            <button class="nav-btn" id="prevChannelBtn" aria-label="Canal anterior">◀</button>
+            <button class="nav-btn" id="nextChannelBtn" aria-label="Canal següent">▶</button>
+        </div>
+        <!-- Selecció de pistes d'àudio i subtítols -->
+        <div class="tracks-panel" id="tracksPanel">
+            <div class="track-control">
+                <div class="track-label">🎧 PISTES D'ÀUDIO</div>
+                <select id="audioTrackSelect" class="track-dropdown">
+                    <option value="-1">Carregant...</option>
+                </select>
+            </div>
+            <div class="track-control">
+                <div class="track-label">📄 SUBTÍTOLS</div>
+                <select id="subtitleTrackSelect" class="track-dropdown">
+                    <option value="-1">Carregant...</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="channels-list" id="channelsContainer"></div>
+</div>
+<div id="toastMsg" class="toast-msg"></div>
+
+<script>
+    // ------------------------------
+    // CONFIGURACIÓ I VARIABLES GLOBALS
+    // ------------------------------
+    const M3U_URL = 'https://xarxa-1.github.io/Xarxa-1/cat325.m3u';
+    let channels = [];           // Emmagatzema { name, logo, url }
+    let currentChannelIndex = -1;
+    let hlsInstance = null;      // Instància d'HLS per a reproducció
+    const video = document.getElementById('videoPlayer');
+    const channelsContainer = document.getElementById('channelsContainer');
+    const nowPlayingSpan = document.getElementById('nowPlayingLabel');
+    const currentChannelHeader = document.getElementById('currentChannelHeader');
+    const prevBtn = document.getElementById('prevChannelBtn');
+    const nextBtn = document.getElementById('nextChannelBtn');
+    const tracksPanel = document.getElementById('tracksPanel');
+    const audioSelect = document.getElementById('audioTrackSelect');
+    const subtitleSelect = document.getElementById('subtitleTrackSelect');
+
+    // Funció per mostrar missatges temporals
+    function showMessage(msg, isError = false) {
+        const toast = document.getElementById('toastMsg');
+        toast.textContent = msg;
+        toast.style.color = isError ? '#ff8866' : '#aaffaa';
+        setTimeout(() => {
+            if (toast.textContent === msg) toast.textContent = '';
+        }, 3000);
+    }
+
+    // Actualitza el nom del canal a la capçalera
+    function updateChannelHeader() {
+        if (currentChannelIndex >= 0 && channels[currentChannelIndex]) {
+            currentChannelHeader.textContent = channels[currentChannelIndex].name;
+            nowPlayingSpan.textContent = `Reproduint: ${channels[currentChannelIndex].name}`;
+        } else {
+            currentChannelHeader.textContent = "---";
+            nowPlayingSpan.textContent = "Cap canal seleccionat";
+        }
+    }
+
+    // Neteja reproductor HLS i tracks
+    function destroyHls() {
+        if (hlsInstance) {
+            hlsInstance.destroy();
+            hlsInstance = null;
+        }
+        video.pause();
+        video.removeAttribute('src');
+        video.load();
+    }
+
+    // Reinicialitza els selectors d'àudio i subtítols a estat de càrrega
+    function resetTracksSelectors() {
+        audioSelect.innerHTML = '<option value="-1">Carregant pistes...</option>';
+        subtitleSelect.innerHTML = '<option value="-1">Carregant subtítols...</option>';
+        audioSelect.disabled = true;
+        subtitleSelect.disabled = true;
+    }
+
+    // Habilita els selectors i els omple amb les pistes disponibles
+    function populateTracksFromHls() {
+        if (!hlsInstance) {
+            populateNativeTracks();
+            return;
+        }
+
+        const audioTracks = hlsInstance.audioTracks || [];
+        const subtitleTracks = hlsInstance.subtitleTracks || [];
+
+        // Gestionar pistes d'àudio
+        if (audioTracks.length > 0) {
+            audioSelect.innerHTML = '';
+            audioTracks.forEach((track, idx) => {
+                const option = document.createElement('option');
+                option.value = idx;
+                option.textContent = track.name || `Pista d'àudio ${idx + 1}`;
+                if (hlsInstance.audioTrack === idx) option.selected = true;
+                audioSelect.appendChild(option);
+            });
+            audioSelect.disabled = false;
+
+            audioSelect.onchange = () => {
+                const selected = parseInt(audioSelect.value);
+                if (!isNaN(selected) && hlsInstance && hlsInstance.audioTrack !== selected) {
+                    hlsInstance.audioTrack = selected;
+                    const trackName = audioSelect.options[audioSelect.selectedIndex]?.text || 'Desconeguda';
+                    showMessage(`🎧 Àudio canviat a: ${trackName}`);
+                }
+            };
+        } else {
+            audioSelect.innerHTML = '<option value="-1">📢 Sense pistes d\'àudio</option>';
+            audioSelect.disabled = true;
+        }
+
+        // Gestionar subtítols
+        if (subtitleTracks.length > 0) {
+            subtitleSelect.innerHTML = '';
+            const offOption = document.createElement('option');
+            offOption.value = "-1";
+            offOption.textContent = "🚫 Sense subtítols";
+            if (hlsInstance.subtitleTrack === -1) offOption.selected = true;
+            subtitleSelect.appendChild(offOption);
+
+            subtitleTracks.forEach((track, idx) => {
+                const option = document.createElement('option');
+                option.value = idx;
+                option.textContent = track.name || `Subtítol ${idx + 1}`;
+                if (hlsInstance.subtitleTrack === idx) option.selected = true;
+                subtitleSelect.appendChild(option);
+            });
+            subtitleSelect.disabled = false;
+
+            subtitleSelect.onchange = () => {
+                const val = parseInt(subtitleSelect.value);
+                if (hlsInstance) {
+                    if (val === -1) {
+                        hlsInstance.subtitleTrack = -1;
+                        showMessage(`📄 Subtítols desactivats`);
+                    } else {
+                        hlsInstance.subtitleTrack = val;
+                        const trackName = subtitleSelect.options[subtitleSelect.selectedIndex]?.text || 'Desconegut';
+                        showMessage(`📄 Subtítol activat: ${trackName}`);
+                    }
+                }
+            };
+        } else {
+            subtitleSelect.innerHTML = '<option value="-1">📄 Sense subtítols disponibles</option>';
+            subtitleSelect.disabled = true;
+        }
+    }
+
+    // Per a streams que no usen HLS.js (native HLS o directes)
+    function populateNativeTracks() {
+        try {
+            if (video.audioTracks && video.audioTracks.length > 0) {
+                audioSelect.innerHTML = '';
+                for (let i = 0; i < video.audioTracks.length; i++) {
+                    const track = video.audioTracks[i];
+                    const option = document.createElement('option');
+                    option.value = i;
+                    option.textContent = track.label || `Idioma ${track.language || i+1}`;
+                    if (track.enabled) option.selected = true;
+                    audioSelect.appendChild(option);
+                }
+                audioSelect.disabled = false;
+                audioSelect.onchange = () => {
+                    const idx = parseInt(audioSelect.value);
+                    if (!isNaN(idx) && video.audioTracks && video.audioTracks[idx]) {
+                        for (let i = 0; i < video.audioTracks.length; i++) {
+                            video.audioTracks[i].enabled = (i === idx);
+                        }
+                        showMessage(`🎧 Àudio canviat a: ${audioSelect.options[idx]?.text}`);
+                    }
+                };
+            } else {
+                audioSelect.innerHTML = '<option value="-1">📢 Àudio únic</option>';
+                audioSelect.disabled = true;
+            }
+
+            if (video.textTracks && video.textTracks.length > 0) {
+                subtitleSelect.innerHTML = '';
+                const offOption = document.createElement('option');
+                offOption.value = "-1";
+                offOption.textContent = "🚫 Sense subtítols";
+                subtitleSelect.appendChild(offOption);
+
+                for (let i = 0; i < video.textTracks.length; i++) {
+                    const track = video.textTracks[i];
+                    if (track.kind === 'subtitles' || track.kind === 'captions') {
+                        const option = document.createElement('option');
+                        option.value = i;
+                        option.textContent = track.label || `Subtítol ${track.language || i+1}`;
+                        if (track.mode === 'showing') option.selected = true;
+                        subtitleSelect.appendChild(option);
+                    }
+                }
+
+                if (subtitleSelect.options.length > 1) {
+                    subtitleSelect.disabled = false;
+                    subtitleSelect.onchange = () => {
+                        const val = parseInt(subtitleSelect.value);
+                        for (let i = 0; i < video.textTracks.length; i++) {
+                            const track = video.textTracks[i];
+                            if (track.kind === 'subtitles' || track.kind === 'captions') {
+                                track.mode = (i === val) ? 'showing' : 'disabled';
+                            }
+                        }
+                        if (val === -1) showMessage(`📄 Subtítols desactivats`);
+                        else showMessage(`📄 Subtítol: ${subtitleSelect.options[val]?.text}`);
+                    };
+                } else {
+                    subtitleSelect.innerHTML = '<option value="-1">📄 Sense subtítols</option>';
+                    subtitleSelect.disabled = true;
+                }
+            } else {
+                subtitleSelect.innerHTML = '<option value="-1">📄 Sense subtítols</option>';
+                subtitleSelect.disabled = true;
+            }
+        } catch(e) {
+            console.warn("Error accedint a pistes natives:", e);
+        }
+    }
+
+    // Carregar un canal (per url)
+    function loadChannel(url, channelName) {
+        destroyHls();
+        resetTracksSelectors();
+        updateChannelHeader();
+
+        const isHls = url.includes('.m3u8') || url.includes('m3u8');
+
+        if (isHls && Hls.isSupported()) {
+            hlsInstance = new Hls({
+                enableWorker: true,
+                lowLatencyMode: true,
+                maxBufferLength: 30,
+            });
+            hlsInstance.loadSource(url);
+            hlsInstance.attachMedia(video);
+
+            hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => {
+                video.play().catch(e => showMessage(`Toca la pantalla per reproduir`, false));
+                populateTracksFromHls();
+            });
+
+            hlsInstance.on(Hls.Events.AUDIO_TRACKS_UPDATED, () => {
+                if (hlsInstance) populateTracksFromHls();
+            });
+
+            hlsInstance.on(Hls.Events.SUBTITLE_TRACKS_UPDATED, () => {
+                if (hlsInstance) populateTracksFromHls();
+            });
+
+            hlsInstance.on(Hls.Events.ERROR, (event, data) => {
+                if (data.fatal) {
+                    switch(data.type) {
+                        case Hls.ErrorTypes.NETWORK_ERROR:
+                            showMessage(`Error de xarxa en canal: ${channelName}`, true);
+                            break;
+                        case Hls.ErrorTypes.MEDIA_ERROR:
+                            showMessage(`Error de reproducció HLS, reintentant...`, true);
+                            hlsInstance.recoverMediaError();
+                            break;
+                        default:
+                            showMessage(`Error fatal en HLS`, true);
+                            break;
+                    }
+                }
+            });
+        }
+        else if (video.canPlayType('application/vnd.apple.mpegurl') && isHls) {
+            video.src = url;
+            video.addEventListener('loadedmetadata', () => {
+                video.play().catch(e => showMessage(`Toca per reproduir`, false));
+                populateNativeTracks();
+            }, { once: true });
+        }
+        else {
+            video.src = url;
+            video.play().catch(e => showMessage(`Error reproduint: ${e.message}`, true));
+            video.addEventListener('loadedmetadata', () => {
+                populateNativeTracks();
+            }, { once: true });
+        }
+
+        document.querySelectorAll('.channel-btn').forEach((btn, idx) => {
+            if (idx === currentChannelIndex) btn.classList.add('active');
+            else btn.classList.remove('active');
+        });
+    }
+
+    // Canviar a un canal específic per índex
+    function switchToChannel(index) {
+        if (index < 0 || index >= channels.length) {
+            showMessage("No hi ha més canals", true);
+            return false;
+        }
+        currentChannelIndex = index;
+        const channel = channels[currentChannelIndex];
+        if (channel && channel.url) {
+            loadChannel(channel.url, channel.name);
+            updateActiveButton();
+            return true;
+        } else {
+            showMessage("Aquest canal no té URL vàlida", true);
+            return false;
+        }
+    }
+
+    function updateActiveButton() {
+        const btns = document.querySelectorAll('.channel-btn');
+        btns.forEach((btn, i) => {
+            if (i === currentChannelIndex) btn.classList.add('active');
+            else btn.classList.remove('active');
+        });
+        updateChannelHeader();
+    }
+
+    function nextChannel() {
+        if (channels.length === 0) return;
+        let newIndex = currentChannelIndex + 1;
+        if (newIndex >= channels.length) newIndex = 0;
+        switchToChannel(newIndex);
+    }
+
+    function prevChannel() {
+        if (channels.length === 0) return;
+        let newIndex = currentChannelIndex - 1;
+        if (newIndex < 0) newIndex = channels.length - 1;
+        switchToChannel(newIndex);
+    }
+
+    // Parseig M3U
+    async function fetchAndParseM3U() {
+        try {
+            showMessage("Carregant llista de canals...");
+            const response = await fetch(M3U_URL);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const data = await response.text();
+            const lines = data.split(/\r?\n/);
+            let currentChannel = null;
+            const parsed = [];
+
+            for (let line of lines) {
+                line = line.trim();
+                if (line.startsWith('#EXTINF:')) {
+                    const logoMatch = line.match(/tvg-logo="([^"]*)"/i);
+                    let logoUrl = logoMatch ? logoMatch[1] : '';
+                    let name = line.substring(line.lastIndexOf(',') + 1).trim();
+                    if (!name && line.includes(',')) name = line.split(',').pop().trim();
+                    if (!name) name = "Canal sense nom";
+
+                    currentChannel = { name: name, logo: logoUrl, url: '' };
+                }
+                else if (line && !line.startsWith('#') && currentChannel) {
+                    currentChannel.url = line;
+                    if (!currentChannel.logo) {
+                        currentChannel.logo = "https://via.placeholder.com/40x40?text=TV";
+                    }
+                    parsed.push({ ...currentChannel });
+                    currentChannel = null;
+                }
+            }
+
+            if (parsed.length === 0) throw new Error("No s'han trobat canals vàlids al M3U");
+            channels = parsed;
+            renderChannelsButtons();
+            if (channels.length > 0) {
+                switchToChannel(0);
+            }
+            showMessage(`✅ Carregats ${channels.length} canals correctament`);
+        } catch (error) {
+            console.error(error);
+            showMessage(`Error carregant M3U: ${error.message}`, true);
+            channelsContainer.innerHTML = '<div style="padding:20px;text-align:center">❌ Error carregant llista de canals</div>';
+        }
+    }
+
+    function renderChannelsButtons() {
+        channelsContainer.innerHTML = '';
+        channels.forEach((channel, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'channel-btn';
+            if (idx === currentChannelIndex) btn.classList.add('active');
+
+            const img = document.createElement('img');
+            img.src = channel.logo;
+            img.alt = channel.name;
+            img.className = 'channel-logo';
+            img.onerror = () => { img.src = "https://via.placeholder.com/40x40?text=TV"; };
+
+            const nameSpan = document.createElement('span');
+            nameSpan.className = 'channel-name';
+            nameSpan.textContent = channel.name;
+
+            btn.appendChild(img);
+            btn.appendChild(nameSpan);
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                switchToChannel(idx);
+            });
+            btn.setAttribute('data-index', idx);
+            channelsContainer.appendChild(btn);
+        });
+    }
+
+    function setupRemoteControl() {
+        window.addEventListener('keydown', (e) => {
+            const key = e.key;
+            if (key === 'ArrowLeft' || key === 'ArrowRight' || key === 'ArrowUp' || key === 'ArrowDown' || key === 'Enter' || key === ' ' || key === 'PageUp' || key === 'PageDown') {
+                e.preventDefault();
+            }
+            if (key === 'ArrowLeft') {
+                prevChannel();
+            } else if (key === 'ArrowRight') {
+                nextChannel();
+            } else if (key === 'PageUp') {
+                prevChannel();
+            } else if (key === 'PageDown') {
+                nextChannel();
+            } else if (key === 'Enter' || key === ' ' || key === 'Play') {
+                if (video.paused) video.play().catch(e=>showMessage("No es pot reproduir",true));
+                else video.pause();
+            } else if (key === 'ArrowUp') {
+                focusPrevChannelButton();
+            } else if (key === 'ArrowDown') {
+                focusNextChannelButton();
+            }
+        });
+
+        prevBtn.addEventListener('click', () => prevChannel());
+        nextBtn.addEventListener('click', () => nextChannel());
+    }
+
+    function focusPrevChannelButton() {
+        const btns = document.querySelectorAll('.channel-btn');
+        if (btns.length === 0) return;
+        let currentFocus = document.activeElement;
+        let foundIndex = -1;
+        for (let i = 0; i < btns.length; i++) {
+            if (btns[i] === currentFocus) { foundIndex = i; break; }
+        }
+        let newIndex = foundIndex > 0 ? foundIndex - 1 : btns.length - 1;
+        btns[newIndex].focus();
+        btns[newIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function focusNextChannelButton() {
+        const btns = document.querySelectorAll('.channel-btn');
+        if (btns.length === 0) return;
+        let currentFocus = document.activeElement;
+        let foundIndex = -1;
+        for (let i = 0; i < btns.length; i++) {
+            if (btns[i] === currentFocus) { foundIndex = i; break; }
+        }
+        let newIndex = (foundIndex + 1) % btns.length;
+        btns[newIndex].focus();
+        btns[newIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function init() {
+        setupRemoteControl();
+        fetchAndParseM3U();
+    }
+
+    init();
+</script>
+</body>
+</html>
