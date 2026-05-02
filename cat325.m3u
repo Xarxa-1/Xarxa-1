@@ -84,7 +84,7 @@ https://viamotionhsi.netplus.ch/live/eds/itv3/browser-HLS/itv3.m3u8
 #EXTINF:-1 tvg-name="itv4" group-title="UK" tvg-logo="https://images.seeklogo.com/logo-png/45/1/itv4-logo-png_seeklogo-458199.png" tvg-name="itv4"  group-title="UK",itv4
 https://viamotionhsi.netplus.ch/live/eds/itv4/browser-HLS/itv4.m3u8
 
-#EXTINF:-1 tvg-name="itv4" group-title="UK" tvg-logo="https://images.seeklogo.com/logo-png/45/1/itv4-logo-png_seeklogo-458199.png" tvg-name="itv4"  group-title="UK",i
+#EXTINF:-1 tvg-name="GBNews" group-title="UK" tvg-logo="" tvg-name="itv4"  group-title="UK",GB News
 https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg01076-lightningintern-gbnewsnz-samsungnz/playlist.m3u8
 
 #EXTINF:-1 tvg-name="Channel4" group-title="UK" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Channel_4_Logo_2023.svg/250px-Channel_4_Logo_2023.svg.png" tvg-name=""  group-title="UK",Channel 4
