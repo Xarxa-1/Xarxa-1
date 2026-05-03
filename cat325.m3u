@@ -1,11 +1,11 @@
 #EXTM3U
-#EXTINF:-1 tvg-id="BBC N" group-title="Notícies" tvg-name="BBC.News" tvg-logo="https://pbs.twimg.com/profile_images/1001752869517910016/Xq8-sAa4.jpg" group-title="BBC",BBC News International
+#EXTINF:-1 tvg-id="BBC N" tvg-name="BBC.News" tvg-logo="https://pbs.twimg.com/profile_images/1001752869517910016/Xq8-sAa4.jpg" group-title="BBC",BBC News International
 https://d3pxo1qcgzxtxs.cloudfront.net/manifest/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod_default_xumo-linear-amc-hlsv3/5ab832c0-311a-4705-9535-5e54ad64b21e/5.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="TV3" tvg-logo="https://pbs.twimg.com/profile_images/1718910763174109184/B7MDxoG1.jpg" group-title="Catalunya",TV3
 https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="3CAT INFO" tvg-logo="https://pbs.twimg.com/profile_images/1968163923477098496/blka6O_j_200x200.jpg" group-title="Catalunya" group-title="Notícies" ,3CAT INFO
+#EXTINF:-1 tvg-id="" tvg-name="3CAT INFO" tvg-logo="https://pbs.twimg.com/profile_images/1968163923477098496/blka6O_j_200x200.jpg" group-title="Catalunya",3CAT INFO
 https://directes-tv-cat.3catdirectes.cat/live-content/canal324-hls/master.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Esport3" tvg-logo="https://graph.facebook.com/Esport3/picture?width=200&height=200" group-title="Catalunya",Esport3
@@ -38,23 +38,23 @@ http://167.250.223.26:8085/play/a05r/index.m3u
 #EXTINF:-1 tvg-id="" tvg-name="La2 Cat" tvg-logo="https://i.imgur.com/3NwzqoB.png" group-title="General",La2 Cat
 https://rtvelivestream.rtve.es/rtvesec/cat/la2_cat_main.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="24HCat" tvg-logo="https://i.imgur.com/IUVRm5L.png" group-title="Notícies" ,24HCat
+#EXTINF:-1 tvg-id="" tvg-name="24HCat" tvg-logo="https://i.imgur.com/IUVRm5L.png" group-title="News",24HCat
 https://ztnr.rtve.es/ztnr/1694255.m3u8
 
-#EXTINF:-1 tvg-id="TDP.TV" tvg-logo="https://graph.facebook.com/teledeporteRTVE/picture?width=200&height=200" group-title="Esports" tvg-name="Teledeporte",Teledeporte GEO
+#EXTINF:-1 tvg-id="TDP.TV" tvg-logo="https://graph.facebook.com/teledeporteRTVE/picture?width=200&height=200" group-title="Deportivos" tvg-name="Teledeporte",Teledeporte GEO
 https://ztnr.rtve.es/ztnr/1712295.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="Sky News" tvg-logo="https://graph.facebook.com/skynews/picture?width=200&height=200" group-title="UK" group-title="Notícies" group-title="SkyNews",SkyNews
+#EXTINF:-1 tvg-id="" tvg-name="uk" #EXTINF:-1 tvg-id="" tvg-name="Sky News" tvg-logo="https://graph.facebook.com/skynews/picture?width=200&height=200" group-title="UK" group-title="SkyNews",SkyNews
 https://linear417-gb-hls1-prd-ak.cdn.skycdp.com/100e/Content/HLS_001_1080_30/Live/channel(skynews)/index_1080-30.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="US: CNN" tvg-logo="https://pbs.twimg.com/profile_images/1669780523911110656/K9gaaM1g_400x400.jpg" group-title="Bics US",US: CNN
 https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8
 
-#EXTINF:-1 tvg-id="BBC N" tvg-name="Notícies" tvg-logo="https://pbs.twimg.com/profile_images/1001752869517910016/Xq8-sAa4.jpg" group-title="BBC",BBC.News
+#EXTINF:-1 tvg-id="BBC N" tvg-name="BBC.News" tvg-logo="https://pbs.twimg.com/profile_images/1001752869517910016/Xq8-sAa4.jpg" group-title="BBC",BBC.News
 https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/mobile_wifi_main_sd_abr_v2.m3u8
 
 
-#EXTINF:-1 tvg-id="BBC W" tvg-logo="https://pbs.twimg.com/profile_images/1529107170448523264/q3VwEx38_400x400.jpg" tvg-name="BBC W" group-title="Notícies" ,BBC World
+#EXTINF:-1 tvg-id="BBC W" tvg-logo="https://pbs.twimg.com/profile_images/1529107170448523264/q3VwEx38_400x400.jpg" tvg-name="BBC W",BBC World
 https://viamotionhsi.netplus.ch/live/eds/bbcworld/browser-HLS/bbcworld.m3u8
 
 #EXTINF:-1 tvg-id="BBC1" tvg-name="BBC One" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/BBC_One_logo_2021.svg/langca-330px-BBC_One_logo_2021.svg.png" group-title="General",BBC One
@@ -70,7 +70,7 @@ https://streamer.nexyl.uk/39290a19-b8dd-43ea-b8dc-081c37790f24.m3u8
 https://streamer.nexyl.uk/48559ccd-6400-457d-8acc-06b9e24c2ed8.m3u8
 
 #EXTINF:-1 tvg-id="BBC cbbc" tvg-name="BBC3CBBC" tvg-logo="https://mediaproxy.tvtropes.org/width/1200/https://static.tvtropes.org/pmwiki/pub/images/cbbc_3.png" group-title="General",CBBC
-https://viamotionhsi.netplus.ch/live/eds/bbc3cbbc/browser-HLS8/bbc3cbbc.m3u8
+https://viamotionhsi.netplus.ch/live/eds/bbc3cbbc/browser-HLS8/bbc3cbbc.m3u8 
 
 #EXTINF:-1 tvg-id="BBC I" tvg-name="BBC Impossible" tvg-logo="https://pbs.twimg.com/profile_images/1100767317691109376/NerIe0LG_400x400.png" group-title="Undefined",BBC Impossible
 https://bbc-impossible-1-us.xumo.wurl.tv/playlist.m3u8
@@ -84,7 +84,7 @@ https://viamotionhsi.netplus.ch/live/eds/itv3/browser-HLS/itv3.m3u8
 #EXTINF:-1 tvg-name="itv4" group-title="UK" tvg-logo="https://images.seeklogo.com/logo-png/45/1/itv4-logo-png_seeklogo-458199.png" tvg-name="itv4"  group-title="UK",itv4
 https://viamotionhsi.netplus.ch/live/eds/itv4/browser-HLS/itv4.m3u8
 
-#EXTINF:-1 tvg-name="GBNews" group-title="UK" tvg-logo="" group-title="Notícies"   group-title="UK",GB News
+#EXTINF:-1 tvg-name="GBNews" group-title="UK" tvg-logo="" tvg-name="itv4"  group-title="UK",GB News
 https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg01076-lightningintern-gbnewsnz-samsungnz/playlist.m3u8
 
 #EXTINF:-1 tvg-name="Channel4" group-title="UK" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Channel_4_Logo_2023.svg/250px-Channel_4_Logo_2023.svg.png" tvg-name=""  group-title="UK",Channel 4
@@ -119,16 +119,16 @@ https://ingest2-video.streaming-pro.com/creus/stream/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="TVReus" tvg-logo="https://i.imgur.com/Ee0C8UH.jpg" group-title="Catalunya",TVReus
 https://eu1.servers10.com:8081/8166/index.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="Tastemade" tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200" group-title="Food",TastemadeAu
+#EXTINF:-1 tvg-id="" tvg-name="Tastemade" tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200" group-title="General",TastemadeAu
 https://rakutenaa-tm-intl-aus-rakuten-eu-n1gtg.amagi.tv/playlist/rakutenAA-tm-intl-aus-rakuten-eu/playlist.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="Tastemade" tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200" group-title="Food",TastemadeGe
+#EXTINF:-1 tvg-id="" tvg-name="Tastemade" tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200" group-title="General",TastemadeGe
 https://rakutenaa-tm-germany-rakuten-ger-8jboz.amagi.tv/playlist/rakutenAA-tm-germany-rakuten-ger/playlist.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="Tastemade" tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200" group-title="Food",Tastemade
+#EXTINF:-1 tvg-id="" tvg-name="Tastemade" tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200" group-title="General",Tastemade
 https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tmintlaus-samsungnz/playlist.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="Tastemade" tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200" group-title="Food",TastemadeX
+#EXTINF:-1 tvg-id="" tvg-name="Tastemade" tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200" group-title="General",TastemadeX
 https://tastemade-xumo.amagi.tv/playlist.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Tastemade Travel"  tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200"  group-title="Food",Tastemade Travel ????
@@ -137,28 +137,28 @@ https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tastemadetravel-tab
 #EXTINF:-1 tvg-id="" tvg-name="Tastemade Home ????" tvg-logo="https://tvpnlogopus.samsungcloud.tv/platform/image/sourcelogo/vc/00/02/34/USBC3200022W6_20240910T003655SQUARE.png" group-title="Lifestyle & Celebrities ???",Tastemade Home ????
 https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tastemadehome-lgus/playlist.m3u8
 
-#EXTINF:-1 tvg-name="Tastemade_(720p)" group-title="Food",Tastemade_(720p)
+#EXTINF:-1 tvg-name="Tastemade_(720p)" group-title="Undefined",Tastemade_(720p)
 https://jmp2.uk/plu-5f998c1fc54853000797bacd.m3u8
 
-#EXTINF:-1 tvg-name="Tastemade_Casa_(720p)" group-title="Deco",Tastemade_Casa_(720p)
+#EXTINF:-1 tvg-name="Tastemade_Casa_(720p)" group-title="Undefined",Tastemade_Casa_(720p)
 https://jmp2.uk/plu-68b88821e542386ab0bf5bef.m3u8
 
-#EXTINF:-1 tvg-name="Tastemade_Hogar_(720p)" group-title="Deco",Tastemade_Hogar_(720p)
+#EXTINF:-1 tvg-name="Tastemade_Hogar_(720p)" group-title="Undefined",Tastemade_Hogar_(720p)
 https://jmp2.uk/plu-68b887c2e77777498226a0de.m3u8
 
-#EXTINF:-1 tvg-name="Tastemade_Home_(1080p)" group-title="Deco",Tastemade_Home_(1080p)
+#EXTINF:-1 tvg-name="Tastemade_Home_(1080p)" group-title="Undefined",Tastemade_Home_(1080p)
 https://d3ca4qxsdzlrju.cloudfront.net/Tastemade_Home.m3u8
 
-#EXTINF:-1 tvg-name="Tastemade_Smokehouse_(720p)" group-title="Deco",Tastemade_Smokehouse_(720p)
+#EXTINF:-1 tvg-name="Tastemade_Smokehouse_(720p)" group-title="Undefined",Tastemade_Smokehouse_(720p)
 https://jmp2.uk/plu-68509fe882d704acfc5bacd1.m3u8
 
-#EXTINF:-1 tvg-name="Tastemade_Viagem_(720p)" group-title="Deco",Tastemade_Viagem_(720p)
+#EXTINF:-1 tvg-name="Tastemade_Viagem_(720p)" group-title="Undefined",Tastemade_Viagem_(720p)
 https://jmp2.uk/plu-68b8875777201ec428d9eaa5.m3u8
 
-#EXTINF:-1 tvg-name="Tastemade_Viajes_(720p)" group-title="Deco",Tastemade_Viajes_(720p)
+#EXTINF:-1 tvg-name="Tastemade_Viajes_(720p)" group-title="Undefined",Tastemade_Viajes_(720p)
 https://jmp2.uk/plu-68b88712e777774982269ce9.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="bon appetit" tvg-logo="https://i.imgur.com/YhFFxlE.png" group-title="Food",bon appetit
+#EXTINF:-1 tvg-id="" tvg-name="bon app?tit" tvg-logo="https://i.imgur.com/YhFFxlE.png" group-title="Food",bon app?tit
 https://bonappetit-samsung.amagi.tv/playlist.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Cooking Panda" tvg-logo="https://i.imgur.com/bhY0Zcs.png" group-title="Food",Cooking Panda
@@ -173,7 +173,7 @@ https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master_1660.m3u8?xtreami
 #EXTINF:-1 tvg-id="" tvg-name="Aragón TV" tvg-logo="https://i.imgur.com/6YSi1zW.png" group-title="General",Aragón TV
 https://cartv.streaming.aranova.es/hls/live/aragontv_canal1.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="EmpordàTV" tvg-logo="https://i.imgur.com/jc0lUbX.png" group-title="Catalunya",EmpordàTV
+#EXTINF:-1 tvg-id="" tvg-name="EmpordàTV" tvg-logo="https://i.imgur.com/jc0lUbX.png" group-title="General",EmpordàTV
 https://video3.lhdserver.es/empordatv2/live.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="TVSabadell" tvg-logo="negre.jpg" group-title="Catalunya",TVSabadell
@@ -185,37 +185,37 @@ https://ingest1-video.streaming-pro.com/canalteABR/ctestream/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Canal Taronja Central" tvg-logo="https://graph.facebook.com/taronja.cat/picture?width=200&height=200" group-title="Catalunya",Canal Taronja Central
 https://ingest1-video.streaming-pro.com/canaltaronja/central/playlist.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="Newsmax TV" tvg-logo="https://i.imgur.com/Twkovic.gif" group-title="Notícies",Newsmax TV
+#EXTINF:-1 tvg-id="" tvg-name="Newsmax TV" tvg-logo="https://i.imgur.com/Twkovic.gif" group-title="Entertainment",Newsmax TV
 https://nmxlive.akamaized.net/hls/live/529965/Live_1/index.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="BX1" tvg-logo="https://i.imgur.com/VHAYeqR.png" group-title="Notícies",BX1
+#EXTINF:-1 tvg-id="" tvg-name="BX1" tvg-logo="https://i.imgur.com/VHAYeqR.png" group-title="News",BX1
 https://59959724487e3.streamlock.net/stream/live/master.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="MX: MILENIO" tvg-logo="" group-title="General",MX: MILENIO
+#EXTINF:-1 tvg-id="" tvg-name="MX: MILENIO" tvg-logo="" group-title="Bics",MX: MILENIO
 https://mdstrm.com/live-stream-playlist/610178c7db32a4112d994650.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="MX: N+ MTY" tvg-logo="" group-title="General",MX: N+ MTY
+#EXTINF:-1 tvg-id="" tvg-name="MX: N+ MTY" tvg-logo="" group-title="Bics",MX: N+ MTY
 https://channel09-notusa.akamaized.net/hls/live/2094418/event01/index.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="US: CNN" tvg-logo="" group-title="Notícies",US: CNN
+#EXTINF:-1 tvg-id="" tvg-name="US: CNN" tvg-logo="" group-title="Bics Extra US",US: CNN
 https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="US: AL JAZEERA EN" tvg-logo="" group-title="Notícies",US: AL JAZEERA EN
+#EXTINF:-1 tvg-id="" tvg-name="US: AL JAZEERA EN" tvg-logo="" group-title="Bics Extra US",US: AL JAZEERA EN
 https://live-hls-web-aje-fa.getaj.net/AJE/03.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="Canal 45 (576p)" tvg-logo="https://i.imgur.com/yEfSnGt.png" group-title="General",Canal 45 (576p)
+#EXTINF:-1 tvg-id="" tvg-name="Canal 45 (576p)" tvg-logo="https://i.imgur.com/yEfSnGt.png" group-title="Undefined",Canal 45 (576p)
 https://nlb1-live.emitstream.com/hls/625csn5et2iszm9oze65/master.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="Ciudades Del Ocio TV (720p)" tvg-logo="https://i.imgur.com/CTQgqsM.png" group-title="Música",Ciudades Del Ocio TV (720p)
+#EXTINF:-1 tvg-id="" tvg-name="Ciudades Del Ocio TV (720p)" tvg-logo="https://i.imgur.com/CTQgqsM.png" group-title="Entertainment",Ciudades Del Ocio TV (720p)
 https://cloudvideo.servers10.com:8081/8024/index.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="CNBC Europe/World (1080p) [Geo-blocked]" tvg-logo="https://i.imgur.com/B6sfpDa.png" group-title="Notícies",CNBC Europe/World (1080p) [Geo-blocked]
+#EXTINF:-1 tvg-id="" tvg-name="CNBC Europe/World (1080p) [Geo-blocked]" tvg-logo="https://i.imgur.com/B6sfpDa.png" group-title="Business",CNBC Europe/World (1080p) [Geo-blocked]
 https://amg01079-nbcuuk-amg01079c1-samsung-es-1261.playouts.now.amagi.tv/playlist/amg01079-nbcuukfast-cnbcpe-samsunges/playlist.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Distrito TV (1080p)" tvg-logo="https://i.imgur.com/AqGIoIt.png" group-title="General",Distrito TV (1080p)
 https://nlb2-live.emitstream.com/hls/3mn7wpcv7hbmxmdzaxap/master.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="France 24 Español (1080p)" tvg-logo="https://i.imgur.com/ZnmAXVv.png" group-title="Notícies",France 24 Español (1080p)
+#EXTINF:-1 tvg-id="" tvg-name="France 24 Español (1080p)" tvg-logo="https://i.imgur.com/ZnmAXVv.png" group-title="News",France 24 Español (1080p)
 https://live.france24.com/hls/live/2037220/F24_ES_HI_HLS/master_5000.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Hamaika Telebista (1080p)" tvg-logo="https://i.imgur.com/HR3G3Ie.png" group-title="Culture",Hamaika Telebista (1080p)
@@ -248,7 +248,7 @@ https://mdstrm.com/live-stream-playlist/629a63ae8df27c082901f78b.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="POP World TV (720p)" tvg-logo="https://i.imgur.com/LQB6G3s.jpg" group-title="Music",POP World TV (720p)
 https://janus.xpbroadcasting.com:8443/hls/popworld.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="Rakuten Viki (720p)" tvg-logo="https://i.imgur.com/pbyd1g2.png" group-title="Infantil",Rakuten Viki (720p)
+#EXTINF:-1 tvg-id="" tvg-name="Rakuten Viki (720p)" tvg-logo="https://i.imgur.com/pbyd1g2.png" group-title="Undefined",Rakuten Viki (720p)
 https://fd18f1cadd404894a31a3362c5f319bd.mediatailor.us-east-1.amazonaws.com/v1/manifest/04fd913bb278d8775298c26fdca9d9841f37601f/RakutenTV-eu_RakutenViki-1/048a962c-e84b-4a0e-aeb3-98376f4b9953/2.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="The Pet Collective" tvg-logo="https://i.imgur.com/F4hEPMK.png" group-title="Family",The Pet Collective
@@ -267,7 +267,7 @@ https://janus.xpbroadcasting.com:8443/hls/xptvUS.m3u8
 https://d39g1vxj2ef6in.cloudfront.net/v1/master/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod-rakuten-stitched/master.m3u8?ads.xumo_channelId=88883060
 #EXTINF:-1 tvg-id="" tvg-name="DiscoverFilm" tvg-logo="https://i.imgur.com/oMnpsQ5.png" group-title="Movies",DiscoverFilm
 https://discoverfilm-discoverfilm-1-nl.samsung.wurl.tv/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="GB News" tvg-logo="https://pbs.twimg.com/profile_images/1571994202854100994/vYcqAgBG_400x400.jpg" group-title="Notícies",GB News
+#EXTINF:-1 tvg-id="" tvg-name="GB News" tvg-logo="https://pbs.twimg.com/profile_images/1571994202854100994/vYcqAgBG_400x400.jpg" group-title="News",GB News
 https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg01076-lightningintern-gbnewsnz-samsungnz/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Pop (1080p)" tvg-logo="https://i.imgur.com/fGUlCY3.png" group-title="Undefined",Pop (1080p)
 https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01753-narrativeentert-popkids-lggb/playlist.m3u8
@@ -302,7 +302,7 @@ https://71db867f03ce4d71a29e92155f07ab87.mediatailor.eu-west-1.amazonaws.com/v1/
 https://ff335120300e4742a2b135ee9a9e7df8.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-5983/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Sol Música (720p)" tvg-logo="https://i.imgur.com/rbJrmPw.png" group-title="Music",Sol Música (720p)
 https://d2glyu450vvghm.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-21u4g5cjglv02/sm.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Teledeporte (1080p)" tvg-logo="https://i.imgur.com/b0H5f62.png" group-title="Sports",Teledeporte (1080p)
+#EXTINF:-1 tvg-id="" tvg-name="Teledeporte (1080p)" tvg-logo="https://i.imgur.com/b0H5f62.png" group-title="Esport",Teledeporte (1080p)
 https://d1cctoeg0n48w5.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-mnixw9wn5ugmv/TeledeporteES.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="XPTV1 (720p)" tvg-logo="https://i.imgur.com/Ty7GkoN.png" group-title="Music",XPTV1 (720p)
 https://janus.xpbroadcasting.com:8443/hls/xptv1.m3u8
@@ -336,16 +336,16 @@ https://rgelive.akamaized.net/hls/live/2043151/radiolive/playlist.m3u8
 https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/bein-sports-xtra-en-espanol/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="SPORT ITALIA 🇮🇹" tvg-logo="" group-title="Sense grup",SPORT ITALIA 🇮🇹
 https://amg01370-italiansportcom-sportitalia-rakuten-3hmdb.amagi.tv/amRdirect/ads_pod_type=playerpage_midroll&ads_env=prod&ads_ppid=&ads_rtvid=271861&ads_streaming_id=4f185419-74f6-4564-8ea9-4cdc60746e2f&ads_amagi_channel=781&ads_device_type=web&ads_device_model=&ads_device_year=&ads_player_width=&ads_rtv_content_language=ita&ads_market=it&ads_rtv_content_id=3741&ads_device_make=&ads_user_type=visitor&ads_content_classification=6&ads_gdpr_consent=&ads_device_lmt=1&ads_player_height=&uid=1gnmqg5gu-qsvc-bfo-gaq3-3dgjgexshpe/hls/amagi_hls_data_rakutenAA-sportitalia-rakuten/CDN/1920x1080_4540800/chunklist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Redbull TV" tvg-logo="https://i.imgur.com/iFNScQ6.png" group-title="Sports",Redbull TV
+#EXTINF:-1 tvg-id="" tvg-name="Redbull TV" tvg-logo="https://i.imgur.com/iFNScQ6.png" group-title="Esport",Redbull TV
 https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master_1660.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="SONY" tvg-logo="tvg-logo="https://static.wikia.nocookie.net/logopedia/images/c/c6/Sony_Channel_2023.png/revision/latest/scale-to-width-down/48?cb=20230828233601&path-prefix=es" group-title="Sense grup",SONY
 https://a-cdn.klowdtv.com/live1/cine_720p/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="AYM SPORT" tvg-logo="https://pbs.twimg.com/profile_images/2014443059170189312/YAQSLtyI_400x400.jpg" group-title="Sense grup",AYM SPORT
 https://aym-as.otteravision.com/aym/as/as_720p_high.m3u8
 
-#EXTINF:11 tvg-logo="https://pbs.twimg.com/profile_images/1985477749926952960/N2FA5em6_400x400.jpg",HBO HD
-http://45.228.234.30:16000/play/a008/index.m3u8
-#EXTINF:11 tvg-logo="https://pbs.twimg.com/profile_images/1985477749926952960/N2FA5em6_400x400.jpg",HBO 2 HD
+#EXTINF:11 tvg-logo="https://pbs.twimg.com/profile_images/1985477749926952960/N2FA5em6_400x400.jpg",HBO HD 
+http://45.228.234.30:16000/play/a008/index.m3u8 
+#EXTINF:11 tvg-logo="https://pbs.twimg.com/profile_images/1985477749926952960/N2FA5em6_400x400.jpg",HBO 2 HD 
 http://45.228.234.30:16000/play/a009/index.m3u8
 
 
@@ -364,7 +364,7 @@ https://a-cdn.klowdtv.com/live1/cine_720p/chunks.m3u8
 #EXTINF:0 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-us.png", HBO HB
 #EXTGRP:Entretenimiento
 http://45.228.234.30:16000/play/a008/index.m3u8
-#EXTINF:0 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-us.png", HBO Plus
+#EXTINF:0 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-us.png", HBO Plus 
 #EXTGRP:Entretenimiento
 http://45.228.234.30:16000/play/a00a/index.m3u8
 #EXTINF:0 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-us.png", HBO Family
@@ -380,24 +380,26 @@ http://45.228.234.30:16000/play/a027/index.m3u8
 http://45.228.234.30:16000/play/a01i/index.m3u8
 #EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1468225468642074629/k-33_Lq2_400x400.png",History HD
 http://45.228.234.30:16000/play/a011/index.m3u8
-#EXTINF:-1 tvg-name="Pluto TV Spotlight" tvg-logo="https://i.imgur.com/AogTmZc.png" group-title="VOD Movies (EN)",Pluto TV Spotlight
+#EXTINF:-1 tvg-id="" tvg-name="Pluto TV Spotlight" tvg-logo="https://i.imgur.com/AogTmZc.png" group-title="VOD Movies (EN)",Pluto TV Spotlight
 https://service-stitcher.clusters.pluto.tv/stitch/hls/channel/5ba3fb9c4b078e0f37ad34e8/3321280/playlist.m3u8
-#EXTINF:-1 ,SKY SPORTS LALIGA 🇲🇽
+
+
+#EXTINF:-1 tvg-id="SkySport" tvg-logo="https://pbs.twimg.com/profile_images/1668961707216052229/yXaaaA_k_400x400.jpg" group-title="Esport",SKY SPORTS LALIGA 🇲🇽
 http://181.78.105.146:2000/play/a08m/index.m3u8
-#EXTINF:-1 ,SKY SPORTS LALIGA 🇲🇽
+#EXTINF:-1 tvg-id="SkySport" tvg-logo="https://pbs.twimg.com/profile_images/1668961707216052229/yXaaaA_k_400x400.jpg" group-title="Esport",SKY SPORTS LALIGA 🇲🇽
 http://190.92.10.66:4000/play/a001/index.m3u8
-#EXTINF:-1 ,SKY SPORTS LALIGA 🇲🇽
+#EXTINF:-1 tvg-id="SkySport" tvg-logo="https://pbs.twimg.com/profile_images/1668961707216052229/yXaaaA_k_400x400.jpg" group-title="Esport",SKY SPORTS LALIGA 🇲🇽
 http://181.78.109.49:8000/play/a06r/index.m3u8
-#EXTINF:-1 ,SKY SPORTS LALIGA 🇲🇽
+#EXTINF:-1 tvg-id="SkySport" tvg-logo="https://pbs.twimg.com/profile_images/1668961707216052229/yXaaaA_k_400x400.jpg"  group-title="Esport",SKY SPORTS LALIGA 🇲🇽
 http://181.78.105.146:8800/play/a07h/index.m3u8
 
+tvg-logo="https://pbs.twimg.com/profile_images/1668961707216052229/yXaaaA_k_400x400.jpg"
 
 
-
-#EXTINF:-1 tvg-id="LaLigaHypermotion.es@SD" tvg-logo="" group-title="Sports",LaLiga Hypermotion (1080p)
+#EXTINF:-1 tvg-id="LaLigaHypermotion.es@SD" tvg-logo="" group-title="Esport",LaLiga Hypermotion (1080p)
 http://latam-cache-sv2-cdn.latamlive.net/LA_LIGA_SMARTBANK_IP_ENC_LIVE/index.m3u8
 
-#EXTINF:-1 tvg-id="LaLigaTV.es@SD" tvg-logo="https://i.imgur.com/ilay5Jr.png" group-title="Sports",LaLiga TV
+#EXTINF:-1 tvg-id="LaLigaTV.es@SD" tvg-logo="https://i.imgur.com/ilay5Jr.png" group-title="Esport",LaLiga TV
 http://162.19.255.233:8080/play/UNbAl57p9hXZClOu56FCTZID4SFOqZLZ81NguVP-JxM/m3u8
 
 #EXTINF:-1 group-title="Pel·lícules",HBO Family
@@ -843,7 +845,7 @@ https://toonixhls.wns.live/hls/stream.m3u8
 #EXTINF:-1 group-title="Canals Perses",Gold Star
 https://moviethls.wns.live/hls/stream.m3u8
 
-#EXTINF:-1 group-title="Esport",BEIN SPORT 2
+#EXTINF:-1 group-title="Canals Perses",BEIN SPORT 2
 https://live20.bozztv.com/akamaissh101/ssh101/vipmixflix/chunks.m3u8
 
 #EXTINF:-1 group-title="Canals Perses",Bahrain Sports 1
@@ -878,689 +880,3 @@ https://jmp2.uk/plu-6320d2755e54db000783fd87.m3u8
 
 #EXTINF:-1 group-title="Esports",DyN SPORTS MIX
 https://jmp2.uk/plu-6866525c8a412a0e95c438b4.m3u8
-#EXTM3U
-#EXTINF:0 group-title="Notícies",BBC NEWS
-http://23.237.104.106:8080/USA_BBC_NEWS/index.m3u8
-#EXTINF:0 group-title="Esports",BEIN
-http://23.237.104.106:8080/USA_BEIN/index.m3u8
-#EXTINF:0 group-title="Esports",FOX DEPORTES
-http://23.237.104.106:8080/USA_FOX_DEPORTES/index.m3u8
-#EXTINF:24 group-title="Esports",ESPNU
-http://23.237.104.106:8080/USA_ESPNU/index.m3u8
-#EXTINF:0 group-title="Esports",YES NETWORK
-http://23.237.104.106:8080/USA_YES_NETWORK/index.m3u8
-#EXTINF:0 group-title="Cuina i menjar",FOOD NETWORK
-http://23.237.104.106:8080/USA_FOOD_NETWORK/index.m3u8
-#EXTINF:0 group-title="Pel·lícules",Cinemax Classics
-http://23.237.104.106:8080/USA_5STARMAX/index.m3u8
-#EXTINF:0 group-title="Pel·lícules",Cinemax Hits
-http://23.237.104.106:8080/USA_MOREMAX/index.m3u8
-#EXTINF:0 group-title="Comèdia",Comedy Central
-http://23.237.104.106:8080/USA_COMEDY_CENTRAL/index.m3u8
-#EXTINF:0 group-title="Cuina i menjar",Cooking Channel
-http://23.237.104.106:8080/USA_COOKING/index.m3u8
-#EXTINF:0 group-title="Natura i animals",Animal Planet
-http://23.237.104.106:8080/USA_ANIMAL_PLANET/index.m3u8
-#EXTINF:0 group-title="Esports",Big Ten Network
-http://23.237.104.106:8080/USA_BTN/index.m3u8
-#EXTINF:0 group-title="Infantil i animació",Boomerang
-http://23.237.104.106:8080/USA_BOOMERANG/index.m3u8
-#EXTINF:0 group-title="Entreteniment",Bounce
-http://23.237.104.106:8080/USA_BOUNCE/index.m3u8
-#EXTINF:0 group-title="Infantil i animació",Cartoon Network
-http://23.237.104.106:8080/USA_CARTOON_NETWORK/index.m3u8
-#EXTINF:0 group-title="Ciència i natura",Discovery Channel
-http://23.237.104.106:8080/USA_DISCOVERY/index.m3u8
-#EXTINF:0 group-title="Infantil i animació",Disney XD
-http://23.237.104.106:8080/USA_DISNEY_XD/index.m3u8
-#EXTINF:0 group-title="Entreteniment",E!
-http://23.237.104.106:8080/USA_E/index.m3u8
-#EXTINF:0 group-title="Música",Fuse
-http://23.237.104.106:8080/USA_FUSE/index.m3u8
-#EXTINF:0 group-title="Sèries i acció",FX
-http://23.237.104.106:8080/USA_FX/index.m3u8
-#EXTINF:0 group-title="Pel·lícules i sèries",Hallmark Channel
-http://23.237.104.106:8080/USA_HALLMARK/index.m3u8
-#EXTINF:0 group-title="Pel·lícules",HBO
-http://23.237.104.106:8080/USA_HBO/index.m3u8
-#EXTINF:0 group-title="Pel·lícules",HBO Hits
-http://23.237.104.106:8080/USA_HBO2/index.m3u8
-#EXTINF:0 group-title="Notícies",HLN
-http://23.237.104.106:8080/USA_HLN/index.m3u8
-#EXTINF:0 group-title="Pel·lícules i sèries",IFC
-http://23.237.104.106:8080/USA_IFC/index.m3u8
-#EXTINF:0 group-title="Pel·lícules i sèries",LMN
-http://23.237.104.106:8080/USA_LMN/index.m3u8
-#EXTINF:0 group-title="Esports",MSG
-http://23.237.104.106:8080/USA_MSG/index.m3u8
-#EXTINF:0 group-title="Música",MTV
-http://23.237.104.106:8080/USA_MTV/index.m3u8
-#EXTINF:0 group-title="Ciència i natura",National Geographic
-http://23.237.104.106:8080/USA_NAT_GEO/index.m3u8
-#EXTINF:0 group-title="Esports",NFL Network
-http://23.237.104.106:8080/USA_NFL_NETWORK/index.m3u8
-#EXTINF:0 group-title="Infantil i animació",Nickelodeon
-http://23.237.104.106:8080/USA_NICKELODEON/index.m3u8
-#EXTINF:0 group-title="Aventura i natura",Outdoor Channel
-http://23.237.104.106:8080/USA_OUTDOOR/mpegts
-#EXTINF:0 group-title="Pel·lícules i sèries",Paramount Network
-http://23.237.104.106:8080/USA_PARAMOUNT_NETWORK/index.m3u8
-#EXTINF:0 group-title="Pel·lícules",Paramount+ with Showtime
-http://23.237.104.106:8080/USA_SHOWTIME/index.m3u8
-#EXTINF:0 group-title="Esports",SEC Network
-http://23.237.104.106:8080/USA_SEC_NETWORK/index.m3u8
-#EXTINF:0 group-title="Pel·lícules",Starz
-http://23.237.104.106:8080/USA_STARZ/index.m3u8
-#EXTINF:0 group-title="Ciència ficció i fantasia",Syfy
-http://23.237.104.106:8080/USA_SYFY/index.m3u8
-#EXTINF:0 group-title="Música",VH1
-http://23.237.104.106:8080/USA_VH1/index.m3u8
-#EXTINF:0 group-title="Documentals",Vice TV
-http://23.237.104.106:8080/USA_VICETV/index.m3u8
-#EXTINF:0 group-title="Entreteniment",WE TV
-http://23.237.104.106:8080/USA_WE_TV/mpegts
-#EXTINF:0 group-title="Entreteniment",WGN
-http://23.237.104.106:8080/USA_WGN/index.m3u8
-#EXTINF:-1 group-title="Esports",SKY SPORTS LALIGA 🇲🇽
-http://181.78.105.146:2000/play/a08m/index.m3u8
-#EXTINF:-1 group-title="Esports",SKY SPORTS LALIGA 🇲🇽
-http://190.92.10.66:4000/play/a001/index.m3u8
-#EXTINF:-1 group-title="Esports",SKY SPORTS LALIGA 🇲🇽
-http://181.78.109.49:8000/play/a06r/index.m3u8
-#EXTINF:-1 group-title="Esports",SKY SPORTS LALIGA 🇲🇽
-http://181.78.105.146:8800/play/a07h/index.m3u8
-
-#EXTINF:0 group-title="Esports",TNT Sports 1 UK
-http://kstv.us:8080/4VUyfZBQzk/95104974615/47850
-#EXTINF:0 group-title="Esports",TNT Sports 2 UK
-http://kstv.us:8080/4VUyfZBQzk/95104974615/47851
-#EXTINF:0 group-title="Esports",TNT Sports 3 UK
-http://kstv.us:8080/4VUyfZBQzk/95104974615/47852
-#EXTINF:0 group-title="Esports",TNT Sports 4 UK
-http://kstv.us:8080/4VUyfZBQzk/95104974615/47853
-#EXTINF:0 group-title="",REELZ
-http://fl51.moveonjoy.com/REELZ/index.m3u8
-
-#EXTINF:0 group-title="",CBS
-http://fl51.moveonjoy.com/CBS/index.m3u8
-#EXTINF:0 group-title="Notícies",ABC
-http://fl51.moveonjoy.com/ABC/index.m3u8
-#EXTINF:0 group-title="",Bounce
-
-#EXTINF:60,Fox Business
-http://mytvstream.net:8080/live/30550113/30550113/17639.m3u8
-
-
-
-
-#EXTINF:54,Love Nature 4K CA
-https://pb-ehs1glsha1juy.akamaized.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/pb-ehs1glsha1juy/f2141f37-1f48-475b-ba54-b9efb62346db/0.m3u8
-#EXTINF:595,CNN US
-https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8
-#EXTINF:604,CNN International
-https://turnerlive.warnermediacdn.com/hls/live/586497/cnngo/cnni/VIDEO_0_3564000.m3u8
-#EXTINF:120,NBC News NOW
-https://d4whmvwm0rdvi.cloudfront.net/manifest/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod_default_xumo-nbcu-linear/3e088b25-3e79-4f34-bbdf-afbcd40497f3/4.m3u8
-#EXTINF:100,CBS News 24/7
-https://fast-tv-proxy.sharewithyou.dpdns.org/?play=https://dai.google.com/linear/hls/event/Sid4xiTQTkCT1SLu6rjUSQ/master.m3u8?imafw__fw_app_bundle=%5BAPP+ID%5D&imafw__fw_did=%5Bidtype%3AdeviceID%5D&imafw__fw_is_lat=%5BLIMITED+AD+TRACKING%5D&imafw__fw_us_privacy=%5BCCPA+STRING%5D&imafw__fw_vcid2=%5Bunique_identifier%5D&imafw_csid=%5BSITE+SECTION%5D&is_lat=%5BLIMITED+AD+TRACKING%5D
-#EXTINF:60,ABC News Live
-https://fast-tv-proxy.sharewithyou.dpdns.org/?play=https://dbrb49pjoymg4.cloudfront.net/10001/99951517/hls/master.m3u8?ads.xumo_channelId=99951517&ads.xumo_streamId=99951517&ads.channelId=99951517&ads.channelName=ABC_us&ads.caid=ABC&ads.csid=xumo_web_ABC_ssai&ads.genre=News,N&ads._fw_content_genre=News,N&ads._fw_coppa=0&ads.xumo_contentId=58&ads.xumo_contentName=ABC&ads.xumo_providerId=58&ads.xumo_providerName=ABC&ads._fw_ifa_type=&ads._fw_did=6a687e3d-9e1e-4b73-a05b-b584f9949faa&ads.amznappId=&ads.lat=&ads.lon=&ads.os=&ads.osv=&ads._fw_is_lat=0&ads._fw_us_privacy=&ads._fw_content_category=&ads._fw_content_language=en&ads._fw_content_rating=&ads._fw_deviceMake=GitHubAction&ads._fw_device_model=PythonScript&ads.xumo_platform=web&ads.site_id=&ads.appVersion=1.0.0&ads._fw_app_bundle=web.xumo.com&ads._fw_app_store_url=&ads.appName=XumoPlay
-#EXTINF:60,LiveNOW from FOX
-https://s11host2.localnow.api.cms.amdvids.com/v1/manifest/c189661feba961c19bc5fb60b57879ee9b84548a/config13/25a2f26d-fa83-469b-a0c6-0d4508fec2c0/2.m3u8
-#EXTINF:36,NEWSMAX
-https://nmx1ota.akamaized.net/hls/live/2107010/Live_1/3.m3u8
-#EXTINF:60,Reuters
-https://dbrb49pjoymg4.cloudfront.net/manifest/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod_default_xumo-ams-aws/e7493ea5-5c1c-4d7a-a3f7-e95516048ad8/3.m3u8
-#EXTINF:60,NewsNation
-http://mytvstream.net:8080/live/30550113/30550113/161450.m3u8
-#EXTINF:20,CNBC
-http://41.205.93.154/CNBC/index.m3u8
-#EXTINF:7200,BBC News UK
-https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/t=3840/v=pv14/b=5070016/main.m3u8
-#EXTINF:60,BBC News International
-https://d3pxo1qcgzxtxs.cloudfront.net/manifest/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod_default_xumo-linear-amc-hlsv3/5ab832c0-311a-4705-9535-5e54ad64b21e/5.m3u8
-#EXTINF:114,Sky News
-https://xumo-drct-skynews-nc91a.fast.nbcuni.com/live/master_5.m3u8
-#EXTINF:60,France 24 English FR
-https://amg00106-france24-france24-samsunguk-qvpp8.amagi.tv/ts-eu-w1-n2/playlist/amg00106-france24-france24-samsunguk/cb553d1e7f6c678a93d43e61d4ef41a4da2427fc087a8d6933fb4b926bc10f41f8eda29ab30fb02b04940fa73f4e380d4d1a9a4ace0362d7b66aa9515b7d121b9d81a20a99d94e5cd58d5d5173f7651b52f91016d6354b59f1dd3724c97db9700e16a82e6b553982f449de2e109add5f947e2d88b3dd7f39635a4ffc0c0bb4e207bcfae25a5bdb6ab3a54a1ac32640b28210d4804fb9d2c95a9f15866ba0469893ed8c82178b8e9167ab5fe3645c025c17f4817d808749b5e5897d2b957f2f34733f8db8a7dd710fb2756a72dfe291cf0f9612ca9a6b826f27ab01ea2cee51da31d963c0e04ab3e3bfd6463351cea240511489c1bdd0835f54bc62e8ecedd3670ef49c7f6373e85fff071f17a0c9d64ec4a97b97b230cbb5790d07c49e489a94bcf181dae151bd15faf8d0b71063674d1958fa37ce9b69c867dc68b8f11d20514836c1f03fdfa7e96e0f4c6eaba543e61371c1b30a28426c41a85528188555d7521169c8745f68e439fc894e14e34424a445f07fc557fa2fd2b73ee1af9bc40b3ea7d7c443850fa5d558949e8ace1cbf9cf917b2ac7d6535e5e36da3f62441630f8bf2c7e4650003edb8eef6c9503900362d836de1f7ca7f8187cc251c59941d76203c3d16950dd87dd013415b6ee010c7a90534a807226dc9947f651a3dc6f7e0d4b8818304946fc3c3f80e2a39726aa97c5075399de5db19b513634a5771cc4f684ab6021a65ef96c2ead0c04dc68e6ba73d2d453796be470f591c2323399a9669c557adc64eeed5990abe80e7766ab67c9b7377cf80e33dadd2d6bd0865f68d5816609bd655a0523dd71bd151e5f178cabf58035c710067f1ce6cbd389dda89cc3f953ca72c522cbc98da334d437c0085f00e405e43b055085b3498677cda25/126/1920x1080_6046040/index.m3u8
-#EXTINF:60,Euronews FR
-https://aka-live1050.delivery.roku.com/f5af26d1-822b-43f3-93f4-2301a947e1f3/t2-origin/out/v1/live_1080.m3u8
-#EXTINF:60,Al Jazeera English QA
-https://live-hls-apps-aje-v3-fa.getaj.net/AJE/01.m3u8
-
-#EXTINF:60,ESPN8: The Ocho
-https://d3b6q2ou5kp8ke.cloudfront.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-vz67vw1bljinm/aab88f58-adb6-4466-aceb-3b71a6f23411/4.m3u8
-#EXTINF:40,ACC Network
-http://23.239.31.26:8989/accnetwork/index.m3u8
-#EXTINF:24,SEC Network
-http://23.237.104.106:8080/USA_SEC_NETWORK/index.m3u8
-#EXTINF:120,NBC Sports NOW
-https://d4whmvwm0rdvi.cloudfront.net/manifest/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod_default_xumo-nbcu-linear/9ed59304-2f35-4c88-9b99-34153edef42b/4.m3u8
-#EXTINF:8,Big Ten Network
-http://23.237.104.106:8080/USA_BTN/index.m3u8
-#EXTINF:20,NBA TV
-http://212.102.60.231/NBA_TV/index.m3u8
-#EXTINF:59,Spectrum SportsNet LA Dodgers
-http://mytvstream.net:8080/live/30550113/30550113/31636.m3u8
-#EXTINF:60,Spectrum SportsNet Lakers
-http://mytvstream.net:8080/live/56481106/11185695/21842.m3u8
-#EXTINF:24,Syfy
-http://23.237.104.106:8080/USA_SYFY/index.m3u8
-#EXTINF:60,Comet TV
-https://fast-channels.sinclairstoryline.com/COMET/index_1.m3u8
-#EXTINF:60,Cozi TV
-http://mytvstream.net:8080/live/30550113/30550113/11868.m3u8
-#EXTINF:60,TV Land
-http://mytvstream.net:8080/live/30550113/30550113/46696.m3u8
-#EXTINF:60,Ion
-https://dbrb49pjoymg4.cloudfront.net/manifest/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod_default_xumo-ams-aws/a5e7ebd8-80a4-49ed-8337-3f63f84673cc/1.m3u8
-#EXTINF:24,Paramount Network
-http://23.237.104.106:8080/USA_PARAMOUNT_NETWORK/index.m3u8
-#EXTINF:18,IFC
-http://23.237.104.106:8080/USA_IFC/index.m3u8
-#EXTINF:60,Pop
-http://mytvstream.net:8080/live/30550113/30550113/20976.m3u8
-#EXTINF:24,Bounce
-http://23.237.104.106:8080/USA_BOUNCE/index.m3u8
-#EXTINF:60,INSP
-http://mytvstream.net:8080/live/30550113/30550113/16262.m3u8
-#EXTINF:18,BBC America
-https://bcovlive-a.akamaihd.net/7f5ec16d102f4b5d92e8e27bc95ff424/us-east-1/6240731308001/playlist.m3u8
-#EXTINF:59,Antenna TV
-http://mytvstream.net:8080/live/30550113/30550113/20180.m3u8
-#EXTINF:59,HerSphere by Lionsgate
-https://amg00353-lionsgatestudio-hersphere-lgus-3vv9h.amagi.tv/ts-us-w2-n2/playlist/amg00353-lionsgatestudio-hersphere-lgus/cb543e1f796c648e9dd43c66cef340a1f9431fde1d6988693eb5518975d10724d4efa89da914ac30578f6680255f314120369809a11f11afce7ba83e357978738388c33b99c5476ee78a74736eac7f1d56e00d13c03d285aedc43644c531bc720053cf0c6d5d3dc4fd2af5340d98d5158a7b2c95adc361277d4a3cce0b0ca7f941a6fce64346de7eb5e21a1b9c7e11e7845fc8814eee9dd55ac8429b27f617cb8fa5ded61686d09360ab52b2365319481398846addcd58a0d3996c349d7a2d34713f8b98b7db7815a5627c71d9d4ee823fbe79a08821922e36ab108e4a96238364a47bc88b239b8c8bef7d771c96f7724e099dbfd5e0933437ae28fcabffd30115f3912f5668e74efd1f717bfa92ca10978d1486a63091bb7b182dd29d37ebf7dcb8ce80bd75af11e5f5d1ad0f6e73394568e85ca68923df2ccb71abcb07384c4836c2f038ffa2fc6819416ab9b467e43626e3a0e1e8de0a2884610b4ae661d45e7700a65e575dd51dc6b41d41ac1b50ff5f56fa5c26ce41f3ad22e1b5c2976d51dce5e46dca41db8733efac7cc3013d5d11fdf03951414078d9ea14635a15f864d4e3f5c3422724c0d2f0a4b2395f063d041c008af69517f1ebfb053022fc09650a1b1113854ad16dcf124a0f20da1bddb87b04ef681a0ac2970d627943b8fb94afb3eb9030df17d2cbee77283f4971cf5b6f4055f492bd6bc0623414175c841c2a56ae17484bfc94cafcebee04a2a751990752264af3d13478340801096d9a947b9958e1986fdef1af67eacca62f1ff956cf00148d9eca65fdfa92ce550ae2c63d735ca1fa02f24004fd32e971f8b816d9b44648152c322ea8ea6fd66f8485e1ad409b28be010a78eb6ca28ce6c1ba0c3cdcb86c120c3d6c275a6f2c5166d4dbd1774e7fe9aa2ee558efef27c4283f081b62e8ab237bb9c15321c64d140da4a4d8c5a9c50d1fde7df179c51264cc32360acfff05b0c0d89cfb837c1a04dca0a24fbeac8785c9dab85614655714bef7767652e70bdfa822cd90470e85ee8ae1c9209e73e347dceed315cd1a81f6e67ec4f69cfae839025f283196a5cccf35e6e64e2fd77adf5e630c9d98e3f171fadece73129866d4a435498b0a5f79f68ad728e71c9dc204709bed0058d1677cc5edfe2d19ba4bcd4d0959d4fba84d1ef0ee2eb868a6a7c6653fe4baf6eb3d3c49873e93afb06768a1971c0e569f646dee56b7b812d8c410d4f64736230c767543b11219446c591b62929aaa7d903e00f7fed6438b459393e21dc9831fe7f28bdba1eb3f5a8cf80211c8de8661ac0ec1c386f434a51c34e438d1524fa7dcd5f0dce3d4bf949f37540c9348db24c975dae99ad14d465b2ae15e6e757fb55de21b195f91f350c88c4478c98bae548d5502054a3f18fb3492d055444c288ca65a98de616d202c13e0d109ba16fb145fd11927f34a21425f345347a385c4548b7a8b39e2a22b6f8fe1989166dfde588fccb9b7ef765fb8154c286f96b8889dd53350dd849a9d3012ecc86da71f783c6bcf9a8d747bfa874307fdb18660b4ac69e449625a8fb3337e9d6019415af23469838979f99b58f390d8f5a3/140/1920x1080_6046040/index.m3u8
-#EXTINF:114,Universal Movies
-https://fast-tv-proxy.sharewithyou.dpdns.org/?play=https://d4whmvwm0rdvi.cloudfront.net/10007/99991621/hls/master.m3u8?ads.xumo_channelId=99991621&ads.asnw=169843&ads.afid=158702674&ads.sfid=16926435&ads.csid=xumo_web_rottentomatoesrttv_ssai_cro&ads._fw_is_lat=0&ads._fw_us_privacy=&ads._fw_coppa=0&ads._fw_did=5568f5ca-8408-4ffa-9f73-014f7df12cb4&ads._fw_vcid2=512116:5568f5ca-8408-4ffa-9f73-014f7df12cb4&ads._fw_app_bundle=web.xumo.com&ads._fw_app_store_url=&ads._fw_content_category=&ads._fw_content_genre=&ads._fw_content_language=en&ads._fw_content_rating=&ads._fw_deviceMake=GitHubAction&ads._fw_device_model=PythonScript&ads._fw_deviceType=3-Connected_TV&ads.appVersion=1.0.0&ads.appName=XumoPlay&ads.xumo_contentId=2659&ads.xumo_contentName=RottenTomatoesRTTV&ads.xumo_providerId=2659&ads.xumo_providerName=RottenTomatoesRTTV&ads.channelId=99991621&ads._fw_ifa_type=
-#EXTINF:113,Universal Action
-https://fast-tv-proxy.sharewithyou.dpdns.org/?play=https://d4whmvwm0rdvi.cloudfront.net/10007/99951254/hls/master.m3u8?ads.xumo_channelId=99951254&ads.asnw=169843&ads.afid=380748649&ads.sfid=19301225&ads.csid=xumo_web_NBCUUniversalAction_ssai_cro&ads._fw_is_lat=0&ads._fw_us_privacy=&ads._fw_coppa=0&ads._fw_did=f1a9a3b4-cd53-4db1-a891-24841ccc2d32&ads._fw_vcid2=512116:f1a9a3b4-cd53-4db1-a891-24841ccc2d32&ads._fw_app_bundle=web.xumo.com&ads._fw_app_store_url=&ads._fw_content_category=&ads._fw_content_genre=Action,Drama,GD,GV,Entertainment&ads._fw_content_language=en&ads._fw_content_rating=&ads._fw_deviceMake=GitHubAction&ads._fw_device_model=PythonScript&ads._fw_deviceType=3-Connected_TV&ads.appVersion=1.0.0&ads.appName=XumoPlay&ads.xumo_contentId=3948&ads.xumo_contentName=NBCUUniversalAction&ads.xumo_providerId=3948&ads.xumo_providerName=NBCUUniversalAction&ads.channelId=99951254&ads._fw_ifa_type=
-#EXTINF:114,Universal Western
-https://d4whmvwm0rdvi.cloudfront.net/manifest/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod_default_xumo-nbcu-linear/a121f0f1-6195-47d3-aaeb-aebe124b0511/4.m3u8
-#EXTINF:120,Universal Monsters
-https://fast-tv-proxy.sharewithyou.dpdns.org/?play=https://d4whmvwm0rdvi.cloudfront.net/10007/99951264/hls/master.m3u8?ads.xumo_channelId=99951264&ads.asnw=169843&ads.afid=380753606&ads.sfid=19301317&ads.csid=xumo_web_NBCUUniversalMonsters_ssai_cro&ads._fw_is_lat=0&ads._fw_us_privacy=&ads._fw_coppa=0&ads._fw_did=f1ce81e2-178c-454b-97da-3163c1b43583&ads._fw_vcid2=512116:f1ce81e2-178c-454b-97da-3163c1b43583&ads._fw_app_bundle=web.xumo.com&ads._fw_app_store_url=&ads._fw_content_category=&ads._fw_content_genre=&ads._fw_content_language=en&ads._fw_content_rating=&ads._fw_deviceMake=GitHubAction&ads._fw_device_model=PythonScript&ads._fw_deviceType=3-Connected_TV&ads.appVersion=1.0.0&ads.appName=XumoPlay&ads.xumo_contentId=3940&ads.xumo_contentName=NBCUUniversalMonsters&ads.xumo_providerId=3940&ads.xumo_providerName=NBCUUniversalMonsters&ads.channelId=99951264&ads._fw_ifa_type=
-#EXTINF:120,Universal Crime
-https://fast-tv-proxy.sharewithyou.dpdns.org/?play=https://d4whmvwm0rdvi.cloudfront.net/10007/99951245/hls/master.m3u8?ads.xumo_channelId=99951245&ads.asnw=169843&ads.afid=380752676&ads.sfid=19194700&ads.csid=xumo_web_NBCUUniversalCrime_ssai_cro&ads._fw_is_lat=0&ads._fw_us_privacy=&ads._fw_coppa=0&ads._fw_did=884e448b-b0c0-4f7f-979c-c6159134cc36&ads._fw_vcid2=512116:884e448b-b0c0-4f7f-979c-c6159134cc36&ads._fw_app_bundle=web.xumo.com&ads._fw_app_store_url=&ads._fw_content_category=&ads._fw_content_genre=Drama,Crime,GD,Entertainment,GV,SM&ads._fw_content_language=en&ads._fw_content_rating=&ads._fw_deviceMake=GitHubAction&ads._fw_device_model=PythonScript&ads._fw_deviceType=3-Connected_TV&ads.appVersion=1.0.0&ads.appName=XumoPlay&ads.xumo_contentId=3939&ads.xumo_contentName=NBCUUniversalCrime&ads.xumo_providerId=3939&ads.xumo_providerName=NBCUUniversalCrime&ads.channelId=99951245&ads._fw_ifa_type=
-#EXTINF:36,AMC Thrillers
-https://18f2fbf906cb473e8adbe37026e7e27f.mediatailor.us-east-1.amazonaws.com/v1/manifest/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/Vizio_RushByAMC/dbfca017-81b9-4a86-af1e-debe7e1a7666/4.m3u8
-#EXTINF:54,CW Forever
-https://d1sknsnbkyvie.cloudfront.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-sbcl5hxexbihh/38ec3205-dcc5-4c0f-a047-917eb2054891/0.m3u8
-#EXTINF:60,CW Gold
-https://d1d726ny1vain2.cloudfront.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-femoe55fvrdvc/3bef8470-bcb1-49b1-a816-0737fa4c27cd/0.m3u8
-#EXTINF:60,FilmRise Action
-https://fast-tv-proxy.sharewithyou.dpdns.org/?play=https%3A%2F%2Fjmp2.uk%2Frok-0abef49cfd6759b18f2ce64290cbdda3.m3u8
-#EXTINF:60,FilmRise Free Movies
-https://fast-tv-proxy.sharewithyou.dpdns.org/?play=https%3A%2F%2Fjmp2.uk%2Frok-d6f71998860459eca1bed73db5988330.m3u8
-#EXTINF:60,FilmRise Western
-https://fast-tv-proxy.sharewithyou.dpdns.org/?play=https%3A%2F%2Fjmp2.uk%2Frok-c5a72a598a355db4b1781ca075280773.m3u8
-#EXTINF:60,FilmRise Classic TV
-https://fast-tv-proxy.sharewithyou.dpdns.org/?play=https%3A%2F%2Fjmp2.uk%2Frok-e2e10d08139b56aba73a448f5555b6fd.m3u8
-#EXTINF:60,FilmRise British TV
-https://fast-tv-proxy.sharewithyou.dpdns.org/?play=https%3A%2F%2Fjmp2.uk%2Frok-dead0e7a46da533c94c61c8710ef3418.m3u8
-#EXTINF:60,FilmRise Black TV
-https://fast-tv-proxy.sharewithyou.dpdns.org/?play=https%3A%2F%2Fjmp2.uk%2Frok-885d5897052b53709a83c4947174cd09.m3u8
-#EXTINF:60,FilmRise Sci-Fi
-https://fast-tv-proxy.sharewithyou.dpdns.org/?play=https%3A%2F%2Fjmp2.uk%2Frok-c423f0f050355a6fb8bcf7644af61852.m3u8
-#EXTINF:60,FilmRise Horror
-https://fast-tv-proxy.sharewithyou.dpdns.org/?play=https%3A%2F%2Fjmp2.uk%2Frok-6a0629e467b5502c906136dadac290a0.m3u8
-#EXTINF:60,CINEVAULT: Westerns
-https://fast-tv-proxy.sharewithyou.dpdns.org/?play=https://live-manifest.production-public.tubi.io/live/a753ad71-b253-4962-8121-dccdd87b8470/playlist.m3u8
-#EXTINF:0,Sky Cinema Premiere UK
-http://kstv.us:8080/4VUyfZBQzk/95104974615/47820
-#EXTINF:0,Sky Cinema Select UK
-http://kstv.us:8080/4VUyfZBQzk/95104974615/47822
-#EXTINF:0,Sky Cinema Hits UK
-http://kstv.us:8080/4VUyfZBQzk/95104974615/47819
-#EXTINF:0,Sky Cinema Greats UK
-http://kstv.us:8080/4VUyfZBQzk/95104974615/47818
-#EXTINF:0,Sky Cinema Family UK
-http://kstv.us:8080/4VUyfZBQzk/95104974615/47817
-#EXTINF:0,Sky Cinema Action UK
-http://kstv.us:8080/4VUyfZBQzk/95104974615/47813
-#EXTINF:0,Sky Cinema Comedy UK
-http://kstv.us:8080/4VUyfZBQzk/95104974615/47815
-#EXTINF:0,Sky Cinema Thriller UK
-http://kstv.us:8080/4VUyfZBQzk/95104974615/47823
-#EXTINF:0,Sky Cinema Drama UK
-http://kstv.us:8080/4VUyfZBQzk/95104974615/47816
-#EXTINF:0,Sky Cinema Sci-Fi & Horror UK
-http://kstv.us:8080/4VUyfZBQzk/95104974615/47821
-#EXTINF:0,Sky Cinema Animation UK
-http://kstv.us:8080/4VUyfZBQzk/95104974615/47814
-#EXTINF:0,Sky Atlantic UK
-http://kstv.us:8080/4VUyfZBQzk/95104974615/47812
-#EXTINF:0,Sky Witness UK
-http://kstv.us:8080/4VUyfZBQzk/95104974615/47833
-#EXTINF:0,Sky Comedy UK
-http://kstv.us:8080/4VUyfZBQzk/95104974615/47825
-#EXTINF:60,BritBox Mysteries UK
-https://1d7f286dfb844497ac68dd9d6eeb6ea6.mediatailor.us-west-2.amazonaws.com/v1/manifest/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-796-BRITBOXMYSTERIES-LG_US/a623a951-0765-40f6-83dd-307e7c64a4f5/0.m3u8
-#EXTINF:60,BBC Drama UK
-https://8789a89265424e11b94cff2b080ddde6.mediatailor.us-west-2.amazonaws.com/v1/manifest/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-938-BBCDRAMA-LG_US/b3bbb52d-6bdc-47d9-bbff-b30738a8d2a5/0.m3u8
-#EXTINF:0,BBC Comedy UK
-https://d1em2hga7sgumq.cloudfront.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-eprn63ljtaxsa/7780cd8f-1fb9-4332-a9e1-73b00c122603/2.m3u8
-#EXTINF:0,BBC Sci-Fi UK
-https://fast-tv-proxy.sharewithyou.dpdns.org/?play=https://epg.provider.plex.tv/library/parts/5e20b730f2f8d5003d739db7-65622ac05dbccec83a87b641/?X-Plex-Token=zPQn-mNFH5sitpJ_6wKf
-#EXTINF:59,Sony One Action HITS UK
-https://89514e758f814907be6d14bbc0aa66b7.mediatailor.us-west-2.amazonaws.com/v1/manifest/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-800-UK-SONYONEACTIONHITS-LG_UK/af2459de-b2ca-47eb-8435-5e6998ec22dc/0.m3u8
-#EXTINF:60,Sony One Comedy HITS UK
-https://9f8e2ffcd87f4c469be7194e48f84874.mediatailor.us-west-2.amazonaws.com/v1/manifest/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-802-UK-SONYONECOMEDYHITS-LG_UK/cc1d2891-3e9b-4e4c-a518-383d37092998/0.m3u8
-#EXTINF:60,Sony One Comedy TV UK
-https://ec613694ee5049d3b8f30913b619662e.mediatailor.us-west-2.amazonaws.com/v1/manifest/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-804-UK-SONYONECOMEDYTV-LG_UK/09055582-32bf-4ef3-a52d-c2396416feb2/0.m3u8
-#EXTINF:60,Sony One Thriller TV UK
-https://52aad07d9d4f4d479d9b27e08ddf9e8b.mediatailor.us-west-2.amazonaws.com/v1/manifest/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-808-UK-SONYONETHRILLERTV-LG_UK/02d6917b-e5da-46e2-82d5-c3b3103bfd0e/0.m3u8
-#EXTINF:60,Sony One FAVES UK
-https://8a4805800dac428ebbf1d3cde0cdcf87.mediatailor.us-west-2.amazonaws.com/v1/manifest/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-806-UK-SONYONEFAVES-LG_UK/f3dfc4d0-f5ec-4ea8-b4b0-d0db3982bd9c/0.m3u8
-#EXTINF:0,CTV Drama Channel CA
-http://1tv41.icu:8080/live/Y06DNq/295733/57254.rtmp
-#EXTINF:0,CTV Comedy Channel CA
-http://1tv41.icu:8080/live/Y06DNq/295733/57408.rtmp
-#EXTINF:0,CTV Sci-Fi Channel CA
-http://1tv41.icu:8080/live/Y06DNq/295733/57464.rtmp
-#EXTINF:0,Discovery Channel
-http://23.237.104.106:8080/USA_DISCOVERY/index.m3u8
-#EXTINF:0,Science Channel
-http://epicboss.live/bjune@teksavvy.com/5193594414/134148
-#EXTINF:0,National Geographic
-http://23.237.104.106:8080/USA_NAT_GEO/index.m3u8
-#EXTINF:0,Nat Geo Wild
-http://1tv41.icu:8080/live/Y06DNq/295733/11664.rtmp
-#EXTINF:0,History Channel
-http://mytvstream.net:8080/live/30550113/30550113/15017.m3u8
-#EXTINF:0,Animal Planet
-http://23.237.104.106:8080/USA_ANIMAL_PLANET/index.m3u8
-#EXTINF:0,Smithsonian Channel
-http://hardcoremedia.xyz/ymgiaxkw/5Hr5ZQuVfU/129953
-#EXTINF:0,Investigation Discovery
-http://1tv41.icu:8080/live/Y06DNq/295733/46810.rtmp
-
-#EXTINF:0,Oxygen True Crime
-http://89.105.221.127/Oxygen/index.m3u8?token=test
-#EXTINF:0,REELZ
-http://cord-cutter.net:8080/30550113/30550113/10526
-#EXTINF:0,Court TV
-https://amg01438-ewscrippscompan-courttv-tablo-nbcc7.amagi.tv/ts-us-w2-n2/playlist/amg01438-ewscrippscompan-courttv-tablo/cb543e1f796c648e9dd43c66cef340a1f9431fde1d6988693eb5518975d10724d4efa89da914ac30578f6680255f314120369809a11f11afce7ba83e357978738388c33b99c5476ee78a74736eac7f1d56e00d13c03d285aedc43644c531bc720053cf0c6d5d3dc4fd2af5340d98d5158a7b2c95adc361277d4a3cce0b0ca7f941a6fce64346de7eb5e4484b962711e3805fc8804dea9dd55ac8429b27a317998ff18dd2178182c432f801e3643b69480ef132919cb33f9ef1d80011937f2f06355ae8a4e191245ea77433977c62a9c501de00c7885fe12a57e945f0c7e3414de3824738c01880d444830ef5c34ef87b2b4981f6a98bb41d3cb361c489e6d3744648977e6d6ac677d12e2739dfa88544c48b3897b52a8ba0660e309bd16c9589b78faf9d8c49dc0af987ccd86c127132513dd114e2bb7dcb25d84fadcc3828480211fecd1b97d099161b4a7babac12941f12b2decba4da0d30c5295b79e072d65600239d603932b563a9d46c2cba270c842734b40d66d70cafee5e9acdbfca357b8daca013af50bee035858c45c30b1b560db4fe292d206d6dc0e263775d5acb57ebdecfa13a492fdfb7f5bca7773d1432035d1c8181b620c86ea1dbeebe6c35ae77d381bec7ce4ef0ae61894f303a0b/103/1920x1080_5058864/index.m3u8
-#EXTINF:0,PBS Nature
-https://fast-tv-proxy.sharewithyou.dpdns.org/?play=https://d2irko5f9gt1c5.cloudfront.net/10008/99951195/hls/playlist.m3u8?ads.xumo_channelId=99951195&ads.csid=xumo_web_PBSNature_ssai&ads._fw_app_bundle=web.xumo.com&ads.ifa_type=&ads.did=9aff75eb-ded8-436d-bec5-b1c03b08f26a&ads._fw_is_lat=0&ads._fw_us_privacy=&ads._fw_coppa=0&ads._fw_app_store_url=&ads._fw_content_category=&ads.xumo_contentName=PBSNature&ads.xumo_providerName=&ads._fw_content_language=en&ads.assetId=&ads._fw_content_genre=&ads.xumo_providerId=&ads._fw_content_rating=&ads.channelId=99951195&ads.xumo_platform=web&ads.site_id=22453
-#EXTINF:0,PBS History
-https://amg02333-pbs-amg02333c3-lg-gb-1988.playouts.now.amagi.tv/ts-us-e2-n2/playlist/amg02333-pbsdistributionfast-pbshistory-lggb/cb553d1e7f6c678a93d43e61d4ef41a4da2427fc087a8d6933fb4b926bc10f41f8eda29ab30fb02b04940fa73f4e380d4d1a9a4ace0362d7b66aa9515b7d121b9d81a20a99d94e5cd58d5d5173f7651b52f91016d6354b59f1dd3724c97db9700e16a82e6b553982f449de2e109add5f947e2d8eb3dd7f39635a4ffc0c0bb4e207bcfae25a5bdb6ab3a51c1a9d2d16b38441d4d549b8d3c95a9f15876ba01dc9c4ed8382138586c763ab54b06751025c17f5817d80875fa3d49e653c95755a287439dd82a3ce711eb3696770ddc291fb0f9312ca9a6b956125bc058c4e8042fe01d83293c07c87888ffe667e1888e874560284d8faf8915232b975b5abefdc011bf3932f5161e8508257415091f9d85a83ca0398c44aefd3523317eeb260a6c7c0e988b18959d229cbd386ff5727754f2936bb07d2f00bda2dce36a1de614736297f84aa689ef2b33631665cc8875ac40169d1b1edb8f82a0bf85d4120820bd85f1622cf3b7972f13fe0e85706e01d29aa0013cf6a0cbd18bdd242f4a3c8ab023ea3d7c447f26ee4b078bd9c6f9249196f2b90d71372646758edb41e675d78c756aad7c5ef781d13e9fbc18ca7395d3c1d396131d19f8d1c9a8ad3671913d75a25657d1465fb6ebd52fb257f290dec21fa88342efe6c4a2ce2b471545c6d82d1a184f5baa02e8e56f5eec20d160b7c5ee7486f4d6fd7a5c358ed28457f7758f2630e2986266a72d5bbe8c8bcbd348ff60aab3c715a67c0e61e420c466a730fe9ff02ba65c6b62b90b8ef63f8d6bd3778df4cc967119ac39279f99fe7ad2b34a58b6a4324fdbc26c16063c013c4398bdd7ecbb55b126e4c2a26f9a970cf6d86fcb5e918bf029972590c801fba98f0fdd0655d95f62056082f763c42080a4660b9dec62a1672e9ab34ef47e39939c3286f051662e9b12964a3d52d63f6587f64b6eede98bdd80a06cb6ded07a70a6f9d623e11d1fe11dca291cac7dd2e3e6ed8b2b802bab19897c9c4d92f71051e5ff1ac647447e819c6a935d2843252d2d3c88fb56f9366ac31be92bf2de131afcfb902dce0f790c05332687374d9fedad530fe90371ff811b44c290bd28bf4e476efd5ae026df85192f56d00951f4e6df698cf2bfa0e8dd41517d5870321bdf5995c82854429fb66ca153c74e5c8852e08dbc21b965ee9ed9d6d62ad78d360da3c1bc152f595ab612fc0b1161258ee0a7dec3de49a9f34d115df11a3de8e4d8c3729a8d86faf21c57e9dbaf88bc3bc6d3287028b401cb770acc350a898dd8f99d1dea1ff3169abf64343bc5fa7439422cdd081ec37b75b3aea419f0e67aa9ff1ffcbace8848fe75e0b48a915ce369f3fdae7b98179033d7fdc24325e67a94e94455a05d48c7ee2936040ca9ef10ac803146207173bc050febf1d5a4a2e8ca92cc9882432273c7eb88335b615b55702cb0224ea543c446d6838258da48d23ac4e8d278ea50c3fb2fff0c840c0a330d9908394df6818d25e233425babf9d9edd4475b1d4a5a27550c38c41b0037e2d2492d0c01f6d22a4ceb9530feb347f40e320f925103e46f269b0a3ab57/86/1920x1080_6046040/index.m3u8
-#EXTINF:0,PBS Science
-https://amg02333-pbs-amg02333c10-lg-gb-3238.playouts.now.amagi.tv/ts-eu-w1-n2/playlist/amg02333-pbsdistributionfast-pbsscience-lggb/cb553d1e7f6c678a93d43e61d4ef41a4da2427fc087a8d6933fb4b926bc10f41f8eda29ab30fb02b04940fa73f4e380d4d1a9a4ace0362d7b66aa9515b7d121b9d81a20a99d94e5cd58d5d5173f7651b52f91016d6354b59f1dd3724c97db9700e16a82e6b553982f449de2e109add5f947e2d8eb3dd7f39635a4ffc0c0bb4e207bcfae25a5bdb6ab3a51f1a9c2c10b68446d4d549b8d3c95a9f15876bf84694c3eddad51280d2986ba85eb76050025817f2817d80875eb9cf947d2b8503432c776ec58ca6d07a0ebf7a191d9291cabb76b112de9933847224b20f963deb5ae7508b3997de78859f88f66d6f04febc310c26a4f6ee8ef43b3ca975feaee5af1416fccd305674f437a448473994ee85028dc60285bf3980c6057752fba76cbeaa81aad595b010df4fa5c6f08b73454a7316018953b19f63cf5bad12c6f534056c7f7b8eb57bf7a3f76a0d383fece65fd00055acdaf9e5b56a00ff4126009a0abe5a017f82326f77974a93ff074aaa0d37df4a57965931930ce9ab3ce7aecde40522c7b0ad2ec45adc8a3ae0df34884e056458f098435e415f33d1fe761e2476d140f1c1c69307636ed7d6fdceff600c280b32673ea7dfbd31f1e0c12d0e58c556306977151a970fd31bb06a243b0aec28fa8f2c4ba8270a08dbfd7b37366d92dbff9586c4cd41a17ed7bd89535d006d428f1420124ff789ac75d1177c5b5e60da4c0e2cbc03490cee90dfec9a8563c19861a64a127e0dfed432772071565c27b4b44dfb63b8e177de9ace4f82e68b1337e256c63a39b8f1e136b987efc64b1cdeae520f6e94d633dc6328b578be46b3f655ee99762323087978e7b30e8d35dede9ed465962db93d64148f4397b1d78e8c1b3c8b904e207d0d50017651732508cab7bf0f3b5fc98a0ec578d9c271941821595746da914e598ffe796ef55f195b8b8fe5a888f75964a006f571da2e04a2471f5c89a65ed1a496c3c8ba352f6ab2b7af5ff5a09891c2d7c7230c67065aa0e06f6548f607dda93abbd37710ee8d98abd87b9971ee30b280c4408e509bea8c3e91b2a8d0df5b3263002796a7f6fe0795b51a37dd11bf760428a1d09f9e0efadeaf4971ec5cf49c176bdc521437f282dd25f71f81d61c17d5870321bdf5995c82854429fb66ca153c74e5c8852e08dbc21b965ee9ed9d6d62ad78d360da3c1bc152f595ab612fc0b1161258ee0a7dec3de49a9f34d115df11a3de8e4d8c3729a8d86faf21c57e9dbaf88bc3bc6d3287028b401cb770acc350a898dd8f99d1dea1ff3169abf64343bc5fa7439422cdd081ec37b75b3aea419f0e67aa9ff1ffcbace8848fe75e0b48a915ce369f3fdae7b98179033d7fdc24325e67a94e94455a05d48c7ee2936040ca9ef10ac803146207173bc050febf1d5a4a2e8ca92cc9882432273c7eb88335b615b55702cb0224ea543c446d6838258da48d23ac4e8d278ea50c3fb2fff0c840c0a330d9908394df6818d25e233425babf9d9edd4475b1d4a5a27550c38c41b0037e2d2492d0c0166f22a49fb9530feb3c46ebcf60cb9793b0e0f4f698f47bcc/14/1920x1080_6046040/index.m3u8
-#EXTINF:0,CNN Originals
-https://fast-tv-proxy.sharewithyou.dpdns.org/?play=https://dbrb49pjoymg4.cloudfront.net/10001/99951387/hls/playlist.m3u8?ads.xumo_channelId=99951387&ads._fw_ifa_type=&ads._fw_did=f6d638d0-af21-48b8-b64c-c266b2fd55b9&ads.amznappId=&ads.lat=&ads.lon=&ads.os=&ads.osv=&ads.asnw=&ads.caid=WBDCNNOriginals&ads.csid=xumo_web_WBDCNNOriginals_ssai&ads._fw_is_lat=0&ads._fw_us_privacy=&ads._fw_coppa=0&ads.genre=&ads._fw_content_category=&ads._fw_content_language=en&ads._fw_content_genre=&ads._fw_content_rating=&ads.xumo_contentId=4194&ads.xumo_contentName=WBDCNNOriginals&ads.xumo_providerId=4194&ads.xumo_providerName=WBDCNNOriginals&ads._fw_deviceMake=GitHubAction&ads._fw_device_model=PythonScript&ads.channelId=99951387&ads.xumo_platform=web&ads.site_id=&ads.appName=xumo&ads.appVersion=1.0.0&ads._fw_app_bundle=web.xumo.com&ads._fw_app_store_url=
-#EXTINF:0,How To
-https://fast-tv-proxy.sharewithyou.dpdns.org/?play=https://dbrb49pjoymg4.cloudfront.net/10001/99951392/hls/playlist.m3u8?ads.xumo_channelId=99951392&ads._fw_ifa_type=&ads._fw_did=984c6324-a982-40d2-ab59-2494a84bae6f&ads.amznappId=&ads.lat=&ads.lon=&ads.os=&ads.osv=&ads.asnw=&ads.caid=WBDHowTo&ads.csid=xumo_web_WBDHowTo_ssai&ads._fw_is_lat=0&ads._fw_us_privacy=&ads._fw_coppa=0&ads.genre=&ads._fw_content_category=&ads._fw_content_language=en&ads._fw_content_genre=&ads._fw_content_rating=&ads.xumo_contentId=4200&ads.xumo_contentName=WBDHowTo&ads.xumo_providerId=4200&ads.xumo_providerName=WBDHowTo&ads._fw_deviceMake=GitHubAction&ads._fw_device_model=PythonScript&ads.channelId=99951392&ads.xumo_platform=web&ads.site_id=&ads.appName=xumo&ads.appVersion=1.0.0&ads._fw_app_bundle=web.xumo.com&ads._fw_app_store_url=
-#EXTINF:0,MagellanTV Wildest
-https://s8host3.localnow.api.cms.amdvids.com/v1/manifest/c189661feba961c19bc5fb60b57879ee9b84548a/config10/fdc864bc-5776-4756-90d6-b0902043c249/0.m3u8
-#EXTINF:0,FilmRise True Crime
-https://fast-tv-proxy.sharewithyou.dpdns.org/?play=https%3A%2F%2Fjmp2.uk%2Frok-ebb810a8868251f18ac64056834c749a.m3u8
-#EXTINF:0,FilmRise Forensic Files
-https://fast-tv-proxy.sharewithyou.dpdns.org/?play=https%3A%2F%2Fjmp2.uk%2Frok-62945e18ab825bfd8b4995d9bd14917b.m3u8
-#EXTINF:0,FilmRise Mysteries
-https://fast-tv-proxy.sharewithyou.dpdns.org/?play=https%3A%2F%2Fjmp2.uk%2Frok-16722bc43ef05012afa2297def830266.m3u8
-#EXTINF:0,BBC Earth UK
-https://dbrb49pjoymg4.cloudfront.net/manifest/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod_default_xumo-ams-aws/4f4fa83d-b516-44fb-b501-1f1e1f575d97/0.m3u8
-#EXTINF:0,BBC Travel UK
-https://fast-tv-proxy.sharewithyou.dpdns.org/?play=https://epg.provider.plex.tv/library/parts/647f8d22a2fc3fadb4721685-65622eddb7d737841f30a4fd/?X-Plex-Token=zPQn-mNFH5sitpJ_6wKf
-#EXTINF:0,Sky History UK
-http://alal.fit:8080/FatmiriTV/jv8D9RARGJ/293982
-#EXTINF:0,Sky History 2 UK
-http://kstv.us:8080/4VUyfZBQzk/95104974615/47828
-#EXTINF:0,Sky Crime UK
-http://kstv.us:8080/4VUyfZBQzk/95104974615/47826
-#EXTINF:0,Sky Documentaries UK
-http://alal.fit:8080/FatmiriTV/jv8D9RARGJ/293976
-#EXTINF:0,Sky Nature UK
-http://live.tv-link.link:8000/PBrGJXzyRT/sLZjVfHqWc/158343
-#EXTINF:0,The Weather Channel
-https://twcprod-live.twc-tv.com/v1/manifest/b4d4d63a49309cc5140171fb2e92485c31be1e9e/DSP_6228e4760505741a116f1ba2_twcprod-live/6bf09ce5-366b-463c-b67e-c4b799f73c3f/4.m3u8
-#EXTINF:0,HGTV
-http://1tv41.icu:8080/live/Y06DNq/295733/46717.rtmp
-#EXTINF:0,Food Network
-http://cord-cutter.net:8080/30550113/30550113/7323
-#EXTINF:0,Magnolia Network
-http://cord-cutter.net:8080/96082340/96082340/10503
-#EXTINF:0,Motor Trend
-http://cord-cutter.net:8080/30550113/30550113/10399
-#EXTINF:0,Cooking Channel
-http://23.237.104.106:8080/USA_COOKING/index.m3u8
-#EXTINF:0,FYI
-http://1tv41.icu:8080/live/Y06DNq/295733/9240.rtmp
-#EXTINF:0,TLC
-http://89.105.221.127/tlc/mpegts?token=test
-#EXTINF:0,Outdoor Channel
-http://23.237.104.106:8080/USA_OUTDOOR/mpegts
-#EXTINF:0,OWN
-http://1tv41.icu:8080/live/Y06DNq/295733/46698.rtmp
-#EXTINF:0,aspireTV
-http://mytvstream.net:8080/live/30550113/30550113/21927.m3u8
-#EXTINF:0,Ovation
-http://hardcoremedia.xyz/live/rabdsbmz/3731346838/129935.ts
-#EXTINF:0,Discovery Life
-http://1tv41.icu:8080/live/Y06DNq/295733/9861.rtmp
-#EXTINF:0,HSN
-https://qvc-amd-live.akamaized.net/hls/live/2034113/lshsn1usott/medhigh.m3u8
-#EXTINF:0,Cleo TV
-http://hardcoremedia.xyz/live/rabdsbmz/3731346838/129849.ts
-#EXTINF:0,BBC Food
-https://d1e9r0b71zfwk7.cloudfront.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-a8jz8cfmhvyok/cfc1b22a-bcb2-4219-8454-53a1e0c94468/0.m3u8
-#EXTINF:0,BBC Home & Garden
-https://d11r33s5i066xh.cloudfront.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-tt77a7leuovqw/b7331a64-714f-4776-80d8-ed25447b0f8d/0.m3u8
-#EXTINF:0,Sky Arts UK
-http://live.tv-link.link:8000/PBrGJXzyRT/sLZjVfHqWc/158301
-#EXTINF:0,CTV Life Channel CA
-http://cord-cutter.net:8080/96082340/96082340/116506
-#EXTINF:0,CTV Speed Channel CA
-http://206.212.244.71:8080/live/Jamesmcmillan@att.net/Jamesmcmillan@2023/46212.m3u8
-#EXTINF:0,FashionTV FR
-https://ftv1.b-cdn.net/bfdbb576-83f7-11f0-9f89-0200170e3e04_1000028043_HLS/video_10801920_p_0.m3u8
-#EXTINF:0,NBC 4 New York
-http://1tv41.icu:8080/Y06DNq/295733/120751
-#EXTINF:0,NBC 4 Los Angeles
-http://1tv41.icu:8080/Y06DNq/295733/120656
-#EXTINF:0,NBC 5 Chicago
-http://1tv41.icu:8080/Y06DNq/295733/120690
-#EXTINF:0,CBS 2 New York
-http://1tv41.icu:8080/Y06DNq/295733/120749
-#EXTINF:0,CBS 2 Los Angeles
-http://hardcoremedia.xyz/ymgiaxkw/5Hr5ZQuVfU/9865
-#EXTINF:0,CBS 2 Chicago
-http://1tv41.icu:8080/Y06DNq/295733/120688
-#EXTINF:0,ABC 7 New York
-http://bgdc.live:25461/catrinamcdermott/catrinamcdermott/189939
-#EXTINF:0,ABC 7 Los Angeles
-http://1tv41.icu:8080/Y06DNq/295733/120857
-#EXTINF:0,ABC 7 Chicago
-http://1tv41.icu:8080/Y06DNq/295733/121665
-#EXTINF:0,FOX 5 New York
-http://hardcoremedia.xyz/ymgiaxkw/5Hr5ZQuVfU/10056
-#EXTINF:0,FOX 11 Los Angeles
-http://1tv41.icu:8080/Y06DNq/295733/120655
-#EXTINF:0,FOX 32 Chicago
-http://1tv41.icu:8080/Y06DNq/295733/120689
-#EXTINF:0,USA Network
-http://190.11.225.124:5000/live/usa_hd/playlist.m3u8
-#EXTINF:20,A&E
-http://41.205.93.154/AandE/index.m3u8
-#EXTINF:24,MTV
-http://23.237.104.106:8080/USA_MTV/index.m3u8
-#EXTINF:0,MTV2
-http://kstv.us:8080/4VUyfZBQzk/95104974615/23217
-#EXTINF:24,Comedy Central
-http://23.237.104.106:8080/USA_COMEDY_CENTRAL/index.m3u8
-#EXTINF:24,Bravo
-http://41.205.93.154/BRAVO/index.m3u8
-#EXTINF:24,BET
-http://212.102.60.231/BET/index.m3u8
-#EXTINF:6,Fuse
-http://23.237.104.106:8080/USA_FUSE/index.m3u8
-#EXTINF:21,E!
-http://23.237.104.106:8080/USA_E/index.m3u8
-#EXTINF:0,WE TV
-http://23.237.104.106:8080/USA_WE_TV/mpegts
-#EXTINF:0,truTV
-https://turnerlive.warnermediacdn.com/hls/live/2023176/trueast/slate/VIDEO_0_3564000.m3u8
-#EXTINF:9,Vice TV
-http://23.237.104.106:8080/USA_VICETV/index.m3u8
-#EXTINF:0,Adult Swim
-https://turnerlive.warnermediacdn.com/hls/live/2023183/aseast/noslate/VIDEO_1_5128000.m3u8
-#EXTINF:0,BUZZR
-https://buzzrota-web.amagi.tv/playlist.m3u8
-#EXTINF:0,Game Show Network
-http://bgdc.live:25461/catrinamcdermott/catrinamcdermott/10404
-#EXTINF:0,AXS TV
-http://23.239.31.26:8989/axstv/index.m3u8
-#EXTINF:0,Channel 5 UK
-http://kstv.us:8080/4VUyfZBQzk/95104974615/47759
-#EXTINF:0,E4 UK
-http://kstv.us:8080/4VUyfZBQzk/95104974615/47772
-
-
-#EXTINF:-1,Channel 23349
-http://104.250.145.76/livehttpplay?channel_id=23349
-#EXTINF:-1,Channel 23351
-http://104.250.145.76/livehttpplay?channel_id=23351
-#EXTINF:-1,Channel 23352
-http://104.250.145.76/livehttpplay?channel_id=23352
-#EXTINF:-1,Channel 23353
-http://104.250.145.76/livehttpplay?channel_id=23353
-#EXTINF:-1,Channel 23354
-http://104.250.145.76/livehttpplay?channel_id=23354
-#EXTINF:-1,Channel 23355
-http://104.250.145.76/livehttpplay?channel_id=23355
-#EXTINF:-1,Channel 23355
-http://104.250.145.76/livehttpplay?channel_id=23355
-#EXTINF:-1,Channel 23356
-http://104.250.145.76/livehttpplay?channel_id=23356
-#EXTINF:-1,Channel 23357
-http://104.250.145.76/livehttpplay?channel_id=23357
-#EXTINF:-1,Channel 23358
-http://104.250.145.76/livehttpplay?channel_id=23358
-#EXTINF:-1,Channel 23359
-http://104.250.145.76/livehttpplay?channel_id=23359
-#EXTINF:-1,Channel 23360
-http://104.250.145.76/livehttpplay?channel_id=23360
-
-#EXTINF:-1,USA BEIN
-http://23.237.104.106:8080/USA_BEIN/index.m3u8
-#EXTINF:-1,USA HBO
-http://23.237.104.106:8080/USA_HBO/index.m3u8
-#EXTINF:-1,USA HBO2
-http://23.237.104.106:8080/USA_HBO2/index.m3u8
-#EXTINF:-1,USA SHOWTIME
-http://23.237.104.106:8080/USA_SHOWTIME/index.m3u8
-#EXTINF:-1,USA DISCOVERY
-http://23.237.104.106:8080/USA_DISCOVERY/index.m3u8
-#EXTINF:-1,USA MLB STRIKE ZONE
-http://23.237.104.106:8080/USA_MLB_STRIKE_ZONE/index.m3u8
-#EXTINF:-1,USA NAT GEO
-http://23.237.104.106:8080/USA_NAT_GEO/index.m3u8
-#EXTINF:-1,USA NESN
-http://23.237.104.106:8080/USA_NESN/index.m3u8
-#EXTINF:-1,USA OWN
-http://23.237.104.106:8080/USA_OWN/index.m3u8
-#EXTINF:-1,USA PARAMOUNT NETWORK
-http://23.237.104.106:8080/USA_PARAMOUNT_NETWORK/index.m3u8
-#EXTINF:-1,USA SHOWTIME FAMILY
-http://23.237.104.106:8080/USA_SHOWTIME_FAMILY/index.m3u8
-#EXTINF:-1,USA STARZ
-http://23.237.104.106:8080/USA_STARZ/index.m3u8
-#EXTINF:-1,USA STARZ CINEMA
-http://23.237.104.106:8080/USA_STARZ_CINEMA/index.m3u8
-#EXTINF:-1,USA STARZ COMEDY
-http://23.237.104.106:8080/USA_STARZ_COMEDY/index.m3u8
-#EXTINF:-1,USA STARZ FAMILY
-http://23.237.104.106:8080/USA_STARZ_FAMILY/index.m3u8
-#EXTINF:-1,USA SYFY
-http://23.237.104.106:8080/USA_SYFY/index.m3u8
-#EXTINF:-1,USA TENNIS
-http://23.237.104.106:8080/USA_TENNIS/index.m3u8
-#EXTINF:-1,USA TRUTV
-http://23.237.104.106:8080/USA_TRUTV/index.m3u8
-#EXTINF:-1,USA VH1
-http://23.237.104.106:8080/USA_VH1/index.m3u8
-#EXTINF:-1,USA VICETV
-http://23.237.104.106:8080/USA_VICETV/index.m3u8
-#EXTINF:-1,USA WE TV
-http://23.237.104.106:8080/USA_WE_TV/index.m3u8
-#EXTINF:-1,USA WGN
-http://23.237.104.106:8080/USA_WGN/index.m3u8
-#EXTINF:-1,USA YES NETWORK
-http://23.237.104.106:8080/USA_YES_NETWORK/index.m3u8
-
-#EXTINF:-1,Brazzers TV Europe
-http://31.148.48.15/Brazzers_TV_Europe/playlist.m3u8
-#EXTINF:-1,Playboy TV
-http://31.148.48.15/Playboy_TV/playlist.m3u8
-#EXTINF:-1,Dorcel TV
-http://31.148.48.15/Dorcel_TV/playlist.m3u8
-
-
-#EXTINF:-1,Bravo
-http://41.205.93.154/BRAVO/index.m3u8
-#EXTINF:-1,CNBC
-http://41.205.93.154/CNBC/index.m3u8
-#EXTINF:-1,CSPAN 2
-http://41.205.93.154/CSPAN2/index.m3u8
-#EXTINF:-1,FOX 49
-http://41.205.93.154/FOX49/index.m3u8
-#EXTINF:-1,FOX Business
-http://41.205.93.154/FOXBUSINESS/index.m3u8
-#EXTINF:-1,Lifetime
-http://41.205.93.154/LIFETIME/index.m3u8
-#EXTINF:-1,LMN
-http://41.205.93.154/LMN/index.m3u8
-#EXTINF:-1,MSNBC
-http://41.205.93.154/MSNBC/index.m3u8
-#EXTINF:-1,MTV Live
-http://41.205.93.154/MTLIVE/index.m3u8
-#EXTINF:-1,MTV USA
-http://41.205.93.154/MTVUSA/index.m3u8
-#EXTINF:-1,NBC
-http://41.205.93.154/NBC/index.m3u8
-#EXTINF:-1,Nicktoons
-http://41.205.93.154/NICKTOONS/index.m3u8
-#EXTINF:-1,Showtime
-http://41.205.93.154/SHOWTIMES/index.m3u8
-
-#EXTINF:-1,BBC News
-http://84.17.50.102/bbcnews/index.m3u8
-#EXTINF:-1,BET
-http://84.17.50.102/bet/index.m3u8
-#EXTINF:-1,Cartoon Network
-http://84.17.50.102/cartoonnetwork/index.m3u8
-#EXTINF:-1,CW
-http://84.17.50.102/cw/index.m3u8
-#EXTINF:-1,Discovery Channel
-http://84.17.50.102/discovery/index.m3u8
-#EXTINF:-1,Disney Junior
-http://84.17.50.102/disneyjunior/index.m3u8
-#EXTINF:-1,Disney XD
-http://84.17.50.102/disneyxd/index.m3u8
-#EXTINF:-1,ESPN
-http://84.17.50.102/espn/index.m3u8
-#EXTINF:-1,ESPN 2
-http://84.17.50.102/espn2/index.m3u8
-
-#EXTINF:-1,Golf Channel
-https://tx2.nexgen.bz:4000/GOLF/index.m3u8
-#EXTINF:-1,beIN Sports
-https://tx3.nexgen.bz:4000/BEIN/index.m3u8
-#EXTINF:-1,CBS Sports
-https://tx3.nexgen.bz:4000/CBS_SPORTS/index.m3u8
-#EXTINF:-1,ESPN Deportes
-https://tx3.nexgen.bz:4000/ESPN_DEPORTES/index.m3u8
-#EXTINF:-1,Fox Sports 1
-https://tx3.nexgen.bz:4000/FOX_SPORTS1/index.m3u8
-#EXTINF:-1,Fox Sports 2
-https://tx3.nexgen.bz:4000/FOX_SPORTS2/index.m3u8
-#EXTINF:-1,beIN Sports Español
-https://tx4.nexgen.bz:4000/BEIN_ESPANOL/index.m3u8
-#EXTINF:-1,Fox Deportes
-https://tx4.nexgen.bz:4000/FOX_DEPORTES/index.m3u8
-#EXTINF:-1,Fox Soccer Plus
-https://tx4.nexgen.bz:4000/FSP/index.m3u8
-#EXTINF:-1,Tennis Channel
-https://tx4.nexgen.bz:4000/TENNIS/index.m3u8
-#EXTINF:-1,TNT
-http://138.121.15.230:9002/TNT/index.m3u8
-
-#EXTM3U
-
-#EXTINF:0 group-title="USA",5StarMax
-http://23.237.104.106:8080/USA_5STARMAX/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",A&E
-http://23.237.104.106:8080/USA_AE/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",AMC
-http://23.237.104.106:8080/USA_AMC/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",Animal Planet
-http://23.237.104.106:8080/USA_ANIMAL_PLANET/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",Cartoon Network / Adult Swim
-http://23.237.104.106:8080/USA_CARTOON_NETWORK/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",Cinemax
-http://23.237.104.106:8080/USA_CINEMAX/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",Comedy Central
-http://23.237.104.106:8080/USA_COMEDY_CENTRAL/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",Cooking Channel
-http://23.237.104.106:8080/USA_COOKING/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",Destination America
-http://23.237.104.106:8080/USA_DESTINATION_AMERICA/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",Discovery Channel
-http://23.237.104.106:8080/USA_DISCOVERY/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",Discovery Investigation
-http://23.237.104.106:8080/USA_ID/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",E! Entertainment Television
-http://23.237.104.106:8080/USA_E/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",ESPN
-http://23.237.104.106:8080/USA_ESPN1/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",ESPN 2
-http://23.237.104.106:8080/USA_ESPN2/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",Food Network
-http://23.237.104.106:8080/USA_FOOD_NETWORK/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",Freeform
-http://23.237.104.106:8080/USA_FREEFORM/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",FS1
-http://23.237.104.106:8080/USA_FS1/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",FS2
-http://23.237.104.106:8080/USA_FS2/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",FX
-http://23.237.104.106:8080/USA_FX/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",Game Show Network
-http://23.237.104.106:8080/USA_GSN/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",HBO
-http://23.237.104.106:8080/USA_HBO/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",HBO 2 west
-http://23.237.104.106:8080/USA_HBO2/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",HBO Comedy
-http://23.237.104.106:8080/USA_HBO_COMEDY/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",HBO Signature
-http://23.237.104.106:8080/USA_HBO_SIGNATURE/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",HGTV
-http://23.237.104.106:8080/USA_HGTV/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",History
-http://23.237.104.106:8080/USA_HISTORY/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",IFC
-http://23.237.104.106:8080/USA_IFC/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",MoreMax
-http://23.237.104.106:8080/USA_MOREMAX/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",MSG
-http://23.237.104.106:8080/USA_MSG/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",MTV USA
-http://23.237.104.106:8080/USA_MTV/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",MTV LIVE USA
-http://23.237.104.106:8080/USA_MTV_LIVE/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",National Geographic
-http://23.237.104.106:8080/USA_NAT_GEO/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",NESN
-http://23.237.104.106:8080/USA_NESN/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",NHL Network
-http://23.237.104.106:8080/USA_NHL_NETWORK/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",Paramount + Showtime
-http://23.237.104.106:8080/USA_SHOWTIME/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",Paramount Network
-http://23.237.104.106:8080/USA_PARAMOUNT_NETWORK/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",Starz
-http://23.237.104.106:8080/USA_STARZ/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",Starz Cinema
-http://23.237.104.106:8080/USA_STARZ_CINEMA/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",Starz Comedy
-http://23.237.104.106:8080/USA_STARZ_COMEDY/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",Starz Edge
-http://23.237.104.106:8080/USA_STARZ_EDGE/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",Starz Encore Westerns
-http://23.237.104.106:8080/USA_STARZ_WESTERNS/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",Syfy
-http://23.237.104.106:8080/USA_SYFY/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",TBS
-http://23.237.104.106:8080/USA_TBS/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",TNT
-http://23.237.104.106:8080/USA_TNT/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",TruTV
-http://23.237.104.106:8080/USA_TRUTV/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",USA Network
-http://23.237.104.106:8080/USA_NETWORK/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",VH1
-http://23.237.104.106:8080/USA_VH1/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",Vice TV
-http://23.237.104.106:8080/USA_VICETV/index.m3u8?takodachi
-#EXTINF:0 group-title="USA",WGN
-http://23.237.104.106:8080/USA_WGN/index.m3u8?takodachi
