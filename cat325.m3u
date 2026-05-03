@@ -330,7 +330,7 @@ https://ocko-live.ssl.cdn.cra.cz/channels/ocko/playlist/cze/live_hq.m3u8
 https://ocko-live.ssl.cdn.cra.cz/channels/ocko_gold/playlist/cze/live_hq.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="m2o Italia IT" tvg-logo="https://graph.facebook.com/radiom2o/picture?width=200&height=200" group-title="Musicales",m2o Italia IT
 https://4c4b867c89244861ac216426883d1ad0.msvdn.net/live/S62628868/uhdWBlkC1AoO/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Sport5" tvg-logo="https://i.ibb.co/Yc5Yf1q/sport5il.png" group-title="cham",Sport5
+#EXTINF:-1 tvg-id="" tvg-name="Sport5" tvg-logo="https://i.ibb.co/Yc5Yf1q/sport5il.png" group-title="Esport",Sport5
 https://rgelive.akamaized.net/hls/live/2043151/radiolive/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="BEIN SPORT EXTRA Ñ 🇪🇸" tvg-logo="" group-title="Sense grup",BEIN SPORT EXTRA Ñ 🇪🇸
 https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/bein-sports-xtra-en-espanol/playlist.m3u8
