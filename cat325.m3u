@@ -1,11 +1,11 @@
 #EXTM3U
-#EXTINF:-1 tvg-id="BBC N" tvg-name="BBC.News" tvg-logo="https://pbs.twimg.com/profile_images/1001752869517910016/Xq8-sAa4.jpg" group-title="BBC",BBC News International
+#EXTINF:-1 tvg-id="BBC N" tvg-name="BBC.News" tvg-logo="https://pbs.twimg.com/profile_images/1001752869517910016/Xq8-sAa4.jpg" group-title="Notícies",BBC News Internationalf
 https://d3pxo1qcgzxtxs.cloudfront.net/manifest/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod_default_xumo-linear-amc-hlsv3/5ab832c0-311a-4705-9535-5e54ad64b21e/5.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="TV3" tvg-logo="https://pbs.twimg.com/profile_images/1718910763174109184/B7MDxoG1.jpg" group-title="Catalunya",TV3
 https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="3CAT INFO" tvg-logo="https://pbs.twimg.com/profile_images/1968163923477098496/blka6O_j_200x200.jpg" group-title="Catalunya",3CAT INFO
+#EXTINF:-1 tvg-id="" tvg-name="3CAT INFO" tvg-logo="https://pbs.twimg.com/profile_images/1968163923477098496/blka6O_j_f200x200.jpg" group-title="Catalunya",3CAT INFO
 https://directes-tv-cat.3catdirectes.cat/live-content/canal324-hls/master.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Esport3" tvg-logo="https://graph.facebook.com/Esport3/picture?width=200&height=200" group-title="Catalunya",Esport3
@@ -50,7 +50,7 @@ https://linear417-gb-hls1-prd-ak.cdn.skycdp.com/100e/Content/HLS_001_1080_30/Liv
 #EXTINF:-1 tvg-id="" tvg-name="US: CNN" tvg-logo="https://pbs.twimg.com/profile_images/1669780523911110656/K9gaaM1g_400x400.jpg" group-title="Bics US",US: CNN
 https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8
 
-#EXTINF:-1 tvg-id="BBC N" tvg-name="BBC.News" tvg-logo="https://pbs.twimg.com/profile_images/1001752869517910016/Xq8-sAa4.jpg" group-title="BBC",BBC.News
+#EXTINF:-1 tvg-id="BBC N" tvg-name="BBC.News" tvg-logo="https://pbs.twimg.com/profile_images/1001752869517910016/Xq8-sAa4.jpg" group-title="Notícies",BBC.News
 https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/mobile_wifi_main_sd_abr_v2.m3u8
 
 
@@ -66,7 +66,7 @@ https://viamotionhsi.netplus.ch/live/eds/bbc2/browser-HLS8/bbc2.m3u8
 #EXTINF:-1 tvg-id="BBC3" tvg-name="BBC Three HD" tvg-logo="https://images.seeklogo.com/logo-png/46/1/bbc-three-logo-png_seeklogo-467190.png" group-title="General",BBC Three HD
 https://streamer.nexyl.uk/39290a19-b8dd-43ea-b8dc-081c37790f24.m3u8
 
-#EXTINF:-1 tvg-id="BBC4" tvg-name="BBC Four UK HD" tvg-logo="https://pbs.twimg.com/profile_images/597273122635587584/au1n9MWt.jpg" group-title="Culture;Documentary",BBC Four UK HD
+#EXTINF:-1 tvg-id="BBC4" tvg-name="BBC Four UK HD" tvg-logo="https://pbs.twimg.com/profile_images/597273122635587584/au1n9MWt.jpg" group-title="General",BBC Four UK HD
 https://streamer.nexyl.uk/48559ccd-6400-457d-8acc-06b9e24c2ed8.m3u8
 
 #EXTINF:-1 tvg-id="BBC cbbc" tvg-name="BBC3CBBC" tvg-logo="https://mediaproxy.tvtropes.org/width/1200/https://static.tvtropes.org/pmwiki/pub/images/cbbc_3.png" group-title="General",CBBC
@@ -95,10 +95,10 @@ https://viamotionhsi.netplus.ch/live/eds/bluezoomfr/browser-HLS/bluezoomfr.m3u8
 #EXTINF:-1 tvg-name="" group-title="FR" tvg-logo="https://images.seeklogo.com/logo-png/8/2/m6-tv-logo-png_seeklogo-86691.png" tvg-name=""  group-title="FR",M6 FR
 https://viamotionhsi.netplus.ch/live/eds/m6hd/browser-HLS8/m6hd.m3u8bb
 
-#EXTINF:-1 tvg-id="" tvg-name="Bunquer" tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200" group-title="Food",Bunquer
+#EXTINF:-1 tvg-id="" tvg-name="Bunquer" tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200" group-title="Catalunya",Bunquer
 https://fast-tailor.3catdirectes.cat/v1/channel/bunquer/hls.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="Càmares" tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200" group-title="Lifestyle",Càmares
+#EXTINF:-1 tvg-id="" tvg-name="Càmares" tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200" group-title="Catalunya",Càmares
 https://directes-tv-int.3catdirectes.cat/live-content/beauties-hls/bitrate_3.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="3CATe1" tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200" group-title="Catalunya",3CATe1
@@ -119,28 +119,28 @@ https://ingest2-video.streaming-pro.com/creus/stream/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="TVReus" tvg-logo="https://i.imgur.com/Ee0C8UH.jpg" group-title="Catalunya",TVReus
 https://eu1.servers10.com:8081/8166/index.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="Tastemade" tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200" group-title="General",TastemadeAu
+#EXTINF:-1 tvg-id="" tvg-name="Tastemade" tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200" group-title="Food",TastemadeAu
 https://rakutenaa-tm-intl-aus-rakuten-eu-n1gtg.amagi.tv/playlist/rakutenAA-tm-intl-aus-rakuten-eu/playlist.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="Tastemade" tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200" group-title="General",TastemadeGe
+#EXTINF:-1 tvg-id="" tvg-name="Tastemade" tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200" group-title="Food",TastemadeGe
 https://rakutenaa-tm-germany-rakuten-ger-8jboz.amagi.tv/playlist/rakutenAA-tm-germany-rakuten-ger/playlist.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="Tastemade" tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200" group-title="General",Tastemade
+#EXTINF:-1 tvg-id="" tvg-name="Tastemade" tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200" group-title="Food",Tastemade
 https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tmintlaus-samsungnz/playlist.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="Tastemade" tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200" group-title="General",TastemadeX
+#EXTINF:-1 tvg-id="" tvg-name="Tastemade" tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200" group-title="Food",TastemadeX
 https://tastemade-xumo.amagi.tv/playlist.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Tastemade Travel"  tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200"  group-title="Food",Tastemade Travel ????
 https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tastemadetravel-tablo/playlist.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="Tastemade Home ????" tvg-logo="https://tvpnlogopus.samsungcloud.tv/platform/image/sourcelogo/vc/00/02/34/USBC3200022W6_20240910T003655SQUARE.png" group-title="Lifestyle & Celebrities ???",Tastemade Home ????
+#EXTINF:-1 tvg-id="" tvg-name="Tastemade Home ????" tvg-logo="https://tvpnlogopus.samsungcloud.tv/platform/image/sourcelogo/vc/00/02/34/USBC3200022W6_20240910T003655SQUARE.png" group-title="Food",Tastemade Home ????
 https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tastemadehome-lgus/playlist.m3u8
 
-#EXTINF:-1 tvg-name="Tastemade_(720p)" group-title="Undefined",Tastemade_(720p)
+#EXTINF:-1 tvg-name="Tastemade_(720p)" group-title="Food",Tastemade_(720p)
 https://jmp2.uk/plu-5f998c1fc54853000797bacd.m3u8
 
-#EXTINF:-1 tvg-name="Tastemade_Casa_(720p)" group-title="Undefined",Tastemade_Casa_(720p)
+#EXTINF:-1 tvg-name="Tastemade_Casa_(720p)" group-title="Food",Tastemade_Casa_(720p)
 https://jmp2.uk/plu-68b88821e542386ab0bf5bef.m3u8
 
 #EXTINF:-1 tvg-name="Tastemade_Hogar_(720p)" group-title="Undefined",Tastemade_Hogar_(720p)
@@ -158,7 +158,7 @@ https://jmp2.uk/plu-68b8875777201ec428d9eaa5.m3u8
 #EXTINF:-1 tvg-name="Tastemade_Viajes_(720p)" group-title="Undefined",Tastemade_Viajes_(720p)
 https://jmp2.uk/plu-68b88712e777774982269ce9.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="bon app?tit" tvg-logo="https://i.imgur.com/YhFFxlE.png" group-title="Food",bon app?tit
+#EXTINF:-1 tvg-id="" tvg-name="bon app?tit" tvg-logo="https://i.imgur.com/YhFFxlE.png" group-title="Food",bon appétit
 https://bonappetit-samsung.amagi.tv/playlist.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Cooking Panda" tvg-logo="https://i.imgur.com/bhY0Zcs.png" group-title="Food",Cooking Panda
@@ -188,19 +188,19 @@ https://ingest1-video.streaming-pro.com/canaltaronja/central/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Newsmax TV" tvg-logo="https://i.imgur.com/Twkovic.gif" group-title="Entertainment",Newsmax TV
 https://nmxlive.akamaized.net/hls/live/529965/Live_1/index.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="BX1" tvg-logo="https://i.imgur.com/VHAYeqR.png" group-title="News",BX1
+#EXTINF:-1 tvg-id="" tvg-name="BX1" tvg-logo="https://i.imgur.com/VHAYeqR.png" group-title="Notícies",BX1
 https://59959724487e3.streamlock.net/stream/live/master.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="MX: MILENIO" tvg-logo="" group-title="Bics",MX: MILENIO
+#EXTINF:-1 tvg-id="" tvg-name="MX: MILENIO" tvg-logo="" group-title="Esport",MX: MILENIO
 https://mdstrm.com/live-stream-playlist/610178c7db32a4112d994650.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="MX: N+ MTY" tvg-logo="" group-title="Bics",MX: N+ MTY
+#EXTINF:-1 tvg-id="" tvg-name="MX: N+ MTY" tvg-logo="" group-title="Notícies",MX: N+ MTY
 https://channel09-notusa.akamaized.net/hls/live/2094418/event01/index.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="US: CNN" tvg-logo="" group-title="Bics Extra US",US: CNN
+#EXTINF:-1 tvg-id="" tvg-name="US: CNN" tvg-logo="" group-title="Noticies",US: CNN
 https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="US: AL JAZEERA EN" tvg-logo="" group-title="Bics Extra US",US: AL JAZEERA EN
+#EXTINF:-1 tvg-id="" tvg-name="US: AL JAZEERA EN" tvg-logo="" group-title="Noticies",US: AL JAZEERA EN
 https://live-hls-web-aje-fa.getaj.net/AJE/03.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Canal 45 (576p)" tvg-logo="https://i.imgur.com/yEfSnGt.png" group-title="Undefined",Canal 45 (576p)
@@ -215,10 +215,10 @@ https://amg01079-nbcuuk-amg01079c1-samsung-es-1261.playouts.now.amagi.tv/playlis
 #EXTINF:-1 tvg-id="" tvg-name="Distrito TV (1080p)" tvg-logo="https://i.imgur.com/AqGIoIt.png" group-title="General",Distrito TV (1080p)
 https://nlb2-live.emitstream.com/hls/3mn7wpcv7hbmxmdzaxap/master.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="France 24 Español (1080p)" tvg-logo="https://i.imgur.com/ZnmAXVv.png" group-title="News",France 24 Español (1080p)
+#EXTINF:-1 tvg-id="" tvg-name="France 24 Español (1080p)" tvg-logo="https://i.imgur.com/ZnmAXVv.png" group-title="Notícies",France 24 Español (1080p)
 https://live.france24.com/hls/live/2037220/F24_ES_HI_HLS/master_5000.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="Hamaika Telebista (1080p)" tvg-logo="https://i.imgur.com/HR3G3Ie.png" group-title="Culture",Hamaika Telebista (1080p)
+#EXTINF:-1 tvg-id="" tvg-name="Hamaika Telebista (1080p)" tvg-logo="https://i.imgur.com/HR3G3Ie.png" group-title="General",Hamaika Telebista (1080p)
 https://cdn3.wowza.com/1/RERMR282dnU5eE5Z/OHY0dVFs/hls/live/playlist.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="KTO (404p) [Not 24/7]" tvg-logo="https://i.imgur.com/EY6TsdV.png" group-title="Religious",KTO (404p) [Not 24/7]
@@ -251,7 +251,7 @@ https://janus.xpbroadcasting.com:8443/hls/popworld.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Rakuten Viki (720p)" tvg-logo="https://i.imgur.com/pbyd1g2.png" group-title="Undefined",Rakuten Viki (720p)
 https://fd18f1cadd404894a31a3362c5f319bd.mediatailor.us-east-1.amazonaws.com/v1/manifest/04fd913bb278d8775298c26fdca9d9841f37601f/RakutenTV-eu_RakutenViki-1/048a962c-e84b-4a0e-aeb3-98376f4b9953/2.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="The Pet Collective" tvg-logo="https://i.imgur.com/F4hEPMK.png" group-title="Family",The Pet Collective
+#EXTINF:-1 tvg-id="" tvg-name="The Pet Collective" tvg-logo="https://i.imgur.com/F4hEPMK.png" group-title="General",The Pet Collective
 https://the-pet-collective-international-es.samsung.wurl.tv/playlist.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="TV5Monde Europe (1080p) [Geo-blocked]" tvg-logo="https://i.imgur.com/rPAbMSu.png" group-title="General",TV5Monde Europe (1080p) [Geo-blocked]
@@ -267,7 +267,7 @@ https://janus.xpbroadcasting.com:8443/hls/xptvUS.m3u8
 https://d39g1vxj2ef6in.cloudfront.net/v1/master/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod-rakuten-stitched/master.m3u8?ads.xumo_channelId=88883060
 #EXTINF:-1 tvg-id="" tvg-name="DiscoverFilm" tvg-logo="https://i.imgur.com/oMnpsQ5.png" group-title="Movies",DiscoverFilm
 https://discoverfilm-discoverfilm-1-nl.samsung.wurl.tv/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="GB News" tvg-logo="https://pbs.twimg.com/profile_images/1571994202854100994/vYcqAgBG_400x400.jpg" group-title="News",GB News
+#EXTINF:-1 tvg-id="" tvg-name="GB News" tvg-logo="https://pbs.twimg.com/profile_images/1571994202854100994/vYcqAgBG_400x400.jpg" group-title="Notícies",GB News
 https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg01076-lightningintern-gbnewsnz-samsungnz/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Pop (1080p)" tvg-logo="https://i.imgur.com/fGUlCY3.png" group-title="Undefined",Pop (1080p)
 https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01753-narrativeentert-popkids-lggb/playlist.m3u8
@@ -308,7 +308,7 @@ https://d1cctoeg0n48w5.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68
 https://janus.xpbroadcasting.com:8443/hls/xptv1.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="bon appetit (US)(Samsung)" tvg-logo="" group-title="Unsorted",bon appetit (US)(Samsung)
 https://bonappetit-samsung.amagi.tv/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="+24" tvg-logo="https://img.rtve.es/imagenes/multisenal-24/1361962728583.png" group-title="Eventuales",+24
+#EXTINF:-1 tvg-id="" tvg-name="+24" tvg-logo="https://img.rtve.es/imagenes/multisenal-24/1361962728583.png" group-title="Notícies",+24
 https://ztnr.rtve.es/ztnr/6108720.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="ABC News USA EN" tvg-logo="https://graph.facebook.com/ABCNews/picture?width=200&height=200" group-title="Int. Am?rica",ABC News USA EN
 https://fast-tv-proxy.sharewithyou.dpdns.org/?play=https://dbrb49pjoymg4.cloudfront.net/10001/99951517/hls/master.m3u8?ads.xumo_channelId=99951517&ads.xumo_streamId=99951517&ads.channelId=99951517&ads.channelName=ABC_us&ads.caid=ABC&ads.csid=xumo_web_ABC_ssai&ads.genre=News,N&ads._fw_content_genre=News,N&ads._fw_coppa=0&ads.xumo_contentId=58&ads.xumo_contentName=ABC&ads.xumo_providerId=58&ads.xumo_providerName=ABC&ads._fw_ifa_type=&ads._fw_did=6a687e3d-9e1e-4b73-a05b-b584f9949faa&ads.amznappId=&ads.lat=&ads.lon=&ads.os=&ads.osv=&ads._fw_is_lat=0&ads._fw_us_privacy=&ads._fw_content_category=&ads._fw_content_language=en&ads._fw_content_rating=&ads._fw_deviceMake=GitHubAction&ads._fw_device_model=PythonScript&ads.xumo_platform=web&ads.site_id=&ads.appVersion=1.0.0&ads._fw_app_bundle=web.xumo.com&ads._fw_app_store_url=&ads.appName=XumoPlay
@@ -356,22 +356,18 @@ https://epg.provider.plex.tv/library/parts/643054b1fc3be59477853717-693cb1af5807
 #EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1258035922722934784/S27gb-oG_400x400.jpg" tvg-name="TheDesingNetwork"  group-title="Design",TheDesingNetwork
 https://amg00441-amg00441c1-plex-us-5231.playouts.now.amagi.tv/playlistR1080p.m3u8
 
-#EXTINF:-1 tvg-name="Sony Channel" group-title="Cine y Series" tvg-logo="https://static.wikia.nocookie.net/logopedia/images/c/c6/Sony_Channel_2023.png/revision/latest/scale-to-width-down/48?cb=20230828233601&path-prefix=es",Sony Channel
+#EXTINF:-1 tvg-name="Sony Channel" group-title="Entreteniment" tvg-logo="https://static.wikia.nocookie.net/logopedia/images/c/c6/Sony_Channel_2023.png/revision/latest/scale-to-width-down/48?cb=20230828233601&path-prefix=es",Sony Channel
 https://fl1.moveonjoy.com/Sony_Movie_Channel/index.m3u8
 #EXTINF:-1 tvg-name="Sony Channel" group-title="Cine y Series" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/b/b9/Sony_Channel_Logo.png",Sony Channel
 https://a-cdn.klowdtv.com/live1/cine_720p/chunks.m3u8
 #EXTM3U
 #EXTINF:0 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-us.png", HBO HB
-#EXTGRP:Entretenimiento
 http://45.228.234.30:16000/play/a008/index.m3u8
 #EXTINF:0 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-us.png", HBO Plus 
-#EXTGRP:Entretenimiento
 http://45.228.234.30:16000/play/a00a/index.m3u8
 #EXTINF:0 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-us.png", HBO Family
-#EXTGRP:Entretenimiento
 http://45.228.234.30:16000/play/a00b/index.m3u8
 #EXTINF:0 tvg-logo="https://i.imgur.com/XMs9JPb.png",Cinecanal HD
-#EXTGRP:Entretenimiento
 http://45.228.234.30:16000/play/a01q/index.m3u8
 
 #EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1304146244563070976/tI5KnuJP_400x400.jpg",CineMax
@@ -477,7 +473,7 @@ https://ztnr.rtve.es/ztnr/5466990.m3u8
 #EXTINF:-1 group-title="Internacionals",TRECE INT
 https://5940924978228.streamlock.net/8009/ngrp:8009_all/playlist.m3u8
 
-#EXTINF:-1 group-title="Internacionals",TVE TDP
+#EXTINF:-1 group-title="Esport",TVE TDP
 https://ztnr.rtve.es/ztnr/1712295.m3u8
 
 #EXTINF:-1 group-title="Internacionals",TVE Somos Cine
@@ -866,20 +862,6 @@ https://kwtsplta.cdn.mangomolo.com/spl/smil:spl.stream.smil/chunklist.m3u8
 #EXTINF:-1 group-title="Canals Perses",Kuwait TV Sports
 https://kwtspta.cdn.mangomolo.com/sp/smil:sp.stream.smil/chunklist.m3u8
 
-#EXTINF:-1 group-title="Anime/Pel·lícules",Dragon Ball Z La batalla de los Dioses
-http://archive.org/download/231455/02/16.mp4
-
-#EXTINF:-1 group-title="Anime/Pel·lícules",Dragon Ball Z La resurrección de Freezer
-http://archive.org/download/231455/02/17.mp4
-
-#EXTINF:-1 group-title="Anime/Pel·lícules",Dragon Ball super Broly
-http://archive.org/download/231455/03/05.mp4
-
-#EXTINF:-1 group-title="Anime/Pel·lícules",Dragon Ball
-https://jmp2.uk/plu-685a996c7c4f2ad40cb4f276.m3u8
-
-#EXTINF:-1 group-title="Anime/Pel·lícules",Dragon Ball Z
-https://jmp2.uk/plu-68e8fd7c3ede4398bc69af93.m3u8
 
 #EXTINF:-1 group-title="Esport",Claro Sports
 https://jmp2.uk/plu-6320d2755e54db000783fd87.m3u8
