@@ -90,7 +90,7 @@ https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg01076-lightningintern-gbnewsnz-sa
 #EXTINF:-1 tvg-name="Channel4" group-title="UK" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Channel_4_Logo_2023.svg/250px-Channel_4_Logo_2023.svg.png" tvg-name=""  group-title="UK",Channel 4
 https://viamotionhsi.netplus.ch/live/eds/channel4/browser-HLS/channel4.m3u8
 
-#EXTINF:-1 tvg-name="bluezoomfr" group-title="bluezoomfr" tvg-id="" tvg-name=""  group-title="FR",Bluezoomfr
+#EXTINF:-1 tvg-name="bluezoomfr" group-title="bluezoomfr" tvg-id="" tvg-name=""  group-title="Entreteniment",Bluezoomfr
 https://viamotionhsi.netplus.ch/live/eds/bluezoomfr/browser-HLS/bluezoomfr.m3u8
 #EXTINF:-1 tvg-name="" group-title="FR" tvg-logo="https://images.seeklogo.com/logo-png/8/2/m6-tv-logo-png_seeklogo-86691.png" tvg-name=""  group-title="FR",M6 FR
 https://viamotionhsi.netplus.ch/live/eds/m6hd/browser-HLS8/m6hd.m3u8bb
@@ -393,8 +393,14 @@ http://181.78.109.49:8000/play/a06r/index.m3u8
 #EXTINF:-1 tvg-id="SkySport" tvg-logo="https://pbs.twimg.com/profile_images/1668961707216052229/yXaaaA_k_400x400.jpg"  group-title="Esport",SKY SPORTS LALIGA 🇲🇽
 http://181.78.105.146:8800/play/a07h/index.m3u8
 
-tvg-logo="https://pbs.twimg.com/profile_images/1668961707216052229/yXaaaA_k_400x400.jpg"
-
+#EXTINF:0 tvg-logo="https://pbs.twimg.com/profile_images/2022604804363620353/UWp-_eRi_400x400.jpg" group-title="Esport",TNT Sports 1 UK
+http://kstv.us:8080/4VUyfZBQzk/95104974615/47850
+#EXTINF:0 tvg-logo="https://pbs.twimg.com/profile_images/2022604804363620353/UWp-_eRi_400x400.jpg" group-title="Esport",TNT Sports 2 UK
+http://kstv.us:8080/4VUyfZBQzk/95104974615/47851
+#EXTINF:0 tvg-logo="https://pbs.twimg.com/profile_images/2022604804363620353/UWp-_eRi_400x400.jpg" group-title="Esport",TNT Sports 3 UK
+http://kstv.us:8080/4VUyfZBQzk/95104974615/47852
+#EXTINF:0 tvg-logo="https://pbs.twimg.com/profile_images/2022604804363620353/UWp-_eRi_400x400.jpg" group-title="Esport",TNT Sports 4 UK
+http://kstv.us:8080/4VUyfZBQzk/95104974615/47853
 
 #EXTINF:-1 tvg-id="LaLigaHypermotion.es@SD" tvg-logo="" group-title="Esport",LaLiga Hypermotion (1080p)
 http://latam-cache-sv2-cdn.latamlive.net/LA_LIGA_SMARTBANK_IP_ENC_LIVE/index.m3u8
