@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiviewer HLS - Xarxa-1</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --card-bg: #2d2d2d;
+            --text-color: #ffffff;
+            --accent: #007bff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        #grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            padding: 20px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        .channel-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            border: 2px solid transparent;
+            transition: border 0.3s;
+        }
+
+        .channel-card:hover {
+            border-color: var(--accent);
+        }
+
+        video {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            cursor: pointer;
+            display: block;
+        }
+
+        .channel-info {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 4px 10px;
+            font-size: 11px;
+            color: white;
+            background: rgba(0, 0, 0, 0.7);
+            border-bottom-left-radius: 4px;
+            z-index: 10;
+            cursor: pointer; /* Canvi a cursor de clic */
+            transition: background 0.2s;
+            pointer-events: auto; /* Permetem interacció directa */
+        }
+
+        .channel-info:hover {
+            background: var(--accent);
+            text-decoration: underline;
+        }
+
+        footer {
+            background: #111;
+            padding: 20px;
+            border-top: 1px solid #333;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-around;
+            gap: 20px;
+        }
+
+        .input-group, .pagination-group, .control-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            width: 300px;
+            border-radius: 4px;
+            border: 1px solid #444;
+            background: #222;
+            color: white;
+        }
+
+        button {
+            padding: 8px 15px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            background: #444;
+            cursor: not-allowed;
+        }
+
+        button:hover:not(:disabled) {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div id="grid-container"></div>
+
+<footer>
+    <div class="input-group">
+        <input type="text" id="m3u-url" value="https://xarxa-1.github.io/Xarxa-1/cat19.m3u" placeholder="URL de la llista M3U">
+        <button onclick="loadM3U()">Carregar Llista</button>
+    </div>
+
+    <div class="pagination-group">
+        <button id="prev-btn" onclick="changePage(-1)">« Anterior</button>
+        <span id="page-info">Pàgina 1</span>
+        <button id="next-btn" onclick="changePage(1)">Següent »</button>
+    </div>
+
+    <div class="control-group">
+        <label for="max-screens">Pantalles:</label>
+        <input type="number" id="max-screens" value="12" min="1" style="width: 50px;">
+        <span id="total-channels">Canals: 0</span>
+    </div>
+</footer>
+
+<script>
+    const container = document.getElementById('grid-container');
+    const urlInput = document.getElementById('m3u-url');
+    const maxInput = document.getElementById('max-screens');
+    const totalLabel = document.getElementById('total-channels');
+    const pageInfo = document.getElementById('page-info');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+
+    let allChannels = [];
+    let currentPage = 1;
+
+    async function loadM3U() {
+        const url = urlInput.value;
+        container.innerHTML = 'Carregant canals...';
+        currentPage = 1;
+
+        try {
+            const response = await fetch(url);
+            const text = await response.text();
+            allChannels = await textParse(text);
+            totalLabel.textContent = `Canals: ${allChannels.length}`;
+            displayCurrentPage();
+        } catch (error) {
+            container.innerHTML = 'Error en carregar la URL. Verifica el CORS o l\'adreça.';
+            console.error(error);
+        }
+    }
+
+    function displayCurrentPage() {
+        const maxScreens = parseInt(maxInput.value);
+        const startIndex = (currentPage - 1) * maxScreens;
+        const endIndex = startIndex + maxScreens;
+        const channelsToDisplay = allChannels.slice(startIndex, endIndex);
+
+        renderChannels(channelsToDisplay);
+        
+        const totalPages = Math.ceil(allChannels.length / maxScreens) || 1;
+        pageInfo.textContent = `Pàgina ${currentPage} de ${totalPages}`;
+        
+        prevBtn.disabled = currentPage === 1;
+        nextBtn.disabled = currentPage >= totalPages;
+    }
+
+    function changePage(step) {
+        currentPage += step;
+        displayCurrentPage();
+        container.scrollTop = 0;
+    }
+
+    async function textParse(text) {
+        const lines = text.split('\n');
+        const channels = [];
+        let currentName = "Canal desconegut";
+
+        for (let i = 0; i < lines.length; i++) {
+            let line = lines[i].trim();
+            if (line.startsWith('#EXTINF:')) {
+                const parts = line.split(',');
+                currentName = parts[parts.length - 1] || "Canal";
+            } else if (line.startsWith('http')) {
+                channels.push({ name: currentName, url: line });
+                currentName = "Canal desconegut";
+            }
+        }
+        return channels;
+    }
+
+    // Funció per obrir el canal en una finestra nova
+    function openSinglePlayer(name, url) {
+        const newWindow = window.open("", "_blank");
+        const html = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>${name}</title>
+                <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"><\/script>
+                <style>
+                    body { margin: 0; background: #000; display: flex; justify-content: center; align-items: center; height: 100vh; color: white; font-family: sans-serif; }
+                    video { width: 100%; max-height: 100vh; }
+                    .title-overlay { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.5); padding: 5px 10px; border-radius: 4px; }
+                </style>
+            </head>
+            <body>
+                <div class="title-overlay">${name}</div>
+                <video id="video" controls autoplay></video>
+                <script>
+                    const video = document.getElementById('video');
+                    const videoUrl = '${url}';
+                    if (Hls.isSupported()) {
+                        const hls = new Hls();
+                        hls.loadSource(videoUrl);
+                        hls.attachMedia(video);
+                    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                        video.src = videoUrl;
+                    }
+                <\/script>
+            </body>
+            </html>
+        `;
+        newWindow.document.write(html);
+        newWindow.document.close();
+    }
+
+    function renderChannels(channels) {
+        container.innerHTML = '';
+        
+        channels.forEach(channel => {
+            const card = document.createElement('div');
+            card.className = 'channel-card';
+
+            const video = document.createElement('video');
+            video.controls = true;
+            video.preload = "metadata";
+            video.muted = true;
+
+            const info = document.createElement('div');
+            info.className = 'channel-info';
+            info.innerText = channel.name;
+            info.title = "Obrir en solitari";
+            
+            // Event per obrir en finestra nova en clicar el nom
+            info.addEventListener('click', (e) => {
+                e.stopPropagation(); // Evita que el clic afecti al video
+                openSinglePlayer(channel.name, channel.url);
+            });
+
+            card.appendChild(video);
+            card.appendChild(info);
+            container.appendChild(card);
+
+            if (Hls.isSupported()) {
+                const hls = new Hls();
+                hls.loadSource(channel.url);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                    video.pause();
+                });
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = channel.url;
+            }
+
+            video.addEventListener('click', (e) => {
+                if (video.paused) {
+                    video.play();
+                    video.parentElement.style.borderColor = "#28a745";
+                } else {
+                    video.pause();
+                    video.parentElement.style.borderColor = "transparent";
+                }
+            });
+        });
+    }
+
+    maxInput.addEventListener('change', () => {
+        currentPage = 1;
+        displayCurrentPage();
+    });
+
+    window.onload = loadM3U;
+</script>
+
+</body>
+</html>
