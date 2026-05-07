@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Reproductor IPTV TV</title>
+
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --accent-color: #007bff;
+            --button-bg: #2a2a2a;
+            --button-border: #444;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .player-container {
+            flex: 1;
+            position: relative;
+            background: #000;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .controls-panel {
+            background: var(--card-bg);
+            padding: 12px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            border-top: 2px solid var(--accent-color);
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        label {
+            font-size: 11px;
+            color: #888;
+            text-transform: uppercase;
+        }
+
+        select,
+        button {
+            background: var(--button-bg);
+            color: white;
+            border: 2px solid var(--button-border);
+            border-radius: 6px;
+            padding: 10px;
+            min-width: 120px;
+            font-size: 15px;
+        }
+
+        /* FOCUS TV */
+        select:focus,
+        button:focus {
+            outline: none;
+            border-color: #00aaff;
+            box-shadow: 0 0 10px #00aaff;
+            transform: scale(1.05);
+        }
+
+        .clock-box {
+            margin-left: auto;
+            min-width: 110px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #00ff88;
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+
+<body>
+
+    <div class="player-container">
+
+        <video id="videoPlayer"
+            controls
+            autoplay
+            playsinline></video>
+
+    </div>
+
+    <div class="controls-panel">
+
+        <div class="control-group">
+
+            <label>Canal</label>
+
+            <select id="channelSelect"
+                onchange="playChannel(this.value)">
+
+                <option>Carregant...</option>
+
+            </select>
+
+        </div>
+
+        <div class="control-group">
+
+            <label>Grup</label>
+
+            <select id="groupSelector"
+                onchange="filterChannels()">
+
+                <option value="all">
+                    Tots
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="control-group">
+
+            <label>Volum</label>
+
+            <select id="volumeSelect"
+                onchange="updateVolume(this.value)">
+
+                <option value="1">100%</option>
+                <option value="0.8">80%</option>
+                <option value="0.6">60%</option>
+                <option value="0.4">40%</option>
+                <option value="0.2">20%</option>
+                <option value="0">Silenci</option>
+
+            </select>
+
+        </div>
+
+        <div class="control-group">
+
+            <label>Accions</label>
+
+            <button onclick="reloadChannel()">
+                Recarregar
+            </button>
+
+        </div>
+
+        <div id="clock"
+            class="clock-box">
+            00:00:00
+        </div>
+
+    </div>
+
+    <script>
+
+        const m3uUrl =
+            'https://xarxa-1.github.io/Xarxa-1/cat325.m3u';
+
+        let allChannels = [];
+        let filteredChannels = [];
+        let hlsInstance = null;
+
+        let currentChannelIndex = -1;
+
+        let currentVolume = 1;
+
+        // ELEMENTS NAVEGABLES TV
+        let tvControls = [];
+        let focusedIndex = 0;
+
+        document.addEventListener(
+            'DOMContentLoaded',
+            async () => {
+
+                startClock();
+
+                try {
+
+                    allChannels =
+                        await loadM3U(m3uUrl);
+
+                    populateGroups();
+
+                    filterChannels(true);
+
+                    initTVNavigation();
+
+                } catch (e) {
+
+                    console.error(e);
+                }
+            }
+        );
+
+        async function loadM3U(url) {
+
+            const response =
+                await fetch(url);
+
+            const text =
+                await response.text();
+
+            const lines =
+                text.split('\n');
+
+            const channels = [];
+
+            let current = null;
+
+            for (let line of lines) {
+
+                line = line.trim();
+
+                if (line.startsWith('#EXTINF:')) {
+
+                    current = {};
+
+                    const groupMatch =
+                        line.match(
+                            /group-title="([^"]+)"/
+                        );
+
+                    current.group =
+                        groupMatch
+                            ? groupMatch[1]
+                            : 'Altres';
+
+                    current.name =
+                        line.split(',')
+                            .pop()
+                            .trim();
+
+                } else if (
+                    line.startsWith('http')
+                ) {
+
+                    if (current) {
+
+                        current.url = line;
+
+                        channels.push(current);
+
+                        current = null;
+                    }
+                }
+            }
+
+            return channels;
+        }
+
+        function populateGroups() {
+
+            const selector =
+                document.getElementById(
+                    'groupSelector'
+                );
+
+            const groups =
+                [...new Set(
+                    allChannels.map(
+                        c => c.group
+                    )
+                )].sort();
+
+            groups.forEach(g => {
+
+                selector.add(
+                    new Option(g, g)
+                );
+            });
+        }
+
+        function filterChannels(
+            first = false
+        ) {
+
+            const group =
+                document.getElementById(
+                    'groupSelector'
+                ).value;
+
+            filteredChannels =
+                allChannels.filter(c =>
+                    group === 'all'
+                    || c.group === group
+                );
+
+            const select =
+                document.getElementById(
+                    'channelSelect'
+                );
+
+            select.innerHTML = '';
+
+            filteredChannels.forEach(
+                (c, index) => {
+
+                    select.add(
+                        new Option(
+                            c.name,
+                            index
+                        )
+                    );
+                }
+            );
+
+            if (
+                first
+                && filteredChannels.length
+            ) {
+
+                playChannel(0);
+            }
+        }
+
+        function destroyPlayer() {
+
+            if (hlsInstance) {
+
+                hlsInstance.destroy();
+
+                hlsInstance = null;
+            }
+
+            const video =
+                document.getElementById(
+                    'videoPlayer'
+                );
+
+            video.pause();
+
+            video.removeAttribute('src');
+
+            video.load();
+        }
+
+        function playChannel(index) {
+
+            const idx =
+                parseInt(index);
+
+            const channel =
+                filteredChannels[idx];
+
+            if (!channel) return;
+
+            currentChannelIndex = idx;
+
+            document.getElementById(
+                'channelSelect'
+            ).value = idx;
+
+            destroyPlayer();
+
+            const video =
+                document.getElementById(
+                    'videoPlayer'
+                );
+
+            video.volume =
+                currentVolume;
+
+            if (Hls.isSupported()) {
+
+                hlsInstance = new Hls();
+
+                hlsInstance.loadSource(
+                    channel.url
+                );
+
+                hlsInstance.attachMedia(
+                    video
+                );
+
+                hlsInstance.on(
+                    Hls.Events.MANIFEST_PARSED,
+                    () => {
+
+                        video.play()
+                            .catch(() => { });
+                    }
+                );
+
+            } else {
+
+                video.src =
+                    channel.url;
+
+                video.play()
+                    .catch(() => { });
+            }
+        }
+
+        function reloadChannel() {
+
+            if (
+                currentChannelIndex !== -1
+            ) {
+
+                playChannel(
+                    currentChannelIndex
+                );
+            }
+        }
+
+        function updateVolume(val) {
+
+            currentVolume =
+                parseFloat(val);
+
+            document.getElementById(
+                'videoPlayer'
+            ).volume =
+                currentVolume;
+        }
+
+        // =========================
+        // NAVEGACIÓ GOOGLE TV
+        // =========================
+
+        function initTVNavigation() {
+
+            tvControls = [
+
+                document.getElementById(
+                    'channelSelect'
+                ),
+
+                document.getElementById(
+                    'groupSelector'
+                ),
+
+                document.getElementById(
+                    'volumeSelect'
+                ),
+
+                document.querySelector(
+                    'button'
+                )
+            ];
+
+            focusElement(0);
+        }
+
+        function focusElement(index) {
+
+            focusedIndex = index;
+
+            tvControls[index].focus();
+        }
+
+        document.addEventListener(
+            'keydown',
+            (e) => {
+
+                switch (e.key) {
+
+                    // DRETA
+                    case 'ArrowRight':
+
+                        e.preventDefault();
+
+                        focusedIndex++;
+
+                        if (
+                            focusedIndex >= tvControls.length
+                        ) {
+
+                            focusedIndex = 0;
+                        }
+
+                        focusElement(
+                            focusedIndex
+                        );
+
+                        break;
+
+                    // ESQUERRA
+                    case 'ArrowLeft':
+
+                        e.preventDefault();
+
+                        focusedIndex--;
+
+                        if (
+                            focusedIndex < 0
+                        ) {
+
+                            focusedIndex =
+                                tvControls.length - 1;
+                        }
+
+                        focusElement(
+                            focusedIndex
+                        );
+
+                        break;
+
+                    // ENTER
+                    case 'Enter':
+
+                        document.activeElement.click?.();
+
+                        break;
+                }
+            }
+        );
+
+        // =========================
+        // RELLOTGE
+        // =========================
+
+        function startClock() {
+
+            function updateClock() {
+
+                const now =
+                    new Date();
+
+                const hh =
+                    String(
+                        now.getHours()
+                    ).padStart(2, '0');
+
+                const mm =
+                    String(
+                        now.getMinutes()
+                    ).padStart(2, '0');
+
+                const ss =
+                    String(
+                        now.getSeconds()
+                    ).padStart(2, '0');
+
+                document.getElementById(
+                    'clock'
+                ).textContent =
+                    `${hh}:${mm}:${ss}`;
+            }
+
+            updateClock();
+
+            setInterval(
+                updateClock,
+                1000
+            );
+        }
+
+    </script>
+
+</body>
+
+</html>
