@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Reproductor IPTV Pro</title>
+
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --accent-color: #007bff;
+            --button-bg: #2a2a2a;
+            --button-border: #444;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+        }
+
+        .player-container {
+            flex: 1;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* FONS DEL LOGO */
+        .channel-background {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+
+        .channel-background.visible {
+            opacity: 1;
+        }
+
+        .channel-background::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+
+            background:
+                radial-gradient(circle,
+                    rgba(0, 0, 0, 0.20) 0%,
+                    rgba(0, 0, 0, 0.88) 100%);
+        }
+
+        /* LOGO CENTRAL */
+        .channel-overlay-logo {
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            object-fit: contain;
+            z-index: 3;
+
+            opacity: 0;
+            transform: scale(0.92);
+
+            transition:
+                opacity 0.35s ease,
+                transform 0.35s ease;
+
+            pointer-events: none;
+
+            filter:
+                drop-shadow(0 0 20px rgba(255, 255, 255, 0.15));
+        }
+
+        .channel-overlay-logo.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: transparent;
+            position: relative;
+            z-index: 2;
+        }
+
+        .controls-panel {
+            background-color: var(--card-bg);
+            padding: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            border-top: 2px solid var(--accent-color);
+            flex-shrink: 0;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: #888;
+            font-weight: bold;
+        }
+
+        select,
+        button {
+            background-color: var(--button-bg);
+            color: white;
+            border: 1px solid var(--button-border);
+            padding: 8px;
+            border-radius: 4px;
+            outline: none;
+            font-size: 0.9rem;
+            min-width: 100px;
+            cursor: pointer;
+        }
+
+        select:focus {
+            border-color: var(--accent-color);
+        }
+
+        #channelSelect {
+            min-width: 220px;
+            font-weight: bold;
+        }
+
+        .btn-gray {
+            background-color: var(--button-bg);
+            border: 1px solid var(--button-border);
+            height: 38px;
+            min-width: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            align-self: flex-end;
+        }
+
+        .btn-gray:hover {
+            background-color: #3a3a3a;
+        }
+
+        .current-logo-mini {
+            width: 35px;
+            height: 35px;
+            object-fit: contain;
+            background: #000;
+            border-radius: 4px;
+        }
+
+        .clock-box {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 110px;
+            height: 38px;
+            padding: 0 12px;
+            border-radius: 6px;
+            background: #101010;
+            border: 1px solid #333;
+            color: #00ff88;
+            font-weight: bold;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            align-self: flex-end;
+        }
+
+        @media (max-width: 600px) {
+
+            .controls-panel {
+                overflow-y: auto;
+                max-height: 50vh;
+            }
+
+            .control-group {
+                flex: 1 1 40%;
+            }
+
+            .clock-box {
+                width: 100%;
+                margin-left: 0;
+            }
+
+            .channel-overlay-logo {
+                width: 140px;
+                height: 140px;
+            }
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+
+<body>
+
+    <div class="player-container">
+
+        <!-- FONS -->
+        <div id="channelBackground"
+            class="channel-background"></div>
+
+        <!-- LOGO CENTRAL -->
+        <img id="overlayLogo"
+            class="channel-overlay-logo"
+            src="https://xarxa-1.github.io/Xarxa-1/negre.jpg"
+            alt="Logo Canal">
+
+        <video id="videoPlayer"
+            controls
+            autoplay
+            playsinline></video>
+
+    </div>
+
+    <div class="controls-panel">
+
+        <div class="control-group">
+            <img id="statusLogo"
+                src="https://xarxa-1.github.io/Xarxa-1/negre.jpg"
+                class="current-logo-mini"
+                alt="Logo">
+        </div>
+
+        <div class="control-group">
+
+            <label>Canal</label>
+
+            <select id="channelSelect"
+                onchange="playChannel(this.value)">
+
+                <option>Carregant...</option>
+
+            </select>
+
+        </div>
+
+        <div class="control-group">
+
+            <label>Grup</label>
+
+            <select id="groupSelector"
+                onchange="filterChannels()">
+
+                <option value="all">
+                    Tots els grups
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="control-group">
+
+            <label>Navegació</label>
+
+            <div style="display:flex; gap:5px;">
+
+                <button class="btn-gray"
+                    onclick="previousChannel()">
+                    ⏮
+                </button>
+
+                <button class="btn-gray"
+                    onclick="nextChannel()">
+                    ⏭
+                </button>
+
+                <button class="btn-gray"
+                    onclick="goLive()">
+                    LIVE
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="control-group">
+
+            <label>Historial</label>
+
+            <div style="display:flex; gap:5px;">
+
+                <button class="btn-gray"
+                    onclick="goBackChannel()">
+                    ↩
+                </button>
+
+                <button class="btn-gray"
+                    onclick="reloadChannel()">
+                    ↻
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="control-group">
+
+            <label>Volum</label>
+
+            <!-- ORDRE INVERTIT -->
+            <select id="volumeSelect"
+                onchange="updateVolume(this.value)">
+
+                <option value="1" selected>100%</option>
+                <option value="0.8">80%</option>
+                <option value="0.6">60%</option>
+                <option value="0.4">40%</option>
+                <option value="0.2">20%</option>
+                <option value="0">Silenci</option>
+
+            </select>
+
+        </div>
+
+        <div class="control-group">
+
+            <label>Àudio</label>
+
+            <select id="audioTracks"
+                onchange="changeAudio(this.value)">
+
+                <option value="-1">Auto</option>
+
+            </select>
+
+        </div>
+
+        <div class="control-group">
+
+            <label>Subtítols</label>
+
+            <select id="subtitleTracks"
+                onchange="changeSubtitle(this.value)">
+
+                <option value="-1">
+                    Desactivats
+                </option>
+
+            </select>
+
+        </div>
+
+        <button class="btn-gray"
+            onclick="toggleFullScreen()">
+
+            ⛶
+
+        </button>
+
+        <div id="clock"
+            class="clock-box">
+            00:00:00
+        </div>
+
+    </div>
+
+    <script>
+
+        const m3uUrl =
+            'https://xarxa-1.github.io/Xarxa-1/cat325.m3u';
+
+        const defaultLogo =
+            'https://xarxa-1.github.io/Xarxa-1/negre.jpg';
+
+        let allChannels = [];
+        let filteredChannels = [];
+        let hlsInstance = null;
+
+        let currentChannelIndex = -1;
+        let lastChannelIndex = -1;
+
+        let currentVolume = 1;
+
+        document.addEventListener(
+            'DOMContentLoaded',
+            async () => {
+
+                startClock();
+
+                try {
+
+                    allChannels =
+                        await loadM3U(m3uUrl);
+
+                    populateGroups();
+
+                    filterChannels(true);
+
+                } catch (e) {
+
+                    console.error(e);
+                }
+            }
+        );
+
+        async function loadM3U(url) {
+
+            const response =
+                await fetch(url);
+
+            const text =
+                await response.text();
+
+            const lines =
+                text.split('\n');
+
+            const channels = [];
+
+            let current = null;
+
+            for (let line of lines) {
+
+                line = line.trim();
+
+                if (line.startsWith('#EXTINF:')) {
+
+                    current = {};
+
+                    const logoMatch =
+                        line.match(
+                            /tvg-logo="([^"]+)"/
+                        );
+
+                    let logo =
+                        logoMatch
+                            ? logoMatch[1].trim()
+                            : '';
+
+                    if (!logo) {
+                        logo = defaultLogo;
+                    }
+
+                    current.logo = logo;
+
+                    const groupMatch =
+                        line.match(
+                            /group-title="([^"]+)"/
+                        );
+
+                    current.group =
+                        groupMatch
+                            ? groupMatch[1]
+                            : 'Sense Grup';
+
+                    current.name =
+                        line.split(',')
+                            .pop()
+                            .trim();
+
+                } else if (
+                    line.startsWith('http')
+                ) {
+
+                    if (current) {
+
+                        current.url = line;
+
+                        channels.push(current);
+
+                        current = null;
+                    }
+                }
+            }
+
+            return channels;
+        }
+
+        function populateGroups() {
+
+            const selector =
+                document.getElementById(
+                    'groupSelector'
+                );
+
+            const groups =
+                [...new Set(
+                    allChannels.map(
+                        c => c.group
+                    )
+                )].sort();
+
+            groups.forEach(g => {
+
+                selector.add(
+                    new Option(g, g)
+                );
+            });
+        }
+
+        function filterChannels(
+            isFirstLoad = false
+        ) {
+
+            const group =
+                document.getElementById(
+                    'groupSelector'
+                ).value;
+
+            filteredChannels =
+                allChannels.filter(c =>
+                    group === 'all'
+                    || c.group === group
+                );
+
+            const select =
+                document.getElementById(
+                    'channelSelect'
+                );
+
+            select.innerHTML = '';
+
+            filteredChannels.forEach(
+                (c, index) => {
+
+                    select.add(
+                        new Option(
+                            c.name,
+                            index
+                        )
+                    );
+                }
+            );
+
+            if (
+                isFirstLoad
+                && filteredChannels.length > 0
+            ) {
+
+                playChannel(0);
+            }
+        }
+
+        function clearSelectors() {
+
+            document.getElementById(
+                'audioTracks'
+            ).innerHTML =
+                '<option value="-1">Auto</option>';
+
+            document.getElementById(
+                'subtitleTracks'
+            ).innerHTML =
+                '<option value="-1">Desactivats</option>';
+        }
+
+        function destroyPlayer() {
+
+            if (hlsInstance) {
+
+                hlsInstance.destroy();
+
+                hlsInstance = null;
+            }
+
+            const oldVideo =
+                document.getElementById(
+                    'videoPlayer'
+                );
+
+            oldVideo.pause();
+
+            oldVideo.removeAttribute('src');
+
+            oldVideo.load();
+
+            clearSelectors();
+        }
+
+        function showChannelOverlay(logo) {
+
+            const image =
+                logo && logo !== ''
+                    ? logo
+                    : defaultLogo;
+
+            const bg =
+                document.getElementById(
+                    'channelBackground'
+                );
+
+            const overlay =
+                document.getElementById(
+                    'overlayLogo'
+                );
+
+            bg.style.backgroundImage =
+                `url('${image}')`;
+
+            overlay.src = image;
+
+            bg.classList.add('visible');
+
+            overlay.classList.add('visible');
+        }
+
+        function hideChannelOverlay() {
+
+            document.getElementById(
+                'channelBackground'
+            ).classList.remove('visible');
+
+            document.getElementById(
+                'overlayLogo'
+            ).classList.remove('visible');
+        }
+
+        function playChannel(index) {
+
+            const idx =
+                parseInt(index);
+
+            const channel =
+                filteredChannels[idx];
+
+            if (!channel) return;
+
+            if (
+                currentChannelIndex !== -1
+                && currentChannelIndex !== idx
+            ) {
+
+                lastChannelIndex =
+                    currentChannelIndex;
+            }
+
+            currentChannelIndex = idx;
+
+            document.getElementById(
+                'channelSelect'
+            ).value = idx;
+
+            const channelLogo =
+                channel.logo || defaultLogo;
+
+            document.getElementById(
+                'statusLogo'
+            ).src = channelLogo;
+
+            showChannelOverlay(
+                channelLogo
+            );
+
+            destroyPlayer();
+
+            const oldVideo =
+                document.getElementById(
+                    'videoPlayer'
+                );
+
+            const newVideo =
+                oldVideo.cloneNode(false);
+
+            newVideo.id = 'videoPlayer';
+
+            newVideo.controls = true;
+            newVideo.autoplay = true;
+            newVideo.playsInline = true;
+
+            newVideo.volume =
+                currentVolume;
+
+            oldVideo.parentNode.replaceChild(
+                newVideo,
+                oldVideo
+            );
+
+            newVideo.addEventListener(
+                'volumechange',
+                () => {
+
+                    currentVolume =
+                        newVideo.volume;
+
+                    document.getElementById(
+                        'volumeSelect'
+                    ).value =
+                        currentVolume.toString();
+                }
+            );
+
+            const hideOverlay = () => {
+
+                hideChannelOverlay();
+            };
+
+            newVideo.addEventListener(
+                'playing',
+                hideOverlay
+            );
+
+            newVideo.addEventListener(
+                'canplay',
+                hideOverlay
+            );
+
+            newVideo.addEventListener(
+                'loadeddata',
+                hideOverlay
+            );
+
+            if (Hls.isSupported()) {
+
+                hlsInstance = new Hls({
+                    enableWorker: true
+                });
+
+                hlsInstance.loadSource(
+                    channel.url
+                );
+
+                hlsInstance.attachMedia(
+                    newVideo
+                );
+
+                hlsInstance.on(
+                    Hls.Events.MANIFEST_PARSED,
+                    () => {
+
+                        setTimeout(() => {
+
+                            updateAudioTracks();
+
+                            updateSubtitleTracks();
+
+                        }, 500);
+
+                        newVideo.play()
+                            .catch(() => { });
+                    }
+                );
+
+                hlsInstance.on(
+                    Hls.Events.AUDIO_TRACKS_UPDATED,
+                    updateAudioTracks
+                );
+
+                hlsInstance.on(
+                    Hls.Events.SUBTITLE_TRACKS_UPDATED,
+                    updateSubtitleTracks
+                );
+
+            } else if (
+                newVideo.canPlayType(
+                    'application/vnd.apple.mpegurl'
+                )
+            ) {
+
+                newVideo.src =
+                    channel.url;
+
+                newVideo.addEventListener(
+                    'loadedmetadata',
+                    () => {
+
+                        updateSubtitleTracks();
+
+                        newVideo.play()
+                            .catch(() => { });
+                    }
+                );
+            }
+        }
+
+        function updateAudioTracks() {
+
+            const audioSel =
+                document.getElementById(
+                    'audioTracks'
+                );
+
+            audioSel.innerHTML =
+                '<option value="-1">Auto</option>';
+
+            if (!hlsInstance) return;
+
+            if (!hlsInstance.audioTracks)
+                return;
+
+            hlsInstance.audioTracks.forEach(
+                (track, id) => {
+
+                    const label =
+                        track.name
+                        || track.lang
+                        || `Àudio ${id + 1}`;
+
+                    audioSel.add(
+                        new Option(
+                            label,
+                            id
+                        )
+                    );
+                }
+            );
+
+            audioSel.value =
+                hlsInstance.audioTrack;
+        }
+
+        function updateSubtitleTracks() {
+
+            const subSel =
+                document.getElementById(
+                    'subtitleTracks'
+                );
+
+            subSel.innerHTML =
+                '<option value="-1">Desactivats</option>';
+        }
+
+        function changeAudio(id) {
+
+            if (!hlsInstance) return;
+
+            hlsInstance.audioTrack =
+                parseInt(id);
+        }
+
+        function changeSubtitle(id) {
+
+            if (hlsInstance) {
+
+                hlsInstance.subtitleTrack =
+                    parseInt(id);
+            }
+        }
+
+        function previousChannel() {
+
+            if (
+                filteredChannels.length === 0
+            ) return;
+
+            let prev =
+                currentChannelIndex - 1;
+
+            if (prev < 0) {
+
+                prev =
+                    filteredChannels.length - 1;
+            }
+
+            playChannel(prev);
+        }
+
+        function nextChannel() {
+
+            if (
+                filteredChannels.length === 0
+            ) return;
+
+            let next =
+                currentChannelIndex + 1;
+
+            if (
+                next >= filteredChannels.length
+            ) {
+
+                next = 0;
+            }
+
+            playChannel(next);
+        }
+
+        function goLive() {
+
+            const currentVideo =
+                document.getElementById(
+                    'videoPlayer'
+                );
+
+            if (
+                currentVideo.seekable
+                && currentVideo.seekable.length > 0
+            ) {
+
+                const livePosition =
+                    currentVideo.seekable.end(
+                        currentVideo.seekable.length - 1
+                    );
+
+                currentVideo.currentTime =
+                    livePosition;
+            }
+        }
+
+        function goBackChannel() {
+
+            if (lastChannelIndex !== -1) {
+
+                playChannel(lastChannelIndex);
+            }
+        }
+
+        function reloadChannel() {
+
+            if (
+                currentChannelIndex !== -1
+            ) {
+
+                playChannel(
+                    currentChannelIndex
+                );
+            }
+        }
+
+        function updateVolume(val) {
+
+            currentVolume =
+                parseFloat(val);
+
+            const currentVideo =
+                document.getElementById(
+                    'videoPlayer'
+                );
+
+            currentVideo.volume =
+                currentVolume;
+        }
+
+        function toggleFullScreen() {
+
+            const currentVideo =
+                document.getElementById(
+                    'videoPlayer'
+                );
+
+            if (
+                currentVideo.requestFullscreen
+            ) {
+
+                currentVideo.requestFullscreen();
+
+            } else if (
+                currentVideo.webkitRequestFullscreen
+            ) {
+
+                currentVideo.webkitRequestFullscreen();
+
+            } else if (
+                currentVideo.msRequestFullscreen
+            ) {
+
+                currentVideo.msRequestFullscreen();
+            }
+        }
+
+        function startClock() {
+
+            function updateClock() {
+
+                const now =
+                    new Date();
+
+                const hh =
+                    String(
+                        now.getHours()
+                    ).padStart(2, '0');
+
+                const mm =
+                    String(
+                        now.getMinutes()
+                    ).padStart(2, '0');
+
+                const ss =
+                    String(
+                        now.getSeconds()
+                    ).padStart(2, '0');
+
+                document.getElementById(
+                    'clock'
+                ).textContent =
+                    `${hh}:${mm}:${ss}`;
+            }
+
+            updateClock();
+
+            setInterval(
+                updateClock,
+                1000
+            );
+        }
+
+    </script>
+
+</body>
+
+</html>
