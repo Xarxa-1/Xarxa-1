@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reproductor IPTV Pro</title>
+
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --accent-color: #007bff;
+            --button-bg: #2a2a2a;
+            --button-border: #444;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+        }
+
+        .player-container {
+            flex: 1;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: #000;
+        }
+
+        .controls-panel {
+            background-color: var(--card-bg);
+            padding: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            border-top: 2px solid var(--accent-color);
+            flex-shrink: 0;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: #888;
+            font-weight: bold;
+        }
+
+        select,
+        button {
+            background-color: var(--button-bg);
+            color: white;
+            border: 1px solid var(--button-border);
+            padding: 8px;
+            border-radius: 4px;
+            outline: none;
+            font-size: 0.9rem;
+            min-width: 100px;
+            cursor: pointer;
+        }
+
+        select:focus {
+            border-color: var(--accent-color);
+        }
+
+        #channelSelect {
+            min-width: 220px;
+            font-weight: bold;
+        }
+
+        .btn-gray {
+            background-color: var(--button-bg);
+            border: 1px solid var(--button-border);
+            height: 38px;
+            min-width: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            align-self: flex-end;
+        }
+
+        .btn-gray:hover {
+            background-color: #3a3a3a;
+        }
+
+        .current-logo-mini {
+            width: 35px;
+            height: 35px;
+            object-fit: contain;
+            background: #000;
+            border-radius: 4px;
+        }
+
+        @media (max-width: 600px) {
+
+            .controls-panel {
+                overflow-y: auto;
+                max-height: 50vh;
+            }
+
+            .control-group {
+                flex: 1 1 40%;
+            }
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+
+<body>
+
+    <div class="player-container">
+
+        <video id="videoPlayer"
+            controls
+            autoplay
+            playsinline></video>
+
+    </div>
+
+    <div class="controls-panel">
+
+        <div class="control-group">
+            <img id="statusLogo"
+                src="https://xarxa-1.github.io/Xarxa-1/negre.jpg"
+                class="current-logo-mini"
+                alt="Logo">
+        </div>
+
+        <div class="control-group">
+            <label>Canal</label>
+
+            <select id="channelSelect"
+                onchange="playChannel(this.value)">
+
+                <option>Carregant...</option>
+
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label>Grup</label>
+
+            <select id="groupSelector"
+                onchange="filterChannels()">
+
+                <option value="all">Tots els grups</option>
+
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label>Navegació</label>
+
+            <div style="display:flex; gap:5px;">
+
+                <!-- Canal anterior -->
+                <button class="btn-gray"
+                    onclick="previousChannel()"
+                    title="Canal anterior">
+                    ⏮
+                </button>
+
+                <!-- Canal següent -->
+                <button class="btn-gray"
+                    onclick="nextChannel()"
+                    title="Canal següent">
+                    ⏭
+                </button>
+
+                <!-- Tornar al directe -->
+                <button class="btn-gray"
+                    onclick="goLive()"
+                    title="Anar al directe">
+                    LIVE
+                </button>
+
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label>Historial</label>
+
+            <div style="display:flex; gap:5px;">
+
+                <button class="btn-gray"
+                    onclick="goBackChannel()"
+                    title="Canal anterior vist">
+                    ↩
+                </button>
+
+                <button class="btn-gray"
+                    onclick="reloadChannel()"
+                    title="Recarregar canal">
+                    ↻
+                </button>
+
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label>Volum</label>
+
+            <select id="volumeSelect"
+                onchange="updateVolume(this.value)">
+
+                <option value="0">Silenci</option>
+                <option value="0.2">20%</option>
+                <option value="0.4">40%</option>
+                <option value="0.6">60%</option>
+                <option value="0.8">80%</option>
+                <option value="1" selected>100%</option>
+
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label>Àudio</label>
+
+            <select id="audioTracks"
+                onchange="changeAudio(this.value)">
+
+                <option value="-1">Auto</option>
+
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label>Subtítols</label>
+
+            <select id="subtitleTracks"
+                onchange="changeSubtitle(this.value)">
+
+                <option value="-1">Desactivats</option>
+
+            </select>
+        </div>
+
+        <button class="btn-gray"
+            onclick="toggleFullScreen()"
+            title="Pantalla completa">
+
+            ⛶
+
+        </button>
+
+    </div>
+
+    <script>
+
+        const m3uUrl =
+            'https://xarxa-1.github.io/Xarxa-1/cat325.m3u';
+
+        const defaultLogo =
+            'https://xarxa-1.github.io/Xarxa-1/negre.jpg';
+
+        let allChannels = [];
+        let filteredChannels = [];
+        let hlsInstance = null;
+
+        let currentChannelIndex = -1;
+        let lastChannelIndex = -1;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+
+            try {
+
+                allChannels = await loadM3U(m3uUrl);
+
+                populateGroups();
+
+                filterChannels(true);
+
+            } catch (e) {
+
+                console.error(e);
+            }
+        });
+
+        async function loadM3U(url) {
+
+            const response = await fetch(url);
+
+            const text = await response.text();
+
+            const lines = text.split('\n');
+
+            const channels = [];
+
+            let current = null;
+
+            for (let line of lines) {
+
+                line = line.trim();
+
+                if (line.startsWith('#EXTINF:')) {
+
+                    current = {};
+
+                    const logoMatch =
+                        line.match(/tvg-logo="([^"]+)"/);
+
+                    current.logo =
+                        logoMatch ? logoMatch[1] : defaultLogo;
+
+                    const groupMatch =
+                        line.match(/group-title="([^"]+)"/);
+
+                    current.group =
+                        groupMatch ? groupMatch[1] : 'Sense Grup';
+
+                    current.name =
+                        line.split(',').pop().trim();
+
+                } else if (line.startsWith('http')) {
+
+                    if (current) {
+
+                        current.url = line;
+
+                        channels.push(current);
+
+                        current = null;
+                    }
+                }
+            }
+
+            return channels;
+        }
+
+        function populateGroups() {
+
+            const selector =
+                document.getElementById('groupSelector');
+
+            const groups =
+                [...new Set(allChannels.map(c => c.group))].sort();
+
+            groups.forEach(g => {
+
+                selector.add(new Option(g, g));
+            });
+        }
+
+        function filterChannels(isFirstLoad = false) {
+
+            const group =
+                document.getElementById('groupSelector').value;
+
+            filteredChannels = allChannels.filter(c =>
+                group === 'all' || c.group === group
+            );
+
+            const select =
+                document.getElementById('channelSelect');
+
+            select.innerHTML = '';
+
+            filteredChannels.forEach((c, index) => {
+
+                select.add(new Option(c.name, index));
+            });
+
+            if (isFirstLoad && filteredChannels.length > 0) {
+
+                playChannel(0);
+            }
+        }
+
+        function clearSelectors() {
+
+            document.getElementById('audioTracks').innerHTML =
+                '<option value="-1">Auto</option>';
+
+            document.getElementById('subtitleTracks').innerHTML =
+                '<option value="-1">Desactivats</option>';
+        }
+
+        function destroyPlayer() {
+
+            if (hlsInstance) {
+
+                hlsInstance.destroy();
+
+                hlsInstance = null;
+            }
+
+            const oldVideo =
+                document.getElementById('videoPlayer');
+
+            oldVideo.pause();
+
+            oldVideo.removeAttribute('src');
+
+            oldVideo.load();
+
+            clearSelectors();
+        }
+
+        function playChannel(index) {
+
+            const idx = parseInt(index);
+
+            const channel = filteredChannels[idx];
+
+            if (!channel) return;
+
+            // historial
+            if (currentChannelIndex !== -1 &&
+                currentChannelIndex !== idx) {
+
+                lastChannelIndex = currentChannelIndex;
+            }
+
+            currentChannelIndex = idx;
+
+            document.getElementById('channelSelect').value = idx;
+
+            document.getElementById('statusLogo').src =
+                channel.logo;
+
+            destroyPlayer();
+
+            const oldVideo =
+                document.getElementById('videoPlayer');
+
+            const newVideo =
+                oldVideo.cloneNode(false);
+
+            newVideo.id = 'videoPlayer';
+
+            newVideo.controls = true;
+            newVideo.autoplay = true;
+            newVideo.playsInline = true;
+
+            oldVideo.parentNode.replaceChild(
+                newVideo,
+                oldVideo
+            );
+
+            if (Hls.isSupported()) {
+
+                hlsInstance = new Hls({
+                    enableWorker: true
+                });
+
+                hlsInstance.loadSource(channel.url);
+
+                hlsInstance.attachMedia(newVideo);
+
+                hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => {
+
+                    setTimeout(() => {
+
+                        updateAudioTracks();
+
+                        updateSubtitleTracks();
+
+                    }, 500);
+
+                    newVideo.play().catch(() => { });
+                });
+
+                hlsInstance.on(
+                    Hls.Events.AUDIO_TRACKS_UPDATED,
+                    updateAudioTracks
+                );
+
+                hlsInstance.on(
+                    Hls.Events.SUBTITLE_TRACKS_UPDATED,
+                    updateSubtitleTracks
+                );
+
+                newVideo.textTracks.onaddtrack = () => {
+
+                    updateSubtitleTracks();
+                };
+
+            } else if (
+                newVideo.canPlayType(
+                    'application/vnd.apple.mpegurl'
+                )
+            ) {
+
+                newVideo.src = channel.url;
+
+                newVideo.addEventListener(
+                    'loadedmetadata',
+                    () => {
+
+                        updateSubtitleTracks();
+
+                        newVideo.play().catch(() => { });
+                    }
+                );
+            }
+        }
+
+        function updateAudioTracks() {
+
+            const audioSel =
+                document.getElementById('audioTracks');
+
+            audioSel.innerHTML =
+                '<option value="-1">Auto</option>';
+
+            if (!hlsInstance) return;
+
+            if (!hlsInstance.audioTracks) return;
+
+            hlsInstance.audioTracks.forEach((track, id) => {
+
+                const label =
+                    track.name ||
+                    track.lang ||
+                    `Àudio ${id + 1}`;
+
+                audioSel.add(new Option(label, id));
+            });
+
+            audioSel.value = hlsInstance.audioTrack;
+        }
+
+        function updateSubtitleTracks() {
+
+            const subSel =
+                document.getElementById('subtitleTracks');
+
+            subSel.innerHTML =
+                '<option value="-1">Desactivats</option>';
+
+            const added = [];
+
+            // HLS subtitles
+            if (
+                hlsInstance &&
+                hlsInstance.subtitleTracks &&
+                hlsInstance.subtitleTracks.length > 0
+            ) {
+
+                hlsInstance.subtitleTracks.forEach((track, id) => {
+
+                    const label =
+                        track.name ||
+                        track.lang ||
+                        `Subtítol ${id + 1}`;
+
+                    if (!added.includes(label)) {
+
+                        subSel.add(
+                            new Option(label, id)
+                        );
+
+                        added.push(label);
+                    }
+                });
+            }
+
+            // native text tracks
+            const currentVideo =
+                document.getElementById('videoPlayer');
+
+            if (currentVideo.textTracks) {
+
+                for (let i = 0; i < currentVideo.textTracks.length; i++) {
+
+                    const track =
+                        currentVideo.textTracks[i];
+
+                    const label =
+                        track.label ||
+                        track.language ||
+                        track.kind ||
+                        `Text ${i + 1}`;
+
+                    if (!added.includes(label)) {
+
+                        subSel.add(
+                            new Option(
+                                label,
+                                `native-${i}`
+                            )
+                        );
+
+                        added.push(label);
+                    }
+                }
+            }
+        }
+
+        function changeAudio(id) {
+
+            if (!hlsInstance) return;
+
+            hlsInstance.audioTrack = parseInt(id);
+        }
+
+        function changeSubtitle(id) {
+
+            const currentVideo =
+                document.getElementById('videoPlayer');
+
+            for (let i = 0; i < currentVideo.textTracks.length; i++) {
+
+                currentVideo.textTracks[i].mode =
+                    'disabled';
+            }
+
+            if (id == -1) {
+
+                if (hlsInstance) {
+
+                    hlsInstance.subtitleTrack = -1;
+                }
+
+                return;
+            }
+
+            // native subtitles
+            if (id.toString().startsWith('native-')) {
+
+                const index =
+                    parseInt(id.split('-')[1]);
+
+                if (currentVideo.textTracks[index]) {
+
+                    currentVideo.textTracks[index].mode =
+                        'showing';
+                }
+
+            } else {
+
+                // HLS subtitles
+                if (hlsInstance) {
+
+                    hlsInstance.subtitleTrack =
+                        parseInt(id);
+                }
+            }
+        }
+
+        // CANAL ANTERIOR DE LA LLISTA
+        function previousChannel() {
+
+            if (filteredChannels.length === 0) return;
+
+            let prev = currentChannelIndex - 1;
+
+            if (prev < 0) {
+
+                prev = filteredChannels.length - 1;
+            }
+
+            playChannel(prev);
+        }
+
+        // CANAL SEGÜENT DE LA LLISTA
+        function nextChannel() {
+
+            if (filteredChannels.length === 0) return;
+
+            let next = currentChannelIndex + 1;
+
+            if (next >= filteredChannels.length) {
+
+                next = 0;
+            }
+
+            playChannel(next);
+        }
+
+        // TORNAR AL DIRECTE
+        function goLive() {
+
+            const currentVideo =
+                document.getElementById('videoPlayer');
+
+            // MPEG-DASH / HLS live edge
+            if (currentVideo.seekable &&
+                currentVideo.seekable.length > 0) {
+
+                const livePosition =
+                    currentVideo.seekable.end(
+                        currentVideo.seekable.length - 1
+                    );
+
+                currentVideo.currentTime =
+                    livePosition;
+            }
+        }
+
+        function goBackChannel() {
+
+            if (lastChannelIndex !== -1) {
+
+                playChannel(lastChannelIndex);
+            }
+        }
+
+        function reloadChannel() {
+
+            if (currentChannelIndex !== -1) {
+
+                playChannel(currentChannelIndex);
+            }
+        }
+
+        function updateVolume(val) {
+
+            const currentVideo =
+                document.getElementById('videoPlayer');
+
+            currentVideo.volume = val;
+        }
+
+        function toggleFullScreen() {
+
+            const currentVideo =
+                document.getElementById('videoPlayer');
+
+            if (currentVideo.requestFullscreen) {
+
+                currentVideo.requestFullscreen();
+
+            } else if (
+                currentVideo.webkitRequestFullscreen
+            ) {
+
+                currentVideo.webkitRequestFullscreen();
+
+            } else if (
+                currentVideo.msRequestFullscreen
+            ) {
+
+                currentVideo.msRequestFullscreen();
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
