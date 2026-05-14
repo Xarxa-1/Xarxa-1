@@ -90,6 +90,9 @@ https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg01076-lightningintern-gbnewsnz-sa
 #EXTINF:-1 tvg-name="Channel4" group-title="UK" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Channel_4_Logo_2023.svg/250px-Channel_4_Logo_2023.svg.png" tvg-name=""  group-title="UK",Channel 4
 https://viamotionhsi.netplus.ch/live/eds/channel4/browser-HLS/channel4.m3u8
 
+#EXTINF:-1 group-title="Entertainment" tvg-id="Bravo.USA.-.Eastern.Feed.us" tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s10057_dark_360w_270h.png" tvg-name="BRAVO",BRAVO
+http://41.205.93.154/BRAVO/index.m3u8
+
 #EXTINF:-1 tvg-name="bluezoomfr" group-title="bluezoomfr" tvg-id="" tvg-name=""  group-title="Entreteniment",Bluezoomfr
 https://viamotionhsi.netplus.ch/live/eds/bluezoomfr/browser-HLS/bluezoomfr.m3u8
 #EXTINF:-1 tvg-name="" group-title="FR" tvg-logo="https://images.seeklogo.com/logo-png/8/2/m6-tv-logo-png_seeklogo-86691.png" tvg-name=""  group-title="FR",M6 FR
@@ -191,10 +194,10 @@ https://mdstrm.com/live-stream-playlist/610178c7db32a4112d994650.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="MX: N+ MTY" tvg-logo="" group-title="Notícies",MX: N+ MTY
 https://channel09-notusa.akamaized.net/hls/live/2094418/event01/index.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="US: CNN" tvg-logo="" group-title="Noticies",US: CNN
+#EXTINF:-1 tvg-id="" tvg-name="US: CNN" tvg-logo="" group-title="Notícies",US: CNN
 https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="US: AL JAZEERA EN" tvg-logo="" group-title="Noticies",US: AL JAZEERA EN
+#EXTINF:-1 tvg-id="" tvg-name="US: AL JAZEERA EN" tvg-logo="" group-title="Notícies",US: AL JAZEERA EN
 https://live-hls-web-aje-fa.getaj.net/AJE/03.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Canal 45 (576p)" tvg-logo="https://i.imgur.com/yEfSnGt.png" group-title="Undefined",Canal 45 (576p)
