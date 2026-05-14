@@ -254,14 +254,9 @@ https://the-pet-collective-international-es.samsung.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="TV5Monde Europe (1080p) [Geo-blocked]" tvg-logo="https://i.imgur.com/rPAbMSu.png" group-title="General",TV5Monde Europe (1080p) [Geo-blocked]
 https://ott.tv5monde.com/Content/HLS/Live/channel(europe)/variant.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="XPTV1 (720p)" tvg-logo="https://i.imgur.com/Ty7GkoN.png" group-title="Music",XPTV1 (720p)
-https://janus.xpbroadcasting.com:8443/hls/xptv1.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="XPTV2 (720p)" tvg-logo="https://i.imgur.com/74Z8ATB.png" group-title="Entertainment",XPTV2 (720p)
-https://janus.xpbroadcasting.com:8443/hls/xptv2.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="XPTV US (720p)" tvg-logo="https://i.imgur.com/1m7kDmc.png" group-title="Series",XPTV US (720p)
-https://janus.xpbroadcasting.com:8443/hls/xptvUS.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Vogue Europe" tvg-logo="" group-title="Undefined",Vogue Europe
+#EXTINF:-1 tvg-id="" tvg-name="Vogue Europe" tvg-logo="" group-title="Entreteniment",Vogue Europe
 https://d39g1vxj2ef6in.cloudfront.net/v1/master/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod-rakuten-stitched/master.m3u8?ads.xumo_channelId=88883060
+
 #EXTINF:-1 tvg-id="" tvg-name="DiscoverFilm" tvg-logo="https://i.imgur.com/oMnpsQ5.png" group-title="Movies",DiscoverFilm
 https://discoverfilm-discoverfilm-1-nl.samsung.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="GB News" tvg-logo="https://pbs.twimg.com/profile_images/1571994202854100994/vYcqAgBG_400x400.jpg" group-title="Notícies",GB News
@@ -357,6 +352,7 @@ https://epg.provider.plex.tv/library/parts/643054b1fc3be59477853717-693cb1af5807
 
 #EXTINF:-1 tvg-name="Sony Channel" group-title="Entreteniment" tvg-logo="https://static.wikia.nocookie.net/logopedia/images/c/c6/Sony_Channel_2023.png/revision/latest/scale-to-width-down/48?cb=20230828233601&path-prefix=es",Sony Channel
 https://fl1.moveonjoy.com/Sony_Movie_Channel/index.m3u8
+
 #EXTINF:-1 tvg-name="Sony Channel" group-title="Entreteniment" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/b/b9/Sony_Channel_Logo.png",Sony Channel
 https://a-cdn.klowdtv.com/live1/cine_720p/chunks.m3u8
 #EXTM3U
@@ -385,14 +381,26 @@ http://181.78.109.49:8000/play/a06r/index.m3u8
 #EXTINF:-1 tvg-id="SkySport" tvg-logo="https://pbs.twimg.com/profile_images/1668961707216052229/yXaaaA_k_400x400.jpg"  group-title="Esport",SKY SPORTS LALIGA 🇲🇽
 http://181.78.105.146:8800/play/a07h/index.m3u8
 
+#EXTINF:-1 tvg-id="SkySport" tvg-logo="https://pbs.twimg.com/profile_images/1668961707216052229/yXaaaA_k_400x400.jpg" group-title="Esport",SKY SPORTS LA LIGA
+http://45.228.234.30:16000/play/a03h/index.m3u8
+
 #EXTINF:0 tvg-logo="https://pbs.twimg.com/profile_images/2022604804363620353/UWp-_eRi_400x400.jpg" group-title="Esport",TNT Sports 1 UK
 http://kstv.us:8080/4VUyfZBQzk/95104974615/47850
+
 #EXTINF:0 tvg-logo="https://pbs.twimg.com/profile_images/2022604804363620353/UWp-_eRi_400x400.jpg" group-title="Esport",TNT Sports 2 UK
 http://kstv.us:8080/4VUyfZBQzk/95104974615/47851
+
 #EXTINF:0 tvg-logo="https://pbs.twimg.com/profile_images/2022604804363620353/UWp-_eRi_400x400.jpg" group-title="Esport",TNT Sports 3 UK
 http://kstv.us:8080/4VUyfZBQzk/95104974615/47852
+
 #EXTINF:0 tvg-logo="https://pbs.twimg.com/profile_images/2022604804363620353/UWp-_eRi_400x400.jpg" group-title="Esport",TNT Sports 4 UK
 http://kstv.us:8080/4VUyfZBQzk/95104974615/47853
+
+#EXTINF:-1  group-title="Esport",CLARO SPORTS
+http://45.228.234.30:16000/play/a03s/index.m3u8
+
+#EXTINF:-1  group-title="Esport",CLARO SPORTS 2
+http://45.228.234.30:16000/play/a03t/index.m3u8
 
 #EXTINF:-1 tvg-id="LaLigaHypermotion.es@SD" tvg-logo="" group-title="Esport",LaLiga Hypermotion (1080p)
 http://latam-cache-sv2-cdn.latamlive.net/LA_LIGA_SMARTBANK_IP_ENC_LIVE/index.m3u8
@@ -864,3 +872,9 @@ https://jmp2.uk/plu-6320d2755e54db000783fd87.m3u8
 
 #EXTINF:-1 group-title="Esport",DyN SPORTS MIX
 https://jmp2.uk/plu-6866525c8a412a0e95c438b4.m3u8
+
+#EXTINF:-1 group-title="Esport" tvg-id="ESPN.us" tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s10179_dark_360w_270h.png" tvg-name="ESPN",ESPN
+http://41.205.93.154/ESPNU/index.m3u8
+
+#EXTINF:-1 group-title="Esport" tvg-id="ESPN.us" tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s10179_dark_360w_270h.png" tvg-name="ESPN",ESPN2
+http://190.60.32.178:8178/play/a015/index.m3u8
