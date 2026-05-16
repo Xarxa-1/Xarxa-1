@@ -1,35 +1,35 @@
 #EXTM3U
-#EXTINF:-1 tvg-id="TV3" tvg-name="TV3" tvg-logo="https://pbs.twimg.com/profile_images/1718910763174109184/B7MDxoG1.jpg" group-title="Catalunya",TV3
+#EXTINF:-1 tvg-id="TV3" tvg-name="TV3.cat" tvg-logo="https://pbs.twimg.com/profile_images/1718910763174109184/B7MDxoG1.jpg" group-title="Catalunya",TV3
 https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
 
-#EXTINF:-1 tvg-id="324" tvg-name="324" tvg-logo="https://pbs.twimg.com/profile_images/1968163923477098496/blka6O_j_f200x200.jpg" group-title="Catalunya",3CAT INFO
+#EXTINF:-1 tvg-id="324" tvg-name="324.cat" tvg-logo="https://pbs.twimg.com/profile_images/1968163923477098496/blka6O_j_f200x200.jpg" group-title="Catalunya",3CAT INFO
 https://directes-tv-cat.3catdirectes.cat/live-content/canal324-hls/master.m3u8
 
-#EXTINF:-1 tvg-id="ESP3" tvg-name="ESP3" tvg-logo="https://graph.facebook.com/Esport3/picture?width=200&height=200" group-title="Catalunya",Esport3
+#EXTINF:-1 tvg-id="ESP3" tvg-name="Esport3.cat" tvg-logo="https://graph.facebook.com/Esport3/picture?width=200&height=200" group-title="Catalunya",Esport3
 https://directes-tv-cat.3catdirectes.cat/live-content/esport3-hls/master.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="TAC12" tvg-logo="https://pbs.twimg.com/profile_images/1326929087919689729/S1zkeUh3_400x400.jpg" group-title="Catalunya",TAC12
+#EXTINF:-1 tvg-id="" tvg-name="TAC12.cat" tvg-logo="https://pbs.twimg.com/profile_images/1326929087919689729/S1zkeUh3_400x400.jpg" group-title="Catalunya",TAC12
 https://ingest1-video.streaming-pro.com/tac12_ABR/stream/playlist.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="TV3CAT" tvg-logo="https://pbs.twimg.com/profile_images/2008787263484735488/aaUjOWUv_400x400.jpg" group-title="Catalunya",TV3CAT
 https://directes3-tv-int.3catdirectes.cat/live-content/tvi-hls/master.m3u8
 
-#EXTINF:-1 tvg-id="C33" tvg-name="C33" tvg-logo="https://graph.facebook.com/Canal33/picture?width=200&height=200" group-title="Catalunya",Canal33
+#EXTINF:-1 tvg-id="C33" tvg-name="C33.cat" tvg-logo="https://graph.facebook.com/Canal33/picture?width=200&height=200" group-title="Catalunya",Canal33
 https://directes-tv-cat.3catdirectes.cat/live-content/c33-super3-hls/master.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="SX3" tvg-logo="https://graph.facebook.com/SomSX3/picture?width=200&height=200" group-title="Catalunya",SX3
+#EXTINF:-1 tvg-id="" tvg-name="SX3.cat" tvg-logo="https://graph.facebook.com/SomSX3/picture?width=200&height=200" group-title="Catalunya",SX3
 https://directes-tv-cat.3catdirectes.cat/live-content/super3-hls/master.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="BonDiaTV" tvg-logo="https://i.imgur.com/XaiP3nJ.png" group-title="General" group-title="Catalunya",BonDiaTV
+#EXTINF:-1 tvg-id="" tvg-name="BonDiaTV.cat" tvg-logo="https://i.imgur.com/XaiP3nJ.png" group-title="General" group-title="Catalunya",BonDiaTV
 https://directes-tv-int.3catdirectes.cat/live-content/bondia-hls/master.m3u8
 
-#EXTINF:-1 tvg-id="LA1" tvg-name="LA1" tvg-logo="https://i.imgur.com/1jDS9UC.png" group-title="General",La1
+#EXTINF:-1 tvg-id="LA1" tvg-name="La1.es" tvg-logo="https://i.imgur.com/1jDS9UC.png" group-title="General",La1
 https://ztnr.rtve.es/ztnr/1688877.m3u8
 
-#EXTINF:-1 tvg-id="LA1" tvg-name="LA1" tvg-logo="https://i.imgur.com/1jDS9UC.png" group-title="General",La1 Cat
+#EXTINF:-1 tvg-id="LA1" tvg-name="La1.cat" tvg-logo="https://i.imgur.com/1jDS9UC.png" group-title="General",La1 Cat
 https://ztnr.rtve.es/ztnr/3293681.m3u8
 
-#EXTINF:-1 tvg-id="LA1" tvg-name="La1" tvg-logo="https://i.imgur.com/1jDS9UC.png" group-title="General",Rtve
+#EXTINF:-1 tvg-id="LA1" tvg-name="La1.cat" tvg-logo="https://i.imgur.com/1jDS9UC.png" group-title="General",Rtve
 http://167.250.223.26:8085/play/a05r/index.m3u
 
 #EXTINF:-1 tvg-id="LA2" tvg-name="LA2 Cat" tvg-logo="https://i.imgur.com/3NwzqoB.png" group-title="General",La2 Cat
