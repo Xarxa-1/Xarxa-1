@@ -44,7 +44,6 @@
         }
 
         .info-left-side { display: flex; align-items: center; gap: 25px; flex-grow: 1; overflow: hidden; }
-
         .channel-brand { display: flex; align-items: center; gap: 15px; min-width: 200px; flex-shrink: 0; }
         .has-epg .channel-brand { border-right: 1px solid rgba(255,255,255,0.1); padding-right: 10px; }
         
@@ -235,7 +234,6 @@
             closeAllModals();
             if (hlsInstance) { hlsInstance.destroy(); hlsInstance = null; }
             
-            // Força d'arrencada nativa per a adreces HTTP insegures en Web-Viewers remots
             if (ch.url.startsWith('http://') || !Hls.isSupported()) {
                 video.src = ch.url;
                 video.play().catch(err => console.log("Canal natiu error:", err));
@@ -316,14 +314,12 @@
             if (targetVol < 0) targetVol = 0;
             video.volume = targetVol;
             showUI();
-            // CORREGIT: Treu immediatament el focus del botó perquè no quedi permanentment marcat en blanc
             setTimeout(() => { if(document.activeElement) document.activeElement.blur(); }, 100);
         }
 
         window.addEventListener('keydown', (e) => {
             const code = e.keyCode || e.which;
 
-            // Mapatges físics per a botons nadius de volum del comandament a distància de la TV
             if (e.key === "VolumeUp" || code === 175 || code === 447) {
                 e.preventDefault(); changeVolume(0.1); return;
             }
@@ -340,17 +336,32 @@
             showUI();
 
             switch(code) {
-                case 38: // Amunt
-                    e.preventDefault(); if(activeMenuId) navMenu(-1); else navChannels(-1); break;
-                case 40: // Avall
-                    e.preventDefault(); if(activeMenuId) navMenu(1); else navChannels(1); break;
+                case 38: // Amunt (Canvia de canal obligatori si no hi ha submenú obert)
+                    e.preventDefault(); 
+                    if (activeMenuId) {
+                        navMenu(-1); 
+                    } else {
+                        // MILLORA: Treu focus de la botonera inferior i canvia de canal
+                        if (document.activeElement) document.activeElement.blur();
+                        navChannels(-1); 
+                    }
+                    break;
+                case 40: // Avall (Canvia de canal obligatori si no hi ha submenú obert)
+                    e.preventDefault(); 
+                    if (activeMenuId) {
+                        navMenu(1); 
+                    } else {
+                        // MILLORA: Treu focus de la botonera inferior i canvia de canal
+                        if (document.activeElement) document.activeElement.blur();
+                        navChannels(1); 
+                    }
+                    break;
                 case 37: // Esquerra
-                    if(!activeMenuId) navHoriz(-1); break;
+                    if (!activeMenuId) navHoriz(-1); break;
                 case 39: // Dreta
-                    if(!activeMenuId) navHoriz(1); break;
+                    if (!activeMenuId) navHoriz(1); break;
                 case 13: // OK / Enter del comandament
                     e.preventDefault();
-                    // CORREGIT: Si hi ha qualsevol menú o control en focus, executa un click autèntic sobre ell
                     if (document.activeElement && (document.activeElement.classList.contains('menu-item') || document.activeElement.classList.contains('nav-btn'))) {
                         document.activeElement.click();
                     } else if(selectedChannelIndex !== currentChannelIndex) {
@@ -360,7 +371,9 @@
                     }
                     break;
                 case 27: // Enrere
-                    closeAllModals(); break;
+                    closeAllModals(); 
+                    if (document.activeElement) document.activeElement.blur();
+                    break;
             }
         });
 
@@ -375,7 +388,7 @@
         function navHoriz(dir) {
             const btns = Array.from(document.querySelectorAll('.nav-btn'));
             let idx = btns.indexOf(document.activeElement);
-            if (idx === -1) { btns[0].focus(); return; }
+            if (idx === -1) { btns[2].focus(); return; } // Comença enfocant el botó d'Àudio per defecte
             let next = idx + dir;
             if (next >= 0 && next < btns.length) btns[next].focus();
         }
@@ -405,19 +418,18 @@
                 let b = document.createElement('button');
                 b.className = "menu-item";
                 b.innerText = "No disponible (OK per tancar)";
-                b.onclick = () => closeAllModals();
+                b.onclick = () => { closeAllModals(); if(document.getElementById('btn-audio')) document.getElementById('btn-audio').focus(); };
                 cont.appendChild(b);
             } else {
                 tracks.forEach((t, i) => {
                     let b = document.createElement('button');
                     b.className = "menu-item";
                     b.innerText = t.name || t.language || `Pista ${i+1}`;
-                    b.onclick = () => { if(hlsInstance) hlsInstance[prop] = i; closeAllModals(); };
+                    b.onclick = () => { if(hlsInstance) hlsInstance[prop] = i; closeAllModals(); if(document.getElementById('btn-audio')) document.getElementById('btn-audio').focus(); };
                     cont.appendChild(b);
                 });
             }
             document.getElementById(id).classList.add('show');
-            // Força el focus a la primera opció immediatament per rebre l'OK del comandament
             setTimeout(() => { const first = cont.querySelector('.menu-item'); if(first) first.focus(); }, 150);
         }
 
@@ -437,7 +449,6 @@
                 cont.appendChild(b);
             });
             document.getElementById('groups-menu').classList.add('show');
-            // Força el focus al primer element de grups immediatament
             setTimeout(() => { const first = cont.querySelector('.menu-item'); if(first) first.focus(); }, 150);
         }
     </script>
