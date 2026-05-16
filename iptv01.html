@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPTV Player</title>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests; default-src * 'unsafe-inline' 'unsafe-eval'; connect-src * 'unsafe-inline'; img-src * data: blob:; media-src * blob: data:;">
+    <title>Xarxa-1 IPTV Player Auto Subs</title>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
         body, html { width: 100%; height: 100%; background-color: #000; font-family: 'Segoe UI', Roboto, sans-serif; overflow: hidden; color: #fff; }
-
+        
         .video-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
         video { width: 100%; height: 100%; object-fit: contain; }
 
-        #splash-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #111; z-index: 99; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        #splash-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #111; z-index: 99; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; cursor: pointer; }
         #splash-screen img { max-width: 250px; margin-bottom: 20px; border-radius: 10px; }
 
         .ui-overlay {
@@ -23,9 +24,6 @@
             background: linear-gradient(to top, rgba(0,0,0,0.95) 70%, rgba(0,0,0,0));
             z-index: 10;
             padding: 30px 40px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
             transform: translateY(100%);
             transition: transform 0.4s ease;
         }
@@ -34,6 +32,7 @@
         .main-info-row {
             display: flex;
             align-items: center;
+            justify-content: space-between;
             gap: 25px;
             background: rgba(255,255,255,0.05);
             padding: 15px 25px;
@@ -41,9 +40,17 @@
             border: 1px solid rgba(255,255,255,0.1);
         }
 
-        .channel-brand { display: flex; align-items: center; gap: 15px; min-width: 250px; }
-        .has-epg .channel-brand { border-right: 1px solid rgba(255,255,255,0.1); }
+        .info-left-side {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            flex-grow: 1;
+            overflow: hidden;
+        }
 
+        .channel-brand { display: flex; align-items: center; gap: 15px; min-width: 200px; flex-shrink: 0; }
+        .has-epg .channel-brand { border-right: 1px solid rgba(255,255,255,0.1); padding-right: 10px; }
+        
         .channel-logo { width: 60px; height: 60px; object-fit: contain; }
         .channel-name-txt { font-size: 1.6rem; font-weight: bold; color: #ff9800; }
 
@@ -51,28 +58,37 @@
         .has-epg .epg-content { display: flex; }
 
         .epg-top { display: flex; align-items: center; gap: 10px; }
-        .epg-time { font-size: 1rem; color: #aaa; font-weight: bold; }
+        .epg-time { font-size: 1rem; color: #aaa; font-weight: bold; flex-shrink: 0; }
         .epg-title { font-size: 1.3rem; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .epg-desc { font-size: 0.95rem; color: #ccc; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        .controls-row { display: flex; gap: 15px; align-items: center; }
+        .controls-row { display: flex; gap: 10px; align-items: center; flex-shrink: 0; }
+        
         .nav-btn {
             background: rgba(255,255,255,0.1);
             color: white;
             border: 2px solid transparent;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+            z-index: 12;
         }
-        .nav-btn:focus { background: #fff; color: #000; border-color: #ff9800; outline: none; transform: scale(1.05); }
+        .nav-btn:hover, .nav-btn:focus { background: #fff; color: #000; border-color: #ff9800; outline: none; transform: scale(1.1); }
 
-        .modal-menu {
-            position: absolute; bottom: 160px; left: 50%; transform: translateX(-50%);
-            background: rgba(20,20,20,0.98); border: 2px solid #444; border-radius: 12px;
-            padding: 20px; min-width: 300px; max-height: 400px; overflow-y: auto;
-            z-index: 99; display: none; flex-direction: column;
+        .vol-btn { background: rgba(255, 152, 0, 0.2); color: #ff9800; font-weight: bold; font-size: 1rem; }
+        .vol-btn:hover, .vol-btn:focus { background: #ff9800; color: #fff; }
+
+        .modal-menu { 
+            position: absolute; bottom: 130px; left: 50%; transform: translateX(-50%); 
+            background: rgba(20,20,20,0.98); border: 2px solid #444; border-radius: 12px; 
+            padding: 20px; min-width: 300px; max-height: 400px; overflow-y: auto; 
+            z-index: 99; display: none; flex-direction: column; 
         }
         .modal-menu.show { display: flex; }
         .modal-menu h3 { font-size: 1.1rem; color: #ff9800; text-align: center; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 5px; }
@@ -83,7 +99,7 @@
             width: 100%; background: rgba(255,255,255,0.1); color: white; border: 2px solid transparent;
             padding: 12px; border-radius: 8px; font-size: 1rem; text-align: left; cursor: pointer;
         }
-        .menu-item:focus { background: #fff; color: #000; border-color: #ff9800; outline: none; }
+        .menu-item:hover, .menu-item:focus { background: #fff; color: #000; border-color: #ff9800; outline: none; }
 
         #current-date { position: absolute; top: 40px; left: 40px; font-size: 1.2rem; font-weight: bold; color: rgba(255,255,255,0.6); z-index: 5; }
     </style>
@@ -92,14 +108,14 @@
 
     <div id="current-date">00:00</div>
 
-    <div id="splash-screen">
+    <div id="splash-screen" onclick="startAppWithTouch()">
         <img src="https://xarxa-1.github.io/Xarxa-1/logoiptv.jpeg" alt="Logo">
         <h2 id="splash-text">Carregant llistes...</h2>
-        <p id="splash-sub" style="margin-top:10px; color:#aaa; display:none;">Prem OK per començar</p>
+        <p id="splash-sub" style="margin-top:10px; color:#aaa; display:none;">Prem OK o Toca la pantalla per començar</p>
     </div>
 
-    <div class="video-container">
-        <video id="video-player" autoplay playsinline></video>
+    <div class="video-container" onclick="toggleUIFromVideo()">
+        <video id="video-player" autoplay playsinline crossorigin="anonymous"></video>
     </div>
 
     <div class="modal-menu" id="audio-menu"><h3>Àudio</h3><div class="menu-container"></div></div>
@@ -107,23 +123,29 @@
     <div class="modal-menu" id="groups-menu"><h3>Grups</h3><div class="menu-container"></div></div>
 
     <div class="ui-overlay" id="ui-overlay">
-        <div class="main-info-row" id="info-row-box">
-            <div class="channel-brand">
-                <img class="channel-logo" id="ch-logo" src="" alt="">
-                <div class="channel-name-txt" id="ch-name">Nom Canal</div>
-            </div>
-            <div class="epg-content" id="epg-visual-box">
-                <div class="epg-top">
-                    <span class="epg-time" id="epg-time">--:--</span>
-                    <span class="epg-title" id="epg-title">Programa</span>
+        <div class="main-info-row" id="info-row-box" onclick="event.stopPropagation()">
+            <div class="info-left-side">
+                <div class="channel-brand">
+                    <img class="channel-logo" id="ch-logo" src="" alt="">
+                    <div class="channel-name-txt" id="ch-name">Nom Canal</div>
                 </div>
-                <div class="epg-desc" id="epg-desc">Descripció</div>
+                <div class="epg-content" id="epg-visual-box">
+                    <div class="epg-top">
+                        <span class="epg-time" id="epg-time">--:--</span>
+                        <span class="epg-title" id="epg-title">Programa</span>
+                    </div>
+                    <div class="epg-desc" id="epg-desc">Descripció</div>
+                </div>
             </div>
-        </div>
-        <div class="controls-row">
-            <button class="nav-btn" id="btn-audio" data-action="audio">Àudio</button>
-            <button class="nav-btn" id="btn-subs" data-action="subs">Subtítols</button>
-            <button class="nav-btn" id="btn-groups" data-action="groups">Grups</button>
+            
+            <div class="controls-row">
+                <button class="nav-btn vol-btn" id="btn-voldown" onclick="changeVolume(-0.1)" title="Baixar Volum">➖</button>
+                <button class="nav-btn vol-btn" id="btn-volup" onclick="changeVolume(0.1)" title="Apujar Volum">➕</button>
+                
+                <button class="nav-btn" id="btn-audio" onclick="handleBtnAction('audio')" title="Àudio">🔊</button>
+                <button class="nav-btn" id="btn-subs" onclick="handleBtnAction('subs')" title="Subtítols">💬</button>
+                <button class="nav-btn" id="btn-groups" onclick="handleBtnAction('groups')" title="Grups">☰</button>
+            </div>
         </div>
     </div>
 
@@ -140,6 +162,21 @@
         const video = document.getElementById('video-player');
         const overlay = document.getElementById('ui-overlay');
         const splash = document.getElementById('splash-screen');
+
+        function cleanEpgText(text) {
+            if (!text) return '';
+            return text
+                .replace(/\[\/?COLOR[^\]]*\]/gi, '') 
+                .replace(/<\/?[^>]+(>|$)/g, '')      
+                .trim();
+        }
+
+        function cleanId(str) {
+            if (!str) return '';
+            return str.toLowerCase()
+                      .replace(/\.cat|\.es|\.org|\.com/g, '')
+                      .replace(/[^a-z0-9]/g, '');
+        }
 
         window.addEventListener('DOMContentLoaded', async () => {
             initClock();
@@ -161,6 +198,7 @@
             const lines = text.split('\n');
             let currentCh = {};
             lines.forEach(line => {
+                line = line.trim();
                 if (line.startsWith('#EXTINF:')) {
                     currentCh = {};
                     let logo = line.match(/tvg-logo="([^"]+)"/);
@@ -173,6 +211,7 @@
                     currentCh.group = gName;
                     currentCh.name = line.substring(line.lastIndexOf(',') + 1).trim();
                 } else if (line.startsWith('http')) {
+                    // MANTENIM LA URL ORIGINAL (sigui http o https) sense forçar res perquè no trenqui el servidor
                     currentCh.url = line;
                     allChannels.push(currentCh);
                 }
@@ -185,14 +224,25 @@
                 const xml = new DOMParser().parseFromString(await resp.text(), "text/xml");
                 Array.from(xml.getElementsByTagName('programme')).forEach(prog => {
                     let cid = prog.getAttribute('channel');
-                    if (!epgData[cid]) epgData[cid] = [];
-                    epgData[cid].push({
+                    if (!cid) return;
+                    
+                    let cleanedCid = cleanId(cid);
+                    if (!epgData[cleanedCid]) epgData[cleanedCid] = [];
+                    
+                    let rawTitle = prog.getElementsByTagName('title')[0]?.textContent || '';
+                    let rawDesc = prog.getElementsByTagName('desc')[0]?.textContent || '';
+
+                    epgData[cleanedCid].push({
                         start: prog.getAttribute('start'), stop: prog.getAttribute('stop'),
-                        title: prog.getElementsByTagName('title')[0]?.textContent || '',
-                        desc: prog.getElementsByTagName('desc')[0]?.textContent || ''
+                        title: cleanEpgText(rawTitle),
+                        desc: cleanEpgText(rawDesc)
                     });
                 });
-            } catch (e) { }
+            } catch (e) { console.error(e); }
+        }
+
+        function startAppWithTouch() {
+            if (isLoaded) playChannel(0);
         }
 
         function playChannel(index) {
@@ -202,12 +252,30 @@
             const ch = filteredChannels[index];
             closeAllModals();
             if (hlsInstance) hlsInstance.destroy();
+            
             if (Hls.isSupported()) {
                 hlsInstance = new Hls();
                 hlsInstance.loadSource(ch.url);
                 hlsInstance.attachMedia(video);
-                hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => video.play());
-            } else { video.src = ch.url; video.play(); }
+                
+                hlsInstance.on(Hls.Events.SUBTITLE_TRACKS_UPDATED, (event, data) => {
+                    if (data.subtitleTracks && data.subtitleTracks.length > 0) {
+                        hlsInstance.subtitleTrack = 0;
+                    }
+                });
+
+                hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => {
+                    video.play();
+                });
+            } else { 
+                video.src = ch.url; 
+                video.play();
+                video.addEventListener('loadedmetadata', () => {
+                    if (video.textTracks && video.textTracks.length > 0) {
+                        video.textTracks[0].mode = 'showing';
+                    }
+                }, { once: true });
+            }
             updateUI(ch);
             showUI();
         }
@@ -217,10 +285,13 @@
             imgEl.src = ch.logo;
             imgEl.onerror = () => imgEl.src = DEFAULT_LOGO;
             document.getElementById('ch-name').innerText = ch.name;
-
-            let id = ch.id;
-            let list = epgData[id] || [];
+            
+            let cleanChId = cleanId(ch.id);
+            let cleanChName = cleanId(ch.name);
+            
+            let list = epgData[cleanChId] || epgData[cleanChName] || [];
             let now = new Date();
+            
             let prog = list.find(p => {
                 let s = new Date(p.start.substring(0,4), p.start.substring(4,6)-1, p.start.substring(6,8), p.start.substring(8,10), p.start.substring(10,12));
                 let e = new Date(p.stop.substring(0,4), p.stop.substring(4,6)-1, p.stop.substring(6,8), p.stop.substring(8,10), p.stop.substring(10,12));
@@ -235,20 +306,31 @@
                 document.getElementById('epg-time').innerText = `${prog.start.substring(8,10)}:${prog.start.substring(10,12)} - ${prog.stop.substring(8,10)}:${prog.stop.substring(10,12)}`;
             } else {
                 rowBox.classList.remove('has-epg');
+                document.getElementById('epg-title').innerText = "";
+                document.getElementById('epg-desc').innerText = "";
+                document.getElementById('epg-time').innerText = "--:--";
             }
         }
 
         function showUI() {
             overlay.classList.add('show');
             clearTimeout(uiTimeout);
-            // Quan s'amaga la UI, resetegem la selecció al canal que sona realment
-            uiTimeout = setTimeout(() => {
+            uiTimeout = setTimeout(() => { 
+                overlay.classList.remove('show'); 
+                closeAllModals();
+                selectedChannelIndex = currentChannelIndex; 
+                updateUI(filteredChannels[currentChannelIndex]);
+            }, 6000);
+        }
+
+        function toggleUIFromVideo() {
+            if (splash.style.display !== 'none') return;
+            if (overlay.classList.contains('show')) {
                 overlay.classList.remove('show');
                 closeAllModals();
-                selectedChannelIndex = currentChannelIndex;
-                updateUI(filteredChannels[currentChannelIndex]);
-                document.activeElement.blur();
-            }, 6000);
+            } else {
+                showUI();
+            }
         }
 
         function closeAllModals() { activeMenuId = null; document.querySelectorAll('.modal-menu').forEach(m => m.classList.remove('show')); }
@@ -260,28 +342,54 @@
             }, 1000);
         }
 
+        function changeVolume(amount) {
+            let targetVol = video.volume + amount;
+            if (targetVol > 1) targetVol = 1;
+            if (targetVol < 0) targetVol = 0;
+            video.volume = targetVol;
+            showUI();
+        }
+
+        function handleBtnAction(action) {
+            if (action === "audio") openMenu('audio-menu', hlsInstance?.audioTracks, 'audioTrack');
+            if (action === "subs") openMenu('subs-menu', hlsInstance?.subtitleTracks, 'subtitleTrack');
+            if (action === "groups") openGroups();
+        }
+
         window.addEventListener('keydown', (e) => {
+            if (e.key === "VolumeUp" || e.keyCode === 175 || e.keyCode === 447) {
+                e.preventDefault();
+                changeVolume(0.1);
+                return;
+            }
+            if (e.key === "VolumeDown" || e.keyCode === 174 || e.keyCode === 448) {
+                e.preventDefault();
+                changeVolume(-0.1);
+                return;
+            }
+
             if (splash.style.display !== 'none') {
                 if (e.keyCode === 13 && isLoaded) playChannel(0);
                 return;
             }
 
             if (!overlay.classList.contains('show')) { showUI(); return; }
-            showUI(); // Reseteja el timeout d'ocultació
+            showUI();
 
             switch(e.keyCode) {
                 case 38: e.preventDefault(); if(activeMenuId) navMenu(-1); else navChannels(-1); break;
                 case 40: e.preventDefault(); if(activeMenuId) navMenu(1); else navChannels(1); break;
                 case 37: if(!activeMenuId) navHoriz(-1); break;
                 case 39: if(!activeMenuId) navHoriz(1); break;
-                case 13:
+                case 13: 
                     e.preventDefault();
                     if(activeMenuId) {
                         document.activeElement.click();
                     } else if(selectedChannelIndex !== currentChannelIndex) {
                         playChannel(selectedChannelIndex);
                     } else {
-                        handleBtn(document.activeElement);
+                        const act = document.activeElement ? document.activeElement.getAttribute('data-action') : null;
+                        if(act) handleBtnAction(act);
                     }
                     break;
                 case 27: closeAllModals(); break;
@@ -311,23 +419,16 @@
             if (next >= 0 && next < items.length) items[next].focus();
         }
 
-        function handleBtn(el) {
-            const act = el ? el.getAttribute('data-action') : null;
-            if (act === "audio") openMenu('audio-menu', hlsInstance?.audioTracks, 'audioTrack');
-            if (act === "subs") openMenu('subs-menu', hlsInstance?.subtitleTracks, 'subtitleTrack');
-            if (act === "groups") openGroups();
-        }
-
         function openMenu(id, tracks, prop) {
             closeAllModals();
             activeMenuId = id;
             const cont = document.getElementById(id).querySelector('.menu-container');
             cont.innerHTML = "";
-            if (!tracks || tracks.length === 0) {
+            if (!tracks || tracks.length === 0) { 
                 let b = document.createElement('button');
                 b.className = "menu-item";
-                b.innerText = "No disponible (OK per tancar)";
-                b.onclick = () => closeAllModals(); // Tanca si no hi ha res
+                b.innerText = "No disponible (Toca per tancar)";
+                b.onclick = () => closeAllModals();
                 cont.appendChild(b);
             } else {
                 tracks.forEach((t, i) => {
@@ -339,7 +440,6 @@
                 });
             }
             document.getElementById(id).classList.add('show');
-            setTimeout(() => cont.querySelector('.menu-item').focus(), 100);
         }
 
         function openGroups() {
@@ -358,7 +458,6 @@
                 cont.appendChild(b);
             });
             document.getElementById('groups-menu').classList.add('show');
-            setTimeout(() => cont.querySelector('.menu-item').focus(), 100);
         }
     </script>
 </body>
