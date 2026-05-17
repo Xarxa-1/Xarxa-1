@@ -39,7 +39,7 @@
       inset:0;
       width:100vw;
       height:100vh;
-      object-fit:contain;
+      object-fit:fill; /* Ocupa el 100% d'amplada i alçada exactes */
       background:#000;
     }
     #clock{
@@ -83,12 +83,25 @@
       font-weight:600;
       color:#fff;
     }
+    /* Estil transformat a botó accessible per a pantalles tàctils o ratolins */
     #splashHint{
       font-size:18px;
+      font-weight:600;
       color:var(--ok);
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(110,231,183,0.3);
+      padding:10px 24px;
+      border-radius:12px;
+      cursor:pointer;
+      outline:none;
       opacity:0;
       transform:translateY(8px);
-      transition:opacity .3s ease, transform .3s ease;
+      transition:opacity .3s ease, transform .3s ease, background .2s, border-color .2s;
+    }
+    #splashHint:focus, #splashHint:hover{
+      background:var(--ok);
+      color:#000;
+      border-color:var(--ok);
     }
     #splashHint.show{
       opacity:1;
@@ -177,7 +190,7 @@
       text-overflow:ellipsis;
       font-size:15px;
       max-width:85vw;
-      height:20px; /* Alçada reservada per evitar que la barra salti quan no hi ha text */
+      height:20px;
     }
     .epgTime{color:#d7d7d7; font-weight:700;}
     .epgTitle{color:#fff; font-weight:600;}
@@ -389,14 +402,16 @@
   </style>
 </head>
 <body>
-  <video id="video" playsinline webkit-playsinline></video>
+  <!-- Afegit poster inicial per defecte al 100% -->
+  <video id="video" playsinline webkit-playsinline poster="https://xarxa-1.github.io/Xarxa-1/negre.jpg"></video>
 
   <div id="clock">--:--</div>
 
   <div id="splash">
     <img id="splashLogo" src="https://xarxa-1.github.io/Xarxa-1/logoiptv.jpeg" alt="Logo" />
     <div id="splashStatus">Carregant llistes...</div>
-    <div id="splashHint">Prem OK per començar</div>
+    <!-- Transformat d'un div a un botó interactiu real -->
+    <button id="splashHint" tabindex="0">Prem OK per començar</button>
   </div>
 
   <div id="toast" class="statusToast"></div>
@@ -458,6 +473,7 @@
 const M3U_URL = "https://xarxa-1.github.io/Xarxa-1/cat325.m3u";
 const EPG_URL = "https://raw.githubusercontent.com/davidmuma/EPG_dobleM/master/EPG_dobleM.xml";
 const DEFAULT_LOGO = "https://xarxa-1.github.io/Xarxa-1/negre.jpg";
+const BG_NEGRE = "https://xarxa-1.github.io/Xarxa-1/negre.jpg";
 
 const video = document.getElementById('video');
 const splash = document.getElementById('splash');
@@ -597,7 +613,6 @@ function currentEpg(channel){
   }) || null;
 }
 
-// Ara si no hi ha dades directament es deixa el contingut de l'epgBox buit
 function updateEpgUI(channel){
   const epg = currentEpg(channel);
   if(epg){
@@ -731,10 +746,17 @@ function playChannel(index, commit=false){
 
 function startPlayback(channel){
   pendingIndex = null;
+  
+  // Esborra la reproducció anterior i força que es mostri el fons negre
+  video.pause();
+  video.removeAttribute('src');
+  video.load(); 
+  
   if(currentHls){
     currentHls.destroy();
     currentHls = null;
   }
+  
   const src = channel.url;
   if(window.Hls && Hls.isSupported() && /\.m3u8(\?|#|$)/i.test(src)){
     currentHls = new Hls();
@@ -752,10 +774,12 @@ function startPlayback(channel){
     video.play().catch(()=>{});
     setTimeout(refreshTrackMenus, 700);
   }
-  ready = true;
-  splash.classList.add('hidden');
-  splashHint.classList.add('show');
-  setTimeout(()=>splash.remove(), 500);
+  
+  if(!ready) {
+    ready = true;
+    splash.classList.add('hidden');
+    setTimeout(()=>splash.remove(), 500);
+  }
 }
 
 function refreshTrackMenus(){
@@ -827,11 +851,11 @@ function focusButtonByDelta(delta){
 
 function commitFocused(){
   const active = document.activeElement;
-  if(active && (active.classList.contains('ctrl') || active.classList.contains('option') || active.classList.contains('logo-btn') || active.classList.contains('close-modal-btn') || active.classList.contains('exitBtn'))) {
+  if(active && (active.classList.contains('ctrl') || active.classList.contains('option') || active.classList.contains('logo-btn') || active.classList.contains('close-modal-btn') || active.classList.contains('exitBtn') || active.id === 'splashHint')) {
     active.click();
   } else if(pendingIndex !== null) {
     startPlayback(filteredChannels[pendingIndex]);
-  } else if(!ready && filteredChannels.length) {
+  } else if(filteredChannels.length) {
     startPlayback(filteredChannels[currentIndex]);
   }
 }
@@ -840,6 +864,14 @@ logoButton.addEventListener('click', () => {
   showUI();
   const targetIndex = pendingIndex !== null ? pendingIndex : currentIndex;
   playChannel(targetIndex, true);
+});
+
+// Acció clic del botó de benvinguda de la Splash Screen
+splashHint.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if(filteredChannels.length) {
+    startPlayback(filteredChannels[currentIndex]);
+  }
 });
 
 document.querySelectorAll('.ctrl').forEach(btn => {
@@ -995,24 +1027,15 @@ async function boot(){
     setChannelInfo(filteredChannels[0] || {});
     splashStatus.textContent = 'Llistes carregades';
     splashHint.classList.add('show');
-    ready = true;
+    splashHint.focus(); // Enfoca automàticament el nou botó d'inici
   } catch(err){
     splashStatus.textContent = 'Error carregant les llistes';
-    splashHint.textContent = 'Prem OK per reintentar';
+    splashHint.textContent = 'Prem per reintentar';
     splashHint.classList.add('show');
     showToast('Error de càrrega');
     console.error(err);
   }
 }
-
-function onBootKey(e){
-  if((e.keyCode || e.which) === 13 && ready && channels.length){
-    if(splash && !splash.classList.contains('hidden')){
-      startPlayback(filteredChannels[currentIndex] || channels[0]);
-    }
-  }
-}
-document.addEventListener('keydown', onBootKey);
 
 boot();
 resetHideTimer();
