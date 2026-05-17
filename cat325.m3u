@@ -816,54 +816,23 @@ https://rpn.bozztv.com/gusa/gusa-tvs/index.m3u8
 #EXTINF:-1 group-title="Generals",Kannur Vision (1080p)
 https://stream.logichost.in/kannurvision/live/playlist.m3u8
 
-#EXTINF:-1 group-title="Generals",Padma Tv
-https://padmaonline.duckdns.org:8088/pcv/index.m3u8
-
-#EXTINF:-1 group-title="Canals Perses",AVA FAMILY
-https://familyhls.avatv.live/hls/stream.m3u8
-
-#EXTINF:-1 group-title="Canals Perses",NEJAT TV
-https://hls.nejat.live/hls/stream.m3u8
-
-#EXTINF:-1 group-title="Canals Perses",SL TWO
-https://sltwohls.wns.live/hls/stream.m3u8
-
-#EXTINF:-1 group-title="Canals Perses",OX IR
-https://hls.oxir.live/hls/stream.m3u8
-
-#EXTINF:-1 group-title="Canals Perses",YOUR TIME
-https://hls.yourtime.live/hls/stream.m3u8
-
-#EXTINF:-1 group-title="Canals Perses",AVA SERIES
-https://avaserieshls.wns.live/hls/stream.m3u8
-
-#EXTINF:-1 group-title="Canals Perses",FX TV
-https://fxtvhls.wns.live/hls/stream.m3u8
-
-#EXTINF:-1 group-title="Canals Perses",FX TV 2
-https://toonixhls.wns.live/hls/stream.m3u8
-
-#EXTINF:-1 group-title="Canals Perses",Gold Star
-https://moviethls.wns.live/hls/stream.m3u8
-
-#EXTINF:-1 group-title="Canals Perses",BEIN SPORT 2
+#EXTINF:-1 group-title="Esport",BEIN SPORT 2
 https://live20.bozztv.com/akamaissh101/ssh101/vipmixflix/chunks.m3u8
 
-#EXTINF:-1 group-title="Canals Perses",Bahrain Sports 1
+#EXTINF:-1 group-title="Esport",Bahrain Sports 1
 https://5c7b683162943.streamlock.net/live/ngrp:sportsone_all/playlist.m3u8
 
-#EXTINF:-1 group-title="Canals Perses",Bahrain Sports 2
+#EXTINF:-1 group-title="Esport",Bahrain Sports 2
 https://5c7b683162943.streamlock.net/live/ngrp:bahrainsportstwo_all/playlist.m3u8
 
-#EXTINF:-1 group-title="Canals Perses",Kuwait TV Sport Plus
+#EXTINF:-1 group-title="Esport",Kuwait TV Sport Plus
 https://kwtsplta.cdn.mangomolo.com/spl/smil:spl.stream.smil/chunklist.m3u8
 
-#EXTINF:-1 group-title="Canals Perses",Kuwait TV Sports
+#EXTINF:-1 group-title="Esport",Kuwait TV Sports
 https://kwtspta.cdn.mangomolo.com/sp/smil:sp.stream.smil/chunklist.m3u8
 
-
 #EXTINF:-1 group-title="Esport",Claro Sports
-https://jmp2.uk/plu-6320d2755e54db000783fd87.m3u8
+https://jmp2.uk/plu-6320d2755e54db000783fd87.m3u8PERSA
 
 #EXTINF:-1 group-title="Esport",DyN SPORTS MIX
 https://jmp2.uk/plu-6866525c8a412a0e95c438b4.m3u8
@@ -873,3 +842,6 @@ http://41.205.93.154/ESPNU/index.m3u8
 
 #EXTINF:-1 group-title="Esport" tvg-id="ESPN.us" tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s10179_dark_360w_270h.png" tvg-name="ESPN",ESPN2
 http://190.60.32.178:8178/play/a015/index.m3u8
+
+#EXTINF:-1 tvg-id="LLEIDATV.cat" tvg-name="LLEIDATV.cat" tvg-logo="" group-title="Catalunya",LLEIDA TV
+https://liveingesta318.cdnmedia.tv/lleidatvlive/live-1500/chunklist.m3u8?DVR
