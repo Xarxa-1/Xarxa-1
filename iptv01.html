@@ -159,7 +159,7 @@
       min-width:0;
       display:flex;
       flex-direction:column;
-      gap:8px;
+      gap:6px;
       flex:1;
     }
     #channelName{
@@ -171,23 +171,18 @@
       text-overflow:ellipsis;
     }
     #epgBox{
-      display:flex;
-      flex-direction:column;
-      gap:4px;
       min-width:0;
-    }
-    .epgLine{
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
-      opacity:.95;
       font-size:15px;
-      line-height:1.2;
-      max-width:700px;
+      max-width:85vw;
+      height:20px; /* Alçada reservada per evitar que la barra salti quan no hi ha text */
     }
-    .epgTime{color:#d7d7d7;font-weight:600}
-    .epgTitle{color:#fff;font-weight:600}
-    .epgDesc{color:#c7c7c7;opacity:.9}
+    .epgTime{color:#d7d7d7; font-weight:700;}
+    .epgTitle{color:#fff; font-weight:600;}
+    .epgDesc{color:#c7c7c7; opacity:.85;}
+    
     #controls{
       display:flex;
       align-items:center;
@@ -216,52 +211,95 @@
       transform:scale(1.08);
       box-shadow:0 0 0 3px rgba(255,152,0,.2);
     }
+    
     .modal{
       position:absolute;
       left:50%;
-      bottom:120px;
+      bottom:125px;
       transform:translateX(-50%);
       width:min(520px, calc(100vw - 40px));
-      max-height:42vh;
-      background:rgba(12,12,12,.92);
-      border:1px solid rgba(255,255,255,.1);
+      background:rgba(12,12,12,.65);
+      border:1px solid rgba(255,255,255,.15);
       border-radius:20px;
       box-shadow:var(--shadow);
       padding:18px;
       display:none;
       z-index:25;
-      backdrop-filter:blur(10px);
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
       pointer-events:auto;
     }
     .modal.show{display:block}
+    
+    .modalHeader {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:14px;
+      position:relative;
+    }
     .modalTitle{
       color:var(--accent);
       font-size:22px;
       font-weight:700;
-      margin-bottom:14px;
+      margin:0;
     }
+    
+    .close-modal-btn {
+      background:rgba(255,255,255,.1);
+      border:1px solid rgba(255,255,255,.15);
+      color:#fff;
+      width:32px;
+      height:32px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:14px;
+      cursor:pointer;
+      outline:none;
+      transition:background .2s, color .2s;
+    }
+    .close-modal-btn:focus, .close-modal-btn:hover {
+      background:#fff;
+      color:#000;
+    }
+
     .modalList{
       display:flex;
       flex-direction:column;
       gap:10px;
-      max-height:calc(42vh - 56px);
+      max-height:300px;
       overflow-y:auto;
-      padding-right:6px;
+      padding-right:4px;
     }
+    
+    .modalList::-webkit-scrollbar {
+      width:6px;
+    }
+    .modalList::-webkit-scrollbar-thumb {
+      background:rgba(255,255,255,.2);
+      border-radius:4px;
+    }
+    
     .option{
       width:100%;
+      height:50px;
+      flex:0 0 50px;
       text-align:left;
       background:rgba(255,255,255,.06);
       border:1px solid rgba(255,255,255,.1);
       color:#fff;
       border-radius:14px;
-      padding:14px 14px;
+      padding:0 18px;
       font-size:16px;
       outline:none;
       cursor:pointer;
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
+      display:flex;
+      align-items:center;
     }
     .option:focus{
       background:#fff;
@@ -271,7 +309,63 @@
     .option.selected{
       border-color:rgba(255,152,0,.7);
       box-shadow:inset 0 0 0 1px rgba(255,152,0,.35);
+      background:rgba(255,152,0,.15);
     }
+
+    #exitModal {
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%, -50%);
+      width:min(420px, calc(100vw - 40px));
+      background:rgba(15, 15, 15, 0.75);
+      border:1px solid rgba(255,255,255,0.2);
+      border-radius:24px;
+      padding:24px;
+      display:none;
+      z-index:40;
+      backdrop-filter:blur(15px);
+      -webkit-backdrop-filter:blur(15px);
+      text-align:center;
+      box-shadow:0 20px 50px rgba(0,0,0,0.8);
+      pointer-events:auto;
+    }
+    #exitModal.show { display:block; }
+    .exitTitle {
+      font-size:20px;
+      font-weight:600;
+      margin-bottom:22px;
+      color:#fff;
+    }
+    .exitButtons {
+      display:flex;
+      gap:14px;
+      justify-content:center;
+    }
+    .exitBtn {
+      min-width:110px;
+      height:46px;
+      border-radius:12px;
+      font-size:16px;
+      font-weight:600;
+      cursor:pointer;
+      outline:none;
+      border:1px solid rgba(255,255,255,0.15);
+      background:rgba(255,255,255,0.08);
+      color:#fff;
+      transition:background 0.2s, color 0.2s, transform 0.1s;
+    }
+    .exitBtn:focus {
+      background:#fff;
+      color:#000;
+      border-color:var(--accent);
+      transform:scale(1.04);
+    }
+    .exitBtn#exitNo {
+      border-color:var(--accent);
+      background:rgba(255,152,0,0.1);
+    }
+
     .statusToast{
       position:absolute;
       top:70px;
@@ -300,7 +394,6 @@
   <div id="clock">--:--</div>
 
   <div id="splash">
-    <!-- MODIFICACIÓ: S'ha canviat l'origen del logo a logoiptv.jpeg -->
     <img id="splashLogo" src="https://xarxa-1.github.io/Xarxa-1/logoiptv.jpeg" alt="Logo" />
     <div id="splashStatus">Carregant llistes...</div>
     <div id="splashHint">Prem OK per començar</div>
@@ -309,18 +402,35 @@
   <div id="toast" class="statusToast"></div>
 
   <div id="audioModal" class="modal" aria-hidden="true">
-    <div class="modalTitle">Àudio</div>
+    <div class="modalHeader">
+      <div class="modalTitle">Àudio</div>
+      <button class="close-modal-btn" onclick="closeAllModals()">✕</button>
+    </div>
     <div id="audioList" class="modalList" tabindex="0"></div>
   </div>
 
   <div id="subtitleModal" class="modal" aria-hidden="true">
-    <div class="modalTitle">Subtítols</div>
+    <div class="modalHeader">
+      <div class="modalTitle">Subtítols</div>
+      <button class="close-modal-btn" onclick="closeAllModals()">✕</button>
+    </div>
     <div id="subtitleList" class="modalList" tabindex="0"></div>
   </div>
 
   <div id="groupModal" class="modal" aria-hidden="true">
-    <div class="modalTitle">Grups</div>
+    <div class="modalHeader">
+      <div class="modalTitle">Grups</div>
+      <button class="close-modal-btn" onclick="closeAllModals()">✕</button>
+    </div>
     <div id="groupList" class="modalList" tabindex="0"></div>
+  </div>
+
+  <div id="exitModal" aria-hidden="true">
+    <div class="exitTitle">Segur que vols sortir de l'IPTV?</div>
+    <div class="exitButtons">
+      <button id="exitYes" class="exitBtn">Sí</button>
+      <button id="exitNo" class="exitBtn">No</button>
+    </div>
   </div>
 
   <div id="overlay">
@@ -331,11 +441,7 @@
         </button>
         <div id="channelMeta">
           <div id="channelName">Sense canal</div>
-          <div id="epgBox">
-            <div id="epgTime" class="epgLine epgTime"></div>
-            <div id="epgTitle" class="epgLine epgTitle"></div>
-            <div id="epgDesc" class="epgLine epgDesc"></div>
-          </div>
+          <div id="epgBox"></div>
         </div>
       </div>
       <div id="controls">
@@ -362,15 +468,16 @@ const overlay = document.getElementById('overlay');
 const toast = document.getElementById('toast');
 const channelLogo = document.getElementById('channelLogo');
 const channelName = document.getElementById('channelName');
-const epgTime = document.getElementById('epgTime');
-const epgTitle = document.getElementById('epgTitle');
-const epgDesc = document.getElementById('epgDesc');
+const epgBox = document.getElementById('epgBox');
 const audioModal = document.getElementById('audioModal');
 const subtitleModal = document.getElementById('subtitleModal');
 const groupModal = document.getElementById('groupModal');
+const exitModal = document.getElementById('exitModal');
 const audioList = document.getElementById('audioList');
 const subtitleList = document.getElementById('subtitleList');
 const groupList = document.getElementById('groupList');
+const exitYes = document.getElementById('exitYes');
+const exitNo = document.getElementById('exitNo');
 
 const logoButton = document.getElementById('logoButton');
 const controls = [logoButton, ...document.querySelectorAll('.ctrl')];
@@ -386,7 +493,7 @@ let currentHls = null;
 let uiVisible = true;
 let hideTimer = null;
 let ready = false;
-let lastFocusedControl = null;
+let lastBackPressTime = 0;
 
 function updateClock(){
   const d = new Date();
@@ -407,13 +514,13 @@ function showUI(){
   resetHideTimer();
 }
 function hideUI(){
-  if(anyModalOpen()) return; 
+  if(anyModalOpen() || exitModal.classList.contains('show')) return; 
   overlay.classList.add('hidden');
   uiVisible = false;
 }
 function resetHideTimer(){
   clearTimeout(hideTimer);
-  if(!anyModalOpen()) {
+  if(!anyModalOpen() && !exitModal.classList.contains('show')) {
     hideTimer = setTimeout(()=>hideUI(), 6000);
   }
 }
@@ -490,19 +597,29 @@ function currentEpg(channel){
   }) || null;
 }
 
+// Ara si no hi ha dades directament es deixa el contingut de l'epgBox buit
 function updateEpgUI(channel){
   const epg = currentEpg(channel);
   if(epg){
     const s = normalizeDate(epg.start);
     const e = normalizeDate(epg.stop);
     const fmt = d => d ? d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : '';
-    epgTime.textContent = `${fmt(s)} - ${fmt(e)}`;
-    epgTitle.textContent = epg.title || '';
-    epgDesc.textContent = epg.desc || '';
+    
+    const timeStr = `${fmt(s)} - ${fmt(e)}`;
+    const titleStr = epg.title || '';
+    const descStr = epg.desc || '';
+
+    if (timeStr || titleStr || descStr) {
+      epgBox.innerHTML = `
+        <span class="epgTime">${timeStr}</span> 
+        ${titleStr ? `<span class="epgTitle"> - ${titleStr}</span>` : ''}
+        ${descStr ? `<span class="epgDesc"> : ${descStr}</span>` : ''}
+      `;
+    } else {
+      epgBox.innerHTML = '';
+    }
   } else {
-    epgTime.textContent = '';
-    epgTitle.textContent = '';
-    epgDesc.textContent = '';
+    epgBox.innerHTML = ''; 
   }
 }
 
@@ -521,6 +638,7 @@ function buildGroups(){
     b.className = 'option';
     b.textContent = g === 'ALL' ? 'Tots els grups' : g;
     b.dataset.value = g;
+    b.dataset.group = g;
     b.tabIndex = 0;
     b.addEventListener('click', ()=>selectGroup(g));
     groupList.appendChild(b);
@@ -541,36 +659,61 @@ function renderGroupsSelected(){
 }
 
 function openModal(modal){
-  closeAllModals();
-  if (document.activeElement && (document.activeElement.classList.contains('ctrl') || document.activeElement.classList.contains('logo-btn'))) {
-    lastFocusedControl = document.activeElement;
-  }
+  closeAllModalsWithoutFocus();
   
   const options = modal.querySelectorAll('.modalList .option');
   if(options.length === 0 || (options.length === 1 && options[0].textContent.includes('Cap pista'))) {
     showToast('No hi ha opcions disponibles');
-    if(lastFocusedControl) lastFocusedControl.focus();
+    logoButton.focus();
     return;
   }
 
   modal.classList.add('show');
   showUI();
   
+  if (modal === groupModal) {
+    const activeGroupBtn = groupList.querySelector(`[data-group="${currentGroup}"]`);
+    if (activeGroupBtn) {
+      activeGroupBtn.classList.add('selected');
+      activeGroupBtn.focus();
+      activeGroupBtn.scrollIntoView({ block: 'center' });
+      return;
+    }
+  }
+
   const selectedOpt = modal.querySelector('.option.selected');
   if(selectedOpt) {
     selectedOpt.focus();
+    selectedOpt.scrollIntoView({ block: 'center' });
   } else if(options[0]) {
     options[0].focus();
   }
 }
 
+function openExitModal() {
+  closeAllModalsWithoutFocus();
+  exitModal.classList.add('show');
+  showUI();
+  exitNo.focus();
+}
+
+function closeExitModal() {
+  exitModal.classList.remove('show');
+  logoButton.focus();
+  resetHideTimer();
+}
+
 function closeAllModals(){
-  let wasOpen = anyModalOpen();
-  [audioModal, subtitleModal, groupModal].forEach(m => m.classList.remove('show'));
-  if(wasOpen && lastFocusedControl) {
-    lastFocusedControl.focus();
+  let anyOpen = anyModalOpen() || exitModal.classList.contains('show');
+  [audioModal, subtitleModal, groupModal, exitModal].forEach(m => m.classList.remove('show'));
+  if(anyOpen) {
+    logoButton.focus();
   }
   resetHideTimer();
+}
+
+function closeAllModalsWithoutFocus(){
+  [audioModal, subtitleModal, groupModal, exitModal].forEach(m => m.classList.remove('show'));
 }
 
 function anyModalOpen(){
@@ -638,9 +781,8 @@ function refreshTrackMenus(){
       if(currentHls.subtitleTrack === i) b.classList.add('selected');
       subtitleList.appendChild(b);
     });
-  }
-  if(subtitleModal.classList.contains('show') && subtitleList.children.length === 0) {
-    closeAllModals();
+  } else {
+    subtitleList.appendChild(mkOption('Cap subtítol detectat', ()=>{}));
   }
 }
 
@@ -685,7 +827,7 @@ function focusButtonByDelta(delta){
 
 function commitFocused(){
   const active = document.activeElement;
-  if(active && (active.classList.contains('ctrl') || active.classList.contains('option') || active.classList.contains('logo-btn'))) {
+  if(active && (active.classList.contains('ctrl') || active.classList.contains('option') || active.classList.contains('logo-btn') || active.classList.contains('close-modal-btn') || active.classList.contains('exitBtn'))) {
     active.click();
   } else if(pendingIndex !== null) {
     startPlayback(filteredChannels[pendingIndex]);
@@ -712,13 +854,27 @@ document.querySelectorAll('.ctrl').forEach(btn => {
       video.volume = Math.min(1, +(video.volume + 0.1).toFixed(1));
       showToast(`Volum ${Math.round(video.volume*100)}%`);
     }
-    if(a === 'audio') openModal(audioModal);
+    if(a === 'audio') {
+      refreshTrackMenus();
+      openModal(audioModal);
+    }
     if(a === 'subtitles') {
       refreshTrackMenus();
       openModal(subtitleModal);
     }
     if(a === 'groups') openModal(groupModal);
   });
+});
+
+exitYes.addEventListener('click', () => {
+  showToast("Sortint...");
+  setTimeout(() => {
+    window.location.href = "about:blank";
+  }, 400);
+});
+
+exitNo.addEventListener('click', () => {
+  closeExitModal();
 });
 
 document.addEventListener('click', () => showUI());
@@ -728,24 +884,54 @@ document.addEventListener('keydown', (e) => {
   const code = e.keyCode || e.which;
   
   if(code === 27 || code === 8 || code === 461 || code === 10009){ 
+    e.preventDefault();
+    if(exitModal.classList.contains('show')) {
+      closeExitModal();
+      return;
+    }
     if(anyModalOpen()){
-      e.preventDefault();
       closeAllModals(); 
       return;
     }
+    const now = Date.now();
+    if(now - lastBackPressTime < 1500) {
+      openExitModal();
+    } else {
+      showToast("Torna a prémer 'Enrere' per sortir");
+    }
+    lastBackPressTime = now;
+    return;
   }
+
   if(code === 13){
     e.preventDefault();
     commitFocused();
     return;
   }
+
+  if(exitModal.classList.contains('show')) {
+    if(code === 37) { 
+      e.preventDefault();
+      exitYes.focus();
+    }
+    if(code === 39) { 
+      e.preventDefault();
+      exitNo.focus();
+    }
+    return;
+  }
+
   if(code === 38){
     e.preventDefault();
     if(anyModalOpen()){
       const modal = document.querySelector('.modal.show .modalList');
       const buttons = [...modal.querySelectorAll('.option')];
       const idx = buttons.indexOf(document.activeElement);
-      buttons[(idx <= 0 ? buttons.length : idx) - 1]?.focus();
+      const nextBtn = buttons[(idx <= 0 ? buttons.length : idx) - 1];
+      if(nextBtn) {
+        nextBtn.focus();
+        nextBtn.scrollIntoView({ block: 'nearest' });
+      }
     } else {
       pendingIndex = (pendingIndex === null ? currentIndex : pendingIndex);
       pendingIndex = (pendingIndex - 1 + filteredChannels.length) % filteredChannels.length;
@@ -759,7 +945,11 @@ document.addEventListener('keydown', (e) => {
       const modal = document.querySelector('.modal.show .modalList');
       const buttons = [...modal.querySelectorAll('.option')];
       const idx = buttons.indexOf(document.activeElement);
-      buttons[(idx + 1) % buttons.length]?.focus();
+      const nextBtn = buttons[(idx + 1) % buttons.length];
+      if(nextBtn) {
+        nextBtn.focus();
+        nextBtn.scrollIntoView({ block: 'nearest' });
+      }
     } else {
       pendingIndex = (pendingIndex === null ? currentIndex : pendingIndex);
       pendingIndex = (pendingIndex + 1) % filteredChannels.length;
