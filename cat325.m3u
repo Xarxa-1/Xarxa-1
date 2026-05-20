@@ -135,19 +135,19 @@ http://fl2.moveonjoy.com/FOOD_NETWORK/index.m3u8
 #EXTINF:-1 tvg-name="Tastemade_Casa_(720p)" group-title="Disseny",Tastemade_Casa_(720p)
 https://jmp2.uk/plu-68b88821e542386ab0bf5bef.m3u8
 
-#EXTINF:-1 tvg-name="Tastemade_Hogar_(720p)" group-title="Undefined",Tastemade_Hogar_(720p)
+#EXTINF:-1 tvg-name="Tastemade_Hogar_(720p)" group-title="Disseny",Tastemade_Hogar_(720p)
 https://jmp2.uk/plu-68b887c2e77777498226a0de.m3u8
 
-#EXTINF:-1 tvg-name="Tastemade_Home_(1080p)" group-title="Undefined",Tastemade_Home_(1080p)
+#EXTINF:-1 tvg-name="Tastemade_Home_(1080p)" group-title="Disseny",Tastemade_Home_(1080p)
 https://d3ca4qxsdzlrju.cloudfront.net/Tastemade_Home.m3u8
 
-#EXTINF:-1 tvg-name="Tastemade_Smokehouse_(720p)" group-title="Undefined",Tastemade_Smokehouse_(720p)
+#EXTINF:-1 tvg-name="Tastemade_Smokehouse_(720p)" group-title="Disseny",Tastemade_Smokehouse_(720p)
 https://jmp2.uk/plu-68509fe882d704acfc5bacd1.m3u8
 
-#EXTINF:-1 tvg-name="Tastemade_Viagem_(720p)" group-title="Undefined",Tastemade_Viagem_(720p)
+#EXTINF:-1 tvg-name="Tastemade_Viagem_(720p)" group-title="Disseny",Tastemade_Viagem_(720p)
 https://jmp2.uk/plu-68b8875777201ec428d9eaa5.m3u8
 
-#EXTINF:-1 tvg-name="Tastemade_Viajes_(720p)" group-title="Undefined",Tastemade_Viajes_(720p)
+#EXTINF:-1 tvg-name="Tastemade_Viajes_(720p)" group-title="Disseny",Tastemade_Viajes_(720p)
 https://jmp2.uk/plu-68b88712e777774982269ce9.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="bon app?tit" tvg-logo="https://i.imgur.com/YhFFxlE.png" group-title="Food",bon appétit
@@ -324,21 +324,21 @@ https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26
 https://amg01370-italiansportcom-sportitalia-rakuten-3hmdb.amagi.tv/amRdirect/ads_pod_type=playerpage_midroll&ads_env=prod&ads_ppid=&ads_rtvid=271861&ads_streaming_id=4f185419-74f6-4564-8ea9-4cdc60746e2f&ads_amagi_channel=781&ads_device_type=web&ads_device_model=&ads_device_year=&ads_player_width=&ads_rtv_content_language=ita&ads_market=it&ads_rtv_content_id=3741&ads_device_make=&ads_user_type=visitor&ads_content_classification=6&ads_gdpr_consent=&ads_device_lmt=1&ads_player_height=&uid=1gnmqg5gu-qsvc-bfo-gaq3-3dgjgexshpe/hls/amagi_hls_data_rakutenAA-sportitalia-rakuten/CDN/1920x1080_4540800/chunklist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Redbull TV" tvg-logo="https://i.imgur.com/iFNScQ6.png" group-title="Esport",Redbull TV
 https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master_1660.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="SONY" tvg-logo="tvg-logo="https://static.wikia.nocookie.net/logopedia/images/c/c6/Sony_Channel_2023.png/revision/latest/scale-to-width-down/48?cb=20230828233601&path-prefix=es" group-title="Sense grup",SONY
+#EXTINF:-1 tvg-id="" tvg-name="SONY" tvg-logo="tvg-logo="https://static.wikia.nocookie.net/logopedia/images/c/c6/Sony_Channel_2023.png/revision/latest/scale-to-width-down/48?cb=20230828233601&path-prefix=es" group-title="Pel·lícules",SONY
 https://a-cdn.klowdtv.com/live1/cine_720p/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="AYM SPORT" tvg-logo="https://pbs.twimg.com/profile_images/2014443059170189312/YAQSLtyI_400x400.jpg" group-title="Sense grup",AYM SPORT
+#EXTINF:-1 tvg-id="" tvg-name="AYM SPORT" tvg-logo="https://pbs.twimg.com/profile_images/2014443059170189312/YAQSLtyI_400x400.jpg" group-title="Pel·lícules",AYM SPORT
 https://aym-as.otteravision.com/aym/as/as_720p_high.m3u8
 
-#EXTINF:11 tvg-logo="https://pbs.twimg.com/profile_images/1985477749926952960/N2FA5em6_400x400.jpg",HBO HD 
+#EXTINF:11 tvg-logo="https://pbs.twimg.com/profile_images/1985477749926952960/N2FA5em6_400x400.jpg"  group-title="Pel·lícules",HBO HD 
 http://45.228.234.30:16000/play/a008/index.m3u8 
-#EXTINF:11 tvg-logo="https://pbs.twimg.com/profile_images/1985477749926952960/N2FA5em6_400x400.jpg",HBO 2 HD 
+#EXTINF:11 tvg-logo="https://pbs.twimg.com/profile_images/1985477749926952960/N2FA5em6_400x400.jpg"  group-title="Pel·lícules",HBO 2 HD 
 http://45.228.234.30:16000/play/a009/index.m3u8
 
 
 #EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1258035922722934784/S27gb-oG_400x400.jpg" tvg-name="TheDesingNetwork"  group-title="Design",TheDesingNetwork
 https://amg00441-amg00441c1-plex-us-5231.playouts.now.amagi.tv/playlistR1080p.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="Tastemade Home ????" tvg-logo="https://tvpnlogopus.samsungcloud.tv/platform/image/sourcelogo/vc/00/02/34/USBC3200022W6_20240910T003655SQUARE.png" group-title="Design",Tastemade Home ????
+#EXTINF:-1 tvg-id="" tvg-name="Tastemade Home" tvg-logo="https://tvpnlogopus.samsungcloud.tv/platform/image/sourcelogo/vc/00/02/34/USBC3200022W6_20240910T003655SQUARE.png" group-title="Design",Tastemade Home ????
 https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tastemadehome-lgus/playlist.m3u8
 
 #EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1950451888014401536/T_Q0dDmp_400x400.jpg" tvg-name="ElMuelbe"  group-title="Design",ElMueble
@@ -367,10 +367,10 @@ http://45.228.234.30:16000/play/a01i/index.m3u8
 #EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1468225468642074629/k-33_Lq2_400x400.png",History HD
 http://45.228.234.30:16000/play/a011/index.m3u8
 
+#EXTINF:-1 tvg-id="SkySport" tvg-logo="https://pbs.twimg.com/profile_images/1668961707216052229/yXaaaA_k_400x400.jpg" group-title="Esport",SKY SPORTS LALIGA 1 🇲🇽
+http://190.92.10.66:4000/play/a001/index.m3u8
 #EXTINF:-1 tvg-id="SkySport" tvg-logo="https://pbs.twimg.com/profile_images/1668961707216052229/yXaaaA_k_400x400.jpg" group-title="Esport",SKY SPORTS LALIGA 🇲🇽
 http://181.78.105.146:2000/play/a08m/index.m3u8
-#EXTINF:-1 tvg-id="SkySport" tvg-logo="https://pbs.twimg.com/profile_images/1668961707216052229/yXaaaA_k_400x400.jpg" group-title="Esport",SKY SPORTS LALIGA 🇲🇽
-http://190.92.10.66:4000/play/a001/index.m3u8
 #EXTINF:-1 tvg-id="SkySport" tvg-logo="https://pbs.twimg.com/profile_images/1668961707216052229/yXaaaA_k_400x400.jpg" group-title="Esport",SKY SPORTS LALIGA 🇲🇽
 http://181.78.109.49:8000/play/a06r/index.m3u8
 #EXTINF:-1 tvg-id="SkySport" tvg-logo="https://pbs.twimg.com/profile_images/1668961707216052229/yXaaaA_k_400x400.jpg"  group-title="Esport",SKY SPORTS LALIGA 🇲🇽
