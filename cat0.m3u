@@ -1,0 +1,4 @@
+#EXTINF:-1,Lleida TV
+#KODIPROP:http-referrer=https://playerssl.cdnmedia.tv/
+#KODIPROP:http-user-agent=Mozilla/5.0
+https://liveingesta318.cdnmedia.tv/lleidatvlive/smil:live.smil/playlist.m3u8?DVR
