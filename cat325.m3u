@@ -90,7 +90,7 @@ https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg01076-lightningintern-gbnewsnz-sa
 #EXTINF:-1 tvg-name="Channel4" group-title="UK" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Channel_4_Logo_2023.svg/250px-Channel_4_Logo_2023.svg.png" tvg-name=""  group-title="UK",Channel 4
 https://viamotionhsi.netplus.ch/live/eds/channel4/browser-HLS/channel4.m3u8
 
-#EXTINF:-1 group-title="Entertainment" tvg-id="Bravo.USA.-.Eastern.Feed.us" tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s10057_dark_360w_270h.png" tvg-name="BRAVO",BRAVO
+#EXTINF:-1 group-title="Entreteniment" tvg-id="Bravo.USA.-.Eastern.Feed.us" tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s10057_dark_360w_270h.png" tvg-name="BRAVO",BRAVO
 http://41.205.93.154/BRAVO/index.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Bunquer" tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200" group-title="Catalunya",Bunquer
@@ -177,7 +177,7 @@ https://ingest1-video.streaming-pro.com/canalteABR/ctestream/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Canal Taronja Central" tvg-logo="https://graph.facebook.com/taronja.cat/picture?width=200&height=200" group-title="Catalunya",Canal Taronja Central
 https://ingest1-video.streaming-pro.com/canaltaronja/central/playlist.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="Newsmax TV" tvg-logo="https://i.imgur.com/Twkovic.gif" group-title="Entertainment",Newsmax TV
+#EXTINF:-1 tvg-id="" tvg-name="Newsmax TV" tvg-logo="https://i.imgur.com/Twkovic.gif" group-title="Notícies",Newsmax TV
 https://nmxlive.akamaized.net/hls/live/529965/Live_1/index.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="BX1" tvg-logo="https://i.imgur.com/VHAYeqR.png" group-title="Notícies",BX1
