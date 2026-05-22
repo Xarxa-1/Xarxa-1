@@ -35,7 +35,7 @@ http://167.250.223.26:8085/play/a05r/index.m3u
 #EXTINF:-1 tvg-id="La 2" tvg-name="La2.es" tvg-logo="https://i.imgur.com/3NwzqoB.png" group-title="General",La2 Cat
 https://rtvelivestream.rtve.es/rtvesec/cat/la2_cat_main.m3u8
 
-#EXTINF:-1 tvg-id="24 Horas" tvg-name="24H.es" tvg-logo="https://i.imgur.com/IUVRm5L.png" group-title="News",24HCat
+#EXTINF:-1 tvg-id="24 Horas" tvg-name="24H.es" tvg-logo="https://i.imgur.com/IUVRm5L.png" group-title="Notícies",24HCat
 https://ztnr.rtve.es/ztnr/1694255.m3u8
 
 #EXTINF:-1 tvg-id="Teledeporte" tvg-name="TDP" tvg-logo="https://graph.facebook.com/teledeporteRTVE/picture?width=200&height=200" group-title="Esport" tvg-name="Teledeporte",Teledeporte
@@ -260,9 +260,9 @@ https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg01076-lightningintern-gbnewsnz-sa
 https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01753-narrativeentert-popkids-lggb/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="V2BEAT (720p) [Not 24/7]" tvg-logo="https://i.imgur.com/PXGqyLn.png" group-title="Música",V2BEAT (720p) [Not 24/7]
 https://abr.de1se01.v2beat.live/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Wonder" tvg-logo="https://i.imgur.com/LquGNbh.png" group-title="Undefined",Wonder
+#EXTINF:-1 tvg-id="" tvg-name="Wonder" tvg-logo="https://i.imgur.com/LquGNbh.png"  group-title="Design",Wonder
 https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg00426-littledotstudio-wondernz-samsungnz/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Noovo Comédies (1080p)" tvg-logo="" group-title="Sense grup",Noovo Comédies (1080p)
+#EXTINF:-1 tvg-id="" tvg-name="Noovo Comédies (1080p)" tvg-logo="" group-title="Entreteniment",Noovo Comédies (1080p)
 https://d2s8iafdyzconc.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-6x2p3ho0vw00a/Noovo_Comedies_Home.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Sport5 🇮🇱" tvg-logo=""  group-title="Esport",Sport5 🇮🇱
 https://rgelive.akamaized.net/hls/live/2043151/radiolive/playlist.m3u8
@@ -298,7 +298,7 @@ https://ztnr.rtve.es/ztnr/6108720.m3u8
 https://fast-tv-proxy.sharewithyou.dpdns.org/?play=https://dbrb49pjoymg4.cloudfront.net/10001/99951517/hls/master.m3u8?ads.xumo_channelId=99951517&ads.xumo_streamId=99951517&ads.channelId=99951517&ads.channelName=ABC_us&ads.caid=ABC&ads.csid=xumo_web_ABC_ssai&ads.genre=News,N&ads._fw_content_genre=News,N&ads._fw_coppa=0&ads.xumo_contentId=58&ads.xumo_contentName=ABC&ads.xumo_providerId=58&ads.xumo_providerName=ABC&ads._fw_ifa_type=&ads._fw_did=6a687e3d-9e1e-4b73-a05b-b584f9949faa&ads.amznappId=&ads.lat=&ads.lon=&ads.os=&ads.osv=&ads._fw_is_lat=0&ads._fw_us_privacy=&ads._fw_content_category=&ads._fw_content_language=en&ads._fw_content_rating=&ads._fw_deviceMake=GitHubAction&ads._fw_device_model=PythonScript&ads.xumo_platform=web&ads.site_id=&ads.appVersion=1.0.0&ads._fw_app_bundle=web.xumo.com&ads._fw_app_store_url=&ads.appName=XumoPlay
 #EXTINF:-1 tvg-id="" tvg-name="CBS News USA EN" tvg-logo="https://graph.facebook.com/CBSNews/picture?width=200&height=200" group-title="Notícies",CBS News USA EN
 https://cbsn-us.cbsnstream.cbsnews.com/out/v1/55a8648e8f134e82a470f83d562deeca/master.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Bloomberg USA EN" tvg-logo="https://pbs.twimg.com/profile_images/991792042094354432/DG1Ruupb_200x200.jpg" group-title="Notíciesa",Bloomberg USA EN
+#EXTINF:-1 tvg-id="" tvg-name="Bloomberg USA EN" tvg-logo="https://pbs.twimg.com/profile_images/991792042094354432/DG1Ruupb_200x200.jpg" group-title="Notícies",Bloomberg USA EN
 https://www.bloomberg.com/media-manifest/streams/us.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Newsmax TV USA EN" tvg-logo="https://graph.facebook.com/newsmax/picture?width=200&height=200" group-title="Notícies",Newsmax TV USA EN
 https://nmxlive.akamaized.net/hls/live/529965/Live_1/index.m3u8
