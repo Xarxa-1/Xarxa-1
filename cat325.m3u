@@ -287,8 +287,7 @@ https://71db867f03ce4d71a29e92155f07ab87.mediatailor.eu-west-1.amazonaws.com/v1/
 https://ff335120300e4742a2b135ee9a9e7df8.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-5983/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Sol Música (720p)" tvg-logo="https://i.imgur.com/rbJrmPw.png" group-title="Música",Sol Música (720p)
 https://d2glyu450vvghm.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-21u4g5cjglv02/sm.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Teledeporte (1080p)" tvg-logo="https://i.imgur.com/b0H5f62.png" group-title="Esport",Teledeporte (1080p)
-https://d1cctoeg0n48w5.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-mnixw9wn5ugmv/TeledeporteES.m3u8
+
 #EXTINF:-1 tvg-id="" tvg-name="XPTV1 (720p)" tvg-logo="https://i.imgur.com/Ty7GkoN.png" group-title="Música",XPTV1 (720p)
 https://janus.xpbroadcasting.com:8443/hls/xptv1.m3u8
 
@@ -320,8 +319,13 @@ https://rgelive.akamaized.net/hls/live/2043151/radiolive/playlist.m3u8
 https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/bein-sports-xtra-en-espanol/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="SPORT ITALIA 🇮🇹" tvg-logo=""  group-title="Esport",SPORT ITALIA 🇮🇹
 https://amg01370-italiansportcom-sportitalia-rakuten-3hmdb.amagi.tv/amRdirect/ads_pod_type=playerpage_midroll&ads_env=prod&ads_ppid=&ads_rtvid=271861&ads_streaming_id=4f185419-74f6-4564-8ea9-4cdc60746e2f&ads_amagi_channel=781&ads_device_type=web&ads_device_model=&ads_device_year=&ads_player_width=&ads_rtv_content_language=ita&ads_market=it&ads_rtv_content_id=3741&ads_device_make=&ads_user_type=visitor&ads_content_classification=6&ads_gdpr_consent=&ads_device_lmt=1&ads_player_height=&uid=1gnmqg5gu-qsvc-bfo-gaq3-3dgjgexshpe/hls/amagi_hls_data_rakutenAA-sportitalia-rakuten/CDN/1920x1080_4540800/chunklist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Redbull TV" tvg-logo="https://i.imgur.com/iFNScQ6.png" group-title="Esport",Redbull TV
+#EXTINF:-1 tvg-id="" tvg-name="Teledeporte (1080p)" tvg-logo="https://i.imgur.com/b0H5f62.png" group-title="Esport",Teledeporte (1080p)
+https://d1cctoeg0n48w5.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-mnixw9wn5ugmv/TeledeporteES.m3u8#EXTINF:-1 tvg-id="" tvg-name="Redbull TV" tvg-logo="https://i.imgur.com/iFNScQ6.png" group-title="Esport",Redbull TV
 https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master_1660.m3u8
+
+#EXTINF:-1 tvg-id="" tvg-name="Teledeporte (1080p)" tvg-logo="https://i.imgur.com/b0H5f62.png" group-title="Esport",Teledeporte (1080p)
+https://d1cctoeg0n48w5.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-mnixw9wn5ugmv/TeledeporteES.m3u8
+
 #EXTINF:-1 tvg-id="" tvg-name="SONY" tvg-logo="tvg-logo="https://static.wikia.nocookie.net/logopedia/images/c/c6/Sony_Channel_2023.png/revision/latest/scale-to-width-down/48?cb=20230828233601&path-prefix=es" group-title="Pel·lícules",SONY
 https://a-cdn.klowdtv.com/live1/cine_720p/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="AYM SPORT" tvg-logo="https://pbs.twimg.com/profile_images/2014443059170189312/YAQSLtyI_400x400.jpg" group-title="Pel·lícules",AYM SPORT
@@ -464,7 +468,7 @@ https://ztnr.rtve.es/ztnr/1694255.m3u8
 #EXTINF:-1 group-title="Internacionals",Star TVE
 https://rtvelivestream-rtveplayplus.rtve.es/rtvesec/int/star_main_720.m3u8
 
-#EXTINF:-1 group-title="Internacionals",TVE Clan
+#EXTINF:-1 group-title="Animació",TVE Clan
 https://ztnr.rtve.es/ztnr/5466990.m3u8
 
 #EXTINF:-1 group-title="Internacionals",TRECE INT
@@ -766,10 +770,10 @@ https://eu1.servers10.com:8081/8214/index.m3u8
 #EXTINF:-1 group-title="Generals",Multivisión Canal 3 (720p)
 https://stream.digitalgt.com:3136/live/multivisionlive.m3u8
 
-#EXTINF:-1 group-title="Generals",Next HD (480p)
+#EXTINF:-1 group-title="Animació",Next HD (480p)
 https://live.enhdtv.com:19360/nexthd/nexthd.m3u8
 
-#EXTINF:-1 group-title="Generals",Nicoya TV (720p)
+#EXTINF:-1 group-title="Animació",Nicoya TV (720p)
 https://59ef525c24caa.streamlock.net/nicoyatv/nicoyatv/playlist.m3u8
 
 #EXTINF:-1 group-title="Generals",Platzi TV
