@@ -468,7 +468,7 @@ https://ztnr.rtve.es/ztnr/1694255.m3u8
 #EXTINF:-1 group-title="Internacionals",Star TVE
 https://rtvelivestream-rtveplayplus.rtve.es/rtvesec/int/star_main_720.m3u8
 
-#EXTINF:-1 group-title="Animació",TVE Clan
+#EXTINF:-1 group-title="Dibuixos",TVE Clan
 https://ztnr.rtve.es/ztnr/5466990.m3u8
 
 #EXTINF:-1 group-title="Internacionals",TRECE INT
@@ -770,10 +770,10 @@ https://eu1.servers10.com:8081/8214/index.m3u8
 #EXTINF:-1 group-title="Generals",Multivisión Canal 3 (720p)
 https://stream.digitalgt.com:3136/live/multivisionlive.m3u8
 
-#EXTINF:-1 group-title="Animació",Next HD (480p)
+#EXTINF:-1 group-title="Dibuixos",Next HD (480p)
 https://live.enhdtv.com:19360/nexthd/nexthd.m3u8
 
-#EXTINF:-1 group-title="Animació",Nicoya TV (720p)
+#EXTINF:-1 group-title="Dibuixos",Nicoya TV (720p)
 https://59ef525c24caa.streamlock.net/nicoyatv/nicoyatv/playlist.m3u8
 
 #EXTINF:-1 group-title="Generals",Platzi TV
