@@ -340,7 +340,7 @@ http://45.228.234.30:16000/play/a009/index.m3u8
 #EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1258035922722934784/S27gb-oG_400x400.jpg" tvg-name="TheDesingNetwork"  group-title="Design",TheDesingNetwork
 https://amg00441-amg00441c1-plex-us-5231.playouts.now.amagi.tv/playlistR1080p.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="Tastemade Home" tvg-logo="https://tvpnlogopus.samsungcloud.tv/platform/image/sourcelogo/vc/00/02/34/USBC3200022W6_20240910T003655SQUARE.png" group-title="Design",Tastemade Home ????
+#EXTINF:-1 tvg-id="" tvg-name="Tastemade Home" tvg-logo="https://tvpnlogopus.samsungcloud.tv/platform/image/sourcelogo/vc/00/02/34/USBC3200022W6_20240910T003655SQUARE.png" group-title="Design",Tastemade Home
 https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tastemadehome-lgus/playlist.m3u8
 
 #EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1950451888014401536/T_Q0dDmp_400x400.jpg" tvg-name="ElMuelbe"  group-title="Design",ElMueble
@@ -352,7 +352,7 @@ https://fl1.moveonjoy.com/Sony_Movie_Channel/index.m3u8
 
 #EXTINF:-1 tvg-name="Sony Channel" group-title="Entreteniment" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/b/b9/Sony_Channel_Logo.png",Sony Channel
 https://a-cdn.klowdtv.com/live1/cine_720p/chunks.m3u8
-#EXTM3U
+
 #EXTINF:0 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-us.png", HBO HB
 http://45.228.234.30:16000/play/a008/index.m3u8
 #EXTINF:0 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-us.png", HBO Plus 
@@ -483,12 +483,6 @@ https://ztnr.rtve.es/ztnr/6909845.m3u8
 #EXTINF:-1 group-title="Pel·lícules",MBC Movies Action
 https://shls-live-enc.edgenextcdn.net/out/v1/46079e838e65490c8299f902a7731168/index.m3u8
 
-#EXTINF:-1 group-title="Internacionals",Vive Kanal D Drama
-https://amg01602-themahqfrance-vivekanald-samsungspain-uu2zn.amagi.tv/playlist/amg01602-themahqfrance-vivekanald-samsungspain/playlist.m3u8
-
-#EXTINF:-1 group-title="Internacionals",MBC Persia
-https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-persia/818ee8e4b592dc497608f066d825bfb4/index.m3u8
-
 #EXTINF:-1 group-title="Internacionals",Spooky Nights
 https://shls-live-enc.edgenextcdn.net/out/v1/18cffab0757d448ca6c1a686d330b346/index.m3u8
 
@@ -503,15 +497,6 @@ https://viamotionhsi.netplus.ch/live/eds/hd1/browser-HLS8/hd1.m3u8
 
 #EXTINF:-1 group-title="Internacionals",TFX
 https://viamotionhsi.netplus.ch/live/eds/nt1/browser-HLS8/nt1.m3u8
-
-#EXTINF:-1 group-title="Internacionals",M6
-https://viamotionhsi.netplus.ch/live/eds/m6hd/browser-dash/m6hd.mpd
-
-#EXTINF:-1 group-title="Internacionals",W9
-https://viamotionhsi.netplus.ch/live/eds/w9/browser-HLS8/w9.m3u8
-
-#EXTINF:-1 group-title="Internacionals",SRF info HD (1080p)
-https://viamotionhsi.netplus.ch/live/eds/srfinfo/browser-HLS8/srfinfo.m3u8
 
 #EXTINF:-1 group-title="Internacionals",SRF zwei (1080p)
 https://viamotionhsi.netplus.ch/live/eds/srf2hd/browser-HLS8/srf2hd.m3u8
