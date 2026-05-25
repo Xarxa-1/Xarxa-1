@@ -330,14 +330,15 @@ https://d1cctoeg0n48w5.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68
 
 #EXTINF:-1 tvg-id="" tvg-name="SONY" tvg-logo="tvg-logo="https://static.wikia.nocookie.net/logopedia/images/c/c6/Sony_Channel_2023.png/revision/latest/scale-to-width-down/48?cb=20230828233601&path-prefix=es" group-title="Pel·lícules",SONY
 https://a-cdn.klowdtv.com/live1/cine_720p/playlist.m3u8
+
 #EXTINF:-1 tvg-id="" tvg-name="AYM SPORT" tvg-logo="https://pbs.twimg.com/profile_images/2014443059170189312/YAQSLtyI_400x400.jpg" group-title="Pel·lícules",AYM SPORT
 https://aym-as.otteravision.com/aym/as/as_720p_high.m3u8
 
 #EXTINF:11 tvg-logo="https://pbs.twimg.com/profile_images/1985477749926952960/N2FA5em6_400x400.jpg"  group-title="Pel·lícules",HBO HD 
 http://45.228.234.30:16000/play/a008/index.m3u8 
+
 #EXTINF:11 tvg-logo="https://pbs.twimg.com/profile_images/1985477749926952960/N2FA5em6_400x400.jpg"  group-title="Pel·lícules",HBO 2 HD 
 http://45.228.234.30:16000/play/a009/index.m3u8
-
 
 #EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1258035922722934784/S27gb-oG_400x400.jpg" tvg-name="TheDesingNetwork"  group-title="Design",TheDesingNetwork
 https://amg00441-amg00441c1-plex-us-5231.playouts.now.amagi.tv/playlistR1080p.m3u8
