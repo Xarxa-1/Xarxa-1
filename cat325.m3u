@@ -831,101 +831,101 @@ http://190.60.32.178:8178/play/a015/index.m3u8
 #EXTINF:-1 tvg-id="LLEIDATV.cat" tvg-name="LLEIDATV.cat" tvg-logo="" group-title="Catalunya",LLEIDA TV
 https://liveingesta318.cdnmedia.tv/lleidatvlive/live-1500/chunklist.m3u8?DVR
 
-#EXTINF:0,group-title="USA",5StarMax
+#EXTINF:0 tvg-id="5StarMax.us" group-title="USA",5StarMax
 http://23.237.104.106:8080/USA_5STARMAX/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",A&E
+#EXTINF:0 tvg-id="A&E.us" group-title="USA",A&E
 http://23.237.104.106:8080/USA_AE/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",AMC
+#EXTINF:0 tvg-id="AMC.us" group-title="USA",AMC
 http://23.237.104.106:8080/USA_AMC/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",Animal Planet
+#EXTINF:0 tvg-id="AnimalPlanet.us" group-title="USA",Animal Planet
 http://23.237.104.106:8080/USA_ANIMAL_PLANET/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",Cartoon Network / Adult Swim
+#EXTINF:0 tvg-id="CartoonNetwork.us" group-title="USA",Cartoon Network / Adult Swim
 http://23.237.104.106:8080/USA_CARTOON_NETWORK/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",Cinemax
+#EXTINF:0 tvg-id="Cinemax.us" group-title="USA",Cinemax
 http://23.237.104.106:8080/USA_CINEMAX/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",Comedy Central
+#EXTINF:0 tvg-id="ComedyCentral.us" group-title="USA",Comedy Central
 http://23.237.104.106:8080/USA_COMEDY_CENTRAL/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",Cooking Channel
+#EXTINF:0 tvg-id="CookingChannel.us" group-title="USA",Cooking Channel
 http://23.237.104.106:8080/USA_COOKING/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",Destination America
+#EXTINF:0 tvg-id="DestinationAmerica.us" group-title="USA",Destination America
 http://23.237.104.106:8080/USA_DESTINATION_AMERICA/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",Discovery Channel
+#EXTINF:0 tvg-id="Discovery.us" group-title="USA",Discovery Channel
 http://23.237.104.106:8080/USA_DISCOVERY/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",Discovery Investigation
+#EXTINF:0 tvg-id="InvestigationDiscovery.us" group-title="USA",Discovery Investigation
 http://23.237.104.106:8080/USA_ID/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",E! Entertainment Television
+#EXTINF:0 tvg-id="E.us" group-title="USA",E! Entertainment Television
 http://23.237.104.106:8080/USA_E/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",ESPN
+#EXTINF:0 tvg-id="ESPN.us" group-title="USA",ESPN
 http://23.237.104.106:8080/USA_ESPN1/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",ESPN 2
+#EXTINF:0 tvg-id="ESPN2.us" group-title="USA",ESPN 2
 http://23.237.104.106:8080/USA_ESPN2/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",Food Network
+#EXTINF:0 tvg-id="FoodNetwork.us" group-title="USA",Food Network
 http://23.237.104.106:8080/USA_FOOD_NETWORK/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",Freeform
+#EXTINF:0 tvg-id="Freeform.us" group-title="USA",Freeform
 http://23.237.104.106:8080/USA_FREEFORM/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",FS1
+#EXTINF:0 tvg-id="FS1.us" group-title="USA",FS1
 http://23.237.104.106:8080/USA_FS1/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",FS2
+#EXTINF:0 tvg-id="FS2.us" group-title="USA",FS2
 http://23.237.104.106:8080/USA_FS2/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",FX
+#EXTINF:0 tvg-id="FX.us" group-title="USA",FX
 http://23.237.104.106:8080/USA_FX/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",Game Show Network
+#EXTINF:0 tvg-id="GSN.us" group-title="USA",Game Show Network
 http://23.237.104.106:8080/USA_GSN/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",HBO
+#EXTINF:0 tvg-id="HBO.us" group-title="USA",HBO
 http://23.237.104.106:8080/USA_HBO/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",HBO 2 west
+#EXTINF:0 tvg-id="HBO2.us" group-title="USA",HBO 2 west
 http://23.237.104.106:8080/USA_HBO2/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",HBO Comedy
+#EXTINF:0 tvg-id="HBOComedy.us" group-title="USA",HBO Comedy
 http://23.237.104.106:8080/USA_HBO_COMEDY/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",HBO Signature
+#EXTINF:0 tvg-id="HBOSignature.us" group-title="USA",HBO Signature
 http://23.237.104.106:8080/USA_HBO_SIGNATURE/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",HGTV
+#EXTINF:0 tvg-id="HGTV.us" group-title="USA",HGTV
 http://23.237.104.106:8080/USA_HGTV/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",History
+#EXTINF:0 tvg-id="History.us" group-title="USA",History
 http://23.237.104.106:8080/USA_HISTORY/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",IFC
+#EXTINF:0 tvg-id="IFC.us" group-title="USA",IFC
 http://23.237.104.106:8080/USA_IFC/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",MoreMax
+#EXTINF:0 tvg-id="MoreMax.us" group-title="USA",MoreMax
 http://23.237.104.106:8080/USA_MOREMAX/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",MSG
+#EXTINF:0 tvg-id="MSG.us" group-title="USA",MSG
 http://23.237.104.106:8080/USA_MSG/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",MTV USA
+#EXTINF:0 tvg-id="MTV.us" group-title="USA",MTV USA
 http://23.237.104.106:8080/USA_MTV/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",MTV LIVE USA
+#EXTINF:0 tvg-id="MTVLive.us" group-title="USA",MTV LIVE USA
 http://23.237.104.106:8080/USA_MTV_LIVE/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",National Geographic
+#EXTINF:0 tvg-id="NatGeo.us" group-title="USA",National Geographic
 http://23.237.104.106:8080/USA_NAT_GEO/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",NESN
+#EXTINF:0 tvg-id="NESN.us" group-title="USA",NESN
 http://23.237.104.106:8080/USA_NESN/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",NHL Network
+#EXTINF:0 tvg-id="NHLNetwork.us" group-title="USA",NHL Network
 http://23.237.104.106:8080/USA_NHL_NETWORK/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",Paramount + Showtime
+#EXTINF:0 tvg-id="Showtime.us" group-title="USA",Paramount + Showtime
 http://23.237.104.106:8080/USA_SHOWTIME/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",Paramount Network
+#EXTINF:0 tvg-id="ParamountNetwork.us" group-title="USA",Paramount Network
 http://23.237.104.106:8080/USA_PARAMOUNT_NETWORK/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",Starz
+#EXTINF:0 tvg-id="Starz.us" group-title="USA",Starz
 http://23.237.104.106:8080/USA_STARZ/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",Starz Cinema
+#EXTINF:0 tvg-id="StarzCinema.us" group-title="USA",Starz Cinema
 http://23.237.104.106:8080/USA_STARZ_CINEMA/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",Starz Comedy
+#EXTINF:0 tvg-id="StarzComedy.us" group-title="USA",Starz Comedy
 http://23.237.104.106:8080/USA_STARZ_COMEDY/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",Starz Edge
+#EXTINF:0 tvg-id="StarzEdge.us" group-title="USA",Starz Edge
 http://23.237.104.106:8080/USA_STARZ_EDGE/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",Starz Encore Westerns
+#EXTINF:0 tvg-id="StarzEncoreWesterns.us" group-title="USA",Starz Encore Westerns
 http://23.237.104.106:8080/USA_STARZ_WESTERNS/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",Syfy
+#EXTINF:0 tvg-id="Syfy.us" group-title="USA",Syfy
 http://23.237.104.106:8080/USA_SYFY/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",TBS
+#EXTINF:0 tvg-id="TBS.us" group-title="USA",TBS
 http://23.237.104.106:8080/USA_TBS/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",TNT
+#EXTINF:0 tvg-id="TNT.us" group-title="USA",TNT
 http://23.237.104.106:8080/USA_TNT/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",TruTV
+#EXTINF:0 tvg-id="TruTV.us" group-title="USA",TruTV
 http://23.237.104.106:8080/USA_TRUTV/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",USA Network
+#EXTINF:0 tvg-id="USANetwork.us" group-title="USA",USA Network
 http://23.237.104.106:8080/USA_NETWORK/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",VH1
+#EXTINF:0 tvg-id="VH1.us" group-title="USA",VH1
 http://23.237.104.106:8080/USA_VH1/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",Vice TV
+#EXTINF:0 tvg-id="ViceTV.us" group-title="USA",Vice TV
 http://23.237.104.106:8080/USA_VICETV/index.m3u8?takodachi
-#EXTINF:0,group-title="USA",WGN
+#EXTINF:0 tvg-id="WGN.us" group-title="USA",WGN
 http://23.237.104.106:8080/USA_WGN/index.m3u8?takodachi
