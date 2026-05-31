@@ -1,0 +1,1795 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+
+  <title>IPTV Smart TV Player</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.4.10/hls.min.js"></script>
+  <style>
+    :root{
+      --bg:#000;
+      --fg:#fff;
+      --accent:#ff9800;
+      --panel:rgba(0,0,0,.72);
+      --panel2:rgba(10,10,10,.92);
+      --soft:rgba(255,255,255,.1);
+      --soft2:rgba(255,255,255,.18);
+      --focus:#fff;
+      --ok:#6ee7b7;
+      --danger:#ff6b6b;
+      --shadow:0 10px 40px rgba(0,0,0,.55);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;
+      width:100%;
+      height:100%;
+      background:var(--bg);
+      color:var(--fg);
+      overflow:hidden;
+      font-family:'Segoe UI',Roboto,Arial,sans-serif;
+      user-select:none;
+      -webkit-user-select:none;
+      -webkit-tap-highlight-color:transparent;
+    }
+    body{
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .video-container {
+      position:relative;
+      width:100vw;
+      height:calc(100vw * 9 / 16);
+      max-height:100vh;
+      max-width:calc(100vh * 16 / 9);
+      background:#000;
+      overflow:hidden;
+    }
+    video{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      background:#000;
+    }
+
+    #clock{
+      position:absolute;
+      top:18px;
+      left:18px;
+      z-index:12;
+      font-size:22px;
+      letter-spacing:.08em;
+      opacity:.58;
+      text-shadow:0 2px 10px rgba(0,0,0,.8);
+      pointer-events:none;
+    }
+    #splash{
+      position:absolute;
+      inset:0;
+      z-index:30;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:radial-gradient(circle at center, rgba(24,24,24,.88), rgba(0,0,0,.98));
+      flex-direction:column;
+      gap:18px;
+      transition:opacity .35s ease, transform .35s ease;
+    }
+    #splash.hidden{
+      opacity:0;
+      pointer-events:none;
+      transform:scale(1.02);
+    }
+    #splashLogo{
+      width:170px;
+      height:170px;
+      border-radius:26px;
+      object-fit:cover;
+      box-shadow:var(--shadow);
+      border:1px solid rgba(255,255,255,.08);
+    }
+    #splashStatus{
+      font-size:22px;
+      font-weight:600;
+      color:#fff;
+    }
+    #splashHint{
+      font-size:18px;
+      font-weight:600;
+      color:var(--ok);
+      background:coral;
+      border:1px solid rgba(110,231,183,0.3);
+      padding:10px 24px;
+      border-radius:12px;
+      cursor:pointer;
+      outline:none;
+      opacity:0;
+      transform:translateY(8px);
+      transition:opacity .3s ease, transform .3s ease, background .2s, border-color .2s;
+    }
+    #splashHint:focus, #splashHint:hover{
+      background:var(--ok);
+      color:#000;
+      border-color:var(--ok);
+    }
+    #splashHint.show{
+      opacity:1;
+      transform:translateY(0);
+    }
+    #overlay{
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:0;
+      z-index:20;
+      padding:18px 18px 20px;
+      transition:transform .35s ease, opacity .35s ease;
+      transform:translateY(0);
+      opacity:1;
+      pointer-events:none;
+    }
+    #overlay.hidden{
+      transform:translateY(110%);
+      opacity:0;
+    }
+    #bottomBar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      padding:18px 20px;
+      border-radius:24px;
+      background:linear-gradient(to top, rgba(0,0,0,.92), rgba(0,0,0,.55));
+      box-shadow:var(--shadow);
+      pointer-events:auto;
+      border:1px solid rgba(255,255,255,.06);
+      backdrop-filter:blur(8px);
+    }
+    #leftInfo{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      min-width:0;
+      flex:1;
+    }
+    .logo-btn{
+      width:74px;
+      height:74px;
+      border-radius:18px;
+      padding:0;
+      background:transparent;
+      border:2px solid rgba(255,255,255,.08);
+      cursor:pointer;
+      outline:none;
+      overflow:hidden;
+      flex:0 0 auto;
+      transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+    }
+    .logo-btn:focus{
+      border-color:var(--accent);
+      transform:scale(1.06);
+      box-shadow:0 0 0 3px rgba(255,152,0,.3);
+    }
+    #channelLogo{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      background:#111;
+      display:block;
+    }
+    #channelMeta{
+      min-width:0;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      flex:1;
+    }
+    #channelName{
+      font-size:22px;
+      font-weight:700;
+      color:var(--accent);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    #epgBox{
+      min-width:0;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      font-size:15px;
+      max-width:85vw;
+      height:20px;
+    }
+    .epgTime{color:#d7d7d7; font-weight:700;}
+    .epgTitle{color:#fff; font-weight:600;}
+    .epgDesc{color:#c7c7c7; opacity:.85;}
+
+    #controls{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex:0 0 auto;
+    }
+    .ctrl{
+      width:52px;
+      height:52px;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,.18);
+      background:rgba(255,255,255,.08);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      transition:transform .18s ease, background .18s ease, border-color .18s ease;
+      outline:none;
+      padding: 0;
+    }
+    .ctrl svg {
+      width: 22px;
+      height: 22px;
+      fill: #fff;
+      transition: fill .18s ease;
+    }
+    .ctrl:focus{
+      background:#fff;
+      border:2px solid var(--accent);
+      transform:scale(1.08);
+      box-shadow:0 0 0 3px rgba(255,152,0,.2);
+    }
+    .ctrl:focus svg {
+      fill: #000;
+    }
+
+    .modal{
+      position:absolute;
+      left:50%;
+      bottom:125px;
+      transform:translateX(-50%);
+      width:min(520px, calc(100vw - 40px));
+      background:rgba(12,12,12,.82);
+      border:1px solid rgba(255,255,255,.15);
+      border-radius:20px;
+      box-shadow:var(--shadow);
+      padding:18px;
+      display:none;
+      z-index:25;
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
+      pointer-events:auto;
+    }
+    .modal.show{display:block}
+
+    #groupModal {
+      width:min(820px, calc(100vw - 40px)) !important;
+    }
+    .group-container-2col {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 16px;
+      height: 350px;
+    }
+    .group-column {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    .group-column::-webkit-scrollbar { width: 5px; }
+    .group-column::-webkit-scrollbar-thumb { background: rgba(255,255,255,.2); border-radius:3px; }
+
+    .channel-item-opt {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 10px;
+      padding: 6px 12px;
+      color: #fff;
+      cursor: pointer;
+      outline: none;
+      text-align: left;
+    }
+    .channel-item-opt img {
+      width: 36px;
+      height: 36px;
+      border-radius: 6px;
+      object-fit: cover;
+      background: #111;
+    }
+    .channel-item-opt span {
+      font-size: 14px;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .channel-item-opt:focus, .channel-item-opt:hover {
+      background: #fff;
+      color: #000;
+      border-color: var(--accent);
+    }
+    .channel-item-opt.active-now {
+      border-color: var(--accent);
+      background: rgba(255,152,0,0.2);
+    }
+
+    .modalHeader {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:14px;
+      position:relative;
+    }
+    .modalTitle{
+      color:var(--accent);
+      font-size:22px;
+      font-weight:700;
+      margin:0;
+    }
+
+    .close-modal-btn {
+      background:rgba(255,255,255,.1);
+      border:1px solid rgba(255,255,255,.15);
+      color:#fff;
+      width:32px;
+      height:32px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:14px;
+      cursor:pointer;
+      outline:none;
+      transition:background .2s, color .2s;
+    }
+    .close-modal-btn:focus, .close-modal-btn:hover {
+      background:#fff;
+      color:#000;
+    }
+
+    .modalList{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      max-height:300px;
+      overflow-y:auto;
+      padding-right:4px;
+    }
+
+    .modalList::-webkit-scrollbar {
+      width:6px;
+    }
+    .modalList::-webkit-scrollbar-thumb {
+      background:rgba(255,255,255,.2);
+      border-radius:4px;
+    }
+
+    .option {
+      width:100%;
+      height:50px;
+      flex:0 0 50px;
+      text-align:left;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.1);
+      color:#fff;
+      border-radius:14px;
+      padding:0 18px;
+      font-size:16px;
+      outline:none;
+      cursor:pointer;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      display:flex;
+      align-items:center;
+    }
+    .option:focus{
+      background:#fff;
+      color:#000;
+      border-color:var(--accent);
+    }
+    .option.selected{
+      border-color:rgba(255,152,0,.7);
+      box-shadow:inset 0 0 0 1px rgba(255,152,0,.35);
+      background:rgba(255,152,0,.15);
+    }
+
+    #exitModal {
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%, -50%);
+      width:min(420px, calc(100vw - 40px));
+      background:rgba(15, 15, 15, 0.95);
+      border:1px solid rgba(255,255,255,0.2);
+      border-radius:24px;
+      padding:24px;
+      display:none;
+      z-index:40;
+      backdrop-filter:blur(15px);
+      -webkit-backdrop-filter:blur(15px);
+      text-align:center;
+      box-shadow:0 20px 50px rgba(0,0,0,0.8);
+      pointer-events:auto;
+    }
+    #exitModal.show { display:block; }
+    .exitTitle {
+      font-size:20px;
+      font-weight:600;
+      margin-bottom:22px;
+      color:#fff;
+    }
+    .exitButtons {
+      display:flex;
+      gap:14px;
+      justify-content:center;
+    }
+    .exitBtn {
+      min-width:110px;
+      height:46px;
+      border-radius:12px;
+      font-size:16px;
+      font-weight:600;
+      cursor:pointer;
+      outline:none;
+      border:1px solid rgba(255,255,255,0.15);
+      background:rgba(255,255,255,0.08);
+      color:#fff;
+      transition:background 0.2s, color 0.2s, transform 0.1s;
+    }
+    .exitBtn:focus {
+      background:#fff;
+      color:#000;
+      border-color:var(--accent);
+      transform:scale(1.04);
+    }
+    .exitBtn#exitNo {
+      border-color:var(--accent);
+      background:rgba(255,152,0,0.1);
+    }
+
+    .statusToast{
+      position:absolute;
+      top:70px;
+      left:50%;
+      transform:translateX(-50%);
+      z-index:26;
+      background:rgba(0,0,0,.8);
+      border:1px solid rgba(255,255,255,.12);
+      color:#fff;
+      border-radius:999px;
+      padding:10px 18px;
+      font-size:14px;
+      opacity:0;
+      transition:opacity .2s ease, transform .2s ease;
+      pointer-events:none;
+    }
+    .statusToast.show{
+      opacity:1;
+      transform:translateX(-50%) translateY(0);
+    }
+
+    .config-form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .config-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .config-field label {
+      font-size: 14px;
+      color: var(--accent);
+      font-weight: 600;
+      text-align: left;
+    }
+    .config-field input {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      padding: 10px 14px;
+      color: #fff;
+      font-size: 15px;
+      outline: none;
+      width: 100%;
+      user-select: text;
+      -webkit-user-select: text;
+    }
+    .config-field input:focus {
+      background: #fff;
+      color: #000;
+      border-color: var(--accent);
+    }
+    .config-btn-save {
+      margin-top: 10px;
+      height: 48px;
+      background: rgba(255,152,0,0.2);
+      border: 1px solid var(--accent);
+      border-radius: 12px;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      outline: none;
+    }
+    .config-btn-save:focus, .config-btn-save:hover {
+      background: var(--accent);
+      color: #000;
+    }
+
+    .info-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      color: #fff;
+      text-align: left;
+    }
+    .info-channel-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      padding-bottom: 12px;
+    }
+    .info-channel-logo {
+      width: 64px;
+      height: 64px;
+      border-radius: 12px;
+      object-fit: cover;
+      background: #111;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .info-channel-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .info-prog-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .info-prog-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #fff;
+    }
+    .info-prog-time {
+      font-size: 14px;
+      color: #ff9800;
+      font-weight: 700;
+    }
+    .info-prog-desc {
+      font-size: 14px;
+      color: #cccccc;
+      line-height: 1.5;
+      max-height: 150px;
+      overflow-y: auto;
+    }
+
+    .epg-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-align: left;
+    }
+    .epg-row {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .epg-row.current {
+      border-color: var(--accent);
+      background: rgba(255,152,0,0.08);
+    }
+    .epg-row-tag {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: rgba(255,255,255,0.4);
+    }
+    .epg-row.current .epg-row-tag {
+      color: var(--accent);
+    }
+    .epg-row-main {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .epg-row-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .epg-row-time {
+      font-size: 13px;
+      font-weight: 700;
+      color: #ff9800;
+    }
+    .epg-row-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+    }
+    .epg-catchup-btn {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      outline: none;
+      white-space: nowrap;
+    }
+    .epg-catchup-btn:focus {
+      background: #fff;
+      color: #000;
+      border-color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="video-container">
+    <video id="video" playsinline webkit-playsinline crossOrigin="anonymous" poster="https://xarxa-1.github.io/Xarxa-1/negre.jpg">
+    </video>
+  </div>
+
+  <div id="clock">--:--</div>
+
+  <div id="splash">
+    <img id="splashLogo" src="https://xarxa-1.github.io/Xarxa-1/iptv03.jpeg" alt="Logo" />
+    <div id="splashStatus">Carregant llistes...</div>
+    <button id="splashHint" tabindex="0">Prem OK per començar</button>
+  </div>
+
+  <div id="toast" class="statusToast"></div>
+
+  <div id="audioModal" class="modal" aria-hidden="true">
+    <div class="modalHeader">
+      <div class="modalTitle">Àudio</div>
+      <button class="close-modal-btn" onclick="closeAllModals()">✕</button>
+    </div>
+    <div id="audioList" class="modalList" tabindex="0"></div>
+  </div>
+
+  <div id="subtitleModal" class="modal" aria-hidden="true">
+    <div class="modalHeader">
+      <div class="modalTitle">Subtítols</div>
+      <button class="close-modal-btn" onclick="closeAllModals()">✕</button>
+    </div>
+    <div id="subtitleList" class="modalList" tabindex="0"></div>
+  </div>
+
+  <div id="groupModal" class="modal" aria-hidden="true">
+    <div class="modalHeader">
+      <div class="modalTitle">Grups i Canals</div>
+      <button class="close-modal-btn" onclick="closeAllModals()">✕</button>
+    </div>
+    <div class="group-container-2col">
+      <div id="groupList" class="group-column" tabindex="0"></div>
+      <div id="groupChannelsList" class="group-column" tabindex="0"></div>
+    </div>
+  </div>
+
+  <div id="configModal" class="modal" aria-hidden="true">
+    <div class="modalHeader">
+      <div class="modalTitle">Configuració URL</div>
+      <button class="close-modal-btn" onclick="closeAllModals()">✕</button>
+    </div>
+    <div class="config-form">
+      <div class="config-field">
+        <label for="inputM3u">URL Llista M3U:</label>
+        <input type="text" id="inputM3u" tabindex="0" />
+      </div>
+      <div class="config-field">
+        <label for="inputEpg">URL Guia EPG:</label>
+        <input type="text" id="inputEpg" tabindex="0" />
+      </div>
+      <button id="btnSaveConfig" class="config-btn-save" tabindex="0">Guardar i Reiniciar</button>
+    </div>
+  </div>
+
+  <div id="infoModal" class="modal" aria-hidden="true">
+    <div class="modalHeader">
+      <div class="modalTitle">Informació del Canal</div>
+      <button class="close-modal-btn" onclick="closeAllModals()">✕</button>
+    </div>
+    <div id="infoModalContent" class="info-layout"></div>
+  </div>
+
+  <div id="epgModal" class="modal" aria-hidden="true">
+    <div class="modalHeader">
+      <div class="modalTitle">Guia de Programació</div>
+      <button class="close-modal-btn" onclick="closeAllModals()">✕</button>
+    </div>
+    <div id="epgModalContent" class="epg-timeline"></div>
+  </div>
+
+  <div id="exitModal" aria-hidden="true">
+    <div class="exitTitle">Segur que vols sortir de l'IPTV?</div>
+    <div class="exitButtons">
+      <button id="exitYes" class="exitBtn">Sí</button>
+      <button id="exitNo" class="exitBtn">No</button>
+    </div>
+  </div>
+
+  <div id="overlay">
+    <div id="bottomBar">
+      <div id="leftInfo">
+        <button class="logo-btn" id="logoButton" tabindex="0">
+          <img id="channelLogo" src="https://xarxa-1.github.io/Xarxa-1/negre.jpg" alt="Canal" />
+        </button>
+        <div id="channelMeta">
+          <div id="channelName">Sense canal</div>
+          <div id="epgBox"></div>
+        </div>
+      </div>
+      <div id="controls">
+        <button class="ctrl" data-action="chanDown" tabindex="0" title="Canal anterior">
+          <svg viewBox="0 0 24 24"><path d="M19 13H5v-2h14v2z"/></svg>
+        </button>
+        <button class="ctrl" data-action="chanUp" tabindex="0" title="Canal següent">
+          <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+        </button>
+        <button class="ctrl" data-action="info" tabindex="0" title="Més informació">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        </button>
+        <button class="ctrl" data-action="epg" tabindex="0" title="Guia programació">
+          <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>
+        </button>
+
+        <button class="ctrl" data-action="skipBackward" tabindex="0" title="Retrocedir 1 minut">
+          <svg viewBox="0 0 24 24"><path d="M12.5 11.5c0-.83-.67-1.5-1.5-1.5h-1v4h1c.83 0 1.5-.67 1.5-1.5v-1zm-2 1v-1h.5c.28 0 .5.22.5.5s-.22.5-.5.5h-.5zm1.5-7.5V3c-4.97 0-9 4.03-9 9H1l4 4 4-4H6c0-3.31 2.69-6 6-6zm8 6h-1v-4h-1v1h-1v-1h-2v4h1v-3h1v3h3z"/></svg>
+        </button>
+        <button class="ctrl" data-action="goLive" tabindex="0" title="Anar al directe">
+          <svg viewBox="0 0 24 24"><path d="M21 3H3c-1.11 0-2 .89-2 2v12c0 1.1.89 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.11-.9-2-2-2zm-9 12l-4-4h8l-4 4z"/></svg>
+        </button>
+        <button class="ctrl" data-action="skipForward" tabindex="0" title="Avançar 1 minut">
+          <svg viewBox="0 0 24 24"><path d="M10 12.5c0 .28-.22.5-.5.5h-.5v-1h.5c.28 0 .5.22.5.5zM18 12c0-4.97-4.03-9-9-9V1l-4 4 4 4V6c3.31 0 6 2.69 6 6s-2.69 6-6 6H7v2h2c4.97 0 9-4.03 9-9zm-5.5-.5c0-.83-.67-1.5-1.5-1.5H9v4h2c.83 0 1.5-.67 1.5-1.5v-1zm-3.5 4h-1v-4h2v1h-1v2z"/></svg>
+        </button>
+
+        <button class="ctrl" data-action="audio" tabindex="0" title="Canviar àudio">
+          <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+        </button>
+        <button class="ctrl" data-action="subtitles" tabindex="0" title="Subtítols">
+          <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2z"/></svg>
+        </button>
+        <button class="ctrl" data-action="groups" tabindex="0" title="Llista de grups">
+          <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+        </button>
+        <button class="ctrl" data-action="config" tabindex="0" title="Configuració">
+          <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+        </button>
+        <button class="ctrl" data-action="exitApp" tabindex="0" title="Sortir de l'aplicació">
+          <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+<script>
+let M3U_URL = localStorage.getItem('iptv_m3u_url') || "https://xarxa-1.github.io/Xarxa-1/cat325.m3u";
+let EPG_URL = localStorage.getItem('iptv_epg_url') || "https://raw.githubusercontent.com/davidmuma/EPG_dobleM/master/EPG_dobleM.xml";
+
+const DEFAULT_LOGO = "https://xarxa-1.github.io/Xarxa-1/negre.jpg";
+
+const video = document.getElementById('video');
+const splash = document.getElementById('splash');
+const splashHint = document.getElementById('splashHint');
+const splashStatus = document.getElementById('splashStatus');
+const clock = document.getElementById('clock');
+const overlay = document.getElementById('overlay');
+const toast = document.getElementById('toast');
+const channelLogo = document.getElementById('channelLogo');
+const channelName = document.getElementById('channelName');
+const epgBox = document.getElementById('epgBox');
+
+const audioModal = document.getElementById('audioModal');
+const subtitleModal = document.getElementById('subtitleModal');
+const groupModal = document.getElementById('groupModal');
+const configModal = document.getElementById('configModal');
+const infoModal = document.getElementById('infoModal');
+const epgModal = document.getElementById('epgModal');
+const exitModal = document.getElementById('exitModal');
+
+const audioList = document.getElementById('audioList');
+const subtitleList = document.getElementById('subtitleList');
+const groupList = document.getElementById('groupList');
+const groupChannelsList = document.getElementById('groupChannelsList');
+const infoModalContent = document.getElementById('infoModalContent');
+const epgModalContent = document.getElementById('epgModalContent');
+
+const exitYes = document.getElementById('exitYes');
+const exitNo = document.getElementById('exitNo');
+const inputM3u = document.getElementById('inputM3u');
+const inputEpg = document.getElementById('inputEpg');
+const btnSaveConfig = document.getElementById('btnSaveConfig');
+
+const logoButton = document.getElementById('logoButton');
+let controls = [];
+
+function updateControlsList() {
+  controls = [logoButton, ...document.querySelectorAll('.ctrl')];
+}
+
+let channels = [];
+let groups = [];
+let epgMap = new Map();
+let currentGroup = 'ALL';
+let filteredChannels = [];
+let currentIndex = 0;
+let pendingIndex = null;
+let currentHls = null;
+let uiVisible = true;
+let hideTimer = null;
+let ready = false;
+let lastBackPressTime = 0;
+let wakeLock = null;
+let activeSubTrackIndex = 0; // Per defecte forçarem sempre la pista 0 (primera pista de subtítols)
+
+function updateClock(){
+  const d = new Date();
+  clock.textContent = d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+}
+setInterval(updateClock, 1000); updateClock();
+
+function showToast(msg){
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(showToast.t);
+  showToast.t = setTimeout(()=>toast.classList.remove('show'), 1200);
+}
+
+function showUI(){
+  overlay.classList.remove('hidden');
+  uiVisible = true;
+  resetHideTimer();
+}
+function hideUI(){
+  if(anyModalOpen() || exitModal.classList.contains('show')) return;
+  overlay.classList.add('hidden');
+  uiVisible = false;
+}
+function resetHideTimer(){
+  clearTimeout(hideTimer);
+  if(!anyModalOpen() && !exitModal.classList.contains('show')) {
+    hideTimer = setTimeout(()=>hideUI(), 6000);
+  }
+}
+
+function sanitizeText(str){
+  return (str || '')
+    .replace(/<[^>]*>/g,' ')
+    .replace(/\[[^\]]*\]/g,' ')
+    .replace(/&[^;]+;/g,' ')
+    .replace(/\s+/g,' ')
+    .trim();
+}
+
+function parseM3U(text){
+  const lines = text.split(/\r?\n/);
+  const out = [];
+  let meta = null;
+  for(const line of lines){
+    if(line.startsWith('#EXTINF:')){
+      const attrs = {};
+      const attrsRegex = /([\w-]+)="([^"]*)"/g;
+      let m;
+      while((m = attrsRegex.exec(line))) attrs[m[1]] = m[2];
+      const name = sanitizeText(line.split(',').slice(1).join(','));
+      meta = {
+        name,
+        tvgId: attrs['tvg-id'] || '',
+        tvgLogo: attrs['tvg-logo'] || '',
+        groupTitle: attrs['group-title'] || 'Sense grup'
+      };
+    } else if(line && !line.startsWith('#') && meta){
+      out.push({...meta, url: line.trim()});
+      meta = null;
+    }
+  }
+  return out;
+}
+
+function parseEPG(xmlText){
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(xmlText, 'text/xml');
+  const progs = [...doc.querySelectorAll('programme')];
+  epgMap = new Map();
+  for(const p of progs){
+    const chan = p.getAttribute('channel') || '';
+    const start = p.getAttribute('start') || '';
+    const stop = p.getAttribute('stop') || '';
+    const title = sanitizeText(p.querySelector('title')?.textContent);
+    const desc = sanitizeText(p.querySelector('desc')?.textContent);
+    const entry = {start, stop, title, desc};
+    if(!epgMap.has(chan)) epgMap.set(chan, []);
+    epgMap.get(chan).push(entry);
+  }
+  for(const [k,v] of epgMap) v.sort((a,b)=>a.start.localeCompare(b.start));
+}
+
+function normalizeDate(str){
+  if(!str) return null;
+  const m = str.match(/^(\d{14})(?:\s([+\-]\d{4}|Z))?/);
+  if(!m) return null;
+  const s = m[1];
+  const tz = m[2] || 'Z';
+  const iso = `${s.slice(0,4)}-${s.slice(4,6)}-${s.slice(6,8)}T${s.slice(8,10)}:${s.slice(10,12)}:${s.slice(12,14)}${tz === 'Z' ? 'Z' : `${tz.slice(0,3)}:${tz.slice(3)}`}`;
+  return new Date(iso);
+}
+
+function currentEpg(channel){
+  const arr = epgMap.get(channel.tvgId) || epgMap.get(channel.name) || [];
+  const now = new Date();
+  return arr.find(p => {
+    const s = normalizeDate(p.start);
+    const e = normalizeDate(p.stop);
+    return s && e && now >= s && now < e;
+  }) || null;
+}
+
+function getAdjacentEpg(channel) {
+  const arr = epgMap.get(channel.tvgId) || epgMap.get(channel.name) || [];
+  const now = new Date();
+  const idx = arr.findIndex(p => {
+    const s = normalizeDate(p.start);
+    const e = normalizeDate(p.stop);
+    return s && e && now >= s && now < e;
+  });
+
+  return {
+    prev: idx > 0 ? arr[idx - 1] : null,
+    curr: idx !== -1 ? arr[idx] : null,
+    next: (idx !== -1 && idx < arr.length - 1) ? arr[idx + 1] : null
+  };
+}
+
+function updateEpgUI(channel){
+  const epg = currentEpg(channel);
+  if(epg){
+    const s = normalizeDate(epg.start);
+    const e = normalizeDate(epg.stop);
+    const fmt = d => d ? d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : '';
+
+    const timeStr = `${fmt(s)} - ${fmt(e)}`;
+    const titleStr = epg.title || '';
+    const descStr = epg.desc || '';
+
+    if (timeStr || titleStr || descStr) {
+      epgBox.innerHTML = `
+        <span class="epgTime">${timeStr}</span>
+        ${titleStr ? `<span class="epgTitle"> - ${titleStr}</span>` : ''}
+        ${descStr ? `<span class="epgDesc"> : ${descStr}</span>` : ''}
+      `;
+    } else {
+      epgBox.innerHTML = '';
+    }
+  } else {
+    epgBox.innerHTML = '';
+  }
+}
+
+function setChannelInfo(channel){
+  channelName.textContent = channel?.name || 'Sense canal';
+  channelLogo.src = channel?.tvgLogo || DEFAULT_LOGO;
+  updateEpgUI(channel || {});
+}
+
+function buildGroups(){
+  const set = new Set(channels.map(c => c.groupTitle || 'Sense grup'));
+  groups = ['ALL', ...[...set].sort()];
+  groupList.innerHTML = '';
+
+  groups.forEach(g => {
+    const b = document.createElement('button');
+    b.className = 'option';
+    b.textContent = g === 'ALL' ? 'Tots els grups' : g;
+    b.dataset.value = g;
+    b.dataset.group = g;
+    b.tabIndex = 0;
+
+    b.addEventListener('click', () => {
+      currentGroup = g;
+      renderGroupsSelected();
+      renderChannelsOfGroup(g);
+    });
+    b.addEventListener('focus', () => {
+      renderChannelsOfGroup(g);
+    });
+
+    groupList.appendChild(b);
+  });
+}
+
+function renderChannelsOfGroup(groupName) {
+  groupChannelsList.innerHTML = '';
+  const list = groupName === 'ALL' ? channels : channels.filter(c => c.groupTitle === groupName);
+
+  list.forEach((ch) => {
+    const btn = document.createElement('button');
+    btn.className = 'channel-item-opt';
+
+    const globalIdx = filteredChannels.findIndex(c => c.url === ch.url);
+    if(filteredChannels[currentIndex] && filteredChannels[currentIndex].url === ch.url) {
+      btn.classList.add('active-now');
+    }
+
+    btn.innerHTML = `
+      <img src="${ch.tvgLogo || DEFAULT_LOGO}" onerror="this.src='${DEFAULT_LOGO}'" alt="" />
+      <span>${ch.name}</span>
+    `;
+
+    btn.addEventListener('click', () => {
+      if(globalIdx !== -1) {
+        currentIndex = globalIdx;
+        playChannel(currentIndex, true);
+      } else {
+        currentGroup = groupName;
+        refreshFiltered();
+        const newIdx = filteredChannels.findIndex(c => c.url === ch.url);
+        currentIndex = newIdx !== -1 ? newIdx : 0;
+        playChannel(currentIndex, true);
+      }
+      closeAllModals();
+    });
+
+    groupChannelsList.appendChild(btn);
+  });
+}
+
+function refreshFiltered(){
+  filteredChannels = currentGroup === 'ALL' ? [...channels] : channels.filter(c => c.groupTitle === currentGroup);
+  if(filteredChannels.length === 0) filteredChannels = [...channels];
+  currentIndex = Math.max(0, Math.min(currentIndex, filteredChannels.length - 1));
+  renderGroupsSelected();
+}
+
+function renderGroupsSelected(){
+  [...groupList.querySelectorAll('.option')].forEach(btn => {
+    btn.classList.toggle('selected', btn.dataset.value === currentGroup);
+  });
+}
+
+function buildInfoModal() {
+  const ch = filteredChannels[currentIndex];
+  if(!ch) { infoModalContent.innerHTML = 'Sense dades de canal.'; return; }
+
+  const epg = currentEpg(ch);
+  const fmt = d => d ? d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : '--:--';
+
+  let timeStr = 'No disponible';
+  let titleStr = 'Sense informació del programa';
+  let descStr = 'No hi ha cap descripció disponible per a aquest esdeveniment.';
+
+  if(epg) {
+    const s = normalizeDate(epg.start);
+    const e = normalizeDate(epg.stop);
+    timeStr = `${fmt(s)} - ${fmt(e)}`;
+    titleStr = epg.title || titleStr;
+    descStr = epg.desc || descStr;
+  }
+
+  infoModalContent.innerHTML = `
+    <div class="info-channel-header">
+      <img class="info-channel-logo" src="${ch.tvgLogo || DEFAULT_LOGO}" onerror="this.src='${DEFAULT_LOGO}'" alt=""/>
+      <div class="info-channel-name">${ch.name}</div>
+    </div>
+    <div class="info-prog-meta">
+      <div class="info-prog-title">${titleStr}</div>
+      <div class="info-prog-time">${timeStr}</div>
+      <div class="info-prog-desc">${descStr}</div>
+    </div>
+  `;
+}
+
+function jumpToProgramStart(progStartStr) {
+  const startTime = normalizeDate(progStartStr);
+  if (!startTime) return;
+  const now = new Date();
+
+  const secondsAgo = Math.floor((now.getTime() - startTime.getTime()) / 1000);
+
+  if (secondsAgo > 0) {
+    if (currentHls && currentHls.liveSyncPosition) {
+      const targetTime = currentHls.liveSyncPosition - secondsAgo;
+      video.currentTime = Math.max(0, targetTime);
+    } else {
+      video.currentTime = Math.max(0, video.duration - secondsAgo);
+    }
+    showToast("Retrocedint a l'inici del programa");
+    closeAllModals();
+  } else {
+    showToast("El programa encara no ha començat");
+  }
+}
+
+function buildEpgTimelineModal() {
+  const ch = filteredChannels[currentIndex];
+  if(!ch) { epgModalContent.innerHTML = 'Sense dades.'; return; }
+
+  const adj = getAdjacentEpg(ch);
+  const fmt = d => d ? d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : '--:--';
+
+  epgModalContent.innerHTML = '';
+  let itemsAdded = 0;
+
+  if(adj.prev) {
+    const s = normalizeDate(adj.prev.start);
+    const row = document.createElement('div');
+    row.className = 'epg-row';
+    row.innerHTML = `
+      <div class="epg-row-tag">Programa Anterior</div>
+      <div class="epg-row-main">
+        <div class="epg-row-info">
+          <span class="epg-row-time">${fmt(s)}</span>
+          <span class="epg-row-title">${adj.prev.title}</span>
+        </div>
+        <button class="epg-catchup-btn" tabindex="0" id="btnCatchupPrev">Inici ↩</button>
+      </div>
+    `;
+    epgModalContent.appendChild(row);
+    row.querySelector('#btnCatchupPrev').addEventListener('click', () => jumpToProgramStart(adj.prev.start));
+    itemsAdded++;
+  }
+
+  if(adj.curr) {
+    const s = normalizeDate(adj.curr.start);
+    const row = document.createElement('div');
+    row.className = 'epg-row current';
+    row.innerHTML = `
+      <div class="epg-row-tag">Ara mateix</div>
+      <div class="epg-row-main">
+        <div class="epg-row-info">
+          <span class="epg-row-time">${fmt(s)}</span>
+          <span class="epg-row-title">${adj.curr.title}</span>
+        </div>
+        <button class="epg-catchup-btn" tabindex="0" id="btnCatchupCurr">Inici ↩</button>
+      </div>
+    `;
+    epgModalContent.appendChild(row);
+    row.querySelector('#btnCatchupCurr').addEventListener('click', () => jumpToProgramStart(adj.curr.start));
+    itemsAdded++;
+  }
+
+  if(adj.next) {
+    const s = normalizeDate(adj.next.start);
+    const row = document.createElement('div');
+    row.className = 'epg-row';
+    row.innerHTML = `
+      <div class="epg-row-tag">A continuació</div>
+      <div class="epg-row-main">
+        <div class="epg-row-info">
+          <span class="epg-row-time">${fmt(s)}</span>
+          <span class="epg-row-title">${adj.next.title}</span>
+        </div>
+      </div>
+    `;
+    epgModalContent.appendChild(row);
+    itemsAdded++;
+  }
+
+  if(itemsAdded === 0) {
+    epgModalContent.innerHTML = '<div style="padding:20px;text-align:center;opacity:0.6;">No hi ha informació de programació adjacent disponible per a aquest canal.</div>';
+  } else {
+    setTimeout(() => {
+      const firstBtn = epgModalContent.querySelector('.epg-catchup-btn');
+      if(firstBtn) firstBtn.focus();
+    }, 50);
+  }
+}
+
+function openModal(modal){
+  closeAllModalsWithoutFocus();
+  modal.classList.add('show');
+  showUI();
+
+  if (modal === groupModal) {
+    buildGroups();
+    renderChannelsOfGroup(currentGroup);
+    const activeGroupBtn = groupList.querySelector(`[data-group="${currentGroup}"]`);
+    if (activeGroupBtn) {
+      activeGroupBtn.classList.add('selected');
+      activeGroupBtn.focus();
+      activeGroupBtn.scrollIntoView({ block: 'center' });
+    }
+    return;
+  }
+
+  if (modal === configModal) {
+    inputM3u.value = M3U_URL;
+    inputEpg.value = EPG_URL;
+    inputM3u.focus();
+    return;
+  }
+
+  if (modal === infoModal) {
+    buildInfoModal();
+    return;
+  }
+
+  if (modal === epgModal) {
+    buildEpgTimelineModal();
+    return;
+  }
+
+  const options = modal.querySelectorAll('.modalList .option');
+  const selectedOpt = modal.querySelector('.option.selected');
+  if(selectedOpt) {
+    selectedOpt.focus();
+    selectedOpt.scrollIntoView({ block: 'center' });
+  } else if(options[0]) {
+    options[0].focus();
+  }
+}
+
+function openExitModal() {
+  closeAllModalsWithoutFocus();
+  exitModal.classList.add('show');
+  showUI();
+  exitNo.focus();
+}
+
+function closeExitModal() {
+  exitModal.classList.remove('show');
+  logoButton.focus();
+  resetHideTimer();
+}
+
+function closeAllModals(){
+  let anyOpen = anyModalOpen() || exitModal.classList.contains('show');
+  [audioModal, subtitleModal, groupModal, configModal, infoModal, epgModal, exitModal].forEach(m => m.classList.remove('show'));
+  if(anyOpen) {
+    logoButton.focus();
+  }
+  resetHideTimer();
+}
+
+function closeAllModalsWithoutFocus(){
+  [audioModal, subtitleModal, groupModal, configModal, infoModal, epgModal, exitModal].forEach(m => m.classList.remove('show'));
+}
+
+function anyModalOpen(){
+  return audioModal.classList.contains('show') || subtitleModal.classList.contains('show') || groupModal.classList.contains('show') || configModal.classList.contains('show') || infoModal.classList.contains('show') || epgModal.classList.contains('show');
+}
+
+function playChannel(index, commit=false){
+  if(!filteredChannels.length) return;
+  currentIndex = (index + filteredChannels.length) % filteredChannels.length;
+  const ch = filteredChannels[currentIndex];
+  setChannelInfo(ch);
+  if(commit) startPlayback(ch);
+  showToast(`${commit ? 'Reproduint' : 'Zapping'}: ${ch.name}`);
+}
+
+function clearSubtitleTracks() {
+  if (video.textTracks) {
+    for (let i = 0; i < video.textTracks.length; i++) {
+      video.textTracks[i].mode = 'disabled';
+    }
+  }
+  while (video.firstChild) {
+    video.removeChild(video.firstChild);
+  }
+}
+
+function startPlayback(channel){
+  pendingIndex = null;
+  activeSubTrackIndex = 0; // Forçarem sempre la pista 0 (primera pista de subtítols de cada canal)
+
+  video.pause();
+  clearSubtitleTracks(); // Esborrem completament els subtítols del canal anterior
+
+  video.removeAttribute('src');
+  video.load();
+
+  if(currentHls){
+    currentHls.detachMedia();
+    currentHls.destroy();
+    currentHls = null;
+  }
+
+  const src = channel.url;
+
+  if(window.Hls && Hls.isSupported() && /\.m3u8(\?|#|$)/i.test(src)){
+    currentHls = new Hls({
+      renderTextTracksNatively: true,
+      enableCEA708Captions: true,
+      backBufferLength: 60,
+      manifestLoadingMaxRetry: 3,
+      fragLoadingMaxRetry: 4
+    });
+
+    currentHls.attachMedia(video);
+
+    currentHls.on(Hls.Events.MEDIA_ATTACHED, () => {
+      currentHls.loadSource(src);
+    });
+
+    currentHls.on(Hls.Events.MANIFEST_PARSED, () => {
+      // Activa automàticament la primera pista de subtítols de la llista del manifest
+      if (currentHls.subtitleTracks && currentHls.subtitleTracks.length > 0) {
+        currentHls.subtitleTrack = 0;
+      }
+      video.play().catch(()=>{});
+      requestWakeLock();
+    });
+
+    currentHls.on(Hls.Events.SUBTITLE_TRACKS_UPDATED, () => {
+      applyCurrentSubtitleState();
+      refreshTrackMenus();
+    });
+
+    currentHls.on(Hls.Events.SUBTITLE_TRACK_LOADED, () => {
+      applyCurrentSubtitleState();
+      refreshTrackMenus();
+    });
+
+    currentHls.on(Hls.Events.FRAG_PARSING_USERDATA, () => {
+      applyCurrentSubtitleState();
+    });
+
+    currentHls.on(Hls.Events.ERROR, (_, data) => {
+      if(data.fatal) {
+        if(data.type === Hls.ErrorTypes.NETWORK_ERROR) {
+          currentHls.startLoad();
+        } else if(data.type === Hls.ErrorTypes.MEDIA_ERROR) {
+          currentHls.recoverMediaError();
+        } else {
+          showToast('Error de streaming');
+        }
+      }
+    });
+  } else {
+    video.src = src;
+    video.play().catch(()=>{});
+    requestWakeLock();
+
+    setTimeout(() => {
+      applyCurrentSubtitleState();
+      refreshTrackMenus();
+    }, 1500);
+  }
+
+  if(!ready) {
+    ready = true;
+    splash.classList.add('hidden');
+    setTimeout(()=>splash.remove(), 500);
+  }
+}
+
+function applyCurrentSubtitleState() {
+  if (currentHls && currentHls.subtitleTracks && currentHls.subtitleTracks.length > 0) {
+    if (activeSubTrackIndex >= 0 && activeSubTrackIndex < currentHls.subtitleTracks.length) {
+      if (currentHls.subtitleTrack !== activeSubTrackIndex) {
+        currentHls.subtitleTrack = activeSubTrackIndex;
+      }
+    } else if (activeSubTrackIndex === -1) {
+      currentHls.subtitleTrack = -1;
+    }
+  }
+
+  if (video.textTracks && video.textTracks.length > 0) {
+    for (let j = 0; j < video.textTracks.length; j++) {
+      if (activeSubTrackIndex === -1) {
+        video.textTracks[j].mode = 'disabled';
+      } else {
+        video.textTracks[j].mode = (j === activeSubTrackIndex) ? 'showing' : 'disabled';
+      }
+    }
+  }
+}
+
+function refreshTrackMenus(){
+  audioList.innerHTML = '';
+  subtitleList.innerHTML = '';
+
+  const audioTracks = currentHls?.audioTracks || [];
+  if(audioTracks.length){
+    audioTracks.forEach((t, i) => {
+      const b = mkOption(`${t.name || t.lang || 'Àudio ' + (i+1)}`, ()=>selectAudio(i));
+      if(currentHls.audioTrack === i) b.classList.add('selected');
+      audioList.appendChild(b);
+    });
+  } else {
+    audioList.appendChild(mkOption('Cap pista d’àudio detectada', ()=>{}));
+  }
+
+  const disableBtn = mkOption('Desactivats (Subtítols)', ()=>selectSubtitle(-1));
+  if(activeSubTrackIndex === -1) disableBtn.classList.add('selected');
+  subtitleList.appendChild(disableBtn);
+
+  const subTracks = currentHls?.subtitleTracks || [];
+  if(subTracks.length){
+    subTracks.forEach((t, i) => {
+      const b = mkOption(`${t.name || t.lang || 'Pista de subtítol ' + (i+1)}`, ()=>selectSubtitle(i));
+      if(activeSubTrackIndex === i) b.classList.add('selected');
+      subtitleList.appendChild(b);
+    });
+  } else if(video.textTracks && video.textTracks.length > 0) {
+    let validTracksCount = 0;
+    for(let i=0; i<video.textTracks.length; i++) {
+      const track = video.textTracks[i];
+      const b = mkOption(track.label || `Subtítol Encastat CC ${i+1}`, ()=>selectSubtitle(i));
+      if(activeSubTrackIndex === i) b.classList.add('selected');
+      subtitleList.appendChild(b);
+      validTracksCount++;
+    }
+    if(validTracksCount === 0){
+      subtitleList.innerHTML = '';
+      subtitleList.appendChild(mkOption('Sense subtítols en aquest canal', ()=>{}));
+    }
+  } else {
+    subtitleList.appendChild(mkOption('Sense subtítols en aquest canal', ()=>{}));
+  }
+}
+
+function mkOption(text, onClick){
+  const b = document.createElement('button');
+  b.className = 'option';
+  b.textContent = text;
+  b.tabIndex = 0;
+  b.addEventListener('click', (e) => {
+    onClick();
+    closeAllModals();
+  });
+  return b;
+}
+
+function selectAudio(i){
+  if(currentHls) currentHls.audioTrack = i;
+  showToast('Àudio canviat');
+}
+
+function selectSubtitle(i){
+  activeSubTrackIndex = i;
+  applyCurrentSubtitleState();
+  refreshTrackMenus();
+  showToast(i < 0 ? 'Subtítols desactivats' : `Subtítols: Pista ${i+1} activa`);
+}
+
+function focusButtonByDelta(delta){
+  const idx = controls.findIndex(b => b === document.activeElement);
+  let next = idx < 0 ? 0 : (idx + delta + controls.length) % controls.length;
+  controls[next].focus();
+}
+
+function commitFocused(){
+  const active = document.activeElement;
+  if(!active) return;
+
+  const validClasses = ['ctrl', 'option', 'channel-item-opt', 'logo-btn', 'close-modal-btn', 'exitBtn', 'config-btn-save', 'epg-catchup-btn'];
+  const hasValidClass = validClasses.some(cls => active.classList.contains(cls));
+
+  if(hasValidClass || active.id === 'splashHint') {
+    active.click();
+  } else if(active.tagName === 'INPUT') {
+    active.focus();
+  } else if(pendingIndex !== null) {
+    startPlayback(filteredChannels[pendingIndex]);
+  } else if(filteredChannels.length) {
+    startPlayback(filteredChannels[currentIndex]);
+  }
+}
+
+async function requestWakeLock() {
+  try {
+    if ('wakeLock' in navigator) {
+      wakeLock = await navigator.wakeLock.request('screen');
+    }
+  } catch (err) {
+    console.warn(`Wake Lock no actiu: ${err.message}`);
+  }
+}
+
+document.addEventListener('visibilitychange', async () => {
+  if (wakeLock !== null && document.visibilityState === 'visible') {
+    requestWakeLock();
+  }
+});
+
+logoButton.addEventListener('click', () => {
+  showUI();
+  const targetIndex = pendingIndex !== null ? pendingIndex : currentIndex;
+  playChannel(targetIndex, true);
+});
+
+splashHint.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if(filteredChannels.length) {
+    startPlayback(filteredChannels[currentIndex]);
+  }
+});
+
+function initControlActions() {
+  document.querySelectorAll('.ctrl').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      showUI();
+      const a = btn.dataset.action;
+
+      if(a === 'chanDown') {
+        currentIndex = (currentIndex - 1 + filteredChannels.length) % filteredChannels.length;
+        playChannel(currentIndex, true);
+      }
+      if(a === 'chanUp') {
+        currentIndex = (currentIndex + 1) % filteredChannels.length;
+        playChannel(currentIndex, true);
+      }
+      if(a === 'info') openModal(infoModal);
+      if(a === 'epg') openModal(epgModal);
+
+      if(a === 'skipBackward') {
+        video.currentTime = Math.max(0, video.currentTime - 60);
+        showToast("-1 minut");
+      }
+      if(a === 'goLive') {
+        if (currentHls && currentHls.liveSyncPosition) {
+          video.currentTime = currentHls.liveSyncPosition;
+        } else {
+          video.currentTime = video.duration;
+        }
+        showToast("Tornant al Directe");
+      }
+      if(a === 'skipForward') {
+        video.currentTime = Math.min(video.duration, video.currentTime + 60);
+        showToast("+1 minut");
+      }
+
+      if(a === 'audio') {
+        refreshTrackMenus();
+        openModal(audioModal);
+      }
+      if(a === 'subtitles') {
+        refreshTrackMenus();
+        openModal(subtitleModal);
+      }
+      if(a === 'groups') openModal(groupModal);
+      if(a === 'config') openModal(configModal);
+      if(a === 'exitApp') openExitModal();
+    });
+  });
+}
+
+btnSaveConfig.addEventListener('click', () => {
+  const newM3u = inputM3u.value.trim();
+  const newEpg = inputEpg.value.trim();
+
+  if (newM3u) {
+    M3U_URL = newM3u;
+    localStorage.setItem('iptv_m3u_url', newM3u);
+  }
+  if (newEpg) {
+    EPG_URL = newEpg;
+    localStorage.setItem('iptv_epg_url', newEpg);
+  }
+
+  showToast("Configuració desada. Reiniciant...");
+  closeAllModals();
+
+  ready = false;
+  document.body.appendChild(splash);
+  splash.classList.remove('hidden');
+  boot();
+});
+
+exitYes.addEventListener('click', () => {
+  showToast("Sortint...");
+  if(wakeLock) wakeLock.release().then(() => wakeLock = null);
+
+  setTimeout(() => {
+    if (window.AndroidApp && typeof window.AndroidApp.tancarAplicacio === 'function') {
+      window.AndroidApp.tancarAplicacio();
+    } else {
+      window.location.href = "about:blank";
+    }
+  }, 400);
+});
+
+exitNo.addEventListener('click', () => {
+  closeExitModal();
+});
+
+document.addEventListener('click', () => showUI());
+document.addEventListener('mousemove', () => showUI());
+document.addEventListener('keydown', (e) => {
+  showUI();
+  const code = e.keyCode || e.which;
+
+  if(code === 27 || code === 8 || code === 461 || code === 10009){
+    if(anyModalOpen() || exitModal.classList.contains('show')) {
+      if(document.activeElement.tagName !== 'INPUT') {
+        e.preventDefault();
+        if(exitModal.classList.contains('show')) {
+          closeExitModal();
+        } else {
+          closeAllModals();
+        }
+        return;
+      }
+    } else {
+      e.preventDefault();
+      const now = Date.now();
+      if(now - lastBackPressTime < 1500) {
+        openExitModal();
+      } else {
+        showToast("Torna a prémer 'Enrere' per sortir");
+      }
+      lastBackPressTime = now;
+      return;
+    }
+  }
+
+  if(code === 13){
+    if(document.activeElement.tagName === 'INPUT') return;
+    e.preventDefault();
+    commitFocused();
+    return;
+  }
+
+  if(exitModal.classList.contains('show')) {
+    if(code === 37) {
+      e.preventDefault();
+      exitYes.focus();
+    }
+    if(code === 39) {
+      e.preventDefault();
+      exitNo.focus();
+    }
+    return;
+  }
+
+  if(code === 38){
+    e.preventDefault();
+    if(groupModal.classList.contains('show')){
+       const activeEl = document.activeElement;
+       if(activeEl && (activeEl.classList.contains('option') || activeEl.classList.contains('channel-item-opt'))){
+          const parent = activeEl.parentElement;
+          const items = [...parent.querySelectorAll('.option, .channel-item-opt')];
+          const idx = items.indexOf(activeEl);
+          const prev = items[idx - 1];
+          if(prev) { prev.focus(); prev.scrollIntoView({ block: 'nearest' }); }
+       }
+    } else if(epgModal.classList.contains('show')) {
+       const catchupBtns = [...epgModalContent.querySelectorAll('.epg-catchup-btn')];
+       const currentFocusedIdx = catchupBtns.indexOf(document.activeElement);
+       if (currentFocusedIdx > 0) {
+         catchupBtns[currentFocusedIdx - 1].focus();
+       }
+    } else if(configModal.classList.contains('show')) {
+       if(document.activeElement === inputEpg) inputM3u.focus();
+       else if(document.activeElement === btnSaveConfig) inputEpg.focus();
+    } else if(anyModalOpen() && !infoModal.classList.contains('show')){
+      const modal = document.querySelector('.modal.show .modalList');
+      if(modal) {
+        const buttons = [...modal.querySelectorAll('.option')];
+        const idx = buttons.indexOf(document.activeElement);
+        const nextBtn = buttons[(idx <= 0 ? buttons.length : idx) - 1];
+        if(nextBtn) { nextBtn.focus(); nextBtn.scrollIntoView({ block: 'nearest' }); }
+      }
+    } else if(!anyModalOpen()){
+      pendingIndex = (pendingIndex === null ? currentIndex : pendingIndex);
+      pendingIndex = (pendingIndex + 1) % filteredChannels.length;
+      playChannel(pendingIndex, false);
+    }
+    return;
+  }
+
+  if(code === 40){
+    e.preventDefault();
+    if(groupModal.classList.contains('show')){
+       const activeEl = document.activeElement;
+       if(activeEl && (activeEl.classList.contains('option') || activeEl.classList.contains('channel-item-opt'))){
+          const parent = activeEl.parentElement;
+          const items = [...parent.querySelectorAll('.option, .channel-item-opt')];
+          const idx = items.indexOf(activeEl);
+          const next = items[idx + 1];
+          if(next) { next.focus(); next.scrollIntoView({ block: 'nearest' }); }
+       }
+    } else if(epgModal.classList.contains('show')) {
+       const catchupBtns = [...epgModalContent.querySelectorAll('.epg-catchup-btn')];
+       const currentFocusedIdx = catchupBtns.indexOf(document.activeElement);
+       if (currentFocusedIdx !== -1 && currentFocusedIdx < catchupBtns.length - 1) {
+         catchupBtns[currentFocusedIdx + 1].focus();
+       }
+    } else if(configModal.classList.contains('show')) {
+       if(document.activeElement === inputM3u) inputEpg.focus();
+       else if(document.activeElement === inputEpg) btnSaveConfig.focus();
+    } else if(anyModalOpen() && !infoModal.classList.contains('show')){
+      const modal = document.querySelector('.modal.show .modalList');
+      if(modal) {
+        const buttons = [...modal.querySelectorAll('.option')];
+        const idx = buttons.indexOf(document.activeElement);
+        const nextBtn = buttons[(idx + 1) % buttons.length];
+        if(nextBtn) { nextBtn.focus(); nextBtn.scrollIntoView({ block: 'nearest' }); }
+      }
+    } else if(!anyModalOpen()){
+      pendingIndex = (pendingIndex === null ? currentIndex : pendingIndex);
+      pendingIndex = (pendingIndex - 1 + filteredChannels.length) % filteredChannels.length;
+      playChannel(pendingIndex, false);
+    }
+    return;
+  }
+
+  if(code === 37){
+    if(groupModal.classList.contains('show')){
+       e.preventDefault();
+       if(document.activeElement.classList.contains('channel-item-opt')) {
+         const firstGroup = groupList.querySelector('.option.selected') || groupList.querySelector('.option');
+         if(firstGroup) firstGroup.focus();
+       }
+    } else if(!anyModalOpen()){
+      e.preventDefault();
+      focusButtonByDelta(-1);
+    }
+    return;
+  }
+
+  if(code === 39){
+    if(groupModal.classList.contains('show')){
+       e.preventDefault();
+       if(document.activeElement.classList.contains('option')) {
+         const firstChan = groupChannelsList.querySelector('.channel-item-opt.active-now') || groupChannelsList.querySelector('.channel-item-opt');
+         if(firstChan) firstChan.focus();
+       }
+    } else if(!anyModalOpen()){
+      e.preventDefault();
+      focusButtonByDelta(1);
+    }
+    return;
+  }
+});
+
+async function boot(){
+  try{
+    splashStatus.textContent = 'Carregant llistes...';
+    const [m3uRes, epgRes] = await Promise.all([fetch(M3U_URL), fetch(EPG_URL)]);
+    const [m3uText, epgText] = await Promise.all([m3uRes.text(), epgRes.text()]);
+    channels = parseM3U(m3uText);
+    parseEPG(epgText);
+    buildGroups();
+    refreshFiltered();
+    setChannelInfo(filteredChannels[0] || {});
+    splashStatus.textContent = 'Llistes carregades';
+    splashHint.classList.add('show');
+    splashHint.focus();
+    updateControlsList();
+  } catch(err){
+    splashStatus.textContent = 'Error carregant les llistes';
+    splashHint.textContent = 'Prem per reintentar';
+    splashHint.classList.add('show');
+    showToast('Error de càrrega');
+    console.error(err);
+  }
+}
+
+initControlActions();
+boot();
+resetHideTimer();
+setInterval(()=>{
+  if(filteredChannels[currentIndex]) updateEpgUI(filteredChannels[currentIndex]);
+}, 30000);
+</script>
+</body>
+</html>
