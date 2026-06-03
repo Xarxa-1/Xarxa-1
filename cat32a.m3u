@@ -1,5 +1,8 @@
 #EXTM3U
 
+#EXTINF:0 tvg-id="StarzCinema.us" group-title="USA",Starz Cinema
+http://23.237.104.106:8080/USA_STARZ_CINEMA/index.m3u8?takodachi
+
 #EXTINF:-1 group-title="Entertainment" tvg-id="Bravo.USA.-.Eastern.Feed.us" tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s10057_dark_360w_270h.png" tvg-name="BRAVO",BRAVO
 http://41.205.93.154/BRAVO/index.m3u8
 
