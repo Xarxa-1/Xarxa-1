@@ -120,32 +120,34 @@ https://eu1.servers10.com:8081/8166/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Tastemade" tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200" group-title="Food",TastemadeAu
 https://rakutenaa-tm-intl-aus-rakuten-eu-n1gtg.amagi.tv/playlist/rakutenAA-tm-intl-aus-rakuten-eu/playlist.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="Tastemade" tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200" group-title="Food",Tastemade
-https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tmintlaus-samsungnz/playlist.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Tastemade" tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200" group-title="Food",TastemadeES
+https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tastemadees16international24i-ono/playlist.m3u8
+
+#EXTINF:-1 tvg-id="" tvg-name="Tastemade" tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200" group-title="Food",TastemadeINT
+https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tastemadeinternationalenglish24i-ono/playlist.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Tastemade Travel"  tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200"  group-title="Food",Tastemade Travel
 https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tastemadetravel-tablo/playlist.m3u8
 
-#EXTINF:-1 tvg-name="Tastemade_(720p)" group-title="Food",Tastemade Es
+#EXTINF:-1 tvg-name="Tastemade_(720p)" tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200" group-title="Food",Tastemade2
 https://jmp2.uk/plu-5f998c1fc54853000797bacd.m3u8
 
-
-#EXTINF:-1 tvg-name="Tastemade_Casa_(720p)" group-title="Disseny",Tastemade_Casa_(720p)
+#EXTINF:-1 tvg-name="Tastemade_Casa_(720p)" group-title="Design",Tastemade_Casa
 https://jmp2.uk/plu-68b88821e542386ab0bf5bef.m3u8
 
-#EXTINF:-1 tvg-name="Tastemade_Hogar_(720p)" group-title="Disseny",Tastemade_Hogar_(720p)
+#EXTINF:-1 tvg-name="Tastemade_Hogar_(720p)" group-title="Design",Tastemade_Hogar
 https://jmp2.uk/plu-68b887c2e77777498226a0de.m3u8
 
-#EXTINF:-1 tvg-name="Tastemade_Home_(1080p)" group-title="Disseny",Tastemade_Home_(1080p)
+#EXTINF:-1 tvg-name="Tastemade_Home_(1080p)" group-title="Design",Tastemade_Home_(1080p)
 https://d3ca4qxsdzlrju.cloudfront.net/Tastemade_Home.m3u8
 
-#EXTINF:-1 tvg-name="Tastemade_Smokehouse_(720p)" group-title="Disseny",Tastemade_Smokehouse_(720p)
+#EXTINF:-1 tvg-name="Tastemade_Smokehouse_(720p)" group-title="Design",Tastemade_Smokehouse_(720p)
 https://jmp2.uk/plu-68509fe882d704acfc5bacd1.m3u8
 
-#EXTINF:-1 tvg-name="Tastemade_Viagem_(720p)" group-title="Disseny",Tastemade_Viagem_(720p)
+#EXTINF:-1 tvg-name="Tastemade_Viagem_(720p)" group-title="Design",Tastemade_Viagem_(720p)
 https://jmp2.uk/plu-68b8875777201ec428d9eaa5.m3u8
 
-#EXTINF:-1 tvg-name="Tastemade_Viajes_(720p)" group-title="Disseny",Tastemade_Viajes_(720p)
+#EXTINF:-1 tvg-name="Tastemade_Viajes_(720p)" group-title="Design",Tastemade_Viajes_(720p)
 https://jmp2.uk/plu-68b88712e777774982269ce9.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="bon app?tit" tvg-logo="https://i.imgur.com/YhFFxlE.png" group-title="Food",bon appétit
