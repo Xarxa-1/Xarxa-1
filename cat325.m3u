@@ -39,7 +39,7 @@ http://167.250.223.26:8085/play/a05r/index.m3u
 https://ztnr.rtve.es/ztnr/1694255.m3u8
 
 
-#EXTINF:-1 tvg-id="Esport 3" tvg-name="Esport3.cat" tvg-logo="https://graph.facebook.com/Esport3/picture?width=200&height=200" group-title="Export",Esport3
+#EXTINF:-1 tvg-id="Esport 3" tvg-name="Esport3.cat" tvg-logo="https://graph.facebook.com/Esport3/picture?width=200&height=200" group-title="Esport",Esport3
 https://directes-tv-cat.3catdirectes.cat/live-content/esport3-hls/master.m3u8
 
 #EXTINF:-1 tvg-id="Teledeporte" tvg-name="TDP" tvg-logo="https://graph.facebook.com/teledeporteRTVE/picture?width=200&height=200" group-title="Esport" tvg-name="Teledeporte",Teledeporte
@@ -170,8 +170,20 @@ https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg01077-gustoworldwidem-gustotvnz-s
 #EXTINF:-1 tvg-id="Red Bull TV" tvg-name="RED BULL TV" tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVU-oBd73EqgukfWA1UWxk9Nnvgo0BB3eGDw&usqp=CAU" group-title="Esport",RED BULL TV
 https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master_1660.m3u8?xtreamiptv.m3u8
 
+#EXTINF:-1 tvg-name="Squirrel" tvg-logo="https://i.imgur.com/urF0kYA.png" tvg-id="Squirrel.es" tvg-chno="25" tvg-country="ES" group-title="General",Squirrel
+https://tsw.streamingwebtv24.it:1936/inteccdn1/inteccdn1/playlist.m3u8
+
+#EXTINF:-1 tvg-name="BOM Cine" tvg-logo="https://i.imgur.com/cqhofMU.png" tvg-id="BomCine.es" tvg-chno="26" tvg-country="ES" group-title="General",BOM Cine
+https://tsw.streamingwebtv24.it:1936/inteccdn3/inteccdn3/playlist.m3u8
+
 #EXTINF:-1 tvg-id="" tvg-name="Aragón TV" tvg-logo="https://i.imgur.com/6YSi1zW.png" group-title="General",Aragón TV
 https://cartv.streaming.aranova.es/hls/live/aragontv_canal1.m3u8
+
+#EXTINF:-1 tvg-name="ETB1" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/ETB1_2022_logo.svg/512px-ETB1_2022_logo.svg.png" tvg-id="ETB1.es" tvg-chno="10" tvg-country="ES" group-title="General",ETB1
+https://multimedia.eitb.eus/live-content/etb1hd-hls/master.m3u8
+
+#EXTINF:-1 tvg-name="ETB2" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/ETB2_2022_logo.svg/512px-ETB2_2022_logo.svg.png" tvg-id="ETB2.es" tvg-chno="11" tvg-country="ES" group-title="General",ETB2
+https://multimedia.eitb.eus/live-content/etb2hd-hls/master.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="EmpordàTV" tvg-logo="https://i.imgur.com/jc0lUbX.png" group-title="General",EmpordàTV
 https://video3.lhdserver.es/empordatv2/live.m3u8
