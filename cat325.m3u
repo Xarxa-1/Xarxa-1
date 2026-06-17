@@ -38,6 +38,8 @@ http://167.250.223.26:8085/play/a05r/index.m3u
 #EXTINF:-1 tvg-id="24 Horas" tvg-name="24H.es" tvg-logo="https://i.imgur.com/IUVRm5L.png" group-title="Notícies",24HCat
 https://ztnr.rtve.es/ztnr/1694255.m3u8
 
+#EXTINF:-1 tvg-id="Antena3Internacional.es@SD" tvg-logo?"https://pbs.twimg.com/profile_images/1898279121924259840/TzTr1cid_400x400.jpg" group-title="General" ,Antena 3 Internacional
+http://177.10.184.193:8000/play/a06a/index.m3u8
 
 #EXTINF:-1 tvg-id="Esport 3" tvg-name="Esport3.cat" tvg-logo="https://graph.facebook.com/Esport3/picture?width=200&height=200" group-title="Esport",Esport3
 https://directes-tv-cat.3catdirectes.cat/live-content/esport3-hls/master.m3u8
@@ -175,6 +177,9 @@ https://tsw.streamingwebtv24.it:1936/inteccdn1/inteccdn1/playlist.m3u8
 
 #EXTINF:-1 tvg-name="BOM Cine" tvg-logo="https://i.imgur.com/cqhofMU.png" tvg-id="BomCine.es" tvg-chno="26" tvg-country="ES" group-title="General",BOM Cine
 https://tsw.streamingwebtv24.it:1936/inteccdn3/inteccdn3/playlist.m3u8
+
+#EXTINF:-1 tvg-id="ActivaTV.es@SD"  group-title="Music" ,Activa TV (720p)
+https://streamtv.mediasector.es/hls/activatv/index.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Aragón TV" tvg-logo="https://i.imgur.com/6YSi1zW.png" group-title="General",Aragón TV
 https://cartv.streaming.aranova.es/hls/live/aragontv_canal1.m3u8
