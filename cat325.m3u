@@ -459,7 +459,7 @@ https://moviesphereuk-samsunguk.amagi.tv/playlist.m3u8
 #EXTINF:-1 group-title="Pel·lícules",MovieSphere.
 https://moviesphereuk-samsunguk.amagi.tv/1080p-vtt/index.m3u8
 
-#EXTINF:-1 group-title="Pel·lícules",Miramax
+#EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/2033574238146445312/x-fqejj2.jpg" group-title="Pel·lícules",Miramax
 https://linear-798.frequency.stream/mt/plex/798/hls/master/playlist.m3u8
 
 #EXTINF:-1 group-title="Pel·lícules",Todo Cine (1080p)
@@ -959,3 +959,5 @@ http://23.237.104.106:8080/USA_VH1/index.m3u8?takodachi
 http://23.237.104.106:8080/USA_VICETV/index.m3u8?takodachi
 #EXTINF:0 tvg-id="WGN.us" group-title="USA",WGN
 http://23.237.104.106:8080/USA_WGN/index.m3u8?takodachi
+ tvg-id="New EPG" tvg-logo="New Logo" tvg-name="Wellbeing TV | (TizTV)"  group-title="Unsorted",Wellbeing TV
+https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01255-secomcofites-my-myzen-en-plex/playlist.m3u8
