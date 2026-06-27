@@ -1137,6 +1137,9 @@ http://23.237.104.106:8080/USA_FX/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-id="FXX" group-title="International", FXX
 http://23.237.104.106:8080/USA_FXX/tracks-v1a1/mono.m3u8
 
+#EXTINF:0 tvg-id="Cinemax.us" group-title="USA",Cinemax
+http://23.237.104.106:8080/USA_CINEMAX/tracks-v1a1/mono.m3u8
+
 #EXTINF:-1 tvg-id="DISNEY_XD" group-title="International", DISNEY_XD
 http://23.237.104.106:8080/USA_DISNEY_XD/tracks-v1a1/mono.m3u8
 
