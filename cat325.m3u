@@ -67,37 +67,18 @@ https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_ch
 #EXTINF:-1 tvg-id="BBC W" tvg-logo="https://pbs.twimg.com/profile_images/1529107170448523264/q3VwEx38_400x400.jpg" tvg-name="BBC W",BBC World
 https://viamotionhsi.netplus.ch/live/eds/bbcworld/browser-HLS/bbcworld.m3u8
 
+#EXTINF:-1 tvg-id="BBC NEWS" tvg-logo="https://pbs.twimg.com/profile_images/1529107170448523264/q3VwEx38_400x400.jpg" tvg-name="BBC",BBC NEWS
+https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/t=3840/v=pv8/b=827008/a=pa4/b=128000/main.m3u8
 
 
-#EXTINF:-1 tvg-id="BBC1" tvg-name="BBC One" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/BBC_One_logo_2021.svg/langca-330px-BBC_One_logo_2021.svg.png" group-title="General",BBC One
-https://discoverfilm-discoverfilm-1-nl.samsung.wurl.tv/3000.m3u8
-
-#EXTINF:-1 tvg-id="BBC1" tvg-name="BBC One" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/BBC_One_logo_2021.svg/langca-330px-BBC_One_logo_2021.svg.png" group-title="General",BBC One
-https://streamer.nexyl.uk/5c858268-a93b-45f8-9e82-41d66b526d6c_output_0.m3u8?session=9buRUmvSPEr7QipAuuSUf7
-
-
-#EXTINF:-1 tvg-id="BBC TWO" group-title="UK", BBC TWO
-https://0145451975a64b35866170fd2e8fa486.mediatailor.eu-west-1.amazonaws.com/v1/manifest/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-5987/52449019-c378-4e85-b20e-1f51e0d5bb4a/4.m3u8
-
-#EXTINF:-1 tvg-id="BBC ONE" group-title="UK", BBC ONE
+#EXTINF:-1 tvg-id="BBC1" tvg-name="BBC One" group-title="UK" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/BBC_One_logo_2021.svg/langca-330px-BBC_One_logo_2021.svg.png" group-title="General",BBC One
 http://41.205.93.154/BBCONE/tracks-v1a1/mono.m3u8
 
-#EXTINF:-1 tvg-id="BBC THREE" group-title="UK", BBC THREE
-http://41.205.93.154/BBCTHREE/tracks-v1a1/mono.m3u8
-
-#EXTINF:-1 tvg-id="BBC TWO" group-title="UK", BBC TWO
+#EXTINF:-1 tvg-id="BBC2" tvg-name="BBC Two HD" group-title="UK" tvg-logo="https://pbs.twimg.com/profile_images/1450745686572650497/d-njUG_H_400x400.jpg" group-title="General",BBC Two HD (720p)
 http://41.205.93.154/BBCTWO/tracks-v1a1/mono.m3u8
 
-
-
-
-
-
-#EXTINF:-1 tvg-id="BBC2" tvg-name="BBC Two HD" group-title="UK" tvg-logo="https://pbs.twimg.com/profile_images/1450745686572650497/d-njUG_H_400x400.jpg" group-title="General",BBC Two HD (720p)
-https://viamotionhsi.netplus.ch/live/eds/bbc2/browser-HLS8/bbc2.m3u8
-
-#EXTINF:-1 tvg-id="BBC3" tvg-name="BBC Three HD" tvg-logo="https://images.seeklogo.com/logo-png/46/1/bbc-three-logo-png_seeklogo-467190.png" group-title="General",BBC Three HD
-https://streamer.nexyl.uk/39290a19-b8dd-43ea-b8dc-081c37790f24.m3u8
+#EXTINF:-1 tvg-id="BBC3" tvg-name="BBC Three HD" group-title="UK" tvg-logo="https://images.seeklogo.com/logo-png/46/1/bbc-three-logo-png_seeklogo-467190.png" group-title="General",BBC Three HD
+http://41.205.93.154/BBCTHREE/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="BBC4" tvg-name="BBC Four UK HD" tvg-logo="https://pbs.twimg.com/profile_images/597273122635587584/au1n9MWt.jpg" group-title="General",BBC Four UK HD
 https://streamer.nexyl.uk/48559ccd-6400-457d-8acc-06b9e24c2ed8.m3u8
@@ -107,6 +88,10 @@ https://viamotionhsi.netplus.ch/live/eds/bbc3cbbc/browser-HLS8/bbc3cbbc.m3u8
 
 #EXTINF:-1 tvg-id="BBC I" tvg-name="BBC Impossible" tvg-logo="https://pbs.twimg.com/profile_images/1100767317691109376/NerIe0LG_400x400.png" group-title="Undefined",BBC Impossible
 https://bbc-impossible-1-us.xumo.wurl.tv/playlist.m3u8
+
+#EXTINF:-1 tvg-id="B" tvg-name="" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/BBC_One_logo_2021.svg/langca-330px-BBC_One_logo_2021.svg.png" group-title="General",fILMS
+https://discoverfilm-discoverfilm-1-nl.samsung.wurl.tv/3000.m3u8
+
 
 #EXTINF:-1 tvg-id="itv2" tvg-name="itv2" group-title="UK"  tvg-logo="https://images.seeklogo.com/logo-png/21/1/itv2-logo-png_seeklogo-216927.png",itv2
 https://viamotionhsi.netplus.ch/live/eds/itv2/browser-HLS/itv2.m3u8
@@ -197,6 +182,9 @@ https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master_1660.m3u8?xtreami
 
 #EXTINF:-1 tvg-name="Squirrel" tvg-logo="https://i.imgur.com/urF0kYA.png" tvg-id="Squirrel.es" tvg-chno="25" tvg-country="ES" group-title="General",Squirrel
 https://tsw.streamingwebtv24.it:1936/inteccdn1/inteccdn1/playlist.m3u8
+
+#EXTINF:-1 tvg-id="LiveChannel" group-title="Pel·lícules", LiveChannel
+https://0145451975a64b35866170fd2e8fa486.mediatailor.eu-west-1.amazonaws.com/v1/manifest/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-5987/52449019-c378-4e85-b20e-1f51e0d5bb4a/4.m3u8
 
 #EXTINF:-1 tvg-name="BOM Cine" tvg-logo="https://i.imgur.com/cqhofMU.png" tvg-id="BomCine.es" tvg-chno="26" tvg-country="ES" group-title="General",BOM Cine
 https://tsw.streamingwebtv24.it:1936/inteccdn3/inteccdn3/playlist.m3u8
