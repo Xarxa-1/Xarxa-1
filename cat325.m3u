@@ -67,8 +67,31 @@ https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_ch
 #EXTINF:-1 tvg-id="BBC W" tvg-logo="https://pbs.twimg.com/profile_images/1529107170448523264/q3VwEx38_400x400.jpg" tvg-name="BBC W",BBC World
 https://viamotionhsi.netplus.ch/live/eds/bbcworld/browser-HLS/bbcworld.m3u8
 
+
+
+#EXTINF:-1 tvg-id="BBC1" tvg-name="BBC One" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/BBC_One_logo_2021.svg/langca-330px-BBC_One_logo_2021.svg.png" group-title="General",BBC One
+https://discoverfilm-discoverfilm-1-nl.samsung.wurl.tv/3000.m3u8
+
 #EXTINF:-1 tvg-id="BBC1" tvg-name="BBC One" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/BBC_One_logo_2021.svg/langca-330px-BBC_One_logo_2021.svg.png" group-title="General",BBC One
 https://streamer.nexyl.uk/5c858268-a93b-45f8-9e82-41d66b526d6c_output_0.m3u8?session=9buRUmvSPEr7QipAuuSUf7
+
+
+#EXTINF:-1 tvg-id="BBC TWO" group-title="UK", BBC TWO
+https://0145451975a64b35866170fd2e8fa486.mediatailor.eu-west-1.amazonaws.com/v1/manifest/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-5987/52449019-c378-4e85-b20e-1f51e0d5bb4a/4.m3u8
+
+#EXTINF:-1 tvg-id="BBC ONE" group-title="UK", BBC ONE
+http://41.205.93.154/BBCONE/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="BBC THREE" group-title="UK", BBC THREE
+http://41.205.93.154/BBCTHREE/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="BBC TWO" group-title="UK", BBC TWO
+http://41.205.93.154/BBCTWO/tracks-v1a1/mono.m3u8
+
+
+
+
+
 
 #EXTINF:-1 tvg-id="BBC2" tvg-name="BBC Two HD" group-title="UK" tvg-logo="https://pbs.twimg.com/profile_images/1450745686572650497/d-njUG_H_400x400.jpg" group-title="General",BBC Two HD (720p)
 https://viamotionhsi.netplus.ch/live/eds/bbc2/browser-HLS8/bbc2.m3u8
@@ -376,7 +399,8 @@ http://45.228.234.30:16000/play/a008/index.m3u8
 http://45.228.234.30:16000/play/a009/index.m3u8
 
 #EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1258035922722934784/S27gb-oG_400x400.jpg" tvg-name="TheDesingNetwork"  group-title="Design",TheDesingNetwork
-https://amg00441-amg00441c1-plex-us-5231.playouts.now.amagi.tv/playlistR1080p.m3u8
+https://amg00441-amg00441c1-rakuten-us-6050.playouts.now.amagi.tv/playlistR240p.m3u8
+
 
 #EXTINF:-1 tvg-id="" tvg-name="Tastemade Home" tvg-logo="https://tvpnlogopus.samsungcloud.tv/platform/image/sourcelogo/vc/00/02/34/USBC3200022W6_20240910T003655SQUARE.png" group-title="Design",Tastemade Home
 https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tastemadehome-lgus/playlist.m3u8
@@ -961,6 +985,24 @@ http://23.237.104.106:8080/USA_VICETV/index.m3u8?takodachi
 http://23.237.104.106:8080/USA_WGN/index.m3u8?takodachi
 #EXTUBF:0 tvg-id="New EPG" tvg-logo="New Logo" tvg-name="Wellbeing TV | (TizTV)"  group-title="Unsorted",Wellbeing TV
 https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01255-secomcofites-my-myzen-en-plex/playlist.m3u8
+
+
+#EXTINF:-1 tvg-id="Nickelodeon" group-title="International", Nickelodeon
+http://23.237.104.106:8080/USA_NICKELODEON/index.m3u8
+
+#EXTINF:-1 tvg-id="MovieSphere (1080p)" group-title="International", MovieSphere (1080p)
+https://moviesphereuk-samsunguk.amagi.tv/playlist.m3u8
+
+#EXTINF:-1 tvg-id="Dateline" group-title="International", Dateline
+https://dz59iptwz5rxs.cloudfront.net/live/master_6.m3u8
+
+#EXTINF:-1 tvg-id="yahoo F" group-title="International", yahoo F
+https://d1ewctnvcwvvvu.cloudfront.net/playlist.m3u8
+
+#EXTINF:-1 tvg-id="QVC UK" group-title="International", QVC UK
+https://qvcuk-live.akamaized.net/hls/live/2097112/qvc/1/1.m3u8
+
+
 #EXTINF:-1 tvg-id="BBC ONE" group-title="International", BBC ONE
 https://discoverfilm-discoverfilm-1-nl.samsung.wurl.tv/3000.m3u8
 
@@ -976,24 +1018,6 @@ http://41.205.93.154/BBCTHREE/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-id="BBC TWO" group-title="International", BBC TWO
 http://41.205.93.154/BBCTWO/tracks-v1a1/mono.m3u8
 
-#EXTINF:-1 tvg-id="CNN FAST" group-title="International", CNN FAST
-https://jmp2.uk/stvp-GBBD1900008O3
-
-#EXTINF:-1 tvg-id="CNN H" group-title="International", CNN H
-https://d3hnx79nr9mhdw.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-1u2levt4fksmr/CNNFAST_GB.m3u8
-
-#EXTINF:-1 tvg-id="CNN H" group-title="International", CNN H
-https://d3fzntptkfpmvg.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-6rc4k0y56fezj/CNNFAST_GB.m3u8
-
-#EXTINF:-1 tvg-id="CNN MONEY" group-title="International", CNN MONEY
-https://amg01391-sbtinfast-amg01391c11-lg-br-9982.playouts.now.amagi.tv/playlist/amg01391-addigital-cnnmoneyhevc-lgbr/playlist.m3u8
-
-#EXTINF:-1 tvg-id="CNN HD" group-title="International", CNN HD
-https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_3_1464000.m3u8
-
-#EXTINF:-1 tvg-id="CNN HD" group-title="International", CNN HD
-https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8
-
 #EXTINF:-1 tvg-id="CNN international" group-title="International", CNN international
 https://ds2c506obo7m8.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-7zjq3tdqasbg8/index.m3u8
 
@@ -1002,54 +1026,17 @@ https://d25usgadhphvwi.cloudfront.net/hls/main.m3u8
 
 #EXTINF:-1 tvg-id="BBC NEWS" group-title="International", BBC NEWS
 https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/t=3840/v=pv8/b=827008/a=pa4/b=128000/main.m3u8
-
-#EXTINF:-1 tvg-id="TBS" group-title="International", TBS
-https://tvpass.org/live/TBSEast/sd
-
-#EXTINF:-1 tvg-id="DW English" group-title="International", DW English
-https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/index.m3u8
-
-#EXTINF:-1 tvg-id="RT Documentary" group-title="International", RT Documentary
-https://rt-rtd.rttv.com/live/rtdoc/playlist_4500Kb.m3u8
-
 #EXTINF:-1 tvg-id="THE WEATHER CHANNEL" group-title="International", THE WEATHER CHANNEL
 https://twcprod-live.twc-tv.com/v1/manifest/b4d4d63a49309cc5140171fb2e92485c31be1e9e/DSP_6228e4760505741a116f1ba2_twcprod-live/6bf09ce5-366b-463c-b67e-c4b799f73c3f/3.m3u8
 
 #EXTINF:-1 tvg-id="THE WEATHER CHANNEL" group-title="International", THE WEATHER CHANNEL
 https://tvpass.org/live/TheWeatherChannel/sd
 
-#EXTINF:-1 tvg-id="canada 600新闻台" group-title="International", canada 600新闻台
-https://live.xinflix.com/Lshape/tracks-v1a1/mono.m3u8
-
-#EXTINF:-1 tvg-id="ABC" group-title="International", ABC
-http://41.205.93.154/ABC/index.m3u8
-
-#EXTINF:-1 tvg-id="abc news" group-title="International", abc news
+#EXTINF:-1 tvg-id="abc news" group-title="International", ABC News
 https://abc-news-dmd-streams-1.akamaized.net/out/v1/701126012d044971b3fa89406a440133/index_6.m3u8
-
-#EXTINF:-1 tvg-id="BBC EARTH" group-title="International", BBC EARTH
-https://amg00793-amg00793c6-xumo-us-2669.playouts.now.amagi.tv/BBCStudios-BBCEarthA-hls/playlist540p.m3u8
-
-#EXTINF:-1 tvg-id="BBC Earth" group-title="International", BBC Earth
-https://dbrb49pjoymg4.cloudfront.net/manifest/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod_default_xumo-ams-aws/58366634-aa54-41fa-8923-4938bc769f8a/0.m3u8
 
 #EXTINF:-1 tvg-id="CGTN Documentary" group-title="International", CGTN Documentary
 https://amg00405-rakutentv-cgtndocumentary-rakuten-0ql8j.amagi.tv/master480p.m3u8
-
-#EXTINF:-1 tvg-id="DISCOVERY" group-title="International", DISCOVERY
-http://41.205.93.154/DISCOVERY/tracks-v1a1/mono.m3u8
-
-#EXTINF:-1 tvg-id="Discovery Channel" group-title="International", Discovery Channel
-http://23.237.104.106:8080/USA_DISCOVERY/index.m3u8
-
-#EXTINF:-1 tvg-id="discovery" group-title="International", discovery
-http://5.188.159.128:8070/DiscoveryChannel/tracks-v1a1/mono.m3u8
-
-#EXTINF:-1 tvg-id="discovery channel" group-title="International", discovery channel
-http://46.32.176.50/discoverychannel/index.m3u8
-
-#EXTINF:-1 tvg-id="discovery channel" group-title="International", discovery channel
-http://line.tivi-one.net:80/play/live.php?mac=A0:BB:3E:75:52:64&stream=1031928&extension=ts&play_token=aoAkuxf4sh
 
 #EXTINF:-1 tvg-id="NAT_GEO" group-title="International", NAT_GEO
 http://23.237.104.106:8080/USA_NAT_GEO/tracks-v1a1/mono.m3u8
@@ -1060,28 +1047,13 @@ http://23.237.104.106:8080/USA_NAT_GEO_WILD/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-id="WE TV" group-title="International", WE TV
 http://23.237.104.106:8080/USA_WE_TV/tracks-v1a1/mono.m3u8
 
-#EXTINF:-1 tvg-id="Earth" group-title="International", Earth
-https://wildearth-plex.amagi.tv/masterR1080p.m3u8
-
 #EXTINF:-1 tvg-id="TLC" group-title="International", TLC
 http://79.127.238.228:14433
-
-#EXTINF:-1 tvg-id="TLC E" group-title="International", TLC E
-https://tvpass.org/live/TLCEast/hd
-
-#EXTINF:-1 tvg-id="TLC E S" group-title="International", TLC E S
-https://tvpass.org/live/TLCEast/sd
-
-#EXTINF:-1 tvg-id="TLC HD" group-title="International", TLC HD
-http://79.127.238.228:14433
-
-#EXTINF:-1 tvg-id="TLC 2" group-title="International", TLC 2
-http://104.250.145.76/livehttpplay?channel_id=23319
 
 #EXTINF:-1 tvg-id="E" group-title="International", E
 http://23.237.104.106:8080/USA_E/tracks-v1a1/mono.m3u8
 
-#EXTINF:-1 tvg-id="FOOD_NETWORK" group-title="International", FOOD_NETWORK
+#EXTINF:-1 tvg-id="FOOD_NETWORK" group-title="Food", FOOD_NETWORK
 http://23.237.104.106:8080/USA_FOOD_NETWORK/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="outdoor channel" group-title="International", outdoor channel
@@ -1089,18 +1061,6 @@ https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg00718-outdoorchannela-outdoortvnz
 
 #EXTINF:-1 tvg-id="wild tv" group-title="International", wild tv
 https://dfhsahpa45kk2.cloudfront.net/scheduler/scheduleMaster/476/variant/22100055.m3u8
-
-#EXTINF:-1 tvg-id="TNT" group-title="International", TNT
-https://turnerlive.warnermediacdn.com/hls/live/2023168/tnteast/slate/VIDEO_0_3564000.m3u8
-
-#EXTINF:-1 tvg-id="TNT EAST" group-title="International", TNT EAST
-https://raw.githubusercontent.com/InsolenceWillow/insolencetvgo/main/streams/tnteast.us.m3u8
-
-#EXTINF:-1 tvg-id="TNT WEST" group-title="International", TNT WEST
-https://raw.githubusercontent.com/InsolenceWillow/insolencetvgo/main/streams/tntwest.us.m3u8
-
-#EXTINF:-1 tvg-id="Game Show Central" group-title="International", Game Show Central
-https://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/62e90e8cb05d2b0007f10a61/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=2c7a54a2-35fc-11ef-a031-2b5d494037a2&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=06d7c73f-91e9-44c5-868e-5336253a1d67
 
 #EXTINF:-1 tvg-id="Go2Travel" group-title="International", Go2Travel
 https://go2thls.wns.live/hls/stream.m3u8
@@ -1113,9 +1073,6 @@ http://23.237.104.106:8080/USA_HLN/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="TBS" group-title="International", TBS
 http://41.205.93.154/TBS/tracks-v1a1/mono.m3u8
-
-#EXTINF:-1 tvg-id="ABC" group-title="International", ABC
-http://41.205.93.154/ABC/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="ANIMALPLANET" group-title="International", ANIMALPLANET
 http://41.205.93.154/ANIMALPLANET/tracks-v1a1/mono.m3u8
@@ -1159,17 +1116,20 @@ https://d3b3ldcvgsu291.cloudfront.net/v1/master/9d062541f2ff39b5c0f48b743c6411d2
 #EXTINF:-1 tvg-id="SHOWTIME_FAMILY" group-title="International", SHOWTIME_FAMILY
 http://23.237.104.106:8080/USA_SHOWTIME_FAMILY/tracks-v1a1/mono.m3u8
 
-#EXTINF:-1 tvg-id="STARZ" group-title="International", STARZ
-http://41.205.93.154/STARZ/tracks-v1a1/mono.ts.m3u8
+#EXTINF:-1 tvg-id="STARZ" group-title="International" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg", STARZ
+http://23.237.104.106:8080/USA_STARZ/tracks-v1a1/mono.m3u8
 
-#EXTINF:-1 tvg-id="STARZ_CINEMA" group-title="International", STARZ_CINEMA
+#EXTINF:-1 tvg-id="STARZ_CINEMA" group-title="International" tvg-logo="https://pbs.twimg.com/profile_images/480130586296610816/WbxlEGVN_400x400.png", STARZ_CINEMA
 http://23.237.104.106:8080/USA_STARZ_CINEMA/tracks-v1a1/mono.m3u8
 
-#EXTINF:-1 tvg-id="STARZ_COMEDY" group-title="International", STARZ_COMEDY
-http://41.205.93.154/STARZ_COMEDY/tracks-v1a1/mono.ts.m3u8
+#EXTINF:-1 tvg-id="STARZ_COMEDY" group-title="International" tvg-logo="https://pbs.twimg.com/profile_images/1575474245924278274/FSBixs2O_400x400.jpg", STARZ_COMEDY
+http://23.237.104.106:8080/USA_STARZ_COMEDY/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="TMC" group-title="International", TMC
-http://41.205.93.154/TMC/tracks-v1a1/mono.m3u8
+http://23.237.104.106:8080/USA_TMC/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="TMC" group-title="International", USA_SHOWTIME_FAMILY
+http://23.237.104.106:8080/USA_SHOWTIME_FAMILY/tracks-v1a1/mono.m3u8 
 
 #EXTINF:-1 tvg-id="FX" group-title="International", FX
 http://23.237.104.106:8080/USA_FX/tracks-v1a1/mono.m3u8
@@ -1177,100 +1137,14 @@ http://23.237.104.106:8080/USA_FX/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-id="FXX" group-title="International", FXX
 http://23.237.104.106:8080/USA_FXX/tracks-v1a1/mono.m3u8
 
-#EXTINF:-1 tvg-id="AMC Absolute Reality" group-title="International", AMC Absolute Reality
-https://amc-absolutereality-1-us.plex.wurl.tv/playlist.m3u8
-
-#EXTINF:-1 tvg-id="AWE" group-title="International", AWE
-https://a-cdn.klowdtv.com/live1/awe_720p/playlist.m3u8
-
-#EXTINF:-1 tvg-id="AWE Encore" group-title="International", AWE Encore
-https://a-cdn.herringnetwork.com/affiliate/awee/playlist.m3u8
-
 #EXTINF:-1 tvg-id="DISNEY_XD" group-title="International", DISNEY_XD
 http://23.237.104.106:8080/USA_DISNEY_XD/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="DISNEY_JUNIOR" group-title="International", DISNEY_JUNIOR
 http://23.237.104.106:8080/USA_DISNEY_JUNIOR/tracks-v1a1/mono.m3u8
 
-#EXTINF:-1 tvg-id="Disney Eastern Feed" group-title="International", Disney Eastern Feed
-https://tvpass.org/live/DisneyChannelEast/sd
-
-#EXTINF:-1 tvg-id="Disney Junior USA East" group-title="International", Disney Junior USA East
-https://tvpass.org/live/DisneyJuniorEast/sd
-
-#EXTINF:-1 tvg-id="Nickelodeon" group-title="International", Nickelodeon
-http://23.237.104.106:8080/USA_NICKELODEON/index.m3u8
-
-#EXTINF:-1 tvg-id="nickelodeon" group-title="International", nickelodeon
-http://nor1live.win/livehttpplay?channel_id=23099
-
-#EXTINF:-1 tvg-id="MovieSphere (1080p)" group-title="International", MovieSphere (1080p)
-https://moviesphereuk-samsunguk.amagi.tv/playlist.m3u8
-
-#EXTINF:-1 tvg-id="Dateline" group-title="International", Dateline
-https://dz59iptwz5rxs.cloudfront.net/live/master_6.m3u8
-
-#EXTINF:-1 tvg-id="yahoo F" group-title="International", yahoo F
-https://d1ewctnvcwvvvu.cloudfront.net/playlist.m3u8
-
-#EXTINF:-1 tvg-id="Business 24" group-title="International", Business 24
-https://cdn-globecast.akamaized.net/live/eds/business24_tv/hls_video/business24_tv-avc1_400000=2-mp4a_98400=1.m3u8
-
-#EXTINF:-1 tvg-id="DeFiance TV" group-title="International", DeFiance TV
-https://amg01529-defiancetv-defiancemedia-glewed-tre8x.amagi.tv/playlist216-hp.m3u8
-
-#EXTINF:-1 tvg-id="QVC UK" group-title="International", QVC UK
-https://qvcuk-live.akamaized.net/hls/live/2097112/qvc/1/1.m3u8
-
-#EXTINF:-1 tvg-id="CityNews Calgary" group-title="International", CityNews Calgary
-https://citynewsregional.akamaized.net/hls/live/1024053/Regional_Live_8/Video-1Mbps.m3u8
-
-#EXTINF:-1 tvg-id="CityNews Vancouver" group-title="International", CityNews Vancouver
-https://citynewsregional.akamaized.net/hls/live/1024054/Regional_Live_9/Video-1Mbps.m3u8
-
-#EXTINF:-1 tvg-id="Global Toronto" group-title="International", Global Toronto
-https://live.corusdigitaldev.com/groupd/live/deb8cec5-87fb-460a-ab82-0929374fc5fb/live.isml/.m3u8?checkedby:iptvcat.com
-
-#EXTINF:-1 tvg-id="CBC TORONTO" group-title="International", CBC TORONTO
-https://cbcrclinear-tor.akamaized.net/hls/live/2042760/CBCRCLINEAR_TOR_6/master5.m3u8
-
-#EXTINF:-1 tvg-id="CBC Vancouver" group-title="International", CBC Vancouver
-https://cbcrclinear-tor.akamaized.net/hls/live/2042768/CBCRCLINEAR_TOR_14/master5.m3u8
-
-#EXTINF:-1 tvg-id="CBC Calgary" group-title="International", CBC Calgary
-https://cbcrclinear-tor.akamaized.net/hls/live/2042763/CBCRCLINEAR_TOR_9/master5.m3u8
-
-#EXTINF:-1 tvg-id="CBC Edmonton" group-title="International", CBC Edmonton
-https://cbcrclinear-tor.akamaized.net/hls/live/2042765/CBCRCLINEAR_TOR_11/master5.m3u8
-
-#EXTINF:-1 tvg-id="CBC Ottawa" group-title="International", CBC Ottawa
-https://cbcrclinear-tor.akamaized.net/hls/live/2042762/CBCRCLINEAR_TOR_8/master5.m3u8
-
-#EXTINF:-1 tvg-id="CBC MONTREAL" group-title="International", CBC MONTREAL
-https://cbcrclinear-tor.akamaized.net/hls/live/2042761/CBCRCLINEAR_TOR_7/master5.m3u8
-
-#EXTINF:-1 tvg-id="Global British Columbia" group-title="International", Global British Columbia
-https://live.corusdigitaldev.com/groupa/live/48a5882b-a1ec-42d7-bfd7-6c2739e737da/live.isml/master.m3u8?checkedby:iptvcat.com
-
-#EXTINF:-1 tvg-id="Global News Calgary" group-title="International", Global News Calgary
-https://live.corusdigitaldev.com/groupd/live/8970c668-40cd-4ca9-8c4d-25fd04f619b5/live.isml/.m3u8?checkedby:iptvcat.com
-
-#EXTINF:-1 tvg-id="Global News Edmonton" group-title="International", Global News Edmonton
-https://live.corusdigitaldev.com/groupb/live/215422c9-d1b9-4009-aaca-32e403f22b01/live.isml/.m3u8?checkedby:iptvcat.com
-
-#EXTINF:-1 tvg-id="Global News Lethbridge" group-title="International", Global News Lethbridge
-https://live.corusdigitaldev.com/groupc/live/cea96246-9af2-4373-932f-cdd3f8db2bc0/live.isml/.m3u8?checkedby:iptvcat.com
-
-#EXTINF:-1 tvg-id="Global News Okanagan" group-title="International", Global News Okanagan
-https://live.corusdigitaldev.com/groupc/live/9fd97fb0-baa8-4191-bd2c-59aa5c9a1d48/live.isml/.m3u8?checkedby:iptvcat.com
-
-#EXTINF:-1 tvg-id="Global Toronto" group-title="International", Global Toronto
-https://live.corusdigitaldev.com/groupd/live/8970c668-40cd-4ca9-8c4d-25fd04f619b5/live.isml/master.m3u8?checkedby:iptvcat.com
-
-#EXTINF:-1 tvg-id="Global News" group-title="International", Global News
+#EXTINF:-1 tvg-id="Global News" group-title="International" tvg-logo="https://pbs.twimg.com/profile_images/1580227290952335360/Ew3OQkOi_400x400.jpg", Global News
 https://live.corusdigitaldev.com/groupd/live/49a91e7f-1023-430f-8d66-561055f3d0f7/live.isml/master.m3u8
 
-#EXTINF:-1 tvg-id="Global Toronto" group-title="International", Global Toronto
-https://live.corusdigitaldev.com/groupd/live/8970c668-40cd-4ca9-8c4d-25fd04f619b5/live.isml/master.m3u8
-#EXTINF:0 tvg-id="WGN.us" group-title="", BBC Earth
+#EXTINF:0 tvg-id="WGN.us" group-title="UK" tvg-logo="https://pbs.twimg.com/profile_images/2029135026709749760/N1Hw5eEr_400x400.jpg", BBC Earth
 https://amg00793-amg00793c6-xumo-us-2669.playouts.now.amagi.tv/BBCStudios-BBCEarthA-hls/playlist.m3u8
