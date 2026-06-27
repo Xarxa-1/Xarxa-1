@@ -33,7 +33,7 @@ https://rtvelivestream.rtve.es/rtvesec/cat/la1_cat_main_dvr.m3u8
 https://rtvelivestream.rtve.es/rtvesec/cat/la2_cat_main.m3u8
 
 #EXTINF:-1 tvg-id="La 1 HD" tvg-name="La1.cat" tvg-logo="https://i.imgur.com/1jDS9UC.png" group-title="General",Rtve
-http://167.250.223.26:8085/play/a05r/index.m3u
+https://ztnr.rtve.es/ztnr/6909845.m3u8
 
 #EXTINF:-1 tvg-id="24 Horas" tvg-name="24H.es" tvg-logo="https://i.imgur.com/IUVRm5L.png" group-title="Notícies",24HCat
 https://ztnr.rtve.es/ztnr/1694255.m3u8
@@ -190,7 +190,7 @@ https://multimedia.eitb.eus/live-content/etb1hd-hls/master.m3u8
 #EXTINF:-1 tvg-name="ETB2" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/ETB2_2022_logo.svg/512px-ETB2_2022_logo.svg.png" tvg-id="ETB2.es" tvg-chno="11" tvg-country="ES" group-title="General",ETB2
 https://multimedia.eitb.eus/live-content/etb2hd-hls/master.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="EmpordàTV" tvg-logo="https://i.imgur.com/jc0lUbX.png" group-title="General",EmpordàTV
+#EXTINF:-1 tvg-id="" tvg-name="EmpordàTV" tvg-logo="https://i.imgur.com/jc0lUbX.png" group-title="Catalunya",EmpordàTV
 https://video3.lhdserver.es/empordatv2/live.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="TVSabadell" tvg-logo="negre.jpg" group-title="Catalunya",TVSabadell
@@ -456,6 +456,7 @@ https://jmp2.uk/plex-64305451fc3be5947773c339-66be944f8711311880995280.m3u8
 
 #EXTINF:-1 group-title="Pel·lícules",MovieSphere
 https://moviesphereuk-samsunguk.amagi.tv/playlist.m3u8
+#EXTINF:-1 group-title="Pel·lícules",MovieSphere.
 https://moviesphereuk-samsunguk.amagi.tv/1080p-vtt/index.m3u8
 
 #EXTINF:-1 group-title="Pel·lícules",Miramax
@@ -490,11 +491,9 @@ https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8
 
 #EXTINF:-1 group-title="Internacionals",TVE LA 2
 https://rtvelivestream.rtve.es/rtvesec/la2/la2_main_dvr.m3u8
-https://ztnr.rtve.es/ztnr/1688885.m3u8
 
 #EXTINF:-1 group-title="Internacionals",TVE 24 H
 https://rtvelivestream.rtve.es/rtvesec/24h/24h_main_dvr.m3u8
-https://ztnr.rtve.es/ztnr/1694255.m3u8
 
 #EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1889595750780112896/GzWcRrIo_400x400.jpg" group-title="Internacionals",Star TVE
 https://rtvelivestream-rtveplayplus.rtve.es/rtvesec/int/star_main_720.m3u8
@@ -505,8 +504,6 @@ https://ztnr.rtve.es/ztnr/5466990.m3u8
 #EXTINF:-1 group-title="Internacionals",TRECE INT
 https://5940924978228.streamlock.net/8009/ngrp:8009_all/playlist.m3u8
 
-#EXTINF:-1 group-title="Esport",TVE TDP
-https://ztnr.rtve.es/ztnr/1712295.m3u8
 
 #EXTINF:-1 group-title="Pel·lícules",TVE Somos Cine
 https://ztnr.rtve.es/ztnr/6909845.m3u8
