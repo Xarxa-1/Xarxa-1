@@ -1026,7 +1026,7 @@ https://abc-news-dmd-streams-1.akamaized.net/out/v1/701126012d044971b3fa89406a44
 #EXTINF:-1 tvg-id="CGTN Documentary" group-title="International", CGTN Documentary
 https://amg00405-rakutentv-cgtndocumentary-rakuten-0ql8j.amagi.tv/master480p.m3u8
 
-#EXTINF:-1 tvg-id="NAT_GEO" group-title="International", NAT_GEO
+#EXTINF:-1 tvg-id="" tvg-name="" tvg-logo="https://i.imgur.com/baXbWro.jpg" group-title="" group-title="International", National Geographic 
 http://23.237.104.106:8080/USA_NAT_GEO/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="NAT_GEO_WILD" group-title="International", NAT_GEO_WILD
@@ -1148,6 +1148,12 @@ http://23.237.104.106:8080/USA_STARZ_COMEDY/index.m3u8?takodachi
 
 #EXTINF:-1 tvg-id="STARZ1" group-title="International" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg" group-title="Starz",USA_STARZ_COMEDY mono
 http://23.237.104.106:8080/USA_STARZ_COMEDY/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="bein" group-title="International" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg" group-title="Starz",BEIN
+http://23.237.104.106:8080/USA_BEIN/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="fox" group-title="International" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg" group-title="Starz",FOX DEPORTES
+http://23.237.104.106:8080/USA_FOX_DEPORTES/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="STARZ1" group-title="International" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg" group-title="Starz",HBO COMEDY
 http://23.237.104.106:8080/USA_HBO_COMEDY/index.m3u8
