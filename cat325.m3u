@@ -1140,7 +1140,7 @@ https://live.corusdigitaldev.com/groupd/live/49a91e7f-1023-430f-8d66-561055f3d0f
 #EXTINF:-1 tvg-id="WGN.us" group-title="UK" tvg-logo="https://pbs.twimg.com/profile_images/2029135026709749760/N1Hw5eEr_400x400.jpg", BBC Earth
 https://amg00793-amg00793c6-xumo-us-2669.playouts.now.amagi.tv/BBCStudios-BBCEarthA-hls/playlist.m3u8
 
-XTINF:-1 tvg-id="USA_STARZ_COMEDY2" tvg-name="USA_STARZ_COMEDY" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg" group-title="Starz",USA_STARZ_COMEDY index
+#EXTINF:-1 tvg-id="USA_STARZ_COMEDY2" tvg-name="USA_STARZ_COMEDY" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg" group-title="Starz",USA_STARZ_COMEDY index
 http://23.237.104.106:8080/USA_STARZ_COMEDY/index.m3u8
 
 #EXTINF:-1 tvg-id="STARZ0" group-title="International" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg" group-title="Starz",USA_STARZ_COMEDY takodachi
