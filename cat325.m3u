@@ -1149,3 +1149,6 @@ http://23.237.104.106:8080/USA_STARZ_COMEDY/index.m3u8?takodachi
 #EXTINF:-1 tvg-id="STARZ1" group-title="International" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg" group-title="Starz",USA_STARZ_COMEDY mono
 http://23.237.104.106:8080/USA_STARZ_COMEDY/tracks-v1a1/mono.m3u8
 
+#EXTINF:-1 tvg-id="STARZ1" group-title="International" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg" group-title="Starz",HBO COMEDY
+http://23.237.104.106:8080/USA_HBO_COMEDY/index.m3u8
+
