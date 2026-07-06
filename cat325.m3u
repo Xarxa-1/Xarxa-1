@@ -873,104 +873,106 @@ http://190.60.32.178:8178/play/a015/index.m3u8
 #EXTINF:-1 tvg-id="LLEIDATV.cat" tvg-name="LLEIDATV.cat" tvg-logo="" group-title="Catalunya",LLEIDA TV
 https://liveingesta318.cdnmedia.tv/lleidatvlive/live-1500/chunklist.m3u8?DVR
 
+
 #EXTINF:-1 tvg-id="5StarMax.us" group-title="USA",5StarMax
-http://23.237.104.106:8080/USA_5STARMAX/index.m3u8?takodachi
-#EXTINF:-1 tvg-id="A&E.us" group-title="USA",A&E
-http://23.237.104.106:8080/USA_AE/index.m3u8?takodachi
-#EXTINF:-1 tvg-id="AMC.us" group-title="USA",AMC
-http://23.237.104.106:8080/USA_AMC/index.m3u8?takodachi
+http://23.237.104.106:8080/USA_5STARMAX/tracks-v1a1/mono.m3u8
+
 #EXTINF:-1 tvg-id="AnimalPlanet.us" group-title="USA",Animal Planet
-http://23.237.104.106:8080/USA_ANIMAL_PLANET/index.m3u8?takodachi
+http://23.237.104.106:8080/USA_ANIMAL_PLANET/tracks-v1a1/mono.m3u8
+
 #EXTINF:-1 tvg-id="CartoonNetwork.us" group-title="USA",Cartoon Network / Adult Swim
-http://23.237.104.106:8080/USA_CARTOON_NETWORK/index.m3u8?takodachi
+http://23.237.104.106:8080/USA_CARTOON_NETWORK/tracks-v1a1/mono.m3u8
+
 #EXTINF:-1 tvg-id="Cinemax.us" group-title="USA",Cinemax
-http://23.237.104.106:8080/USA_CINEMAX/index.m3u8?takodachi
+http://23.237.104.106:8080/USA_CINEMAX/tracks-v1a1/mono.m3u8
+
 #EXTINF:-1 tvg-id="ComedyCentral.us" group-title="USA",Comedy Central
-http://23.237.104.106:8080/USA_COMEDY_CENTRAL/index.m3u8?takodachi
+http://23.237.104.106:8080/USA_COMEDY_CENTRAL/tracks-v1a1/mono.m3u8
+
 #EXTINF:-1 tvg-id="CookingChannel.us" group-title="USA",Cooking Channel
-http://23.237.104.106:8080/USA_COOKING/index.m3u8?takodachi
+http://23.237.104.106:8080/USA_COOKING/tracks-v1a1/mono.m3u8
+
 #EXTINF:-1 tvg-id="DestinationAmerica.us" group-title="USA",Destination America
-http://23.237.104.106:8080/USA_DESTINATION_AMERICA/index.m3u8?takodachi
+http://23.237.104.106:8080/USA_DESTINATION_AMERICA/tracks-v1a1/mono.m3u8
+
 #EXTINF:-1 tvg-id="Discovery.us" group-title="USA",Discovery Channel
-http://23.237.104.106:8080/USA_DISCOVERY/index.m3u8?takodachi
-#EXTINF:-1 tvg-id="InvestigationDiscovery.us" group-title="USA",Discovery Investigation
-http://23.237.104.106:8080/USA_ID/index.m3u8?takodachi
+http://23.237.104.106:8080/USA_DISCOVERY/tracks-v1a1/mono.m3u8
+
 #EXTINF:-1 tvg-id="E.us" group-title="USA",E! Entertainment Television
-http://23.237.104.106:8080/USA_E/index.m3u8?takodachi
-#EXTINF:-1 tvg-id="ESPN.us" group-title="USA",ESPN
-http://23.237.104.106:8080/USA_ESPN1/index.m3u8?takodachi
-#EXTINF:-1 tvg-id="ESPN2.us" group-title="USA",ESPN 2
-http://23.237.104.106:8080/USA_ESPN2/index.m3u8?takodachi
+http://23.237.104.106:8080/USA_E/tracks-v1a1/mono.m3u8
+
 #EXTINF:-1 tvg-id="FoodNetwork.us" group-title="USA",Food Network
-http://23.237.104.106:8080/USA_FOOD_NETWORK/index.m3u8?takodachi
-#EXTINF:-1 tvg-id="Freeform.us" group-title="USA",Freeform
-http://23.237.104.106:8080/USA_FREEFORM/index.m3u8?takodachi
-#EXTINF:-1 tvg-id="FS1.us" group-title="USA",FS1
-http://23.237.104.106:8080/USA_FS1/index.m3u8?takodachi
-#EXTINF:-1 tvg-id="FS2.us" group-title="USA",FS2
-http://23.237.104.106:8080/USA_FS2/index.m3u8?takodachi
+http://23.237.104.106:8080/USA_FOOD_NETWORK/tracks-v1a1/mono.m3u8
+
 #EXTINF:-1 tvg-id="FX.us" group-title="USA",FX
-http://23.237.104.106:8080/USA_FX/index.m3u8?takodachi
-#EXTINF:-1 tvg-id="GSN.us" group-title="USA",Game Show Network
-http://23.237.104.106:8080/USA_GSN/index.m3u8?takodachi
+http://23.237.104.106:8080/USA_FX/tracks-v1a1/mono.m3u8
+
 #EXTINF:-1 tvg-id="HBO.us" group-title="USA",HBO
-http://23.237.104.106:8080/USA_HBO/index.m3u8?takodachi
+http://23.237.104.106:8080/USA_HBO/tracks-v1a1/mono.m3u8
+
 #EXTINF:-1 tvg-id="HBO2.us" group-title="USA",HBO 2 west
-http://23.237.104.106:8080/USA_HBO2/index.m3u8?takodachi
+http://23.237.104.106:8080/USA_HBO2/tracks-v1a1/mono.m3u8
+
 #EXTINF:-1 tvg-id="HBOComedy.us" group-title="USA",HBO Comedy
-http://23.237.104.106:8080/USA_HBO_COMEDY/index.m3u8?takodachi
-#EXTINF:-1 tvg-id="HBOSignature.us" group-title="USA",HBO Signature
-http://23.237.104.106:8080/USA_HBO_SIGNATURE/index.m3u8?takodachi
-#EXTINF:-1 tvg-id="HGTV.us" group-title="USA",HGTV
-http://23.237.104.106:8080/USA_HGTV/index.m3u8?takodachi
-#EXTINF:-1 tvg-id="History.us" group-title="USA",History
-http://23.237.104.106:8080/USA_HISTORY/index.m3u8?takodachi
+http://23.237.104.106:8080/USA_HBO_COMEDY/tracks-v1a1/mono.m3u8
+
 #EXTINF:-1 tvg-id="IFC.us" group-title="USA",IFC
-http://23.237.104.106:8080/USA_IFC/index.m3u8?takodachi
+http://23.237.104.106:8080/USA_IFC/tracks-v1a1/mono.m3u8
+
 #EXTINF:-1 tvg-id="MoreMax.us" group-title="USA",MoreMax
-http://23.237.104.106:8080/USA_MOREMAX/index.m3u8?takodachi
+http://23.237.104.106:8080/USA_MOREMAX/tracks-v1a1/mono.m3u8
+
 #EXTINF:-1 tvg-id="MSG.us" group-title="USA",MSG
-http://23.237.104.106:8080/USA_MSG/index.m3u8?takodachi
+http://23.237.104.106:8080/USA_MSG/tracks-v1a1/mono.m3u8
+
 #EXTINF:-1 tvg-id="MTV.us" group-title="USA",MTV USA
-http://23.237.104.106:8080/USA_MTV/index.m3u8?takodachi
+http://23.237.104.106:8080/USA_MTV/tracks-v1a1/mono.m3u8
+
 #EXTINF:-1 tvg-id="MTVLive.us" group-title="USA",MTV LIVE USA
-http://23.237.104.106:8080/USA_MTV_LIVE/index.m3u8?takodachi
+http://23.237.104.106:8080/USA_MTV_LIVE/tracks-v1a1/mono.m3u8
+
 #EXTINF:-1 tvg-id="NatGeo.us" group-title="USA",National Geographic
-http://23.237.104.106:8080/USA_NAT_GEO/index.m3u8?takodachi
-#EXTINF:-1 tvg-id="NESN.us" group-title="USA",NESN
-http://23.237.104.106:8080/USA_NESN/index.m3u8?takodachi
-#EXTINF:-1 tvg-id="NHLNetwork.us" group-title="USA",NHL Network
-http://23.237.104.106:8080/USA_NHL_NETWORK/index.m3u8?takodachi
+http://23.237.104.106:8080/USA_NAT_GEO/tracks-v1a1/mono.m3u8
+
 #EXTINF:-1 tvg-id="Showtime.us" group-title="USA",Paramount + Showtime
-http://23.237.104.106:8080/USA_SHOWTIME/index.m3u8?takodachi
+http://23.237.104.106:8080/USA_SHOWTIME/tracks-v1a1/mono.m3u8
+
 #EXTINF:-1 tvg-id="ParamountNetwork.us" group-title="USA",Paramount Network
-http://23.237.104.106:8080/USA_PARAMOUNT_NETWORK/index.m3u8?takodachi
+http://23.237.104.106:8080/USA_PARAMOUNT_NETWORK/tracks-v1a1/mono.m3u8
+
 #EXTINF:-1 tvg-id="Starz.us" group-title="USA",Starz
-http://23.237.104.106:8080/USA_STARZ/index.m3u8?takodachi
-#EXTINF:-1 tvg-id="StarzCinema.us" group-title="USA",Starz Cinema
-http://23.237.104.106:8080/USA_STARZ_CINEMA/index.m3u8?takodachi
+http://23.237.104.106:8080/USA_STARZ/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="StarzCinema.us" group-title="USA" tvg-logo="http://primestreamstv.com/logos/STARZ%20Cinema.png",Starz Cinema
+http://23.237.104.106:8080/USA_STARZ_CINEMA/tracks-v1a1/mono.m3u8
+
 #EXTINF:-1 tvg-id="StarzComedy.us" group-title="USA",Starz Comedy
-http://23.237.104.106:8080/USA_STARZ_COMEDY/index.m3u8?takodachi
-#EXTINF:-1 tvg-id="StarzEdge.us" group-title="USA",Starz Edge
-http://23.237.104.106:8080/USA_STARZ_EDGE/index.m3u8?takodachi
-#EXTINF:-1 tvg-id="StarzEncoreWesterns.us" group-title="USA",Starz Encore Westerns
-http://23.237.104.106:8080/USA_STARZ_WESTERNS/index.m3u8?takodachi
+http://23.237.104.106:8080/USA_STARZ_COMEDY/tracks-v1a1/mono.m3u8
+
 #EXTINF:-1 tvg-id="Syfy.us" group-title="USA",Syfy
-http://23.237.104.106:8080/USA_SYFY/index.m3u8?takodachi
+http://23.237.104.106:8080/USA_SYFY/tracks-v1a1/mono.m3u8
+
 #EXTINF:-1 tvg-id="TBS.us" group-title="USA",TBS
-http://23.237.104.106:8080/USA_TBS/index.m3u8?takodachi
+http://23.237.104.106:8080/USA_TBS/tracks-v1a1/mono.m3u8
+
 #EXTINF:-1 tvg-id="TNT.us" group-title="USA",TNT
-http://23.237.104.106:8080/USA_TNT/index.m3u8?takodachi
+http://23.237.104.106:8080/USA_TNT/tracks-v1a1/mono.m3u8
+
 #EXTINF:-1 tvg-id="TruTV.us" group-title="USA",TruTV
-http://23.237.104.106:8080/USA_TRUTV/index.m3u8?takodachi
-#EXTINF:-1 tvg-id="USANetwork.us" group-title="USA",USA Network
-http://23.237.104.106:8080/USA_NETWORK/index.m3u8?takodachi
+http://23.237.104.106:8080/USA_TRUTV/tracks-v1a1/mono.m3u8
+
 #EXTINF:-1 tvg-id="VH1.us" group-title="USA",VH1
-http://23.237.104.106:8080/USA_VH1/index.m3u8?takodachi
+http://23.237.104.106:8080/USA_VH1/tracks-v1a1/mono.m3u8
+
 #EXTINF:-1 tvg-id="ViceTV.us" group-title="USA",Vice TV
-http://23.237.104.106:8080/USA_VICETV/index.m3u8?takodachi
+http://23.237.104.106:8080/USA_VICETV/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="ViceTV.us" group-title="USA",Showtime Family
+http://23.237.104.106:8080/USA_SHOWTIME_FAMILY/tracks-v1a1/mono.m3u8
+
 #EXTINF:-1 tvg-id="WGN.us" group-title="USA",WGN
-http://23.237.104.106:8080/USA_WGN/index.m3u8?takodachi
+http://23.237.104.106:8080/USA_WGN/tracks-v1a1/mono.m3u8
+
 #EXTUBF:0 tvg-id="New EPG" tvg-logo="New Logo" tvg-name="Wellbeing TV | (TizTV)"  group-title="Unsorted",Wellbeing TV
 https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01255-secomcofites-my-myzen-en-plex/playlist.m3u8
 
@@ -1140,13 +1142,8 @@ https://live.corusdigitaldev.com/groupd/live/49a91e7f-1023-430f-8d66-561055f3d0f
 #EXTINF:-1 tvg-id="WGN.us" group-title="UK" tvg-logo="https://pbs.twimg.com/profile_images/2029135026709749760/N1Hw5eEr_400x400.jpg", BBC Earth
 https://amg00793-amg00793c6-xumo-us-2669.playouts.now.amagi.tv/BBCStudios-BBCEarthA-hls/playlist.m3u8
 
-#EXTINF:-1 tvg-id="USA_STARZ_COMEDY2" tvg-name="USA_STARZ_COMEDY" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg" group-title="Starz",USA_STARZ_COMEDY index
-http://23.237.104.106:8080/USA_STARZ_COMEDY/index.m3u8
 
-#EXTINF:-1 tvg-id="STARZ0" group-title="International" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg" group-title="Starz",USA_STARZ_COMEDY takodachi
-http://23.237.104.106:8080/USA_STARZ_COMEDY/index.m3u8?takodachi
-
-#EXTINF:-1 tvg-id="STARZ1" group-title="International" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg" group-title="Starz",USA_STARZ_COMEDY mono
+#EXTINF:-1 tvg-id="STARZ1" group-title="International" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg" group-title="Starz",USA_STARZ_COMEDY
 http://23.237.104.106:8080/USA_STARZ_COMEDY/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="bein" group-title="International" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg" group-title="Starz",BEIN
@@ -1155,6 +1152,4 @@ http://23.237.104.106:8080/USA_BEIN/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-id="fox" group-title="International" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg" group-title="Starz",FOX DEPORTES
 http://23.237.104.106:8080/USA_FOX_DEPORTES/tracks-v1a1/mono.m3u8
 
-#EXTINF:-1 tvg-id="STARZ1" group-title="International" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg" group-title="Starz",HBO COMEDY
-http://23.237.104.106:8080/USA_HBO_COMEDY/index.m3u8
 
