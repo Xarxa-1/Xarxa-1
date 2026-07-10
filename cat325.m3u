@@ -51,14 +51,14 @@ https://rtvelivestream.rtve.es/rtvesec/tdp/tdp_main.m3u8
 #EXTINF:-1 tvg-id="USA_STARZ" tvg-name="USA_STARZ" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg" group-title="Catalunya",USA_STARZ
 http://23.237.104.106:8080/USA_STARZ/index.m3u8
 
-#EXTINF:-1 tvg-id="BBC World News Europe HD tvg-name="BBC.News" tvg-logo="https://pbs.twimg.com/profile_images/1001752869517910016/Xq8-sAa4.jpg" group-title="Notícies",BBC News International
-https://d3pxo1qcgzxtxs.cloudfront.net/manifest/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod_default_xumo-linear-amc-hlsv3/5ab832c0-311a-4705-9535-5e54ad64b21e/5.m3u8
-
-#EXTINF:-1 tvg-id="" tvg-name="uk" #EXTINF:-1 tvg-id="" tvg-name="Sky News" tvg-logo="https://graph.facebook.com/skynews/picture?width=200&height=200" group-title="UK" group-title="SkyNews",SkyNews
-https://linear417-gb-hls1-prd-ak.cdn.skycdp.com/100e/Content/HLS_001_1080_30/Live/channel(skynews)/index_1080-30.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="CNN International Europe" tvg-logo="https://pbs.twimg.com/profile_images/1669780523911110656/K9gaaM1g_400x400.jpg" group-title="Notícies",US: CNN
 https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8
+
+
+#EXTINF:-1 tvg-id="BBC World News Europe HD tvg-name="BBC.News" tvg-logo="https://pbs.twimg.com/profile_images/1001752869517910016/Xq8-sAa4.jpg" group-title="Notícies",BBC News International
+https://d3pxo1qcgzxtxs.cloudfront.net/manifest/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod_default_xumo-linear-amc-hlsv3/5ab832c0-311a-4705-9535-5e54ad64b21e/5.m3u8
+
 
 #EXTINF:-1 tvg-id="BBC N" tvg-name="BBC.News" tvg-logo="https://pbs.twimg.com/profile_images/1001752869517910016/Xq8-sAa4.jpg" group-title="Notícies",BBC.News
 https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/mobile_wifi_main_sd_abr_v2.m3u8
@@ -71,16 +71,19 @@ https://viamotionhsi.netplus.ch/live/eds/bbcworld/browser-HLS/bbcworld.m3u8
 https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/t=3840/v=pv8/b=827008/a=pa4/b=128000/main.m3u8
 
 
-#EXTINF:-1 tvg-id="BBC1" tvg-name="BBC One" group-title="UK" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/BBC_One_logo_2021.svg/langca-330px-BBC_One_logo_2021.svg.png" group-title="General",BBC One
+#EXTINF:-1 tvg-id="BBC World News Europe HD tvg-name="BBC.News" tvg-logo="https://pbs.twimg.com/profile_images/1001752869517910016/Xq8-sAa4.jpg" group-title="UK",BBC News International
+https://d3pxo1qcgzxtxs.cloudfront.net/manifest/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod_default_xumo-linear-amc-hlsv3/5ab832c0-311a-4705-9535-5e54ad64b21e/5.m3u8
+
+#EXTINF:-1 tvg-id="BBC1" tvg-name="BBC One" group-title="UK" tvg-logo="https://pbs.twimg.com/profile_images/1450745843603083267/uSloYi8l_400x400.jpg" group-title="General",BBC One
 http://41.205.93.154/BBCONE/tracks-v1a1/mono.m3u8
 
-#EXTINF:-1 tvg-id="BBC2" tvg-name="BBC Two HD" group-title="UK" tvg-logo="https://pbs.twimg.com/profile_images/1450745686572650497/d-njUG_H_400x400.jpg" group-title="General",BBC Two HD (720p)
+#EXTINF:-1 tvg-id="BBC2" tvg-name="BBC Two HD" group-title="UK" tvg-logo="https://pbs.twimg.com/profile_images/1450745686572650497/d-njUG_H_400x400.jpg" group-title="General",BBC Two
 http://41.205.93.154/BBCTWO/tracks-v1a1/mono.m3u8
 
-#EXTINF:-1 tvg-id="BBC3" tvg-name="BBC Three HD" group-title="UK" tvg-logo="https://images.seeklogo.com/logo-png/46/1/bbc-three-logo-png_seeklogo-467190.png" group-title="General",BBC Three HD
+#EXTINF:-1 tvg-id="BBC3" tvg-name="BBC Three HD" group-title="UK" tvg-logo="https://pbs.twimg.com/profile_images/1484496171712319497/btuW_jpc_400x400.jpg" group-title="General",BBC Three
 http://41.205.93.154/BBCTHREE/tracks-v1a1/mono.m3u8
 
-#EXTINF:-1 tvg-id="BBC4" tvg-name="BBC Four UK HD" tvg-logo="https://pbs.twimg.com/profile_images/597273122635587584/au1n9MWt.jpg" group-title="General",BBC Four UK HD
+#EXTINF:-1 tvg-id="BBC4" tvg-name="BBC Four UK HD" group-title="UK" tvg-logo="https://pbs.twimg.com/profile_images/597273122635587584/au1n9MWt_400x400.jpg" group-title="General",BBC Four 
 https://streamer.nexyl.uk/48559ccd-6400-457d-8acc-06b9e24c2ed8.m3u8
 
 #EXTINF:-1 tvg-id="BBC cbbc" tvg-name="BBC3CBBC" tvg-logo="https://mediaproxy.tvtropes.org/width/1200/https://static.tvtropes.org/pmwiki/pub/images/cbbc_3.png" group-title="General",CBBC
@@ -92,6 +95,8 @@ https://bbc-impossible-1-us.xumo.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="B" tvg-name="" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/BBC_One_logo_2021.svg/langca-330px-BBC_One_logo_2021.svg.png" group-title="General",fILMS
 https://discoverfilm-discoverfilm-1-nl.samsung.wurl.tv/3000.m3u8
 
+#EXTINF:-1 tvg-id="" tvg-name="uk" #EXTINF:-1 tvg-id="" tvg-name="Sky News" tvg-logo="https://graph.facebook.com/skynews/picture?width=200&height=200" group-title="UK" group-title="SkyNews",SkyNews
+http://rocketfx.uk:8080/live/henry/henry/b5a7c92b-3b22-4a4e-8816-de2b85b4b213.ts
 
 #EXTINF:-1 tvg-id="itv2" tvg-name="itv2" group-title="UK"  tvg-logo="https://images.seeklogo.com/logo-png/21/1/itv2-logo-png_seeklogo-216927.png",itv2
 https://viamotionhsi.netplus.ch/live/eds/itv2/browser-HLS/itv2.m3u8
