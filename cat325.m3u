@@ -885,6 +885,9 @@ http://23.237.104.106:8080/USA_FOX_DEPORTES/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-id="BBC",BBC Series
 https://jmp2.uk/plu-60dafb9a0df1ba000758d37b.m3u8
 
+#EXTINF:-1 tvg-id="BBC",BBC Series1
+https://amg00793-amg00793c40-rakuten-es-5444.playouts.now.amagi.tv/playlist.m3u8
+
 #EXTINF:-1 tvg-id="FXX" tvg-logo="https://pbs.twimg.com/profile_images/378800000564943584/6ccfcea7e2e6a383275e2cc72610ab6c_400x400.png" group-title="International", FXX
 http://23.237.104.106:8080/USA_FXX/tracks-v1a1/mono.m3u8
 
