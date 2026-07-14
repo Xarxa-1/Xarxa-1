@@ -396,8 +396,7 @@ http://45.228.234.30:16000/play/a008/index.m3u8
 http://45.228.234.30:16000/play/a009/index.m3u8
 
 #EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1258035922722934784/S27gb-oG_400x400.jpg" tvg-name="TheDesingNetwork"  group-title="Design",TheDesingNetwork
-https://amg00441-amg00441c1-rakuten-us-6050.playouts.now.amagi.tv/playlistR240p.m3u8
-
+https://amg00441-amg00441c1-rakuten-us-6050.playouts.now.amagi.tv/playlist/amg00441-thedesignnetworkllcfast-thedesignnetwork-rakutenus/playlist.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Tastemade Home" tvg-logo="https://tvpnlogopus.samsungcloud.tv/platform/image/sourcelogo/vc/00/02/34/USBC3200022W6_20240910T003655SQUARE.png" group-title="Design",Tastemade Home
 https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tastemadehome-lgus/playlist.m3u8
