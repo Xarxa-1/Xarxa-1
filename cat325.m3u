@@ -13,7 +13,7 @@ https://ingest1-video.streaming-pro.com/tac12_ABR/stream/playlist.m3u8
 
 #EXTINF:-1 tvg-id="TV3 Catalunya" tvg-name="TV3CAT" tvg-logo="https://pbs.twimg.com/profile_images/2008787263484735488/aaUjOWUv_400x400.jpg" group-title="Catalunya",TV3CAT
 https://directes3-tv-int.3catdirectes.cat/live-content/tvi-hls/master.m3u8
-
+https://pbs.twimg.com/profile_images/1993442076155932674/QEycHSf__400x400.jpg
 #EXTINF:-1 tvg-id="El 33 Catalunya" tvg-name="C33.cat" tvg-logo="https://graph.facebook.com/Canal33/picture?width=200&height=200" group-title="Catalunya",Canal33
 https://directes-tv-cat.3catdirectes.cat/live-content/c33-super3-hls/master.m3u8
 
@@ -613,12 +613,8 @@ http://41.205.93.154/ESPNU/index.m3u8
 #EXTINF:-1 group-title="Esport" tvg-id="ESPN.us" tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s10179_dark_360w_270h.png" tvg-name="ESPN",ESPN2
 http://190.60.32.178:8178/play/a015/index.m3u8
 
-#EXTINF:-1 tvg-id="LLEIDATV.cat" tvg-name="LLEIDATV.cat" tvg-logo="" group-title="Catalunya",LLEIDA TV
+#EXTINF:-1 tvg-id="LLEIDATV.cat" tvg-name="LLEIDATV.cat" tvg-logo="" group-title="Catalunya" tvg-logo="https://pbs.twimg.com/profile_images/1765275511620538368/Hiz43OMZ_400x400.jpg" ,LLEIDA TV
 https://d1pgniwg61j6fm.cloudfront.net/out/v1/f32d8fe5be7a4ababd6894109683254b/index_2.m3u8?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkaXN0cmlidXRpb24iOiJmMzJkOGZlNWJlN2E0YWJhYmQ2ODk0MTA5NjgzMjU0YiIsImlzcyI6Imh0dHBzOi8vbGF4YXJ4YW1lcy5jb20iLCJhdWQiOiJodHRwczovL2xheGFyeGFtZXMuY29tIiwidGltZUJhc2UiOm51bGwsInRpbWVGcmFtZXMiOltdLCJleHAiOjE3ODQxNDA2ODEwMDAsImlhdCI6MTc4NDA0MzQ4MTAwMCwibmJmIjoxNzg0MDQzNDc2MDAwfQ.pLQghZLNKGNqFO-MvgrxmNuQK5QVqxqKkIUL57EvbZY&_t=1784043481&hash=c-6314323916112&_tc=1704883765
-
-#EXTINF:-1 tvg-id="LLEIDATV.cat" tvg-name="LLEIDATV.cat" tvg-logo="" group-title="Catalunya",LLEIDA TV.
-https://d1pgniwg61j6fm.cloudfront.net/out/v1/f32d8fe5be7a4ababd6894109683254b/index_2.m3u8
-
 
 #EXTINF:-1 tvg-id="5StarMax.us" group-title="USA",5StarMax
 http://23.237.104.106:8080/USA_5STARMAX/tracks-v1a1/mono.m3u8
@@ -861,6 +857,9 @@ http://23.237.104.106:8080/USA_STARZ_CINEMA/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-id="STARZ_COMEDY" group-title="International" tvg-logo="https://pbs.twimg.com/profile_images/1575474245924278274/FSBixs2O_400x400.jpg", STARZ_COMEDY
 http://23.237.104.106:8080/USA_STARZ_COMEDY/tracks-v1a1/mono.m3u8
 
+#EXTINF:-1 tvg-id="STARZ_COMEDY" group-title="International" tvg-logo="https://pbs.twimg.com/profile_images/1575474245924278274/FSBixs2O_400x400.jpg", STARZ_COMEDY
+http://41.205.93.154//USA_STARZ_COMEDY/tracks-v1a1/mono.m3u8
+
 #EXTINF:-1 tvg-id="TMC" group-title="International", TMC
 http://23.237.104.106:8080/USA_TMC/tracks-v1a1/mono.m3u8
 
@@ -892,10 +891,10 @@ https://jmp2.uk/plu-60dafb9a0df1ba000758d37b.m3u8
 https://amg00793-amg00793c40-rakuten-es-5444.playouts.now.amagi.tv/playlist.m3u8
 
 #EXTINF:-1 tvg-id="FXX" tvg-logo="https://pbs.twimg.com/profile_images/378800000564943584/6ccfcea7e2e6a383275e2cc72610ab6c_400x400.png" group-title="International", FXX
-http://23.237.104.106:8080/USA_FXX/tracks-v1a1/mono.m3u8
+http://41.205.93.154//USA_FXX/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="FX" tvg-logo="https://pbs.twimg.com/profile_images/1715419203610857472/W2ZpsXbt_400x400.jpg" group-title="International", FX
-http://23.237.104.106:8080/USA_FX/tracks-v1a1/mono.m3u8
+http://41.205.93.154/USA_FX/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="RAC1" group-title="Ràdio" tvg-logo="https://pbs.twimg.com/profile_images/1750879104742699008/0_pYFIA3_400x400.jpg",RAC1
 https://20103.live.streamtheworld.com/RAC_1.mp3
