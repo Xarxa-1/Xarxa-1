@@ -614,7 +614,10 @@ http://41.205.93.154/ESPNU/index.m3u8
 http://190.60.32.178:8178/play/a015/index.m3u8
 
 #EXTINF:-1 tvg-id="LLEIDATV.cat" tvg-name="LLEIDATV.cat" tvg-logo="" group-title="Catalunya",LLEIDA TV
-https://liveingesta318.cdnmedia.tv/lleidatvlive/live-1500/chunklist.m3u8?DVR
+https://d1pgniwg61j6fm.cloudfront.net/out/v1/f32d8fe5be7a4ababd6894109683254b/index_2.m3u8?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkaXN0cmlidXRpb24iOiJmMzJkOGZlNWJlN2E0YWJhYmQ2ODk0MTA5NjgzMjU0YiIsImlzcyI6Imh0dHBzOi8vbGF4YXJ4YW1lcy5jb20iLCJhdWQiOiJodHRwczovL2xheGFyeGFtZXMuY29tIiwidGltZUJhc2UiOm51bGwsInRpbWVGcmFtZXMiOltdLCJleHAiOjE3ODQxNDA2ODEwMDAsImlhdCI6MTc4NDA0MzQ4MTAwMCwibmJmIjoxNzg0MDQzNDc2MDAwfQ.pLQghZLNKGNqFO-MvgrxmNuQK5QVqxqKkIUL57EvbZY&_t=1784043481&hash=c-6314323916112&_tc=1704883765
+
+#EXTINF:-1 tvg-id="LLEIDATV.cat" tvg-name="LLEIDATV.cat" tvg-logo="" group-title="Catalunya",LLEIDA TV.
+https://d1pgniwg61j6fm.cloudfront.net/out/v1/f32d8fe5be7a4ababd6894109683254b/index_2.m3u8
 
 
 #EXTINF:-1 tvg-id="5StarMax.us" group-title="USA",5StarMax
@@ -810,7 +813,7 @@ http://41.205.93.154/TBS/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-id="ANIMALPLANET" group-title="International", ANIMALPLANET
 http://41.205.93.154/ANIMALPLANET/tracks-v1a1/mono.m3u8
 
-#EXTINF:-1 tvg-id="BRAVO" group-title="International", BRAVO
+#EXTINF:-1 tvg-id="BRAVO" group-title="International" tvg-logo="https://pbs.twimg.com/profile_images/1993442076155932674/QEycHSf__400x400.jpg", BRAVO
 http://41.205.93.154/BRAVO/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="Bravo" group-title="International", Bravo
