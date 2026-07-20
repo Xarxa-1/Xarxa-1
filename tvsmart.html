@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>IPTV Player</title>
+    <!-- HLS.js per reproducció de streams -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@0.14.17/dist/hls.min.js"></script>
+    <style>
+        /* RESET I ESTILS BÀSICS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+        }
+        body {
+            background: #000;
+            color: #fff;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            touch-action: none;
+        }
+        #app {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: #0a0a0a;
+        }
+
+        /* REPRODUCTOR DE VÍDEO */
+        #video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 1;
+        }
+        #video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: #000;
+        }
+        /* Overlay per subtítols (CEA-608) */
+        #subtitle-overlay {
+            position: absolute;
+            bottom: 15%;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            pointer-events: none;
+            z-index: 3;
+            color: #fff;
+            font-size: 2.2vw;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+            font-weight: bold;
+            padding: 0 10%;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            margin: 0 auto;
+            display: none;
+            word-wrap: break-word;
+            line-height: 1.4;
+        }
+
+        /* INFORMACIÓ DEL CANAL (logo + nom) */
+        #channel-info {
+            position: absolute;
+            bottom: 12%;
+            left: 5%;
+            z-index: 5;
+            background: rgba(0,0,0,0.7);
+            padding: 12px 24px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.15);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        #channel-info.show {
+            opacity: 1;
+        }
+        #channel-info img {
+            height: 40px;
+            width: auto;
+            border-radius: 6px;
+            background: #222;
+        }
+        #channel-info span {
+            font-size: 1.8rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            color: #fff;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+        }
+
+        /* RELLOTGE */
+        #clock {
+            position: absolute;
+            top: 20px;
+            left: 25px;
+            z-index: 10;
+            font-size: 2.8rem;
+            font-weight: 600;
+            color: #fff;
+            text-shadow:
+                -2px -2px 0 #000,
+                2px -2px 0 #000,
+                -2px 2px 0 #000,
+                2px 2px 0 #000,
+                0 0 10px rgba(0,0,0,0.8);
+            letter-spacing: 2px;
+            background: transparent;
+            padding: 4px 12px;
+            border-radius: 12px;
+            pointer-events: none;
+        }
+
+        /* BOTONS DE CONTROL (visibles a la pantalla) */
+        #control-buttons {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            z-index: 15;
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            max-width: 60%;
+        }
+        .ctrl-btn {
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            padding: 12px 18px;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            min-width: 60px;
+            justify-content: center;
+            letter-spacing: 0.5px;
+            touch-action: manipulation;
+        }
+        .ctrl-btn:hover {
+            background: rgba(255,255,255,0.15);
+            transform: scale(1.05);
+            border-color: rgba(255,255,255,0.4);
+        }
+        .ctrl-btn:active {
+            transform: scale(0.95);
+        }
+        .ctrl-btn .icon {
+            font-size: 1.4rem;
+            line-height: 1;
+        }
+        .ctrl-btn.primary {
+            background: rgba(74, 158, 255, 0.3);
+            border-color: #4a9eff;
+        }
+        .ctrl-btn.primary:hover {
+            background: rgba(74, 158, 255, 0.5);
+        }
+        .ctrl-btn.danger {
+            background: rgba(255, 70, 70, 0.2);
+            border-color: #ff4444;
+        }
+        .ctrl-btn.danger:hover {
+            background: rgba(255, 70, 70, 0.4);
+        }
+        .ctrl-btn.green {
+            background: rgba(46, 204, 113, 0.2);
+            border-color: #2ecc71;
+        }
+        .ctrl-btn.green:hover {
+            background: rgba(46, 204, 113, 0.4);
+        }
+        .ctrl-btn.purple {
+            background: rgba(155, 89, 182, 0.2);
+            border-color: #9b59b6;
+        }
+        .ctrl-btn.purple:hover {
+            background: rgba(155, 89, 182, 0.4);
+        }
+        @media (max-width: 768px) {
+            #control-buttons {
+                bottom: 16px;
+                right: 16px;
+                gap: 10px;
+                max-width: 80%;
+            }
+            .ctrl-btn {
+                padding: 10px 14px;
+                font-size: 0.9rem;
+                min-width: 50px;
+            }
+            .ctrl-btn .icon {
+                font-size: 1.2rem;
+            }
+            #clock {
+                font-size: 2rem;
+                top: 12px;
+                left: 16px;
+            }
+            #channel-info span {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* MENÚS (característiques, llista de canals, diàlegs) */
+        .menu-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(12px);
+            z-index: 20;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 4%;
+        }
+        .menu-overlay.active {
+            display: flex;
+        }
+        .menu-card {
+            background: rgba(20,20,30,0.95);
+            border-radius: 36px;
+            padding: 30px 40px;
+            max-width: 900px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.9);
+            position: relative;
+        }
+        .menu-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #eee;
+            border-bottom: 1px solid #333;
+            padding-bottom: 12px;
+        }
+        .menu-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .menu-item {
+            background: rgba(255,255,255,0.04);
+            padding: 16px 24px;
+            border-radius: 16px;
+            font-size: 1.3rem;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            color: #ddd;
+        }
+        .menu-item:hover, .menu-item:focus {
+            background: rgba(255,255,255,0.12);
+            border-color: #4a9eff;
+            color: #fff;
+            transform: scale(1.02);
+            outline: none;
+        }
+        .menu-item.selected {
+            background: rgba(74, 158, 255, 0.25);
+            border-color: #4a9eff;
+        }
+        .menu-item .icon {
+            font-size: 1.8rem;
+            min-width: 40px;
+        }
+        .back-btn {
+            background: rgba(255,70,70,0.15);
+            border-color: #ff4444;
+            color: #ff7777;
+            margin-top: 16px;
+        }
+        .back-btn:hover {
+            background: rgba(255,70,70,0.3);
+        }
+        .submenu {
+            margin-left: 20px;
+            margin-top: 6px;
+            border-left: 2px solid #444;
+            padding-left: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .submenu .menu-item {
+            padding: 12px 18px;
+            font-size: 1.1rem;
+        }
+
+        /* Llista de grups i canals (dues columnes) */
+        .channel-group-layout {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 24px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+        .group-list, .channel-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .group-list .menu-item, .channel-list .menu-item {
+            padding: 14px 18px;
+            font-size: 1.1rem;
+        }
+        .group-list .menu-item.active-group {
+            background: rgba(74, 158, 255, 0.3);
+            border-color: #4a9eff;
+        }
+        .channel-list .menu-item.active-channel {
+            background: rgba(255, 215, 0, 0.2);
+            border-color: #ffd700;
+        }
+        .channel-list .menu-item img {
+            height: 28px;
+            width: auto;
+            border-radius: 4px;
+            background: #222;
+        }
+
+        /* Teclat virtual per editar URL */
+        #keyboard-container {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.5);
+            padding: 16px;
+            border-radius: 20px;
+            display: none;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        #keyboard-container .key {
+            background: #333;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            padding: 14px 20px;
+            font-size: 1.3rem;
+            min-width: 50px;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+        #keyboard-container .key:hover {
+            background: #555;
+            transform: scale(1.05);
+        }
+        #keyboard-container .key.space {
+            min-width: 120px;
+        }
+        #url-input {
+            width: 100%;
+            padding: 16px;
+            font-size: 1.2rem;
+            border-radius: 16px;
+            border: 1px solid #444;
+            background: #1a1a1a;
+            color: #fff;
+            margin-bottom: 12px;
+            outline: none;
+        }
+        #url-input:focus {
+            border-color: #4a9eff;
+        }
+
+        /* Diàleg de confirmació */
+        .dialog-actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        .dialog-btn {
+            padding: 16px 40px;
+            border-radius: 60px;
+            font-size: 1.3rem;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: 600;
+        }
+        .dialog-btn.confirm {
+            background: #e74c3c;
+            color: #fff;
+        }
+        .dialog-btn.confirm:hover {
+            background: #c0392b;
+            transform: scale(1.05);
+        }
+        .dialog-btn.cancel {
+            background: #2c3e50;
+            color: #ddd;
+        }
+        .dialog-btn.cancel:hover {
+            background: #34495e;
+            transform: scale(1.05);
+        }
+
+        /* Scroll estilitzat */
+        .menu-card::-webkit-scrollbar {
+            width: 6px;
+        }
+        .menu-card::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        .menu-card::-webkit-scrollbar-thumb {
+            background: #4a9eff;
+            border-radius: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .channel-group-layout {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            .menu-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!-- REPRODUCTOR -->
+    <div id="video-container">
+        <video id="video-player" autoplay playsinline></video>
+        <div id="subtitle-overlay">Subtítols CEA-608</div>
+    </div>
+
+    <!-- RELLOTGE -->
+    <div id="clock"></div>
+
+    <!-- INFO CANAL -->
+    <div id="channel-info">
+        <img id="channel-logo" src="" alt="logo">
+        <span id="channel-name">Canal</span>
+    </div>
+
+    <!-- BOTONS DE CONTROL -->
+    <div id="control-buttons">
+        <button class="ctrl-btn" id="btn-prev" title="Canal anterior (Avall)">
+            <span class="icon">⏬</span>
+        </button>
+        <button class="ctrl-btn" id="btn-next" title="Canal següent (Amunt)">
+            <span class="icon">⏫</span>
+        </button>
+        <button class="ctrl-btn purple" id="btn-groups" title="Obrir llista de grups i canals">
+            <span class="icon">📺</span>
+        </button>
+        <button class="ctrl-btn green" id="btn-menu" title="Obrir menú de característiques">
+            <span class="icon">⚙️</span>
+        </button>
+        <button class="ctrl-btn primary" id="btn-info" title="Mostrar informació del canal">
+            <span class="icon">ℹ️</span>
+        </button>
+        <button class="ctrl-btn danger" id="btn-exit" title="Sortir de l'aplicació">
+            <span class="icon">🚪</span>
+        </button>
+    </div>
+
+    <!-- MENÚ CARACTERÍSTIQUES -->
+    <div id="characteristics-menu" class="menu-overlay">
+        <div class="menu-card">
+            <h2>⚙️ Característiques</h2>
+            <div class="menu-options" id="char-menu-options">
+                <div class="menu-item" data-action="back">🔙 Tornar pantalla anterior</div>
+                <div class="menu-item" data-action="audio">🔊 Àudio</div>
+                <div class="menu-item" data-action="subtitles">📝 Subtítols</div>
+                <div class="menu-item" data-action="url">🔗 Configurar URL M3U</div>
+                <div class="menu-item" data-action="retrocedir">⏪ Retrocedir</div>
+                <div class="menu-item" data-action="speed">⚡ Velocitat</div>
+                <div class="menu-item back-btn" data-action="exit">🚪 Sortir de l'aplicació</div>
+            </div>
+            <!-- Submenús dinàmics (audio, subtitles, retrocedir, speed) -->
+            <div id="submenu-container" style="margin-top:16px;"></div>
+        </div>
+    </div>
+
+    <!-- MENÚ LLISTA DE GRUPS I CANALS -->
+    <div id="channelgroup-menu" class="menu-overlay">
+        <div class="menu-card">
+            <h2>📺 Llista de Canals</h2>
+            <div class="channel-group-layout" id="group-channel-container">
+                <div class="group-list" id="group-list"></div>
+                <div class="channel-list" id="channel-list"></div>
+            </div>
+            <div class="menu-item back-btn" style="margin-top:20px;" id="close-channel-menu">🔙 Tancar</div>
+        </div>
+    </div>
+
+    <!-- DIÀLEG CONFIRMACIÓ SORTIDA -->
+    <div id="exit-dialog" class="menu-overlay">
+        <div class="menu-card" style="max-width:450px; text-align:center;">
+            <h2>⚠️ Sortir</h2>
+            <p style="font-size:1.4rem; margin:20px 0;">Segur que vols tancar l'aplicació?</p>
+            <div class="dialog-actions">
+                <button class="dialog-btn confirm" id="confirm-exit">Sí, sortir</button>
+                <button class="dialog-btn cancel" id="cancel-exit">Cancel·lar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TECLAT VIRTUAL (editar URL) -->
+    <div id="keyboard-container">
+        <input type="text" id="url-input" value="https://xarxa-1.github.io/Xarxa-1/cat325.m3u">
+        <div style="display:flex; flex-wrap:wrap; gap:6px; justify-content:center; width:100%;">
+            <!-- Tecles generades per JS -->
+        </div>
+        <div style="display:flex; gap:16px; margin-top:12px;">
+            <button class="dialog-btn confirm" id="save-url">✅ Acceptar</button>
+            <button class="dialog-btn cancel" id="cancel-url">❌ Cancel·lar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        'use strict';
+
+        // ---------- ESTAT GLOBAL ----------
+        const STATE = {
+            channels: [],                // { name, url, logo, group }
+            groups: [],                 // noms de grup únics
+            currentChannelIndex: 0,
+            currentGroup: 'Todos',
+            videoUrl: '',
+            hls: null,
+            video: document.getElementById('video-player'),
+            subtitleOverlay: document.getElementById('subtitle-overlay'),
+            channelInfo: document.getElementById('channel-info'),
+            channelLogo: document.getElementById('channel-logo'),
+            channelName: document.getElementById('channel-name'),
+            clock: document.getElementById('clock'),
+            // menús
+            charMenu: document.getElementById('characteristics-menu'),
+            groupMenu: document.getElementById('channelgroup-menu'),
+            exitDialog: document.getElementById('exit-dialog'),
+            keyboardContainer: document.getElementById('keyboard-container'),
+            urlInput: document.getElementById('url-input'),
+            // control submenús
+            currentSubmenu: null,
+            // per doble back
+            backPressCount: 0,
+            backPressTimer: null,
+            // flag per evitar doble back mentre es reprodueix
+            isMenuOpen: false,
+            // per controlar subtítols
+            subtitleTracksCleared: false,
+            // per saber si ja hem activat subtítols
+            subtitlesActivated: false,
+        };
+
+        // URL per defecte
+        const DEFAULT_M3U = 'https://xarxa-1.github.io/Xarxa-1/cat325.m3u';
+        STATE.urlInput.value = DEFAULT_M3U;
+
+        // ---------- FUNCIONS AUXILIARS ----------
+        function formatTime(d) {
+            return String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+        }
+
+        function updateClock() {
+            STATE.clock.textContent = formatTime(new Date());
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Mostra info del canal (logo + nom) durant 6 segons
+        function showChannelInfo(channel) {
+            if (!channel) return;
+            STATE.channelLogo.src = channel.logo || '';
+            STATE.channelName.textContent = channel.name || 'Canal';
+            STATE.channelInfo.classList.add('show');
+            clearTimeout(window._infoTimeout);
+            window._infoTimeout = setTimeout(() => {
+                STATE.channelInfo.classList.remove('show');
+            }, 6000);
+        }
+
+        // ---------- PARSER M3U ----------
+        function parseM3U(data) {
+            const lines = data.split('\n');
+            const channels = [];
+            let current = null;
+            for (let line of lines) {
+                line = line.trim();
+                if (line.startsWith('#EXTINF:')) {
+                    // extraiem tvg-logo, group-title, name
+                    const logoMatch = line.match(/tvg-logo="([^"]*)"/);
+                    const groupMatch = line.match(/group-title="([^"]*)"/);
+                    const nameMatch = line.match(/,([^,]+)$/);
+                    current = {
+                        name: nameMatch ? nameMatch[1].trim() : 'Canal sense nom',
+                        logo: logoMatch ? logoMatch[1] : '',
+                        group: groupMatch ? groupMatch[1] : 'General',
+                        url: ''
+                    };
+                } else if (line && !line.startsWith('#') && current) {
+                    current.url = line;
+                    if (current.url) {
+                        channels.push(current);
+                        current = null;
+                    }
+                }
+            }
+            return channels;
+        }
+
+        // Carregar M3U
+        async function loadM3U(url) {
+            try {
+                const resp = await fetch(url);
+                if (!resp.ok) throw new Error('HTTP error ' + resp.status);
+                const text = await resp.text();
+                const parsed = parseM3U(text);
+                if (parsed.length === 0) throw new Error('No s\'han trobat canals');
+                STATE.channels = parsed;
+                // extraure grups únics
+                const groupsSet = new Set(parsed.map(c => c.group || 'General'));
+                STATE.groups = ['Todos', ...Array.from(groupsSet)];
+                STATE.currentChannelIndex = 0;
+                // reproduir primer canal
+                playChannel(0);
+                // actualitzar llistes de grups
+                populateGroupMenu();
+                return true;
+            } catch (e) {
+                console.error('Error carregant M3U:', e);
+                alert('No s\'ha pogut carregar la llista M3U. Comprova l\'URL.');
+                return false;
+            }
+        }
+
+        // ---------- FUNCIÓ PER ACTIVAR SUBTÍTOLS PER DEFECTE ----------
+        function activateDefaultSubtitles() {
+            const video = STATE.video;
+            const subtitleOverlay = STATE.subtitleOverlay;
+
+            try {
+                const tracks = video.textTracks;
+                console.log('Pistes de subtítols disponibles:', tracks.length);
+
+                // Buscar la primera pista de subtítols o captions
+                let firstTrack = null;
+                for (let i = 0; i < tracks.length; i++) {
+                    if (tracks[i].kind === 'captions' || tracks[i].kind === 'subtitles') {
+                        firstTrack = tracks[i];
+                        break;
+                    }
+                }
+
+                if (firstTrack) {
+                    // Activar la primera pista
+                    firstTrack.mode = 'showing';
+                    STATE.subtitleOverlay.style.display = 'block';
+                    console.log('Subtítols activats per defecte:', firstTrack.label || 'Pista sense etiqueta');
+
+                    // Desactivar la resta de pistes
+                    for (let i = 0; i < tracks.length; i++) {
+                        if (tracks[i] !== firstTrack && (tracks[i].kind === 'captions' || tracks[i].kind === 'subtitles')) {
+                            tracks[i].mode = 'disabled';
+                        }
+                    }
+                    STATE.subtitlesActivated = true;
+                } else {
+                    console.log('No s\'han trobat pistes de subtítols en aquest canal');
+                    // Si no hi ha pistes, amagar overlay
+                    subtitleOverlay.style.display = 'none';
+                    STATE.subtitlesActivated = false;
+                }
+            } catch(e) {
+                console.warn('Error activant subtítols:', e);
+            }
+        }
+
+        // ---------- FUNCIÓ PER NETEJAR SUBTÍTOLS ----------
+        function clearSubtitleTracks() {
+            // Només netegem l'overlay, no les pistes
+            STATE.subtitleOverlay.style.display = 'none';
+            STATE.subtitleOverlay.textContent = '';
+            STATE.subtitlesActivated = false;
+        }
+
+        // ---------- REPRODUCCIÓ AMB HLS.JS ----------
+        function playChannel(index) {
+            const channels = STATE.channels;
+            if (!channels.length || index < 0 || index >= channels.length) {
+                console.warn('No es pot reproduir el canal:', index);
+                return;
+            }
+
+            STATE.currentChannelIndex = index;
+            const channel = channels[index];
+            STATE.videoUrl = channel.url;
+            if (!STATE.videoUrl) {
+                console.warn('URL del canal buida');
+                return;
+            }
+
+            console.log('Reproduint canal:', channel.name, 'URL:', STATE.videoUrl);
+
+            // NETEGAR SUBTÍTOLS
+            clearSubtitleTracks();
+
+            // Aturar HLS anterior
+            if (STATE.hls) {
+                STATE.hls.destroy();
+                STATE.hls = null;
+            }
+
+            const video = STATE.video;
+            const subtitleOverlay = STATE.subtitleOverlay;
+
+            // Comprovar si és HLS
+            if (STATE.videoUrl.includes('.m3u8') || STATE.videoUrl.includes('m3u8')) {
+                if (Hls.isSupported()) {
+                    const hls = new Hls({
+                        enableWebVTT: true,
+                        enableCEA708Captions: true,
+                        captionsTextTrack1Label: 'CC1',
+                        captionsTextTrack1LanguageCode: 'ca',
+                        defaultAudioCodec: 'mp4a.40.2',
+                    });
+                    STATE.hls = hls;
+                    hls.loadSource(STATE.videoUrl);
+                    hls.attachMedia(video);
+
+                    hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                        console.log('Manifest parsed, iniciant reproducció');
+                        video.play().catch(e => console.warn('Play error:', e));
+
+                        // Activar subtítols per defecte després d'un petit delay
+                        setTimeout(() => {
+                            activateDefaultSubtitles();
+                        }, 500);
+                    });
+
+                    // Capturar subtítols CEA-608 i mostrar a l'overlay
+                    hls.on(Hls.Events.CEA_608_PARSED, (event, data) => {
+                        if (data && data.captions) {
+                            const captions = data.captions;
+                            if (captions.cc1 && captions.cc1.text) {
+                                subtitleOverlay.textContent = captions.cc1.text;
+                                subtitleOverlay.style.display = 'block';
+                            } else {
+                                subtitleOverlay.style.display = 'none';
+                            }
+                        }
+                    });
+
+                    // Quan es carreguen les pistes de subtítols
+                    hls.on(Hls.Events.SUBTITLE_TRACKS_UPDATED, () => {
+                        console.log('Pistes de subtítols actualitzades');
+                        if (!STATE.subtitlesActivated) {
+                            setTimeout(() => {
+                                activateDefaultSubtitles();
+                            }, 300);
+                        }
+                    });
+
+                    // Gestió d'errors
+                    hls.on(Hls.Events.ERROR, (e, data) => {
+                        if (data.fatal) {
+                            console.warn('Error fatal HLS:', data);
+                            hls.destroy();
+                            STATE.hls = null;
+                            // Intentar recuperar
+                            setTimeout(() => {
+                                console.log('Reintentant reproducció del canal:', index);
+                                playChannel(index);
+                            }, 2000);
+                        }
+                    });
+                } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                    video.src = STATE.videoUrl;
+                    video.play().catch(e => console.warn('Play error:', e));
+                    setTimeout(() => {
+                        activateDefaultSubtitles();
+                    }, 1000);
+                } else {
+                    alert('El teu navegador no suporta HLS.');
+                }
+            } else {
+                // MP4 o altres
+                video.src = STATE.videoUrl;
+                video.play().catch(e => console.warn('Play error:', e));
+                setTimeout(() => {
+                    activateDefaultSubtitles();
+                }, 1000);
+            }
+
+            // mostrar info
+            showChannelInfo(channel);
+            // actualitzar el focus al menú de grups
+            populateGroupMenu();
+        }
+
+        // Canvi de canal (amunt/avall)
+        function nextChannel() {
+            if (STATE.channels.length === 0) {
+                console.warn('No hi ha canals disponibles');
+                return;
+            }
+            let idx = STATE.currentChannelIndex + 1;
+            if (idx >= STATE.channels.length) idx = 0;
+            console.log('Canviant al següent canal:', idx);
+            playChannel(idx);
+        }
+
+        function prevChannel() {
+            if (STATE.channels.length === 0) {
+                console.warn('No hi ha canals disponibles');
+                return;
+            }
+            let idx = STATE.currentChannelIndex - 1;
+            if (idx < 0) idx = STATE.channels.length - 1;
+            console.log('Canviant a l\'anterior canal:', idx);
+            playChannel(idx);
+        }
+
+        // ---------- MENÚ DE GRUPS I CANALS ----------
+        function populateGroupMenu() {
+            const groupContainer = document.getElementById('group-list');
+            const channelContainer = document.getElementById('channel-list');
+            if (!groupContainer || !channelContainer) return;
+
+            // Netejar
+            groupContainer.innerHTML = '';
+            channelContainer.innerHTML = '';
+
+            const groups = STATE.groups;
+            const channels = STATE.channels;
+            const currentGroup = STATE.currentGroup || 'Todos';
+            const currentIndex = STATE.currentChannelIndex;
+
+            // Pintar grups
+            groups.forEach(g => {
+                const div = document.createElement('div');
+                div.className = 'menu-item' + (g === currentGroup ? ' active-group' : '');
+                div.textContent = g;
+                div.dataset.group = g;
+                div.addEventListener('click', (e) => {
+                    STATE.currentGroup = g;
+                    populateGroupMenu(); // refresca
+                });
+                groupContainer.appendChild(div);
+            });
+
+            // Pintar canals del grup seleccionat
+            const filtered = currentGroup === 'Todos' ? channels : channels.filter(c => c.group === currentGroup);
+            filtered.forEach((ch, idx) => {
+                const div = document.createElement('div');
+                div.className = 'menu-item' + (channels.indexOf(ch) === currentIndex ? ' active-channel' : '');
+                const img = document.createElement('img');
+                img.src = ch.logo || '';
+                img.alt = '';
+                img.style.marginRight = '12px';
+                div.appendChild(img);
+                const span = document.createElement('span');
+                span.textContent = ch.name;
+                div.appendChild(span);
+                div.addEventListener('click', () => {
+                    const realIndex = channels.indexOf(ch);
+                    if (realIndex !== -1) {
+                        playChannel(realIndex);
+                        closeAllMenus();
+                    }
+                });
+                channelContainer.appendChild(div);
+            });
+        }
+
+        // ---------- MENÚ CARACTERÍSTIQUES I SUBMENÚS ----------
+        function openCharacteristicsMenu() {
+            STATE.charMenu.classList.add('active');
+            STATE.isMenuOpen = true;
+            // Ocultar submenús
+            document.getElementById('submenu-container').innerHTML = '';
+            STATE.currentSubmenu = null;
+            // keyboard amagat
+            STATE.keyboardContainer.style.display = 'none';
+        }
+
+        // Submenú genèric
+        function showSubmenu(items, title, onSelect) {
+            const container = document.getElementById('submenu-container');
+            container.innerHTML = `<h3 style="color:#aaa; margin-bottom:10px;">${title}</h3><div class="submenu"></div>`;
+            const sub = container.querySelector('.submenu');
+            items.forEach((item, idx) => {
+                const div = document.createElement('div');
+                div.className = 'menu-item';
+                div.textContent = item;
+                div.addEventListener('click', () => {
+                    onSelect(idx, item);
+                    // tancar submenú
+                    container.innerHTML = '';
+                    STATE.currentSubmenu = null;
+                });
+                sub.appendChild(div);
+            });
+            STATE.currentSubmenu = title;
+        }
+
+        // Configurar accions del menú Característiques
+        document.querySelectorAll('#char-menu-options .menu-item').forEach(el => {
+            el.addEventListener('click', function(e) {
+                const action = this.dataset.action;
+                if (action === 'back') {
+                    closeAllMenus();
+                    return;
+                }
+                if (action === 'audio') {
+                    // Obtenir pistes d'àudio del vídeo
+                    const video = STATE.video;
+                    const audioTracks = video.audioTracks || [];
+                    const labels = [];
+                    if (audioTracks.length === 0) {
+                        labels.push('Pista per defecte');
+                    } else {
+                        for (let i = 0; i < audioTracks.length; i++) {
+                            labels.push(audioTracks[i].label || `Àudio ${i+1}`);
+                        }
+                    }
+                    showSubmenu(labels, 'Selecciona àudio', (idx, label) => {
+                        if (audioTracks.length > 0 && audioTracks[idx]) {
+                            audioTracks[idx].enabled = true;
+                            for (let j = 0; j < audioTracks.length; j++) {
+                                if (j !== idx) audioTracks[j].enabled = false;
+                            }
+                        }
+                    });
+                    return;
+                }
+                if (action === 'subtitles') {
+                    const video = STATE.video;
+                    const tracks = video.textTracks || [];
+                    const labels = ['Sense subtítols'];
+                    for (let i = 0; i < tracks.length; i++) {
+                        if (tracks[i].kind === 'captions' || tracks[i].kind === 'subtitles') {
+                            labels.push(tracks[i].label || `Subtítol ${i+1}`);
+                        }
+                    }
+                    showSubmenu(labels, 'Selecciona subtítols', (idx, label) => {
+                        if (idx === 0) {
+                            // Amagar subtítols
+                            STATE.subtitleOverlay.style.display = 'none';
+                            for (let t of tracks) t.mode = 'disabled';
+                        } else {
+                            const realIdx = idx - 1;
+                            let count = 0;
+                            for (let i = 0; i < tracks.length; i++) {
+                                if (tracks[i].kind === 'captions' || tracks[i].kind === 'subtitles') {
+                                    if (count === realIdx) {
+                                        tracks[i].mode = 'showing';
+                                        STATE.subtitleOverlay.style.display = 'block';
+                                    } else {
+                                        tracks[i].mode = 'disabled';
+                                    }
+                                    count++;
+                                }
+                            }
+                        }
+                    });
+                    return;
+                }
+                if (action === 'url') {
+                    // Mostrar teclat virtual
+                    STATE.keyboardContainer.style.display = 'block';
+                    STATE.urlInput.focus();
+                    return;
+                }
+                if (action === 'retrocedir') {
+                    const options = ['Anar al directe', 'Retrocedir a les 14:30', 'Retrocedir a les 21:00', 'Retrocedir 1h', 'Retrocedir 30min', 'Retrocedir 5min', 'Retrocedir 1min', 'Retrocedir 10s'];
+                    showSubmenu(options, 'Retrocedir', (idx, label) => {
+                        const video = STATE.video;
+                        if (!video.currentTime) return;
+                        let offset = 0;
+                        if (idx === 0) offset = 0;
+                        else if (idx === 1) offset = 3600 * 14 + 30 * 60;
+                        else if (idx === 2) offset = 3600 * 21;
+                        else if (idx === 3) offset = 3600;
+                        else if (idx === 4) offset = 1800;
+                        else if (idx === 5) offset = 300;
+                        else if (idx === 6) offset = 60;
+                        else if (idx === 7) offset = 10;
+                        video.currentTime = Math.max(0, video.currentTime - offset);
+                    });
+                    return;
+                }
+                if (action === 'speed') {
+                    const speeds = ['Més lent (0.5x)', 'Més lent (0.75x)', 'Normal (1.0x)', 'Més ràpid (1.25x)', 'Més ràpid (1.5x)', 'Superràpid (2.0x)'];
+                    showSubmenu(speeds, 'Velocitat', (idx, label) => {
+                        const video = STATE.video;
+                        const rates = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0];
+                        if (idx < rates.length) video.playbackRate = rates[idx];
+                    });
+                    return;
+                }
+                if (action === 'exit') {
+                    STATE.exitDialog.classList.add('active');
+                    STATE.isMenuOpen = true;
+                    return;
+                }
+            });
+        });
+
+        // Teclat virtual
+        function generateKeyboard() {
+            const keys = '1234567890qwertyuiopasdfghjklzxcvbnm./:@-_?=&'.split('');
+            const container = STATE.keyboardContainer;
+            const keysDiv = container.querySelector('div:first-of-type');
+            keysDiv.innerHTML = '';
+            keys.forEach(k => {
+                const btn = document.createElement('button');
+                btn.className = 'key';
+                btn.textContent = k;
+                btn.addEventListener('click', () => {
+                    STATE.urlInput.value += k;
+                    STATE.urlInput.focus();
+                });
+                keysDiv.appendChild(btn);
+            });
+            // espai
+            const space = document.createElement('button');
+            space.className = 'key space';
+            space.textContent = '␣';
+            space.addEventListener('click', () => {
+                STATE.urlInput.value += ' ';
+                STATE.urlInput.focus();
+            });
+            keysDiv.appendChild(space);
+            // esborrar
+            const del = document.createElement('button');
+            del.className = 'key';
+            del.textContent = '⌫';
+            del.addEventListener('click', () => {
+                STATE.urlInput.value = STATE.urlInput.value.slice(0, -1);
+                STATE.urlInput.focus();
+            });
+            keysDiv.appendChild(del);
+        }
+        generateKeyboard();
+
+        // Guardar URL
+        document.getElementById('save-url').addEventListener('click', async () => {
+            const url = STATE.urlInput.value.trim();
+            if (!url) return alert('Introdueix una URL vàlida');
+            STATE.keyboardContainer.style.display = 'none';
+            await loadM3U(url);
+            closeAllMenus();
+        });
+        document.getElementById('cancel-url').addEventListener('click', () => {
+            STATE.keyboardContainer.style.display = 'none';
+            STATE.urlInput.value = DEFAULT_M3U;
+        });
+
+        // Tancar menús
+        function closeAllMenus() {
+            STATE.charMenu.classList.remove('active');
+            STATE.groupMenu.classList.remove('active');
+            STATE.exitDialog.classList.remove('active');
+            STATE.keyboardContainer.style.display = 'none';
+            document.getElementById('submenu-container').innerHTML = '';
+            STATE.isMenuOpen = false;
+            STATE.currentSubmenu = null;
+        }
+
+        // ---------- CONTROL PER BOTONS VISIBLES ----------
+        document.getElementById('btn-prev').addEventListener('click', prevChannel);
+        document.getElementById('btn-next').addEventListener('click', nextChannel);
+        document.getElementById('btn-info').addEventListener('click', () => {
+            showChannelInfo(STATE.channels[STATE.currentChannelIndex]);
+        });
+        document.getElementById('btn-groups').addEventListener('click', () => {
+            STATE.groupMenu.classList.add('active');
+            STATE.isMenuOpen = true;
+            populateGroupMenu();
+        });
+        document.getElementById('btn-menu').addEventListener('click', openCharacteristicsMenu);
+        document.getElementById('btn-exit').addEventListener('click', () => {
+            STATE.exitDialog.classList.add('active');
+            STATE.isMenuOpen = true;
+        });
+
+        // ---------- NAVEGACIÓ PER TECLAT ----------
+        document.addEventListener('keydown', (e) => {
+            const key = e.key;
+            // Si hi ha un diàleg obert, gestionar
+            if (STATE.exitDialog.classList.contains('active')) {
+                if (key === 'Enter' || key === ' ') {
+                    document.getElementById('confirm-exit').click();
+                } else if (key === 'Escape') {
+                    document.getElementById('cancel-exit').click();
+                }
+                return;
+            }
+            // Menú de grups obert
+            if (STATE.groupMenu.classList.contains('active')) {
+                if (key === 'Escape') {
+                    closeAllMenus();
+                    e.preventDefault();
+                }
+                return;
+            }
+            // Menú característiques obert
+            if (STATE.charMenu.classList.contains('active')) {
+                if (key === 'Escape') {
+                    closeAllMenus();
+                    e.preventDefault();
+                }
+                return;
+            }
+
+            // Si no hi ha menú obert, controls de reproducció
+            switch(key) {
+                case 'ArrowUp':
+                    e.preventDefault();
+                    nextChannel();
+                    break;
+                case 'ArrowDown':
+                    e.preventDefault();
+                    prevChannel();
+                    break;
+                case 'ArrowRight':
+                    e.preventDefault();
+                    openCharacteristicsMenu();
+                    break;
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    STATE.groupMenu.classList.add('active');
+                    STATE.isMenuOpen = true;
+                    populateGroupMenu();
+                    break;
+                case 'Enter':
+                case ' ':
+                    e.preventDefault();
+                    showChannelInfo(STATE.channels[STATE.currentChannelIndex]);
+                    break;
+                case 'Escape':
+                    e.preventDefault();
+                    if (STATE.backPressCount === 0) {
+                        STATE.backPressCount = 1;
+                        STATE.backPressTimer = setTimeout(() => { STATE.backPressCount = 0; }, 500);
+                    } else {
+                        clearTimeout(STATE.backPressTimer);
+                        STATE.backPressCount = 0;
+                        STATE.exitDialog.classList.add('active');
+                        STATE.isMenuOpen = true;
+                    }
+                    break;
+            }
+        });
+
+        // Clics als botons de diàleg
+        document.getElementById('confirm-exit').addEventListener('click', () => {
+            if (STATE.hls) STATE.hls.destroy();
+            document.body.innerHTML = '<h1 style="color:#fff;text-align:center;margin-top:30vh;">Aplicació tancada</h1>';
+        });
+        document.getElementById('cancel-exit').addEventListener('click', () => {
+            STATE.exitDialog.classList.remove('active');
+            STATE.isMenuOpen = false;
+        });
+
+        // Tancar menú de grups
+        document.getElementById('close-channel-menu').addEventListener('click', closeAllMenus);
+
+        // ---------- INICIALITZACIÓ ----------
+        async function init() {
+            console.log('Inicialitzant IPTV Player...');
+            await loadM3U(DEFAULT_M3U);
+
+            // Activar subtítols per defecte després de la càrrega inicial
+            setTimeout(() => {
+                activateDefaultSubtitles();
+            }, 1500);
+        }
+        init();
+
+        // Prevenir sortida accidental amb doble clic dret (context menu)
+        document.addEventListener('contextmenu', e => e.preventDefault());
+
+        console.log('IPTV Player carregat. Utilitza les tecles o botons a la pantalla.');
+    })();
+</script>
+</body>
+</html>
