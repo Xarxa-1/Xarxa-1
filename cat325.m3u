@@ -102,14 +102,14 @@ https://discoverfilm-discoverfilm-1-nl.samsung.wurl.tv/3000.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="uk" #EXTINF:-1 tvg-id="" tvg-name="Sky News" tvg-logo="https://graph.facebook.com/skynews/picture?width=200&height=200" group-title="UK" group-title="SkyNews",SkyNews
 http://rocketfx.uk:8080/live/henry/henry/b5a7c92b-3b22-4a4e-8816-de2b85b4b213.ts
 
-#EXTINF:-1 tvg-id="itv2" tvg-name="itv2" group-title="UK"  tvg-logo="https://images.seeklogo.com/logo-png/21/1/itv2-logo-png_seeklogo-216927.png",itv2
-https://viamotionhsi.netplus.ch/live/eds/itv2/browser-HLS/itv2.m3u8
+# #EXTINF:-1 tvg-id="itv2" tvg-name="itv2" group-title="UK"  tvg-logo="https://images.seeklogo.com/logo-png/21/1/itv2-logo-png_seeklogo-216927.png",itv2
+# https://viamotionhsi.netplus.ch/live/eds/itv2/browser-HLS/itv2.m3u8
 
-#EXTINF:-1 tvg-name="itv3" group-title="UK"  tvg-logo="https://images.seeklogo.com/logo-png/24/1/itv3-logo-png_seeklogo-242281.png" tvg-name="itv3" group-title="UK",itv3
-https://viamotionhsi.netplus.ch/live/eds/itv3/browser-HLS/itv3.m3u8
+# #EXTINF:-1 tvg-name="itv3" group-title="UK"  tvg-logo="https://images.seeklogo.com/logo-png/24/1/itv3-logo-png_seeklogo-242281.png" tvg-name="itv3" group-title="UK",itv3
+# https://viamotionhsi.netplus.ch/live/eds/itv3/browser-HLS/itv3.m3u8
 
-#EXTINF:-1 tvg-name="itv4" group-title="UK" tvg-logo="https://images.seeklogo.com/logo-png/45/1/itv4-logo-png_seeklogo-458199.png" tvg-name="itv4"  group-title="UK",itv4
-https://viamotionhsi.netplus.ch/live/eds/itv4/browser-HLS/itv4.m3u8
+#  #EXTINF:-1 tvg-name="itv4" group-title="UK" tvg-logo="https://images.seeklogo.com/logo-png/45/1/itv4-logo-png_seeklogo-458199.png" tvg-name="itv4"  group-title="UK",itv4
+#  https://viamotionhsi.netplus.ch/live/eds/itv4/browser-HLS/itv4.m3u8
 
 #EXTINF:-1 tvg-name="GBNews" group-title="UK" tvg-logo="" tvg-name="itv4"  group-title="UK",GB News
 https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg01076-lightningintern-gbnewsnz-samsungnz/playlist.m3u8
