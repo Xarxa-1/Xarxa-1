@@ -38,6 +38,9 @@ https://rtvelivestream.rtve.es/rtvesec/cat/la1_cat_main_dvr.m3u8
 #EXTINF:-1 tvg-id="La 2" tvg-name="La2.es" tvg-logo="https://i.imgur.com/3NwzqoB.png" group-title="General",La2 Cat
 https://rtvelivestream.rtve.es/rtvesec/cat/la2_cat_main.m3u8
 
+#EXTINF:-1 tvg-id="La 2" tvg-name="La2.es" tvg-logo="https://i.imgur.com/3NwzqoB.png" group-title="General",La2 Cat.
+https://rtvelivestream.rtve.es/rtvesec/cat/la2_cat_main_dvr.m3u8
+
 #EXTINF:-1 tvg-id="La 1 HD" tvg-name="La1.cat" tvg-logo="https://i.imgur.com/1jDS9UC.png" group-title="General",Rtve
 https://ztnr.rtve.es/ztnr/6909845.m3u8
 
@@ -882,7 +885,6 @@ https://amg00793-amg00793c6-xumo-us-2669.playouts.now.amagi.tv/BBCStudios-BBCEar
 #EXTINF:-1 tvg-id="fox" group-title="International" tvg-logo="https://pbs.twimg.com/profile_images/1988819657243996160/qViUOShO_400x400.jpg" group-title="Starz",FOX DEPORTES
 http://23.237.104.106:8080/USA_FOX_DEPORTES/tracks-v1a1/mono.m3u8
 
-
 #EXTINF:-1 tvg-id="FXX" tvg-logo="https://pbs.twimg.com/profile_images/378800000564943584/6ccfcea7e2e6a383275e2cc72610ab6c_400x400.png" group-title="International", FXX
 http://41.205.93.154/USA_FXX/tracks-v1a1/mono.m3u8
 
@@ -895,18 +897,8 @@ https://jmp2.uk/plu-60dafb9a0df1ba000758d37b.m3u8
 #EXTINF:-1 tvg-id="BBC" tvg-logo="https://m.media-amazon.com/images/G/01/LCXO_Station_Logos/BBCSeries_white_logo._SL500_FMpng_.png",BBC Series1
 https://amg00793-amg00793c40-rakuten-es-5444.playouts.now.amagi.tv/playlist.m3u8
 
-#EXTINF:-1 tvg-id="C" tvg-logo="",Craftyst
-https://epg.provider.plex.tv/library/parts/643054b1fc3be59477853717-6365779dde08f8eec6c3f21f/variant.m3u8?x-plex-token=yfVbqZLVyuh4E11iwvZE&x-plex-advertising-identifier=&x-plex-client-identifier=154931c3-16a1-4dd3-a553-5a0e6e003566&x-plex-playback-id=p_b5299fda-673e-4d4a-9546-6046fb74abda&x-plex-playback-session-id=&x-plex-session-id=&x-plex-device=Windows&x-plex-device-name=Plex+Mediaverse&x-plex-advertising-donottrack=0&x-plex-drm=&x-plex-model=&x-plex-platform=Chrome&x-plex-platform-version=150.0.0.0&x-plex-product=Plex+Mediaverse&x-plex-device-screen-resolution=&x-plex-device-vendor=&x-plex-version=&x-plex-provider-streaming-start=1784415464&url=5d519231ab10102a37968d6ff2c776bd-0209903fd22d2c2ef39a7273cfa9a0905edc255d2d2ebdbc1baa247d3b985d0aaa3b2bf04538f035304182f55e8eee09c2d403f302e2f784a85dcb158b845e448b7e3a2c946d6877ecbfd27b66fdc727829616f5ad30af2ad8c49d21b5160fb15beed68ff6df9faadb3170d7eb2401708227f55797ac80a407d8a40fc7265ff929e2c967361c9bf4506cb6a75a20946371c414ffb1857d21666adf7d676316469119fe89ef24aa35439f1c566107c273c3a2881e8b655fb8b557aae1001c0db5c410dc428623a89d554076c55ba0c5b0
-
-#EXTINF:-1 tvg-id="RAC1" group-title="Ràdio" tvg-logo="https://pbs.twimg.com/profile_images/1750879104742699008/0_pYFIA3_400x400.jpg",RAC1
-https://20103.live.streamtheworld.com/RAC_1.mp3
-
-
-#EXTINF:-1 tvg-id="Tarragona" group-title="Catalunya",Calafell
-https://hd-auth.skylinewebcams.com/live.m3u8?a=mn4cn3e122spih6cr85c6a4co4
-
-#EXTINF:-1 tvg-id="Tarragona" group-title="Catalunya",Tarragona
-https://hd-auth.skylinewebcams.com/live.m3u8?a=mn4cn3e122spih6cr85c6a4co4
+#EXTINF:-1 tvg-id="C" tvg-logo="",Fox
+https://n15sb.host5245.com/63/index.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Càmares" tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200" group-title="Catalunya",Càmares
 https://directes-tv-int.3catdirectes.cat/live-content/beauties-hls/bitrate_3.m3u8
