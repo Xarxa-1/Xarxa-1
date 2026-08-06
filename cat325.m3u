@@ -8,13 +8,14 @@ https://directes-tv-cat.3catdirectes.cat/live-content/canal324-hls/master.m3u8
 #EXTINF:-1 tvg-id="Esport 3" tvg-name="Esport3.cat" tvg-logo="https://graph.facebook.com/Esport3/picture?width=200&height=200" group-title="Catalunya",Esport3
 https://directes-tv-cat.3catdirectes.cat/live-content/esport3-hls/master.m3u8
 
+#EXTINF:-1 tvg-id="" tvg-name="TV3CAT" tvg-logo="https://pbs.twimg.com/profile_images/2008787263484735488/aaUjOWUv_400x400.jpg" group-title="Catalunya",TV3CAT
+https://directes3-tv-int.3catdirectes.cat/live-content/tvi-hls/master.m3u8
+
 #EXTINF:-1 tvg-id="TAC12" tvg-name="TAC12.cat" tvg-logo="https://pbs.twimg.com/profile_images/1326929087919689729/S1zkeUh3_400x400.jpg" group-title="Catalunya",TAC12
 https://ingest1-video.streaming-pro.com/tac12_ABR/stream/playlist.m3u8
 
-#EXTINF:-1 tvg-id="LLEIDATV.cat" tvg-name="LLEIDATV.cat" group-title="Catalunya" tvg-logo="https://pbs.twimg.com/profile_images/1765275511620538368/Hiz43OMZ_400x400.jpg" ,LLEIDA TV
-https://d1pgniwg61j6fm.cloudfront.net/out/v1/f32d8fe5be7a4ababd6894109683254b/index_2.m3u8?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkaXN0cmlidXRpb24iOiJmMzJkOGZlNWJlN2E0YWJhYmQ2ODk0MTA5NjgzMjU0YiIsImlzcyI6Imh0dHBzOi8vbGF4YXJ4YW1lcy5jb20iLCJhdWQiOiJodHRwczovL2xheGFyeGFtZXMuY29tIiwidGltZUJhc2UiOm51bGwsInRpbWVGcmFtZXMiOltdLCJleHAiOjE3ODQ2NTk2NzkwMDAsImlhdCI6MTc4NDU2MjQ3OTAwMCwibmJmIjoxNzg0NTYyNDc0MDAwfQ.aozK3PFbPrhI9HpIqrGrOHgi2nz61ndTq2AwkUC6-HQ&_t=1784562479&hash=c-6314323916112&_tc=1704883765
-#EXTINF:-1 tvg-id="LLEIDATV.cat" tvg-name="LLEIDATV.cat" group-title="Catalunya" tvg-logo="https://pbs.twimg.com/profile_images/1765275511620538368/Hiz43OMZ_400x400.jpg" ,LLEIDA TV.
-https://d1pgniwg61j6fm.cloudfront.net/out/v1/f32d8fe5be7a4ababd6894109683254b/index_2.m3u8?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkaXN0cmlidXRpb24iOiJmMzJkOGZlNWJlN2E0YWJhYmQ2ODk0MTA5NjgzMjU0YiIsImlzcyI6Imh0dHBzOi8vbGF4YXJ4YW1lcy5jb20iLCJhdWQiOiJodHRwczovL2xheGFyeGFtZXMuY29tIiwidGltZUJhc2UiOm51bGwsInRpbWVGcmFtZXMiOltdLCJleHAiOjE3ODQxNDA2ODEwMDAsImlhdCI6MTc4NDA0MzQ4MTAwMCwibmJmIjoxNzg0MDQzNDc2MDAwfQ.pLQghZLNKGNqFO-MvgrxmNuQK5QVqxqKkIUL57EvbZY&_t=1784043481&hash=c-6314323916112&_tc=1704883765
+# #EXTINF:-1 tvg-id="LLEIDATV.cat" tvg-name="LLEIDATV.cat" group-title="Catalunya" tvg-logo="https://pbs.twimg.com/profile_images/1765275511620538368/Hiz43OMZ_400x400.jpg" ,LLEIDA TV
+# https://d1pgniwg61j6fm.cloudfront.net/out/v1/f32d8fe5be7a4ababd6894109683254b/index_2.m3u8?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkaXN0cmlidXRpb24iOiJmMzJkOGZlNWJlN2E0YWJhYmQ2ODk0MTA5NjgzMjU0YiIsImlzcyI6Imh0dHBzOi8vbGF4YXJ4YW1lcy5jb20iLCJhdWQiOiJodHRwczovL2xheGFyeGFtZXMuY29tIiwidGltZUJhc2UiOm51bGwsInRpbWVGcmFtZXMiOltdLCJleHAiOjE3ODQ2NTk2NzkwMDAsImlhdCI6MTc4NDU2MjQ3OTAwMCwibmJmIjoxNzg0NTYyNDc0MDAwfQ.aozK3PFbPrhI9HpIqrGrOHgi2nz61ndTq2AwkUC6-HQ&_t=1784562479&hash=c-6314323916112&_tc=1704883765
 
 #EXTINF:-1 tvg-id="TV3 Catalunya" tvg-name="TV3CAT" tvg-logo="https://pbs.twimg.com/profile_images/2008787263484735488/aaUjOWUv_400x400.jpg" group-title="Catalunya",TV3CAT
 https://directes3-tv-int.3catdirectes.cat/live-content/tvi-hls/master.m3u8
