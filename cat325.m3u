@@ -2,6 +2,9 @@
 #EXTINF:-1 tvg-id="TV3" tvg-name="TV3.cat" tvg-logo="https://pbs.twimg.com/profile_images/1718910763174109184/B7MDxoG1.jpg" group-title="Catalunya",TV3
 https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
 
+#EXTINF:-1 tvg-id="TV3 Catalunya" tvg-name="TV3CAT" tvg-logo="https://pbs.twimg.com/profile_images/2008787263484735488/aaUjOWUv_400x400.jpg" group-title="Catalunya",TV3CAT
+https://directes3-tv-int.3catdirectes.cat/live-content/tvi-hls/master.m3u8
+
 #EXTINF:-1 tvg-id="3CatInfo" tvg-name="324.cat" tvg-logo="https://pbs.twimg.com/profile_images/1968163923477098496/blka6O_j_400x400.jpg" group-title="Catalunya",3CAT INFO
 https://directes-tv-cat.3catdirectes.cat/live-content/canal324-hls/master.m3u8
 
@@ -16,10 +19,6 @@ https://ingest1-video.streaming-pro.com/tac12_ABR/stream/playlist.m3u8
 
 # #EXTINF:-1 tvg-id="LLEIDATV.cat" tvg-name="LLEIDATV.cat" group-title="Catalunya" tvg-logo="https://pbs.twimg.com/profile_images/1765275511620538368/Hiz43OMZ_400x400.jpg" ,LLEIDA TV
 # https://d1pgniwg61j6fm.cloudfront.net/out/v1/f32d8fe5be7a4ababd6894109683254b/index_2.m3u8?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkaXN0cmlidXRpb24iOiJmMzJkOGZlNWJlN2E0YWJhYmQ2ODk0MTA5NjgzMjU0YiIsImlzcyI6Imh0dHBzOi8vbGF4YXJ4YW1lcy5jb20iLCJhdWQiOiJodHRwczovL2xheGFyeGFtZXMuY29tIiwidGltZUJhc2UiOm51bGwsInRpbWVGcmFtZXMiOltdLCJleHAiOjE3ODQ2NTk2NzkwMDAsImlhdCI6MTc4NDU2MjQ3OTAwMCwibmJmIjoxNzg0NTYyNDc0MDAwfQ.aozK3PFbPrhI9HpIqrGrOHgi2nz61ndTq2AwkUC6-HQ&_t=1784562479&hash=c-6314323916112&_tc=1704883765
-
-#EXTINF:-1 tvg-id="TV3 Catalunya" tvg-name="TV3CAT" tvg-logo="https://pbs.twimg.com/profile_images/2008787263484735488/aaUjOWUv_400x400.jpg" group-title="Catalunya",TV3CAT
-https://directes3-tv-int.3catdirectes.cat/live-content/tvi-hls/master.m3u8
-
 
 #EXTINF:-1 tvg-id="El 33 Catalunya" tvg-name="C33.cat" tvg-logo="https://graph.facebook.com/Canal33/picture?width=200&height=200" group-title="Catalunya",Canal33
 https://directes-tv-cat.3catdirectes.cat/live-content/c33-super3-hls/master.m3u8
@@ -41,6 +40,9 @@ https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8
 
 #EXTINF:-1 tvg-id="La 2" tvg-name="La2.es" tvg-logo="https://i.imgur.com/3NwzqoB.png" group-title="General",La2 Cat.
 https://rtvelivestream.rtve.es/rtvesec/cat/la2_cat_main_dvr.m3u8
+
+#EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1889595750780112896/GzWcRrIo_400x400.jpg" group-title="Internacionals",Star TVE
+https://rtvelivestream-rtveplayplus.rtve.es/rtvesec/int/star_main_720.m3u8
 
 #EXTINF:-1 tvg-id="La 1 HD" tvg-name="La1.cat" tvg-logo="https://i.imgur.com/1jDS9UC.png" group-title="General",Rtve
 https://ztnr.rtve.es/ztnr/6909845.m3u8
@@ -499,18 +501,6 @@ https://cdn.streamhispanatv.net:3390/live/sastvgtlive.m3u8
 
 #EXTINF:-1 group-title="Pel·lícules",Cafe TV 24
 https://srvx1.selftv.video/cafe/live/playlist.m3u8
-
-#EXTINF:-1 group-title="Internacionals",TVE LA 1
-https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8
-
-#EXTINF:-1 group-title="Internacionals",TVE LA 2
-https://rtvelivestream.rtve.es/rtvesec/la2/la2_main_dvr.m3u8
-
-#EXTINF:-1 group-title="Internacionals",TVE 24 H
-https://rtvelivestream.rtve.es/rtvesec/24h/24h_main_dvr.m3u8
-
-#EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1889595750780112896/GzWcRrIo_400x400.jpg" group-title="Internacionals",Star TVE
-https://rtvelivestream-rtveplayplus.rtve.es/rtvesec/int/star_main_720.m3u8
 
 #EXTINF:-1 group-title="Dibuixos",TVE Clan
 https://ztnr.rtve.es/ztnr/5466990.m3u8
