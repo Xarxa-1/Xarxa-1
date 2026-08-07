@@ -105,9 +105,6 @@ https://viamotionhsi.netplus.ch/live/eds/bbc3cbbc/browser-HLS8/bbc3cbbc.m3u8
 #EXTINF:-1 tvg-id="BBC I" tvg-name="BBC Impossible" tvg-logo="https://pbs.twimg.com/profile_images/1100767317691109376/NerIe0LG_400x400.png" group-title="Undefined",BBC Impossible
 https://bbc-impossible-1-us.xumo.wurl.tv/playlist.m3u8
 
-#EXTINF:-1 tvg-id="B" tvg-name="" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/BBC_One_logo_2021.svg/langca-330px-BBC_One_logo_2021.svg.png" group-title="General",fILMS
-https://discoverfilm-discoverfilm-1-nl.samsung.wurl.tv/3000.m3u8
-
 #EXTINF:-1 tvg-id="" tvg-name="uk" #EXTINF:-1 tvg-id="" tvg-name="Sky News" tvg-logo="https://graph.facebook.com/skynews/picture?width=200&height=200" group-title="UK" group-title="SkyNews",SkyNews
 http://rocketfx.uk:8080/live/henry/henry/b5a7c92b-3b22-4a4e-8816-de2b85b4b213.ts
 
@@ -135,7 +132,7 @@ http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/106939
 #EXTINF:-1 tvg-ID="comedycentral.uk" tvg-name="UK: Comedy Central" tvg-logo="" group-title="UK",UK: Comedy Central
 http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/106940
 
-#EXTINF:-1 tvg-name="GBNews" group-title="UK" tvg-logo="" tvg-name="itv4"  group-title="UK",GB News
+#EXTINF:-1 tvg-id="" tvg-name="GB News" tvg-logo="https://pbs.twimg.com/profile_images/1571994202854100994/vYcqAgBG_400x400.jpg" group-title="Notícies",GB News
 https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg01076-lightningintern-gbnewsnz-samsungnz/playlist.m3u8
 
 #EXTINF:-1 group-title="Entreteniment" tvg-id="Bravo.USA.-.Eastern.Feed.us" tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s10057_dark_360w_270h.png" tvg-name="BRAVO",BRAVO
@@ -249,9 +246,6 @@ https://59959724487e3.streamlock.net/stream/live/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="MX: MILENIO" tvg-logo="" group-title="Esport",MX: MILENIO
 https://mdstrm.com/live-stream-playlist/610178c7db32a4112d994650.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="MX: N+ MTY" tvg-logo="" group-title="Notícies",MX: N+ MTY
-https://channel09-notusa.akamaized.net/hls/live/2094418/event01/index.m3u8
-
 #EXTINF:-1 tvg-id="" tvg-name="US: CNN" tvg-logo="" group-title="Notícies",US: CNN
 https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8
 
@@ -285,9 +279,6 @@ https://livekto.akamaized.net/hls/live/20000018/ktotv/08.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Negocios TV (1080p)" tvg-logo="https://i.imgur.com/GrzQ1ya.png" group-title="Notícies",Negocios TV (1080p)
 https://streaming013.gestec-video.com/hls/negociostv.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="Noroeste TV (1080p) [Not 24/7]" tvg-logo="https://i.imgur.com/s6V8rQd.png" group-title="General",Noroeste TV (1080p) [Not 24/7]
-https://cloudvideo.servers10.com:8081/8032/index.m3u8
-
 #EXTINF:-1 tvg-id="" tvg-name="Peer TV Alto Adige (1280p)" tvg-logo="https://www.peer.biz/peertv-iptv/peer-tv-alto-adige.png" group-title="Outdoor;Travel",Peer TV Alto Adige (1280p)
 https://iptv.peer.biz/live/peertv-it.m3u8
 
@@ -296,9 +287,6 @@ https://iptv.peer.biz/live/peertv-en.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Peer TV Südtirol (1080p)" tvg-logo="https://www.peer.biz/peertv-iptv/peer-tv-suedtirol.png" group-title="Outdoor;Travel",Peer TV Südtirol (1080p)
 https://iptv.peer.biz/live/peertv.m3u8
-
-#EXTINF:-1 tvg-id="" tvg-name="Pequeradio (720p) [Not 24/7]" tvg-logo="https://i.imgur.com/BNqZwxS.png" group-title="Música",Pequeradio (720p) [Not 24/7]
-https://canadaremar2.todostreaming.es/live/peque-pequetv.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Platzi TV (1080p)" tvg-logo="https://i.imgur.com/vEzeqHP.png" group-title="Education",Platzi TV (1080p)
 https://mdstrm.com/live-stream-playlist/629a63ae8df27c082901f78b.m3u8
@@ -315,13 +303,6 @@ https://the-pet-collective-international-es.samsung.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="TV5Monde Europe (1080p) [Geo-blocked]" tvg-logo="https://i.imgur.com/rPAbMSu.png" group-title="General",TV5Monde Europe (1080p) [Geo-blocked]
 https://ott.tv5monde.com/Content/HLS/Live/channel(europe)/variant.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="Vogue Europe" tvg-logo="" group-title="Entreteniment",Vogue Europe
-https://d39g1vxj2ef6in.cloudfront.net/v1/master/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod-rakuten-stitched/master.m3u8?ads.xumo_channelId=88883060
-
-#EXTINF:-1 tvg-id="" tvg-name="DiscoverFilm" tvg-logo="https://i.imgur.com/oMnpsQ5.png" group-title="Pel·lícules",DiscoverFilm
-https://discoverfilm-discoverfilm-1-nl.samsung.wurl.tv/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="GB News" tvg-logo="https://pbs.twimg.com/profile_images/1571994202854100994/vYcqAgBG_400x400.jpg" group-title="Notícies",GB News
-https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg01076-lightningintern-gbnewsnz-samsungnz/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Pop (1080p)" tvg-logo="https://i.imgur.com/fGUlCY3.png" group-title="Dibuixos",Pop (1080p)
 https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01753-narrativeentert-popkids-lggb/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="V2BEAT (720p) [Not 24/7]" tvg-logo="https://i.imgur.com/PXGqyLn.png" group-title="Música",V2BEAT (720p) [Not 24/7]
@@ -341,23 +322,17 @@ http://45.228.234.30:16000/play/a03t/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Redbull TV" tvg-logo="https://i.imgur.com/iFNScQ6.png" group-title="Esport",Redbull TV
 https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master_1660.m3u8
 
-
-#EXTINF:-1 tvg-id="" tvg-name="Teledeporte (1080p)" tvg-logo="https://i.imgur.com/b0H5f62.png" group-title="Esport",Teledeporte (1080p)
-https://d1cctoeg0n48w5.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-mnixw9wn5ugmv/TeledeporteES.m3u8
-
-#EXTINF:-1 tvg-id="" tvg-name="Sport5 🇮🇱" tvg-logo=""  group-title="Esport",Sport5 🇮🇱
-https://rgelive.akamaized.net/hls/live/2043151/radiolive/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Sport5"  tvg-logo="https://i.ibb.co/Yc5Yf1q/sport5il.png" group-title="Esport",Sport5
-https://rgelive.akamaized.net/hls/live/2043151/radiolive/playlist.m3u8
+# #EXTINF:-1 tvg-id="" tvg-name="Sport5 🇮🇱" tvg-logo=""  group-title="Esport",Sport5 🇮🇱
+# https://rgelive.akamaized.net/hls/live/2043151/radiolive/playlist.m3u8
+# #EXTINF:-1 tvg-id="" tvg-name="Sport5"  tvg-logo="https://i.ibb.co/Yc5Yf1q/sport5il.png" group-title="Esport",Sport5
+# https://rgelive.akamaized.net/hls/live/2043151/radiolive/playlist.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Activa TV (720p)" tvg-logo="https://i.imgur.com/VCUZKiw.png" group-title="Música",Activa TV (720p)
 https://streamtv.mediasector.es/hls/activatv/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="BCN Gospel TV (1080p)" tvg-logo="https://i.imgur.com/ZKAnehs.png" group-title="General",BCN Gospel TV (1080p)
-https://live1.ovalcast.com:3641/live/bcngospeltvlive.m3u8
+
 #EXTINF:-1 tvg-id="" tvg-name="Cadena Elite (720p) [Not 24/7]" tvg-logo="https://i.imgur.com/3yeGDTP.png" group-title="Música",Cadena Elite (720p) [Not 24/7]
 https://cloudvideo.servers10.com:8081/8004/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Noroeste TV (1080p) [Not 24/7]" tvg-logo="https://i.imgur.com/s6V8rQd.png" group-title="General",Noroeste TV (1080p) [Not 24/7]
-https://cloudvideo.servers10.com:8081/8032/index.m3u8
+
 #EXTINF:-1 tvg-id="" tvg-name="POP World TV (720p)" tvg-logo="https://i.imgur.com/LQB6G3s.jpg" group-title="Música",POP World TV (720p)
 https://janus.xpbroadcasting.com:8443/hls/popworld.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Rakuten TV Action Movies Spain (1080p)" tvg-logo="https://i.imgur.com/Meew6eX.png" group-title="Pel·lícules",Rakuten TV Action Movies Spain (1080p)
@@ -372,10 +347,12 @@ https://d2glyu450vvghm.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68
 #EXTINF:-1 tvg-id="" tvg-name="XPTV1 (720p)" tvg-logo="https://i.imgur.com/Ty7GkoN.png" group-title="Música",XPTV1 (720p)
 https://janus.xpbroadcasting.com:8443/hls/xptv1.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="+24" tvg-logo="https://img.rtve.es/imagenes/multisenal-24/1361962728583.png" group-title="Notícies",+24
+#EXTINF:-1 tvg-id="" tvg-name="+24" tvg-logo="" group-title="Notícies",Eurovision EBU2
 https://ztnr.rtve.es/ztnr/6108720.m3u8
+
 #EXTINF:-1 tvg-id="" tvg-name="ABC News USA EN" tvg-logo="https://graph.facebook.com/ABCNews/picture?width=200&height=200" group-title="Notícies",ABC News USA EN
-http://41.205.93.154/ABC/index.m3u8
+http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/106715
+
 #EXTINF:-1 tvg-id="" tvg-name="CBS News USA EN" tvg-logo="https://graph.facebook.com/CBSNews/picture?width=200&height=200" group-title="Notícies",CBS News USA EN
 https://cbsn-us.cbsnstream.cbsnews.com/out/v1/55a8648e8f134e82a470f83d562deeca/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Bloomberg USA EN" tvg-logo="https://pbs.twimg.com/profile_images/991792042094354432/DG1Ruupb_200x200.jpg" group-title="Notícies",Bloomberg USA EN
@@ -393,8 +370,8 @@ https://ocko-live.ssl.cdn.cra.cz/channels/ocko/playlist/cze/live_hq.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Ocko Star Chequia CZ" tvg-logo="https://graph.facebook.com/ockostar/picture?width=200&height=200" group-title="Música",Ocko Star Chequia CZ
 https://ocko-live.ssl.cdn.cra.cz/channels/ocko_gold/playlist/cze/live_hq.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="Sport5" tvg-logo="https://i.ibb.co/Yc5Yf1q/sport5il.png" group-title="Esport",Sport5
-https://rgelive.akamaized.net/hls/live/2043151/radiolive/playlist.m3u8
+# #EXTINF:-1 tvg-id="" tvg-name="Sport5" tvg-logo="https://i.ibb.co/Yc5Yf1q/sport5il.png" group-title="Esport",Sport5
+# https://rgelive.akamaized.net/hls/live/2043151/radiolive/playlist.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="BEIN SPORT EXTRA Ñ 🇪🇸" tvg-logo=""  group-title="Esport",BEIN SPORT EXTRA Ñ 🇪🇸
 https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/bein-sports-xtra-en-espanol/playlist.m3u8
