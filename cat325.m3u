@@ -202,7 +202,7 @@ https://tsw.streamingwebtv24.it:1936/inteccdn1/inteccdn1/playlist.m3u8
 #EXTINF:-1 tvg-id="LiveChannel" group-title="Pel·lícules", LiveChannel
 https://0145451975a64b35866170fd2e8fa486.mediatailor.eu-west-1.amazonaws.com/v1/manifest/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-5987/52449019-c378-4e85-b20e-1f51e0d5bb4a/4.m3u8
 
-#EXTINF:-1 tvg-id="ActivaTV.es@SD"  group-title="Music" ,Activa TV (720p)
+#EXTINF:-1 tvg-id="ActivaTV.es@SD"  group-title="Música" ,Activa TV (720p)
 https://streamtv.mediasector.es/hls/activatv/index.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Aragón TV" tvg-logo="https://i.imgur.com/6YSi1zW.png" group-title="General",Aragón TV
