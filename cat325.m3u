@@ -21,7 +21,7 @@ https://ingest1-video.streaming-pro.com/tac12_ABR/stream/playlist.m3u8
 # https://d1pgniwg61j6fm.cloudfront.net/out/v1/f32d8fe5be7a4ababd6894109683254b/index_2.m3u8?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkaXN0cmlidXRpb24iOiJmMzJkOGZlNWJlN2E0YWJhYmQ2ODk0MTA5NjgzMjU0YiIsImlzcyI6Imh0dHBzOi8vbGF4YXJ4YW1lcy5jb20iLCJhdWQiOiJodHRwczovL2xheGFyeGFtZXMuY29tIiwidGltZUJhc2UiOm51bGwsInRpbWVGcmFtZXMiOltdLCJleHAiOjE3ODQ2NTk2NzkwMDAsImlhdCI6MTc4NDU2MjQ3OTAwMCwibmJmIjoxNzg0NTYyNDc0MDAwfQ.aozK3PFbPrhI9HpIqrGrOHgi2nz61ndTq2AwkUC6-HQ&_t=1784562479&hash=c-6314323916112&_tc=1704883765
 
 #EXTINF:-1 tvg-id="El 33 Catalunya" tvg-name="C33.cat" tvg-logo="https://graph.facebook.com/Canal33/picture?width=200&height=200" group-title="Catalunya",Canal33
-https://directes-tv-cat.3catdirectes.cat/live-content/c33-super3-hls/master.m3u8
+# https://directes-tv-cat.3catdirectes.cat/live-content/c33-super3-hls/master.m3u8
 
 #EXTINF:-1 tvg-id="SX3 Catalunya" tvg-name="SX3.cat" tvg-logo="https://graph.facebook.com/SomSX3/picture?width=200&height=200" group-title="Catalunya",SX3
 https://directes-tv-cat.3catdirectes.cat/live-content/super3-hls/master.m3u8
