@@ -44,13 +44,13 @@ https://rtvelivestream.rtve.es/rtvesec/cat/la2_cat_main_dvr.m3u8
 #EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1889595750780112896/GzWcRrIo_400x400.jpg" group-title="Internacionals",Star TVE
 https://rtvelivestream-rtveplayplus.rtve.es/rtvesec/int/star_main_720.m3u8
 
-#EXTINF:-1 tvg-id="La 1 HD" tvg-name="La1.cat" tvg-logo="https://i.imgur.com/1jDS9UC.png" group-title="General",Rtve
+#EXTINF:-1 tvg-id="La 1 HD" tvg-name="La1.cat" tvg-logo="" group-title="General",Rtvehttps://pbs.twimg.com/profile_images/2086041765069324288/HV-6nlhN.jpg
 https://ztnr.rtve.es/ztnr/6909845.m3u8
 
 #EXTINF:-1 tvg-id="24 Horas" tvg-name="24H.es" tvg-logo="https://i.imgur.com/IUVRm5L.png" group-title="Notícies",24HCat
 https://ztnr.rtve.es/ztnr/1694255.m3u8
 
-#EXTINF:-1 tvg-id="Antena3Internacional.es@SD" tvg-logo?"https://pbs.twimg.com/profile_images/1898279121924259840/TzTr1cid_400x400.jpg" group-title="General" ,Antena 3 Internacional
+#EXTINF:-1 tvg-id="Antena3Internacional.es@SD" tvg-logo="https://pbs.twimg.com/profile_images/1898279121924259840/TzTr1cid_400x400.jpg" group-title="General" ,Antena 3 Internacional
 http://177.10.184.193:8000/play/a06a/index.m3u8
 
 #EXTINF:-1 tvg-id="Esport 3" tvg-name="Esport3.cat" tvg-logo="https://graph.facebook.com/Esport3/picture?width=200&height=200" group-title="Esport",Esport3
@@ -58,13 +58,6 @@ https://directes-tv-cat.3catdirectes.cat/live-content/esport3-hls/master.m3u8
 
 #EXTINF:-1 tvg-id="Teledeporte" tvg-name="TDP" tvg-logo="https://graph.facebook.com/teledeporteRTVE/picture?width=200&height=200" group-title="Esport" tvg-name="Teledeporte",Teledeporte
 https://rtvelivestream.rtve.es/rtvesec/tdp/tdp_main.m3u8
-
-
-#EXTINF:-1 tvg-id="USA_STARZ" tvg-name="USA_STARZ" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg" group-title="Catalunya",USA_STARZ
-http://23.237.104.106:8080/USA_STARZ/index.m3u8
-
-#EXTINF:-1 tvg-id="USA_STARZ" tvg-name="USA_STARZ" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg" group-title="Catalunya",USA STARZ
-http://23.237.104.106:8080/USA_STARZ/tracks-v1a1/mono.m3u8
 
 
 #EXTINF:-1 tvg-id="" tvg-name="CNN International Europe" tvg-logo="https://pbs.twimg.com/profile_images/1669780523911110656/K9gaaM1g_400x400.jpg" group-title="Notícies",US: CNN
@@ -86,7 +79,7 @@ https://d3pxo1qcgzxtxs.cloudfront.net/manifest/3fec3e5cac39a52b2132f9c66c83dae04
 https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/t=3840/v=pv8/b=827008/a=pa4/b=128000/main.m3u8
 
 
-#EXTINF:-1 tvg-id="BBC World News Europe HD tvg-name="BBC.News"  tvg-logo="https://pbs.twimg.com/profile_images/1529107170448523264/q3VwEx38_400x400.jpg" group-title="Notícies",BBC News International
+#EXTINF:-1 tvg-id="BBC World News Europe HD tvg-name="BBC.News"  tvg-logo="https://pbs.twimg.com/profile_images/1529107170448523264/q3VwEx38_400x400.jpg" group-title="UK",BBC News International
 https://d3pxo1qcgzxtxs.cloudfront.net/manifest/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod_default_xumo-linear-amc-hlsv3/5ab832c0-311a-4705-9535-5e54ad64b21e/5.m3u8
 
 #EXTINF:-1 tvg-id="BBC1" tvg-name="BBC One" group-title="UK" tvg-logo="https://pbs.twimg.com/profile_images/1450745843603083267/uSloYi8l_400x400.jpg" group-title="General",BBC One
@@ -127,9 +120,6 @@ http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/106937
 
 #EXTINF:-1 tvg-ID="channel5.uk" tvg-name="UK: Channel 5" tvg-logo="" group-title="UK",UK: Channel 5
 http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/106938
-
-#EXTINF:-1 tvg-ID="colors.uk" tvg-name="UK: COLORS" tvg-logo="" group-title="UK",UK: COLORS
-http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/106939
 
 #EXTINF:-1 tvg-ID="comedycentral.uk" tvg-name="UK: Comedy Central" tvg-logo="" group-title="UK",UK: Comedy Central
 http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/106940
@@ -212,9 +202,6 @@ https://tsw.streamingwebtv24.it:1936/inteccdn1/inteccdn1/playlist.m3u8
 #EXTINF:-1 tvg-id="LiveChannel" group-title="Pel·lícules", LiveChannel
 https://0145451975a64b35866170fd2e8fa486.mediatailor.eu-west-1.amazonaws.com/v1/manifest/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-5987/52449019-c378-4e85-b20e-1f51e0d5bb4a/4.m3u8
 
-#EXTINF:-1 tvg-name="BOM Cine" tvg-logo="https://i.imgur.com/cqhofMU.png" tvg-id="BomCine.es" tvg-chno="26" tvg-country="ES" group-title="General",BOM Cine
-https://tsw.streamingwebtv24.it:1936/inteccdn3/inteccdn3/playlist.m3u8
-
 #EXTINF:-1 tvg-id="ActivaTV.es@SD"  group-title="Music" ,Activa TV (720p)
 https://streamtv.mediasector.es/hls/activatv/index.m3u8
 
@@ -292,6 +279,9 @@ https://iptv.peer.biz/live/peertv.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Platzi TV (1080p)" tvg-logo="https://i.imgur.com/vEzeqHP.png" group-title="Education",Platzi TV (1080p)
 https://mdstrm.com/live-stream-playlist/629a63ae8df27c082901f78b.m3u8
+
+#EXTINF:-1 tvg-id="" tvg-name="Canal Universidad" tvg-logo="" group-title="Education",Canal Universidad
+https://videostream.shockmedia.com.ar/hls/canaluniversidadmdp/canaluniversidadmdp.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="POP World TV (720p)" tvg-logo="https://i.imgur.com/LQB6G3s.jpg" group-title="Música",POP World TV (720p)
 https://janus.xpbroadcasting.com:8443/hls/popworld.m3u8
@@ -874,14 +864,21 @@ http://23.237.104.106:8080/USA_FXX/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-id="FX" tvg-logo="https://pbs.twimg.com/profile_images/1715419203610857472/W2ZpsXbt_400x400.jpg" group-title="International", FX
 http://23.237.104.106:8080/USA_FX/tracks-v1a1/mono.m3u8
 
-#EXTINF:-1 tvg-id="BBC" tvg-logo="https://m.media-amazon.com/images/G/01/LCXO_Station_Logos/BBCSeries_white_logo._SL500_FMpng_.png",BBC Atlantis
-https://jmp2.uk/plu-60dafb9a0df1ba000758d37b.m3u8
-
-#EXTINF:-1 tvg-id="BBC" tvg-logo="https://m.media-amazon.com/images/G/01/LCXO_Station_Logos/BBCSeries_white_logo._SL500_FMpng_.png",BBC Series
-https://amg00793-amg00793c40-rakuten-es-5444.playouts.now.amagi.tv/playlist.m3u8
 
 #EXTINF:-1 tvg-id="C" tvg-logo="",Fox
 https://n15sb.host5245.com/63/index.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Càmares" tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200" group-title="Catalunya",Càmares
 https://directes-tv-int.3catdirectes.cat/live-content/beauties-hls/bitrate_3.m3u8
+
+#EXTINF:-1 tvg-id="USA_STARZ" tvg-name="USA_STARZ" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg" group-title="Catalunya",USA_STARZ
+http://23.237.104.106:8080/USA_STARZ/index.m3u8
+
+#EXTINF:-1 tvg-id="USA_STARZ" tvg-name="USA_STARZ" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg" group-title="Catalunya",USA STARZ
+http://23.237.104.106:8080/USA_STARZ/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="BBC" tvg-logo="https://m.media-amazon.com/images/G/01/LCXO_Station_Logos/BBCSeries_white_logo._SL500_FMpng_.png",BBC Atlantis
+https://jmp2.uk/plu-60dafb9a0df1ba000758d37b.m3u8
+
+#EXTINF:-1 tvg-id="BBC" tvg-logo="https://m.media-amazon.com/images/G/01/LCXO_Station_Logos/BBCSeries_white_logo._SL500_FMpng_.png",BBC Series
+https://amg00793-amg00793c40-rakuten-es-5444.playouts.now.amagi.tv/playlist.m3u8
