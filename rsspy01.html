@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notícies · Espluga de Francolí</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f4f2eb;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            padding: 2rem 1rem;
+            color: #1e1e1e;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #2c3e2f;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 3px solid #c7b7a3;
+            padding-bottom: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        h1 small {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #5e6f5a;
+            margin-left: auto;
+            background: #e3dfd7;
+            padding: 0.25rem 0.9rem;
+            border-radius: 30px;
+        }
+
+        .loading {
+            background: #eae7e0;
+            border-radius: 40px;
+            padding: 2rem;
+            text-align: center;
+            font-size: 1.2rem;
+            color: #3d4d3a;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+
+        .loading span {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            margin: 0 4px;
+            background: #7d8f79;
+            border-radius: 50%;
+            animation: pulse 1.4s infinite ease-in-out both;
+        }
+
+        .loading span:nth-child(1) { animation-delay: -0.32s; }
+        .loading span:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes pulse {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        .error-box {
+            background: #fce9e6;
+            border-left: 6px solid #b13e3e;
+            padding: 1.5rem 2rem;
+            border-radius: 18px;
+            color: #5a2a2a;
+            font-weight: 500;
+        }
+
+        .news-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.75rem;
+        }
+
+        .news-card {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 1.6rem 2rem;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.03), 0 2px 4px rgba(0, 0, 0, 0.02);
+            transition: 0.2s ease;
+            border: 1px solid #edeae2;
+        }
+
+        .news-card:hover {
+            border-color: #d6cebf;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.04);
+        }
+
+        .news-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: #1f2d1d;
+        }
+
+        .news-title a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .news-title a:hover {
+            color: #4c6b3f;
+            text-decoration: underline;
+        }
+
+        .news-meta {
+            font-size: 0.9rem;
+            color: #6b6f64;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1.5rem;
+            margin-top: 0.3rem;
+            border-bottom: 1px dashed #e2ddd2;
+            padding-bottom: 0.7rem;
+            margin-bottom: 0.9rem;
+        }
+
+        .news-meta time {
+            background: #eef0ea;
+            padding: 0.1rem 1rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            color: #3c4a37;
+        }
+
+        .news-summary {
+            font-size: 1rem;
+            color: #2e352b;
+            white-space: pre-line;
+            word-wrap: break-word;
+            line-height: 1.6;
+            margin-top: 0.25rem;
+        }
+
+        .news-summary a {
+            color: #3d6b4a;
+            word-break: break-all;
+        }
+
+        .news-summary a:hover {
+            text-decoration: underline;
+        }
+
+        .news-footer {
+            margin-top: 0.9rem;
+            font-size: 0.8rem;
+            color: #858b7a;
+            border-top: 1px solid #f0ede5;
+            padding-top: 0.7rem;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .badge-fetched {
+            background: #e6e2d8;
+            padding: 0.15rem 1rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            color: #4b5543;
+            letter-spacing: 0.02em;
+        }
+
+        .empty-state {
+            background: #f3f1eb;
+            border-radius: 40px;
+            padding: 3rem 2rem;
+            text-align: center;
+            color: #4b5a42;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 1.2rem 0.8rem; }
+            h1 { font-size: 1.8rem; flex-wrap: wrap; }
+            h1 small { margin-left: 0; width: 100%; text-align: left; }
+            .news-card { padding: 1.2rem; }
+            .news-title { font-size: 1.25rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="app">
+        <h1>
+            📰 Notícies de l'Espluga
+            <small id="liveInfo">carregant...</small>
+        </h1>
+
+        <!-- contenidor dinàmic -->
+        <div id="newsContainer">
+            <div class="loading">
+                Carregant notícies
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            "use strict";
+
+            const NEWS_URL = 'https://raw.githubusercontent.com/Xarxa-1/News/refs/heads/main/noticies.json';
+            const container = document.getElementById('newsContainer');
+            const liveInfo = document.getElementById('liveInfo');
+
+            // Funció per formatejar la data (locale 'ca')
+            function formatDate(dateString) {
+                if (!dateString) return '';
+                try {
+                    const d = new Date(dateString);
+                    if (isNaN(d.getTime())) return dateString;
+                    return d.toLocaleString('ca-ES', {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                } catch (_) {
+                    return dateString;
+                }
+            }
+
+            // renderitzar llistat de notícies
+            function renderNews(articles) {
+                if (!Array.isArray(articles) || articles.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <p style="font-size:1.3rem; margin-bottom:0.5rem;">📭 No s'han trobat notícies</p>
+                            <p style="color:#6f7a67;">El fitxer està buit o el format no és l'esperat.</p>
+                        </div>
+                    `;
+                    liveInfo.textContent = 'sense notícies';
+                    return;
+                }
+
+                let html = '<div class="news-grid">';
+                let count = 0;
+
+                for (const item of articles) {
+                    // Saltar si no té títol mínim
+                    if (!item.title) continue;
+
+                    count++;
+                    const title = item.title || 'Sense títol';
+                    const link = item.link || item.guid || '#';
+                    const published = item.published ? formatDate(item.published) : 'Data no disponible';
+                    // Resum: si és buit o només espais, mostrem un text per defecte
+                    let summary = item.summary || '';
+                    summary = summary.trim() || 'Sense resum disponible.';
+
+                    // Tractar salts de línia (\n) — ho deixem com a text, CSS white-space: pre-line
+                    // però també convertim possibles enllaços en text pla, es mostraran com a text clicable
+                    // No fem regex agressiu, només escapem HTML per seguretat.
+                    const safeSummary = summary
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;');
+
+                    // Es mostra la data de 'fetched_at' si existeix (per info extra)
+                    const fetched = item.fetched_at ? formatDate(item.fetched_at) : null;
+
+                    html += `
+                        <article class="news-card">
+                            <h2 class="news-title">
+                                <a href="${link}" target="_blank" rel="noopener noreferrer">${title}</a>
+                            </h2>
+                            <div class="news-meta">
+                                <span>📅 ${published}</span>
+                                ${fetched ? `<span class="badge-fetched">🔄 actualitzat: ${fetched}</span>` : ''}
+                            </div>
+                            <div class="news-summary">${safeSummary}</div>
+                            <div class="news-footer">
+                                <span class="badge-fetched">🔗 <a href="${link}" target="_blank" rel="noopener noreferrer" style="color:#3a5c3e; text-decoration:none;">obrir notícia</a></span>
+                            </div>
+                        </article>
+                    `;
+                }
+
+                html += '</div>';
+
+                if (count === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <p style="font-size:1.3rem;">🧐 Cap notícia amb títol</p>
+                            <p style="color:#6f7a67;">El fitxer conté elements però cap té un títol vàlid.</p>
+                        </div>
+                    `;
+                    liveInfo.textContent = '0 notícies';
+                    return;
+                }
+
+                container.innerHTML = html;
+                liveInfo.textContent = `${count} notícies`;
+            }
+
+            // mostrar error
+            function showError(message) {
+                container.innerHTML = `
+                    <div class="error-box">
+                        ⚠️ <strong>No s'han pogut carregar les notícies</strong><br>
+                        <span style="font-weight:400; display:block; margin-top:0.3rem;">${message}</span>
+                        <span style="display:block; margin-top:0.75rem; font-size:0.9rem; opacity:0.8;">🔁 Comprova la connexió o l'URL: <code style="background:#e7ddd5; padding:0.1rem 0.5rem; border-radius:12px;">${NEWS_URL}</code></span>
+                    </div>
+                `;
+                liveInfo.textContent = 'error';
+            }
+
+            // Carregar les dades
+            async function fetchNews() {
+                try {
+                    const response = await fetch(NEWS_URL, {
+                        // Evitar cache per veure canvis recents
+                        cache: 'no-cache',
+                        headers: { 'Accept': 'application/json' }
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status} — ${response.statusText}`);
+                    }
+
+                    const rawText = await response.text();
+                    let data;
+
+                    try {
+                        data = JSON.parse(rawText);
+                    } catch (parseError) {
+                        throw new Error('El contingut no és un JSON vàlid.');
+                    }
+
+                    // Si és array, renderitzem; si no, intentem adaptar
+                    if (Array.isArray(data)) {
+                        renderNews(data);
+                    } else if (data && typeof data === 'object') {
+                        // Podria ser un objecte amb propietats, intentem agafar el primer array que trobem
+                        const possibleArray = Object.values(data).find(val => Array.isArray(val) && val.length > 0);
+                        if (possibleArray) {
+                            renderNews(possibleArray);
+                        } else {
+                            // Si no hi ha array, però és un objecte, el convertim en array d'un sol element?
+                            // Millor mostrar error.
+                            throw new Error('El JSON rebut no conté una llista de notícies.');
+                        }
+                    } else {
+                        throw new Error('Format de dades no reconegut.');
+                    }
+
+                } catch (err) {
+                    console.error('[Notícies] Error:', err);
+                    showError(err.message || 'No s\'ha pogut obtenir la llista de notícies.');
+                }
+            }
+
+            // iniciar
+            fetchNews();
+        })();
+    </script>
+</body>
+</html>
