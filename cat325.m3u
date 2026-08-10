@@ -44,7 +44,10 @@ https://rtvelivestream.rtve.es/rtvesec/cat/la2_cat_main_dvr.m3u8
 #EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1889595750780112896/GzWcRrIo_400x400.jpg" group-title="Internacionals",Star TVE
 https://rtvelivestream-rtveplayplus.rtve.es/rtvesec/int/star_main_720.m3u8
 
-#EXTINF:-1 tvg-id="La 1 HD" tvg-name="La1.cat" tvg-logo="" group-title="General",Rtvehttps://pbs.twimg.com/profile_images/2086041765069324288/HV-6nlhN.jpg
+#EXTINF:-1 tvg-id="La 1 HD" tvg-name="La1.cat" tvg-logo="https://pbs.twimg.com/profile_images/2086041765069324288/HV-6nlhN.jpg" group-title="General",Rtve
+https://ztnr.rtve.es/ztnr/6909845.m3u8
+
+#EXTINF:-1 group-title="Pel·lícules" tvg-logo="https://pbs.twimg.com/profile_images/1247104115995488259/G1WmuoIw_400x400.png",TVE Somos Cine
 https://ztnr.rtve.es/ztnr/6909845.m3u8
 
 #EXTINF:-1 tvg-id="24 Horas" tvg-name="24H.es" tvg-logo="https://i.imgur.com/IUVRm5L.png" group-title="Notícies",24HCat
@@ -499,9 +502,6 @@ https://ztnr.rtve.es/ztnr/5466990.m3u8
 https://5940924978228.streamlock.net/8009/ngrp:8009_all/playlist.m3u8
 
 
-#EXTINF:-1 group-title="Pel·lícules",TVE Somos Cine
-https://ztnr.rtve.es/ztnr/6909845.m3u8
-
 #EXTINF:-1 group-title="Pel·lícules",MBC Movies Action
 https://shls-live-enc.edgenextcdn.net/out/v1/46079e838e65490c8299f902a7731168/index.m3u8
 
@@ -868,8 +868,6 @@ http://23.237.104.106:8080/USA_FX/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-id="C" tvg-logo="",Fox
 https://n15sb.host5245.com/63/index.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="Càmares" tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200" group-title="Catalunya",Càmares
-https://directes-tv-int.3catdirectes.cat/live-content/beauties-hls/bitrate_3.m3u8
 
 #EXTINF:-1 tvg-id="USA_STARZ" tvg-name="USA_STARZ" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg" group-title="Catalunya",USA_STARZ
 http://23.237.104.106:8080/USA_STARZ/index.m3u8
@@ -882,3 +880,7 @@ https://jmp2.uk/plu-60dafb9a0df1ba000758d37b.m3u8
 
 #EXTINF:-1 tvg-id="BBC" tvg-logo="https://m.media-amazon.com/images/G/01/LCXO_Station_Logos/BBCSeries_white_logo._SL500_FMpng_.png",BBC Series
 https://amg00793-amg00793c40-rakuten-es-5444.playouts.now.amagi.tv/playlist.m3u8
+
+
+#EXTINF:-1 tvg-id="" tvg-name="Càmares" tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200" group-title="Catalunya",Càmares
+https://directes-tv-int.3catdirectes.cat/live-content/beauties-hls/bitrate_3.m3u8
