@@ -20,6 +20,20 @@ https://ingest1-video.streaming-pro.com/tac12_ABR/stream/playlist.m3u8
 # #EXTINF:-1 tvg-id="LLEIDATV.cat" tvg-name="LLEIDATV.cat" group-title="Catalunya" tvg-logo="https://pbs.twimg.com/profile_images/1765275511620538368/Hiz43OMZ_400x400.jpg" ,LLEIDA TV
 # https://d1pgniwg61j6fm.cloudfront.net/out/v1/f32d8fe5be7a4ababd6894109683254b/index_2.m3u8?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkaXN0cmlidXRpb24iOiJmMzJkOGZlNWJlN2E0YWJhYmQ2ODk0MTA5NjgzMjU0YiIsImlzcyI6Imh0dHBzOi8vbGF4YXJ4YW1lcy5jb20iLCJhdWQiOiJodHRwczovL2xheGFyeGFtZXMuY29tIiwidGltZUJhc2UiOm51bGwsInRpbWVGcmFtZXMiOltdLCJleHAiOjE3ODQ2NTk2NzkwMDAsImlhdCI6MTc4NDU2MjQ3OTAwMCwibmJmIjoxNzg0NTYyNDc0MDAwfQ.aozK3PFbPrhI9HpIqrGrOHgi2nz61ndTq2AwkUC6-HQ&_t=1784562479&hash=c-6314323916112&_tc=1704883765
 
+
+#EXTINF:-1 tvg-id="Xarxa_LleidaTV.TV" tvg-logo="https://graph.facebook.com/LleidaTV/picture?width=200&height=200" group-title="Cataluña" tvg-name="Lleida TV",Lleida TV
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 CrKey/1.44.191160
+#EXTVLCOPT:http-referrer=https://player.instantvideocloud.net/
+https://liveingesta318.cdnmedia.tv/lleidatvlive/smil:live.smil/playlist.m3u8?DVR
+#EXTINF:-1 tvg-id="Xarxa_LleidaTV.TV" tvg-logo="https://graph.facebook.com/LleidaTV/picture?width=200&height=200" group-title="Cataluña" tvg-name="Lleida TV",Lleida TV
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 CrKey/1.44.191160
+#EXTVLCOPT:http-referrer=https://player.instantvideocloud.net/
+https://liveingesta118.cdnmedia.tv/lleidatvlive/smil:lleidatvocasional.smil/playlist.m3u8?DVR
+#EXTINF:-1 tvg-id="Xarxa_TV_Costa_Brava.TV" tvg-logo="https://graph.facebook.com/tvcostabrava/picture?width=200&height=200" group-title="Cataluña" tvg-name="TV Costa Brava",TV Costa Brava
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 CrKey/1.44.191160
+#EXTVLCOPT:http-referrer=https://player.instantvideocloud.net/
+
+
 #EXTINF:-1 tvg-id="El 33 Catalunya" tvg-name="C33.cat" tvg-logo="https://graph.facebook.com/Canal33/picture?width=200&height=200" group-title="Catalunya",Canal33
 # https://directes-tv-cat.3catdirectes.cat/live-content/c33-super3-hls/master.m3u8
 
@@ -53,16 +67,24 @@ https://ztnr.rtve.es/ztnr/6909845.m3u8
 #EXTINF:-1 tvg-id="24 Horas" tvg-name="24H.es" tvg-logo="https://i.imgur.com/IUVRm5L.png" group-title="Notícies",24HCat
 https://ztnr.rtve.es/ztnr/1694255.m3u8
 
+#EXTINF:-1 tvg-id="RTVE_Cocina.TV" tvg-logo="https://graph.facebook.com/rtveplay/picture?width=200&height=200" group-title="Eventuales" tvg-name="Cocina (RTVE)",Cocina (RTVE)
+https://ztnr.rtve.es/ztnr/16656232.m3u8
+#EXTINF:-1 tvg-id="RTVE_Cocina.TV" tvg-logo="https://graph.facebook.com/rtveplay/picture?width=200&height=200" group-title="Eventuales" tvg-name="Cocina (RTVE)",Cocina (RTVE)
+https://rtvelivestream.rtve.es/eventual/gofast/playm20_main.m3u8
+
+#EXTINF:-1 tvg-id="RTVE_En_Play.TV" tvg-logo="https://graph.facebook.com/rtveplay/picture?width=200&height=200" group-title="Eventuales" tvg-name="En Play (RTVE)",En Play (RTVE)
+https://ztnr.rtve.es/ztnr/17017351.m3u8
+#EXTINF:-1 tvg-id="RTVE_En_Play.TV" tvg-logo="https://graph.facebook.com/rtveplay/picture?width=200&height=200" group-title="Eventuales" tvg-name="En Play (RTVE)",En Play (RTVE)
+https://rtvelivestream.rtve.es/eventual/gofast/playm27_main.m3u8
+
 #EXTINF:-1 tvg-id="Antena3Internacional.es@SD" tvg-logo="https://pbs.twimg.com/profile_images/1898279121924259840/TzTr1cid_400x400.jpg" group-title="General" ,Antena 3 Internacional
 http://177.10.184.193:8000/play/a06a/index.m3u8
-
-#EXTINF:-1 tvg-id="Esport 3" tvg-name="Esport3.cat" tvg-logo="https://graph.facebook.com/Esport3/picture?width=200&height=200" group-title="Esport",Esport3
-https://directes-tv-cat.3catdirectes.cat/live-content/esport3-hls/master.m3u8
 
 #EXTINF:-1 tvg-id="Teledeporte" tvg-name="TDP" tvg-logo="https://graph.facebook.com/teledeporteRTVE/picture?width=200&height=200" group-title="Esport" tvg-name="Teledeporte",Teledeporte
 https://rtvelivestream.rtve.es/rtvesec/tdp/tdp_main.m3u8
 
-
+#EXTINF:-1 tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200" group-title="Cataluña" tvg-name="3Cat Vinagreta",3Cat Vinagreta
+https://fast-tailor.3catdirectes.cat/v1/channel/vinagreta/hls.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="CNN International Europe" tvg-logo="https://pbs.twimg.com/profile_images/1669780523911110656/K9gaaM1g_400x400.jpg" group-title="Notícies",US: CNN
 https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8
 
