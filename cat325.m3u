@@ -17,18 +17,11 @@ https://directes3-tv-int.3catdirectes.cat/live-content/tvi-hls/master.m3u8
 #EXTINF:-1 tvg-id="TAC12" tvg-name="TAC12.cat" tvg-logo="https://pbs.twimg.com/profile_images/1326929087919689729/S1zkeUh3_400x400.jpg" group-title="Catalunya",TAC12
 https://ingest1-video.streaming-pro.com/tac12_ABR/stream/playlist.m3u8
 
-# #EXTINF:-1 tvg-id="LLEIDATV.cat" tvg-name="LLEIDATV.cat" group-title="Catalunya" tvg-logo="https://pbs.twimg.com/profile_images/1765275511620538368/Hiz43OMZ_400x400.jpg" ,LLEIDA TV
-# https://d1pgniwg61j6fm.cloudfront.net/out/v1/f32d8fe5be7a4ababd6894109683254b/index_2.m3u8?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkaXN0cmlidXRpb24iOiJmMzJkOGZlNWJlN2E0YWJhYmQ2ODk0MTA5NjgzMjU0YiIsImlzcyI6Imh0dHBzOi8vbGF4YXJ4YW1lcy5jb20iLCJhdWQiOiJodHRwczovL2xheGFyeGFtZXMuY29tIiwidGltZUJhc2UiOm51bGwsInRpbWVGcmFtZXMiOltdLCJleHAiOjE3ODQ2NTk2NzkwMDAsImlhdCI6MTc4NDU2MjQ3OTAwMCwibmJmIjoxNzg0NTYyNDc0MDAwfQ.aozK3PFbPrhI9HpIqrGrOHgi2nz61ndTq2AwkUC6-HQ&_t=1784562479&hash=c-6314323916112&_tc=1704883765
-
-
 #EXTINF:-1 tvg-id="Xarxa_LleidaTV.TV" tvg-logo="https://graph.facebook.com/LleidaTV/picture?width=200&height=200" group-title="Cataluña" tvg-name="Lleida TV",Lleida TV
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 CrKey/1.44.191160
 #EXTVLCOPT:http-referrer=https://player.instantvideocloud.net/
 https://liveingesta318.cdnmedia.tv/lleidatvlive/smil:live.smil/playlist.m3u8?DVR
-#EXTINF:-1 tvg-id="Xarxa_LleidaTV.TV" tvg-logo="https://graph.facebook.com/LleidaTV/picture?width=200&height=200" group-title="Cataluña" tvg-name="Lleida TV",Lleida TV
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 CrKey/1.44.191160
-#EXTVLCOPT:http-referrer=https://player.instantvideocloud.net/
-https://liveingesta118.cdnmedia.tv/lleidatvlive/smil:lleidatvocasional.smil/playlist.m3u8?DVR
+
 #EXTINF:-1 tvg-id="Xarxa_TV_Costa_Brava.TV" tvg-logo="https://graph.facebook.com/tvcostabrava/picture?width=200&height=200" group-title="Cataluña" tvg-name="TV Costa Brava",TV Costa Brava
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 CrKey/1.44.191160
 #EXTVLCOPT:http-referrer=https://player.instantvideocloud.net/
@@ -37,37 +30,24 @@ https://liveingesta118.cdnmedia.tv/lleidatvlive/smil:lleidatvocasional.smil/play
 #EXTINF:-1 tvg-id="El 33 Catalunya" tvg-name="C33.cat" tvg-logo="https://graph.facebook.com/Canal33/picture?width=200&height=200" group-title="Catalunya",Canal33
 # https://directes-tv-cat.3catdirectes.cat/live-content/c33-super3-hls/master.m3u8
 
-#EXTINF:-1 tvg-id="SX3 Catalunya" tvg-name="SX3.cat" tvg-logo="https://graph.facebook.com/SomSX3/picture?width=200&height=200" group-title="Catalunya",SX3
-https://directes-tv-cat.3catdirectes.cat/live-content/super3-hls/master.m3u8
-
 #EXTINF:-1 tvg-id="Bon Dia TV" tvg-name="BonDiaTV.cat" tvg-logo="https://i.imgur.com/XaiP3nJ.png" group-title="General" group-title="Catalunya",BonDiaTV
 https://directes-tv-int.3catdirectes.cat/live-content/bondia-hls/master.m3u8
-
-#EXTINF:-1 tvg-id="Xarxa_LleidaTV.TV" tvg-logo="https://graph.facebook.com/LleidaTV/picture?width=200&height=200" group-title="Cataluña" tvg-name="Lleida TV",LleidaTV
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 CrKey/1.44.191160
-#EXTVLCOPT:http-referrer=https://player.instantvideocloud.net/
-https://liveingesta318.cdnmedia.tv/lleidatvlive/smil:live.smil/playlist.m3u8?DVR
 
 #EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1463217392490852352/IcRyuUBC_400x400.jpg" group-title="Cataluña" tvg-name="3Cat Verdi Clàssics",Verdi Clàssics
 https://directes-tv-es.3catdirectes.cat/live-content/tem1-hls/master.m3u8
 
+
+#EXTINF:-1 tvg-id="SX3 Catalunya" tvg-name="SX3.cat" tvg-logo="https://graph.facebook.com/SomSX3/picture?width=200&height=200" group-title="Catalunya",SX3
+https://directes-tv-cat.3catdirectes.cat/live-content/super3-hls/master.m3u8
+
 #EXTINF:-1 tvg-id="La 1 HD" tvg-name="La1.es" tvg-logo="https://i.imgur.com/1jDS9UC.png" group-title="General",La1
 https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8
-
-# #EXTINF:-1 tvg-id="La 1 HD" tvg-name="La1.cat" tvg-logo="https://i.imgur.com/1jDS9UC.png" group-title="General",La1 Cat
-# https://rtvelivestream.rtve.es/rtvesec/cat/la1_cat_main_dvr.m3u8
-
-# #EXTINF:-1 tvg-id="La 2" tvg-name="La2.es" tvg-logo="https://i.imgur.com/3NwzqoB.png" group-title="General",La2 Cat
-# https://rtvelivestream.rtve.es/rtvesec/cat/la2_cat_main.m3u8
 
 #EXTINF:-1 tvg-id="La 2" tvg-name="La2.es" tvg-logo="https://i.imgur.com/3NwzqoB.png" group-title="General",La2 Cat.
 https://rtvelivestream.rtve.es/rtvesec/cat/la2_cat_main_dvr.m3u8
 
-#EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1889595750780112896/GzWcRrIo_400x400.jpg" group-title="Internacionals",Star TVE
+#EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/2086041765069324288/HV-6nlhN.jpg" group-title="Internacionals",Star TVE
 https://rtvelivestream-rtveplayplus.rtve.es/rtvesec/int/star_main_720.m3u8
-
-#EXTINF:-1 tvg-id="La 1 HD" tvg-name="La1.cat" tvg-logo="https://pbs.twimg.com/profile_images/2086041765069324288/HV-6nlhN.jpg" group-title="General",Rtve
-https://ztnr.rtve.es/ztnr/6909845.m3u8
 
 #EXTINF:-1 group-title="Pel·lícules" tvg-logo="https://pbs.twimg.com/profile_images/1247104115995488259/G1WmuoIw_400x400.png",TVE Somos Cine
 https://ztnr.rtve.es/ztnr/6909845.m3u8
@@ -76,12 +56,8 @@ https://ztnr.rtve.es/ztnr/6909845.m3u8
 https://ztnr.rtve.es/ztnr/1694255.m3u8
 
 #EXTINF:-1 tvg-id="RTVE_Cocina.TV" tvg-logo="https://graph.facebook.com/rtveplay/picture?width=200&height=200" group-title="Eventuales" tvg-name="Cocina (RTVE)",Cocina (RTVE)
-https://ztnr.rtve.es/ztnr/16656232.m3u8
-#EXTINF:-1 tvg-id="RTVE_Cocina.TV" tvg-logo="https://graph.facebook.com/rtveplay/picture?width=200&height=200" group-title="Eventuales" tvg-name="Cocina (RTVE)",Cocina (RTVE)
 https://rtvelivestream.rtve.es/eventual/gofast/playm20_main.m3u8
 
-#EXTINF:-1 tvg-id="RTVE_En_Play.TV" tvg-logo="https://graph.facebook.com/rtveplay/picture?width=200&height=200" group-title="Eventuales" tvg-name="En Play (RTVE)",En Play (RTVE)
-https://ztnr.rtve.es/ztnr/17017351.m3u8
 #EXTINF:-1 tvg-id="RTVE_En_Play.TV" tvg-logo="https://graph.facebook.com/rtveplay/picture?width=200&height=200" group-title="Eventuales" tvg-name="En Play (RTVE)",En Play (RTVE)
 https://rtvelivestream.rtve.es/eventual/gofast/playm27_main.m3u8
 
@@ -95,18 +71,6 @@ https://rtvelivestream.rtve.es/rtvesec/tdp/tdp_main.m3u8
 https://fast-tailor.3catdirectes.cat/v1/channel/vinagreta/hls.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="CNN International Europe" tvg-logo="https://pbs.twimg.com/profile_images/1669780523911110656/K9gaaM1g_400x400.jpg" group-title="Notícies",US: CNN
 https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8
-
-
-#EXTINF:-1 tvg-id="BBC World News Europe HD tvg-name="BBC.News"  tvg-logo="https://pbs.twimg.com/profile_images/1529107170448523264/q3VwEx38_400x400.jpg" group-title="Notícies",BBC News International
-https://d3pxo1qcgzxtxs.cloudfront.net/manifest/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod_default_xumo-linear-amc-hlsv3/5ab832c0-311a-4705-9535-5e54ad64b21e/5.m3u8
-
-
-# #EXTINF:-1 tvg-id="BBC N" tvg-name="BBC.News" tvg-logo="https://pbs.twimg.com/profile_images/1001752869517910016/Xq8-sAa4.jpg" group-title="Notícies",BBC.News
-# https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/mobile_wifi_main_sd_abr_v2.m3u8
-
-
-# #EXTINF:-1 tvg-id="BBC W" tvg-logo="https://pbs.twimg.com/profile_images/1529107170448523264/q3VwEx38_400x400.jpg" tvg-name="BBC W",BBC World
-# https://viamotionhsi.netplus.ch/live/eds/bbcworld/browser-HLS/bbcworld.m3u8
 
 # #EXTINF:-1 tvg-id="BBC NEWS" tvg-logo="https://pbs.twimg.com/profile_images/1529107170448523264/q3VwEx38_400x400.jpg" tvg-name="BBC",BBC NEWS
 https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/t=3840/v=pv8/b=827008/a=pa4/b=128000/main.m3u8
