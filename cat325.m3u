@@ -37,6 +37,9 @@ https://directes-tv-int.3catdirectes.cat/live-content/bondia-hls/master.m3u8
 #EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1463217392490852352/IcRyuUBC_400x400.jpg" group-title="Catalunya" tvg-name="3Cat Verdi Clàssics",Verdi Clàssics
 https://directes-tv-es.3catdirectes.cat/live-content/tem1-hls/master.m3u8
 
+#EXTINF:-1 tvg-logo="https://img.static-ottera.com/prod/run/linear_channel/logo/04082023_logo_verdi_tv_fila_canales_1920x1080.jpg" group-title="Catalunya" tvg-name="3Cat Verdi Clàssics",Verdi TV
+https://daiconnect.com/live/hls/tvup/rt-cv/.m3u8
+
 
 #EXTINF:-1 tvg-id="SX3 Catalunya" tvg-name="SX3.cat" tvg-logo="https://graph.facebook.com/SomSX3/picture?width=200&height=200" group-title="Catalunya",SX3
 https://directes-tv-cat.3catdirectes.cat/live-content/super3-hls/master.m3u8
@@ -51,7 +54,7 @@ https://rtvelivestream.rtve.es/rtvesec/cat/la2_cat_main_dvr.m3u8
 https://rtvelivestream-rtveplayplus.rtve.es/rtvesec/int/star_main_720.m3u8
 
 #EXTINF:-1 group-title="Pel·lícules" tvg-logo="https://pbs.twimg.com/profile_images/1247104115995488259/G1WmuoIw_400x400.png",TVE Somos Cine
-https://ztnr.rtve.es/ztnr/6909845.m3u8
+https://ztnr.rtve.es/ztnr/6909845.m3u8sssssssssssssssssssss
 
 #EXTINF:-1 tvg-id="24 Horas" tvg-name="24H.es" tvg-logo="https://i.imgur.com/IUVRm5L.png" group-title="Notícies",24HCat
 https://ztnr.rtve.es/ztnr/1694255.m3u8
