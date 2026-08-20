@@ -636,15 +636,6 @@ http://23.237.104.106:8080/USA_FOOD_NETWORK/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-id="FXX" tvg-logo="https://pbs.twimg.com/profile_images/378800000564943584/6ccfcea7e2e6a383275e2cc72610ab6c_400x400.png" group-title="International", FXX
 http://23.237.104.106:8080/USA_FX/tracks-v1a1/mono.m3u8
 
-#EXTINF:-1 tvg-id="HBO.us" group-title="USA",HBO
-http://23.237.104.106:8080/USA_HBO/tracks-v1a1/mono.m3u8
-
-#EXTINF:-1 tvg-id="HBO2.us" group-title="USA",HBO 2 west
-http://23.237.104.106:8080/USA_HBO2/tracks-v1a1/mono.m3u8
-
-#EXTINF:-1 tvg-id="HBOComedy.us" group-title="USA",HBO Comedy
-http://23.237.104.106:8080/USA_HBO_COMEDY/tracks-v1a1/mono.m3u8
-
 #EXTINF:-1 tvg-id="IFC.us" group-title="USA",IFC
 http://23.237.104.106:8080/USA_IFC/tracks-v1a1/mono.m3u8
 
@@ -663,9 +654,6 @@ http://23.237.104.106:8080/USA_MTV_LIVE/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-id="NatGeo.us" group-title="USA",National Geographic
 http://23.237.104.106:8080/USA_NAT_GEO/tracks-v1a1/mono.m3u8
 
-#EXTINF:-1 tvg-id="Showtime.us" group-title="USA",Paramount + Showtime
-http://23.237.104.106:8080/USA_SHOWTIME/tracks-v1a1/mono.m3u8
-
 #EXTINF:-1 tvg-id="ParamountNetwork.us" group-title="USA",Paramount Network
 http://23.237.104.106:8080/USA_PARAMOUNT_NETWORK/tracks-v1a1/mono.m3u8
 
@@ -681,20 +669,11 @@ http://23.237.104.106:8080/USA_STARZ_COMEDY/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-id="Syfy.us" group-title="USA",Syfy
 http://23.237.104.106:8080/USA_SYFY/tracks-v1a1/mono.m3u8
 
-#EXTINF:-1 tvg-id="TBS.us" group-title="USA",TBS
-http://23.237.104.106:8080/USA_TBS/tracks-v1a1/mono.m3u8
-
-#EXTINF:-1 tvg-id="TNT.us" group-title="USA",TNT
-http://23.237.104.106:8080/USA_TNT/tracks-v1a1/mono.m3u8
-
 #EXTINF:-1 tvg-id="TruTV.us" group-title="USA",TruTV
 http://23.237.104.106:8080/USA_TRUTV/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="VH1.us" group-title="USA",VH1
 http://23.237.104.106:8080/USA_VH1/tracks-v1a1/mono.m3u8
-
-#EXTINF:-1 tvg-id="ViceTV.us" group-title="USA",Vice TV
-http://23.237.104.106:8080/USA_VICETV/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="ViceTV.us" group-title="USA",Showtime Family
 http://23.237.104.106:8080/USA_SHOWTIME_FAMILY/tracks-v1a1/mono.m3u8
@@ -707,23 +686,20 @@ https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01255-secomcofites-my-myzen-en-plex
 
 
 #EXTINF:-1 tvg-id="Nickelodeon" group-title="International", Nickelodeon
-http://23.237.104.106:8080/USA_NICKELODEON/index.m3u8
+http://23.237.104.106:8080/USA_NICKELODEON/tracks-v1a1/mono.m3u8
 
-#EXTINF:-1 tvg-id="MovieSphere (1080p)" group-title="International", MovieSphere (1080p)
+#EXTINF:-1 tvg-id="MovieSphere (1080p)" group-title="International", MovieSphere
 https://moviesphereuk-samsunguk.amagi.tv/playlist.m3u8
 
 #EXTINF:-1 tvg-id="Dateline" group-title="International", Dateline
 https://dz59iptwz5rxs.cloudfront.net/live/master_6.m3u8
 
-#EXTINF:-1 tvg-id="yahoo F" group-title="International", yahoo F
+#EXTINF:-1 tvg-id="yahoo F" group-title="International", Yahoo F
 https://d1ewctnvcwvvvu.cloudfront.net/playlist.m3u8
 
 #EXTINF:-1 tvg-id="QVC UK" group-title="International", QVC UK
 https://qvcuk-live.akamaized.net/hls/live/2097112/qvc/1/1.m3u8
 
-
-#EXTINF:-1 tvg-id="BBC ONE" group-title="International", BBC ONE
-https://discoverfilm-discoverfilm-1-nl.samsung.wurl.tv/3000.m3u8
 
 #EXTINF:-1 tvg-id="BBC TWO" group-title="International", BBC TWO
 https://0145451975a64b35866170fd2e8fa486.mediatailor.eu-west-1.amazonaws.com/v1/manifest/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-5987/52449019-c378-4e85-b20e-1f51e0d5bb4a/4.m3u8
@@ -731,25 +707,19 @@ https://0145451975a64b35866170fd2e8fa486.mediatailor.eu-west-1.amazonaws.com/v1/
 #EXTINF:-1 tvg-id="BBC ONE" group-title="International", BBC ONE
 http://41.205.93.154/BBCONE/tracks-v1a1/mono.m3u8
 
-#EXTINF:-1 tvg-id="BBC THREE" group-title="International", BBC THREE
-http://41.205.93.154/BBCTHREE/tracks-v1a1/mono.m3u8
-
 #EXTINF:-1 tvg-id="BBC TWO" group-title="International", BBC TWO
 http://41.205.93.154/BBCTWO/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="CNN international" group-title="International", CNN international
 https://ds2c506obo7m8.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-7zjq3tdqasbg8/index.m3u8
 
-#EXTINF:-1 tvg-id="CNN brazil" group-title="International", CNN brazil
+#EXTINF:-1 tvg-id="CNN brazil" group-title="International", CNN Brazil
 https://d25usgadhphvwi.cloudfront.net/hls/main.m3u8
 
 #EXTINF:-1 tvg-id="BBC NEWS" group-title="International", BBC NEWS
 https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/t=3840/v=pv8/b=827008/a=pa4/b=128000/main.m3u8
 #EXTINF:-1 tvg-id="THE WEATHER CHANNEL" group-title="International", THE WEATHER CHANNEL
 https://twcprod-live.twc-tv.com/v1/manifest/b4d4d63a49309cc5140171fb2e92485c31be1e9e/DSP_6228e4760505741a116f1ba2_twcprod-live/6bf09ce5-366b-463c-b67e-c4b799f73c3f/3.m3u8
-
-#EXTINF:-1 tvg-id="THE WEATHER CHANNEL" group-title="International", THE WEATHER CHANNEL
-https://tvpass.org/live/TheWeatherChannel/sd
 
 #EXTINF:-1 tvg-id="abc news" group-title="International", ABC News
 https://abc-news-dmd-streams-1.akamaized.net/out/v1/701126012d044971b3fa89406a440133/index_6.m3u8
@@ -781,9 +751,6 @@ https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg00718-outdoorchannela-outdoortvnz
 #EXTINF:-1 tvg-id="wild tv" group-title="International", wild tv
 https://dfhsahpa45kk2.cloudfront.net/scheduler/scheduleMaster/476/variant/22100055.m3u8
 
-#EXTINF:-1 tvg-id="Go2Travel" group-title="International", Go2Travel
-https://go2thls.wns.live/hls/stream.m3u8
-
 #EXTINF:-1 tvg-id="The design network" group-title="International", The design network
 https://amg00441-amg00441c1-rakuten-us-6050.playouts.now.amagi.tv/playlistR240p.m3u8
 
@@ -799,27 +766,6 @@ http://41.205.93.154/ANIMALPLANET/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-id="BRAVO" group-title="International" tvg-logo="https://pbs.twimg.com/profile_images/1993442076155932674/QEycHSf__400x400.jpg", BRAVO
 http://41.205.93.154/BRAVO/tracks-v1a1/mono.m3u8
 
-#EXTINF:-1 tvg-id="Bravo" group-title="International", Bravo
-https://tvpass.org/live/BravoEast/sd
-
-#EXTINF:-1 tvg-id="BRAVO" group-title="International", BRAVO
-http://41.205.93.154/BRAVO/index.m3u8
-
-#EXTINF:-1 tvg-id="A&E" group-title="International", A&E
-https://tvpass.org/live/AEEast/sd
-
-#EXTINF:-1 tvg-id="The design network" group-title="International", The design network
-https://amg00441-amg00441c1-rakuten-us-6050.playouts.now.amagi.tv/playlistR240p.m3u8
-
-#EXTINF:-1 tvg-id="DIY" group-title="International", DIY
-http://41.205.93.154/DIY/tracks-v1a1/mono.ts.m3u8
-
-#EXTINF:-1 tvg-id="HBO" group-title="International", HBO
-http://23.237.104.106:8080/USA_HBO/tracks-v1a1/mono.m3u8
-
-#EXTINF:-1 tvg-id="HBO 2" group-title="International", HBO 2
-http://23.237.104.106:8080/USA_HBO2/tracks-v1a1/mono.m3u8
-
 #EXTINF:-1 tvg-id="HBO ZONE" group-title="International", HBO ZONE
 http://23.237.104.106:8080/USA_HBO_ZONE/tracks-v1a1/mono.m3u8
 
@@ -828,9 +774,6 @@ http://41.205.93.154/LIFETIME/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="Womens_Sports_Network" group-title="International", Womens_Sports_Network
 https://d39accvx65hq9o.cloudfront.net/Womens_Sports_Network480.m3u8
-
-#EXTINF:-1 tvg-id="world fishing" group-title="International", world fishing
-https://d3b3ldcvgsu291.cloudfront.net/v1/master/9d062541f2ff39b5c0f48b743c6411d25f62fc25/DistroTV-MuxIP-WFN/477.m3u8?ads.vf=RE1gCJub-L0
 
 #EXTINF:-1 tvg-id="SHOWTIME_FAMILY" group-title="International", SHOWTIME_FAMILY
 http://23.237.104.106:8080/USA_SHOWTIME_FAMILY/tracks-v1a1/mono.m3u8
@@ -846,9 +789,6 @@ http://23.237.104.106:8080/USA_STARZ_COMEDY/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="STARZ_COMEDY" group-title="International" tvg-logo="https://pbs.twimg.com/profile_images/1575474245924278274/FSBixs2O_400x400.jpg", STARZ_COMEDY
 http://41.205.93.154//USA_STARZ_COMEDY/tracks-v1a1/mono.m3u8
-
-#EXTINF:-1 tvg-id="TMC" group-title="International", TMC
-http://23.237.104.106:8080/USA_TMC/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="TMC" group-title="International", USA_SHOWTIME_FAMILY
 http://23.237.104.106:8080/USA_SHOWTIME_FAMILY/tracks-v1a1/mono.m3u8 
@@ -876,14 +816,6 @@ http://23.237.104.106:8080/USA_FXX/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="FX" tvg-logo="https://pbs.twimg.com/profile_images/1715419203610857472/W2ZpsXbt_400x400.jpg" group-title="International", FX
 http://23.237.104.106:8080/USA_FX/tracks-v1a1/mono.m3u8
-
-
-#EXTINF:-1 tvg-id="C" tvg-logo="",Fox
-https://n15sb.host5245.com/63/index.m3u8
-
-
-#EXTINF:-1 tvg-id="USA_STARZ" tvg-name="USA_STARZ" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg" group-title="Catalunya",USA_STARZ
-http://23.237.104.106:8080/USA_STARZ/index.m3u8
 
 #EXTINF:-1 tvg-id="USA_STARZ" tvg-name="USA_STARZ" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg" group-title="Catalunya",USA STARZ
 http://23.237.104.106:8080/USA_STARZ/tracks-v1a1/mono.m3u8
