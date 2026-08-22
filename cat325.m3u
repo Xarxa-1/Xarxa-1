@@ -224,6 +224,10 @@ https://multimedia.eitb.eus/live-content/etb2hd-hls/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="EmpordàTV" tvg-logo="https://i.imgur.com/jc0lUbX.png" group-title="Catalunya",EmpordàTV
 https://video3.lhdserver.es/empordatv2/live.m3u8
 
+#EXTINF:-1 tvg-id="etv.es@SD" tvg-logo="https://i.imgur.com/Waf1SOq.png" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36 CrKey/1.44.191160" group-title="General",ETV Terramar (1080p)
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36 CrKey/1.44.191160
+https://liveingesta318.cdnmedia.tv/tvetvlive/smil:rtmp01.smil/playlist.m3u8
+
 #EXTINF:-1 tvg-id="" tvg-name="TVSabadell" tvg-logo="negre.jpg" group-title="Catalunya",TVSabadell
 https://ingest1-video.streaming-pro.com/canaltaronja/sabadell/playlist.m3u8
 
@@ -268,6 +272,13 @@ https://live.france24.com/hls/live/2037220/F24_ES_HI_HLS/master_5000.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Hamaika Telebista (1080p)" tvg-logo="https://i.imgur.com/HR3G3Ie.png" group-title="General",Hamaika Telebista (1080p)
 https://cdn3.wowza.com/1/RERMR282dnU5eE5Z/OHY0dVFs/hls/live/playlist.m3u8
+
+#EXTINF:-1 tvg-id="FIFAPlus.uk@Spain" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/FIFA%2B_(2025).svg/960px-FIFA%2B_(2025).svg.png" group-title="Sports",FIFA+ Spain (720p)
+https://d63fabad.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWVzX0ZJRkFQbHVzU3BhbmlzaF9ITFM/playlist.m3u8
+#EXTINF:-1 tvg-id="EWTNEspana.es@SD" tvg-logo="https://i.imgur.com/KvpMbkd.png" group-title="Religious",EWTN Espana
+https://cdn3.wowza.com/1/SmVrQmZCUXZhVDgz/b3J3MFJv/hls/q6xkg9py/480/chunklist.m3u8
+#EXTINF:-1 tvg-id="EWTN.us@SpainLatinAmerica" tvg-logo="https://i.imgur.com/sua70RO.png" group-title="Religious",EWTN Spain & Latin America (720p)
+https://cdn3.wowza.com/1/SmVrQmZCUXZhVDgz/b3J3MFJv/hls/live/playlist.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="KTO (404p) [Not 24/7]" tvg-logo="https://i.imgur.com/EY6TsdV.png" group-title="Religious",KTO (404p) [Not 24/7]
 https://livekto.akamaized.net/hls/live/20000018/ktotv/08.m3u8
@@ -822,6 +833,13 @@ http://23.237.104.106:8080/USA_FXX/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="FX" tvg-logo="https://pbs.twimg.com/profile_images/1715419203610857472/W2ZpsXbt_400x400.jpg" group-title="International", FX
 http://23.237.104.106:8080/USA_FX/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="AmericasNextTopModel.de@ES" tvg-logo="https://images.pluto.tv/channels/686cd84603ad75cfd132d672/colorLogoPNG_1751963785234.png" group-title="Entertainment",America's Next Top Model
+https://jmp2.uk/plu-686cd84603ad75cfd132d672.m3u8
+
+#EXTINF:-1 tvg-id="DeportesporMovistarPlusPlus.es@SD" tvg-logo="" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 VLC/3.0.21 LibVLC/3.0.21" group-title="Sports",Deportes por Movistar Plus+
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 VLC/3.0.21 LibVLC/3.0.21
+https://7nyaler.streamhostingcdn.top/stream/18/index.m3u8
 
 #EXTINF:-1 tvg-id="USA_STARZ" tvg-name="USA_STARZ" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg" group-title="Catalunya",USA STARZ
 http://23.237.104.106:8080/USA_STARZ/tracks-v1a1/mono.m3u8
