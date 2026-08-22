@@ -57,7 +57,7 @@ https://rtvelivestream.rtve.es/rtvesec/cat/la2_cat_main_dvr.m3u8
 https://rtvelivestream-rtveplayplus.rtve.es/rtvesec/int/star_main_720.m3u8
 
 #EXTINF:-1 group-title="Pel·lícules" tvg-logo="https://pbs.twimg.com/profile_images/1247104115995488259/G1WmuoIw_400x400.png",TVE Somos Cine
-https://ztnr.rtve.es/ztnr/6909845.m3u8sssssssssssssssssssss
+https://ztnr.rtve.es/ztnr/6909845.m3u8
 
 #EXTINF:-1 tvg-id="24 Horas" tvg-name="24H.es" tvg-logo="https://i.imgur.com/IUVRm5L.png" group-title="Notícies",24HCat
 https://ztnr.rtve.es/ztnr/1694255.m3u8
@@ -67,6 +67,9 @@ https://rtvelivestream.rtve.es/eventual/gofast/playm20_main.m3u8
 
 #EXTINF:-1 tvg-id="RTVE_En_Play.TV" tvg-logo="https://graph.facebook.com/rtveplay/picture?width=200&height=200" group-title="Eventuales" tvg-name="En Play (RTVE)",En Play (RTVE)
 https://rtvelivestream.rtve.es/eventual/gofast/playm27_main.m3u8
+
+#EXTINF:-1 tvg-id="APunt.es@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Logotip_d%27%C3%80_Punt_%282017-%29.svg/960px-Logotip_d%27%C3%80_Punt_%282017-%29.svg.png" group-title="General;Public",A Punt (720p)
+https://fastly.live.brightcove.com/1846756479408303045/eu-central-1/6057955885001/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0IjoiZWFxNWh4LmVncmVzcy53YzQ3bTEiLCJhY2NvdW50X2lkIjoiNjA1Nzk1NTg4NTAwMSIsImVobiI6ImZhc3RseS5saXZlLmJyaWdodGNvdmUuY29tIiwiaXNzIjoiYmxpdmUtcGxheWJhY2stc291cmNlLWFwaSIsInN1YiI6InBhdGhtYXB0b2tlbiIsImF1ZCI6WyI2MDU3OTU1ODg1MDAxIl0sImp0aSI6IjE4NDY3NTY0Nzk0MDgzMDMwNDUifQ.o6wb_VA-TVxl3ERgr7FKLlaTjY7smErmsf73QAydySE/playlist-hls-dvr.m3u8
 
 #EXTINF:-1 tvg-id="Antena3Internacional.es@SD" tvg-logo="https://pbs.twimg.com/profile_images/1898279121924259840/TzTr1cid_400x400.jpg" group-title="General" ,Antena 3 Internacional
 http://177.10.184.193:8000/play/a06a/index.m3u8
