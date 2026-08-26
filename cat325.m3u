@@ -277,7 +277,7 @@ https://nlb2-live.emitstream.com/hls/3mn7wpcv7hbmxmdzaxap/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="France 24 Español (1080p)" tvg-logo="https://i.imgur.com/ZnmAXVv.png" group-title="Notícies",France 24 Español (1080p)
 https://live.france24.com/hls/live/2037220/F24_ES_HI_HLS/master_5000.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="Hamaika Telebista (1080p)" tvg-logo="https://i.imgur.com/HR3G3Ie.png" group-title="General",Hamaika Telebista (1080p)
+#EXTINF:-1 tvg-id="" tvg-name="Hamaika Telebista (1080p)" tvg-logo="https://i.imgur.com/HR3G3Ie.png" group-title="General",Hamaika Telebista
 https://cdn3.wowza.com/1/RERMR282dnU5eE5Z/OHY0dVFs/hls/live/playlist.m3u8
 
 #EXTINF:-1 tvg-id="FIFAPlus.uk@Spain" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/FIFA%2B_(2025).svg/960px-FIFA%2B_(2025).svg.png" group-title="Sports",FIFA+ Spain (720p)
