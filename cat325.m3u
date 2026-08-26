@@ -241,6 +241,9 @@ https://ingest1-video.streaming-pro.com/canalteABR/ctestream/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Canal Taronja Central" tvg-logo="https://graph.facebook.com/taronja.cat/picture?width=200&height=200" group-title="Catalunya",Canal Taronja Central
 https://ingest1-video.streaming-pro.com/canaltaronja/central/playlist.m3u8
 
+#EXTINF:-1 group-title="Esport" logo="https://i.imgur.com/d8x7c8i.png" ,Barça TV
+https://amg17560-fcb-amg17560c1-rakuten-uk-4891.playouts.now.amagi.tv/playlist/amg17560-fcbarcelona-topbarcaenglish-rakutenuk/playlist.m3u8
+
 #EXTINF:-1 tvg-id="" tvg-name="Newsmax TV" tvg-logo="https://i.imgur.com/Twkovic.gif" group-title="Notícies",Newsmax TV
 https://nmxlive.akamaized.net/hls/live/529965/Live_1/index.m3u8
 
@@ -560,8 +563,6 @@ https://viamotionhsi.netplus.ch/live/eds/srf2hd/browser-HLS8/srf2hd.m3u8
 #EXTINF:-1 group-title="Internacionals",Canal+ (1080p)
 https://viamotionhsi.netplus.ch/live/eds/canalplusclair/browser-HLS8/canalplusclair.m3u8
 
-#EXTINF:-1 group-title="Esport",Barça TV
-https://amg17560-fcb-amg17560c1-rakuten-uk-4891.playouts.now.amagi.tv/playlist/amg17560-fcbarcelona-topbarcaenglish-rakutenuk/playlist.m3u8
 
 #EXTINF:-1 group-title="Esport",MLB Network
 https://d1yqxv6gx128ca.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-mmpgjr4zitcp0/playlist.m3u8
