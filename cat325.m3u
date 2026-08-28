@@ -1,4 +1,4 @@
-#EXTM3U url-tvg="https://raw.githubusercontent.com/Xarxa-1/3cat-epg/refs/heads/main/epg.json"
+#EXTM3U url-tvg="https://raw.githubusercontent.com/Xarxa-1/EPG3CAT/refs/heads/main/epg.xml"
 
 #EXTINF:-1 tvg-id="TV3" tvg-name="TV3" tvg-logo="https://pbs.twimg.com/profile_images/1718910763174109184/B7MDxoG1.jpg" group-title="Catalunya",TV3
 https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
