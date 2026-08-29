@@ -842,7 +842,7 @@ https://jmp2.uk/plu-686cd84603ad75cfd132d672.m3u8
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 VLC/3.0.21 LibVLC/3.0.21
 https://7nyaler.streamhostingcdn.top/stream/18/index.m3u8
 
-#EXTINF:-1 tvg-id="USA_STARZ" tvg-name="USA_STARZ" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg" group-title="Catalunya",USA STARZ
+#EXTINF:-1 tvg-id="324" tvg-name="USA_STARZ" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg" group-title="Catalunya",USA STARZ
 http://23.237.104.106:8080/USA_STARZ/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="BBC" tvg-logo="https://m.media-amazon.com/images/G/01/LCXO_Station_Logos/BBCSeries_white_logo._SL500_FMpng_.png",BBC Atlantis
