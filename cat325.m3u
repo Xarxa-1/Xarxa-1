@@ -1,5 +1,5 @@
-#EXTM3U url-tvg="https://raw.githubusercontent.com/Xarxa-1/EPG3CAT/refs/heads/main/epg.xml"
-# #EXTM3U url-tvg="https://raw.githubusercontent.com/Xarxa-1/EPG3CAT/refs/heads/main/epg.xml, https://www.open-epg.com/files/spain1.xml,https://www.open-epg.com/files/spain2.xml,https://www.open-epg.com/files/spain3.xml,"
+# #EXTM3U url-tvg="https://raw.githubusercontent.com/Xarxa-1/EPG3CAT/refs/heads/main/epg.xml"
+#EXTM3U url-tvg="https://raw.githubusercontent.com/Xarxa-1/EPG3CAT/refs/heads/main/epg.xml, https://www.open-epg.com/files/spain1.xml,https://www.open-epg.com/files/spain2.xml,https://www.open-epg.com/files/spain3.xml,"
 
 
 #EXTINF:-1 tvg-id="TV3.es" tvg-name="TV3" tvg-logo="https://pbs.twimg.com/profile_images/1718910763174109184/B7MDxoG1.jpg" group-title="Catalunya",TV3
