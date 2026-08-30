@@ -1,4 +1,4 @@
-# #EXTM3U url-tvg="https://raw.githubusercontent.com/Xarxa-1/EPG3CAT/refs/heads/main/epg.xml"
+#EXTM3U url-tvg="https://raw.githubusercontent.com/Xarxa-1/EPG3CAT/refs/heads/main/epg.xml"
 #EXTM3U url-tvg="https://raw.githubusercontent.com/Xarxa-1/EPG3CAT/refs/heads/main/epg.xml, https://www.open-epg.com/files/spain1.xml,https://www.open-epg.com/files/spain2.xml,https://www.open-epg.com/files/spain3.xml,"
 
 
