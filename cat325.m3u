@@ -1,17 +1,19 @@
-#EXTM3U url-tvg="https://raw.githubusercontent.com/davidmuma/EPG_dobleM/master/EPG_dobleM.xml"
+@ #EXTM3U url-tvg="https://raw.githubusercontent.com/davidmuma/EPG_dobleM/master/EPG_dobleM.xml"
 
 
-# #EXTM3U url-tvg="https://raw.githubusercontent.com/Xarxa-1/EPG3CAT/refs/heads/main/epg.xml, https://www.open-epg.com/files/spain1.xml, https://www.open-epg.com/files/spain2.xml, https://www.open-epg.com/files/spain3.xml"
+#EXTM3U url-tvg="https://raw.githubusercontent.com/Xarxa-1/EPG3CAT/refs/heads/main/epg.xml, https://www.open-epg.com/files/spain1.xml, https://www.open-epg.com/files/spain2.xml, https://www.open-epg.com/files/spain3.xml"
 
 
 #EXTINF:-1 tvg-id="TV3.es" tvg-name="TV3" tvg-logo="https://pbs.twimg.com/profile_images/1718910763174109184/B7MDxoG1.jpg" group-title="Catalunya",TV3..
 https://directes3-tv-cat.Somos.es3catdirectes.cat/live-content/tv3-hls/master.m3u8
 
+#EXTINF:-1 tvg-id="tvi" tvg-name="TV3CAT" tvg-logo="https://pbs.twimg.com/profile_images/2008787263484735488/aaUjOWUv_400x400.jpg" group-title="Catalunya",TV3CAT
+https://directes3-tv-int.3catdirectes.cat/live-content/tvi-hls/master.m3u8
+
+
 #EXTINF:-1 tvg-id="TVI" tvg-name="TV3" tvg-logo="https://pbs.twimg.com/profile_images/1718910763174109184/B7MDxoG1.jpg" group-title="Catalunya",TV3
 https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
 
-#EXTINF:-1 tvg-id="tvi" tvg-name="TV3CAT" tvg-logo="https://pbs.twimg.com/profile_images/2008787263484735488/aaUjOWUv_400x400.jpg" group-title="Catalunya",TV3CAT
-https://directes3-tv-int.3catdirectes.cat/live-content/tvi-hls/master.m3u8
 
 #EXTINF:-1 tvg-id="324" tvg-name="324" tvg-logo="https://pbs.twimg.com/profile_images/1968163923477098496/blka6O_j_400x400.jpg" group-title="Catalunya",3CAT INFO
 https://directes-tv-cat.3catdirectes.cat/live-content/canal324-hls/master.m3u8
