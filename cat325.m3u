@@ -1,11 +1,8 @@
-#EXTM3U url-tvg="https://raw.githubusercontent.com/Xarxa-1/EPG3CAT/refs/heads/main/epg.xml"
-#EXTM3U url-tvg="https://www.open-epg.com/files/spain1.xml"
-#EXTM3U url-tvg="https://www.open-epg.com/files/spain2.xml"
-#EXTM3U url-tvg="https://www.open-epg.com/files/spain3.xml"
+#EXTM3U url-tvg="https://raw.githubusercontent.com/Xarxa-1/EPG3CAT/refs/heads/main/epg.xml, https://www.open-epg.com/files/spain1.xml, https://www.open-epg.com/files/spain2.xml, https://www.open-epg.com/files/spain3.xml"
 
 
 #EXTINF:-1 tvg-id="TV3.es" tvg-name="TV3" tvg-logo="https://pbs.twimg.com/profile_images/1718910763174109184/B7MDxoG1.jpg" group-title="Catalunya",TV3..
-https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
+https://directes3-tv-cat.Somos.es3catdirectes.cat/live-content/tv3-hls/master.m3u8
 
 #EXTINF:-1 tvg-id="TVI" tvg-name="TV3" tvg-logo="https://pbs.twimg.com/profile_images/1718910763174109184/B7MDxoG1.jpg" group-title="Catalunya",TV3
 https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
@@ -27,13 +24,13 @@ https://ingest1-video.streaming-pro.com/tac12_ABR/stream/playlist.m3u8
 #EXTVLCOPT:http-referrer=https://player.instantvideocloud.net/
 https://liveingesta318.cdnmedia.tv/lleidatvlive/smil:live.smil/playlist.m3u8?DVR
 
-#EXTINF:-1 tvg-id="La 1 HD" tvg-name="La1.es" tvg-logo="https://i.imgur.com/1jDS9UC.png" group-title="General",La1
+#EXTINF:-1 tvg-id="La 1.es" tvg-name="La1.es" tvg-logo="https://i.imgur.com/1jDS9UC.png" group-title="General",La1
 https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8
 
-#EXTINF:-1 tvg-id="La 1 HD" tvg-name="La1.cat" tvg-logo="https://i.imgur.com/1jDS9UC.png" group-title="General",La1 Cat
+#EXTINF:-1 tvg-id="La 1 Catalunya.es" tvg-name="La1.cat" tvg-logo="https://i.imgur.com/1jDS9UC.png" group-title="General",La1 Cat
 https://rtvelivestream.rtve.es/rtvesec/cat/la1_cat_main_dvr.m3u8
 
-#EXTINF:-1 tvg-id="La 2" tvg-name="La2.es" tvg-logo="https://i.imgur.com/3NwzqoB.png" group-title="General",La2 Cat.
+#EXTINF:-1 tvg-id="La 2 Catalunya.es" tvg-name="La 2 Catalunya.es" tvg-logo="https://i.imgur.com/3NwzqoB.png" group-title="General",La2 Cat.
 https://rtvelivestream.rtve.es/rtvesec/cat/la2_cat_main_dvr.m3u8
 
 #EXTINF:-1 tvg-id="c33" tvg-name="33" tvg-logo="https://graph.facebook.com/Canal33/picture?width=200&height=200" group-title="Catalunya",Canal33
@@ -55,7 +52,7 @@ https://directes-tv-cat.3catdirectes.cat/live-content/super3-hls/master.m3u8
 #EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Star_TVE_2026.svg/960px-Star_TVE_2026.svg.png" group-title="Internacionals",Star TVE
 https://rtvelivestream-rtveplayplus.rtve.es/rtvesec/int/star_main_720.m3u8
 
-#EXTINF:-1 group-title="Pel·lícules" tvg-logo="https://pbs.twimg.com/profile_images/1247104115995488259/G1WmuoIw_400x400.png",TVE Somos Cine
+#EXTINF:-1 tvg-id="Somos.es" group-title="Pel·lícules" tvg-logo="https://pbs.twimg.com/profile_images/1247104115995488259/G1WmuoIw_400x400.png",TVE Somos Cine
 https://ztnr.rtve.es/ztnr/6909845.m3u8
 
 #EXTINF:-1 tvg-id="24 Horas" tvg-name="24H.es" tvg-logo="https://i.imgur.com/IUVRm5L.png" group-title="Notícies",24HCat
