@@ -841,9 +841,6 @@ http://23.237.104.106:8080/USA_FX/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-id="AmericasNextTopModel.de@ES" tvg-logo="https://images.pluto.tv/channels/686cd84603ad75cfd132d672/colorLogoPNG_1751963785234.png" group-title="Entertainment",America's Next Top Model
 https://jmp2.uk/plu-686cd84603ad75cfd132d672.m3u8
 
-#EXTINF:-1 tvg-id="USA_STARZ" tvg-name="USA_STARZ" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg" group-title="Catalunya",USA STARZ
-http://23.237.104.106:8080/USA_STARZ/tracks-v1a1/mono.m3u8
-
 #EXTINF:-1 tvg-id="BBC" tvg-logo="https://m.media-amazon.com/images/G/01/LCXO_Station_Logos/BBCSeries_white_logo._SL500_FMpng_.png",BBC Atlantis
 https://jmp2.uk/plu-60dafb9a0df1ba000758d37b.m3u8
 
@@ -856,6 +853,9 @@ https://amg00793-amg00793c40-rakuten-es-5444.playouts.now.amagi.tv/playlist.m3u8
 
 #EXTINF:-1 tvg-id="TheChatShowChanne" tvg-logo="https://yt3.googleusercontent.com/aQ_vvywmcBt4X1SmeEMgT3uf7bb1Z__I9XVwabeg7RrSSEuIhswMlvwhyi0Wl4PlLHwXufLgOg=s900-c-k-c0x00ffffff-no-rj",TheChatShowChanne
 https://amg00426-littledotstudio-thechatshow-samsungnz-uqmtt.amagi.tv/ts-eu-w1-n2/playlist/amg00426-littledotstudio-thechatshow-samsungnz/cb563b176573608884cc3f78d9f362ffa65928d80b6c852a6ab454876da64607d1e3b680fd358b785d9f01de6a1a0a080361cf12ce3407c3c76ad91174204213cfcac9229d86170ab5c60c2c3aab016635837209c0790a79dca93d0d8636ba304530e01b615b37c2ec5cac6852db80148b6f4adafb8c2360625f5c98435ee3b24aa6f8b55410dc69a4ac4d49922958e68314c8c915ed81d1469645d070a71c9496a28fd610e03fa0598b6f33cbf039521ce3e25ca08b3885ca9b6037ee0042243b60966f17632c46e062564ef7efcec50897d40b5744f3061aba048a468072fb036ecc79803cc2809fa5246c38a0d6526565d08d6118185641dc4b81c4c4dc776e90f25e1f2dac3f8072796fc2bea371f530dc74870ad09049645fff6969ee71df23a5dda85f8e2adac2bbb53c465c6a00384b3cc89540d433d474a4cf5c74121d04e5ad5cca82d649232261b2c00f845d4be29bbc8ad1586f9120030cbc29997a157cc0315b79e706f08e7339da7144d6637db3731db46fd0f46cf9aed0e0461cb0ddcc4db62fccbd18ddfb07e63c69084ce3bc7c11150c4ed1e8671f39369616b39d99b7057c6a86c0c4f0c45c2f147946027eecccd330cade8e796755ab35016f7b171b937ea64ad712460d2b8953939b007a8109363ea4c01b58496782c7a18be4879b1d551e5862218d49893667518c3425020d3bb48011c1a724/119/1920x1080_6046040/index.m3u8
+
+#EXTINF:-1 tvg-id="USA_STARZ" tvg-name="USA_STARZ" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg" group-title="Catalunya",USA STARZ
+http://23.237.104.106:8080/USA_STARZ/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Càmares" tvg-logo="https://i.imgur.com/zXy2kbe.png" group-title="Catalunya",Càmares
 https://directes-tv-int.3catdirectes.cat/live-content/beauties-hls/bitrate_3.m3u8
