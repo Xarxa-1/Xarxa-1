@@ -9,7 +9,7 @@ https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
 #EXTINF:-1 tvg-id="TV3" tvg-name="TV3" tvg-logo="https://pbs.twimg.com/profile_images/1718910763174109184/B7MDxoG1.jpg" group-title="Catalunya",TV3..
 https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
 
-#EXTINF:-1 tvg-id="tvi" tvg-name="TV3CAT" tvg-logo="https://pbs.twimg.com/profile_images/2008787263484735488/aaUjOWUv_400x400.jpg" group-title="Catalunya",TV3CAT
+#EXTINF:-1 tvg-id="TV3CAT.es" tvg-name="TV3CAT.wa" tvg-logo="https://pbs.twimg.com/profile_images/2008787263484735488/aaUjOWUv_400x400.jpg" group-title="Catalunya",TV3CAT
 https://directes3-tv-int.3catdirectes.cat/live-content/tvi-hls/master.m3u8
 
 
@@ -17,13 +17,13 @@ https://directes3-tv-int.3catdirectes.cat/live-content/tvi-hls/master.m3u8
 https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
 
 
-#EXTINF:-1 tvg-id="324" tvg-name="3CatInfo.es" tvg-logo="https://pbs.twimg.com/profile_images/1968163923477098496/blka6O_j_400x400.jpg" group-title="Catalunya",3CAT INFO
+#EXTINF:-1 tvg-id="3/24.es" tvg-name="3CatInfo.es" tvg-logo="https://pbs.twimg.com/profile_images/1968163923477098496/blka6O_j_400x400.jpg" group-title="Catalunya",3CAT INFO
 https://directes-tv-cat.3catdirectes.cat/live-content/canal324-hls/master.m3u8
 
 #EXTINF:-1 tvg-id="Esport 3.es" tvg-name="esport3" tvg-logo="https://graph.facebook.com/Esport3/picture?width=200&height=200" group-title="Catalunya",Esport3
 https://directes-tv-cat.3catdirectes.cat/live-content/esport3-hls/master.m3u8
 
-#EXTINF:-1 tvg-id="TAC12" tvg-name="TAC12.cat" tvg-logo="https://pbs.twimg.com/profile_images/1326929087919689729/S1zkeUh3_400x400.jpg" group-title="Catalunya",TAC12
+#EXTINF:-1 tvg-id="TAC12.es" tvg-name="TAC12.cat" tvg-logo="https://pbs.twimg.com/profile_images/1326929087919689729/S1zkeUh3_400x400.jpg" group-title="Catalunya",TAC12
 https://ingest1-video.streaming-pro.com/tac12_ABR/stream/playlist.m3u8
 
 #EXTINF:-1 tvg-id="Xarxa_LleidaTV.TV" tvg-logo="https://graph.facebook.com/LleidaTV/picture?width=200&height=200" group-title="Catalunya" tvg-name="Lleida TV",Lleida TV
@@ -56,7 +56,7 @@ https://daiconnect.com/live/hls/tvup/rt-cv/.m3u8
 #EXTINF:-1 tvg-id="sx3" tvg-name="sx3" tvg-logo="https://graph.facebook.com/SomSX3/picture?width=200&height=200" group-title="Catalunya",SX3
 https://directes-tv-cat.3catdirectes.cat/live-content/super3-hls/master.m3u8
 
-#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Star_TVE_2026.svg/960px-Star_TVE_2026.svg.png" group-title="Internacionals",Star TVE
+#EXTINF:-1 tvg-id="STAR Channel.es" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Star_TVE_2026.svg/960px-Star_TVE_2026.svg.png" group-title="Internacionals",Star TVE
 https://rtvelivestream-rtveplayplus.rtve.es/rtvesec/int/star_main_720.m3u8
 
 #EXTINF:-1 tvg-id="Somos.es" group-title="Pel·lícules" tvg-logo="https://pbs.twimg.com/profile_images/1247104115995488259/G1WmuoIw_400x400.png",TVE Somos Cine
