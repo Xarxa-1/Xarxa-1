@@ -4,18 +4,19 @@
 #EXTM3U url-tvg="https://www.open-epg.com/files/spain1.xml, https://www.open-epg.com/files/spain2.xml, https://www.open-epg.com/files/spain3.xml, https://raw.githubusercontent.com/Xarxa-1/EPG3CAT/refs/heads/main/epg.xml"
 
 
-#EXTINF:-1 tvg-id="TV3.es" tvg-name="TV3" tvg-logo="https://pbs.twimg.com/profile_images/1718910763174109184/B7MDxoG1.jpg" group-title="Catalunya",TV3.,,
+#EXTINF:-1 tvg-id="TV3.es" tvg-name="TV3" tvg-logo="https://pbs.twimg.com/profile_images/1718910763174109184/B7MDxoG1.jpg" group-title="Catalunya",TV3
 https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
 #EXTINF:-1 tvg-id="TV3" tvg-name="TV3" tvg-logo="https://pbs.twimg.com/profile_images/1718910763174109184/B7MDxoG1.jpg" group-title="Catalunya",TV3..
 https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
 
-#EXTINF:-1 tvg-id="TV3CAT.es" tvg-name="TV3CAT.wa" tvg-logo="https://pbs.twimg.com/profile_images/2008787263484735488/aaUjOWUv_400x400.jpg" group-title="Catalunya",TV3CAT
-https://directes3-tv-int.3catdirectes.cat/live-content/tvi-hls/master.m3u8
-
-
-#EXTINF:-1 tvg-id="TVI" tvg-name="TV3" tvg-logo="https://pbs.twimg.com/profile_images/1718910763174109184/B7MDxoG1.jpg" group-title="Catalunya",TV3
+#EXTINF:-1 tvg-id="tvi" tvg-name="TV3" tvg-logo="https://pbs.twimg.com/profile_images/1718910763174109184/B7MDxoG1.jpg" group-title="Catalunya",TV3tvi
+https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
+#EXTINF:-1 tvg-id="TVI" tvg-name="TV3" tvg-logo="https://pbs.twimg.com/profile_images/1718910763174109184/B7MDxoG1.jpg" group-title="Catalunya",TV3tvI
 https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
 
+
+#EXTINF:-1 tvg-id="TV3CAT.es" tvg-name="TV3CAT" tvg-logo="https://pbs.twimg.com/profile_images/2008787263484735488/aaUjOWUv_400x400.jpg" group-title="Catalunya",TV3CAT
+https://directes3-tv-int.3catdirectes.cat/live-content/tvi-hls/master.m3u8
 
 #EXTINF:-1 tvg-id="3/24.es" tvg-name="3CatInfo.es" tvg-logo="https://pbs.twimg.com/profile_images/1968163923477098496/blka6O_j_400x400.jpg" group-title="Catalunya",3CAT INFO
 https://directes-tv-cat.3catdirectes.cat/live-content/canal324-hls/master.m3u8
@@ -857,11 +858,10 @@ https://amg00426-littledotstudio-thechatshow-samsungnz-uqmtt.amagi.tv/ts-eu-w1-n
 #EXTINF:-1 tvg-id="World" tvg-name="World" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg" group-title="Catalunya",World Channel
 https://world.lls.pbs.org/index_1080p.m3u8
 
-#EXTINF:-1 tvg-logo="https://icon2.cleanpng.com/20180423/eyq/kisspng-television-antenna-computer-icons-aerials-tv-antenna-5add88e2c26080.2767419415244679387962.jpg" group-title="Cooking",BBC Food
+#EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/2058691325277708288/YvwngIub_400x400.jpg"  group-title="Cooking",BBC Food
 https://d74d877d.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/Vml6aW9fQkJDRm9vZF9ITFM/playlist.m3u8
 
-
-#EXTINF:-1 tvg-id="USA_STARZ" tvg-name="USA_STARZ" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/3/36/World_Channel_2023.svg" group-title="Catalunya",USA STARZ
+#EXTINF:-1 tvg-id="USA_STARZ" tvg-name="USA_STARZ" tvg-logo="https://pbs.twimg.com/profile_images/1866954913818804224/ZiC0-rs0_400x400.jpg" group-title="Catalunya",USA STARZ
 http://23.237.104.106:8080/USA_STARZ/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Càmares" tvg-logo="https://i.imgur.com/zXy2kbe.png" group-title="Catalunya",Càmares
