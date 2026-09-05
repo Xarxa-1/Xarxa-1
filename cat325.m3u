@@ -864,6 +864,9 @@ http://23.237.104.106:8080/USA_COMEDY_CENTRAL/index.m3u8
 #EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/2058691325277708288/YvwngIub_400x400.jpg"  group-title="Cooking",BBC Food
 https://d74d877d.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/Vml6aW9fQkJDRm9vZF9ITFM/playlist.m3u8
 
+#EXTINF:-1 tvg-id="Starz" tvg-logo="https://i.imgur.com/N7oSm4d.png" group-title="Undefined",Starz.
+http://23.237.104.106:8080/USA_STARZ/index.m3u8
+
 #EXTINF:-1 tvg-id="USA_STARZ" tvg-name="USA_STARZ" tvg-logo="https://pbs.twimg.com/profile_images/1866954913818804224/ZiC0-rs0_400x400.jpg" group-title="Catalunya",USA STARZ
 http://23.237.104.106:8080/USA_STARZ/tracks-v1a1/mono.m3u8
 
