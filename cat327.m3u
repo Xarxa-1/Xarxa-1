@@ -44,6 +44,16 @@ https://directes-tv-es.3catdirectes.cat/live-content/tem1-hls/master.m3u8
 #EXTINF:-1 tvg-logo="https://img.static-ottera.com/prod/run/linear_channel/logo/04082023_logo_verdi_tv_fila_canales_1920x1080.jpg" group-title="Catalunya" tvg-name="Cine Verdi",Cine Verdi
 https://daiconnect.com/live/hls/tvup/rt-cv/.m3u8
 
+#EXTINF:-1 tvg-id="oca1" tvg-name="3CATe1" tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200" group-title="Catalunya",3CATe1
+https://directes-tv-cat.3catdirectes.cat/live-origin/oca1-hls/master.m3u8
+
+#EXTINF:-1 tvg-id="oca2" tvg-name="3CATe2" tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200" group-title="Catalunya",3CATe2
+https://directes-tv-cat.3catdirectes.cat/live-origin/oca2-hls/master.m3u8
+
+#EXTINF:-1 tvg-id="oca3" tvg-name="3CATe3" tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200" group-title="Catalunya",3CATe3
+https://directes-tv-cat.3catdirectes.cat/live-origin/oca3-hls/master.m3u8
+#EXTINF:-1 tvg-id="oca4" tvg-name="3CATe4" tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200" group-title="Catalunya",3CATe4
+https://directes-tv-cat.3catdirectes.cat/live-origin/oca3-hls/master.m3u8
 
 #EXTINF:-1 tvg-id="sx3" tvg-name="sx3" tvg-logo="https://graph.facebook.com/SomSX3/picture?width=200&height=200" group-title="Catalunya",SX3
 https://directes-tv-cat.3catdirectes.cat/live-content/super3-hls/master.m3u8
@@ -135,14 +145,6 @@ http://41.205.93.154/BRAVO/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Bunquer" tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200" group-title="Catalunya",Bunquer
 https://fast-tailor.3catdirectes.cat/v1/channel/bunquer/hls.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="3CATe1" tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200" group-title="Catalunya",3CATe1
-https://directes-tv-cat.3catdirectes.cat/live-origin/oca1-hls/master.m3u8
-
-#EXTINF:-1 tvg-id="" tvg-name="3CATe2" tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200" group-title="Catalunya",3CATe2
-https://directes-tv-cat.3catdirectes.cat/live-origin/oca2-hls/master.m3u8
-
-#EXTINF:-1 tvg-id="" tvg-name="3CATe3" tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200" group-title="Catalunya",3CATe3
-https://directes-tv-cat.3catdirectes.cat/live-origin/oca3-hls/master.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="3CATe3" tvg-logo="" group-title="Catalunya",Merlí
 https://jmp2.uk/plu-683457aebbc703dfd45a89eb.m3u8
