@@ -1,28 +1,24 @@
 @ #EXTM3U url-tvg="https://raw.githubusercontent.com/davidmuma/EPG_dobleM/master/EPG_dobleM.xml"
 
 
-#EXTM3U url-tvg="https://raw.githubusercontent.com/Xarxa-1/VERDI/refs/heads/main/epg.xml, https://www.open-epg.com/files/spain1.xml, https://www.open-epg.com/files/spain2.xml, https://www.open-epg.com/files/spain3.xml, https://raw.githubusercontent.com/Xarxa-1/EPG3CAT/refs/heads/main/epg.xml"
+#EXTM3U url-tvg="https://www.open-epg.com/files/spain1.xml, https://www.open-epg.com/files/spain2.xml, https://raw.githubusercontent.com/Xarxa-1/VERDI/refs/heads/main/epg.xml, https://www.open-epg.com/files/spain3.xml, https://raw.githubusercontent.com/Xarxa-1/EPG3CAT/refs/heads/main/epg.xml"
 
 
-#EXTINF:-1 tvg-id="TV3.es" tvg-name="TV3" tvg-logo="https://pbs.twimg.com/profile_images/1718910763174109184/B7MDxoG1.jpg" group-title="Catalunya",TV3
-https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
-#EXTINF:-1 tvg-id="TV3" tvg-name="TV3" tvg-logo="https://pbs.twimg.com/profile_images/1718910763174109184/B7MDxoG1.jpg" group-title="Catalunya",TV3..
-https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
 
-#EXTINF:-1 tvg-id="tvi" tvg-name="TV3" tvg-logo="https://pbs.twimg.com/profile_images/1718910763174109184/B7MDxoG1.jpg" group-title="Catalunya",TV3tvi
-https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
-#EXTINF:-1 tvg-id="TVI" tvg-name="TV3" tvg-logo="https://pbs.twimg.com/profile_images/1718910763174109184/B7MDxoG1.jpg" group-title="Catalunya",TV3tvI
+#EXTINF:-1 tvg-id="tvi" tvg-name="TV3" tvg-logo="https://pbs.twimg.com/profile_images/1718910763174109184/B7MDxoG1.jpg" group-title="Catalunya",TV3
 https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
 
-
-#EXTINF:-1 tvg-id="TV3CAT.es" tvg-name="TV3CAT" tvg-logo="https://pbs.twimg.com/profile_images/2008787263484735488/aaUjOWUv_400x400.jpg" group-title="Catalunya",TV3CAT
+#EXTINF:-1 tvg-id="" tvg-name="TV3CAT" tvg-logo="https://pbs.twimg.com/profile_images/2008787263484735488/aaUjOWUv_400x400.jpg" group-title="Catalunya",TV3CAT
 https://directes3-tv-int.3catdirectes.cat/live-content/tvi-hls/master.m3u8
 
-#EXTINF:-1 tvg-id="3/24.es" tvg-name="3CatInfo.es" tvg-logo="https://pbs.twimg.com/profile_images/1968163923477098496/blka6O_j_400x400.jpg" group-title="Catalunya",3CAT INFO
+#EXTINF:-1 tvg-id="324" tvg-name="3CatInfo.es" tvg-logo="https://pbs.twimg.com/profile_images/1968163923477098496/blka6O_j_400x400.jpg" group-title="Catalunya",3CAT INFO
 https://directes-tv-cat.3catdirectes.cat/live-content/canal324-hls/master.m3u8
 
-#EXTINF:-1 tvg-id="Esport 3.es" tvg-name="esport3" tvg-logo="https://graph.facebook.com/Esport3/picture?width=200&height=200" group-title="Catalunya",Esport3
+#EXTINF:-1 tvg-id="esport3" tvg-name="esport3" tvg-logo="https://graph.facebook.com/Esport3/picture?width=200&height=200" group-title="Catalunya",Esport3
 https://directes-tv-cat.3catdirectes.cat/live-content/esport3-hls/master.m3u8
+
+#EXTINF:-1 tvg-id="c33" tvg-name="33" tvg-logo="https://graph.facebook.com/Canal33/picture?width=200&height=200" group-title="Catalunya",Canal33
+https://directes-tv-cat.3catdirectes.cat/live-content/c33-super3-hls/master.m3u8
 
 #EXTINF:-1 tvg-id="TAC12.es" tvg-name="TAC12.cat" tvg-logo="https://pbs.twimg.com/profile_images/1326929087919689729/S1zkeUh3_400x400.jpg" group-title="Catalunya",TAC12
 https://ingest1-video.streaming-pro.com/tac12_ABR/stream/playlist.m3u8
@@ -47,10 +43,10 @@ https://directes-tv-cat.3catdirectes.cat/live-content/c33-super3-hls/master.m3u8
 #EXTINF:-1 tvg-id="Bon Dia TV.es" tvg-name="BonDiaTV.cat" tvg-logo="https://i.imgur.com/XaiP3nJ.png" group-title="General" group-title="Catalunya",BonDiaTV
 https://directes-tv-int.3catdirectes.cat/live-content/bondia-hls/master.m3u8
 
-#EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1463217392490852352/IcRyuUBC_400x400.jpg" group-title="Catalunya" tvg-name="3Cat Verdi Clàssics",Verdi Clàssics
+#EXTINF:-1 tvg-id="verdi-classics" tvg-logo="https://pbs.twimg.com/profile_images/1463217392490852352/IcRyuUBC_400x400.jpg" group-title="Catalunya" tvg-name="3Cat Verdi Clàssics",Verdi Clàssics
 https://directes-tv-es.3catdirectes.cat/live-content/tem1-hls/master.m3u8
 
-#EXTINF:-1 tvg-id="verdi-classics" tvg-logo="https://img.static-ottera.com/prod/run/linear_channel/logo/04082023_logo_verdi_tv_fila_canales_1920x1080.jpg" group-title="Catalunya" tvg-name="Cine Verdi",Cine Verdi
+#EXTINF:-1 tvg-id="cine verdi.es" tvg-logo="https://img.static-ottera.com/prod/run/linear_channel/logo/04082023_logo_verdi_tv_fila_canales_1920x1080.jpg" group-title="" tvg-name="Cine Verdi",Cine Verdi
 https://daiconnect.com/live/hls/tvup/rt-cv/.m3u8
 
 
