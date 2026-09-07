@@ -3,7 +3,7 @@
 #  #EXTM3U url-tvg="https://www.open-epg.com/files/spain1.xml, https://www.open-epg.com/files/spain2.xml, https://www.open-epg.com/files/spain3.xml, https://raw.githubusercontent.com/Xarxa-1/EPG3CAT/refs/heads/main/epg.xml"
 
 
-#EXTINF:-1 tvg-id="tvi" tvg-name="TV3" tvg-logo="https://pbs.twimg.com/profile_images/1718910763174109184/B7MDxoG1.jpg" group-title="Catalunya",TV3.,,
+#EXTINF:-1 tvg-id="tvi" tvg-name="TV3" tvg-logo="https://pbs.twimg.com/profile_images/1718910763174109184/B7MDxoG1.jpg" group-title="Catalunya",TV3
 https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="TV3CAT" tvg-logo="https://pbs.twimg.com/profile_images/2008787263484735488/aaUjOWUv_400x400.jpg" group-title="Catalunya",TV3CAT
@@ -55,7 +55,7 @@ https://directes-tv-cat.3catdirectes.cat/live-origin/oca3-hls/master.m3u8
 #EXTINF:-1 tvg-id="oca4" tvg-name="3CATe4" tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200" group-title="Catalunya",3CATe4
 https://directes-tv-cat.3catdirectes.cat/live-origin/oca3-hls/master.m3u8
 
-#EXTINF:-1 tvg-id="sx3" tvg-name="sx3" tvg-logo="https://graph.facebook.com/SomSX3/picture?width=200&height=200" group-title="Catalunya",SX3
+#EXTINF:-1 tvg-id="sx3" tvg-name="sx 3" tvg-logo="https://graph.facebook.com/SomSX3/picture?width=200&height=200" group-title="Catalunya",SX3
 https://directes-tv-cat.3catdirectes.cat/live-content/super3-hls/master.m3u8
 
 #EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Star_TVE_2026.svg/960px-Star_TVE_2026.svg.png" group-title="Internacionals",Star TVE
