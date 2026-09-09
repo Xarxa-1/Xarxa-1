@@ -24,11 +24,12 @@
   <script>
     const USERNAME = "Xarxa-1";
     const REPO = "Xarxa-1";
-    
-    // ⚠️ Si els teus fitxers HTML estan dins d'una carpeta, escriu el nom aquí (ex: "pagines")
     const FOLDER_PATH = "";
+    
+    // ⚠️ Indiquem a l'API que busqui a la branca 'gh-pages'
+    const BRANCH = "gh-pages";
 
-    const apiUrl = `https://api.github.com/repos/${USERNAME}/${REPO}/contents/${FOLDER_PATH}`;
+    const apiUrl = `https://api.github.com/repos/${USERNAME}/${REPO}/contents/${FOLDER_PATH}?ref=${BRANCH}`;
 
     async function fetchHtmlFiles() {
       const statusEl = document.getElementById("status");
@@ -39,7 +40,7 @@
         
         if (!response.ok) {
           if (response.status === 404) {
-            throw new Error(`No s'ha trobat la carpeta o repositori "${USERNAME}/${REPO}".`);
+            throw new Error(`No s'ha trobat la branca "${BRANCH}" o el repositori "${USERNAME}/${REPO}".`);
           } else if (response.status === 403) {
             throw new Error("S'ha superat el límit de consultes a l'API de GitHub per hora.");
           } else {
@@ -49,7 +50,7 @@
 
         const files = await response.json();
 
-        // Comprovació flexible d'extensions (.html, .HTML, etc.)
+        // Filtrem els fitxers .html i excloem els index
         const htmlFiles = files.filter(file => {
           const fileNameLower = file.name.toLowerCase();
           return (
@@ -63,11 +64,10 @@
         statusEl.style.display = "none";
 
         if (htmlFiles.length === 0) {
-          // Si no en troba, mostrem quins fitxers ha llegit realment per ajudar a depurar
           const allFileNames = files.map(f => f.name).join(", ");
-          listEl.innerHTML = `<li>No s'han trobat altres fitxers HTML.</li>
+          listEl.innerHTML = `<li>No s'han trobat altres fitxers HTML a la branca ${BRANCH}.</li>
                               <li style="color:#777; margin-top:1rem; font-size:0.9rem;">
-                                <strong>Fitxers trobats al repositori:</strong> ${allFileNames || 'cap'}
+                                <strong>Fitxers trobats:</strong> ${allFileNames || 'cap'}
                               </li>`;
           return;
         }
