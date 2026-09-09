@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Índex de Fitxers HTML</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 2rem; max-width: 800px; }
+    h1 { color: #333; }
+    ul { list-style-type: none; padding: 0; }
+    li { margin: 8px 0; }
+    a { color: #0969da; text-decoration: none; font-size: 1.1rem; }
+    a:hover { text-decoration: underline; }
+    .loading { color: #666; font-style: italic; }
+  </style>
+</head>
+<body>
+
+  <h1>Índex de pàgines HTML</h1>
+  <p class="loading" id="status">Carregant fitxers...</p>
+  <ul id="html-list"></ul>
+
+  <script>
+    // 1. Configura les teves dades
+    const USERNAME = 'el-teu-usuari';
+    const REPO = 'el-teu-repositori';
+    const FOLDER_PATH = ''; // Deixa-ho buit '' per a l'arrel, o indica la carpeta (ex: 'docs' o 'pagines')
+
+    // 2. Endpoint de l'API de GitHub
+    const apiUrl = `https://api.github.com/repos/${USERNAME}/${REPO}/contents/${FOLDER_PATH}`;
+
+    async function fetchHtmlFiles() {
+      const statusEl = document.getElementById('status');
+      const listEl = document.getElementById('html-list');
+
+      try {
+        const response = await fetch(apiUrl);
+        
+        if (!response.ok) {
+          throw new Error('No s'ha pogut accedir al repositori.');
+        }
+
+        const files = await response.json();
+
+        // Filtrem per quedarnos només amb els fitxers .html (i excloem aquest mateix index.html)
+        const htmlFiles = files.filter(file => 
+          file.type === 'file' && 
+          file.name.endsWith('.html') && 
+          file.name !== 'index.html'
+        );
+
+        statusEl.style.display = 'none';
+
+        if (htmlFiles.length === 0) {
+          listEl.innerHTML = '<li>No s'han trobat fitxers HTML.</li>';
+          return;
+        }
+
+        // Construïm la llista d'enllaços
+        htmlFiles.forEach(file => {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          
+          // Enllaç a la pàgina de GitHub Pages
+          a.href = file.name; // o file.path si està en subcarpetes
+          a.textContent = file.name.replace('.html', '').replace(/-/g, ' '); // Formatem el nom
+          
+          li.appendChild(a);
+          listEl.appendChild(li);
+        });
+
+      } catch (error) {
+        statusEl.textContent = 'Error en carregar els fitxers: ' + error.message;
+      }
+    }
+
+    fetchHtmlFiles();
+  </script>
+</body>
+</html>
