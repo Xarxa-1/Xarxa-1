@@ -616,8 +616,6 @@ http://41.205.93.154/ESPN/tracks-v1a1/mono.m3u8
 #EXTINF:-1 group-title="Esport" tvg-id="ESPN.us" tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s10179_dark_360w_270h.png" tvg-name="ESPN",ESPN2
 http://190.60.32.178:8178/play/a015/index.m3u8
 
-#EXTINF:-1 tvg-id="5StarMax.us" group-title="USA",5StarMax
-http://23.237.104.106:8080/USA_5STARMAX/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="AnimalPlanet.us" group-title="USA",Animal Planet
 http://23.237.104.106:8080/USA_ANIMAL_PLANET/tracks-v1a1/mono.m3u8
@@ -855,6 +853,23 @@ http://23.237.104.106:8080/USA_COMEDY_CENTRAL/index.m3u8
 
 #EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/2058691325277708288/YvwngIub_400x400.jpg"  group-title="Cooking",BBC Food
 https://d74d877d.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/Vml6aW9fQkJDRm9vZF9ITFM/playlist.m3u8
+
+#EXTINF:-1 tvg-id="starz-stz3" tvg-name="USA_STARZ_EDGE" tvg-logo="https://pbs.twimg.com/profile_images/1866954913818804224/ZiC0-rs0_400x400.jpg" group-title="Catalunya",USA STARZ Edge prova
+http://23.237.104.106:8080/USA_STARZ_EDGE/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-id="starz-stz5" tvg-name="USA_STARZ_INBLACK" tvg-logo="https://pbs.twimg.com/profile_images/1866954913818804224/ZiC0-rs0_400x400.jpg" group-title="Catalunya",USA STARZ InBlack prova
+http://23.237.104.106:8080/USA_STARZ_INBLACK/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-id="starz-stz6" tvg-name="USA_STARZ_KIDS_FAMILY" tvg-logo="https://pbs.twimg.com/profile_images/1866954913818804224/ZiC0-rs0_400x400.jpg" group-title="Catalunya",USA STARZ Kids & Family prova
+http://23.237.104.106:8080/USA_STARZ_KIDS_FAMILY/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-id="starz-stz7" tvg-name="USA_STARZ_CINEMA" tvg-logo="https://pbs.twimg.com/profile_images/1866954913818804224/ZiC0-rs0_400x400.jpg" group-title="Catalunya",USA STARZ Cinema prova
+http://23.237.104.106:8080/USA_STARZ_CINEMA/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-id="starz-stz8" tvg-name="USA_STARZ_COMEDY" tvg-logo="https://pbs.twimg.com/profile_images/1866954913818804224/ZiC0-rs0_400x400.jpg" group-title="Catalunya",USA STARZ Comedy prova
+http://23.237.104.106:8080/USA_STARZ_COMEDY/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-id="starz-stz9" tvg-name="USA_STARZ_ENCORE" tvg-logo="https://pbs.twimg.com/profile_images/1866954913818804224/ZiC0-rs0_400x400.jpg" group-title="Catalunya",USA STARZ Encore prova
+http://23.237.104.106:8080/USA_STARZ_ENCORE/tracks-v1a1/mono.m3u8
+
+
+#EXTINF:-1 tvg-id="5StarMax.us" group-title="USA",5StarMax
+http://23.237.104.106:8080/USA_5STARMAX/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="starz-stz5" tvg-name="USA_STARZ_CINEMA" tvg-logo="https://pbs.twimg.com/profile_images/1866954913818804224/ZiC0-rs0_400x400.jpg" group-title="Catalunya",USA STARZ Cinema
 http://23.237.104.106:8080/USA_STARZ_CINEMA/tracks-v1a1/mono.m3u8
