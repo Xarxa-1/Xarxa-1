@@ -22,15 +22,15 @@
   <ul id="html-list"></ul>
 
   <script>
-    const USERNAME = 'Xarxa-1';
-    const REPO = 'Xarxa-1';
-    const FOLDER_PATH = '';
+    const USERNAME = "Xarxa-1";
+    const REPO = "Xarxa-1";
+    const FOLDER_PATH = "";
 
     const apiUrl = `https://api.github.com/repos/${USERNAME}/${REPO}/contents/${FOLDER_PATH}`;
 
     async function fetchHtmlFiles() {
-      const statusEl = document.getElementById('status');
-      const listEl = document.getElementById('html-list');
+      const statusEl = document.getElementById("status");
+      const listEl = document.getElementById("html-list");
 
       try {
         const response = await fetch(apiUrl);
@@ -47,35 +47,35 @@
 
         const files = await response.json();
 
-        // Filtrem els fitxers .html i l'arxiu d'índex
+        // Filtrem els fitxers .html i excloem els index
         const htmlFiles = files.filter(file => 
-          file.type === 'file' && 
-          file.name.endsWith('.html') && 
-          file.name !== 'index.html' &&
-          file.name !== 'indexperaindexhtml.html'
+          file.type === "file" && 
+          file.name.endsWith(".html") && 
+          file.name !== "index.html" &&
+          file.name !== "indexperaindexhtml.html"
         );
 
-        statusEl.style.display = 'none';
+        statusEl.style.display = "none";
 
         if (htmlFiles.length === 0) {
-          listEl.innerHTML = '<li>No s\'han trobat altres fitxers HTML.</li>';
+          listEl.innerHTML = "<li>No s'han trobat altres fitxers HTML en aquest repositori.</li>";
           return;
         }
 
         htmlFiles.forEach(file => {
-          const li = document.createElement('li');
-          const a = document.createElement('a');
+          const li = document.createElement("li");
+          const a = document.createElement("a");
           
           a.href = file.name;
-          a.textContent = file.name.replace('.html', '').replace(/-/g, ' ');
+          a.textContent = file.name.replace(".html", "").replace(/-/g, " ");
           
           li.appendChild(a);
           listEl.appendChild(li);
         });
 
       } catch (error) {
-        statusEl.className = 'error';
-        statusEl.textContent = ' Error: ' + error.message;
+        statusEl.className = "error";
+        statusEl.textContent = "Error: " + error.message;
       }
     }
 
