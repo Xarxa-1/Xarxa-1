@@ -12,6 +12,7 @@
     a { color: #0969da; text-decoration: none; font-size: 1.1rem; }
     a:hover { text-decoration: underline; }
     .loading { color: #666; font-style: italic; }
+    .error { color: #d9381e; font-weight: bold; }
   </style>
 </head>
 <body>
@@ -21,12 +22,11 @@
   <ul id="html-list"></ul>
 
   <script>
-    // 1. Configura les teves dades
+    // Dades del teu compte configurades:
     const USERNAME = 'Xarxa-1';
     const REPO = 'Xarxa-1';
-    const FOLDER_PATH = ''; // Deixa-ho buit '' per a l'arrel, o indica la carpeta (ex: 'docs' o 'pagines')
+    const FOLDER_PATH = ''; // Si els HTML estan a l'arrel
 
-    // 2. Endpoint de l'API de GitHub
     const apiUrl = `https://api.github.com/repos/${USERNAME}/${REPO}/contents/${FOLDER_PATH}`;
 
     async function fetchHtmlFiles() {
@@ -37,12 +37,18 @@
         const response = await fetch(apiUrl);
         
         if (!response.ok) {
-          throw new Error('No s'ha pogut accedir al repositori.');
+          if (response.status === 404) {
+            throw new Error(`No s'ha trobat el repositori "${USERNAME}/${REPO}". Revisa que sigui PÚBLIC i que el nom estigui ben escrit.`);
+          } else if (response.status === 403) {
+            throw new Error("S'ha superat el límit de consultes a l'API de GitHub per hora. Espera uns minuts.");
+          } else {
+            throw new Error(`Error de la xarxa (Codi HTTP ${response.status}).`);
+          }
         }
 
         const files = await response.json();
 
-        // Filtrem per quedarnos només amb els fitxers .html (i excloem aquest mateix index.html)
+        // Filtrem només els fitxers .html (excloent index.html)
         const htmlFiles = files.filter(file => 
           file.type === 'file' && 
           file.name.endsWith('.html') && 
@@ -52,25 +58,24 @@
         statusEl.style.display = 'none';
 
         if (htmlFiles.length === 0) {
-          listEl.innerHTML = '<li>No s'han trobat fitxers HTML.</li>';
+          listEl.innerHTML = '<li>No s'han trobat altres fitxers .html en aquest repositori.</li>';
           return;
         }
 
-        // Construïm la llista d'enllaços
         htmlFiles.forEach(file => {
           const li = document.createElement('li');
           const a = document.createElement('a');
           
-          // Enllaç a la pàgina de GitHub Pages
-          a.href = file.name; // o file.path si està en subcarpetes
-          a.textContent = file.name.replace('.html', '').replace(/-/g, ' '); // Formatem el nom
+          a.href = file.name;
+          a.textContent = file.name.replace('.html', '').replace(/-/g, ' ');
           
           li.appendChild(a);
           listEl.appendChild(li);
         });
 
       } catch (error) {
-        statusEl.textContent = 'Error en carregar els fitxers: ' + error.message;
+        statusEl.className = 'error';
+        statusEl.textContent = '⚠️ ' + error.message;
       }
     }
 
