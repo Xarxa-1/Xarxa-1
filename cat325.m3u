@@ -856,8 +856,7 @@ https://d74d877d.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/Vml6aW
 
 #EXTINF:-1 tvg-id="starz-stz3" tvg-name="USA_STARZ_EDGE" tvg-logo="https://pbs.twimg.com/profile_images/1866954913818804224/ZiC0-rs0_400x400.jpg" group-title="Catalunya",USA STARZ Edge prova
 http://23.237.104.106:8080/USA_STARZ_EDGE/tracks-v1a1/mono.m3u8
-#EXTINF:-1 tvg-id="starz-stz5" tvg-name="USA_STARZ_INBLACK" tvg-logo="https://pbs.twimg.com/profile_images/1866954913818804224/ZiC0-rs0_400x400.jpg" group-title="Catalunya",USA STARZ InBlack prova
-http://23.237.104.106:8080/USA_STARZ_INBLACK/tracks-v1a1/mono.m3u8
+
 #EXTINF:-1 tvg-id="starz-stz6" tvg-name="USA_STARZ_KIDS_FAMILY" tvg-logo="https://pbs.twimg.com/profile_images/1866954913818804224/ZiC0-rs0_400x400.jpg" group-title="Catalunya",USA STARZ Kids & Family prova
 http://23.237.104.106:8080/USA_STARZ_KIDS_FAMILY/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-id="starz-stz7" tvg-name="USA_STARZ_CINEMA" tvg-logo="https://pbs.twimg.com/profile_images/1866954913818804224/ZiC0-rs0_400x400.jpg" group-title="Catalunya",USA STARZ Cinema prova
@@ -879,6 +878,20 @@ http://23.237.104.106:8080/USA_STARZ_COMEDY/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="starz-stz1" tvg-name="USA_STARZ" tvg-logo="https://pbs.twimg.com/profile_images/1866954913818804224/ZiC0-rs0_400x400.jpg" group-title="Catalunya",USA STARZ
 http://23.237.104.106:8080/USA_STARZ/tracks-v1a1/mono.m3u8
+
+http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/38459
+#EXTINF:-1 tvg-ID="" tvg-name="BEIN SPORTS 1 (Australia)" tvg-logo="http://primestreamstv.com/logos/BeIN%20Sports%201%20HD.png" group-title="SPORTS NETWORKS",BEIN SPORTS 1 (Australia)
+http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/107806
+#EXTINF:-1 tvg-ID="" tvg-name="BEIN SPORTS 2 (Australia)" tvg-logo="http://primestreamstv.com/logos/BeIN%20Sports%202%20HD.png" group-title="SPORTS NETWORKS",BEIN SPORTS 2 (Australia)
+http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/107807
+#EXTINF:-1 tvg-ID="" tvg-name="BEIN SPORTS 3 (Australia)" tvg-logo="http://primestreamstv.com/logos/BeIN%20Sports%203%20HD.png" group-title="SPORTS NETWORKS",BEIN SPORTS 3 (Australia)
+http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/107808
+#EXTINF:-1 tvg-ID="" tvg-name="ESPN (Australia)" tvg-logo="http://primestreamstv.com/logos/ESPN.png" group-title="SPORTS NETWORKS",ESPN (Australia)
+http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/107809
+#EXTINF:-1 tvg-ID="" tvg-name="ESPN 2 (Australia)" tvg-logo="http://primestreamstv.com/logos/ESPN2.png" group-title="SPORTS NETWORKS",ESPN 2 (Australia)
+http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/107810
+#EXTINF:-1 tvg-ID="" tvg-name="FOX CRICKET (Australia)" tvg-logo="http://primestreamstv.com/logos/Fox.Cricket.2.jpg" group-title="SPORTS NETWORKS",FOX CRICKET (Australia)
+http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/107811
 
 #EXTINF:-1 tvg-id="" tvg-name="Càmares" tvg-logo="https://i.imgur.com/zXy2kbe.png" group-title="Catalunya",Càmares
 https://directes-tv-int.3catdirectes.cat/live-content/beauties-hls/bitrate_3.m3u8
