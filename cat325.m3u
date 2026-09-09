@@ -852,10 +852,14 @@ https://world.lls.pbs.org/index_1080p.m3u8
 https://drybar-drybarcomedy-1-us.samsung.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="Comedy Central" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Comedy_Central_2018.svg/960px-Comedy_Central_2018.svg.png" group-title="Comedy",Comedy Central
 http://23.237.104.106:8080/USA_COMEDY_CENTRAL/index.m3u8
+
 #EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/2058691325277708288/YvwngIub_400x400.jpg"  group-title="Cooking",BBC Food
 https://d74d877d.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/Vml6aW9fQkJDRm9vZF9ITFM/playlist.m3u8
 
-#EXTINF:-1 tvg-id="starz-stz1" tvg-logo="https://i.imgur.com/N7oSm4d.png" group-title="Undefined",Starz Comdey
+#EXTINF:-1 tvg-id="starz-stz5" tvg-name="USA_STARZ_CINEMA" tvg-logo="https://pbs.twimg.com/profile_images/1866954913818804224/ZiC0-rs0_400x400.jpg" group-title="Catalunya",USA STARZ Cinema
+http://23.237.104.106:8080/USA_STARZ_CINEMA/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="starz-stz7" tvg-logo="https://i.imgur.com/N7oSm4d.png" group-title="Undefined",Starz Comdey
 http://23.237.104.106:8080/USA_STARZ_COMEDY/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="starz-stz1" tvg-name="USA_STARZ" tvg-logo="https://pbs.twimg.com/profile_images/1866954913818804224/ZiC0-rs0_400x400.jpg" group-title="Catalunya",USA STARZ
