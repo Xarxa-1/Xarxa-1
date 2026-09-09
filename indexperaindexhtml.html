@@ -11,79 +11,81 @@
     li { margin: 8px 0; }
     a { color: #0969da; text-decoration: none; font-size: 1.1rem; }
     a:hover { text-decoration: underline; }
-    .loading { color: #666; font-style: italic; }
-    .error { color: #d9381e; font-weight: bold; }
+    .debug { background: #f6f8fa; padding: 1rem; border-radius: 6px; border: 1px solid #d0d7de; font-family: monospace; font-size: 0.9rem; margin-top: 1rem; }
   </style>
 </head>
 <body>
 
   <h1>Índex de pàgines HTML</h1>
-  <p class="loading" id="status">Carregant fitxers...</p>
+  <p id="status">Inspectant el repositori...</p>
   <ul id="html-list"></ul>
+  
+  <div id="debug-box" class="debug" style="display:none;">
+    <strong>Tots els elements trobats al repositori:</strong>
+    <ul id="debug-list"></ul>
+  </div>
 
   <script>
     const USERNAME = "Xarxa-1";
     const REPO = "Xarxa-1";
     const BRANCH = "gh-pages";
 
-    // Utilitzem l'API de Trees amb recursive=1 per cercar dins de TOTES les carpetes (com 'msx')
+    // Petició per veure TOTS els fitxers de totes les carpetes
     const apiUrl = `https://api.github.com/repos/${USERNAME}/${REPO}/git/trees/${BRANCH}?recursive=1`;
 
-    async function fetchHtmlFiles() {
+    async function inspectRepo() {
       const statusEl = document.getElementById("status");
       const listEl = document.getElementById("html-list");
+      const debugBox = document.getElementById("debug-box");
+      const debugList = document.getElementById("debug-list");
 
       try {
         const response = await fetch(apiUrl);
         
         if (!response.ok) {
-          throw new Error(`Error en connectar amb GitHub (Codi ${response.status}).`);
+          throw new Error(`Codi HTTP ${response.status}`);
         }
 
         const data = await response.json();
-
-        // data.tree conté tots els fitxers del repositori i les seves carpetes
-        const htmlFiles = data.tree.filter(item => {
-          const pathLower = item.path.toLowerCase();
-          const fileName = item.path.split('/').pop().toLowerCase();
-          
-          return (
-            item.type === "blob" && 
-            pathLower.endsWith(".html") && 
-            fileName !== "index.html" &&
-            fileName !== "indexperaindexhtml.html"
-          );
-        });
-
         statusEl.style.display = "none";
+        debugBox.style.display = "block";
 
-        if (htmlFiles.length === 0) {
-          listEl.innerHTML = "<li>No s'han trobat arxius HTML al repositori.</li>";
+        if (!data.tree || data.tree.length === 0) {
+          debugList.innerHTML = "<li>No s'ha trobat cap element a l'arbre del repositori.</li>";
           return;
         }
 
-        htmlFiles.forEach(file => {
-          const li = document.createElement("li");
-          const a = document.createElement("a");
-          
-          // file.path serà per exemple "msx/radiopen9.html"
-          a.href = file.path;
-          
-          // Formatem el nom per mostrar la carpeta i el nom del fitxer ben explicat
-          const cleanName = file.path.replace(/\.html$/i, "").replace(/-/g, " ");
-          a.textContent = cleanName;
-          
-          li.appendChild(a);
-          listEl.appendChild(li);
+        let htmlCount = 0;
+
+        // Recorrem absolutament tots els elements
+        data.tree.forEach(item => {
+          // Mostrem l'element a la caixa de diagnòstic
+          const debugLi = document.createElement("li");
+          debugLi.textContent = `[Tipus: ${item.type}] -> ${item.path}`;
+          debugList.appendChild(debugLi);
+
+          // Si acaba en html (o qualsevol variant), el posem a la llista principal
+          if (item.type === "blob" && item.path.toLowerCase().includes("html")) {
+            htmlCount++;
+            const li = document.createElement("li");
+            const a = document.createElement("a");
+            a.href = item.path;
+            a.textContent = item.path;
+            li.appendChild(a);
+            listEl.appendChild(li);
+          }
         });
 
+        if (htmlCount === 0) {
+          listEl.innerHTML = "<li>No s'ha detectat cap fitxer que contingui 'html' al nom.</li>";
+        }
+
       } catch (error) {
-        statusEl.className = "error";
-        statusEl.textContent = "Error: " + error.message;
+        statusEl.textContent = "Error en llegir el repositori: " + error.message;
       }
     }
 
-    fetchHtmlFiles();
+    inspectRepo();
   </script>
 </body>
 </html>
