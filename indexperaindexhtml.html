@@ -24,6 +24,8 @@
   <script>
     const USERNAME = "Xarxa-1";
     const REPO = "Xarxa-1";
+    
+    // ⚠️ Si els teus fitxers HTML estan dins d'una carpeta, escriu el nom aquí (ex: "pagines")
     const FOLDER_PATH = "";
 
     const apiUrl = `https://api.github.com/repos/${USERNAME}/${REPO}/contents/${FOLDER_PATH}`;
@@ -37,7 +39,7 @@
         
         if (!response.ok) {
           if (response.status === 404) {
-            throw new Error(`No s'ha trobat el repositori "${USERNAME}/${REPO}". Comprova que sigui PÚBLIC.`);
+            throw new Error(`No s'ha trobat la carpeta o repositori "${USERNAME}/${REPO}".`);
           } else if (response.status === 403) {
             throw new Error("S'ha superat el límit de consultes a l'API de GitHub per hora.");
           } else {
@@ -47,18 +49,26 @@
 
         const files = await response.json();
 
-        // Filtrem els fitxers .html i excloem els index
-        const htmlFiles = files.filter(file => 
-          file.type === "file" && 
-          file.name.endsWith(".html") && 
-          file.name !== "index.html" &&
-          file.name !== "indexperaindexhtml.html"
-        );
+        // Comprovació flexible d'extensions (.html, .HTML, etc.)
+        const htmlFiles = files.filter(file => {
+          const fileNameLower = file.name.toLowerCase();
+          return (
+            file.type === "file" && 
+            fileNameLower.endsWith(".html") && 
+            fileNameLower !== "index.html" &&
+            fileNameLower !== "indexperaindexhtml.html"
+          );
+        });
 
         statusEl.style.display = "none";
 
         if (htmlFiles.length === 0) {
-          listEl.innerHTML = "<li>No s'han trobat altres fitxers HTML en aquest repositori.</li>";
+          // Si no en troba, mostrem quins fitxers ha llegit realment per ajudar a depurar
+          const allFileNames = files.map(f => f.name).join(", ");
+          listEl.innerHTML = `<li>No s'han trobat altres fitxers HTML.</li>
+                              <li style="color:#777; margin-top:1rem; font-size:0.9rem;">
+                                <strong>Fitxers trobats al repositori:</strong> ${allFileNames || 'cap'}
+                              </li>`;
           return;
         }
 
@@ -67,7 +77,7 @@
           const a = document.createElement("a");
           
           a.href = file.name;
-          a.textContent = file.name.replace(".html", "").replace(/-/g, " ");
+          a.textContent = file.name.replace(/\.html$/i, "").replace(/-/g, " ");
           
           li.appendChild(a);
           listEl.appendChild(li);
