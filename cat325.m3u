@@ -891,7 +891,8 @@ http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/107809
 #EXTINF:-1 tvg-ID="" tvg-name="ESPN 2 (Australia)" tvg-logo="http://primestreamstv.com/logos/ESPN2.png" group-title="SPORTS NETWORKS",ESPN 2 (Australia)
 http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/107810
 
-#EXTM3U
+#EXTINF:-1 tvg-chno="6" tvg-id="TheNest" tvg-name="AMC" tvg-logo="" group-title="TV",TheNest
+https://fast-channels.sinclairstoryline.com/THENEST/index_1.m3u8
 
 #EXTINF:-1 tvg-chno="1" tvg-id="A.and.E.HD.East.us2" tvg-name="A&E TV" tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s51529_dark_360w_270h.png" group-title="TV",A&E TV
 http://23.239.31.26:8989/aande/index.m3u8
