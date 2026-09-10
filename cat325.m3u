@@ -799,7 +799,7 @@ http://23.237.104.106:8080/USA_STARZ_CINEMA/tracks-v1a1/mono.m3u8
 http://23.237.104.106:8080/USA_STARZ_COMEDY/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="STARZ_COMEDY" group-title="International" tvg-logo="https://pbs.twimg.com/profile_images/1575474245924278274/FSBixs2O_400x400.jpg", STARZ_COMEDY
-http://41.205.93.154//USA_STARZ_COMEDY/tracks-v1a1/mono.m3u8
+http://41.205.93.154/USA_STARZ_COMEDY/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="TMC" group-title="International", USA_SHOWTIME_FAMILY
 http://23.237.104.106:8080/USA_SHOWTIME_FAMILY/tracks-v1a1/mono.m3u8 
@@ -890,8 +890,9 @@ http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/107808
 http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/107809
 #EXTINF:-1 tvg-ID="" tvg-name="ESPN 2 (Australia)" tvg-logo="http://primestreamstv.com/logos/ESPN2.png" group-title="SPORTS NETWORKS",ESPN 2 (Australia)
 http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/107810
-#EXTINF:-1 tvg-ID="" tvg-name="FOX CRICKET (Australia)" tvg-logo="http://primestreamstv.com/logos/Fox.Cricket.2.jpg" group-title="SPORTS NETWORKS",FOX CRICKET (Australia)
-http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/107811
+
+#EXTINF:-1 tvg-chno="33" tvg-id="Comet.us2" tvg-name="Comet TV" tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s97051_dark_360w_270h.png" group-title="TV",Comet TV
+https://fast-channels.sinclairstoryline.com/COMET/index.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Càmares" tvg-logo="https://i.imgur.com/zXy2kbe.png" group-title="Catalunya",Càmares
 https://directes-tv-int.3catdirectes.cat/live-content/beauties-hls/bitrate_3.m3u8
