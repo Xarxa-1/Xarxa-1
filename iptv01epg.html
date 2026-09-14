@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPTV Web Player</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pako@2.1.0/dist/pako.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background: #0f0f0f; color: #fff; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+        header { background: #1a1a1a; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; }
+        header h1 { font-size: 1.2rem; color: #e50914; }
+        header .status { font-size: 0.75rem; color: #888; max-width: 60%; text-align: right; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .main-container { display: flex; flex: 1; overflow: hidden; }
+        .channel-list { width: 320px; background: #1a1a1a; overflow-y: auto; border-right: 1px solid #333; padding: 10px; flex-shrink: 0; }
+        .channel-btn { display: flex; align-items: center; width: 100%; padding: 10px; margin-bottom: 8px; background: #262626; border: 1px solid #333; border-radius: 8px; color: #fff; cursor: pointer; transition: all .2s; text-align: left; }
+        .channel-btn:hover { background: #333; border-color: #e50914; }
+        .channel-btn.active { background: #e50914; border-color: #e50914; }
+        .channel-btn img { width: 40px; height: 40px; object-fit: contain; margin-right: 12px; border-radius: 4px; background: #000; }
+        .channel-btn .channel-info { display: flex; flex-direction: column; overflow: hidden; }
+        .channel-btn .channel-name { font-size: 0.9rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .channel-btn .channel-group { font-size: 0.7rem; color: #aaa; }
+        .player-area { flex: 1; display: flex; flex-direction: column; background: #000; position: relative; }
+        video { width: 100%; height: 100%; background: #000; }
+        .top-controls { position: absolute; top: 15px; right: 15px; display: flex; gap: 10px; z-index: 20; }
+        .subtitle-select { background: rgba(0,0,0,.75); color: #fff; border: 1px solid #555; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: .8rem; backdrop-filter: blur(5px); min-width: 180px; }
+        .subtitle-select:hover { background: #e50914; }
+        .subtitle-select option { background: #1a1a1a; color: #fff; }
+        .epg-overlay { position: absolute; bottom: 20px; left: 20px; right: 20px; background: rgba(0,0,0,.88); color: #fff; padding: 15px 20px; border-radius: 10px; border: 1px solid #444; z-index: 10; backdrop-filter: blur(8px); transition: opacity .4s, transform .4s; opacity: 0; transform: translateY(10px); pointer-events: none; }
+        .epg-overlay.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+        .epg-title { font-size: 1.05rem; font-weight: bold; color: #e50914; margin-bottom: 5px; }
+        .epg-desc { font-size: .85rem; color: #ccc; margin-bottom: 6px; line-height: 1.3; }
+        .epg-time { font-size: .75rem; color: #888; }
+        .epg-next { font-size: .8rem; color: #4caf50; margin-top: 6px; border-top: 1px solid #333; padding-top: 6px; }
+        .loading, .error-msg { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 30; display: none; }
+        .loading { color: #e50914; font-size: 1.1rem; }
+        .loading.visible, .error-msg.visible { display: block; }
+        .error-msg { color: #ff6b6b; text-align: center; padding: 20px; background: rgba(0,0,0,.85); border-radius: 10px; max-width: 80%; }
+        @media (max-width: 768px) {
+            .main-container { flex-direction: column; }
+            .channel-list { width: 100%; max-height: 200px; border-right: none; border-bottom: 1px solid #333; display: flex; flex-wrap: wrap; gap: 8px; padding: 8px; }
+            .channel-btn { width: calc(50% - 4px); margin-bottom: 0; padding: 6px; }
+            .channel-btn img { width: 30px; height: 30px; }
+            .channel-btn .channel-name { font-size: .75rem; }
+            .subtitle-select { min-width: 120px; font-size: .7rem; padding: 6px 8px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>📺 IPTV Player</h1>
+        <span class="status" id="statusMsg">Inicialitzant...</span>
+    </header>
+    <div class="main-container">
+        <div class="channel-list" id="channelList">
+            <p style="color:#666; text-align:center; padding:20px;">Carregant canals...</p>
+        </div>
+        <div class="player-area">
+            <video id="videoPlayer" controls autoplay playsinline></video>
+            <div class="top-controls">
+                <select class="subtitle-select" id="subtitleSelect" title="Selecciona subtítols">
+                    <option value="-1">💬 Subtítols: Off</option>
+                </select>
+            </div>
+            <div class="epg-overlay" id="epgOverlay">
+                <div class="epg-title" id="epgTitle">—</div>
+                <div class="epg-desc" id="epgDesc"></div>
+                <div class="epg-time" id="epgTime"></div>
+                <div class="epg-next" id="epgNext"></div>
+            </div>
+            <div class="loading" id="loadingIndicator">Carregant stream...</div>
+            <div class="error-msg" id="errorMsg"></div>
+        </div>
+    </div>
+
+    <script>
+    // ============================================================
+    // CONFIGURACIÓ
+    // ============================================================
+    const M3U_URL = 'https://xarxa-1.github.io/Xarxa-1/cat325.m3u';
+
+    // Si tens problemes de CORS, activa el proxy
+    const USE_CORS_PROXY = false;
+    const CORS_PROXY = 'https://corsproxy.io/?';
+
+    // EPG addicionals per a canals de USA, UK, etc.
+    // S'afegiran als que ja porti l'M3U i es fusionaran tots.
+    // Nota: aquests fitxers sovint requereixen activar el proxy CORS.
+    const EXTRA_EPG_URLS = [
+        // Descomenta els que vulguis provar (cal proxy CORS per a aquests dominis):
+        // 'http://epgshare01.online/epgshare01/epg_ripper_US1.xml.gz',
+        // 'http://epgshare01.online/epgshare01/epg_ripper_US2.xml.gz',
+        // 'http://epgshare01.online/epgshare01/epg_ripper_UK1.xml.gz',
+        // 'http://epgshare01.online/epgshare01/epg_ripper_UK2.xml.gz',
+        // 'http://epgshare01.online/epgshare01/epg_ripper_ES1.xml.gz',
+    ];
+
+    // ============================================================
+    // ESTAT GLOBAL
+    // ============================================================
+    let hls = null;
+    let currentChannel = null;
+    let epgHideTimeout = null;
+    let epgUpdateInterval = null;
+    let epgData = {};
+    let epgChannelMap = {};
+    let channels = [];
+    let epgLoaded = false;
+    let autoSubtitlePending = true;
+    let userInteractedSubtitle = false;
+
+    const videoPlayer      = document.getElementById('videoPlayer');
+    const channelList      = document.getElementById('channelList');
+    const epgOverlay       = document.getElementById('epgOverlay');
+    const epgTitle         = document.getElementById('epgTitle');
+    const epgDesc          = document.getElementById('epgDesc');
+    const epgTime          = document.getElementById('epgTime');
+    const epgNext          = document.getElementById('epgNext');
+    const subtitleSelect   = document.getElementById('subtitleSelect');
+    const loadingIndicator = document.getElementById('loadingIndicator');
+    const errorMsg         = document.getElementById('errorMsg');
+    const statusMsg        = document.getElementById('statusMsg');
+
+    const getUrl = (url) => USE_CORS_PROXY ? CORS_PROXY + encodeURIComponent(url) : url;
+    const setLoading = v => loadingIndicator.classList.toggle('visible', v);
+    const setStatus = v => { statusMsg.textContent = v; console.log('[STATUS]', v); };
+
+    function showError(msg) {
+        errorMsg.textContent = msg;
+        errorMsg.classList.add('visible');
+        setTimeout(() => errorMsg.classList.remove('visible'), 6000);
+    }
+
+    function normalizeKey(s) {
+        if (!s) return '';
+        return String(s).toLowerCase().replace(/[\s\-_.:()\[\]]+/g, '');
+    }
+
+    // ============================================================
+    // NETEJA DE TEXT EPG
+    // ============================================================
+    function cleanEPGText(str) {
+        if (!str) return '';
+        let t = String(str);
+        t = t.replace(/\[\/?(?:COLOR|COLOUR|SIZE|FONT|BG|BACKGROUND|SHADOW|GLOW)(?:[=\s][^\]]*)?\]/gi, '');
+        t = t.replace(/\[\/?(?:B|I|U|S|STRIKE|BR|P|CENTER|LEFT|RIGHT|JUSTIFY|HR|LIST|UL|OL|LI|QUOTE|CODE|SPOILER|SUB|SUP|TABLE|TR|TD|TH)\s*\]/gi, '');
+        t = t.replace(/\[\/?(?:HD|SD|UHD|4K|8K|AD|LIVE|LIVE\s*HD|NOVA|NOVETAT|ESTRENA|DIRECTE|DIRECTO|ENCORE|REEMISSIO|REEMISIÓN|NEW|PREMIERE)\s*\]/gi, '');
+        t = t.replace(/\[\/?[A-Za-z][A-Za-z0-9 _\-=#]*\]/g, '');
+        t = t.replace(/<\/?[a-z][^>]*>/gi, '');
+        t = t.replace(/&nbsp;/gi, ' ').replace(/&amp;/gi, '&').replace(/&lt;/gi, '<')
+             .replace(/&gt;/gi, '>').replace(/&quot;/gi, '"').replace(/&#39;/gi, "'");
+        t = t.replace(/\s+/g, ' ').trim();
+        return t;
+    }
+
+    // ============================================================
+    // PARSER M3U  (amb suport de #EXTVLCOPT)
+    // ============================================================
+    function parseM3U(text, baseUrl) {
+        const lines = text.split(/\r?\n/);
+        const result = [];
+        let info = {};
+        let pendingOpts = {};   // opcions EXTVLCOPT pendents del proper canal
+        const epgUrls = [];
+
+        const epgAttrRegex = /(?:x-tvg-url|url-tvg|tvg-url|epg-url|x-epg-url)\s*=\s*["']([^"']+)["']/gi;
+        for (let i = 0; i < Math.min(10, lines.length); i++) {
+            epgAttrRegex.lastIndex = 0;
+            let m;
+            while ((m = epgAttrRegex.exec(lines[i])) !== null) {
+                m[1].split(/[,\s]+/).forEach(u => {
+                    u = u.trim();
+                    if (u && !epgUrls.includes(u)) epgUrls.push(u);
+                });
+            }
+        }
+
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i].trim();
+
+            if (line.startsWith('#EXTINF:')) {
+                // Nova entrada: resetejar info i options
+                info = {};
+                pendingOpts = {};
+
+                const infoPart = line.substring(8);
+                const commaIdx = infoPart.indexOf(',');
+                const attrsPart = commaIdx !== -1 ? infoPart.substring(0, commaIdx) : infoPart;
+                const namePart = commaIdx !== -1 ? infoPart.substring(commaIdx + 1).trim() : '';
+
+                const attrs = {};
+                const re = /([\w-]+)\s*=\s*["']([^"']*)["']/g;
+                let m;
+                while ((m = re.exec(attrsPart)) !== null) attrs[m[1].toLowerCase()] = m[2];
+
+                info = {
+                    name: namePart || attrs['tvg-name'] || 'Canal',
+                    logo: attrs['tvg-logo'] || '',
+                    group: attrs['group-title'] || 'General',
+                    tvgId: attrs['tvg-id'] || '',
+                    tvgName: attrs['tvg-name'] || ''
+                };
+
+            } else if (line.startsWith('#EXTVLCOPT:')) {
+                // Capturar opcions VLC (User-Agent, Referrer, etc.)
+                let opt = line.substring(11).trim();
+                // Treure cometes si n'hi ha
+                if ((opt.startsWith('"') && opt.endsWith('"')) ||
+                    (opt.startsWith("'") && opt.endsWith("'"))) {
+                    opt = opt.slice(1, -1);
+                }
+                const mUA = opt.match(/^http-user-agent\s*=\s*(.+)$/i);
+                const mRef = opt.match(/^http-referrer\s*=\s*(.+)$/i);
+                const mOri = opt.match(/^http-origin\s*=\s*(.+)$/i);
+                const mCk = opt.match(/^http-cookie\s*=\s*(.+)$/i);
+                if (mUA)  pendingOpts.userAgent = mUA[1].trim();
+                if (mRef) pendingOpts.referrer  = mRef[1].trim();
+                if (mOri) pendingOpts.origin    = mOri[1].trim();
+                if (mCk)  pendingOpts.cookie    = mCk[1].trim();
+
+            } else if (line && !line.startsWith('#')) {
+                // URL del stream
+                if (info.name) {
+                    result.push({
+                        ...info,
+                        url: line,
+                        opts: { ...pendingOpts }
+                    });
+                    info = {};
+                    pendingOpts = {};
+                }
+            }
+        }
+        return { channels: result, epgUrls };
+    }
+
+    function buildEPGCandidates(epgUrls, m3uUrl) {
+        const candidates = [...epgUrls, ...EXTRA_EPG_URLS];
+        try {
+            const base = new URL(m3uUrl);
+            const dir = base.href.substring(0, base.href.lastIndexOf('/') + 1);
+            const m3uName = base.pathname.split('/').pop().replace(/\.m3u8?$/i, '');
+            candidates.push(dir + m3uName + '.xml');
+            candidates.push(dir + m3uName + '.xml.gz');
+            candidates.push(dir + m3uName + '-epg.xml');
+            candidates.push(dir + m3uName + '-epg.xml.gz');
+            candidates.push(dir + 'epg.xml');
+            candidates.push(dir + 'epg.xml.gz');
+            candidates.push(dir + 'guide.xml');
+            candidates.push(dir + 'tvguide.xml');
+        } catch (e) {}
+        try {
+            const base = new URL(m3uUrl);
+            const seen = new Set();
+            const out = [];
+            for (const u of candidates) {
+                let abs;
+                try { abs = new URL(u, base).href; } catch { abs = u; }
+                if (!seen.has(abs)) { seen.add(abs); out.push(abs); }
+            }
+            return out;
+        } catch {
+            return [...new Set(candidates)];
+        }
+    }
+
+    // ============================================================
+    // PARSER XMLTV
+    // ============================================================
+    function parseXMLTVDate(str) {
+        if (!str) return null;
+        const m = str.match(/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})(?:\s*([+-]\d{4}))?/);
+        if (!m) return null;
+        let iso = `${m[1]}-${m[2]}-${m[3]}T${m[4]}:${m[5]}:${m[6]}`;
+        if (m[7]) iso += m[7].substring(0,3) + ':' + m[7].substring(3);
+        else iso += 'Z';
+        return new Date(iso);
+    }
+
+    function getElementsByLocalName(root, localName) {
+        const out = [];
+        const all = root.getElementsByTagName('*');
+        const target = localName.toLowerCase();
+        for (let i = 0; i < all.length; i++) {
+            const el = all[i];
+            const ln = (el.localName || el.nodeName || '').toLowerCase();
+            const clean = ln.includes(':') ? ln.split(':').pop() : ln;
+            if (clean === target) out.push(el);
+        }
+        return out;
+    }
+
+    /**
+     * Descarrega i parseja un XMLTV. Retorna { channelMap, programmes, totalProgs }
+     * sense tocar els globals (per a fer el merge fora).
+     */
+    async function fetchAndParseEPG(url) {
+        const res = await fetch(getUrl(url));
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+
+        let xmlText;
+        const ct = res.headers.get('content-type') || '';
+        const lower = url.toLowerCase();
+        if (lower.endsWith('.gz') || ct.includes('gzip') || ct.includes('octet-stream')) {
+            const buf = await res.arrayBuffer();
+            const bytes = new Uint8Array(buf);
+            if (bytes[0] === 0x1f && bytes[1] === 0x8b) {
+                xmlText = pako.ungzip(bytes, { to: 'string' });
+            } else {
+                xmlText = new TextDecoder('utf-8').decode(bytes);
+            }
+        } else {
+            xmlText = await res.text();
+        }
+        if (!xmlText || xmlText.trim().length < 20) throw new Error('Contingut buit');
+
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(xmlText, 'text/xml');
+        if (doc.querySelector('parsererror')) throw new Error('XML invàlid');
+
+        const progs = getElementsByLocalName(doc, 'programme');
+        if (progs.length === 0) throw new Error('Cap <programme>');
+
+        // Mapa canal: display-name / id → id
+        const channelMap = {};
+        const chNodes = getElementsByLocalName(doc, 'channel');
+        for (const ch of chNodes) {
+            const id = ch.getAttribute('id');
+            if (!id) continue;
+            channelMap[normalizeKey(id)] = id;
+            const dns = getElementsByLocalName(ch, 'display-name');
+            for (const dn of dns) {
+                const nk = normalizeKey(dn.textContent);
+                if (nk) channelMap[nk] = id;
+            }
+        }
+
+        // Programes
+        const programmes = {};
+        for (const p of progs) {
+            const channelId = p.getAttribute('channel');
+            if (!channelId) continue;
+            const start = parseXMLTVDate(p.getAttribute('start'));
+            const stop  = parseXMLTVDate(p.getAttribute('stop'));
+            const tEls  = getElementsByLocalName(p, 'title');
+            const dEls  = getElementsByLocalName(p, 'desc');
+            const title = cleanEPGText(tEls[0] ? tEls[0].textContent : '');
+            const desc  = cleanEPGText(dEls[0] ? dEls[0].textContent : '');
+            if (!programmes[channelId]) programmes[channelId] = [];
+            programmes[channelId].push({ start, stop, title, desc });
+        }
+        return { channelMap, programmes, totalProgs: progs.length };
+    }
+
+    /**
+     * Carrega TOTS els candidats d'EPG i FUSIONA les dades.
+     */
+    async function loadEPG(candidates) {
+        setStatus(`Provant ${candidates.length} EPG(s)...`);
+        console.log('[EPG] Candidats:', candidates);
+
+        let totalOk = 0;
+        let totalProgs = 0;
+
+        for (const url of candidates) {
+            try {
+                console.log('[EPG] Provant:', url);
+                const r = await fetchAndParseEPG(url);
+
+                // Fusionar el mapa de canals
+                Object.assign(epgChannelMap, r.channelMap);
+
+                // Fusionar els programes
+                let added = 0;
+                for (const chId in r.programmes) {
+                    if (!epgData[chId]) epgData[chId] = [];
+                    epgData[chId].push(...r.programmes[chId]);
+                    added += r.programmes[chId].length;
+                }
+                totalOk++;
+                totalProgs += added;
+                console.log(`[EPG] ✓ ${url} → ${r.totalProgs} progs (${added} afegits)`);
+            } catch (e) {
+                console.warn('[EPG] ✗', url, '→', e.message);
+            }
+        }
+
+        // Ordenar i deduplicar cada canal
+        for (const chId of Object.keys(epgData)) {
+            epgData[chId].sort((a, b) => a.start - b.start);
+            const seen = new Set();
+            epgData[chId] = epgData[chId].filter(p => {
+                const key = `${p.start ? p.start.getTime() : 'x'}_${p.stop ? p.stop.getTime() : 'x'}_${p.title}`;
+                if (seen.has(key)) return false;
+                seen.add(key);
+                return true;
+            });
+        }
+
+        if (totalOk > 0) {
+            epgLoaded = true;
+            const nCh = Object.keys(epgData).length;
+            setStatus(`EPG fusionat: ${totalOk} fonts / ${nCh} canals`);
+            console.log('[EPG] Exemple d\'ids:', Object.keys(epgData).slice(0, 10));
+            if (currentChannel) showEPG(currentChannel, 8000);
+            return true;
+        } else {
+            setStatus('EPG no disponible a cap URL');
+            return false;
+        }
+    }
+
+    // ============================================================
+    // MATCHING EPG ↔ CANAL
+    // ============================================================
+    function findEPGList(channel) {
+        if (!channel) return null;
+        for (const key of [channel.tvgId, channel.tvgName, channel.name]) {
+            if (key && epgData[key]) return epgData[key];
+        }
+        const normKeys = [channel.tvgId, channel.tvgName, channel.name]
+            .filter(Boolean).map(normalizeKey);
+        for (const epgKey of Object.keys(epgData)) {
+            if (normKeys.includes(normalizeKey(epgKey))) return epgData[epgKey];
+        }
+        for (const k of normKeys) {
+            const mappedId = epgChannelMap[k];
+            if (mappedId && epgData[mappedId]) return epgData[mappedId];
+        }
+        for (const epgKey of Object.keys(epgData)) {
+            const nk = normalizeKey(epgKey);
+            if (!nk) continue;
+            for (const k of normKeys) {
+                if (k && (nk.includes(k) || k.includes(nk))) return epgData[epgKey];
+            }
+        }
+        return null;
+    }
+
+    function getCurrentProgramme(channel) {
+        const list = findEPGList(channel);
+        if (!list || list.length === 0) return { current: null, next: null };
+        const now = new Date();
+        let current = null, next = null;
+        for (let i = 0; i < list.length; i++) {
+            const p = list[i];
+            if (p.start && p.stop && now >= p.start && now < p.stop) {
+                current = p;
+                next = list[i + 1] || null;
+                break;
+            }
+            if (p.start && p.start > now && !next) {
+                next = p;
+                break;
+            }
+        }
+        return { current, next };
+    }
+
+    function fmtTime(d) {
+        if (!d) return '--:--';
+        return d.toLocaleTimeString('ca-ES', { hour: '2-digit', minute: '2-digit' });
+    }
+
+    // ============================================================
+    // MOSTRAR EPG
+    // ============================================================
+    function showEPG(channel, duration) {
+        if (!channel) return;
+        if (epgHideTimeout) clearTimeout(epgHideTimeout);
+
+        const { current, next } = getCurrentProgramme(channel);
+
+        if (current) {
+            epgTitle.textContent = cleanEPGText(current.title) || channel.name;
+            epgDesc.textContent  = cleanEPGText(current.desc) || '';
+            epgTime.textContent  = `🕐 ${fmtTime(current.start)} - ${fmtTime(current.stop)}`;
+        } else if (epgLoaded) {
+            epgTitle.textContent = channel.name;
+            epgDesc.textContent  = 'Sense informació EPG per a aquest canal.';
+            epgTime.textContent  = '';
+        } else {
+            epgTitle.textContent = channel.name;
+            epgDesc.textContent  = 'Carregant EPG...';
+            epgTime.textContent  = '';
+        }
+
+        epgNext.textContent = next
+            ? `▶ A continuació (${fmtTime(next.start)}): ${cleanEPGText(next.title)}`
+            : '';
+
+        epgOverlay.classList.add('visible');
+        epgHideTimeout = setTimeout(() => {
+            epgOverlay.classList.remove('visible');
+        }, duration || 6000);
+    }
+
+    function startEPGRefresh(channel) {
+        if (epgUpdateInterval) clearInterval(epgUpdateInterval);
+        epgUpdateInterval = setInterval(() => {
+            if (currentChannel && epgOverlay.classList.contains('visible')) {
+                showEPG(currentChannel, 6000);
+            }
+        }, 60000);
+    }
+
+    epgOverlay.addEventListener('mouseenter', () => {
+        if (epgHideTimeout) { clearTimeout(epgHideTimeout); epgHideTimeout = null; }
+    });
+    epgOverlay.addEventListener('mouseleave', () => {
+        if (!epgHideTimeout) {
+            epgHideTimeout = setTimeout(() => epgOverlay.classList.remove('visible'), 3000);
+        }
+    });
+
+    // ============================================================
+    // LLISTA DE CANALS
+    // ============================================================
+    function renderChannels(list) {
+        channelList.innerHTML = '';
+        if (list.length === 0) {
+            channelList.innerHTML = '<p style="color:#666;text-align:center;padding:20px;">No hi ha canals.</p>';
+            return;
+        }
+        list.forEach(ch => {
+            const btn = document.createElement('button');
+            btn.className = 'channel-btn';
+            const img = document.createElement('img');
+            img.src = ch.logo || 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"><rect width="40" height="40" fill="%23333"/><text x="50%" y="55%" text-anchor="middle" fill="%23888" font-size="14">TV</text></svg>';
+            img.alt = ch.name;
+            img.onerror = () => { img.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"><rect width="40" height="40" fill="%23333"/><text x="50%" y="55%" text-anchor="middle" fill="%23888" font-size="14">TV</text></svg>'; };
+            const infoDiv = document.createElement('div');
+            infoDiv.className = 'channel-info';
+            const nameSpan = document.createElement('span');
+            nameSpan.className = 'channel-name';
+            nameSpan.textContent = ch.name;
+            const groupSpan = document.createElement('span');
+            groupSpan.className = 'channel-group';
+            groupSpan.textContent = ch.group + (ch.opts && Object.keys(ch.opts).length ? ' 🔒' : '');
+            infoDiv.appendChild(nameSpan);
+            infoDiv.appendChild(groupSpan);
+            btn.appendChild(img);
+            btn.appendChild(infoDiv);
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.channel-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                playChannel(ch);
+            });
+            channelList.appendChild(btn);
+        });
+    }
+
+    // ============================================================
+    // REPRODUCCIÓ (amb capçaleres per canal via xhrSetup)
+    // ============================================================
+    function buildXhrSetup(channel) {
+        const opts = (channel && channel.opts) || {};
+        return function (xhr) {
+            try {
+                if (opts.userAgent) xhr.setRequestHeader('User-Agent', opts.userAgent);
+                if (opts.referrer)  xhr.setRequestHeader('Referer',    opts.referrer);
+                if (opts.origin)    xhr.setRequestHeader('Origin',     opts.origin);
+                if (opts.cookie)    xhr.setRequestHeader('Cookie',     opts.cookie);
+            } catch (e) {
+                // El navegador pot bloquejar certes capçaleres
+                console.warn('No s\'han pogut afegir totes les capçaleres:', e);
+            }
+        };
+    }
+
+    function playChannel(channel) {
+        currentChannel = channel;
+        autoSubtitlePending = true;
+        userInteractedSubtitle = false;
+        resetSubtitleUI();
+        setLoading(true);
+        errorMsg.classList.remove('visible');
+
+        if (hls) { hls.destroy(); hls = null; }
+
+        const streamUrl = getUrl(channel.url);
+        showEPG(channel, 8000);
+        startEPGRefresh(channel);
+
+        const hasOpts = channel.opts && Object.keys(channel.opts).length > 0;
+        if (hasOpts) {
+            console.log('[STREAM] Capçaleres per a', channel.name, channel.opts);
+        }
+
+        if (Hls.isSupported()) {
+            hls = new Hls({
+                enableCEA708Captions: true,
+                enableWebVTT: true,
+                renderTextTracksNatively: true,
+                maxBufferLength: 30,
+                maxMaxBufferLength: 60,
+                xhrSetup: buildXhrSetup(channel),
+            });
+            hls.loadSource(streamUrl);
+            hls.attachMedia(videoPlayer);
+
+            hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                setLoading(false);
+                videoPlayer.play().catch(() => {});
+                setTimeout(updateSubtitleUI, 500);
+            });
+            hls.on(Hls.Events.SUBTITLE_TRACKS_UPDATED, () => {
+                console.log('[SUBS] HLS tracks:', hls.subtitleTracks);
+                updateSubtitleUI();
+            });
+            hls.on(Hls.Events.ERROR, (e, data) => {
+                setLoading(false);
+                console.error('Error HLS:', data);
+                if (data.fatal) {
+                    if (data.type === Hls.ErrorTypes.NETWORK_ERROR) {
+                        if (hasOpts) {
+                            showError('Error de xarxa. Aquest canal requereix capçaleres (User-Agent/Referer). Prova amb un proxy CORS que les admeti.');
+                        } else {
+                            showError('Error de xarxa. Prova amb el proxy CORS activat.');
+                        }
+                    } else if (data.type === Hls.ErrorTypes.MEDIA_ERROR) {
+                        showError('Error de mitjans. Format no compatible.');
+                    } else {
+                        showError('Error desconegut.');
+                    }
+                }
+            });
+        } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+            // Safari: no podem afegir capçaleres personalitzades
+            videoPlayer.src = streamUrl;
+            videoPlayer.addEventListener('loadedmetadata', () => {
+                setLoading(false);
+                videoPlayer.play().catch(() => {});
+                setTimeout(updateSubtitleUI, 500);
+            }, { once: true });
+        } else {
+            setLoading(false);
+            showError('El navegador no suporta HLS.');
+        }
+    }
+
+    // ============================================================
+    // SUBTÍTOLS
+    // ============================================================
+    function resetSubtitleUI() {
+        subtitleSelect.innerHTML = '<option value="-1">💬 Subtítols: Off</option>';
+        subtitleSelect.disabled = false;
+    }
+
+    function updateSubtitleUI() {
+        const tracks = [];
+        if (hls && hls.subtitleTracks && hls.subtitleTracks.length > 0) {
+            hls.subtitleTracks.forEach((t, i) => {
+                tracks.push({ id: `hls-${i}`, label: t.name || t.lang || `Pista ${i + 1}` });
+            });
+        }
+        const nativeTracks = videoPlayer.textTracks;
+        if (nativeTracks) {
+            for (let i = 0; i < nativeTracks.length; i++) {
+                const t = nativeTracks[i];
+                if (t.kind === 'subtitles' || t.kind === 'captions') {
+                    const label = t.label || t.language || `Pista ${i + 1}`;
+                    if (!tracks.some(x => x.label === label)) {
+                        tracks.push({ id: `native-${i}`, label });
+                    }
+                }
+            }
+        }
+        const prevVal = subtitleSelect.value;
+        subtitleSelect.innerHTML = '<option value="-1">💬 Subtítols: Off</option>';
+        tracks.forEach(t => {
+            const opt = document.createElement('option');
+            opt.value = t.id;
+            opt.textContent = t.label;
+            subtitleSelect.appendChild(opt);
+        });
+        if (tracks.length === 0) {
+            subtitleSelect.disabled = true;
+            subtitleSelect.innerHTML = '<option>💬 Sense subtítols</option>';
+            return;
+        }
+        subtitleSelect.disabled = false;
+        if (prevVal && subtitleSelect.querySelector(`option[value="${prevVal}"]`)) {
+            subtitleSelect.value = prevVal;
+        }
+        if (autoSubtitlePending && !userInteractedSubtitle && tracks.length > 0) {
+            autoSubtitlePending = false;
+            subtitleSelect.value = tracks[0].id;
+            applySubtitle(tracks[0].id);
+            console.log('[SUBS] Auto-activat:', tracks[0].label);
+        }
+    }
+
+    function applySubtitle(val) {
+        if (hls) { hls.subtitleTrack = -1; hls.subtitleDisplay = false; }
+        const nt = videoPlayer.textTracks;
+        if (nt) {
+            for (let i = 0; i < nt.length; i++) {
+                if (nt[i].kind === 'subtitles' || nt[i].kind === 'captions') nt[i].mode = 'disabled';
+            }
+        }
+        if (val === '-1' || !val) return;
+        const [src, idxStr] = val.split('-');
+        const idx = parseInt(idxStr, 10);
+        if (src === 'hls' && hls) {
+            hls.subtitleTrack = idx;
+            hls.subtitleDisplay = true;
+        } else if (src === 'native') {
+            const t = videoPlayer.textTracks[idx];
+            if (t) t.mode = 'showing';
+        }
+    }
+
+    subtitleSelect.addEventListener('change', e => {
+        userInteractedSubtitle = true;
+        autoSubtitlePending = false;
+        applySubtitle(e.target.value);
+    });
+
+    videoPlayer.textTracks.addEventListener('addtrack', () => setTimeout(updateSubtitleUI, 300));
+    videoPlayer.textTracks.addEventListener('removetrack', () => setTimeout(updateSubtitleUI, 300));
+
+    // ============================================================
+    // INICIALITZACIÓ
+    // ============================================================
+    async function init() {
+        try {
+            setLoading(true);
+            setStatus('Carregant llista M3U...');
+            const res = await fetch(getUrl(M3U_URL));
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            const text = await res.text();
+
+            console.log('=== PRIMERES LÍNIES DEL M3U ===');
+            text.split(/\r?\n/).slice(0, 5).forEach((l, i) => console.log(i, l));
+            console.log('================================');
+
+            const parsed = parseM3U(text, M3U_URL);
+            channels = parsed.channels;
+            console.log(`[M3U] ${channels.length} canals.`);
+            console.log('[M3U] URLs EPG a l\'M3U:', parsed.epgUrls);
+            const ambOpts = channels.filter(c => c.opts && Object.keys(c.opts).length);
+            console.log(`[M3U] ${ambOpts.length} canals amb #EXTVLCOPT`);
+
+            renderChannels(channels);
+
+            const candidates = buildEPGCandidates(parsed.epgUrls, M3U_URL);
+            if (candidates.length > 0) loadEPG(candidates);
+
+            if (channels.length > 0) {
+                const firstBtn = document.querySelector('.channel-btn');
+                if (firstBtn) firstBtn.classList.add('active');
+                playChannel(channels[0]);
+            }
+        } catch (e) {
+            console.error(e);
+            setLoading(false);
+            showError('No s\'ha pogut carregar la llista M3U. Prova amb el proxy CORS.');
+            channelList.innerHTML = '<p style="color:#666;text-align:center;padding:20px;">Error carregant canals.</p>';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+    window.addEventListener('beforeunload', () => {
+        if (hls) hls.destroy();
+        if (epgUpdateInterval) clearInterval(epgUpdateInterval);
+    });
+    </script>
+</body>
+</html>
