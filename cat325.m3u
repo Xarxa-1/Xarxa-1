@@ -1021,5 +1021,25 @@ http://41.205.93.154/USA_STARZ_COMEDY/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-id="tv3" tvg-name="TV3" tvg-logo="https://www.tvinsider.com/wp-content/uploads/2023/08/5-star-max.png" tvg-id="5StarMax.us" group-title="USA",5StarMax
 http://23.237.104.106:8080/USA_5STARMAX/tracks-v1a1/mono.m3u8
 
+#EXTM3U
+
+#EXTINF:-1 tvg-id="USA_STARZ_CINEMA" tvg-name="USA Starz Cinema" tvg-logo="https://logo.clearbit.com/starz.com" group-title="Movies",USA Starz Cinema
+http://23.237.104.106:8080/USA_STARZ_CINEMA/index.m3u8
+
+#EXTINF:-1 tvg-id="starzcinema" tvg-name="Starz Cinema" tvg-logo="https://logo.clearbit.com/starz.com" group-title="Movies",Starz Cinema
+http://4.30.180.36:8420/starzcinema/index.m3u8?token=test
+
+#EXTINF:-1 tvg-id="starz" tvg-name="Starz" tvg-logo="https://logo.clearbit.com/starz.com" group-title="Movies",Starz
+http://4.30.180.36:8420/starz/index.m3u8?token=test
+
+#EXTINF:-1 tvg-id="USA_STARZ_COMEDY" tvg-name="USA Starz Comedy" tvg-logo="https://logo.clearbit.com/starz.com" group-title="Movies",USA Starz Comedy
+http://23.237.104.106:8080/USA_STARZ_COMEDY/index.m3u8
+
+#EXTINF:-1 tvg-id="USA_STARZ_FAMILY" tvg-name="USA Starz Family" tvg-logo="https://logo.clearbit.com/starz.com" group-title="Movies",USA Starz Family
+http://23.237.104.106:8080/USA_STARZ_FAMILY/index.m3u8
+
+#EXTINF:-1 tvg-id="StudioUniversalHD" tvg-name="Studio Universal HD" tvg-logo="https://logo.clearbit.com/universalstudios.com" group-title="Movies",Studio Universal HD
+http://15.204.246.24:8080/StudioUniversalHD/index.m3u8
+
 #EXTINF:-1 tvg-id="" tvg-name="Càmares" tvg-logo="https://i.imgur.com/zXy2kbe.png" group-title="Catalunya",Càmares
 https://directes-tv-int.3catdirectes.cat/live-content/beauties-hls/bitrate_3.m3u8
