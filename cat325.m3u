@@ -45,7 +45,7 @@ https://directes-tv-es.3catdirectes.cat/live-content/tem1-hls/master.m3u8
 https://daiconnect.com/live/hls/tvup/rt-cv/.m3u8
 
 
-#EXTINF:-1 tvg-id="sx3" tvg-name="sx3" tvg-logo="https://graph.facebook.com/SomSX3/picture?width=200&height=200" group-title="Catalunya",SX3
+#EXTINF:-1 tvg-id="super3" tvg-name="super3" tvg-logo="https://graph.facebook.com/SomSX3/picture?width=200&height=200" group-title="Catalunya",SX3
 https://directes-tv-cat.3catdirectes.cat/live-content/super3-hls/master.m3u8
 
 #EXTINF:-1 tvg-id="STAR Channel.es" tvg-logo="https://i.imgur.com/a8w1QRn.png" group-title="Internacionals",Star TVE
