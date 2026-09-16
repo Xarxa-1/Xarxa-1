@@ -670,9 +670,6 @@ http://23.237.104.106:8080/USA_NAT_GEO/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-id="ParamountNetwork.us" group-title="USA",Paramount Network
 http://23.237.104.106:8080/USA_PARAMOUNT_NETWORK/tracks-v1a1/mono.m3u8
 
-#EXTINF:-1 tvg-id="Starz.us" group-title="USA",Starz
-http://23.237.104.106:8080/USA_STARZ/tracks-v1a1/mono.m3u8
-
 #EXTINF:-1 tvg-id="StarzCinema.us" group-title="USA" tvg-logo="http://primestreamstv.com/logos/STARZ%20Cinema.png",Starz Cinema
 http://23.237.104.106:8080/USA_STARZ_CINEMA/tracks-v1a1/mono.m3u8
 
@@ -791,18 +788,6 @@ https://d39accvx65hq9o.cloudfront.net/Womens_Sports_Network480.m3u8
 #EXTINF:-1 tvg-id="SHOWTIME_FAMILY" group-title="International", SHOWTIME_FAMILY
 http://23.237.104.106:8080/USA_SHOWTIME_FAMILY/tracks-v1a1/mono.m3u8
 
-#EXTINF:-1 tvg-id="STARZ" group-title="International" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg", STARZ
-http://23.237.104.106:8080/USA_STARZ/tracks-v1a1/mono.m3u8
-
-#EXTINF:-1 tvg-id="STARZ_CINEMA" group-title="International" tvg-logo="https://pbs.twimg.com/profile_images/480130586296610816/WbxlEGVN_400x400.png", STARZ_CINEMA
-http://23.237.104.106:8080/USA_STARZ_CINEMA/tracks-v1a1/mono.m3u8
-
-#EXTINF:-1 tvg-id="STARZ_COMEDY" group-title="International" tvg-logo="https://pbs.twimg.com/profile_images/1575474245924278274/FSBixs2O_400x400.jpg", STARZ_COMEDY
-http://23.237.104.106:8080/USA_STARZ_COMEDY/tracks-v1a1/mono.m3u8
-
-#EXTINF:-1 tvg-id="STARZ_COMEDY" group-title="International" tvg-logo="https://pbs.twimg.com/profile_images/1575474245924278274/FSBixs2O_400x400.jpg", STARZ_COMEDY
-http://41.205.93.154/USA_STARZ_COMEDY/tracks-v1a1/mono.m3u8
-
 #EXTINF:-1 tvg-id="TMC" group-title="International", USA_SHOWTIME_FAMILY
 http://23.237.104.106:8080/USA_SHOWTIME_FAMILY/tracks-v1a1/mono.m3u8 
 
@@ -843,46 +828,6 @@ https://amg00793-amg00793c40-rakuten-es-5444.playouts.now.amagi.tv/playlist.m3u8
 # #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 VLC/3.0.21 LibVLC/3.0.21
 # https://7nyaler.streamhostingcdn.top/stream/36/index.m3u8
 
-#EXTINF:-1 tvg-id="TheChatShowChanne" tvg-logo="https://yt3.googleusercontent.com/aQ_vvywmcBt4X1SmeEMgT3uf7bb1Z__I9XVwabeg7RrSSEuIhswMlvwhyi0Wl4PlLHwXufLgOg=s900-c-k-c0x00ffffff-no-rj",TheChatShowChanne
-https://amg00426-littledotstudio-thechatshow-samsungnz-uqmtt.amagi.tv/ts-eu-w1-n2/playlist/amg00426-littledotstudio-thechatshow-samsungnz/cb563b176573608884cc3f78d9f362ffa65928d80b6c852a6ab454876da64607d1e3b680fd358b785d9f01de6a1a0a080361cf12ce3407c3c76ad91174204213cfcac9229d86170ab5c60c2c3aab016635837209c0790a79dca93d0d8636ba304530e01b615b37c2ec5cac6852db80148b6f4adafb8c2360625f5c98435ee3b24aa6f8b55410dc69a4ac4d49922958e68314c8c915ed81d1469645d070a71c9496a28fd610e03fa0598b6f33cbf039521ce3e25ca08b3885ca9b6037ee0042243b60966f17632c46e062564ef7efcec50897d40b5744f3061aba048a468072fb036ecc79803cc2809fa5246c38a0d6526565d08d6118185641dc4b81c4c4dc776e90f25e1f2dac3f8072796fc2bea371f530dc74870ad09049645fff6969ee71df23a5dda85f8e2adac2bbb53c465c6a00384b3cc89540d433d474a4cf5c74121d04e5ad5cca82d649232261b2c00f845d4be29bbc8ad1586f9120030cbc29997a157cc0315b79e706f08e7339da7144d6637db3731db46fd0f46cf9aed0e0461cb0ddcc4db62fccbd18ddfb07e63c69084ce3bc7c11150c4ed1e8671f39369616b39d99b7057c6a86c0c4f0c45c2f147946027eecccd330cade8e796755ab35016f7b171b937ea64ad712460d2b8953939b007a8109363ea4c01b58496782c7a18be4879b1d551e5862218d49893667518c3425020d3bb48011c1a724/119/1920x1080_6046040/index.m3u8
-
-#EXTINF:-1 tvg-id="World" tvg-name="World" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg" group-title="UK",World Channel
-https://world.lls.pbs.org/index_1080p.m3u8
-#EXTINF:-1 tvg-name="Drybar Comedy" tvg-logo="https://i.imgur.com/EldlmTp.png" tvg-id="DryBarComedy.us" tvg-chno="2" tvg-country="US" group-title="USA",Drybar Comedy
-https://drybar-drybarcomedy-1-us.samsung.wurl.tv/playlist.m3u8
-#EXTINF:-1 tvg-id="Comedy Central" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Comedy_Central_2018.svg/960px-Comedy_Central_2018.svg.png" group-title="Comedy",Comedy Central
-http://23.237.104.106:8080/USA_COMEDY_CENTRAL/index.m3u8
-
-#EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/2058691325277708288/YvwngIub_400x400.jpg"  group-title="Cooking",BBC Food
-https://d74d877d.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/Vml6aW9fQkJDRm9vZF9ITFM/playlist.m3u8
-
-#EXTINF:-1 tvg-id="starz-stz3" tvg-name="USA_STARZ_EDGE" tvg-logo="https://pbs.twimg.com/profile_images/1866954913818804224/ZiC0-rs0_400x400.jpg" group-title="USA",USA STARZ Edge prova
-http://23.237.104.106:8080/USA_STARZ_EDGE/tracks-v1a1/mono.m3u8
-
-#EXTINF:-1 tvg-id="starz-stz6" tvg-name="USA_STARZ_KIDS_FAMILY" tvg-logo="https://pbs.twimg.com/profile_images/1866954913818804224/ZiC0-rs0_400x400.jpg" group-title="USA",USA STARZ Kids & Family prova
-http://23.237.104.106:8080/USA_STARZ_KIDS_FAMILY/tracks-v1a1/mono.m3u8
-
-#EXTINF:-1 tvg-id="starz-stz7" tvg-name="USA_STARZ_CINEMA" tvg-logo="https://pbs.twimg.com/profile_images/1866954913818804224/ZiC0-rs0_400x400.jpg" group-title="USA",USA STARZ Cinema prova
-http://23.237.104.106:8080/USA_STARZ_CINEMA/tracks-v1a1/mono.m3u8
-#EXTINF:-1 tvg-id="Starz.us@East" tvg-name="USA_STARZ_CINEMA" tvg-logo="https://pbs.twimg.com/profile_images/1866954913818804224/ZiC0-rs0_400x400.jpg" group-title="USA",USA STARZ Cinema East
-http://23.237.104.106:8080/USA_STARZ_CINEMA/tracks-v1a1/mono.m3u8
-
-
-#EXTINF:-1 tvg-id="starz-stz8" tvg-name="USA_STARZ_COMEDY" tvg-logo="https://pbs.twimg.com/profile_images/1866954913818804224/ZiC0-rs0_400x400.jpg" group-title="USA",USA STARZ Comedy prova
-http://23.237.104.106:8080/USA_STARZ_COMEDY/tracks-v1a1/mono.m3u8
-#EXTINF:-1 tvg-id="starz-stz9" tvg-name="USA_STARZ_ENCORE" tvg-logo="https://pbs.twimg.com/profile_images/1866954913818804224/ZiC0-rs0_400x400.jpg" group-title="USA",USA STARZ Encore prova
-http://23.237.104.106:8080/USA_STARZ_ENCORE/tracks-v1a1/mono.m3u8
-
-
-#EXTINF:-1 tvg-id="5StarMax.us" group-title="USA",5StarMax
-http://23.237.104.106:8080/USA_5STARMAX/tracks-v1a1/mono.m3u8
-
-
-#EXTINF:-1 tvg-id="starz-stz7" tvg-logo="https://i.imgur.com/N7oSm4d.png" group-title="Undefined",Starz Comdey
-http://23.237.104.106:8080/USA_STARZ_COMEDY/tracks-v1a1/mono.m3u8
-
-#EXTINF:-1 tvg-id="starz-stz1" tvg-name="USA_STARZ" tvg-logo="https://pbs.twimg.com/profile_images/1866954913818804224/ZiC0-rs0_400x400.jpg" group-title="USA",USA STARZ
-http://23.237.104.106:8080/USA_STARZ/tracks-v1a1/mono.m3u8
 
 http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/38459
 #EXTINF:-1 tvg-ID="" tvg-name="BEIN SPORTS 1 (Australia)" tvg-logo="http://primestreamstv.com/logos/BeIN%20Sports%201%20HD.png" group-title="SPORTS NETWORKS",BEIN SPORTS 1 (Australia)
@@ -1013,11 +958,68 @@ http://23.237.104.106:8080/USA_WE_TV/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-chno="160" tvg-id="Yes.Network.us" tvg-name="YES Network" tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s30017_dark_360w_270h.png" group-title="TV",YES Network
 http://23.237.104.106:8080/USA_YES_NETWORK/tracks-v1a1/mono.m3u8
 
-#EXTINF:-1 ,Sports Grid
+#EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1345005279285551105/nd676AiJ_400x400.png" ,Sports Grid
 https://sportsgrid-tribal.amagi.tv/playlist1080p.m3u8
 
 #EXTINF:-1 tvg-chno="33" tvg-id="Comet.us" tvg-name="Comet TV" tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s97051_dark_360w_270h.png" group-title="TV",Comet TV
 https://fast-channels.sinclairstoryline.com/COMET/index.m3u8
+
+#EXTINF:-1 tvg-id="TheChatShowChanne" tvg-logo="https://yt3.googleusercontent.com/aQ_vvywmcBt4X1SmeEMgT3uf7bb1Z__I9XVwabeg7RrSSEuIhswMlvwhyi0Wl4PlLHwXufLgOg=s900-c-k-c0x00ffffff-no-rj",TheChatShowChanne
+https://amg00426-littledotstudio-thechatshow-samsungnz-uqmtt.amagi.tv/ts-eu-w1-n2/playlist/amg00426-littledotstudio-thechatshow-samsungnz/cb563b176573608884cc3f78d9f362ffa65928d80b6c852a6ab454876da64607d1e3b680fd358b785d9f01de6a1a0a080361cf12ce3407c3c76ad91174204213cfcac9229d86170ab5c60c2c3aab016635837209c0790a79dca93d0d8636ba304530e01b615b37c2ec5cac6852db80148b6f4adafb8c2360625f5c98435ee3b24aa6f8b55410dc69a4ac4d49922958e68314c8c915ed81d1469645d070a71c9496a28fd610e03fa0598b6f33cbf039521ce3e25ca08b3885ca9b6037ee0042243b60966f17632c46e062564ef7efcec50897d40b5744f3061aba048a468072fb036ecc79803cc2809fa5246c38a0d6526565d08d6118185641dc4b81c4c4dc776e90f25e1f2dac3f8072796fc2bea371f530dc74870ad09049645fff6969ee71df23a5dda85f8e2adac2bbb53c465c6a00384b3cc89540d433d474a4cf5c74121d04e5ad5cca82d649232261b2c00f845d4be29bbc8ad1586f9120030cbc29997a157cc0315b79e706f08e7339da7144d6637db3731db46fd0f46cf9aed0e0461cb0ddcc4db62fccbd18ddfb07e63c69084ce3bc7c11150c4ed1e8671f39369616b39d99b7057c6a86c0c4f0c45c2f147946027eecccd330cade8e796755ab35016f7b171b937ea64ad712460d2b8953939b007a8109363ea4c01b58496782c7a18be4879b1d551e5862218d49893667518c3425020d3bb48011c1a724/119/1920x1080_6046040/index.m3u8
+
+#EXTINF:-1 tvg-id="World" tvg-name="World" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg" group-title="UK",World Channel
+https://world.lls.pbs.org/index_1080p.m3u8
+
+#EXTINF:-1 tvg-name="Drybar Comedy" tvg-logo="https://i.imgur.com/EldlmTp.png" tvg-id="DryBarComedy.us" tvg-chno="2" tvg-country="US" group-title="USA",Drybar Comedy
+https://drybar-drybarcomedy-1-us.samsung.wurl.tv/playlist.m3u8
+
+#EXTINF:-1 tvg-id="Comedy Central" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Comedy_Central_2018.svg/960px-Comedy_Central_2018.svg.png" group-title="Comedy",Comedy Central
+http://23.237.104.106:8080/USA_COMEDY_CENTRAL/index.m3u8
+
+#EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/2058691325277708288/YvwngIub_400x400.jpg"  group-title="Cooking",BBC Food
+https://d74d877d.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/Vml6aW9fQkJDRm9vZF9ITFM/playlist.m3u8
+
+#EXTINF:-1 tvg-id="starz-stz1" tvg-name="USA_STARZ" tvg-logo="https://pbs.twimg.com/profile_images/1866954913818804224/ZiC0-rs0_400x400.jpg" group-title="USA",USA STARZ
+http://23.237.104.106:8080/USA_STARZ/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="starz-stz3" tvg-name="USA_STARZ_EDGE" tvg-logo="https://pbs.twimg.com/profile_images/1866954913818804224/ZiC0-rs0_400x400.jpg" group-title="USA",USA STARZ Edge prova
+http://23.237.104.106:8080/USA_STARZ_EDGE/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="starz-stz6" tvg-name="USA_STARZ_KIDS_FAMILY" tvg-logo="https://pbs.twimg.com/profile_images/1866954913818804224/ZiC0-rs0_400x400.jpg" group-title="USA",USA STARZ Kids & Family prova
+http://23.237.104.106:8080/USA_STARZ_KIDS_FAMILY/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="starz-stz7" tvg-name="USA_STARZ_CINEMA" tvg-logo="https://pbs.twimg.com/profile_images/1866954913818804224/ZiC0-rs0_400x400.jpg" group-title="USA",USA STARZ Cinema prova
+http://23.237.104.106:8080/USA_STARZ_CINEMA/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="Starz.us@East" tvg-name="USA_STARZ_CINEMA" tvg-logo="https://pbs.twimg.com/profile_images/1866954913818804224/ZiC0-rs0_400x400.jpg" group-title="USA",USA STARZ Cinema East
+http://23.237.104.106:8080/USA_STARZ_CINEMA/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="STARZ_CINEMA" group-title="International" tvg-logo="https://pbs.twimg.com/profile_images/480130586296610816/WbxlEGVN_400x400.png", STARZ_CINEMA
+http://23.237.104.106:8080/USA_STARZ_CINEMA/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="starz-stz8" tvg-name="USA_STARZ_COMEDY" tvg-logo="https://pbs.twimg.com/profile_images/1866954913818804224/ZiC0-rs0_400x400.jpg" group-title="USA",USA STARZ Comedy prova
+http://23.237.104.106:8080/USA_STARZ_COMEDY/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="starz-stz7" tvg-logo="https://i.imgur.com/N7oSm4d.png" group-title="Undefined",Starz Comdey
+http://23.237.104.106:8080/USA_STARZ_COMEDY/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="STARZ_COMEDY" group-title="International" tvg-logo="https://pbs.twimg.com/profile_images/1575474245924278274/FSBixs2O_400x400.jpg", STARZ_COMEDY
+http://23.237.104.106:8080/USA_STARZ_COMEDY/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="starz-stz9" tvg-name="USA_STARZ_ENCORE" tvg-logo="https://pbs.twimg.com/profile_images/1866954913818804224/ZiC0-rs0_400x400.jpg" group-title="USA",USA STARZ Encore prova
+http://23.237.104.106:8080/USA_STARZ_ENCORE/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="Starz.us" group-title="USA",Starz
+http://23.237.104.106:8080/USA_STARZ/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="STARZ" group-title="International" tvg-logo="https://pbs.twimg.com/profile_images/2033579985274040320/3e5eJ3-L_400x400.jpg", STARZ
+http://23.237.104.106:8080/USA_STARZ/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="STARZ_COMEDY" group-title="International" tvg-logo="https://pbs.twimg.com/profile_images/1575474245924278274/FSBixs2O_400x400.jpg", STARZ_COMEDY
+http://41.205.93.154/USA_STARZ_COMEDY/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-logo="https://www.tvinsider.com/wp-content/uploads/2023/08/5-star-max.png" tvg-id="5StarMax.us" group-title="USA",5StarMax
+http://23.237.104.106:8080/USA_5STARMAX/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Càmares" tvg-logo="https://i.imgur.com/zXy2kbe.png" group-title="Catalunya",Càmares
 https://directes-tv-int.3catdirectes.cat/live-content/beauties-hls/bitrate_3.m3u8
