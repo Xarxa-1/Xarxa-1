@@ -1018,7 +1018,7 @@ http://23.237.104.106:8080/USA_STARZ/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-id="STARZ_COMEDY" group-title="International" tvg-logo="https://pbs.twimg.com/profile_images/1575474245924278274/FSBixs2O_400x400.jpg", STARZ_COMEDY
 http://41.205.93.154/USA_STARZ_COMEDY/tracks-v1a1/mono.m3u8
 
-#EXTINF:-1 tvg-logo="https://www.tvinsider.com/wp-content/uploads/2023/08/5-star-max.png" tvg-id="5StarMax.us" group-title="USA",5StarMax
+#EXTINF:-1 tvg-id="tv3" tvg-name="TV3" tvg-logo="https://www.tvinsider.com/wp-content/uploads/2023/08/5-star-max.png" tvg-id="5StarMax.us" group-title="USA",5StarMax
 http://23.237.104.106:8080/USA_5STARMAX/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Càmares" tvg-logo="https://i.imgur.com/zXy2kbe.png" group-title="Catalunya",Càmares
