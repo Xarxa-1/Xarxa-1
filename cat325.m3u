@@ -1037,8 +1037,11 @@ http://23.237.104.106:8080/USA_STARZ_COMEDY/index.m3u8
 #EXTINF:-1 tvg-id="USA_STARZ_FAMILY" tvg-name="USA Starz Family" tvg-logo="https://cdnlogo.com/logos/s/98/starz-encore-family.png" group-title="Movies",USA Starz Family
 http://23.237.104.106:8080/USA_STARZ_FAMILY/index.m3u8
 
-#EXTINF:-1 tvg-id="StudioUniversalHD" tvg-name="Studio Universal HD" tvg-logo="https://cdnlogo.com/logos/s/10/studio-universal.png" group-title="Movies",Studio Universal HD
-http://15.204.246.24:8080/StudioUniversalHD/index.m3u8
+#EXTINF:-1 group-title="Esport" logo="https://www.footylogos.com/downloads/logo/fc-barcelona-logo-footylogos.png" ,Barça TV
+https://amg17560-fcb-amg17560c3-lg-es-11383.playouts.now.amagi.tv/ts-eu-w1-n2/playlist/amg17560-fcbarcelona-topbarcacatala-lges/playlist.m3u8
+
+#EXTINF:-1 group-title="Esport" logo="https://www.footylogos.com/downloads/logo/fc-barcelona-logo-footylogos.png" ,Barça TV
+https://amg17560-fcb-amg17560c2-samsung-es-9803.playouts.now.amagi.tv/ts-eu-w1-n2/playlist/amg17560-fcbarcelona-topbarcaspanish-samsunges/playlist.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Càmares" tvg-logo="https://i.imgur.com/zXy2kbe.png" group-title="Catalunya",Càmares
 https://directes-tv-int.3catdirectes.cat/live-content/beauties-hls/bitrate_3.m3u8
