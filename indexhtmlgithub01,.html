@@ -3,122 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Llista de URL de Xarxa-1</title>
+  <title>Index Xarxa-1</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background-color: #f4f4f9;
-      color: #333;
-    }
-    h1 {
-      color: #0056b3;
-    }
-    .status {
-      font-weight: bold;
-      margin-bottom: 15px;
-    }
-    ul {
-      background: #ffffff;
-      padding: 20px 40px;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      word-break: break-all;
-    }
-    li {
-      margin-bottom: 10px;
-    }
-    a {
-      color: #0066cc;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
+    body { font-family: Arial, sans-serif; margin: 30px; background: #f9f9f9; }
+    h1 { color: #0366d6; }
+    ul { background: white; padding: 20px; border-radius: 8px; list-style-type: square; }
+    li { margin-bottom: 8px; }
+    a { color: #0366d6; text-decoration: none; }
+    a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
-
-  <h1>URL trobades a https://xarxa-1.github.io/Xarxa-1/</h1>
-  <div id="status" class="status">Descarregant i analitzant la pàgina...</div>
-  <ul id="url-list"></ul>
+999999999999999999999999999999999999
+  <h1>Arxius a https://xarxa-1.github.io/Xarxa-1/</h1>
+  <div id="status">Carregant llista d'arxius...</div>
+  <ul id="llista"></ul>
 
   <script>
-    const baseUrl = 'https://xarxa-1.github.io/Xarxa-1/';
-    
-    // Utilitzem un proxy CORS per poder llegir el contingut HTML de la pàgina
-    const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(baseUrl)}`;
-
-    async function extractUrls() {
-      const statusEl = document.getElementById('status');
-      const listEl = document.getElementById('url-list');
-
-      try {
-        const response = await fetch(proxyUrl);
-        if (!response.ok) throw new Error('Error al connectar amb el servidor.');
+    // Carrega directament la llista d'arxius des de l'API de GitHub
+    fetch('https://api.github.com/repos/Xarxa-1/Xarxa-1/contents/')
+      .then(res => {
+        if (!res.ok) throw new Error('El repositori no és públic o no existeix.');
+        return res.json();
+      })
+      .then(data => {
+        document.getElementById('status').style.display = 'none';
+        const ul = document.getElementById('llista');
         
-        const data = await response.json();
-        const htmlContent = data.contents;
-
-        if (!htmlContent) {
-          throw new Error('La pàgina no ha retornat contingut.');
-        }
-
-        // Crear un document HTML virtual per cercar-hi tots els enllaços
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(htmlContent, 'text/html');
-
-        const foundUrls = new Set();
-
-        // 1. Cercar atributs HTML de navegació i recursos (href, src, action)
-        const elements = doc.querySelectorAll('[href], [src], [action]');
-        elements.forEach(el => {
-          const val = el.getAttribute('href') || el.getAttribute('src') || el.getAttribute('action');
-          if (val && !val.startsWith('javascript:') && !val.startsWith('#')) {
-            foundUrls.add(toAbsoluteUrl(val, baseUrl));
-          }
-        });
-
-        // 2. Cercar text o codi que tingui forma de URL o nom de fitxer HTML/JS/CSS
-        const regexUrls = /(https?:\/\/[^\s"'<>]+|[\w-]+\.(html|js|css|png|jpg|gif))/gi;
-        let match;
-        while ((match = regexUrls.exec(htmlContent)) !== null) {
-          let url = match[0].replace(/[;,)]*$/, '');
-          foundUrls.add(toAbsoluteUrl(url, baseUrl));
-        }
-
-        if (foundUrls.size === 0) {
-          statusEl.textContent = 'No s\'han trobat enllaços directes a la pàgina principal.';
-          return;
-        }
-
-        statusEl.textContent = `S'han trobat ${foundUrls.size} URL/recursos únics:`;
-        
-        // Ordenar i mostrar els resultats
-        Array.from(foundUrls).sort().forEach(url => {
+        data.forEach(item => {
           const li = document.createElement('li');
           const a = document.createElement('a');
-          a.href = url;
-          a.textContent = url;
+          // Genera la URL pública de GitHub Pages
+          const urlPublica = `https://xarxa-1.github.io/Xarxa-1/${item.name}`;
+          
+          a.href = urlPublica;
+          a.textContent = urlPublica;
           a.target = '_blank';
+          
           li.appendChild(a);
-          listEl.appendChild(li);
+          ul.appendChild(li);
         });
-
-      } catch (error) {
-        statusEl.textContent = 'Error: ' + error.message;
-      }
-    }
-
-    function toAbsoluteUrl(url, base) {
-      try {
-        return new URL(url, base).href;
-      } catch (e) {
-        return url;
-      }
-    }
-
-    extractUrls();
+      })
+      .catch(err => {
+        document.getElementById('status').textContent = 'Nota: ' + err.message + ' Utilitza l\'Opció A per indicar els enllaços manualment.';
+      });
   </script>
 </body>
 </html>
