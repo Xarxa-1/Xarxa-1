@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>*** Llista de URL de radiopen9</title>
+  <title>Llista de URL de Xarxa-1</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -15,19 +15,18 @@
       color: #0056b3;
     }
     .status {
-      font-style: italic;
-      color: #666;
+      font-weight: bold;
       margin-bottom: 15px;
     }
     ul {
-      background: white;
+      background: #ffffff;
       padding: 20px 40px;
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       word-break: break-all;
     }
     li {
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
     a {
       color: #0066cc;
@@ -40,54 +39,62 @@
 </head>
 <body>
 
-  <h1>URL trobades a radiopen9.html</h1>
-  <div id="status" class="status">Carregant i analitzant la pàgina...</div>
+  <h1>URL trobades a https://xarxa-1.github.io/Xarxa-1/</h1>
+  <div id="status" class="status">Descarregant i analitzant la pàgina...</div>
   <ul id="url-list"></ul>
 
   <script>
-    const targetUrl = 'https://xarxa-1.github.io/Xarxa-1/radiopen9.html';
+    const baseUrl = 'https://xarxa-1.github.io/Xarxa-1/';
     
-    // Fem servir api.allorigins.win per evitar problemes de restricció CORS
-    const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
+    // Utilitzem un proxy CORS per poder llegir el contingut HTML de la pàgina
+    const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(baseUrl)}`;
 
-    async function fetchAndExtractURLs() {
+    async function extractUrls() {
       const statusEl = document.getElementById('status');
       const listEl = document.getElementById('url-list');
 
       try {
         const response = await fetch(proxyUrl);
-        if (!response.ok) throw new Error('No s\'ha pogut accedir a la pàgina.');
+        if (!response.ok) throw new Error('Error al connectar amb el servidor.');
         
         const data = await response.json();
         const htmlContent = data.contents;
 
-        // Parsejem l'HTML rebut
+        if (!htmlContent) {
+          throw new Error('La pàgina no ha retornat contingut.');
+        }
+
+        // Crear un document HTML virtual per cercar-hi tots els enllaços
         const parser = new DOMParser();
         const doc = parser.parseFromString(htmlContent, 'text/html');
 
         const foundUrls = new Set();
 
-        // 1. Extreure atributs HTML típics que contenen URL (href, src, action)
-        const elementsWithUrls = doc.querySelectorAll('[href], [src], [action]');
-        elementsWithUrls.forEach(el => {
-          const url = el.getAttribute('href') || el.getAttribute('src') || el.getAttribute('action');
-          if (url && !url.startsWith('javascript:') && !url.startsWith('#')) {
-            foundUrls.add(toAbsoluteUrl(url, targetUrl));
+        // 1. Cercar atributs HTML de navegació i recursos (href, src, action)
+        const elements = doc.querySelectorAll('[href], [src], [action]');
+        elements.forEach(el => {
+          const val = el.getAttribute('href') || el.getAttribute('src') || el.getAttribute('action');
+          if (val && !val.startsWith('javascript:') && !val.startsWith('#')) {
+            foundUrls.add(toAbsoluteUrl(val, baseUrl));
           }
         });
 
-        // 2. Cercar patrons de URL (com streams de ràdio http/https) dins del text o codi JavaScript
-        const urlRegex = /(https?:\/\/[^\s"'<>]+)/g;
+        // 2. Cercar text o codi que tingui forma de URL o nom de fitxer HTML/JS/CSS
+        const regexUrls = /(https?:\/\/[^\s"'<>]+|[\w-]+\.(html|js|css|png|jpg|gif))/gi;
         let match;
-        while ((match = urlRegex.exec(htmlContent)) !== null) {
-          // Netejem possibles caràcters addicionals al final de la URL
-          let cleanUrl = match[0].replace(/[;,)]*$/, '');
-          foundUrls.add(cleanUrl);
+        while ((match = regexUrls.exec(htmlContent)) !== null) {
+          let url = match[0].replace(/[;,)]*$/, '');
+          foundUrls.add(toAbsoluteUrl(url, baseUrl));
         }
 
-        // Mostrar els resultats
-        statusEl.textContent = `S'han trobat ${foundUrls.size} URL úniques:`;
+        if (foundUrls.size === 0) {
+          statusEl.textContent = 'No s\'han trobat enllaços directes a la pàgina principal.';
+          return;
+        }
+
+        statusEl.textContent = `S'han trobat ${foundUrls.size} URL/recursos únics:`;
         
+        // Ordenar i mostrar els resultats
         Array.from(foundUrls).sort().forEach(url => {
           const li = document.createElement('li');
           const a = document.createElement('a');
@@ -99,11 +106,10 @@
         });
 
       } catch (error) {
-        statusEl.textContent = 'Error en carregar les URL: ' + error.message;
+        statusEl.textContent = 'Error: ' + error.message;
       }
     }
 
-    // Funció per convertir rutes meitat-relatives a URL absolutes
     function toAbsoluteUrl(url, base) {
       try {
         return new URL(url, base).href;
@@ -112,7 +118,7 @@
       }
     }
 
-    fetchAndExtractURLs();
+    extractUrls();
   </script>
 </body>
 </html>
