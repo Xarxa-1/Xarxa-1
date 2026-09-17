@@ -1,119 +1,118 @@
 <!DOCTYPE html>
 <html lang="ca">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Índex de Projectes - Xarxa 1</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 0 20px;
-            background-color: #f6f8fa;
-            color: #24292f;
-        }
-        h1 {
-            border-bottom: 2px solid #d0d7de;
-            padding-bottom: 12px;
-            font-size: 24px;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-            background: #ffffff;
-            border: 1px solid #d0d7de;
-            border-radius: 6px;
-        }
-        li {
-            border-bottom: 1px solid #d0d7de;
-            padding: 12px 16px;
-        }
-        li:last-child {
-            border-bottom: none;
-        }
-        a {
-            color: #0969da;
-            text-decoration: none;
-            font-weight: 500;
-            display: block;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        .error { color: #cf222e; font-weight: bold; }
-        .loading { color: #57606a; font-style: italic; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>*** Llista de URL de radiopen9</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+    h1 {
+      color: #0056b3;
+    }
+    .status {
+      font-style: italic;
+      color: #666;
+      margin-bottom: 15px;
+    }
+    ul {
+      background: white;
+      padding: 20px 40px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      word-break: break-all;
+    }
+    li {
+      margin-bottom: 8px;
+    }
+    a {
+      color: #0066cc;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
 
-    <h1>🗂️ Índex de fitxers HTML</h1>
-    <ul id="llista-fitxers">
-        <li class="loading">Carregant la llista de pàgines des de GitHub...000</li>
-    </ul>
+  <h1>URL trobades a radiopen9.html</h1>
+  <div id="status" class="status">Carregant i analitzant la pàgina...</div>
+  <ul id="url-list"></ul>
 
-    <script>
-        const USUARI = "xarxa-1";
-        const REPOSITORI = "Xarxa-1";
-        const CARPETA = ""; 
+  <script>
+    const targetUrl = 'https://xarxa-1.github.io/Xarxa-1/radiopen9.html';
+    
+    // Fem servir api.allorigins.win per evitar problemes de restricció CORS
+    const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
 
-        // Utilitzem l'API estàndard v3 de GitHub
-        const apiUrl = `https://github.com{USUARI}/${REPOSITORI}/contents/${CARPETA}`;
+    async function fetchAndExtractURLs() {
+      const statusEl = document.getElementById('status');
+      const listEl = document.getElementById('url-list');
 
-        async function carregarHTMLs() {
-            const llista = document.getElementById('llista-fitxers');
-            
-            try {
-                // Afegim paràmetres i capçaleres per evitar problemes de CORS o bloquejos
-                const resposta = await fetch(apiUrl, {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/vnd.github.v3+json',
-                        'User-Agent': 'GitHubPagesIndex' // Identifica la petició
-                    }
-                });
-                
-                if (!resposta.ok) {
-                    throw new Error(`Servidor de GitHub ha respost amb codi ${resposta.status}`);
-                }
+      try {
+        const response = await fetch(proxyUrl);
+        if (!response.ok) throw new Error('No s\'ha pogut accedir a la pàgina.');
+        
+        const data = await response.json();
+        const htmlContent = data.contents;
 
-                const fitxers = await resposta.json();
-                llista.innerHTML = ""; 
+        // Parsejem l'HTML rebut
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlContent, 'text/html');
 
-                fitxers.forEach(fitxer => {
-                    // Filtrem només els fitxers .html excepte l'index
-                    if (fitxer.type === 'file' && fitxer.name.endsWith('.html') && fitxer.name !== 'index.html') {
-                        const li = document.createElement('li');
-                        const a = document.createElement('a');
-                        
-                        // Generem l'enllaç dinàmic adaptat per si es visita online o local
-                        a.href = `./${fitxer.name}`; 
-                        a.textContent = fitxer.name;
-                        
-                        li.appendChild(a);
-                        llista.appendChild(li);
-                    }
-                });
+        const foundUrls = new Set();
 
-                if (llista.children.length === 0) {
-                    llista.innerHTML = "<li>No s'ha trobat cap altre fitxer HTML en aquest repositori.</li>";
-                }
+        // 1. Extreure atributs HTML típics que contenen URL (href, src, action)
+        const elementsWithUrls = doc.querySelectorAll('[href], [src], [action]');
+        elementsWithUrls.forEach(el => {
+          const url = el.getAttribute('href') || el.getAttribute('src') || el.getAttribute('action');
+          if (url && !url.startsWith('javascript:') && !url.startsWith('#')) {
+            foundUrls.add(toAbsoluteUrl(url, targetUrl));
+          }
+        });
 
-            } catch (error) {
-                // Si l'API falla, oferim informació detallada
-                llista.innerHTML = `
-                    <li class="error">❌ Error: ${error.message}</li>
-                    <li style="color: #57606a; font-size: 13px;">
-                        Aquest error pot passar si el navegador té un <strong>bloquejador d'anuncis o tracker</strong> molt estricte, 
-                        o si l'API de GitHub ha superat el límit temporal de consultes des de la teva IP. 
-                        Prova d'obrir la pàgina en una finestra d'incògnit.
-                    </li>
-                `;
-            }
+        // 2. Cercar patrons de URL (com streams de ràdio http/https) dins del text o codi JavaScript
+        const urlRegex = /(https?:\/\/[^\s"'<>]+)/g;
+        let match;
+        while ((match = urlRegex.exec(htmlContent)) !== null) {
+          // Netejem possibles caràcters addicionals al final de la URL
+          let cleanUrl = match[0].replace(/[;,)]*$/, '');
+          foundUrls.add(cleanUrl);
         }
 
-        carregarHTMLs();
-    </script>
+        // Mostrar els resultats
+        statusEl.textContent = `S'han trobat ${foundUrls.size} URL úniques:`;
+        
+        Array.from(foundUrls).sort().forEach(url => {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = url;
+          a.textContent = url;
+          a.target = '_blank';
+          li.appendChild(a);
+          listEl.appendChild(li);
+        });
 
+      } catch (error) {
+        statusEl.textContent = 'Error en carregar les URL: ' + error.message;
+      }
+    }
+
+    // Funció per convertir rutes meitat-relatives a URL absolutes
+    function toAbsoluteUrl(url, base) {
+      try {
+        return new URL(url, base).href;
+      } catch (e) {
+        return url;
+      }
+    }
+
+    fetchAndExtractURLs();
+  </script>
 </body>
 </html>
