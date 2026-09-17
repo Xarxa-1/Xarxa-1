@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Índex de Projectes - Xarxa 1</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 0 20px;
+            background-color: #f6f8fa;
+            color: #24292f;
+        }
+        h1 {
+            border-bottom: 2px solid #d0d7de;
+            padding-bottom: 12px;
+            font-size: 24px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            background: #ffffff;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+        li {
+            border-bottom: 1px solid #hsla(210,18%,87%,1);
+            padding: 12px 16px;
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+        a {
+            color: #0969da;
+            text-decoration: none;
+            font-weight: 500;
+            display: block;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .error { color: #cf222e; font-weight: bold; }
+        .loading { color: #57606a; font-style: italic; }
+    </style>
+</head>
+<body>
+
+    <h1>🗂️ Índex de fitxers HTML</h1>
+    <ul id="llista-fitxers">
+        <li class="loading">Carregant la llista de pàgines...</li>
+    </ul>
+
+    <script>
+        // CONFIGURACIÓ EXTRAUDA DE LA TEVA URL
+        const USUARI = "xarxa-1";
+        const REPOSITORI = "Xarxa-1";
+        const CARPETA = ""; // Deixa-ho buit per a l'arrel on estan els teus HTML
+
+        // Connexió automàtica a l'API del teu repositori públic
+        const apiUrl = `https://github.com{USUARI}/${REPOSITORI}/contents/${CARPETA}`;
+
+        async function carregarHTMLs() {
+            const llista = document.getElementById('llista-fitxers');
+            
+            try {
+                const resposta = await fetch(apiUrl);
+                
+                if (!resposta.ok) {
+                    throw new Error("No s'ha pogut obtenir la informació del repositori de GitHub.");
+                }
+
+                const fitxers = await resposta.json();
+                llista.innerHTML = ""; // Netegem el text de càrrega
+
+                fitxers.forEach(fitxer => {
+                    // FILTRE: Només volem fitxers que acabin en .html i que NO siguin aquest mateix index.html
+                    if (fitxer.type === 'file' && fitxer.name.endsWith('.html') && fitxer.name !== 'index.html') {
+                        
+                        const li = document.createElement('li');
+                        const a = document.createElement('a');
+                        
+                        // Generem l'enllaç relatiu web ideal per a GitHub Pages
+                        a.href = `./${fitxer.name}`; 
+                        a.textContent = fitxer.name; // Mostra el nom de l'arxiu (ex: camera.html)
+                        
+                        li.appendChild(a);
+                        llista.appendChild(li);
+                    }
+                });
+
+                // Si no hi hagués cap altre HTML a la carpeta
+                if (llista.children.length === 0) {
+                    llista.innerHTML = "<li>No s'ha trobat cap altre fitxer HTML en aquest repositori.</li>";
+                }
+
+            } catch (error) {
+                llista.innerHTML = `<li class="error">❌ Error: ${error.message}</li>`;
+            }
+        }
+
+        // Executar la funció en obrir la pàgina
+        carregarHTMLs();
+    </script>
+
+</body>
+</html>
