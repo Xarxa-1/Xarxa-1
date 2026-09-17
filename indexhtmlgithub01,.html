@@ -47,12 +47,20 @@
       border-radius: 3px;
       margin-left: 8px;
     }
+    .branch {
+      font-size: 0.75em;
+      background-color: #dafbe1;
+      color: #1a7f37;
+      padding: 2px 6px;
+      border-radius: 3px;
+      margin-left: 5px;
+    }
   </style>
 </head>
-<body>00000000000000000
+<body>
 
   <h1>Totes les URL de https://xarxa-1.github.io/Xarxa-1/</h1>
-  <div id="status">Cercant tots els arxius del repositori...</div>
+  <div id="status">Cercant arxius a totes les branques (gh-pages, main, master)...</div>
   <ul id="llista"></ul>
 
   <script>
@@ -60,49 +68,70 @@
     const repo = 'Xarxa-1';
     const baseUrl = `https://${user}.github.io/${repo}/`;
 
-    async function carregarArxius() {
+    async function carregarTotesLesBranques() {
       const status = document.getElementById('status');
       const ul = document.getElementById('llista');
 
       try {
-        // 1. Obtenir informació del repositori per saber quina és la branca principal per defecte
-        const repoRes = await fetch(`https://api.github.com/repos/${user}/${repo}`);
-        if (!repoRes.ok) throw new Error('No s\'ha trobat el repositori.');
+        // 1. Obtenir la llista de totes les branques del repositori
+        const branchesRes = await fetch(`https://api.github.com/repos/${user}/${repo}/branches`);
+        if (!branchesRes.ok) throw new Error('No s\'han pogut trobar les branques.');
         
-        const repoData = await repoRes.json();
-        const defaultBranch = repoData.default_branch || 'main';
+        const branches = await branchesRes.json();
+        const totsArxius = new Map(); // Per evitar duplicats entre branques
 
-        // 2. Demanar l'arbre d'arxius complet de la branca detectada
-        const treeRes = await fetch(`https://api.github.com/repos/${user}/${repo}/git/trees/${defaultBranch}?recursive=1`);
-        if (!treeRes.ok) throw new Error('No s\'han pogut llegir els arxius de la branca ' + defaultBranch);
-        
-        const treeData = await treeRes.json();
+        // 2. Recórrer cada branca (incloent gh-pages, main, master)
+        for (const branch of branches) {
+          const branchName = branch.name;
+          const treeRes = await fetch(`https://api.github.com/repos/${user}/${repo}/git/trees/${branchName}?recursive=1`);
+          
+          if (treeRes.ok) {
+            const treeData = await treeRes.json();
+            
+            if (treeData.tree) {
+              treeData.tree.forEach(item => {
+                // Només guardem arxius (no carpetes) i excloem la carpeta oculta .github
+                if (item.type === 'blob' && !item.path.startsWith('.')) {
+                  if (!totsArxius.has(item.path)) {
+                    totsArxius.set(item.path, branchName);
+                  }
+                }
+              });
+            }
+          }
+        }
 
-        // 3. Filtrar només els fitxers (excloent carpetes i la carpeta oculta .github)
-        const items = treeData.tree.filter(item => {
-          return item.type === 'blob' && !item.path.startsWith('.');
-        });
+        if (totsArxius.size === 0) {
+          status.textContent = 'No s\'han trobat arxius a cap branca.';
+          return;
+        }
 
-        status.textContent = `S'han trobat ${items.length} URL d'arxius:`;
+        status.textContent = `S'han trobat ${totsArxius.size} URL d'arxius en total:`;
 
-        // 4. Mostrar els resultats a la llista
-        items.forEach(item => {
+        // 3. Mostrar la llista d'URL a la pàgina
+        totsArxius.forEach((branchName, path) => {
           const li = document.createElement('li');
           const a = document.createElement('a');
           
-          const urlPublica = baseUrl + item.path;
+          const urlPublica = baseUrl + path;
           
           a.href = urlPublica;
           a.textContent = urlPublica;
           a.target = '_blank';
           
-          const ext = item.path.includes('.') ? item.path.split('.').pop().toUpperCase() : 'FILE';
-          const badge = document.createElement('span');
-          badge.className = 'ext';
-          badge.textContent = ext;
+          const ext = path.includes('.') ? path.split('.').pop().toUpperCase() : 'FILE';
+          
+          const badgeExt = document.createElement('span');
+          badgeExt.className = 'ext';
+          badgeExt.textContent = ext;
+
+          const badgeBranch = document.createElement('span');
+          badgeBranch.className = 'branch';
+          badgeBranch.textContent = branchName;
 
           li.appendChild(a);
-          li.appendChild(badge);
+          li.appendChild(badgeExt);
+          li.appendChild(badgeBranch);
           ul.appendChild(li);
         });
 
@@ -111,7 +140,7 @@
       }
     }
 
-    carregarArxius();
+    carregarTotesLesBranques();
   </script>
 </body>
 </html>
