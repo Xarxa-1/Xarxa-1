@@ -839,7 +839,7 @@ https://amg00793-amg00793c40-rakuten-es-5444.playouts.now.amagi.tv/playlist.m3u8
 http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/38459
 #EXTINF:-1 tvg-ID="" tvg-name="BEIN SPORTS 1 (Australia)" tvg-logo="http://primestreamstv.com/logos/BeIN%20Sports%201%20HD.png" group-title="SPORTS NETWORKS",BEIN SPORTS 1 (Australia)
 http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/107806
-#EXTINF:-1 tvg-ID="" tvg-name="BEIN SPORTS 2 (Australia)" tvg-logo="http://primestreamstv.com/logos/BeIN%20Sports%202%20HD.png" group-title="SPORTS NETWORKS",BEIN SPORTS 2 (Australia)
+#EXTINF:-1 tvg-ID="" tvg-name="BEIN SPORTS 2 (Australia)" tvg-logo="https://is3-ssl.mzstatic.com/image/thumb/Purple113/v4/90/43/98/904398d9-bf56-dbf6-dd0a-b716b8316566/AppIcon-0-0-1x_U007emarketing-0-0-0-10-0-0-85-220.png/246x0w.png" group-title="SPORTS NETWORKS",BEIN SPORTS 2 (Australia)
 http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/107807
 #EXTINF:-1 tvg-ID="" tvg-name="BEIN SPORTS 3 (Australia)" tvg-logo="http://primestreamstv.com/logos/BeIN%20Sports%203%20HD.png" group-title="SPORTS NETWORKS",BEIN SPORTS 3 (Australia)
 http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/107808
@@ -847,6 +847,25 @@ http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/107808
 http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/107809
 #EXTINF:-1 tvg-ID="" tvg-name="ESPN 2 (Australia)" tvg-logo="http://primestreamstv.com/logos/ESPN2.png" group-title="SPORTS NETWORKS",ESPN 2 (Australia)
 http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/107810
+#EXTINF:-1 tvg-ID="beinsports.us" tvg-name="BEIN SPORTS ESP (US)" tvg-logo="http://primestreamstv.com/logos/BeinSportsN.png" group-title="SPORTS NETWORKS",BEIN SPORTS ESP (US)
+http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/102101
+#EXTINF:-1 tvg-ID="beinsportslaliga" tvg-name="BEIN SPORT LA LIGA esp" tvg-logo="http://primestreamstv.com/logos/BeinSportsN.png" group-title="SPORTS NETWORKS",BEIN SPORT LA LIGA esp
+http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/102102
+#EXTINF:-1 tvg-ID="beinsports.us" tvg-name="BEIN SPORTS USA" tvg-logo="http://primestreamstv.com/logos/BEIN%20SPORT%20USA.png" group-title="SPORTS NETWORKS",BEIN SPORTS USA
+http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/102104
+#EXTINF:-1 tvg-ID="beinsportsxtra.us" tvg-name="BEIN SPORTS XTRA" tvg-logo="https://static.wikia.nocookie.net/logopedia/images/b/b5/XTRA_2.png/revision/latest?cb=20201108180658" group-title="SPORTS NETWORKS",BEIN SPORTS XTRA
+http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/109725
+#EXTINF:-1 tvg-ID="beinsports4.us" tvg-name="BEIN CONNECT 4" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/e/ec/Bein_connect_logo.png" group-title="SPORTS NETWORKS",BEIN CONNECT 4
+http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/38455
+#EXTINF:-1 tvg-ID="beinsports5.us" tvg-name="BEIN CONNECT 5" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/e/ec/Bein_connect_logo.png" group-title="SPORTS NETWORKS",BEIN CONNECT 5
+http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/38456
+#EXTINF:-1 tvg-ID="beinsports6.us" tvg-name="BEIN CONNECT 6" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/e/ec/Bein_connect_logo.png" group-title="SPORTS NETWORKS",BEIN CONNECT 6
+http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/38457
+#EXTINF:-1 tvg-ID="beinsports7.us" tvg-name="BEIN CONNECT 7" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/e/ec/Bein_connect_logo.png" group-title="SPORTS NETWORKS",BEIN CONNECT 7
+http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/38458
+#EXTINF:-1 tvg-ID="beinsports8.us" tvg-name="BEIN CONNECT 8" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/e/ec/Bein_connect_logo.png" group-title="SPORTS NETWORKS",BEIN CONNECT 8
+http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/38459
+
 
 #EXTINF:-1 tvg-id="TheNest.us@SD" tvg-logo="https://iili.io/JGqD21e.png" group-title="Documentary;Entertainment",The Nest
 https://fast-channels.sinclairstoryline.com/THENEST/index_1.m3u8
