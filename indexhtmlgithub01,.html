@@ -3,50 +3,111 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Index Xarxa-1</title>
+  <title>Totes les URL de Xarxa-1</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 30px; background: #f9f9f9; }
-    h1 { color: #0366d6; }
-    ul { background: white; padding: 20px; border-radius: 8px; list-style-type: square; }
-    li { margin-bottom: 8px; }
-    a { color: #0366d6; text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      background-color: #f6f8fa;
+      color: #24292e;
+    }
+    h1 {
+      color: #0366d6;
+      border-bottom: 1px solid #e1e4e8;
+      padding-bottom: 10px;
+    }
+    #status {
+      margin-bottom: 15px;
+      font-weight: bold;
+      color: #586069;
+    }
+    ul {
+      background: white;
+      padding: 20px 40px;
+      border: 1px solid #e1e4e8;
+      border-radius: 6px;
+      list-style-type: square;
+    }
+    li {
+      margin-bottom: 10px;
+      word-break: break-all;
+    }
+    a {
+      color: #0366d6;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .ext {
+      font-size: 0.8em;
+      background-color: #f1f3f5;
+      color: #495057;
+      padding: 2px 6px;
+      border-radius: 3px;
+      margin-left: 8px;
+    }
   </style>
 </head>
 <body>
-999999999999999999999999999999999999
-  <h1>Arxius a https://xarxa-1.github.io/Xarxa-1/</h1>
-  <div id="status">Carregant llista d'arxius...</div>
+
+  <h1>Totes les URL de https://xarxa-1.github.io/Xarxa-1/</h1>
+  <div id="status">Cercant tots els arxius del repositori...</div>
   <ul id="llista"></ul>
 
   <script>
-    // Carrega directament la llista d'arxius des de l'API de GitHub
-    fetch('https://api.github.com/repos/Xarxa-1/Xarxa-1/contents/')
+    const user = 'Xarxa-1';
+    const repo = 'Xarxa-1';
+    const baseUrl = `https://${user.github.io}/${repo}/`;
+
+    // Aquesta crida (recursive=1) cerca TOTS els arxius dins de TOTES les carpetes
+    fetch(`https://api.github.com/repos/${user}/${repo}/git/trees/main?recursive=1`)
       .then(res => {
-        if (!res.ok) throw new Error('El repositori no és públic o no existeix.');
+        // Si la branca no es diu 'main', ho intenta amb 'master'
+        if (!res.ok) {
+          return fetch(`https://api.github.com/repos/${user}/${repo}/git/trees/master?recursive=1`);
+        }
+        return res;
+      })
+      .then(res => {
+        if (!res.ok) throw new Error('No s\'han pogut carregar els arxius.');
         return res.json();
       })
       .then(data => {
-        document.getElementById('status').style.display = 'none';
         const ul = document.getElementById('llista');
+        const status = document.getElementById('status');
         
-        data.forEach(item => {
+        // S'exclouen carpetes ocultes com .github i només es mostren arxius (no directoris)
+        const items = data.tree.filter(item => {
+          return item.type === 'blob' && !item.path.startsWith('.');
+        });
+
+        status.textContent = `S'han trobat ${items.length} URL d'arxius:`;
+
+        items.forEach(item => {
           const li = document.createElement('li');
           const a = document.createElement('a');
-          // Genera la URL pública de GitHub Pages
-          const urlPublica = `https://xarxa-1.github.io/Xarxa-1/${item.name}`;
+          
+          const urlPublica = baseUrl + item.path;
           
           a.href = urlPublica;
           a.textContent = urlPublica;
           a.target = '_blank';
           
+          // Afegim una petita etiqueta amb l'extensió (.html, .png, etc.)
+          const ext = item.path.split('.').pop();
+          const badge = document.createElement('span');
+          badge.className = 'ext';
+          badge.textContent = ext.toUpperCase();
+
           li.appendChild(a);
+          li.appendChild(badge);
           ul.appendChild(li);
         });
       })
       .catch(err => {
-        document.getElementById('status').textContent = 'Nota: ' + err.message + ' Utilitza l\'Opció A per indicar els enllaços manualment.';
+        document.getElementById('status').textContent = 'Error: ' + err.message;
       });
-  </script>
+  </script>99999999999999999999999955555555555555554444444444111111111111111111111
 </body>
 </html>
