@@ -44,7 +44,6 @@ https://directes-tv-es.3catdirectes.cat/live-content/tem1-hls/master.m3u8
 #EXTINF:-1 tvg-id="cine verdi.es" tvg-logo="https://img.static-ottera.com/prod/run/linear_channel/logo/04082023_logo_verdi_tv_fila_canales_1920x1080.jpg" group-title="" tvg-name="Cine Verdi",Cine Verdi
 https://daiconnect.com/live/hls/tvup/rt-cv/.m3u8
 
-
 #EXTINF:-1 tvg-id="super3" tvg-name="super3" tvg-logo="https://graph.facebook.com/SomSX3/picture?width=200&height=200" group-title="Catalunya",SX3
 https://directes-tv-cat.3catdirectes.cat/live-content/super3-hls/master.m3u8
 
@@ -57,10 +56,10 @@ https://ztnr.rtve.es/ztnr/6909845.m3u8
 #EXTINF:-1 tvg-id="24 Horas.es" tvg-name="24H.es" tvg-logo="https://i.imgur.com/IUVRm5L.png" group-title="Notícies",24HCat
 https://ztnr.rtve.es/ztnr/1694255.m3u8
 
-#EXTINF:-1 tvg-id="RTVE_Cocina.TV" tvg-logo="https://graph.facebook.com/rtveplay/picture?width=200&height=200" group-title="Eventuales" tvg-name="Cocina (RTVE)",Cocina (RTVE)
+#EXTINF:-1 tvg-id="RTVE_Cocina.TV" tvg-logo="https://graph.facebook.com/rtveplay/picture?width=200&height=200" group-title="Eventuales" tvg-name="Cocina (RTVE)",Cocina RTVE
 https://rtvelivestream.rtve.es/eventual/gofast/playm20_main.m3u8
 
-#EXTINF:-1 tvg-id="RTVE_En_Play.TV" tvg-logo="https://graph.facebook.com/rtveplay/picture?width=200&height=200" group-title="Eventuales" tvg-name="En Play (RTVE)",En Play (RTVE)
+#EXTINF:-1 tvg-id="RTVE_En_Play.TV" tvg-logo="https://graph.facebook.com/rtveplay/picture?width=200&height=200" group-title="Eventuales" tvg-name="En Play (RTVE)",En Play RTVE
 https://rtvelivestream.rtve.es/eventual/gofast/playm27_main.m3u8
 
 #EXTINF:-1 tvg-id="À Punt.es" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Logotip_d%27%C3%80_Punt_%282017-%29.svg/960px-Logotip_d%27%C3%80_Punt_%282017-%29.svg.png" group-title="General;Public",A Punt (720p)
@@ -75,21 +74,20 @@ https://rtvelivestream.rtve.es/rtvesec/tdp/tdp_main.m3u8
 #EXTINF:-1 tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200" group-title="Catalunya" tvg-name="3Cat Vinagreta",3Cat Vinagreta
 https://fast-tailor.3catdirectes.cat/v1/channel/vinagreta/hls.m3u8
 
-#EXTINF:-1 group-title="Esport" logo="https://pbs.twimg.com/profile_images/2098686720245932032/MnOTaDwm_400x400.jpg" ,Barça TV
+#EXTINF:-1 group-title="Esport" tvg-logo="https://pbs.twimg.com/profile_images/2098686720245932032/MnOTaDwm_400x400.jpg" ,Barça TV
 https://amg17560-fcb-amg17560c1-rakuten-uk-4891.playouts.now.amagi.tv/playlist/amg17560-fcbarcelona-topbarcaenglish-rakutenuk/playlist.m3u8
 
-#EXTINF:-1 group-title="Esport" logo="https://pbs.twimg.com/profile_images/2098686720245932032/MnOTaDwm_400x400.jpg" ,Barça TV
+#EXTINF:-1 group-title="Esport" tvg-logo="https://pbs.twimg.com/profile_images/2098686720245932032/MnOTaDwm_400x400.jpg" ,Barça TV
 https://amg17560-fcb-amg17560c3-lg-es-11383.playouts.now.amagi.tv/ts-eu-w1-n2/playlist/amg17560-fcbarcelona-topbarcacatala-lges/playlist.m3u8
 
-#EXTINF:-1 group-title="Esport" logo="https://pbs.twimg.com/profile_images/2098686720245932032/MnOTaDwm_400x400.jpg" ,Barça TV
+#EXTINF:-1 group-title="Esport" tvg-logo="https://pbs.twimg.com/profile_images/2098686720245932032/MnOTaDwm_400x400.jpg" ,Barça TV
 https://amg17560-fcb-amg17560c2-samsung-es-9803.playouts.now.amagi.tv/ts-eu-w1-n2/playlist/amg17560-fcbarcelona-topbarcaspanish-samsunges/playlist.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="CNN International Europe" tvg-logo="https://pbs.twimg.com/profile_images/1669780523911110656/K9gaaM1g_400x400.jpg" group-title="Notícies",US: CNN
-https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8
+#EXTINF:-1 tvg-id="FRANCE24 (FR).es" tvg-name="France 24 Español (1080p)" tvg-logo="https://i.imgur.com/ZnmAXVv.png" group-title="Notícies",France 24 Español
+https://live.france24.com/hls/live/2037220/F24_ES_HI_HLS/master_5000.m3u8
 
 # #EXTINF:-1 tvg-id="BBCNews.uk" tvg-logo="https://pbs.twimg.com/profile_images/1529107170448523264/q3VwEx38_400x400.jpg" tvg-name="BBC",BBC NEWS
-https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/t=3840/v=pv8/b=827008/a=pa4/b=128000/main.m3u8
-
+#https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/t=3840/v=pv8/b=827008/a=pa4/b=128000/main.m3u8
 
 #EXTINF:-1 tvg-id="BBCNews.uk" tvg-name="BBC.News"  tvg-logo="https://pbs.twimg.com/profile_images/1529107170448523264/q3VwEx38_400x400.jpg" group-title="UK",BBC News International
 https://d3pxo1qcgzxtxs.cloudfront.net/manifest/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod_default_xumo-linear-amc-hlsv3/5ab832c0-311a-4705-9535-5e54ad64b21e/5.m3u8
@@ -253,9 +251,6 @@ https://59959724487e3.streamlock.net/stream/live/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="MX: MILENIO" tvg-logo="" group-title="Esport",MX: MILENIO
 https://mdstrm.com/live-stream-playlist/610178c7db32a4112d994650.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="US: CNN" tvg-logo="" group-title="Notícies",US: CNN
-https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8
-
 #EXTINF:-1 tvg-id="" tvg-name="US: AL JAZEERA EN" tvg-logo="" group-title="Notícies",US: AL JAZEERA EN
 https://live-hls-web-aje-fa.getaj.net/AJE/03.m3u8
 
@@ -274,8 +269,6 @@ https://amg01079-nbcuuk-amg01079c1-samsung-es-1261.playouts.now.amagi.tv/playlis
 #EXTINF:-1 tvg-id="" tvg-name="Distrito TV (1080p)" tvg-logo="https://i.imgur.com/AqGIoIt.png" group-title="General",Distrito TV (1080p)
 https://nlb2-live.emitstream.com/hls/3mn7wpcv7hbmxmdzaxap/master.m3u8
 
-#EXTINF:-1 tvg-id="FRANCE24 (FR).es" tvg-name="France 24 Español (1080p)" tvg-logo="https://i.imgur.com/ZnmAXVv.png" group-title="Notícies",France 24 Español (1080p)
-https://live.france24.com/hls/live/2037220/F24_ES_HI_HLS/master_5000.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Hamaika Telebista (1080p)" tvg-logo="https://i.imgur.com/HR3G3Ie.png" group-title="General",Hamaika Telebista
 https://cdn3.wowza.com/1/RERMR282dnU5eE5Z/OHY0dVFs/hls/live/playlist.m3u8
@@ -908,9 +901,6 @@ http://23.237.104.106:8080/USA_CINEMAX/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-chno="28" tvg-id="CMT.HD.us" tvg-name="CMT" tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s10138_dark_360w_270h.png" group-title="TV",CMT
 http://23.237.104.106:8080/USA_CMT/tracks-v1a1/mono.m3u8
-
-#EXTINF:-1 tvg-chno="30" tvg-id="CNN.HD.us" tvg-name="CNN" tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s58646_dark_360w_270h.png" group-title="TV",CNN
-https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8
 
 #EXTINF:-1 tvg-chno="33" tvg-id="Comet.us" tvg-name="Comet TV" tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s97051_dark_360w_270h.png" group-title="TV",Comet TV
 https://fast-channels.sinclairstoryline.com/COMET/index.m3u8
