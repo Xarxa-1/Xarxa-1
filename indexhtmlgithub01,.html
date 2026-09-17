@@ -26,7 +26,7 @@
             border-radius: 6px;
         }
         li {
-            border-bottom: 1px solid #hsla(210,18%,87%,1);
+            border-bottom: 1px solid #d0d7de;
             padding: 12px 16px;
         }
         li:last-child {
@@ -49,58 +49,69 @@
 
     <h1>🗂️ Índex de fitxers HTML</h1>
     <ul id="llista-fitxers">
-        <li class="loading">Carregant la llista de pàgines...</li>
+        <li class="loading">Carregant la llista de pàgines des de GitHub...</li>
     </ul>
 
     <script>
-        // CONFIGURACIÓ EXTRAUDA DE LA TEVA URL
         const USUARI = "xarxa-1";
         const REPOSITORI = "Xarxa-1";
-        const CARPETA = ""; // Deixa-ho buit per a l'arrel on estan els teus HTML
+        const CARPETA = ""; 
 
-        // Connexió automàtica a l'API del teu repositori públic
+        // Utilitzem l'API estàndard v3 de GitHub
         const apiUrl = `https://github.com{USUARI}/${REPOSITORI}/contents/${CARPETA}`;
 
         async function carregarHTMLs() {
             const llista = document.getElementById('llista-fitxers');
             
             try {
-                const resposta = await fetch(apiUrl);
+                // Afegim paràmetres i capçaleres per evitar problemes de CORS o bloquejos
+                const resposta = await fetch(apiUrl, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/vnd.github.v3+json',
+                        'User-Agent': 'GitHubPagesIndex' // Identifica la petició
+                    }
+                });
                 
                 if (!resposta.ok) {
-                    throw new Error("No s'ha pogut obtenir la informació del repositori de GitHub.");
+                    throw new Error(`Servidor de GitHub ha respost amb codi ${resposta.status}`);
                 }
 
                 const fitxers = await resposta.json();
-                llista.innerHTML = ""; // Netegem el text de càrrega
+                llista.innerHTML = ""; 
 
                 fitxers.forEach(fitxer => {
-                    // FILTRE: Només volem fitxers que acabin en .html i que NO siguin aquest mateix index.html
+                    // Filtrem només els fitxers .html excepte l'index
                     if (fitxer.type === 'file' && fitxer.name.endsWith('.html') && fitxer.name !== 'index.html') {
-                        
                         const li = document.createElement('li');
                         const a = document.createElement('a');
                         
-                        // Generem l'enllaç relatiu web ideal per a GitHub Pages
+                        // Generem l'enllaç dinàmic adaptat per si es visita online o local
                         a.href = `./${fitxer.name}`; 
-                        a.textContent = fitxer.name; // Mostra el nom de l'arxiu (ex: camera.html)
+                        a.textContent = fitxer.name;
                         
                         li.appendChild(a);
                         llista.appendChild(li);
                     }
                 });
 
-                // Si no hi hagués cap altre HTML a la carpeta
                 if (llista.children.length === 0) {
                     llista.innerHTML = "<li>No s'ha trobat cap altre fitxer HTML en aquest repositori.</li>";
                 }
 
             } catch (error) {
-                llista.innerHTML = `<li class="error">❌ Error: ${error.message}</li>`;
+                // Si l'API falla, oferim informació detallada
+                llista.innerHTML = `
+                    <li class="error">❌ Error: ${error.message}</li>
+                    <li style="color: #57606a; font-size: 13px;">
+                        Aquest error pot passar si el navegador té un <strong>bloquejador d'anuncis o tracker</strong> molt estricte, 
+                        o si l'API de GitHub ha superat el límit temporal de consultes des de la teva IP. 
+                        Prova d'obrir la pàgina en una finestra d'incògnit.
+                    </li>
+                `;
             }
         }
 
-        // Executar la funció en obrir la pàgina
         carregarHTMLs();
     </script>
 
