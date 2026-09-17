@@ -74,6 +74,16 @@ https://rtvelivestream.rtve.es/rtvesec/tdp/tdp_main.m3u8
 
 #EXTINF:-1 tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200" group-title="Catalunya" tvg-name="3Cat Vinagreta",3Cat Vinagreta
 https://fast-tailor.3catdirectes.cat/v1/channel/vinagreta/hls.m3u8
+
+#EXTINF:-1 group-title="Esport" logo="https://pbs.twimg.com/profile_images/2098686720245932032/MnOTaDwm_400x400.jpg" ,Barça TV
+https://amg17560-fcb-amg17560c1-rakuten-uk-4891.playouts.now.amagi.tv/playlist/amg17560-fcbarcelona-topbarcaenglish-rakutenuk/playlist.m3u8
+
+#EXTINF:-1 group-title="Esport" logo="https://pbs.twimg.com/profile_images/2098686720245932032/MnOTaDwm_400x400.jpg" ,Barça TV
+https://amg17560-fcb-amg17560c3-lg-es-11383.playouts.now.amagi.tv/ts-eu-w1-n2/playlist/amg17560-fcbarcelona-topbarcacatala-lges/playlist.m3u8
+
+#EXTINF:-1 group-title="Esport" logo="https://pbs.twimg.com/profile_images/2098686720245932032/MnOTaDwm_400x400.jpg" ,Barça TV
+https://amg17560-fcb-amg17560c2-samsung-es-9803.playouts.now.amagi.tv/ts-eu-w1-n2/playlist/amg17560-fcbarcelona-topbarcaspanish-samsunges/playlist.m3u8
+
 #EXTINF:-1 tvg-id="" tvg-name="CNN International Europe" tvg-logo="https://pbs.twimg.com/profile_images/1669780523911110656/K9gaaM1g_400x400.jpg" group-title="Notícies",US: CNN
 https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8
 
@@ -233,9 +243,6 @@ https://ingest1-video.streaming-pro.com/canalteABR/ctestream/playlist.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Canal Taronja Central" tvg-logo="https://graph.facebook.com/taronja.cat/picture?width=200&height=200" group-title="Catalunya",Canal Taronja Central
 https://ingest1-video.streaming-pro.com/canaltaronja/central/playlist.m3u8
-
-#EXTINF:-1 group-title="Esport" logo="https://i.imgur.com/d8x7c8i.png" ,Barça TV
-https://amg17560-fcb-amg17560c1-rakuten-uk-4891.playouts.now.amagi.tv/playlist/amg17560-fcbarcelona-topbarcaenglish-rakutenuk/playlist.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Newsmax TV" tvg-logo="https://i.imgur.com/Twkovic.gif" group-title="Notícies",Newsmax TV
 https://nmxlive.akamaized.net/hls/live/529965/Live_1/index.m3u8
@@ -1036,12 +1043,6 @@ http://23.237.104.106:8080/USA_STARZ_COMEDY/index.m3u8
 
 #EXTINF:-1 tvg-id="USA_STARZ_FAMILY" tvg-name="USA Starz Family" tvg-logo="https://cdnlogo.com/logos/s/98/starz-encore-family.png" group-title="Movies",USA Starz Family
 http://23.237.104.106:8080/USA_STARZ_FAMILY/index.m3u8
-
-#EXTINF:-1 group-title="Esport" logo="https://www.footylogos.com/downloads/logo/fc-barcelona-logo-footylogos.png" ,Barça TV
-https://amg17560-fcb-amg17560c3-lg-es-11383.playouts.now.amagi.tv/ts-eu-w1-n2/playlist/amg17560-fcbarcelona-topbarcacatala-lges/playlist.m3u8
-
-#EXTINF:-1 group-title="Esport" logo="https://www.footylogos.com/downloads/logo/fc-barcelona-logo-footylogos.png" ,Barça TV
-https://amg17560-fcb-amg17560c2-samsung-es-9803.playouts.now.amagi.tv/ts-eu-w1-n2/playlist/amg17560-fcbarcelona-topbarcaspanish-samsunges/playlist.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Càmares" tvg-logo="https://i.imgur.com/zXy2kbe.png" group-title="Catalunya",Càmares
 https://directes-tv-int.3catdirectes.cat/live-content/beauties-hls/bitrate_3.m3u8
