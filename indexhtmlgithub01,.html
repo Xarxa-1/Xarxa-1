@@ -49,7 +49,7 @@
     }
   </style>
 </head>
-<body>
+<body>00000000000000000
 
   <h1>Totes les URL de https://xarxa-1.github.io/Xarxa-1/</h1>
   <div id="status">Cercant tots els arxius del repositori...</div>
@@ -58,32 +58,34 @@
   <script>
     const user = 'Xarxa-1';
     const repo = 'Xarxa-1';
-    const baseUrl = `https://${user.github.io}/${repo}/`;
+    const baseUrl = `https://${user}.github.io/${repo}/`;
 
-    // Aquesta crida (recursive=1) cerca TOTS els arxius dins de TOTES les carpetes
-    fetch(`https://api.github.com/repos/${user}/${repo}/git/trees/main?recursive=1`)
-      .then(res => {
-        // Si la branca no es diu 'main', ho intenta amb 'master'
-        if (!res.ok) {
-          return fetch(`https://api.github.com/repos/${user}/${repo}/git/trees/master?recursive=1`);
-        }
-        return res;
-      })
-      .then(res => {
-        if (!res.ok) throw new Error('No s\'han pogut carregar els arxius.');
-        return res.json();
-      })
-      .then(data => {
-        const ul = document.getElementById('llista');
-        const status = document.getElementById('status');
+    async function carregarArxius() {
+      const status = document.getElementById('status');
+      const ul = document.getElementById('llista');
+
+      try {
+        // 1. Obtenir informació del repositori per saber quina és la branca principal per defecte
+        const repoRes = await fetch(`https://api.github.com/repos/${user}/${repo}`);
+        if (!repoRes.ok) throw new Error('No s\'ha trobat el repositori.');
         
-        // S'exclouen carpetes ocultes com .github i només es mostren arxius (no directoris)
-        const items = data.tree.filter(item => {
+        const repoData = await repoRes.json();
+        const defaultBranch = repoData.default_branch || 'main';
+
+        // 2. Demanar l'arbre d'arxius complet de la branca detectada
+        const treeRes = await fetch(`https://api.github.com/repos/${user}/${repo}/git/trees/${defaultBranch}?recursive=1`);
+        if (!treeRes.ok) throw new Error('No s\'han pogut llegir els arxius de la branca ' + defaultBranch);
+        
+        const treeData = await treeRes.json();
+
+        // 3. Filtrar només els fitxers (excloent carpetes i la carpeta oculta .github)
+        const items = treeData.tree.filter(item => {
           return item.type === 'blob' && !item.path.startsWith('.');
         });
 
         status.textContent = `S'han trobat ${items.length} URL d'arxius:`;
 
+        // 4. Mostrar els resultats a la llista
         items.forEach(item => {
           const li = document.createElement('li');
           const a = document.createElement('a');
@@ -94,20 +96,22 @@
           a.textContent = urlPublica;
           a.target = '_blank';
           
-          // Afegim una petita etiqueta amb l'extensió (.html, .png, etc.)
-          const ext = item.path.split('.').pop();
+          const ext = item.path.includes('.') ? item.path.split('.').pop().toUpperCase() : 'FILE';
           const badge = document.createElement('span');
           badge.className = 'ext';
-          badge.textContent = ext.toUpperCase();
+          badge.textContent = ext;
 
           li.appendChild(a);
           li.appendChild(badge);
           ul.appendChild(li);
         });
-      })
-      .catch(err => {
-        document.getElementById('status').textContent = 'Error: ' + err.message;
-      });
-  </script>99999999999999999999999955555555555555554444444444111111111111111111111
+
+      } catch (err) {
+        status.textContent = 'Error: ' + err.message;
+      }
+    }
+
+    carregarArxius();
+  </script>
 </body>
 </html>
