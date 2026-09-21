@@ -1050,11 +1050,14 @@ http://4.30.180.36:8420/starz/index.m3u8?token=test
 #EXTINF:-1 tvg-id="USA_STARZ_COMEDY" tvg-name="USA Starz Comedy" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Starz_Comedy_2016.svg/300px-Starz_Comedy_2016.svg.png" group-title="Movies",USA Starz Comedy
 http://23.237.104.106:8080/USA_STARZ_COMEDY/index.m3u8
 
-#EXTINF:-1 tvg-id="USA_STARZ_FAMILY" tvg-name="" tvg-logo="h" group-title="Movies",per
+#EXTINF:-1 tvg-id="USA_STARZ_FAMILY" tvg-name="" tvg-logo="h" group-title="Movies",USA_STARZ_FAMILY
 http://23.237.104.106:8080/USA_STARZ_FAMILY/index.m3u8
 
-
+#EXTINF:-1 tvg-id="USA_STARZ_FAMILY" tvg-name="" tvg-logo="h" group-title="Movies",per
 https://glparishhls94.glwiz.com/IRIBVarzesh/IRIBVarzesh_Low.m3u8?user=sgls5rz14agtb0jmb5f5ulvaq2a2&session=e95d967706d5f3cfc7df6b46d396e6f84e4f682e74f8c327a976d1a890c7c87c5a8e7e791a5292a1a304138e3c8390230aeaeb1a48960226c7ad11cb4536875d&hlsid=HTTP_ID_16599
+
+#EXTINF:-1 tvg-id="USA_STARZ_FAMILY" tvg-name="" tvg-logo="h" group-title="Movies",per
+https://glparishhls94.glwiz.com/PersianaSports3/PersianaSports3_Low.m3u8?user=sglsdufsmuluht2ylpnbngdsigeq&session=79263ce27393947d7563cbfa9b91d646fb8222040c5f091c529e83c2ffb9b9fb60387be316ea8afaa9aa105d6529874f2233f290c8aa5327930b2867ab638275&hlsid=HTTP_ID_26822
 
 #EXTINF:-1 tvg-id="" tvg-name="Càmares" tvg-logo="https://i.imgur.com/zXy2kbe.png" group-title="Catalunya",Càmares
 https://directes-tv-int.3catdirectes.cat/live-content/beauties-hls/bitrate_3.m3u8
