@@ -47,14 +47,14 @@ https://daiconnect.com/live/hls/tvup/rt-cv/.m3u8
 #EXTINF:-1 tvg-id="super3" tvg-name="super3" tvg-logo="https://graph.facebook.com/SomSX3/picture?width=200&height=200" group-title="Catalunya",SX3
 https://directes-tv-cat.3catdirectes.cat/live-content/super3-hls/master.m3u8
 
+#EXTINF:-1 tvg-id="24 Horas.es" tvg-name="24H.es" tvg-logo="https://i.imgur.com/IUVRm5L.png" group-title="Notícies",24HCat
+https://ztnr.rtve.es/ztnr/1694255.m3u8
+
 #EXTINF:-1 tvg-id="TVE_STAR.TV" tvg-logo="https://i.imgur.com/a8w1QRn.png" group-title="Internacionals",Star TVE
 https://rtvelivestream-rtveplayplus.rtve.es/rtvesec/int/star_main_720.m3u8
 
-#EXTINF:-1 tvg-id="Somos.es" group-title="Pel·lícules" tvg-logo="https://pbs.twimg.com/profile_images/1247104115995488259/G1WmuoIw_400x400.png",TVE Somos Cine
+#EXTINF:-1 tvg-id="RTVE_SomosCine.TV"" group-title="Pel·lícules" tvg-logo="https://pbs.twimg.com/profile_images/1247104115995488259/G1WmuoIw_400x400.png",TVE Somos Cine
 https://ztnr.rtve.es/ztnr/6909845.m3u8
-
-#EXTINF:-1 tvg-id="24 Horas.es" tvg-name="24H.es" tvg-logo="https://i.imgur.com/IUVRm5L.png" group-title="Notícies",24HCat
-https://ztnr.rtve.es/ztnr/1694255.m3u8
 
 #EXTINF:-1 tvg-id="RTVE_Cocina.TV" tvg-logo="https://graph.facebook.com/rtveplay/picture?width=200&height=200" group-title="Eventuales" tvg-name="Cocina (RTVE)",Cocina RTVE
 https://rtvelivestream.rtve.es/eventual/gofast/playm20_main.m3u8
@@ -852,12 +852,21 @@ http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/109725
 http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/38455
 #EXTINF:-1 tvg-ID="beinsports5.us" tvg-name="BEIN CONNECT 5" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/e/ec/Bein_connect_logo.png" group-title="SPORTS NETWORKS",BEIN CONNECT 5
 http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/38456
+
 #EXTINF:-1 tvg-ID="beinsports6.us" tvg-name="BEIN CONNECT 6" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/e/ec/Bein_connect_logo.png" group-title="SPORTS NETWORKS",BEIN CONNECT 6
 http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/38457
+
 #EXTINF:-1 tvg-ID="beinsports7.us" tvg-name="BEIN CONNECT 7" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/e/ec/Bein_connect_logo.png" group-title="SPORTS NETWORKS",BEIN CONNECT 7
 http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/38458
+
 #EXTINF:-1 tvg-ID="beinsports8.us" tvg-name="BEIN CONNECT 8" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/e/ec/Bein_connect_logo.png" group-title="SPORTS NETWORKS",BEIN CONNECT 8
 http://themyst.icu:826/SourPatchKid/nlnE4DVQUs/38459
+
+#EXTINF:-1 tvg-id="USA_STARZ_FAMILY" tvg-name="" tvg-logo="h" group-title="Movies",پخش زنده — Family
+https://familyhls.persiana.live/hls/stream.m3u8
+
+#EXTINF:-1 tvg-id="USA_STARZ_FAMILY" tvg-name="" tvg-logo="h" group-title="Movies",پخش زنده— Türkiye
+https://turkhls.persiana.live/hls/stream.m3u8
 
 
 #EXTINF:-1 tvg-id="TheNest.us@SD" tvg-logo="https://iili.io/JGqD21e.png" group-title="Documentary;Entertainment",The Nest
@@ -1053,18 +1062,5 @@ http://23.237.104.106:8080/USA_STARZ_COMEDY/index.m3u8
 #EXTINF:-1 tvg-id="USA_STARZ_FAMILY" tvg-name="" tvg-logo="h" group-title="Movies",USA_STARZ_FAMILY
 http://23.237.104.106:8080/USA_STARZ_FAMILY/index.m3u8
 
-#EXTINF:-1 tvg-id="USA_STARZ_FAMILY" tvg-name="" tvg-logo="h" group-title="Movies",پخش زنده — Family
-https://familyhls.persiana.live/hls/stream.m3u8
-
-#EXTINF:-1 tvg-id="USA_STARZ_FAMILY" tvg-name="" tvg-logo="h" group-title="Movies",پخش زنده— Türkiye
-https://turkhls.persiana.live/hls/stream.m3u8
-
-#EXTINF:-1 tvg-id="USA_STARZ_FAMILY" tvg-name="" tvg-logo="h" group-title="Movies",Sport
-https://glparishhls94.glwiz.com/PersianaSports3/PersianaSports3_Low.m3u8?user=sglsdufsmuluht2ylpnbngdsigeq&session=79263ce27393947d7563cbfa9b91d646fb8222040c5f091c529e83c2ffb9b9fb60387be316ea8afaa9aa105d6529874f2233f290c8aa5327930b2867ab638275&hlsid=HTTP_ID_26822
-
-#EXTINF:-1 tvg-id="USA_STARZ_FAMILY" tvg-name="" tvg-logo="h" group-title="Movies",BEIN Sport
-https://www.youtube-nocookie.com/s/_/ytembeds/_/ss/k=ytembeds.base.ECc3xVsl9vs.L.W.O/am=AAAAQA/d=1/br=1/rs=AGKMywGjG0dE5vs0xOvwOjbm3tKmoQi7Yw/m=root,base
-
 #EXTINF:-1 tvg-id="" tvg-name="Càmares" tvg-logo="https://i.imgur.com/zXy2kbe.png" group-title="Catalunya",Càmares
 https://directes-tv-int.3catdirectes.cat/live-content/beauties-hls/bitrate_3.m3u8
-
