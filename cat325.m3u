@@ -1,6 +1,6 @@
 @ #EXTM3U url-tvg="https://raw.githubusercontent.com/davidmuma/EPG_dobleM/master/EPG_dobleM.xml"
 
-#EXTM3U url-tvg=" https://raw.githubusercontent.com/Xarxa-1/3CATEPG/refs/heads/main/output/epg.xml , https://raw.githubusercontent.com/Xarxa-1/epgxarxa-/refs/heads/main/epg.xml , https://raw.githubusercontent.com/Xarxa-1/STARZEPG/refs/heads/main/epg.xml , https://raw.githubusercontent.com/Xarxa-1/MULTISTARZEPG/refs/heads/main/epg.xml , https://www.open-epg.com/files/spain1.xml , https://www.open-epg.com/files/spain2.xml , https://raw.githubusercontent.com/Xarxa-1/VERDI/refs/heads/main/epg.xml , https://www.open-epg.com/files/spain3.xml ,   https://epgshare01.online/epgshare01/epg_ripper_UK1.xml.gz , https://epgshare01.online/epgshare01/epg_ripper_US1.xml.gz , https://www.tdtchannels.com/epg/TV.json "
+#EXTM3U url-tvg=" https://raw.githubusercontent.com/Xarxa-1/3CATEPG/refs/heads/main/output/epg.xml , https://raw.githubusercontent.com/Xarxa-1/epgxarxa-/refs/heads/main/epg.xml , https://raw.githubusercontent.com/Xarxa-1/STARZEPG/refs/heads/main/epg.xml , https://raw.githubusercontent.com/Xarxa-1/MULTISTARZEPG/refs/heads/main/epg.xml , https://www.open-epg.com/files/spain1.xml , https://www.open-epg.com/files/spain2.xml , https://raw.githubusercontent.com/Xarxa-1/VERDI/refs/heads/main/epg.xml , https://www.open-epg.com/files/spain3.xml ,   https://epgshare01.online/epgshare01/epg_ripper_UK1.xml.gz , https://epgshare01.online/epgshare01/epg_ripper_US1.xml.gz "
 
 #EXTINF:-1 tvg-id="tv3" tvg-name="TV3" tvg-logo="https://pbs.twimg.com/profile_images/1718910763174109184/B7MDxoG1.jpg" group-title="Catalunya",TV3
 https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
@@ -50,7 +50,7 @@ https://directes-tv-cat.3catdirectes.cat/live-content/super3-hls/master.m3u8
 #EXTINF:-1 tvg-id="24 Horas.es" tvg-name="24H.es" tvg-logo="https://i.imgur.com/IUVRm5L.png" group-title="Notícies",24HCat
 https://ztnr.rtve.es/ztnr/1694255.m3u8
 
-#EXTINF:-1 tvg-id="TVE_STAR.TV" tvg-logo="https://i.imgur.com/a8w1QRn.png" group-title="Internacionals",Star TVE
+#EXTINF:-1 tvg-id="TVE_STAR.TV" tvg-logo="https://img.emisorasunidas.com/upload/2024/06/17161D504C43426D15100F54594944711F161E18594B45761611.jpg" group-title="Internacionals",Star TVE
 https://rtvelivestream-rtveplayplus.rtve.es/rtvesec/int/star_main_720.m3u8
 
 #EXTINF:-1 tvg-id="RTVE_SomosCine.TV"" group-title="Pel·lícules" tvg-logo="https://pbs.twimg.com/profile_images/1247104115995488259/G1WmuoIw_400x400.png",TVE Somos Cine
@@ -65,8 +65,8 @@ https://rtvelivestream.rtve.es/eventual/gofast/playm27_main.m3u8
 #EXTINF:-1 tvg-id="À Punt.es" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Logotip_d%27%C3%80_Punt_%282017-%29.svg/960px-Logotip_d%27%C3%80_Punt_%282017-%29.svg.png" group-title="General;Public",A Punt (720p)
 https://fastly.live.brightcove.com/1846756479408303045/eu-central-1/6057955885001/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0IjoiZWFxNWh4LmVncmVzcy53YzQ3bTEiLCJhY2NvdW50X2lkIjoiNjA1Nzk1NTg4NTAwMSIsImVobiI6ImZhc3RseS5saXZlLmJyaWdodGNvdmUuY29tIiwiaXNzIjoiYmxpdmUtcGxheWJhY2stc291cmNlLWFwaSIsInN1YiI6InBhdGhtYXB0b2tlbiIsImF1ZCI6WyI2MDU3OTU1ODg1MDAxIl0sImp0aSI6IjE4NDY3NTY0Nzk0MDgzMDMwNDUifQ.o6wb_VA-TVxl3ERgr7FKLlaTjY7smErmsf73QAydySE/playlist-hls-dvr.m3u8
 
-#EXTINF:-1 tvg-id="Antena3Internacional.es@SD" tvg-logo="https://pbs.twimg.com/profile_images/1898279121924259840/TzTr1cid_400x400.jpg" group-title="General" ,Antena 3 Internacional
-http://177.10.184.193:8000/play/a06a/index.m3u8
+# #EXTINF:-1 tvg-id="Antena3Internacional.es@SD" tvg-logo="https://pbs.twimg.com/profile_images/1898279121924259840/TzTr1cid_400x400.jpg" group-title="General" ,Antena 3 Internacional
+# http://177.10.184.193:8000/play/a06a/index.m3u8
 
 #EXTINF:-1 tvg-id="Teledeporte" tvg-name="TDP" tvg-logo="https://graph.facebook.com/teledeporteRTVE/picture?width=200&height=200" group-title="Esport" tvg-name="Teledeporte",Teledeporte
 https://rtvelivestream.rtve.es/rtvesec/tdp/tdp_main.m3u8
@@ -82,6 +82,24 @@ https://amg17560-fcb-amg17560c3-lg-es-11383.playouts.now.amagi.tv/ts-eu-w1-n2/pl
 
 #EXTINF:-1 group-title="Esport" tvg-logo="https://pbs.twimg.com/profile_images/2098686720245932032/MnOTaDwm_400x400.jpg" ,Barça TV
 https://amg17560-fcb-amg17560c2-samsung-es-9803.playouts.now.amagi.tv/ts-eu-w1-n2/playlist/amg17560-fcbarcelona-topbarcaspanish-samsunges/playlist.m3u8
+
+#EXTINF:-1 tvg-id="Xarxa_Canal_Reus_TV.TV" tvg-name="Canal Reus TV" tvg-logo="https://pbs.twimg.com/profile_images/1899040884026392577/MK3u4IhA_x96.jpg" group-title="Catalunya",CanalReus
+https://ingest2-video.streaming-pro.com/creus/stream/playlist.m3u8
+
+#EXTINF:-1 tvg-id="" tvg-name="TVReus" tvg-logo="https://i.imgur.com/Ee0C8UH.jpg" group-title="Catalunya",TVReus
+https://eu1.servers10.com:8081/8166/index.m3u8
+
+#EXTINF:-1 tvg-id="Xarxa_TV_Sabadell_Valles.TV" tvg-name="TVSabadell" tvg-logo="negre.jpg" group-title="Catalunya",TVSabadell
+https://ingest1-video.streaming-pro.com/canaltaronja/sabadell/playlist.m3u8
+
+#EXTINF:-1 tvg-id="Xarxa_Canal_Terres_Ebre.TV" tvg-name="Canal Terres de l'Ebre" tvg-logo="https://graph.facebook.com/canal.terresdelebre/picture?width=200&height=200" group-title="Catalunya",Canal Terres de l'Ebre
+https://ingest1-video.streaming-pro.com/canalteABR/ctestream/playlist.m3u8
+
+#EXTINF:-1 tvg-id="" tvg-name="Canal Taronja Central" tvg-logo="https://graph.facebook.com/taronja.cat/picture?width=200&height=200" group-title="Catalunya",Canal Taronja Central
+https://ingest1-video.streaming-pro.com/canaltaronja/central/playlist.m3u8
+
+#EXTINF:-1 tvg-id="Xarxa_Canal_10_Emporda.TV" tvg-name="EmpordàTV" tvg-logo="https://i.imgur.com/jc0lUbX.png" group-title="Catalunya",EmpordàTV
+https://video3.lhdserver.es/empordatv2/live.m3u8
 
 #EXTINF:-1 tvg-id="FRANCE24 (FR).es" tvg-name="France 24 Español (1080p)" tvg-logo="https://i.imgur.com/ZnmAXVv.png" group-title="Notícies",France 24 Español
 https://live.france24.com/hls/live/2037220/F24_ES_HI_HLS/master_5000.m3u8
@@ -154,23 +172,6 @@ https://directes-tv-cat.3catdirectes.cat/live-origin/oca3-hls/master.m3u8
 
 #EXTINF:-1 tvg-id="3catint.es" tvg-name="3CATe3" tvg-logo="" group-title="Catalunya",Merlí
 https://jmp2.uk/plu-683457aebbc703dfd45a89eb.m3u8
-
-#EXTINF:-1 tvg-id="Xarxa_Canal_Reus_TV.TV" tvg-name="Canal Reus TV" tvg-logo="https://pbs.twimg.com/profile_images/1899040884026392577/MK3u4IhA_x96.jpg" group-title="Catalunya",CanalReus
-https://ingest2-video.streaming-pro.com/creus/stream/playlist.m3u8
-
-#EXTINF:-1 tvg-id="" tvg-name="TVReus" tvg-logo="https://i.imgur.com/Ee0C8UH.jpg" group-title="Catalunya",TVReus
-https://eu1.servers10.com:8081/8166/index.m3u8
-
-#EXTINF:-1 tvg-id="Xarxa_TV_Sabadell_Valles.TV" tvg-name="TVSabadell" tvg-logo="negre.jpg" group-title="Catalunya",TVSabadell
-https://ingest1-video.streaming-pro.com/canaltaronja/sabadell/playlist.m3u8
-
-#EXTINF:-1 tvg-id="Xarxa_Canal_Terres_Ebre.TV" tvg-name="Canal Terres de l'Ebre" tvg-logo="https://graph.facebook.com/canal.terresdelebre/picture?width=200&height=200" group-title="Catalunya",Canal Terres de l'Ebre
-https://ingest1-video.streaming-pro.com/canalteABR/ctestream/playlist.m3u8
-
-#EXTINF:-1 tvg-id="" tvg-name="Canal Taronja Central" tvg-logo="https://graph.facebook.com/taronja.cat/picture?width=200&height=200" group-title="Catalunya",Canal Taronja Central
-https://ingest1-video.streaming-pro.com/canaltaronja/central/playlist.m3u8
-#EXTINF:-1 tvg-id="Xarxa_Canal_10_Emporda.TV" tvg-name="EmpordàTV" tvg-logo="https://i.imgur.com/jc0lUbX.png" group-title="Catalunya",EmpordàTV
-https://video3.lhdserver.es/empordatv2/live.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Tastemade" tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200" group-title="Food",TastemadeAu
 https://rakutenaa-tm-intl-aus-rakuten-eu-n1gtg.amagi.tv/playlist/rakutenAA-tm-intl-aus-rakuten-eu/playlist.m3u8
