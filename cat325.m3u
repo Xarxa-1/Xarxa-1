@@ -1068,6 +1068,9 @@ http://23.237.104.106:8080/USA_STARZ_FAMILY/index.m3u8
 #EXTVLCOPT:http-referrer=https://player.instantvideocloud.net/
 ttps://jmp2.uk/stvp-ES42000022E
 
+#EXTINF:-1 tvg-id="" tvg-name="Càmares" tvg-logo="" group-title="Catalunya",...
+https://xarxa-1.github.io/Xarxa-1/laser.mp4
+
 #EXTINF:-1 tvg-chno="2436" tvg-id="ES42000022E" tvg-logo="https://tvpnlogopeu.samsungcloud.tv/platform/image/sourcelogo/vc/00/02/34/ES42000022E_20251202T002550SQUARE.png",Xataka
 https://jmp2.uk/stvp-ES42000022E
 
