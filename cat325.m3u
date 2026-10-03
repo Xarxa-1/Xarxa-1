@@ -308,6 +308,12 @@ https://the-pet-collective-international-es.samsung.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="TV5Monde Europe (1080p) [Geo-blocked]" tvg-logo="https://i.imgur.com/rPAbMSu.png" group-title="General",TV5Monde Europe (1080p) [Geo-blocked]
 https://ott.tv5monde.com/Content/HLS/Live/channel(europe)/variant.m3u8
 
+#EXTINF:-1 tvg-id="" tvg-name="chefs" tvg-logo="https://i.imgur.com/rPAbMSu.png" group-title="General",TV5MONDE Chefs
+https://tvf-tv5ch.otteravision.com/tvf/tv5ch/tv5ch.m3u8
+
+#EXTINF:-1 tvg-id="" tvg-name="voyage" tvg-logo="https://i.imgur.com/rPAbMSu.png" group-title="General",TV5MONDE Voyage
+https://stream.ads.ottera.tv/cl/261003db0of4e3ltcc73bb3r10/854x480_1355200_2_f.m3u8
+
 #EXTINF:-1 tvg-id="" tvg-name="Pop (1080p)" tvg-logo="https://i.imgur.com/fGUlCY3.png" group-title="Dibuixos",Pop (1080p)
 https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01753-narrativeentert-popkids-lggb/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="V2BEAT (720p) [Not 24/7]" tvg-logo="https://i.imgur.com/PXGqyLn.png" group-title="Música",V2BEAT (720p) [Not 24/7]
