@@ -1184,10 +1184,14 @@ https://streaming-live.rtp.pt/liverepeater/smil:rtp2HD.smil/playlist.m3u8
 #EXTGRP:Europa
 #EXTVLCOPT:network-caching=1000
 https://streaming-live.rtp.pt/liverepeater/smil:rtpint.smil/playlist.m3u8
-#EXTINF:0 group-title="Europa",TV5Monde Europe
+#EXTINF:0 tvg-logo="https://pbs.twimg.com/profile_images/1975129158159118336/h30v0HcZ_400x400.jpg! group-title="Europa",TV5Monde Europe
 #EXTGRP:Europa
 #EXTVLCOPT:network-caching=1000
 https://ott.tv5monde.com/Content/HLS/Live/channel(europe)/variant.m3u8
+
+#EXTINF:-1 tvg-id="TraceSportStars.fr" tvg-logo="https://i.imgur.com/FabFP5A.png" group-title="Sports",Trace Sport Stars (1080p) [Geo-blocked]
+http://tracesportstars-samsunges.amagi.tv/hls/amagi_hls_data_samsunguk-tracesport-samsungspain/CDN/playlist.m3u8
+
 #EXTINF:0 group-title="Europa",Bloomberg Europe
 #EXTGRP:Europa
 #EXTVLCOPT:network-caching=1000
