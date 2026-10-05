@@ -167,8 +167,11 @@ https://directes-tv-cat.3catdirectes.cat/live-origin/oca2-hls/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="3CATe3" tvg-logo="https://graph.facebook.com/som3Cat/picture?width=200&height=200" group-title="Catalunya",3CATe3
 https://directes-tv-cat.3catdirectes.cat/live-origin/oca3-hls/master.m3u8
 
-#EXTINF:-1 tvg-id="3catint.es" tvg-name="3CATe3" tvg-logo="" group-title="Catalunya",Merlí
+#EXTINF:-1 tvg-id="3catint.es" tvg-name="3CATe3" tvg-logo="https://pbs.twimg.com/profile_images/1688919070899687426/DWABCq6K_400x400.jpg" group-title="Catalunya",Merlí
 https://jmp2.uk/plu-683457aebbc703dfd45a89eb.m3u8
+
+#EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1258035922722934784/S27gb-oG_400x400.jpg" tvg-name="TheDesingNetwork"  group-title="Design",TheDesingNetwork
+https://amg00441-amg00441c1-rakuten-us-6050.playouts.now.amagi.tv/playlist/amg00441-thedesignnetworkllcfast-thedesignnetwork-rakutenus/playlist.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Tastemade" tvg-logo="https://graph.facebook.com/TastemadeEs/picture?width=200&height=200" group-title="Food",TastemadeAu
 https://rakutenaa-tm-intl-aus-rakuten-eu-n1gtg.amagi.tv/playlist/rakutenAA-tm-intl-aus-rakuten-eu/playlist.m3u8
@@ -197,7 +200,7 @@ https://d3ca4qxsdzlrju.cloudfront.net/Tastemade_Home.m3u8
 #EXTINF:-1 tvg-name="Tastemade_Smokehouse_(720p)" group-title="Design",Tastemade_Smokehouse_(720p)
 https://jmp2.uk/plu-68509fe882d704acfc5bacd1.m3u8
 
-#EXTINF:-1 tvg-name="Tastemade_Viagem_(720p)" group-title="Design",Tastemade_Viagem_(720p)
+#EXTINF:-1 tvg-name="Tastemade_Viagem_(720p)" group-title="",Tastemade_Viagem_(720p)
 https://jmp2.uk/plu-68b8875777201ec428d9eaa5.m3u8
 
 #EXTINF:-1 tvg-name="Tastemade_Viajes_(720p)" group-title="Design",Tastemade_Viajes_(720p)
@@ -350,11 +353,15 @@ https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master_1660.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Activa TV (720p)" tvg-logo="https://i.imgur.com/VCUZKiw.png" group-title="Música",Activa TV (720p)
 https://streamtv.mediasector.es/hls/activatv/index.m3u8
 
+#EXTINF:-1 tvg-id="TraceUrban.fr" tvg-logo="https://i.imgur.com/XJf2ajf.png" group-title="Music",Trace Urban
+https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg01076-lightningintern-traceurban-samsungnz/playlist.m3u8
+
 #EXTINF:-1 tvg-id="" tvg-name="Cadena Elite (720p) [Not 24/7]" tvg-logo="https://i.imgur.com/3yeGDTP.png" group-title="Música",Cadena Elite (720p) [Not 24/7]
 https://cloudvideo.servers10.com:8081/8004/index.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="POP World TV (720p)" tvg-logo="https://i.imgur.com/LQB6G3s.jpg" group-title="Música",POP World TV (720p)
 https://janus.xpbroadcasting.com:8443/hls/popworld.m3u8
+
 #EXTINF:-1 tvg-id="" tvg-name="Rakuten TV Action Movies Spain (1080p)" tvg-logo="https://i.imgur.com/Meew6eX.png" group-title="Pel·lícules",Rakuten TV Action Movies Spain (1080p)
 https://a9c57ec7ec5e4b7daeacc6316a0bb404.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6069/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Rakuten TV Comedy Movies Spain (1080p)" tvg-logo="https://i.imgur.com/Meew6eX.png" group-title="Pel·lícules",Rakuten TV Comedy Movies Spain (1080p)
@@ -410,8 +417,6 @@ http://45.228.234.30:16000/play/a008/index.m3u8
 #EXTINF:11 tvg-logo="https://pbs.twimg.com/profile_images/1985477749926952960/N2FA5em6_400x400.jpg"  group-title="Pel·lícules",HBO 2 HD 
 http://45.228.234.30:16000/play/a009/index.m3u8
 
-#EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1258035922722934784/S27gb-oG_400x400.jpg" tvg-name="TheDesingNetwork"  group-title="Design",TheDesingNetwork
-https://amg00441-amg00441c1-rakuten-us-6050.playouts.now.amagi.tv/playlist/amg00441-thedesignnetworkllcfast-thedesignnetwork-rakutenus/playlist.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Tastemade Home" tvg-logo="https://tvpnlogopus.samsungcloud.tv/platform/image/sourcelogo/vc/00/02/34/USBC3200022W6_20240910T003655SQUARE.png" group-title="Design",Tastemade Home
 https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tastemadehome-lgus/playlist.m3u8
@@ -757,9 +762,6 @@ https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg00718-outdoorchannela-outdoortvnz
 #EXTINF:-1 tvg-id="wild tv" group-title="International", wild tv
 https://dfhsahpa45kk2.cloudfront.net/scheduler/scheduleMaster/476/variant/22100055.m3u8
 
-#EXTINF:-1 tvg-id="The design network" group-title="International", The design network
-https://amg00441-amg00441c1-rakuten-us-6050.playouts.now.amagi.tv/playlistR240p.m3u8
-
 #EXTINF:-1 tvg-id="HLN" group-title="International", HLN
 http://23.237.104.106:8080/USA_HLN/tracks-v1a1/mono.m3u8
 
@@ -1091,44 +1093,7 @@ http://181.78.79.131:8000/play/a0s3
 https://streaming013.gestec-video.com/hls/negociostv.m3u8
 
 
-
-#EXTINF:0 group-title="EspaÃ±a",El Confidencial
-#EXTGRP:EspaÃ±a
-#EXTVLCOPT:network-caching=1000
-https://daqnsnf5phf17.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-sde7fypd1420w-prod/fast-channel-elconfidencial/fast-channel-elconfidencial.m3u8
-#EXTINF:0 group-title="EspaÃ±a",Kidz (Atresplayer)
-#EXTGRP:EspaÃ±a
-#EXTVLCOPT:network-caching=1000
-https://fast-channels.atresmedia.com/648c271d2bfab0e4177a0d61/648c271d2bfab0e4177a0d61/2.m3u8
-#EXTINF:0 group-title="EspaÃ±a",Flooxer
-#EXTGRP:EspaÃ±a
-#EXTVLCOPT:network-caching=1000
-https://fast-channels.atresmedia.com/5c1285e47ed1a861f8125285/5c1285e47ed1a861f8125285.m3u8
-#EXTINF:0 group-title="EspaÃ±a",Atresplayer Clasicos
-#EXTGRP:EspaÃ±a
-#EXTVLCOPT:network-caching=1000
-https://fast-channels.atresmedia.com/648ef12c2bfab0e4507e0d61/648ef12c2bfab0e4507e0d61.m3u8
-#EXTINF:0 group-title="EspaÃ±a",Atresplayer Comedia
-#EXTGRP:EspaÃ±a
-#EXTVLCOPT:network-caching=1000
-https://fast-channels.atresmedia.com/648ef23d2bfab0e4557e0d61/648ef23d2bfab0e4557e0d61.m3u8
-#EXTINF:0 group-title="EspaÃ±a",El Hormiguero
-#EXTGRP:EspaÃ±a
-#EXTVLCOPT:network-caching=1000
-https://fast-channels.atresmedia.com/648ef5882bfab0e4627e0d61/648ef5882bfab0e4627e0d61.m3u8
-#EXTINF:0 group-title="EspaÃ±a",El Club de la Comedia
-#EXTGRP:EspaÃ±a
-#EXTVLCOPT:network-caching=1000
-https://fast-channels.atresmedia.com/648f47f7a2ffb0e40aeff3ad/648f47f7a2ffb0e40aeff3ad.m3u8
-#EXTINF:0 group-title="EspaÃ±a",Equipo de Investigacion
-#EXTGRP:EspaÃ±a
-#EXTVLCOPT:network-caching=1000
-https://fast-channels.atresmedia.com/648ef5551756b0e429af83cc/648ef5551756b0e429af83cc.m3u8
-#EXTINF:0 group-title="EspaÃ±a",Fisica o Quimica
-#EXTGRP:EspaÃ±a
-#EXTVLCOPT:network-caching=1000
-https://fast-channels.atresmedia.com/648ef50a2bfab0e4607e0d61/648ef50a2bfab0e4607e0d61.m3u8
-#EXTINF:0 group-title="EspaÃ±a",RTVE Crimen
+#EXTINF:0 group-title="EspaÃ±a",RTVE 
 #EXTGRP:EspaÃ±a
 #EXTVLCOPT:network-caching=1000
 https://ztnr.rtve.es/ztnr/6924117.m3u8
@@ -1136,22 +1101,10 @@ https://ztnr.rtve.es/ztnr/6924117.m3u8
 #EXTGRP:EspaÃ±a
 #EXTVLCOPT:network-caching=1000
 https://ztnr.rtve.es/ztnr/6922467.m3u8
-#EXTINF:0 group-title="EspaÃ±a",RTVE Cuentame
-#EXTGRP:EspaÃ±a
-#EXTVLCOPT:network-caching=1000
-https://ztnr.rtve.es/ztnr/6909843.m3u8
 #EXTINF:0 group-title="EspaÃ±a",RTVE Somos Cine
 #EXTGRP:EspaÃ±a
 #EXTVLCOPT:network-caching=1000
 https://ztnr.rtve.es/ztnr/6909845.m3u8
-#EXTINF:0 group-title="EspaÃ±a",RTVE Docs
-#EXTGRP:EspaÃ±a
-#EXTVLCOPT:network-caching=1000
-https://ztnr.rtve.es/ztnr/6987938.m3u8
-#EXTINF:0 group-title="EspaÃ±a",HOLA! Play
-#EXTGRP:EspaÃ±a
-#EXTVLCOPT:network-caching=1000
-https://022d66c197dd4a1e9008e0134a74f34e.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/Samsung-es_HolaPlay/playlist.m3u8
 #EXTINF:0 group-title="EspaÃ±a",Canal Parlamento
 #EXTGRP:EspaÃ±a
 #EXTVLCOPT:network-caching=1000
@@ -1211,7 +1164,7 @@ https://ncdn-live-bfm.pfd.sfr.net/shls/LIVE$BFM_TV/index.m3u8?start=LIVE&end=END
 #EXTINF:-1 tvg-id="SkySport" tvg-logo="https://graph.facebook.com/skynews/picture?width=200&height=200" group-title="Esport",SKY SPORTS LALIGA 1 🇲🇽
 https://dqco14bu26p3z.cloudfront.net/30505/89006005/hls/master.m3u8?ads.xumo_channelId=89006005&ads.xumo_streamId=89006005
 
-#EXTINF:-1 tvg-id="" tvg-name="Càmares" tvg-logo="" group-title="Catalunya",...
+#EXTINF:-1 tvg-id="" tvg-name="" tvg-logo="https://xarxa-1.github.io/Xarxa-1/iptv03.jpeg" group-title="Catalunya",...
 https://xarxa-1.github.io/Xarxa-1/laser.mp4
 
 #EXTINF:-1 tvg-id="" tvg-name="Càmares" tvg-logo="https://i.imgur.com/zXy2kbe.png" group-title="Catalunya",Càmares
