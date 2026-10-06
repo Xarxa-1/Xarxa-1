@@ -1167,5 +1167,11 @@ https://dqco14bu26p3z.cloudfront.net/30505/89006005/hls/master.m3u8?ads.xumo_cha
 #EXTINF:-1 tvg-id="" tvg-name="" tvg-logo="https://xarxa-1.github.io/Xarxa-1/iptv03.jpeg" group-title="Catalunya",...
 https://xarxa-1.github.io/Xarxa-1/laser.mp4
 
+
+#EXTINF:-1 tvg-id="0" tvg-name="Càmares0" tvg-logo="https://i.imgur.com/zXy2kbe.png" group-title="Catalunya",Càmares
+#EXTVLCOPT:noaudio
+https://directes-tv-int.3catdirectes.cat/live-content/beauties-hls/master.m3u8
+
+
 #EXTINF:-1 tvg-id="" tvg-name="Càmares" tvg-logo="https://i.imgur.com/zXy2kbe.png" group-title="Catalunya",Càmares
 https://directes-tv-int.3catdirectes.cat/live-content/beauties-hls/bitrate_3.m3u8
