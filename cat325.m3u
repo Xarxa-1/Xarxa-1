@@ -1158,14 +1158,23 @@ http://tracesportstars-samsunges.amagi.tv/hls/amagi_hls_data_samsunguk-tracespor
 #EXTGRP:Europa
 #EXTVLCOPT:network-caching=1000
 https://www.bloomberg.com/media-manifest/streams/eu.m3u8
+
 #EXTINF:0 group-title="Europa",BFM TV
 #EXTGRP:Europa
 #EXTVLCOPT:network-caching=1000
 https://ncdn-live-bfm.pfd.sfr.net/shls/LIVE$BFM_TV/index.m3u8?start=LIVE&end=END
 
-
 #EXTINF:-1 tvg-id="SkySport" tvg-logo="https://graph.facebook.com/skynews/picture?width=200&height=200" group-title="Esport",SKY SPORTS LALIGA 1 🇲🇽
 https://dqco14bu26p3z.cloudfront.net/30505/89006005/hls/master.m3u8?ads.xumo_channelId=89006005&ads.xumo_streamId=89006005
+
+#EXTINF:-1 tvg-id="DanceTVDeepHouseDistrict" tvg-logo="https://via.placeholder.com/150/000000/FFFFFF?text=Deep+House" group-title="Music",DanceTV Deep House District (1080p)
+https://m1b2.worldcast.tv/dancetelevisiontwo/dancetelevisiontwo.m3u8
+
+#EXTINF:-1 tvg-id="100Deep" tvg-logo="https://via.placeholder.com/150/000000/FFFFFF?text=100%25+Deep" group-title="Music",100% Deep - 100FM רדיוס
+https://a25.streamgates.net/radios-audio/100Deep/chunks.m3u8
+
+#EXTINF:-1 tvg-id="BarazaTVDeepHouse.gr@SD" tvg-logo="https://i.imgur.com/TZ1unwF.png" group-title="Music",Baraza TV Deep House (720p)
+https://rtmp.streams.ovh:1936/barazarelax/barazazararelax/barazarelax/playlist.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="" tvg-logo="https://xarxa-1.github.io/Xarxa-1/iptv03.jpeg" group-title="Catalunya",...
 https://xarxa-1.github.io/Xarxa-1/laser.mp4
