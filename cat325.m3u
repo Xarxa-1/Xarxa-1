@@ -228,12 +228,6 @@ https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master_1660.m3u8?xtreami
 #EXTINF:-1 tvg-name="Squirrel" tvg-logo="https://i.imgur.com/urF0kYA.png" tvg-id="Squirrel.es" tvg-chno="25" tvg-country="ES" group-title="General",Squirrel
 https://tsw.streamingwebtv24.it:1936/inteccdn1/inteccdn1/playlist.m3u8
 
-#EXTINF:-1 tvg-id="LiveChannel" group-title="Pel·lícules", LiveChannel
-https://0145451975a64b35866170fd2e8fa486.mediatailor.eu-west-1.amazonaws.com/v1/manifest/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-5987/52449019-c378-4e85-b20e-1f51e0d5bb4a/4.m3u8
-
-#EXTINF:-1 tvg-id="ActivaTV.es@SD"  group-title="Música" ,Activa TV (720p)
-https://streamtv.mediasector.es/hls/activatv/index.m3u8
-
 #EXTINF:-1 tvg-id="" tvg-name="Aragón TV" tvg-logo="https://i.imgur.com/6YSi1zW.png" group-title="General",Aragón TV
 https://cartv.streaming.aranova.es/hls/live/aragontv_canal1.m3u8
 
@@ -246,9 +240,6 @@ https://multimedia.eitb.eus/live-content/etb2hd-hls/master.m3u8
 #EXTINF:-1 tvg-id="etv.es@SD" tvg-logo="https://i.imgur.com/Waf1SOq.png" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36 CrKey/1.44.191160" group-title="General",ETV Terramar (1080p)
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36 CrKey/1.44.191160
 https://liveingesta318.cdnmedia.tv/tvetvlive/smil:rtmp01.smil/playlist.m3u8
-
-#EXTINF:-1 tvg-id="" tvg-name="Newsmax TV" tvg-logo="https://i.imgur.com/Twkovic.gif" group-title="Notícies",Newsmax TV
-https://nmxlive.akamaized.net/hls/live/529965/Live_1/index.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="BX1" tvg-logo="https://i.imgur.com/VHAYeqR.png" group-title="Notícies",BX1
 https://59959724487e3.streamlock.net/stream/live/master.m3u8
@@ -366,8 +357,6 @@ https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg01076-lightningintern-traceurban-
 #EXTINF:-1 tvg-id="" tvg-name="Cadena Elite (720p) [Not 24/7]" tvg-logo="https://i.imgur.com/3yeGDTP.png" group-title="Música",Cadena Elite (720p) [Not 24/7]
 https://cloudvideo.servers10.com:8081/8004/index.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="POP World TV (720p)" tvg-logo="https://i.imgur.com/LQB6G3s.jpg" group-title="Música",POP World TV (720p)
-https://janus.xpbroadcasting.com:8443/hls/popworld.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Rakuten TV Action Movies Spain (1080p)" tvg-logo="https://i.imgur.com/Meew6eX.png" group-title="Pel·lícules",Rakuten TV Action Movies Spain (1080p)
 https://a9c57ec7ec5e4b7daeacc6316a0bb404.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6069/master.m3u8
@@ -437,8 +426,6 @@ https://fl1.moveonjoy.com/Sony_Movie_Channel/index.m3u8
 #EXTINF:-1 tvg-name="Sony Channel" group-title="Entreteniment" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/b/b9/Sony_Channel_Logo.png",Sony Channel
 https://a-cdn.klowdtv.com/live1/cine_720p/chunks.m3u8
 
-#EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-us.png", HBO HB
-http://45.228.234.30:16000/play/a008/index.m3u8
 #EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-us.png", HBO Plus 
 http://45.228.234.30:16000/play/a00a/index.m3u8
 #EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-us.png", HBO Family
@@ -489,8 +476,6 @@ http://162.19.255.233:8080/play/UNbAl57p9hXZClOu56FCTZID4SFOqZLZ81NguVP-JxM/m3u8
 #EXTINF:-1 group-title="Pel·lícules",HBO Family
 https://fl1.moveonjoy.com/HBO_FAMILY/index.m3u8
 
-#EXTINF:-1 group-title="Pel·lícules"tvg-name="Sony",SONY
-https://a-cdn.klowdtv.com/live1/cine_720p/playlist.m3u8
 
 #EXTINF:-1 group-title="Pel·lícules",Cinevault Westerns (540p)
 https://gsn-cinevault-westerns-2-us.roku.wurl.tv/playlist.m3u8
@@ -591,9 +576,6 @@ https://tx3.nexgen.bz:4000/CTI_SPORT8/index.m3u8
 #EXTINF:-1 group-title="Esport",NFL
 https://tx2.nexgen.bz:4000/NFL/index.m3u8
 
-#EXTINF:-1 group-title="Esport",TDP Teledeportes
-https://rtvelivestream.rtve.es/rtvesec/tdp/tdp_main.m3u8
-
 #EXTINF:-1 group-title="Esport",Live Sports
 https://starsportshindiii.pages.dev/720p.m3u8
 
@@ -625,13 +607,6 @@ http://41.205.93.154/ESPN/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 group-title="Esport" tvg-id="ESPN.us" tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s10179_dark_360w_270h.png" tvg-name="ESPN",ESPN2
 http://190.60.32.178:8178/play/a015/index.m3u8
-
-
-#EXTINF:-1 tvg-id="AnimalPlanet.us" group-title="USA",Animal Planet
-http://23.237.104.106:8080/USA_ANIMAL_PLANET/tracks-v1a1/mono.m3u8
-
-#EXTINF:-1 tvg-id="CartoonNetwork.us" group-title="USA",Cartoon Network / Adult Swim
-http://23.237.104.106:8080/USA_CARTOON_NETWORK/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="Cinemax.us" group-title="USA",Cinemax
 http://23.237.104.106:8080/USA_CINEMAX/tracks-v1a1/mono.m3u8
@@ -706,9 +681,6 @@ https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01255-secomcofites-my-myzen-en-plex
 #EXTINF:-1 tvg-id="Nickelodeon" group-title="International", Nickelodeon
 http://23.237.104.106:8080/USA_NICKELODEON/tracks-v1a1/mono.m3u8
 
-#EXTINF:-1 tvg-id="MovieSphere (1080p)" group-title="International", MovieSphere
-https://moviesphereuk-samsunguk.amagi.tv/playlist.m3u8
-
 #EXTINF:-1 tvg-id="Dateline" group-title="International", Dateline
 https://dz59iptwz5rxs.cloudfront.net/live/master_6.m3u8
 
@@ -721,12 +693,6 @@ https://qvcuk-live.akamaized.net/hls/live/2097112/qvc/1/1.m3u8
 
 #EXTINF:-1 tvg-id="BBC TWO" group-title="International", BBC TWO
 https://0145451975a64b35866170fd2e8fa486.mediatailor.eu-west-1.amazonaws.com/v1/manifest/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-5987/52449019-c378-4e85-b20e-1f51e0d5bb4a/4.m3u8
-
-#EXTINF:-1 tvg-id="BBC ONE" group-title="International", BBC ONE
-http://41.205.93.154/BBCONE/tracks-v1a1/mono.m3u8
-
-#EXTINF:-1 tvg-id="BBC TWO" group-title="International", BBC TWO
-http://41.205.93.154/BBCTWO/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="CNN international" group-title="International", CNN international
 https://ds2c506obo7m8.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-7zjq3tdqasbg8/index.m3u8
@@ -900,9 +866,6 @@ http://23.237.104.106:8080/USA_BOOMERANG/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-chno="17" tvg-id="Bounce.TV.us" tvg-name="Bounce TV" tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s73067_dark_360w_270h.png" group-title="TV",Bounce TV
 http://23.237.104.106:8080/USA_BOUNCE/tracks-v1a1/mono.m3u8
-
-#EXTINF:-1 tvg-chno="18" tvg-id="Bravo.HD.us" tvg-name="Bravo TV" tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s10057_dark_360w_270h.png" group-title="TV",Bravo TV
-http://41.205.93.154/BRAVO/index.m3u8
 
 #EXTINF:-1 tvg-chno="21" tvg-id="Cartoon.Network.HD.us" tvg-name="Cartoon Network" tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s12131_dark_360w_270h.png" group-title="TV",Cartoon Network
 http://23.237.104.106:8080/USA_CARTOON_NETWORK/tracks-v1a1/mono.m3u8
