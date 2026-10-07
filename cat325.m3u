@@ -1137,20 +1137,14 @@ https://dqco14bu26p3z.cloudfront.net/30505/89006005/hls/master.m3u8?ads.xumo_cha
 #EXTINF:-1 tvg-id="DanceTVDeepHouseDistrict" tvg-logo="https://via.placeholder.com/150/000000/FFFFFF?text=Deep+House" group-title="Music",DanceTV Deep House District (1080p)
 https://m1b2.worldcast.tv/dancetelevisiontwo/dancetelevisiontwo.m3u8
 
-#EXTINF:-1 tvg-id="100Deep" tvg-logo="https://via.placeholder.com/150/000000/FFFFFF?text=100%25+Deep" group-title="Music",100% Deep - 100FM רדיוס
-https://a25.streamgates.net/radios-audio/100Deep/chunks.m3u8
-
 #EXTINF:-1 tvg-id="BarazaTVDeepHouse.gr@SD" tvg-logo="https://i.imgur.com/TZ1unwF.png" group-title="Music",Baraza TV Deep House (720p)
 https://rtmp.streams.ovh:1936/barazarelax/barazazararelax/barazarelax/playlist.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="" tvg-logo="https://xarxa-1.github.io/Xarxa-1/iptv03.jpeg" group-title="Catalunya",...
 https://xarxa-1.github.io/Xarxa-1/laser.mp4
 
+EXTINF:-1 tvg-id="DeepHouseDistrict.nl@SD" tvg-logo="https://i.imgur.com/IV2Qvc0.png" group-title="Music",DeepHouse District (1080p)
+https://eu-nl-012.worldcast.tv/dancetelevisiontwo/dancetelevisiontwo.m3u8
 
 #EXTINF:-1 tvg-id="0" tvg-name="Càmares0" tvg-logo="https://i.imgur.com/zXy2kbe.png" group-title="Catalunya",Càmares
-#EXTVLCOPT:noaudio
 https://directes-tv-int.3catdirectes.cat/live-content/beauties-hls/master.m3u8
-
-
-#EXTINF:-1 tvg-id="" tvg-name="Càmares" tvg-logo="https://i.imgur.com/zXy2kbe.png" group-title="Catalunya",Càmares
-https://directes-tv-int.3catdirectes.cat/live-content/beauties-hls/bitrate_3.m3u8
