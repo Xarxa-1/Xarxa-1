@@ -215,6 +215,24 @@ https://jmp2.uk/plu-68b8875777201ec428d9eaa5.m3u8
 #EXTINF:-1 tvg-name="Tastemade_Viajes_(720p)" group-title="Design",Tastemade_Viajes_(720p)
 https://jmp2.uk/plu-68b88712e777774982269ce9.m3u8
 
+EXTINF:-1 tvg-id="Tastemade.us@Germany" tvg-logo="https://i.imgur.com/xP7Ehn8.png" group-title="Cooking",Tastemade (1080p)
+https://rakutenaa-tm-germany-rakuten-ger-8jboz.amagi.tv/playlist/rakutenAA-tm-germany-rakuten-ger/playlist.m3u8
+#EXTINF:-1 tvg-id="Tastemade.us@Poland" tvg-logo="https://i.imgur.com/xP7Ehn8.png" group-title="Cooking",Tastemade
+https://tastemade-aus-tmina-rakuten.amagi.tv/hls/amagi_hls_data_rakutenAA-tm-intl-aus-rakuten-eu/CDN/master.m3u8
+#EXTINF:-1 tvg-id="Tastemade.us@UK" tvg-logo="https://i.imgur.com/xP7Ehn8.png" group-title="Cooking",Tastemade (1080p)
+https://tastemade-tdint-rakuten.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="Tastemade.us@Australia" tvg-logo="https://i.imgur.com/xP7Ehn8.png" group-title="Cooking",Tastemade Australia (1080p)
+https://tmint-aus-samsungau.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="TastemadeenEspanol.us@SD" tvg-logo="https://i.imgur.com/8s6aRwv.png" group-title="Cooking",Tastemade en Espanol [Geo-blocked]
+https://tastemadees16us-xumo.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="Tastemade.us@US" tvg-logo="https://i.imgur.com/xP7Ehn8.png" group-title="Cooking",Tastemade International
+https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tmintlaus-samsungnz/playlist.m3u8
+#EXTINF:-1 tvg-id="TastemadeTravel.us@SD" tvg-logo="https://i.imgur.com/8s6aRwv.png" group-title="Cooking",Tastemade Travel [Geo-blocked]
+https://amg00047-tastemade-amg00047c3-cineverse-us-1360.playouts.now.amagi.tv/playlist/amg00047-tastemadefast-tastemadetravel-cineverseus/playlist.m3u8
+#EXTINF:-1 tvg-id="KukhnyaTV.ru@SD" tvg-logo="https://i.imgur.com/7jxZnuS.png" group-title="Cooking",Кухня ТВ
+http://31.148.48.15/Kuhnya_TV/index.m3u8
+#EXTINF:-1 tvg-id="CityEdenReceptyGurmana.r
+
 #EXTINF:-1 tvg-id="" tvg-name="bon app?tit" tvg-logo="https://i.imgur.com/YhFFxlE.png" group-title="Food",bon appétit
 https://bonappetit-samsung.amagi.tv/playlist.m3u8
 
