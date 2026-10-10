@@ -1100,15 +1100,6 @@ https://ncdn-live-bfm.pfd.sfr.net/shls/LIVE$BFM_TV/index.m3u8?start=LIVE&end=END
 #EXTINF:-1 tvg-id="SkySport" tvg-logo="https://graph.facebook.com/skynews/picture?width=200&height=200" group-title="Esport",SKY NEWS
 https://dqco14bu26p3z.cloudfront.net/30505/89006005/hls/master.m3u8?ads.xumo_channelId=89006005&ads.xumo_streamId=89006005
 
-#EXTINF:-1 tvg-id="DanceTVDeepHouseDistrict" tvg-logo="https://via.placeholder.com/150/000000/FFFFFF?text=Deep+House" group-title="Music",DanceTV Deep House District 1
-https://m1b2.worldcast.tv/dancetelevisionone/2/dancetelevisionone.m3u8
-
-#EXTINF:-1 tvg-id="DanceTVDeepHouseDistrict" tvg-logo="https://via.placeholder.com/150/000000/FFFFFF?text=Deep+House" group-title="Music",DanceTV Deep House District 2
-https://m1b2.worldcast.tv/dancetelevisiontwo/dancetelevisiontwo.m3u8
-
-#EXTINF:-1 tvg-id="BarazaTVDeepHouse.gr@SD" tvg-logo="https://i.imgur.com/TZ1unwF.png" group-title="Music",Baraza TV Deep House (720p)
-https://rtmp.streams.ovh:1936/barazarelax/barazazararelax/barazarelax/playlist.m3u8
-
 #EXTINF:-1 tvg-id="" tvg-name="" tvg-logo="https://xarxa-1.github.io/Xarxa-1/iptv03.jpeg" group-title="Catalunya",...
 https://xarxa-1.github.io/Xarxa-1/laser.mp4
 #EXTINF:-1 tvg-id="StingrayClassicRock.ca@SD" tvg-logo="https://i.imgur.com/FBgu8yB.png" group-title="Music",Stingray Classic Rock (1080p)
@@ -1169,6 +1160,157 @@ https://lotus.stingray.com/manifest/ose-190ads-montreal/samsungtvplus/master.m3u
 https://lotus.stingray.com/manifest/ose-133ads-montreal/samsungtvplus/master.m3u8
 
 
+#EXTINF:0,13 C
+http://181.78.79.131:8000/play/a0pm
+#EXTINF:0,A&E HD
+http://181.78.79.131:8000/play/a0mt
+#EXTINF:0,AMC HD
+http://181.78.79.131:8000/play/a0ud
+#EXTINF:0,ATV
+http://181.78.79.131:8000/play/a0sp
+#EXTINF:0,AXN HD
+http://181.78.79.131:8000/play/a0q0
+#EXTINF:0,Adult Swim
+http://181.78.79.131:8000/play/a0pk
+#EXTINF:0,Animal Planet
+http://181.78.79.131:8000/play/a0po
+#EXTINF:0,BETHEL TV
+http://181.78.79.131:8000/play/a0pn
+#EXTINF:0,Baby First
+http://181.78.79.131:8000/play/a0sw
+#EXTINF:0,CANAL 1
+http://181.78.79.131:8000/play/a1s2
+#EXTINF:0,CANAL INSTITUCIONAL
+http://181.78.79.131:8000/play/a1l8
+#EXTINF:0,CARACOL TV HD
+http://181.78.79.131:8000/play/a1l0
+#EXTINF:0,CHV
+http://181.78.79.131:8000/play/a0r0
+#EXTINF:0,CNN Español
+http://181.78.79.131:8000/play/a0p3
+#EXTINF:0,Canal 13 
+http://181.78.79.131:8000/play/a0n4
+#EXTINF:0,Canal 24 Horas
+http://181.78.79.131:8000/play/a0qr
+#EXTINF:0,Canal Caracol
+http://181.78.79.131:8000/play/a0sb
+#EXTINF:0,Canal RCN
+http://181.78.79.131:8000/play/a0sc
+#EXTINF:0,Canal TUVES
+http://181.78.79.131:8000/play/a0q8
+#EXTINF:0,Canal del Congreso
+http://181.78.79.131:8000/play/a0se
+#EXTINF:0,Capital
+http://181.78.79.131:8000/play/a0sj
+#EXTINF:0,Cartoon Network HD
+http://181.78.79.131:8000/play/a0tj
+#EXTINF:0,Cinecanal
+http://181.78.79.131:8000/play/a0pp
+#EXTINF:0,City TV
+http://181.78.79.131:8000/play/a0si
+#EXTINF:0,Comedy Central HD
+http://181.78.79.131:8000/play/a0mu
+#EXTINF:0,De Pelicula
+http://181.78.79.131:8000/play/a0qb
+#EXTINF:0,Discovery Science
+http://181.78.79.131:8000/play/a0pb
+#EXTINF:0,Discovery Turbo
+http://181.78.79.131:8000/play/a0p8
+#EXTINF:0,Discovery World HD
+http://181.78.79.131:8000/play/a0n8
+#EXTINF:0,Disney Jr.
+http://181.78.79.131:8000/play/a0p7
+#EXTINF:0,ESPN
+http://181.78.79.131:8000/play/a0s7
+#EXTINF:0,ESPN 2 HD
+http://181.78.79.131:8000/play/a0qj
+#EXTINF:0,ESPN 3 HD
+http://181.78.79.131:8000/play/a0s6
+#EXTINF:0,ESPN 4 HD
+http://181.78.79.131:8000/play/a0s9
+#EXTINF:0,ESPN 5 HD
+http://181.78.79.131:8000/play/a0s5
+#EXTINF:0,ESPN 6 HD
+http://181.78.79.131:8000/play/a0s3
+#EXTINF:0,ESPN 7 HD
+http://181.78.79.131:8000/play/a0s8
+#EXTINF:0,Enlace
+http://181.78.79.131:8000/play/a0pj
+#EXTINF:0,Espn Premium
+http://181.78.79.131:8000/play/a0r2
+#EXTINF:0,Eventos Deportivos
+http://181.78.79.131:8000/play/a0tr
+#EXTINF:0,HBO
+http://181.78.79.131:8000/play/a0qd
+#EXTINF:0,HBO Xtreme HD
+http://181.78.79.131:8000/play/a0qy
+#EXTINF:0,History Channel
+http://181.78.79.131:8000/play/a0st
+#EXTINF:0,Home & Health HD
+http://181.78.79.131:8000/play/a0tm
+#EXTINF:0,ID
+http://181.78.79.131:8000/play/a0sl
+#EXTINF:0,LA KALLE
+http://181.78.79.131:8000/play/a1l3
+#EXTINF:0,Las Estrellas HD
+http://181.78.79.131:8000/play/a0qu
+#EXTINF:0,Lifetime
+http://181.78.79.131:8000/play/a0pi
+#EXTINF:0,MEGA HD
+http://181.78.79.131:8000/play/a0qn
+#EXTINF:0,MTV HD
+http://181.78.79.131:8000/play/a0nc
+#EXTINF:0,Nat Geo HD
+http://181.78.79.131:8000/play/a0pt
+#EXTINF:0,Nickelodeon HD
+http://181.78.79.131:8000/play/a0qm
+#EXTINF:0,Panamericana TV
+http://181.78.79.131:8000/play/a0so
+#EXTINF:0,Pasiones HD
+http://181.78.79.131:8000/play/a0qh
+#EXTINF:0,RCN HD
+http://181.78.79.131:8000/play/a1l4
+#EXTINF:0,RCN Novelas
+http://181.78.79.131:8000/play/a0sk
+#EXTINF:0,SEÑAL COLOMBIA
+http://181.78.79.131:8000/play/a1l7
+#EXTINF:0,Sony Movies
+http://181.78.79.131:8000/play/a0to
+#EXTINF:0,Space HD
+http://181.78.79.131:8000/play/a0q2
+#EXTINF:0,TELECARIBE
+http://181.78.79.131:8000/play/a1lb
+#EXTINF:0,TLC
+http://181.78.79.131:8000/play/a0t3
+#EXTINF:0,TNT Novelas HD
+http://181.78.79.131:8000/play/a0na
+#EXTINF:0,TNT SPORTS
+http://181.78.79.131:8000/play/a0mo
+#EXTINF:0,TNT Sports Premium SD
+http://181.78.79.131:8000/play/a0q9
+#EXTINF:0,TRO
+http://181.78.79.131:8000/play/a0sh
+#EXTINF:0,Tlnovelas 
+http://181.78.79.131:8000/play/a0t6
+#EXTINF:0,UNIVERSAL CHANNEL HD
+http://181.78.79.131:8000/play/a0mw
+#EXTINF:0,ViaX
+http://181.78.79.131:8000/play/a0t4
+#EXTINF:0,Warner
+http://181.78.79.131:8000/play/a0sz
+#EXTINF:0,Warner TV HD
+http://181.78.79.131:8000/play/a0pz
+#EXTINF:0,Win Sports+ HD
+http://181.78.79.131:8000/play/a0m1
+#EXTINF:0,Zona Latina
+http://181.78.79.131:8000/play/a0su
+#EXTINF:0,Zoom
+http://181.78.79.131:8000/play/a0sg
+
+
+
+
+
 #EXTINF:0 group-title="Deportes"tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s10179_dark_360w_270h.png",ESPN
 #EXTGRP:Deportes
 #EXTVLCOPT:network-caching=1000
@@ -1204,6 +1346,15 @@ https://m2b2.worldcast.tv:7443/dancetelevisionthree/2/dancetelevisionthree.m3u8
 #EXTINF:-1 tvg-id="DeepHouseDistrict.nl@SD" tvg-logo="https://i.imgur.com/IV2Qvc0.png" group-title="Music",DeepHouse multibit (1080p)
 
 https://mbit1.worldcast.tv:9443/dancetelevisioneight/multibit.m3u8
+
+#EXTINF:-1 tvg-id="DanceTVDeepHouseDistrict" tvg-logo="https://via.placeholder.com/150/000000/FFFFFF?text=Deep+House" group-title="Music",DanceTV Deep House District 1
+https://m1b2.worldcast.tv/dancetelevisionone/2/dancetelevisionone.m3u8
+
+#EXTINF:-1 tvg-id="DanceTVDeepHouseDistrict" tvg-logo="https://via.placeholder.com/150/000000/FFFFFF?text=Deep+House" group-title="Music",DanceTV Deep House District 2
+https://m1b2.worldcast.tv/dancetelevisiontwo/dancetelevisiontwo.m3u8
+
+#EXTINF:-1 tvg-id="BarazaTVDeepHouse.gr@SD" tvg-logo="https://i.imgur.com/TZ1unwF.png" group-title="Music",Baraza TV Deep House (720p)
+https://rtmp.streams.ovh:1936/barazarelax/barazazararelax/barazarelax/playlist.m3u8
 
 #EXTINF:-1 tvg-id="0" tvg-name="Càmares0" tvg-logo="https://i.imgur.com/zXy2kbe.png" group-title="Catalunya",Càmares
 https://directes-tv-int.3catdirectes.cat/live-content/beauties-hls/master.m3u8
