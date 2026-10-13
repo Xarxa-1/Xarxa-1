@@ -1340,17 +1340,17 @@ http://181.78.79.131:8000/play/a0s3
 
 #EXTINF:-1 tvg-id="DeepHouseDistrict.nl@SD" tvg-logo="https://i.imgur.com/IV2Qvc0.png" group-title="Music",DeepHouse District (1080p)
 https://eu-nl-012.worldcast.tv/dancetelevisiontwo/dancetelevisiontwo.m3u8
-#EXTINF:-1 tvg-id="DeepHouseDistrict.nl@SD" tvg-logo="https://i.imgur.com/IV2Qvc0.png" group-title="Music",DeepHouse dancetelevisionthree (1080p)
+#EXTINF:-1 tvg-id="DeepHouseDistrict.nl@SD" tvg-logo="https://i.imgur.com/IV2Qvc0.png" group-title="Music",DeepHouse TECHNOWAREHOUSE (1080p)
 
 https://m2b2.worldcast.tv:7443/dancetelevisionthree/2/dancetelevisionthree.m3u8
-#EXTINF:-1 tvg-id="DeepHouseDistrict.nl@SD" tvg-logo="https://i.imgur.com/IV2Qvc0.png" group-title="Music",DeepHouse multibit (1080p)
+#EXTINF:-1 tvg-id="DeepHouseDistrict.nl@SD" tvg-logo="https://i.imgur.com/IV2Qvc0.png" group-title="Music",DeepHouse CHILLAF (1080p)
 
 https://mbit1.worldcast.tv:9443/dancetelevisioneight/multibit.m3u8
 
 #EXTINF:-1 tvg-id="DanceTVDeepHouseDistrict" tvg-logo="https://via.placeholder.com/150/000000/FFFFFF?text=Deep+House" group-title="Music",DanceTV Deep House District 1
 https://m1b2.worldcast.tv/dancetelevisionone/2/dancetelevisionone.m3u8
 
-#EXTINF:-1 tvg-id="DanceTVDeepHouseDistrict" tvg-logo="https://via.placeholder.com/150/000000/FFFFFF?text=Deep+House" group-title="Music",DanceTV Deep House District 2
+#EXTINF:-1 tvg-id="DanceTVDeepHouseDistrict" tvg-logo="https://via.placeholder.com/150/000000/FFFFFF?text=Deep+House" group-title="Music",DanceTV Deep House District
 https://m1b2.worldcast.tv/dancetelevisiontwo/dancetelevisiontwo.m3u8
 
 #EXTINF:-1 tvg-id="BarazaTVDeepHouse.gr@SD" tvg-logo="https://i.imgur.com/TZ1unwF.png" group-title="Music",Baraza TV Deep House (720p)
