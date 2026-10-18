@@ -1320,7 +1320,8 @@ http://181.78.79.131:8000/play/a0su
 #EXTINF:0 tvg-id="Canal Zoom.co",Zoom
 http://181.78.79.131:8000/play/a0sg
 
-
+#EXTINF:-1 channel-id="65ea8b928145cb0008509426-us" tvg-id="65ea8b928145cb0008509426" tvg-chno="2831" tvg-name="UEFA Champions League" tvg-logo="https://images.pluto.tv/channels/65ea8b928145cb0008509426/colorLogoPNG.png" group-title="United States",UEFA Champions League
+https://jmp2.uk/plu-65ea8b928145cb0008509426.m3u8
 
 #EXTINF:0 tvg-id="ESPN.co" group-title="Deportes"tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s10179_dark_360w_270h.png",ESPN
 #EXTGRP:Deportes
