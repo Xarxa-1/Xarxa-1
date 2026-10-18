@@ -231,7 +231,21 @@ https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tmintlaus-samsung
 https://amg00047-tastemade-amg00047c3-cineverse-us-1360.playouts.now.amagi.tv/playlist/amg00047-tastemadefast-tastemadetravel-cineverseus/playlist.m3u8
 #EXTINF:-1 tvg-id="KukhnyaTV.ru@SD" tvg-logo="https://i.imgur.com/7jxZnuS.png" group-title="Cooking",Кухня ТВ
 http://31.148.48.15/Kuhnya_TV/index.m3u8
-#EXTINF:-1 tvg-id="CityEdenReceptyGurmana.r
+
+#EXTINF:-1 channel-id="5fd1419a3b4f4b000773ba85-br" tvg-id="5fd1419a3b4f4b000773ba85" tvg-chno="1209" tvg-name="Tastemade" tvg-logo="https://images.pluto.tv/channels/5fd1419a3b4f4b000773ba85/colorLogoPNG.png" group-title="Brazil",Tastemade
+https://jmp2.uk/plu-5fd1419a3b4f4b000773ba85.m3u8
+#EXTINF:-1 channel-id="5f998c1fc54853000797bacd-mx" tvg-id="5f998c1fc54853000797bacd" tvg-chno="1209" tvg-name="Tastemade" tvg-logo="https://images.pluto.tv/channels/5f998c1fc54853000797bacd/colorLogoPNG_1730999716441.png" group-title="Mexico",Tastemade
+https://jmp2.uk/plu-5f998c1fc54853000797bacd.m3u8
+#EXTINF:-1 channel-id="5f998c1fc54853000797bacd-ar" tvg-id="5f998c1fc54853000797bacd" tvg-chno="1209" tvg-name="Tastemade" tvg-logo="https://images.pluto.tv/channels/5f998c1fc54853000797bacd/colorLogoPNG_1730999716441.png" group-title="Argentina",Tastemade
+https://jmp2.uk/plu-5f998c1fc54853000797bacd.m3u8
+#EXTINF:-1 channel-id="68b88821e542386ab0bf5bef-br" tvg-id="68b88821e542386ab0bf5bef" tvg-chno="1210" tvg-name="Tastemade Casa" tvg-logo="https://images.pluto.tv/channels/68b88821e542386ab0bf5bef/colorLogoPNG_1759795743690.png" group-title="Brazil",Tastemade Casa
+https://jmp2.uk/plu-68b88821e542386ab0bf5bef.m3u8
+#EXTINF:-1 channel-id="68b8875777201ec428d9eaa5-br" tvg-id="68b8875777201ec428d9eaa5" tvg-chno="1211" tvg-name="Tastemade Viagem" tvg-logo="https://images.pluto.tv/channels/68b8875777201ec428d9eaa5/colorLogoPNG_1759784936254.png" group-title="Brazil",Tastemade Viagem
+https://jmp2.uk/plu-68b8875777201ec428d9eaa5.m3u8
+#EXTINF:-1 channel-id="68b88712e777774982269ce9-mx" tvg-id="68b88712e777774982269ce9" tvg-chno="1155" tvg-name="Tastemade Viajes" tvg-logo="https://images.pluto.tv/channels/68b88712e777774982269ce9/colorLogoPNG_1759784097851.png" group-title="Mexico",Tastemade Viajes
+https://jmp2.uk/plu-68b88712e777774982269ce9.m3u8
+#EXTINF:-1 channel-id="68b88712e777774982269ce9-ar" tvg-id="68b88712e777774982269ce9" tvg-chno="1155" tvg-name="Tastemade Viajes" tvg-logo="https://images.pluto.tv/channels/68b88712e777774982269ce9/colorLogoPNG_1759784097851.png" group-title="Argentina",Tastemade Viajes
+https://jmp2.uk/plu-68b88712e777774982269ce9.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="bon app?tit" tvg-logo="https://i.imgur.com/YhFFxlE.png" group-title="Food",bon appétit
 https://bonappetit-samsung.amagi.tv/playlist.m3u8
@@ -1355,6 +1369,30 @@ https://m1b2.worldcast.tv/dancetelevisiontwo/dancetelevisiontwo.m3u8
 
 #EXTINF:-1 tvg-id="BarazaTVDeepHouse.gr@SD" tvg-logo="https://i.imgur.com/TZ1unwF.png" group-title="Music",Baraza TV Deep House (720p)
 https://rtmp.streams.ovh:1936/barazarelax/barazazararelax/barazarelax/playlist.m3u8
+
+#EXTINF:-1 channel-id="5f32f26bcd8aea00071240e5-us" tvg-id="5f32f26bcd8aea00071240e5" tvg-chno="4640" tvg-name="Vevo '70s" tvg-logo="https://images.pluto.tv/channels/5f32f26bcd8aea00071240e5/colorLogoPNG.png" group-title="United States",Vevo '70s
+https://jmp2.uk/plu-5f32f26bcd8aea00071240e5.m3u8
+#EXTINF:-1 channel-id="5fd7b8bf927e090007685853-us" tvg-id="5fd7b8bf927e090007685853" tvg-chno="4650" tvg-name="Vevo '80s" tvg-logo="https://images.pluto.tv/channels/5fd7b8bf927e090007685853/colorLogoPNG.png" group-title="United States",Vevo '80s
+https://jmp2.uk/plu-5fd7b8bf927e090007685853.m3u8
+#EXTINF:-1 channel-id="5fd7bb1f86d94a000796e2c2-us" tvg-id="5fd7bb1f86d94a000796e2c2" tvg-chno="4660" tvg-name="Vevo '90s" tvg-logo="https://images.pluto.tv/channels/5fd7bb1f86d94a000796e2c2/colorLogoPNG.png" group-title="United States",Vevo '90s
+https://jmp2.uk/plu-5fd7bb1f86d94a000796e2c2.m3u8
+#EXTINF:-1 channel-id="5fd7bca3e0a4ee0007a38e8c-us" tvg-id="5fd7bca3e0a4ee0007a38e8c" tvg-chno="4670" tvg-name="Vevo 2K" tvg-logo="https://images.pluto.tv/channels/5fd7bca3e0a4ee0007a38e8c/colorLogoPNG.png" group-title="United States",Vevo 2K
+https://jmp2.uk/plu-5fd7bca3e0a4ee0007a38e8c.m3u8
+#EXTINF:-1 channel-id="5da0d75e84830900098a1ea0-us" tvg-id="5da0d75e84830900098a1ea0" tvg-chno="4700" tvg-name="Vevo Country" tvg-logo="https://images.pluto.tv/channels/5da0d75e84830900098a1ea0/colorLogoPNG.png" group-title="United States",Vevo Country
+https://jmp2.uk/plu-5da0d75e84830900098a1ea0.m3u8
+#EXTINF:-1 channel-id="5d93b635b43dd1a399b39eee-us" tvg-id="5d93b635b43dd1a399b39eee" tvg-chno="4760" tvg-name="Vevo Pop" tvg-logo="https://images.pluto.tv/channels/5d93b635b43dd1a399b39eee/colorLogoPNG.png" group-title="United States",Vevo Pop
+https://jmp2.uk/plu-5d93b635b43dd1a399b39eee.m3u8
+#EXTINF:-1 channel-id="5da0d83f66c9700009b96d0e-us" tvg-id="5da0d83f66c9700009b96d0e" tvg-chno="4730" tvg-name="Vevo R&B" tvg-logo="https://images.pluto.tv/channels/5da0d83f66c9700009b96d0e/colorLogoPNG.png" group-title="United States",Vevo R&B
+https://jmp2.uk/plu-5da0d83f66c9700009b96d0e.m3u8
+#EXTINF:-1 channel-id="64dab5fe35425100080e2991-us" tvg-id="64dab5fe35425100080e2991" tvg-chno="4580" tvg-name="Vevo Regional Mexicano" tvg-logo="https://images.pluto.tv/channels/64dab5fe35425100080e2991/colorLogoPNG.png" group-title="United States",Vevo Regional Mexicano
+https://jmp2.uk/plu-64dab5fe35425100080e2991.m3u8
+#EXTINF:-1 channel-id="61d4b38226b8a50007fe03a6-us" tvg-id="61d4b38226b8a50007fe03a6" tvg-chno="4740" tvg-name="Vevo Rock" tvg-logo="https://images.pluto.tv/channels/61d4b38226b8a50007fe03a6/colorLogoPNG_1748797615724.png" group-title="United States",Vevo Rock
+https://jmp2.uk/plu-61d4b38226b8a50007fe03a6.m3u8
+#EXTINF:-1 channel-id="61d4c2817a823d00070ba53e-us" tvg-id="61d4c2817a823d00070ba53e" tvg-chno="4720" tvg-name="Vevo True School Hip-Hop" tvg-logo="https://images.pluto.tv/channels/61d4c2817a823d00070ba53e/colorLogoPNG.png" group-title="United States",Vevo True School Hip-Hop
+https://jmp2.uk/plu-61d4c2817a823d00070ba53e.m3u8
+#EXTINF:-1 channel-id="64d161c93c785e0008df575e-us" tvg-id="64d161c93c785e0008df575e" tvg-chno="4590" tvg-name="Vevo Íconos Latinos" tvg-logo="https://images.pluto.tv/channels/64d161c93c785e0008df575e/colorLogoPNG.png" group-title="United States",Vevo Íconos Latinos
+https://jmp2.uk/plu-64d161c93c785e0008df575e.m3u8
+
 
 #EXTINF:0 tvg-id="",00s Replay
 https://jmp2.uk/plu-62ba60f059624e000781c436.m3u8
