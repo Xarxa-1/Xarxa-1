@@ -1236,6 +1236,7 @@ http://181.78.79.131:8000/play/a0p8
 http://181.78.79.131:8000/play/a0n8
 #EXTINF:0 tvg-id="DISNEY JUNIOR.co",Disney Jr.
 http://181.78.79.131:8000/play/a0p7
+
 #EXTINF:0 tvg-id="ESPN.co",ESPN
 http://181.78.79.131:8000/play/a0s7
 #EXTINF:0 tvg-id="ESPN 2 HD.co",ESPN 2 HD
@@ -1326,35 +1327,6 @@ http://181.78.79.131:8000/play/a0sg
 #EXTINF:-1 channel-id="65ea8b928145cb0008509426-us" tvg-id="65ea8b928145cb0008509426" tvg-chno="2831" tvg-name="UEFA Champions League" tvg-logo="https://images.pluto.tv/channels/65ea8b928145cb0008509426/colorLogoPNG.png" group-title="United States",UEFA Champions League
 https://jmp2.uk/plu-65ea8b928145cb0008509426.m3u8
 
-#EXTINF:0 tvg-id="ESPN.co" group-title="Deportes"tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s10179_dark_360w_270h.png",ESPN
-#EXTGRP:Deportes
-#EXTVLCOPT:network-caching=1000
-http://181.78.79.131:8000/play/a0s7
-#EXTINF:0 tvg-id="ESPN 2.co" group-title="Deportes"tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s10179_dark_360w_270h.png",ESPN 2 HD
-#EXTGRP:Deportes
-#EXTVLCOPT:network-caching=1000
-http://181.78.79.131:8000/play/a0qj
-#EXTINF:0 tvg-id="ESPN 3.co" group-title="Deportes"tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s10179_dark_360w_270h.png",ESPN 3 HD
-#EXTGRP:Deportes
-#EXTVLCOPT:network-caching=1000
-http://181.78.79.131:8000/play/a0s6
-#EXTINF:0 tvg-id="ESPN 4.co" group-title="Deportes"tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s10179_dark_360w_270h.png",ESPN 4 HD
-#EXTGRP:Deportes
-#EXTVLCOPT:network-caching=1000
-http://181.78.79.131:8000/play/a0s9
-#EXTINF:0 tvg-id="ESPN 5.co" group-title="Deportes"tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s10179_dark_360w_270h.png",ESPN 5 HD
-#EXTGRP:Deportes
-#EXTVLCOPT:network-caching=1000
-http://181.78.79.131:8000/play/a0s5
-#EXTINF:0 tvg-id="ESPN 6.co" group-title="Deportes"tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s10179_dark_360w_270h.png",ESPN 6 HD
-#EXTGRP:Deportes
-#EXTVLCOPT:network-caching=1000
-http://181.78.79.131:8000/play/a0s3
-#EXTINF:0 tvg-id="ESPN 7.co" group-title="Deportes"tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s10179_dark_360w_270h.png",ESPN 7 HD
-#EXTGRP:Deportes
-
-#EXTINF:0  tvg-logo="http://primestreamstv.com/logos/ESPN2.png" ,Espn Premium
-http://181.78.79.131:8000/play/a0r2
 
 #EXTINF:-1 tvg-id="DeepHouseDistrict.nl@SD" tvg-logo="https://i.imgur.com/IV2Qvc0.png" group-title="Music",DeepHouse District (1080p)
 https://eu-nl-012.worldcast.tv/dancetelevisiontwo/dancetelevisiontwo.m3u8
@@ -1697,6 +1669,35 @@ https://jmp2.uk/plu-580e87ff497c73ba2f321dd3.m3u8
 
 #EXTINF:0 tvg-id="",00s Replay
 https://jmp2.uk/plu-62ba60f059624e000781c436.m3u8
+#EXTINF:0 tvg-id="ESPN.co" group-title="Deportes"tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s10179_dark_360w_270h.png",ESPN
+#EXTGRP:Deportes
+#EXTVLCOPT:network-caching=1000
+http://181.78.79.131:8000/play/a0s7
+#EXTINF:0 tvg-id="ESPN 2.co" group-title="Deportes"tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s10179_dark_360w_270h.png",ESPN 2 HD
+#EXTGRP:Deportes
+#EXTVLCOPT:network-caching=1000
+http://181.78.79.131:8000/play/a0qj
+#EXTINF:0 tvg-id="ESPN 3.co" group-title="Deportes"tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s10179_dark_360w_270h.png",ESPN 3 HD
+#EXTGRP:Deportes
+#EXTVLCOPT:network-caching=1000
+http://181.78.79.131:8000/play/a0s6
+#EXTINF:0 tvg-id="ESPN 4.co" group-title="Deportes"tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s10179_dark_360w_270h.png",ESPN 4 HD
+#EXTGRP:Deportes
+#EXTVLCOPT:network-caching=1000
+http://181.78.79.131:8000/play/a0s9
+#EXTINF:0 tvg-id="ESPN 5.co" group-title="Deportes"tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s10179_dark_360w_270h.png",ESPN 5 HD
+#EXTGRP:Deportes
+#EXTVLCOPT:network-caching=1000
+http://181.78.79.131:8000/play/a0s5
+#EXTINF:0 tvg-id="ESPN 6.co" group-title="Deportes"tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s10179_dark_360w_270h.png",ESPN 6 HD
+#EXTGRP:Deportes
+#EXTVLCOPT:network-caching=1000
+http://181.78.79.131:8000/play/a0s3
+#EXTINF:0 tvg-id="ESPN 7.co" group-title="Deportes"tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s10179_dark_360w_270h.png",ESPN 7 HD
+#EXTGRP:Deportes
+
+#EXTINF:0  tvg-logo="http://primestreamstv.com/logos/ESPN2.png" ,Espn Premium
+http://181.78.79.131:8000/play/a0r2
 
 #EXTINF:-1 tvg-id="0" tvg-name="Càmares0" tvg-logo="https://i.imgur.com/zXy2kbe.png" group-title="Catalunya",Càmares
 https://directes-tv-int.3catdirectes.cat/live-content/beauties-hls/master.m3u8
