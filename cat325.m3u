@@ -1667,6 +1667,9 @@ https://jmp2.uk/plu-640a68880e884c0009979cc2.m3u8
 #EXTINF:0 tvg-id="FunnyAF.us@SD" group-title="J",Funny AF
 https://jmp2.uk/plu-580e87ff497c73ba2f321dd3.m3u8
 
+#EXTINF:0 tvg-id="",00s Replay
+https://jmp2.uk/plu-62ba60f059624e000781c436.m3u8
+
 #EXTINF:0 tvg-id="",Disney Argentina
 http://190.128.214.97:64333/play/a02g/index.m3u8
 #EXTINF:0 tvg-id="",Music Top Argentina
@@ -1674,8 +1677,7 @@ http://190.128.214.97:64333/play/a06o/index.m3u
 #EXTINF:0 tvg-id="" tvg-logo="https://pbs.twimg.com/profile_images/1170690523201527808/FriNRiir_400x400.png",ESPN Argentina
 http://190.128.214.97:64333/play/a02i/index.m3u8
 
-#EXTINF:0 tvg-id="",00s Replay
-https://jmp2.uk/plu-62ba60f059624e000781c436.m3u8
+
 #EXTINF:0 tvg-id="ESPN.co" group-title="Deportes" tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s10179_dark_360w_270h.png",ESPN
 #EXTGRP:Deportes
 #EXTVLCOPT:network-caching=1000
@@ -1707,6 +1709,9 @@ http://181.78.79.131:8000/play/a0s3
 http://181.78.79.131:8000/play/a0r2
 
 #EXTINF:-1  tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/refs/heads/main/countries/united-kingdom/sky-sports-action-icon-uk.png" group-title="SPORTS",Sky Sports Action
+http://stream.bottledesk.net/p/AQNASgYGemc/index.m3u8
+
+#EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/refs/heads/main/countries/united-kingdom/sky-sports-action-icon-uk.png" group-title="SPORTS",Sky Sports Action
 http://stream.bottledesk.net/p/AQNASgYGemc/index.m3u8
 
 #EXTINF:-1 tvg-id="SkySp.PL.HD.uk" tvg-logo="https://tv.assets.pressassociation.io/eb561577-2d54-5d1f-aaf4-1c856e4952ff.png" group-title="SPORTS",UK | Sky Sports Premier League
