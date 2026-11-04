@@ -1671,12 +1671,12 @@ https://jmp2.uk/plu-580e87ff497c73ba2f321dd3.m3u8
 http://190.128.214.97:64333/play/a02g/index.m3u8
 #EXTINF:0 tvg-id="",Music Top Argentina
 http://190.128.214.97:64333/play/a06o/index.m3u
-#EXTINF:0 tvg-id="",ESPN Argentina
+#EXTINF:0 tvg-id="" tvg-logo="https://pbs.twimg.com/profile_images/1170690523201527808/FriNRiir_400x400.png",ESPN Argentina
 http://190.128.214.97:64333/play/a02i/index.m3u8
 
 #EXTINF:0 tvg-id="",00s Replay
 https://jmp2.uk/plu-62ba60f059624e000781c436.m3u8
-#EXTINF:0 tvg-id="ESPN.co" group-title="Deportes"tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s10179_dark_360w_270h.png",ESPN
+#EXTINF:0 tvg-id="ESPN.co" group-title="Deportes" tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s10179_dark_360w_270h.png",ESPN
 #EXTGRP:Deportes
 #EXTVLCOPT:network-caching=1000
 http://181.78.79.131:8000/play/a0s7
