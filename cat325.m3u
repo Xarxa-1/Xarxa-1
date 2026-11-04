@@ -639,7 +639,8 @@ https://jmp2.uk/plu-6320d2755e54db000783fd87.m3u8PERSA
 #EXTINF:-1 group-title="Esport",DyN SPORTS MIX
 https://jmp2.uk/plu-6866525c8a412a0e95c438b4.m3u8
 
-
+#EXTINF:-1 tvg-id="plex.tv.Stories.by.AMC.plex.us" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/4/4a/AMC%2B_logo.png" group-title="Entertainment",Stories by AMC
+https://amc-amcpresents-1-us.xumo.wurl.tv/playlist.m3u8
 
 #EXTINF:-1 tvg-id="Cinemax.us" group-title="USA",Cinemax
 http://23.237.104.106:8080/USA_CINEMAX/tracks-v1a1/mono.m3u8
