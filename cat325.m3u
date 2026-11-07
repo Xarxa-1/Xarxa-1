@@ -116,6 +116,34 @@ https://live.france24.com/hls/live/2037220/F24_ES_HI_HLS/master_5000.m3u8
 #EXTINF:-1 tvg-id="BBCNews.uk" tvg-name="BBC.News"  tvg-logo="https://pbs.twimg.com/profile_images/1529107170448523264/q3VwEx38_400x400.jpg" group-title="UK",BBC News International
 https://d3pxo1qcgzxtxs.cloudfront.net/manifest/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod_default_xumo-linear-amc-hlsv3/5ab832c0-311a-4705-9535-5e54ad64b21e/5.m3u8
 
+#EXTINF:-1,BBC One EMidHD
+http://176.65.153.4:4001/play/a08i/index.m3u8
+#EXTINF:-1,BBC One EastHD
+http://176.65.153.4:4001/play/a08h/index.m3u8
+#EXTINF:-1,BBC One Lon HD
+http://176.65.153.4:4001/play/a08e/index.m3u8
+#EXTINF:-1,BBC One NI HD
+http://176.65.153.4:4001/play/a08q/index.m3u8
+#EXTINF:-1,BBC One NI HD
+http://176.65.153.4:4001/play/a08n/index.m3u8
+#EXTINF:-1,BBC One SE HD
+http://176.65.153.4:4001/play/a08l/index.m3u8
+#EXTINF:-1,BBC One Y&L HD
+http://176.65.153.4:4001/play/a08k/index.m3u8
+#EXTINF:-1,BBC Two HD
+http://176.65.153.4:4001/play/a08m/index.m3u8
+#EXTINF:-1,BBC Two Wal HD
+http://176.65.153.4:4001/play/a08f/index.m3u8
+#EXTINF:-1,CBBC HD
+http://176.65.153.4:4001/play/a08p/index.m3u8
+#EXTINF:-1,CBeebies HD
+http://176.65.153.4:4001/play/a08g/index.m3u8
+#EXTINF:-1,ETV4
+http://176.65.153.4:4001/play/a08o/index.m3u8
+
+
+
+
 #EXTINF:-1 tvg-id="BBCOne.uk" tvg-name="BBC One" group-title="UK" tvg-logo="https://pbs.twimg.com/profile_images/1450745843603083267/uSloYi8l_400x400.jpg" group-title="General",BBC One
 http://41.205.93.154/BBCONE/tracks-v1a1/mono.m3u8
 
