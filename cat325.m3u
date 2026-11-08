@@ -1094,7 +1094,7 @@ http://23.237.104.106:8080/USA_STARZ_COMEDY/index.m3u8
 #EXTINF:-1 tvg-id="USA_STARZ_FAMILY" tvg-name="" tvg-logo="h" group-title="Pel·lícules",USA_STARZ_FAMILY
 http://23.237.104.106:8080/USA_STARZ_FAMILY/index.m3u8
 
-#EXTINF:0 group-title="EspaÃ±a",RTVE Radio3
+#EXTINF:0 group-title="General",RTVE Radio3
 #EXTGRP:EspaÃ±a
 #EXTVLCOPT:network-caching=1000
 https://ztnr.rtve.es/ztnr/6924117.m3u8
