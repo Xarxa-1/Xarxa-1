@@ -33,9 +33,6 @@ https://liveingesta318.cdnmedia.tv/lleidatvlive/smil:live.smil/playlist.m3u8?DVR
 #EXTINF:-1 tvg-id="Xarxa_Canal_Reus_TV.TV" tvg-name="Canal Reus TV" tvg-logo="https://pbs.twimg.com/profile_images/1899040884026392577/MK3u4IhA_x96.jpg" group-title="Catalunya",CanalReus
 https://ingest2-video.streaming-pro.com/creus/stream/playlist.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="TVReus" tvg-logo="https://i.imgur.com/Ee0C8UH.jpg" group-title="Catalunya",TVReus
-https://eu1.servers10.com:8081/8166/index.m3u8
-
 #EXTINF:-1 tvg-id="Xarxa_TV_Sabadell_Valles.TV" tvg-name="TVSabadell" tvg-logo="negre.jpg" group-title="Catalunya",TVSabadell
 https://ingest1-video.streaming-pro.com/canaltaronja/sabadell/playlist.m3u8
 
@@ -84,6 +81,9 @@ https://d2epgk1fomaa1g.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68
 
 #EXTINF:-1 tvg-id="super3" tvg-name="super3" tvg-logo="https://graph.facebook.com/SomSX3/picture?width=200&height=200" group-title="Catalunya",SX3
 https://directes-tv-cat.3catdirectes.cat/live-content/super3-hls/master.m3u8
+
+#EXTINF:-1 tvg-id="" tvg-name="TVReus" tvg-logo="https://i.imgur.com/Ee0C8UH.jpg" group-title="Catalunya",TVReus
+https://eu1.servers10.com:8081/8166/index.m3u8
 
 #EXTINF:-1 tvg-id="À Punt.es" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Logotip_d%27%C3%80_Punt_%282017-%29.svg/960px-Logotip_d%27%C3%80_Punt_%282017-%29.svg.png" group-title="General",A Punt (720p)
 https://fastly.live.brightcove.com/1846756479408303045/eu-central-1/6057955885001/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0IjoiZWFxNWh4LmVncmVzcy53YzQ3bTEiLCJhY2NvdW50X2lkIjoiNjA1Nzk1NTg4NTAwMSIsImVobiI6ImZhc3RseS5saXZlLmJyaWdodGNvdmUuY29tIiwiaXNzIjoiYmxpdmUtcGxheWJhY2stc291cmNlLWFwaSIsInN1YiI6InBhdGhtYXB0b2tlbiIsImF1ZCI6WyI2MDU3OTU1ODg1MDAxIl0sImp0aSI6IjE4NDY3NTY0Nzk0MDgzMDMwNDUifQ.o6wb_VA-TVxl3ERgr7FKLlaTjY7smErmsf73QAydySE/playlist-hls-dvr.m3u8
