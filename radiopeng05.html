@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ràdio Catalana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root {
+    --bg: #121212;
+    --panel: #1c1c1c;
+    --panel-2: #242424;
+    --lime: #b6ff00;
+    --lilac: #9370db;
+    --text: #f2f2f2;
+    --muted: #9a9a9a;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Antonio", Impact, sans-serif;
+    font-size: 17px;
+    min-height: 100vh;
+  }
+  button, input, select { font-family: inherit; font-size: inherit; }
+  button {
+    cursor: pointer;
+    background: var(--panel-2);
+    color: var(--text);
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 8px 12px;
+    transition: background .15s, color .15s, border-color .15s;
+  }
+  button:hover:not(:disabled) { border-color: var(--lilac); }
+  button:disabled { opacity: .45; cursor: not-allowed; }
+  button:focus-visible, input:focus-visible, select:focus-visible, .station:focus-visible {
+    outline: 3px solid var(--lime);
+    outline-offset: 2px;
+  }
+  button.primary {
+    background: var(--lime);
+    color: #101010;
+    border-color: var(--lime);
+    font-weight: 700;
+  }
+  button.primary:hover:not(:disabled) { background: #cdff4d; }
+  button.danger { border-color: #6a2b2b; color: #ff9a9a; }
+  button.active { background: var(--lilac); border-color: var(--lilac); color: #fff; }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+  }
+
+  header {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+    gap: 12px; padding: 16px 20px; border-bottom: 1px solid #2a2a2a;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; font-size: 28px; font-weight: 700; letter-spacing: .5px; }
+  .brand i { color: var(--lime); }
+  #clock { font-size: 26px; color: var(--lime); font-variant-numeric: tabular-nums; }
+
+  main {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  @media (max-width: 860px) { main { grid-template-columns: 1fr; } }
+
+  section.panel {
+    background: var(--panel);
+    border: 1px solid #2a2a2a;
+    border-radius: var(--radius);
+    padding: 18px;
+  }
+  section.panel h2 {
+    margin: 0 0 14px;
+    font-size: 22px;
+    color: var(--lilac);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .stack { display: flex; flex-direction: column; gap: 20px; }
+
+  /* Ara sona */
+  .now { display: flex; gap: 16px; align-items: center; }
+  .logo {
+    width: 96px; height: 96px; flex: 0 0 96px;
+    border-radius: 12px; background: #000; border: 2px solid var(--lilac);
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+  }
+  .logo img { width: 100%; height: 100%; object-fit: contain; }
+  .logo i, .thumb i { color: var(--lilac); }
+  .logo i { font-size: 40px; }
+  .now-info { min-width: 0; flex: 1; }
+  #nowName {
+    font-size: 30px; font-weight: 700; margin: 0;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  #nowStatus { color: var(--muted); margin: 4px 0 0; }
+  .live-badge {
+    display: inline-block; margin-top: 6px; padding: 2px 10px; border-radius: 20px;
+    background: var(--lilac); color: #fff; font-size: 14px; letter-spacing: .5px;
+  }
+
+  .progress-wrap { margin-top: 18px; }
+  .times {
+    display: flex; justify-content: space-between; color: var(--muted);
+    font-variant-numeric: tabular-nums; font-size: 15px; margin-top: 4px;
+  }
+  input[type=range] {
+    -webkit-appearance: none; appearance: none; width: 100%; height: 8px;
+    background: #333; border-radius: 6px; outline: none; margin: 0;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%;
+    background: var(--lime); cursor: pointer; border: none;
+  }
+  input[type=range]::-moz-range-thumb {
+    width: 18px; height: 18px; border-radius: 50%; background: var(--lime); border: none; cursor: pointer;
+  }
+  input[type=range]:disabled { opacity: .5; }
+  input[type=range]:focus-visible { outline: 3px solid var(--lime); outline-offset: 3px; }
+
+  .controls {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+    gap: 12px; margin-top: 18px;
+  }
+  .controls .main-btn { width: 72px; height: 72px; border-radius: 50%; font-size: 26px; padding: 0; }
+  .controls .icon { width: 48px; height: 48px; padding: 0; border-radius: 50%; font-size: 18px; }
+
+  .volume-row { display: flex; align-items: center; gap: 12px; margin-top: 18px; }
+  .volume-row .icon { width: 42px; height: 42px; padding: 0; border-radius: 50%; flex: 0 0 42px; }
+  .volume-row input { flex: 1; }
+  #volLabel { min-width: 64px; text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+  .extras { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 18px; }
+  @media (max-width: 520px) { .extras { grid-template-columns: 1fr; } }
+  .box { background: var(--panel-2); border-radius: 10px; padding: 12px; }
+  .box h3 { margin: 0 0 8px; font-size: 18px; color: var(--lime); font-weight: 600; }
+  .box .row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .note { color: var(--muted); font-size: 15px; margin-top: 8px; min-height: 20px; }
+  .note.alert { color: #ff8a8a; }
+
+  /* Llista d'emissores */
+  .search {
+    width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid #333;
+    background: #111; color: var(--text); margin-bottom: 12px;
+  }
+  .station-list {
+    list-style: none; margin: 0; padding: 0; max-height: 560px; overflow-y: auto;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .station {
+    display: flex; align-items: center; gap: 12px; padding: 8px 10px;
+    border-radius: 10px; background: var(--panel-2); border: 1px solid transparent;
+    cursor: pointer; width: 100%; text-align: left; color: var(--text);
+  }
+  .station:hover { border-color: #3a3a3a; }
+  .station.current { border-color: var(--lime); background: #262c14; }
+  .thumb {
+    width: 44px; height: 44px; flex: 0 0 44px; border-radius: 8px; background: #000;
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+  }
+  .thumb img { width: 100%; height: 100%; object-fit: contain; }
+  .thumb i { font-size: 20px; }
+  .sname { flex: 1; min-width: 0; font-size: 18px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .playing-icon { color: var(--lime); }
+  .empty { color: var(--muted); padding: 12px; list-style: none; }
+
+  /* Alarmes */
+  .panel-desc { color: var(--muted); margin: 0 0 12px; }
+  .alarm-form { display: grid; gap: 12px; }
+  .alarm-form label { display: flex; flex-direction: column; gap: 4px; color: var(--muted); font-size: 15px; }
+  .alarm-form select, .alarm-form input[type=time], .alarm-form input[type=number] {
+    padding: 8px 10px; border-radius: 8px; border: 1px solid #333; background: #111; color: var(--text);
+  }
+  .alarm-form fieldset { border: none; padding: 0; margin: 0; }
+  .alarm-form legend { color: var(--muted); font-size: 15px; margin-bottom: 6px; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 420px) { .form-grid { grid-template-columns: 1fr; } }
+  .days { display: flex; flex-wrap: wrap; gap: 6px; }
+  .days label {
+    flex-direction: row; align-items: center; gap: 4px; color: var(--text);
+    background: var(--panel-2); border: 1px solid #333; border-radius: 8px;
+    padding: 6px 8px; cursor: pointer;
+  }
+  .days input { accent-color: var(--lilac); }
+  .alarm-list { list-style: none; padding: 0; margin: 16px 0 0; display: flex; flex-direction: column; gap: 8px; }
+  .alarm-item {
+    background: var(--panel-2); border-radius: 10px; padding: 10px 12px;
+    display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+  }
+  .alarm-item .info { flex: 1; min-width: 180px; }
+  .alarm-item .info strong { color: var(--lime); font-size: 19px; }
+  .alarm-item .meta { color: var(--muted); font-size: 15px; }
+  .alarm-item.off { opacity: .55; }
+  .alarm-item .btns { display: flex; gap: 6px; }
+
+  /* Modal */
+  .modal-backdrop {
+    position: fixed; inset: 0; background: rgba(0,0,0,.7);
+    display: none; align-items: center; justify-content: center; padding: 16px; z-index: 50;
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal {
+    background: var(--panel); border: 2px solid var(--lilac); border-radius: var(--radius);
+    padding: 22px; width: min(460px, 100%);
+  }
+  .modal h2 { margin: 0 0 10px; color: var(--lime); }
+  .modal p { color: var(--muted); margin: 0 0 14px; }
+  .modal .filename { color: var(--text); word-break: break-all; }
+  .modal .actions { display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap; }
+
+  .toast {
+    position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
+    background: var(--panel-2); border: 1px solid var(--lime); color: var(--text);
+    padding: 10px 16px; border-radius: 10px; display: none; z-index: 60; max-width: 90vw;
+  }
+  .toast.show { display: block; }
+  .help { color: var(--muted); font-size: 14px; text-align: center; padding: 0 20px 24px; }
+  .help kbd {
+    background: #2a2a2a; padding: 1px 6px; border-radius: 5px;
+    border: 1px solid #3a3a3a; color: var(--text);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand"><i class="fa-solid fa-radio" aria-hidden="true"></i> Ràdio Catalana</div>
+  <div id="clock" role="timer" aria-label="Hora actual">--:--:--</div>
+</header>
+
+<main>
+  <div class="stack">
+    <!-- Reproductor -->
+    <section class="panel" aria-labelledby="nowTitle">
+      <h2 id="nowTitle"><i class="fa-solid fa-circle-play" aria-hidden="true"></i> Ara sona</h2>
+
+      <div class="now">
+        <div class="logo" id="nowLogo"><i class="fa-solid fa-radio" aria-hidden="true"></i></div>
+        <div class="now-info">
+          <p id="nowName">Sense emissora</p>
+          <p id="nowStatus" aria-live="polite">Selecciona una emissora per començar</p>
+          <span class="live-badge" id="liveBadge" hidden>En directe</span>
+        </div>
+      </div>
+
+      <div class="progress-wrap">
+        <label for="progress" class="sr-only">Progrés de la reproducció</label>
+        <input type="range" id="progress" min="0" max="1000" value="0" step="1" disabled>
+        <div class="times">
+          <span id="curTime">00:00</span>
+          <span id="durTime">--:--</span>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="icon" id="prevBtn" aria-label="Emissora anterior" title="Anterior (←)">
+          <i class="fa-solid fa-backward-step" aria-hidden="true"></i>
+        </button>
+        <button class="main-btn primary" id="playBtn" aria-label="Reproduir" title="Reproduir / Pausa (espai)">
+          <i class="fa-solid fa-play" aria-hidden="true"></i>
+        </button>
+        <button class="icon" id="nextBtn" aria-label="Emissora següent" title="Següent (→)">
+          <i class="fa-solid fa-forward-step" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <div class="volume-row">
+        <button id="muteBtn" aria-label="Silenciar" aria-pressed="false" title="Silenci">
+          <i class="fa-solid fa-volume-high" aria-hidden="true"></i>
+        </button>
+        <label for="volume" class="sr-only">Volum</label>
+        <input type="range" id="volume" min="0" max="100" value="80" aria-valuemin="0" aria-valuemax="100">
+        <span id="volLabel">80%</span>
+      </div>
+
+      <div class="extras">
+        <div class="box">
+          <h3><i class="fa-solid fa-moon" aria-hidden="true"></i> Temporitzador de son</h3>
+          <div class="row" role="group" aria-label="Temps del temporitzador de son">
+            <button type="button" data-sleep="5" aria-label="Aturar en 5 minuts">5 min</button>
+            <button type="button" data-sleep="15" aria-label="Aturar en 15 minuts">15 min</button>
+            <button type="button" data-sleep="30" aria-label="Aturar en 30 minuts">30 min</button>
+            <button type="button" data-sleep="60" aria-label="Aturar en 60 minuts">60 min</button>
+            <button type="button" id="sleepOff" aria-label="Cancel·lar temporitzador de son">Cancel·lar</button>
+          </div>
+          <div class="note" id="sleepNote" aria-live="polite"></div>
+        </div>
+
+        <div class="box">
+          <h3><i class="fa-solid fa-circle-dot" aria-hidden="true"></i> Gravació</h3>
+          <div class="row" role="group" aria-label="Controls de gravació">
+            <button type="button" id="recStart" class="primary" aria-label="Iniciar gravació">
+              <i class="fa-solid fa-record-vinyl" aria-hidden="true"></i> Gravar
+            </button>
+            <button type="button" id="recPause" aria-label="Pausar gravació" disabled>
+              <i class="fa-solid fa-pause" aria-hidden="true"></i>
+            </button>
+            <button type="button" id="recStop" class="danger" aria-label="Aturar gravació" disabled>
+              <i class="fa-solid fa-stop" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="note" id="recStatus" aria-live="polite">Inactiva</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Alarmes -->
+    <section class="panel" aria-labelledby="alarmTitle">
+      <h2 id="alarmTitle"><i class="fa-solid fa-clock" aria-hidden="true"></i> Alarmes i programació</h2>
+      <p class="panel-desc">Programa una emissora perquè soni a una hora concreta, certs dies de la setmana i durant una durada determinada.</p>
+      <form class="alarm-form" id="alarmForm" autocomplete="off">
+        <label>Emissora
+          <select id="alarmStation" required></select>
+        </label>
+        <fieldset>
+          <legend>Dies</legend>
+          <div class="days" id="alarmDays"></div>
+        </fieldset>
+        <div class="form-grid">
+          <label>Hora
+            <input type="time" id="alarmTime" value="07:30" required>
+          </label>
+          <label>Durada (minuts)
+            <input type="number" id="alarmDuration" min="1" max="720" value="60" required>
+          </label>
+        </div>
+        <button type="submit" class="primary">
+          <i class="fa-solid fa-plus" aria-hidden="true"></i> Afegir programació
+        </button>
+      </form>
+      <ul class="alarm-list" id="alarmList" aria-label="Programacions desades"></ul>
+    </section>
+  </div>
+
+  <!-- Llista d'emissores -->
+  <section class="panel" aria-labelledby="listTitle">
+    <h2 id="listTitle"><i class="fa-solid fa-list" aria-hidden="true"></i> Emissores</h2>
+    <label for="search" class="sr-only">Cerca emissora</label>
+    <input type="search" id="search" class="search" placeholder="Cerca una emissora...">
+    <ul class="station-list" id="stationList" aria-label="Llista d'emissores"></ul>
+  </section>
+</main>
+
+<p class="help">
+  Dreceres: <kbd>Espai</kbd> reproduir/pausa · <kbd>←</kbd> <kbd>→</kbd> emissora anterior/següent ·
+  <kbd>↑</kbd> <kbd>↓</kbd> volum · <kbd>Esc</kbd> tancar
+</p>
+
+<!-- Modal de descàrrega -->
+<div class="modal-backdrop" id="modal" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc">
+    <h2 id="modalTitle">Gravació finalitzada</h2>
+    <p id="modalDesc">La gravació està a punt. Pots descarregar-la o tancar aquest diàleg.</p>
+    <p class="filename" id="modalFile"></p>
+    <div class="actions">
+      <button type="button" id="modalClose">Tancar</button>
+      <button type="button" id="modalDownload" class="primary">
+        <i class="fa-solid fa-download" aria-hidden="true"></i> Descarregar
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<audio id="audio" preload="none"></audio>
+
+<script>
+(() => {
+  'use strict';
+
+  // ---------- Constants ----------
+  const STATIONS_URL = 'https://xarxa-1.github.io/Xarxa-1/station1.json';
+  const SETTINGS_KEY = 'radioCatalana.v1';
+  const ALARMS_KEY = 'radioCatalana.v1.alarms';
+  const LOGO_FIELDS = ['logo', 'logo_url', 'logoUrl', 'image', 'img', 'icon', 'favicon'];
+  const NAME_FIELDS = ['name', 'nom', 'title', 'titol'];
+  const URL_FIELDS = ['url', 'url_stream', 'stream', 'streamUrl', 'stream_url', 'src'];
+  const DAYS_SHORT = ['Dg', 'Dl', 'Dt', 'Dc', 'Dj', 'Dv', 'Ds'];
+  const DAYS_LONG = ['diumenge', 'dilluns', 'dimarts', 'dimecres', 'dijous', 'divendres', 'dissabte'];
+  const DAY_ORDER = [1, 2, 3, 4, 5, 6, 0];
+  const ALARM_CHECK_MS = 15000;
+
+  // ---------- Elements ----------
+  const $ = (id) => document.getElementById(id);
+  const el = {
+    audio: $('audio'), clock: $('clock'), nowLogo: $('nowLogo'), nowName: $('nowName'),
+    nowStatus: $('nowStatus'), liveBadge: $('liveBadge'), progress: $('progress'),
+    curTime: $('curTime'), durTime: $('durTime'), playBtn: $('playBtn'), prevBtn: $('prevBtn'),
+    nextBtn: $('nextBtn'), muteBtn: $('muteBtn'), volume: $('volume'), volLabel: $('volLabel'),
+    sleepNote: $('sleepNote'), sleepOff: $('sleepOff'), recStart: $('recStart'),
+    recPause: $('recPause'), recStop: $('recStop'), recStatus: $('recStatus'),
+    stationList: $('stationList'), search: $('search'), alarmForm: $('alarmForm'),
+    alarmStation: $('alarmStation'), alarmDays: $('alarmDays'), alarmTime: $('alarmTime'),
+    alarmDuration: $('alarmDuration'), alarmList: $('alarmList'), modal: $('modal'),
+    modalFile: $('modalFile'), modalClose: $('modalClose'), modalDownload: $('modalDownload'),
+    toast: $('toast')
+  };
+
+  // ---------- Estat ----------
+  const state = {
+    stations: [],
+    current: -1,
+    volume: 0.8,
+    muted: false,
+    alarms: [],
+    sleepTimeout: null,
+    sleepTicker: null,
+    sleepEnd: 0,
+    sleepMinutes: 0,
+    alarmStopTimeout: null,
+    firedAlarms: new Set(),
+    isLive: false,
+    seeking: false
+  };
+
+  // ---------- Web Audio ----------
+  let audioCtx = null, sourceNode = null, gainNode = null, recDest = null;
+  let recorder = null, recChunks = [], recMime = '', recStartedAt = 0, recPausedTotal = 0, recPausedAt = 0;
+  let recTicker = null, recordedUrl = null;
+
+  function ensureAudioGraph() {
+    if (audioCtx) {
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      return;
+    }
+    const AC = window.AudioContext || window.webkitAudioContext;
+    audioCtx = new AC();
+    sourceNode = audioCtx.createMediaElementSource(el.audio);
+    gainNode = audioCtx.createGain();
+    recDest = audioCtx.createMediaStreamDestination();
+    // Reproducció: font -> guany (volum/silenci) -> altaveus
+    sourceNode.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+    // Gravació: font -> destí de stream (no passa pel guany, així grava encara que estigui silenciat)
+    sourceNode.connect(recDest);
+    applyVolume();
+  }
+
+  function applyVolume() {
+    const v = state.muted ? 0 : state.volume;
+    if (gainNode) gainNode.gain.value = v;
+  }
+
+  // ---------- Utilitats ----------
+  const pad = (n) => String(n).padStart(2, '0');
+
+  function fmtTime(sec) {
+    if (!isFinite(sec) || sec < 0) return '--:--';
+    const h = Math.floor(sec / 3600);
+    const m = Math.floor((sec % 3600) / 60);
+    const s = Math.floor(sec % 60);
+    return h > 0 ? `${h}:${pad(m)}:${pad(s)}` : `${pad(m)}:${pad(s)}`;
+  }
+
+  function slugify(s) {
+    return String(s || 'emissora')
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'emissora';
+  }
+
+  function timestamp() {
+    const d = new Date();
+    return `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}-` +
+      `${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}`;
+  }
+
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, (c) => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
+  }
+
+  function toast(msg) {
+    el.toast.textContent = msg;
+    el.toast.classList.add('show');
+    clearTimeout(toast.timer);
+    toast.timer = setTimeout(() => el.toast.classList.remove('show'), 2800);
+  }
+
+  function pickField(obj, fields) {
+    for (const f of fields) {
+      if (obj && obj[f] !== undefined && obj[f] !== null && String(obj[f]).trim() !== '') return obj[f];
+    }
+    return '';
+  }
+
+  function resolveUrl(value, base) {
+    if (!value) return '';
+    try { return new URL(String(value).trim(), base).href; } catch { return ''; }
+  }
+
+  function storageGet(key, fallback) {
+    try {
+      const v = localStorage.getItem(key);
+      return v ? JSON.parse(v) : fallback;
+    } catch { return fallback; }
+  }
+
+  function storageSet(key, value) {
+    try { localStorage.setItem(key, JSON.stringify(value)); } catch { /* emmagatzematge no disponible */ }
+  }
+
+  function saveSettings() {
+    const cur = state.stations[state.current];
+    storageSet(SETTINGS_KEY, {
+      stationUrl: cur ? cur.url : '',
+      volume: state.volume,
+      muted: state.muted
+    });
+  }
+
+  function saveAlarms() { storageSet(ALARMS_KEY, state.alarms); }
+
+  // ---------- Càrrega d'emissores ----------
+  function normalizeStations(data, baseUrl) {
+    let list = [];
+    if (Array.isArray(data)) {
+      list = data;
+    } else if (data && typeof data === 'object') {
+      for (const key of ['stations', 'emissores', 'items', 'data']) {
+        if (Array.isArray(data[key])) { list = data[key]; break; }
+      }
+    }
+    return list
+      .map((item) => {
+        if (typeof item === 'string') return { name: item, url: resolveUrl(item, baseUrl), logo: '' };
+        const name = String(pickField(item, NAME_FIELDS) || 'Emissora sense nom').trim();
+        const url = resolveUrl(pickField(item, URL_FIELDS), baseUrl);
+        const logo = resolveUrl(pickField(item, LOGO_FIELDS), baseUrl);
+        return { name, url, logo };
+      })
+      .filter((s) => s.url);
+  }
+
+  async function loadStations() {
+    el.stationList.innerHTML = '<li class="empty">Carregant emissores…</li>';
+    try {
+      const res = await fetch(STATIONS_URL, { cache: 'no-cache' });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      state.stations = normalizeStations(data, STATIONS_URL);
+      if (!state.stations.length) throw new Error('Llista buida');
+    } catch (err) {
+      console.error(err);
+      state.stations = [];
+      el.stationList.innerHTML = '<li class="empty">No s\'ha pogut carregar la llista d\'emissores.</li>';
+      toast('Error carregant la llista d\'emissores');
+      return;
+    }
+    restoreSettings();
+    renderStationOptions();
+    renderStationList();
+    renderNowPlaying();
+    renderAlarmList();
+  }
+
+  // ---------- Renderització ----------
+  function logoHtml(url) {
+    if (!url) return '<i class="fa-solid fa-radio" aria-hidden="true"></i>';
+    const safe = escapeHtml(url);
+    return `<img src="${safe}" alt="" loading="lazy" ` +
+      `onerror="this.replaceWith(Object.assign(document.createElement('i'),{className:'fa-solid fa-radio'}))">`;
+  }
+
+  function renderStationList() {
+    const q = el.search.value.trim().toLowerCase();
+    const items = state.stations
+      .map((s, i) => ({ s, i }))
+      .filter(({ s }) => !q || s.name.toLowerCase().includes(q));
+
+    el.stationList.innerHTML = '';
+    if (!state.stations.length) return;
+    if (!items.length) {
+      el.stationList.innerHTML = '<li class="empty">Cap emissora coincideix amb la cerca.</li>';
+      return;
+    }
+
+    for (const { s, i } of items) {
+      const li = document.createElement('li');
+      const isCur = i === state.current;
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'station' + (isCur ? ' current' : '');
+      btn.dataset.index = i;
+      btn.setAttribute('aria-label', `Reproduir ${s.name}`);
+      btn.setAttribute('aria-current', isCur ? 'true' : 'false');
+      const playingIcon = isCur && !el.audio.paused
+        ? '<i class="fa-solid fa-volume-high playing-icon" aria-hidden="true"></i>' : '';
+      btn.innerHTML = `
+        <span class="thumb">${logoHtml(s.logo)}</span>
+        <span class="sname">${escapeHtml(s.name)}</span>
+        ${playingIcon}`;
+      btn.addEventListener('click', () => selectStation(i, true));
+      li.appendChild(btn);
+      el.stationList.appendChild(li);
+    }
+  }
+
+  function renderStationOptions() {
+    el.alarmStation.innerHTML = '';
+    state.stations.forEach((s) => {
+      const opt = document.createElement('option');
+      opt.value = s.url;
+      opt.textContent = s.name;
+      el.alarmStation.appendChild(opt);
+    });
+  }
+
+  function renderNowPlaying() {
+    const s = state.stations[state.current];
+    el.nowLogo.innerHTML = logoHtml(s ? s.logo : '');
+    el.nowName.textContent = s ? s.name : 'Sense emissora';
+    el.liveBadge.hidden = !(s && state.isLive);
+
+    const paused = el.audio.paused;
+    el.playBtn.innerHTML = paused
+      ? '<i class="fa-solid fa-play" aria-hidden="true"></i>'
+      : '<i class="fa-solid fa-pause" aria-hidden="true"></i>';
+    el.playBtn.setAttribute('aria-label', paused ? 'Reproduir' : 'Pausar');
+    el.playBtn.setAttribute('aria-pressed', String(!paused));
+    el.prevBtn.disabled = state.stations.length === 0;
+    el.nextBtn.disabled = state.stations.length === 0;
+    updateRecordingButtons();
+  }
+
+  function updateVolumeUi() {
+    const pct = Math.round(state.volume * 100);
+    el.volume.value = pct;
+    el.volume.setAttribute('aria-valuenow', String(pct));
+    el.volume.setAttribute('aria-valuetext', state.muted ? 'Silenciat' : pct + '%');
+    el.volLabel.textContent = state.muted ? 'Silenci' : pct + '%';
+    const icon = state.muted || state.volume === 0 ? 'fa-volume-xmark'
+      : state.volume < 0.5 ? 'fa-volume-low' : 'fa-volume-high';
+    el.muteBtn.innerHTML = `<i class="fa-solid ${icon}" aria-hidden="true"></i>`;
+    el.muteBtn.setAttribute('aria-pressed', String(state.muted));
+    el.muteBtn.setAttribute('aria-label', state.muted ? 'Activar so' : 'Silenciar');
+  }
+
+  function updateRecordingButtons() {
+    const active = !!recorder;
+    const paused = active && recorder.state === 'paused';
+    el.recStart.disabled = active;
+    el.recPause.disabled = !active;
+    el.recStop.disabled = !active;
+    el.recPause.innerHTML = paused
+      ? '<i class="fa-solid fa-play" aria-hidden="true"></i>'
+      : '<i class="fa-solid fa-pause" aria-hidden="true"></i>';
+    el.recPause.setAttribute('aria-label', paused ? 'Reprendre gravació' : 'Pausar gravació');
+  }
+
+  // ---------- Reproducció ----------
+  function selectStation(index, autoplay) {
+    if (index < 0 || index >= state.stations.length) return;
+    state.current = index;
+    const s = state.stations[index];
+    el.audio.crossOrigin = 'anonymous';
+    el.audio.src = s.url;
+    el.audio.load();
+    state.isLive = false;
+    el.progress.value = 0;
+    el.curTime.textContent = '00:00';
+    el.durTime.textContent = '--:--';
+    el.nowStatus.textContent = autoplay ? 'Carregant…' : 'Preparada per reproduir';
+    saveSettings();
+    renderNowPlaying();
+    renderStationList();
+    if (autoplay) play();
+    el.stationList.querySelector('.station.current')?.scrollIntoView({ block: 'nearest' });
+  }
+
+  function play() {
+    if (state.current < 0) {
+      if (!state.stations.length) return;
+      selectStation(0, false);
+    }
+    try { ensureAudioGraph(); } catch (e) { console.warn('Web Audio no disponible', e); }
+    const p = el.audio.play();
+    if (p && typeof p.catch === 'function') {
+      p.catch((err) => {
+        console.error(err);
+        el.nowStatus.textContent = 'Error en reproduir aquesta emissora.';
+        toast('Error en reproduir aquesta emissora');
+      });
+    }
+  }
+
+  function pause() { el.audio.pause(); }
+  function togglePlay() { if (el.audio.paused) play(); else pause(); }
+
+  function nextStation() {
+    if (!state.stations.length) return;
+    const n = state.current < 0 ? 0 : (state.current + 1) % state.stations.length;
+    selectStation(n, !el.audio.paused || state.current >= 0);
+  }
+
+  function prevStation() {
+    if (!state.stations.length) return;
+    const last = state.stations.length - 1;
+    const n = state.current <= 0 ? last : state.current - 1;
+    selectStation(n, !el.audio.paused || state.current >= 0);
+  }
+
+  function setVolume(v) {
+    state.volume = Math.min(1, Math.max(0, v));
+    if (state.volume > 0 && state.muted) state.muted = false;
+    applyVolume();
+    updateVolumeUi();
+    saveSettings();
+  }
+
+  function toggleMute() {
+    state.muted = !state.muted;
+    applyVolume();
+    updateVolumeUi();
+    saveSettings();
+  }
+
+  el.audio.addEventListener('play', () => {
+    el.nowStatus.textContent = 'Reproduint';
+    renderNowPlaying();
+    renderStationList();
+  });
+
+  el.audio.addEventListener('pause', () => {
+    if (el.audio.ended) return;
+    el.nowStatus.textContent = 'Pausat';
+    renderNowPlaying();
+    renderStationList();
+  });
+
+  el.audio.addEventListener('waiting', () => { el.nowStatus.textContent = 'Carregant…'; });
+  el.audio.addEventListener('playing', () => { el.nowStatus.textContent = 'Reproduint'; });
+
+  el.audio.addEventListener('error', () => {
+    if (state.current < 0) return;
+    el.nowStatus.textContent = 'Error en reproduir aquesta emissora.';
+    toast('Error en reproduir aquesta emissora');
+  });
+
+  el.audio.addEventListener('durationchange', updateProgress);
+  el.audio.addEventListener('timeupdate', updateProgress);
+
+  function updateProgress() {
+    const d = el.audio.duration;
+    state.isLive = !isFinite(d) || d === 0;
+    el.liveBadge.hidden = !(state.current >= 0 && state.isLive);
+    el.progress.disabled = state.isLive || state.current < 0;
+
+    if (state.isLive) {
+      el.progress.value = 0;
+      el.durTime.textContent = 'Directe';
+      el.curTime.textContent = fmtTime(el.audio.currentTime);
+      el.progress.setAttribute('aria-valuetext', 'Emissió en directe');
+    } else {
+      if (!state.seeking) el.progress.value = Math.round((el.audio.currentTime / d) * 1000);
+      el.curTime.textContent = fmtTime(el.audio.currentTime);
+      el.durTime.textContent = fmtTime(d);
+      el.progress.setAttribute('aria-valuetext', `${fmtTime(el.audio.currentTime)} de ${fmtTime(d)}`);
+    }
+  }
+
+  el.progress.addEventListener('input', () => { state.seeking = true; });
+  el.progress.addEventListener('change', () => {
+    state.seeking = false;
+    if (!state.isLive && isFinite(el.audio.duration)) {
+      el.audio.currentTime = (el.progress.value / 1000) * el.audio.duration;
+    }
+  });
+
+  el.playBtn.addEventListener('click', togglePlay);
+  el.prevBtn.addEventListener('click', prevStation);
+  el.nextBtn.addEventListener('click', nextStation);
+  el.muteBtn.addEventListener('click', toggleMute);
+  el.volume.addEventListener('input', () => setVolume(Number(el.volume.value) / 100));
+
+  // ---------- Rellotge ----------
+  function tickClock() {
+    const d = new Date();
+    el.clock.textContent = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+  }
+  setInterval(tickClock, 1000);
+  tickClock();
+
+  // ---------- Temporitzador de son ----------
+  function markSleepButton(minutes) {
+    document.querySelectorAll('[data-sleep]').forEach((b) => {
+      const active = Number(b.dataset.sleep) === minutes;
+      b.classList.toggle('active', active);
+      b.setAttribute('aria-pressed', String(active));
+    });
+  }
+
+  function updateSleepNote() {
+    if (!state.sleepEnd) { el.sleepNote.textContent = ''; return; }
+    const left = Math.max(0, Math.round((state.sleepEnd - Date.now()) / 1000));
+    el.sleepNote.textContent = `La reproducció s'aturarà en ${fmtTime(left)}`;
+  }
+
+  function clearSleep(notify) {
+    clearTimeout(state.sleepTimeout);
+    clearInterval(state.sleepTicker);
+    state.sleepTimeout = null;
+    state.sleepTicker = null;
+    state.sleepEnd = 0;
+    state.sleepMinutes = 0;
+    el.sleepNote.textContent = '';
+    markSleepButton(0);
+    if (notify) toast('Temporitzador de son finalitzat');
+  }
+
+  function setSleep(minutes) {
+    clearSleep(false);
+    state.sleepMinutes = minutes;
+    state.sleepEnd = Date.now() + minutes * 60000;
+    state.sleepTimeout = setTimeout(() => {
+      pause();
+      clearSleep(true);
+    }, minutes * 60000);
+    state.sleepTicker = setInterval(updateSleepNote, 1000);
+    updateSleepNote();
+    markSleepButton(minutes);
+    toast(`Temporitzador de son: ${minutes} minuts`);
+  }
+
+  document.querySelectorAll('[data-sleep]').forEach((b) => {
+    b.addEventListener('click', () => setSleep(Number(b.dataset.sleep)));
+  });
+  el.sleepOff.addEventListener('click', () => {
+    clearSleep(false);
+    toast('Temporitzador de son cancel·lat');
+  });
+
+  // ---------- Gravació ----------
+  let recSlug = 'emissora';
+  let recStationName = '';
+
+  function pickMime() {
+    const candidates = ['audio/webm;codecs=opus', 'audio/webm', 'audio/ogg;codecs=opus', 'audio/mp4'];
+    if (!window.MediaRecorder) return '';
+    return candidates.find((m) => MediaRecorder.isTypeSupported(m)) || '';
+  }
+
+  function extFor(mime) {
+    if (mime.includes('ogg')) return 'ogg';
+    if (mime.includes('mp4')) return 'm4a';
+    return 'webm';
+  }
+
+  function updateRecStatus() {
+    if (!recorder) { el.recStatus.textContent = 'Inactiva'; el.recStatus.classList.remove('alert'); return; }
+    const now = Date.now();
+    const pausedExtra = recorder.state === 'paused' ? now - recPausedAt : 0;
+    const elapsed = (now - recStartedAt - recPausedTotal - pausedExtra) / 1000;
+    const paused = recorder.state === 'paused';
+    el.recStatus.textContent = `${paused ? 'En pausa' : 'Gravant'} · ${fmtTime(elapsed)}`;
+    el.recStatus.classList.toggle('alert', !paused);
+  }
+
+  function startRecording() {
+    if (recorder) return;
+    if (!window.MediaRecorder) { toast('Aquest navegador no permet gravar'); return; }
+    if (state.current < 0) { toast('Selecciona una emissora abans de gravar'); return; }
+    if (el.audio.paused) play();
+
+    try { ensureAudioGraph(); } catch (e) {
+      console.error(e);
+      toast('No s\'ha pogut preparar la gravació');
+      return;
+    }
+
+    const s = state.stations[state.current];
+    recStationName = s ? s.name : 'emissora';
+    recSlug = slugify(recStationName);
+    recMime = pickMime();
+
+    try {
+      recorder = new MediaRecorder(recDest.stream, recMime ? { mimeType: recMime } : {});
+    } catch (e) {
+      console.error(e);
+      recorder = null;
+      toast('Error en iniciar la gravació');
+      return;
+    }
+
+    recChunks = [];
+    recorder.ondataavailable = (e) => { if (e.data && e.data.size) recChunks.push(e.data); };
+    recorder.onstop = finishRecording;
+    recorder.start(1000);
+    recStartedAt = Date.now();
+    recPausedTotal = 0;
+    recPausedAt = 0;
+    clearInterval(recTicker);
+    recTicker = setInterval(updateRecStatus, 1000);
+    updateRecStatus();
+    updateRecordingButtons();
+    toast('Gravació iniciada');
+  }
+
+  function togglePauseRecording() {
+    if (!recorder) return;
+    if (recorder.state === 'recording') {
+      recorder.pause();
+      recPausedAt = Date.now();
+    } else if (recorder.state === 'paused') {
+      recorder.resume();
+      recPausedTotal += Date.now() - recPausedAt;
+    }
+    updateRecordingButtons();
+    updateRecStatus();
+  }
+
+  function stopRecording() {
+    if (!recorder) return;
+    clearInterval(recTicker);
+    recTicker = null;
+    if (recorder.state !== 'inactive') recorder.stop();
+  }
+
+  function finishRecording() {
+    clearInterval(recTicker);
+    recTicker = null;
+    const blob = new Blob(recChunks, { type: recMime || 'audio/webm' });
+    recChunks = [];
+    recorder = null;
+
+    if (recordedUrl) URL.revokeObjectURL(recordedUrl);
+    recordedUrl = URL.createObjectURL(blob);
+    state.recordedName = `gravacio-${recSlug}-${timestamp()}.${extFor(recMime)}`;
+
+    el.recStatus.textContent = 'Gravació finalitzada';
+    el.recStatus.classList.remove('alert');
+    updateRecordingButtons();
+    openModal();
+  }
+
+  function openModal() {
+    el.modalFile.textContent = state.recordedName || '';
+    el.modal.classList.add('open');
+    el.modal.setAttribute('aria-hidden', 'false');
+    el.modalDownload.focus();
+  }
+
+  function closeModal() {
+    el.modal.classList.remove('open');
+    el.modal.setAttribute('aria-hidden', 'true');
+  }
+
+  function downloadRecording() {
+    if (!recordedUrl) return;
+    const a = document.createElement('a');
+    a.href = recordedUrl;
+    a.download = state.recordedName || 'gravacio.webm';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    toast('Descàrrega iniciada');
+  }
+
+  el.recStart.addEventListener('click', startRecording);
+  el.recPause.addEventListener('click', togglePauseRecording);
+  el.recStop.addEventListener('click', stopRecording);
+  el.modalDownload.addEventListener('click', downloadRecording);
+  el.modalClose.addEventListener('click', closeModal);
+  el.modal.addEventListener('click', (e) => { if (e.target === el.modal) closeModal(); });
+
+  // ---------- Alarmes ----------
+  function loadAlarms() {
+    const list = storageGet(ALARMS_KEY, []);
+    state.alarms = Array.isArray(list) ? list : [];
+  }
+
+  function renderAlarmDays() {
+    el.alarmDays.innerHTML = '';
+    for (const d of DAY_ORDER) {
+      const label = document.createElement('label');
+      const input = document.createElement('input');
+      input.type = 'checkbox';
+      input.value = String(d);
+      input.checked = d >= 1 && d <= 5;
+      input.setAttribute('aria-label', DAYS_LONG[d]);
+      label.appendChild(input);
+      label.appendChild(document.createTextNode(DAYS_SHORT[d]));
+      el.alarmDays.appendChild(label);
+    }
+  }
+
+  function renderAlarmList() {
+    el.alarmList.innerHTML = '';
+    if (!state.alarms.length) {
+      const li = document.createElement('li');
+      li.className = 'empty';
+      li.textContent = 'No hi ha cap programació desada.';
+      el.alarmList.appendChild(li);
+      return;
+    }
+    for (const a of state.alarms) {
+      const li = document.createElement('li');
+      li.className = 'alarm-item' + (a.enabled ? '' : ' off');
+      const daysText = [...a.days].sort((x, y) => DAY_ORDER.indexOf(x) - DAY_ORDER.indexOf(y))
+        .map((d) => DAYS_SHORT[d]).join(', ');
+      li.innerHTML = `
+        <div class="info">
+          <strong>${escapeHtml(a.time)}</strong> · ${escapeHtml(a.stationName)}
+          <div class="meta">${escapeHtml(daysText)} · ${a.duration} min${a.enabled ? '' : ' · desactivada'}</div>
+        </div>
+        <div class="btns">
+          <button type="button" data-action="toggle" data-id="${a.id}"
+            aria-pressed="${a.enabled}" aria-label="${a.enabled ? 'Desactivar' : 'Activar'} programació de ${escapeHtml(a.stationName)} a les ${escapeHtml(a.time)}">
+            <i class="fa-solid ${a.enabled ? 'fa-toggle-on' : 'fa-toggle-off'}" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="danger" data-action="delete" data-id="${a.id}"
+            aria-label="Eliminar programació de ${escapeHtml(a.stationName)} a les ${escapeHtml(a.time)}">
+            <i class="fa-solid fa-trash" aria-hidden="true"></i>
+          </button>
+        </div>`;
+      el.alarmList.appendChild(li);
+    }
+  }
+
+  function toggleAlarm(id) {
+    const a = state.alarms.find((x) => x.id === id);
+    if (!a) return;
+    a.enabled = !a.enabled;
+    saveAlarms();
+    renderAlarmList();
+  }
+
+  function deleteAlarm(id) {
+    state.alarms = state.alarms.filter((x) => x.id !== id);
+    saveAlarms();
+    renderAlarmList();
+    toast('Programació eliminada');
+  }
+
+  el.alarmForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const days = [...el.alarmDays.querySelectorAll('input:checked')].map((i) => Number(i.value));
+    if (!days.length) { toast('Selecciona almenys un dia'); return; }
+    const time = el.alarmTime.value;
+    if (!time) { toast('Indica una hora'); return; }
+    const duration = Math.round(Number(el.alarmDuration.value));
+    if (!(duration > 0)) { toast('La durada ha de ser superior a 0 minuts'); return; }
+    const stationUrl = el.alarmStation.value;
+    const station = state.stations.find((s) => s.url === stationUrl);
+    if (!station) { toast('Selecciona una emissora vàlida'); return; }
+
+    state.alarms.push({
+      id: Date.now(),
+      stationUrl,
+      stationName: station.name,
+      days,
+      time,
+      duration,
+      enabled: true
+    });
+    saveAlarms();
+    renderAlarmList();
+    toast('Programació afegida');
+  });
+
+  el.alarmList.addEventListener('click', (e) => {
+    const b = e.target.closest('button[data-action]');
+    if (!b) return;
+    const id = Number(b.dataset.id);
+    if (b.dataset.action === 'toggle') toggleAlarm(id);
+    if (b.dataset.action === 'delete') deleteAlarm(id);
+  });
+
+  function startAlarm(a) {
+    const idx = state.stations.findIndex((s) => s.url === a.stationUrl);
+    if (idx < 0) { toast('L\'emissora de la programació no està disponible'); return; }
+    selectStation(idx, true);
+    clearTimeout(state.alarmStopTimeout);
+    state.alarmStopTimeout = setTimeout(() => {
+      pause();
+      toast(`Programació de ${a.stationName} finalitzada`);
+    }, a.duration * 60000);
+    toast(`Alarma: ${a.stationName}`);
+  }
+
+  function checkAlarms() {
+    const now = new Date();
+    const day = now.getDay();
+    const hhmm = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
+    const dateKey = now.toDateString();
+    if (state.firedAlarms.size > 500) state.firedAlarms.clear();
+    for (const a of state.alarms) {
+      if (!a.enabled || a.time !== hhmm || !a.days.includes(day)) continue;
+      const key = `${a.id}|${dateKey}|${hhmm}`;
+      if (state.firedAlarms.has(key)) continue;
+      state.firedAlarms.add(key);
+      startAlarm(a);
+    }
+  }
+
+  // ---------- Configuració i cerca ----------
+  function restoreSettings() {
+    const s = storageGet(SETTINGS_KEY, {});
+    if (typeof s.volume === 'number' && isFinite(s.volume)) {
+      state.volume = Math.min(1, Math.max(0, s.volume));
+    }
+    state.muted = !!s.muted;
+    applyVolume();
+    updateVolumeUi();
+    if (s.stationUrl) {
+      const idx = state.stations.findIndex((x) => x.url === s.stationUrl);
+      if (idx >= 0) selectStation(idx, false);
+    }
+  }
+
+  el.volume.addEventListener('input', () => setVolume(Number(el.volume.value) / 100));
+  el.search.addEventListener('input', renderStationList);
+
+  // ---------- Dreceres de teclat ----------
+  document.addEventListener('keydown', (e) => {
+    const modalOpen = el.modal.classList.contains('open');
+    if (e.key === 'Escape') {
+      if (modalOpen) { e.preventDefault(); closeModal(); }
+      return;
+    }
+    if (modalOpen) return;
+
+    const t = e.target;
+    const tag = t.tagName;
+    const isRange = tag === 'INPUT' && t.type === 'range';
+    const isTyping = (tag === 'INPUT' && !isRange) || tag === 'SELECT' || tag === 'TEXTAREA' || t.isContentEditable;
+    if (isTyping) return;
+
+    switch (e.key) {
+      case ' ':
+        if (tag === 'BUTTON') return; // el botó ja gestiona la tecla espai
+        e.preventDefault();
+        togglePlay();
+        break;
+      case 'ArrowLeft':
+        if (isRange) return;
+        e.preventDefault();
+        prevStation();
+        break;
+      case 'ArrowRight':
+        if (isRange) return;
+        e.preventDefault();
+        nextStation();
+        break;
+      case 'ArrowUp':
+        if (isRange) return;
+        e.preventDefault();
+        setVolume(state.volume + 0.05);
+        break;
+      case 'ArrowDown':
+        if (isRange) return;
+        e.preventDefault();
+        setVolume(state.volume - 0.05);
+        break;
+      default:
+        break;
+    }
+  });
+
+  // ---------- Inici ----------
+  renderAlarmDays();
+  loadAlarms();
+  renderAlarmList();
+  updateVolumeUi();
+  updateRecordingButtons();
+  renderNowPlaying();
+  setInterval(checkAlarms, ALARM_CHECK_MS);
+  checkAlarms();
+  loadStations();
+})();
+</script>
+</body>
+</html>
