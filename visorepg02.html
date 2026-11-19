@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<title>Canals EPG</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 700px; margin: 2rem auto; padding: 0 1rem; background: #f5f5f5; }
+  input { width: 100%; padding: .5rem; box-sizing: border-box; margin-bottom: .5rem; }
+  button { padding: .5rem 1rem; cursor: pointer; }
+  #llista { background: #fff; padding: 1rem 2rem; border-radius: 8px; }
+  #error { color: #b00020; }
+</style>
+</head>
+<body>
+<h1>Canals de l'EPG</h1>
+<input id="url" value="https://epgshare01.online/epgshare01/epg_ripper_ES1.xml.gz">
+<input id="proxy" placeholder="Proxy opcional, p. ex. https://corsproxy.io/?">
+<button id="carregar">Carregar canals</button>
+<p id="estat"></p>
+<p id="error"></p>
+<ol id="llista"></ol>
+
+<script>
+document.getElementById('carregar').addEventListener('click', carregar);
+
+async function carregar() {
+  const estat = document.getElementById('estat');
+  const error = document.getElementById('error');
+  const llista = document.getElementById('llista');
+  error.textContent = '';
+  llista.innerHTML = '';
+  estat.textContent = 'Carregant...';
+
+  const url = document.getElementById('url').value.trim();
+  const proxy = document.getElementById('proxy').value.trim();
+  const fullUrl = proxy ? proxy + encodeURIComponent(url) : url;
+
+  try {
+    const resp = await fetch(fullUrl);
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    let buffer = await resp.arrayBuffer();
+
+    // Descomprimeix si és gzip (magic bytes 1f 8b)
+    const bytes = new Uint8Array(buffer);
+    if (bytes[0] === 0x1f && bytes[1] === 0x8b) {
+      const ds = new Blob([buffer]).stream().pipeThrough(new DecompressionStream('gzip'));
+      buffer = await new Response(ds).arrayBuffer();
+    }
+
+    const xml = new TextDecoder('utf-8').decode(buffer);
+    const doc = new DOMParser().parseFromString(xml, 'text/xml');
+
+    const canals = doc.querySelectorAll('channel');
+    canals.forEach(canal => {
+      const nom = canal.querySelector('display-name')?.textContent.trim() || canal.getAttribute('id');
+      const li = document.createElement('li');
+      li.textContent = nom;
+      llista.appendChild(li);
+    });
+
+    estat.textContent = `Canals trobats: ${canals.length}`;
+  } catch (e) {
+    estat.textContent = '';
+    error.textContent = 'Error: ' + e.message + '. Si és un bloqueig CORS, prova amb un proxy o amb el servidor local.';
+  }
+}
+</script>
+</body>
+</html>
