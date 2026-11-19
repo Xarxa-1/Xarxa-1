@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visor EPG (XMLTV)</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 0; background: #f4f6fa; color: #1f2937; }
+  header { background: #1e3a5f; color: #fff; padding: 16px 24px; }
+  header h1 { margin: 0; font-size: 1.4rem; }
+  main { padding: 20px 24px; }
+  .controls { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 6px; }
+  .controls input { padding: 10px; border: 1px solid #bbb; border-radius: 6px; font-size: 0.95rem; }
+  #url { flex: 1 1 460px; }
+  #proxy { flex: 1 1 240px; }
+  button { padding: 10px 18px; border: none; border-radius: 6px; background: #2563eb; color: #fff; cursor: pointer; font-size: 0.95rem; }
+  button:hover { background: #1d4ed8; }
+  button:disabled { background: #94a3b8; cursor: wait; }
+  #status { margin: 10px 0 14px; font-size: 0.9rem; color: #475569; min-height: 1.2em; }
+  #status.error { color: #b91c1c; }
+  .layout { display: grid; grid-template-columns: 300px 1fr; gap: 16px; }
+  @media (max-width: 800px) { .layout { grid-template-columns: 1fr; } }
+  .panel { background: #fff; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.1); overflow: hidden; }
+  .panel h2 { font-size: 1rem; margin: 0; padding: 12px 14px; background: #e2e8f0; }
+  #channelSearch { width: 100%; padding: 9px 12px; border: none; border-bottom: 1px solid #ddd; font-size: 0.9rem; }
+  #channels { list-style: none; margin: 0; padding: 0; max-height: 65vh; overflow: auto; }
+  #channels li { padding: 9px 14px; border-bottom: 1px solid #f0f0f0; cursor: pointer; font-size: 0.9rem; }
+  #channels li:hover { background: #eff6ff; }
+  #channels li.active { background: #2563eb; color: #fff; }
+  #channels li small { display: block; opacity: .7; font-size: 0.78rem; }
+  .wrap { max-height: 70vh; overflow: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #eee; vertical-align: top; }
+  th { background: #f8fafc; position: sticky; top: 0; z-index: 1; }
+  td.time { white-space: nowrap; width: 170px; font-variant-numeric: tabular-nums; }
+  td.cat { width: 130px; color: #64748b; }
+  .desc { color: #555; font-size: 0.82rem; margin-top: 3px; }
+  tr.now td { background: #ecfdf5; }
+  .badge { display: inline-block; background: #16a34a; color: #fff; font-size: 0.72rem; padding: 2px 6px; border-radius: 4px; margin-left: 6px; }
+  .empty { padding: 20px; color: #64748b; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Visor EPG (XMLTV)</h1>
+</header>
+
+<main>
+  <div class="controls">
+    <input type="text" id="url" placeholder="URL del fitxer EPG (.xml o .xml.gz)">
+    <button id="loadBtn">Carrega</button>
+  </div>
+  <div class="controls">
+    <input type="text" id="proxy" placeholder="Proxy CORS opcional (ex: https://mi-proxy.com/?url=)">
+  </div>
+  <div id="status"></div>
+
+  <div class="layout">
+    <section class="panel">
+      <h2>Canals</h2>
+      <input type="text" id="channelSearch" placeholder="Cerca canal...">
+      <ul id="channels"></ul>
+    </section>
+
+    <section class="panel">
+      <h2 id="programTitle">Programació</h2>
+      <div class="wrap" id="programs">
+        <div class="empty">Carrega una EPG i selecciona un canal.</div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<script>
+const DEFAULT_URL = 'https://epgshare01.online/epgshare01/epg_ripper_ES1.xml.gz';
+
+const $ = id => document.getElementById(id);
+
+let channelNames = {};   // id -> nom
+let programmes = {};     // id -> [{start, stop, title, desc, category}]
+let channelIds = [];
+let selectedId = null;
+
+$('url').value = DEFAULT_URL;
+$('loadBtn').addEventListener('click', load);
+$('url').addEventListener('keydown', e => { if (e.key === 'Enter') load(); });
+$('channelSearch').addEventListener('input', renderChannels);
+
+window.addEventListener('DOMContentLoaded', load);
+
+function setStatus(msg, isError = false) {
+  const s = $('status');
+  s.textContent = msg;
+  s.className = isError ? 'error' : '';
+}
+
+async function load() {
+  const url = $('url').value.trim();
+  const proxy = $('proxy').value.trim();
+  if (!url) return setStatus('Introdueix una URL.', true);
+
+  const finalUrl = proxy ? proxy + encodeURIComponent(url) : url;
+  $('loadBtn').disabled = true;
+  setStatus('Descarregant ' + url + ' ...');
+
+  try {
+    const resp = await fetch(finalUrl);
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+
+    const buf = await resp.arrayBuffer();
+    setStatus('Descomprimint i analitzant el fitxer...');
+    const text = await toText(buf);
+    parseXMLTV(text);
+
+    selectedId = channelIds.find(id => (programmes[id] || []).length) || null;
+    renderChannels();
+    if (selectedId) selectChannel(selectedId);
+    else $('programs').innerHTML = '<div class="empty">No s\'han trobat programes.</div>';
+
+    setStatus(`Carregat: ${channelIds.length} canals, ${countProgrammes()} programes.`);
+  } catch (err) {
+    setStatus('Error: ' + err.message + '. Pot ser un bloqueig CORS; prova amb un proxy o amb un servidor local.', true);
+  } finally {
+    $('loadBtn').disabled = false;
+  }
+}
+
+// Detecta gzip pels bytes màgics (1f 8b) i descomprimeix amb DecompressionStream
+async function toText(buf) {
+  const bytes = new Uint8Array(buf);
+  let data = buf;
+  if (bytes[0] === 0x1f && bytes[1] === 0x8b) {
+    if (!('DecompressionStream' in window)) throw new Error('El navegador no suporta gzip');
+    const stream = new Blob([buf]).stream().pipeThrough(new DecompressionStream('gzip'));
+    data = await new Response(stream).arrayBuffer();
+  }
+  return new TextDecoder('utf-8').decode(data);
+}
+
+// Converteix dates XMLTV (ex: 20251119120000 +0100) a Date
+function parseXmltvDate(s) {
+  if (!s) return null;
+  const m = s.match(/^(\d{4})(\d{2})(\d{2})(\d{2})?(\d{2})?(\d{2})?\s*([+-]\d{4})?/);
+  if (!m) return null;
+  const [, y, mo, d, h = '00', mi = '00', se = '00', tz = '+0000'] = m;
+  const utc = Date.UTC(+y, +mo - 1, +d, +h, +mi, +se);
+  const sign = tz[0] === '-' ? -1 : 1;
+  const offsetMin = sign * (parseInt(tz.slice(1, 3), 10) * 60 + parseInt(tz.slice(3, 5), 10));
+  return new Date(utc - offsetMin * 60000);
+}
+
+function parseXMLTV(text) {
+  const doc = new DOMParser().parseFromString(text, 'application/xml');
+  if (doc.querySelector('parsererror')) throw new Error('El contingut no és un XML vàlid');
+
+  channelNames = {};
+  programmes = {};
+
+  doc.querySelectorAll('channel').forEach(ch => {
+    const id = ch.getAttribute('id');
+    channelNames[id] = ch.querySelector('display-name')?.textContent || id;
+  });
+
+  doc.querySelectorAll('programme').forEach(p => {
+    const id = p.getAttribute('channel');
+    const item = {
+      start: parseXmltvDate(p.getAttribute('start')),
+      stop: parseXmltvDate(p.getAttribute('stop')),
+      title: p.querySelector('title')?.textContent || '(sense títol)',
+      desc: p.querySelector('desc')?.textContent || '',
+      category: p.querySelector('category')?.textContent || ''
+    };
+    (programmes[id] ||= []).push(item);
+  });
+
+  Object.values(programmes).forEach(list => list.sort((a, b) => a.start - b.start));
+
+  const allIds = new Set([...Object.keys(channelNames), ...Object.keys(programmes)]);
+  channelIds = [...allIds].sort((a, b) =>
+    (channelNames[a] || a).localeCompare(channelNames[b] || b, 'ca'));
+}
+
+function countProgrammes() {
+  return Object.values(programmes).reduce((n, l) => n + l.length, 0);
+}
+
+function renderChannels() {
+  const filter = $('channelSearch').value.trim().toLowerCase();
+  const ul = $('channels');
+  ul.innerHTML = '';
+
+  channelIds
+    .filter(id => (channelNames[id] || id).toLowerCase().includes(filter))
+    .forEach(id => {
+      const li = document.createElement('li');
+      if (id === selectedId) li.classList.add('active');
+      li.textContent = channelNames[id] || id;
+
+      const small = document.createElement('small');
+      small.textContent = `${(programmes[id] || []).length} programes`;
+      li.appendChild(small);
+
+      li.addEventListener('click', () => selectChannel(id));
+      ul.appendChild(li);
+    });
+}
+
+function fmtDate(d) {
+  return d ? d.toLocaleString('ca-ES', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }) : '';
+}
+function fmtTime(d) {
+  return d ? d.toLocaleTimeString('ca-ES', { hour: '2-digit', minute: '2-digit' }) : '';
+}
+
+function selectChannel(id) {
+  selectedId = id;
+  renderChannels();
+  $('programTitle').textContent = 'Programació: ' + (channelNames[id] || id);
+
+  const list = programmes[id] || [];
+  const container = $('programs');
+  if (!list.length) {
+    container.innerHTML = '<div class="empty">Aquest canal no té programes.</div>';
+    return;
+  }
+
+  const now = new Date();
+  const table = document.createElement('table');
+  table.innerHTML = '<thead><tr><th>Horari</th><th>Programa</th><th>Categoria</th></tr></thead>';
+  const tbody = document.createElement('tbody');
+
+  list.forEach(p => {
+    const tr = document.createElement('tr');
+    const isNow = p.start && p.stop && p.start <= now && now < p.stop;
+    if (isNow) tr.classList.add('now');
+
+    const tdTime = document.createElement('td');
+    tdTime.className = 'time';
+    tdTime.textContent = `${fmtDate(p.start)} – ${fmtTime(p.stop)}`;
+
+    const tdTitle = document.createElement('td');
+    const strong = document.createElement('strong');
+    strong.textContent = p.title;
+    tdTitle.appendChild(strong);
+    if (isNow) {
+      const badge = document.createElement('span');
+      badge.className = 'badge';
+      badge.textContent = 'En directe';
+      tdTitle.appendChild(badge);
+    }
+    if (p.desc) {
+      const d = document.createElement('div');
+      d.className = 'desc';
+      d.textContent = p.desc;
+      tdTitle.appendChild(d);
+    }
+
+    const tdCat = document.createElement('td');
+    tdCat.className = 'cat';
+    tdCat.textContent = p.category;
+
+    tr.append(tdTime, tdTitle, tdCat);
+    tbody.appendChild(tr);
+  });
+
+  table.appendChild(tbody);
+  container.innerHTML = '';
+  container.appendChild(table);
+
+  const current = container.querySelector('tr.now');
+  if (current) current.scrollIntoView({ block: 'center' });
+}
+</script>
+</body>
+</html>
