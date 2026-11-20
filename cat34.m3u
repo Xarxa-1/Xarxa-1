@@ -204,3 +204,129 @@ https://a62dad94.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdX
 http://190.117.20.37:8000/play/a08d/index.m3u8
 #EXTINF:-1, KAZAJISTAN SPORT ????
 https://qazaqstantv-stream.qazcdn.com:443/qazaqstantv/qazaqstantv/tracks-v4a1/mono.ts.m3u8
+
+#EXTM3U
+#EXTINF:-1 tvg-id="" tvg-name="Moviesphere Free" tvg-logo="https://images.samsung.com/is/image/samsung/assets/au/tvs/smart-tv/samsung-tv-plus/all-channels/Moviesphere-Free_SamsungAsset_Logo_1000x1000_C_White.png" group-title="Movie",Moviesphere Free
+https://moviesphereuk-samsunguk.amagi.tv/playlist.m3u8
+#EXTINF:-1 group-title="Movie"  tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUgxTkc5-3HMAF7raMs2HniDl38Ro-DDqDvcNKjP8aXg&s",Movie Dome Family
+https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg00771-kochfilmsgerman-moviedomefamily-tcl/playlist.m3u8
+#EXTINF:-1 group-title="Music" tvg-logo="https://i.ibb.co.com/1vYtnYV/Smart-Select-20230609-100615-Picsart.jpg", M2O
+https://4c4b867c89244861ac216426883d1ad0.msvdn.net/live/S62628868/uhdWBlkC1AoO/playlist.m3u8
+#EXTINF:-0 tvg-name="TV" tvg-logo="https://i.ibb.co.com/NpQc5Sv/K-Pop.jpg" group-title="Music", KPOP PLAY
+https://live.24hrkpop.com/hls/3/stream.m3u8
+#EXTINF:-1 tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-oFGwp3UAGd87rZtxS1nkKPIbkikh_K1w9ylFAiowTZGOwrR-IkKgUds&s=10" group-title="Music",SPIRIT TV
+https://cdnlive.myspirit.tv/LS-ATL-43240-2/index.m3u8
+#EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/subirkumarpaul/Logo/main/Travel%20XP.png" group-title="Information",Travel XP English NZ
+https://travelxp-travelxp-1-nz.samsung.wurl.tv/playlist.m3u8
+#EXTINF:-1 tvg-logo=""group-title="English News",CNN
+https://amg01448-samsungin-cnnnow-samsungin-4npqg.amagi.tv/playlist/amg01448-samsungin-cnnnow-samsungin/playlist.m3u8
+#EXTINF:-1 tvg-logo=""group-title="English News",DW Naws
+https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/index.m3u8
+#EXTINF:-1 tvg-logo=""group-title="English News",Sky News
+https://d39chvnxm26pgp.cloudfront.net/v1/master/72588bff830dec7b26d7cbbf5f3c24928aec5c03/cc-sthen6ms4vxgv-stage/WNSFO/ABR.m3u8
+#EXTINF:-1 tvg-id="TV3" group-title="General",TV3
+https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8
+#EXTINF:-1 tvg-id="Canal324" group-title="General",Canal 324
+https://directes-tv-int.3catdirectes.cat/live-content/canal324-hls/master.m3u8
+#EXTINF:-1 tvg-id="C33Super3CAT" group-title="General",C33/Super3 CAT
+https://directes-tv-cat.3catdirectes.cat/live-origin/c33-super3-hls/master.m3u8
+#EXTINF:-1 tvg-id="C33Super3ES" group-title="General",C33/Super3 ES
+https://directes-tv-es.3catdirectes.cat/live-origin/c33-super3-hls/master.m3u8
+#EXTINF:-1 tvg-id="Super3CAT" group-title="General",Super3 CAT
+https://directes-tv-cat.3catdirectes.cat/live-content/super3-hls/master.m3u8
+#EXTINF:-1 tvg-id="Super3ES" group-title="General",Super3 ES
+https://directes-tv-es.3catdirectes.cat/live-content/super3-hls/master.m3u8
+#EXTINF:-1 tvg-id="OCA1CAT" group-title="General",OCA 1 CAT
+https://directes-tv-cat.3catdirectes.cat/live-content/oca1-hls/master.m3u8
+#EXTINF:-1 tvg-id="OCA2CAT" group-title="General",OCA 2 CAT
+https://directes-tv-cat.3catdirectes.cat/live-content/oca2-hls/master.m3u8
+#EXTINF:-1 tvg-id="OCA3CAT" group-title="General",OCA 3 CAT
+https://directes-tv-cat.3catdirectes.cat/live-content/oca3-hls/master.m3u8
+#EXTINF:-1 tvg-id="CCMAChannel2" group-title="General",CCMA Channel 2
+https://fast-tailor.3catdirectes.cat/v1/channel/ccma-channel2/hls.m3u8
+#EXTINF:-1 tvg-id="La2RTVE" group-title="General",La 2 RTVE
+https://ztnr.rtve.es/ztnr/3987218.m3u8
+#EXTINF:-1 tvg-id="Canal24h" group-title="General",Canal 24h
+https://ztnr.rtve.es/ztnr/4952053.m3u8
+#EXTINF:-1 tvg-id="BonDiaTV" group-title="General",Bon Dia TV
+https://directes-tv-int.3catdirectes.cat/live-content/bondia-hls/master.m3u8
+#EXTINF:-1 tvg-id="Creus" group-title="General",Creus
+https://ingest2-video.streaming-pro.com/creus/stream/playlist.m3u8
+#EXTINF:-1 tvg-id="EmpordaTV" group-title="General",Empordà TV
+https://video3.lhdserver.es/empordatv2/live.m3u8
+#EXTINF:-1 tvg-id="CanalTerrassa" group-title="General",Canal Terrassa
+https://ingest2-video.streaming-pro.com/canalterrassa/stream/playlist.m3u8
+#EXTINF:-1 tvg-id="CanalTaronjaCentral" group-title="General",Canal Taronja Central
+https://ingest1-video.streaming-pro.com/canaltaronja/central/playlist.m3u8
+#EXTINF:-1 tvg-id="CanalTaronjaAnoia" group-title="General",Canal Taronja Anoia
+https://ingest1-video.streaming-pro.com/canaltaronja/anoia/playlist.m3u8
+#EXTINF:-1 tvg-id="VOTV" group-title="General",VOTV
+https://ingest2-video.streaming-pro.com/votv/streaming_web/playlist.m3u8
+#EXTINF:-1 tvg-id="CanalTaronjaOsona" group-title="General",Canal Taronja Osona
+https://ingest1-video.streaming-pro.com/canaltaronja/osona/playlist.m3u8
+#EXTINF:-1 tvg-id="PieraTV" group-title="General",Piera TV
+https://5d776b1861da1.streamlock.net/piera/smil:piera.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="VentdelNordEscala" group-title="General",Vent del Nord Escala
+https://ventdelnord.tv:8080/escala/directe.m3u8
+#EXTINF:-1 tvg-id="TVMC05" group-title="General",TVMC05
+https://rfe-ingest.akamaized.net/hls/live/2033043/tvmc05/master.m3u8
+#EXTINF:-1 tvg-id="CanalTaronjaSabadell" group-title="General",Canal Taronja Sabadell
+https://ingest1-video.streaming-pro.com/canaltaronja/sabadell/playlist.m3u8
+#EXTINF:-1 tvg-id="La1_2" group-title="General",La 1 (2)
+https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8
+#EXTINF:-1 tvg-id="La2_2" group-title="General",La 2 (2)
+https://rtvelivestream.rtve.es/rtvesec/la2/la2_main_dvr.m3u8
+#EXTINF:-1 tvg-id="ElToroTV" group-title="General",El Toro TV
+https://streaming-1.eltorotv.com/lb0/eltorotv-streaming-web/index.m3u8
+#EXTINF:-1 tvg-id="ElToroTV_2" group-title="General",El Toro TV (2)
+https://edge-nodo-002.streaming.hitcloser.net/eltorotv-streaming-web/index.m3u8
+#EXTINF:-1 tvg-id="RNEParaTodos" group-title="General",RNE para todos
+https://ztnr.rtve.es/ztnr/6688753.m3u8
+#EXTINF:-1 tvg-id="RNEParaTodos_2" group-title="General",RNE para todos (2)
+https://rtvelivestream.rtve.es/rtvesec/rne/rne_para_todos_main.m3u8
+#EXTINF:-1 tvg-id="TVEIntEuropa" group-title="General",TVE Int. Europa
+https://rtvelivestream.rtve.es/rtvesec/int/tvei_eu_main_dvr.m3u8
+#EXTINF:-1 tvg-id="TV3CAT" group-title="General",TV3.CAT
+https://directes3-tv-int.3catdirectes.cat/live-content/tvi-hls/master.m3u8
+#EXTINF:-1 tvg-id="ETBBasque" group-title="General",ETB Basque
+https://multimedia.eitb.eus/live-content/eitbbasque-hls/master.m3u8
+#EXTINF:-1 tvg-id="BloombergEurope" group-title="General",Bloomberg Europe
+https://www.bloomberg.com/media-manifest/streams/eu.m3u8
+#EXTINF:-1 tvg-id="BFMTVFrancia" group-title="General",BFM TV Francia
+https://live-cdn-stream-euw1.bfmtv.bct.nextradiotv.com/master.m3u8
+#EXTINF:-1 tvg-id="DW" group-title="General",DW Alemania
+https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/index.m3u8
+#EXTINF:-1 tvg-id="DWEN" group-title="General",DW Alemania EN
+https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/index.m3u8
+#EXTINF:-1 tvg-id="DasErste" group-title="General",Das Erste Alemania
+https://daserste-live.ard-mcdn.de/daserste/live/hls/int/master.m3u8
+#EXTINF:-1 tvg-id="WDRAlemania" group-title="General",WDR Alemania
+https://wdrfsww247.akamaized.net/hls/live/2009628/wdr_msl4_fs247ww/master.m3u8
+#EXTINF:-1 tvg-id="NDRNiedersachsen" group-title="General",NDR Niedersachsen Alemania
+https://ndrint.akamaized.net/hls/live/2020766/ndr_int/master.m3u8
+#EXTINF:-1 tvg-id="Tagesschau24" group-title="General",Tagesschau24
+https://tagesschau.akamaized.net/hls/live/2020115/tagesschau/tagesschau_1/master.m3u8
+#EXTINF:-1 tvg-id="GBNewsUK" group-title="General",GB News UK
+https://amg01076-lightningintern-gbnews-samsunguk-0lu52.amagi.tv/playlist/amg01076-lightningintern-gbnews-samsunguk/playlist.m3u8
+#EXTINF:-1 tvg-id="RTPInternacional" group-title="General",RTP Internacional Portugal
+https://streaming-live.rtp.pt/liverepeater/smil:rtpi.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="RTP3Portugal" group-title="General",RTP 3 Portugal
+https://streaming-live.rtp.pt/livetvhlsDVR/rtpnHDdvr.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="RTPMadeira" group-title="General",RTP Madeira Portugal
+https://streaming-live.rtp.pt/liverepeater/smil:rtpmadeira.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="RTPAcores" group-title="General",RTP Açores Portugal
+https://streaming-live.rtp.pt/liverepeater/smil:rtpacores.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="TRTWorldEN" group-title="General",TRT World Turquía EN
+https://tv-trtworld.medya.trt.com.tr/master.m3u8
+#EXTINF:-1 tvg-id="TRTWorldTR" group-title="General",TRT World Turquía TR
+https://tv-trthaber.medya.trt.com.tr/master.m3u8
+#EXTINF:-1 tvg-id="RUVIS1" group-title="General",RÚV Islandia 1
+https://ruv-web-live.akamaized.net/streymi/ruverl/ruverl.m3u8
+#EXTINF:-1 tvg-id="RUVIS2" group-title="General",RÚV Islandia 2
+https://ruvlive.akamaized.net/out/v1/2ff7673de40f419fa5164498fae89089/index.m3u8
+#EXTINF:-1 tvg-id="N1Croacia" group-title="General",N1 Croacia
+https://best-str.umn.cdn.united.cloud/stream?stream=sp1400&sp=n1info&channel=n1hrv&u=n1info&p=n1Sh4redSecre7iNf0&player=m3u8
+#EXTINF:-1 tvg-id="Channel24Ucrania" group-title="General",Channel 24 Ucrania
+http://streamvideol1.luxnet.ua/news24/news24.stream/playlist.m3u8
+#EXTINF:-1 tvg-id="CurrentTimeTV" group-title="General",Current Time TV
+https://rfe-ingest.akamaized.net/hls/live/2033043/tvmc05/master.m3u8
