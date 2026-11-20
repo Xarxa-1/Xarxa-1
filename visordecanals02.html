@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="https://screentester.io/favicon.ico" sizes="32x32"><link rel="icon" type="https://screentester.io/image/svg+xml" href="https://screentester.io/favicon.svg"><link rel="apple-touch-icon" href="https://screentester.io/apple-touch-icon.png">
+
+<title>Visor de canals M3U</title>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 0; background: #111; color: #eee; }
+  header { padding: 16px; background: #1d1d1d; position: sticky; top: 0; z-index: 10;
+           display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  input[type=text] { padding: 8px; border-radius: 6px; border: 1px solid #444; background: #222; color: #fff; }
+  #url { flex: 1; min-width: 250px; }
+  #filter { min-width: 150px; max-width: 220px; }
+  button { padding: 8px 14px; border: 0; border-radius: 6px; background: #2d7dd2; color: #fff; cursor: pointer; }
+  button.secondary { background: #444; }
+  button.export { background: #2e9e5b; }
+  #status, #count { font-size: 14px; color: #aaa; }
+  #status { width: 100%; }
+  #grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; padding: 16px; }
+  .card { background: #1d1d1d; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column;
+          border: 2px solid transparent; }
+  .card.selected { border-color: #2e9e5b; }
+  .card.playing { border-color: #2d7dd2; }
+  .head { display: flex; align-items: center; gap: 10px; padding: 10px; }
+  .logo { width: 48px; height: 48px; object-fit: contain; background: #000; border-radius: 6px; flex-shrink: 0; }
+  .logo-empty { width: 48px; height: 48px; background: #000; border-radius: 6px; flex-shrink: 0;
+                display: flex; align-items: center; justify-content: center; font-size: 20px; color: #555; }
+  .info { min-width: 0; flex: 1; }
+  .name { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .group { font-size: 12px; color: #999; }
+  .sel { width: 20px; height: 20px; cursor: pointer; flex-shrink: 0; }
+  .preview { position: relative; aspect-ratio: 16 / 9; background: #000; cursor: pointer; }
+  .preview canvas { width: 100%; height: 100%; display: block; }
+  .preview video { position: absolute; inset: 0; width: 100%; height: 100%; background: #000; }
+  .badge { position: absolute; left: 6px; bottom: 6px; font-size: 11px; background: rgba(0,0,0,.7);
+           padding: 2px 6px; border-radius: 4px; pointer-events: none; }
+</style>
+</head>
+<body>
+
+<header>
+  <input type="text" id="url" value="https://xarxa-1.github.io/Xarxa-1/cat325.m3u" placeholder="Enganxa aquí la URL de la llista M3U">
+  <button id="loadBtn">Carregar</button>
+  <input type="text" id="filter" placeholder="Filtra per nom...">
+  <button id="selVisBtn" class="secondary">Seleccionar visibles</button>
+  <button id="clearBtn" class="secondary">Desseleccionar tots</button>
+  <button id="stopPlayBtn" class="secondary">Atura reproducció</button>
+  <button id="exportBtn" class="export">Exporta seleccionats (M3U)</button>
+  <span id="count"></span>
+  <div id="status">Introdueix una URL i prem Carregar.</div>
+</header>
+
+<div id="grid"></div>
+
+<script>
+const grid = document.getElementById('grid');
+const statusEl = document.getElementById('status');
+const countEl = document.getElementById('count');
+const urlInput = document.getElementById('url');
+const filterInput = document.getElementById('filter');
+
+const MAX_PREVIEWS = 4;      // captures en procés a la vegada
+const PLAY_TIMEOUT = 15000;  // ms per considerar "Sense senyal"
+let channels = [];
+const previews = new Map();  // card -> estat de la captura en segon pla
+const queue = [];            // cards pendents de captura (totes, sigui visible o no)
+let active = null;           // canal que es reprodueix ara: { card, video, hls, timer }
+
+// ---------- Parsejar M3U ----------
+function parseM3U(text) {
+  const lines = text.split(/\r?\n/);
+  const result = [];
+  let current = null;
+
+  for (let line of lines) {
+    line = line.trim();
+    if (!line) continue;
+
+    if (line.startsWith('#EXTINF')) {
+      const name = line.substring(line.lastIndexOf(',') + 1).trim();
+      const logo = (line.match(/tvg-logo="([^"]*)"/) || [])[1] || '';
+      const group = (line.match(/group-title="([^"]*)"/) || [])[1] || '';
+      current = { extinf: line, name: name || 'Sense nom', logo, group, url: '', selected: false };
+    } else if (!line.startsWith('#')) {
+      if (current) {
+        current.url = line;
+        result.push(current);
+        current = null;
+      } else {
+        result.push({ extinf: `#EXTINF:-1,${line}`, name: line, logo: '', group: '', url: line, selected: false });
+      }
+    }
+  }
+  return result.filter(c => c.url);
+}
+
+// ---------- Carregar llista ----------
+async function loadPlaylist() {
+  const url = urlInput.value.trim();
+  if (!url) return;
+  statusEl.textContent = 'Carregant llista...';
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const text = await res.text();
+    channels = parseM3U(text);
+    statusEl.textContent = `${channels.length} canals carregats`;
+    buildCards();
+  } catch (e) {
+    statusEl.textContent = 'Error en carregar la llista: ' + e.message +
+      '. Si és un error de CORS, prova amb un proxy.';
+  }
+}
+
+// ---------- Crear totes les targetes i encuar totes les captures ----------
+function buildCards() {
+  stopAll();
+  grid.innerHTML = '';
+
+  const fragment = document.createDocumentFragment();
+
+  channels.forEach(ch => {
+    const card = document.createElement('div');
+    card.className = 'card' + (ch.selected ? ' selected' : '');
+    card.innerHTML = `
+      <div class="head">
+        <div class="logo-wrap"></div>
+        <div class="info">
+          <div class="name"></div>
+          <div class="group"></div>
+        </div>
+        <input type="checkbox" class="sel" title="Seleccionar canal">
+      </div>
+      <div class="preview">
+        <canvas width="320" height="180"></canvas>
+        <span class="badge">En cua...</span>
+      </div>`;
+
+    // Logo: si no hi ha logo o falla, es mostra un marcador amb la inicial
+    const logoWrap = card.querySelector('.logo-wrap');
+    if (ch.logo) {
+      const img = document.createElement('img');
+      img.className = 'logo';
+      img.alt = '';
+      img.loading = 'eager';
+      img.decoding = 'async';
+      img.src = ch.logo;
+      img.onerror = () => { logoWrap.replaceChildren(makeLogoPlaceholder(ch.name)); };
+      logoWrap.appendChild(img);
+    } else {
+      logoWrap.appendChild(makeLogoPlaceholder(ch.name));
+    }
+
+    card.querySelector('.name').textContent = ch.name;
+    card.querySelector('.group').textContent = ch.group;
+
+    const cb = card.querySelector('.sel');
+    cb.checked = ch.selected;
+    cb.addEventListener('change', () => {
+      ch.selected = cb.checked;
+      card.classList.toggle('selected', cb.checked);
+      updateCount();
+    });
+
+    // Clic sobre la vista prèvia: reprodueix (o atura si ja sona)
+    card.querySelector('.preview').addEventListener('click', e => {
+      if (e.target.tagName === 'VIDEO' && active && active.card === card) return; // deixa funcionar els controls
+      playChannel(card);
+    });
+
+    card._channel = ch;
+    card._cb = cb;
+    fragment.appendChild(card);
+    queue.push(card);
+  });
+
+  grid.appendChild(fragment);
+  applyFilter();
+  fillSlots();
+}
+
+function makeLogoPlaceholder(name) {
+  const d = document.createElement('div');
+  d.className = 'logo-empty';
+  d.textContent = (name || '?').charAt(0).toUpperCase();
+  return d;
+}
+
+// ---------- Filtre (no torna a crear les targetes) ----------
+function applyFilter() {
+  const f = filterInput.value.toLowerCase();
+  grid.querySelectorAll('.card').forEach(card => {
+    const show = card._channel.name.toLowerCase().includes(f);
+    card.style.display = show ? '' : 'none';
+  });
+  updateCount();
+}
+
+function updateCount() {
+  const n = channels.filter(c => c.selected).length;
+  countEl.textContent = `${n} seleccionats de ${channels.length}`;
+}
+
+// ---------- Adjuntar la font de vídeo (HLS o directa) ----------
+// Retorna la instància de hls.js si n'hi ha
+function attachSource(video, url, onFail) {
+  let hls = null;
+  if (/m3u8/i.test(url)) {
+    if (window.Hls && Hls.isSupported()) {
+      hls = new Hls({ maxBufferLength: 5 });
+      hls.loadSource(url);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, () => video.play().catch(() => {}));
+      hls.on(Hls.Events.ERROR, (_, d) => { if (d.fatal) onFail(); });
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = url;
+      video.play().catch(() => {});
+    } else {
+      onFail();
+    }
+  } else {
+    video.src = url;
+    video.play().catch(() => {});
+  }
+  return hls;
+}
+
+// ---------- Cua de captures: màxim MAX_PREVIEWS a la vegada ----------
+function fillSlots() {
+  while (previews.size < MAX_PREVIEWS && queue.length) {
+    const card = queue.shift();
+    if (card._done || previews.has(card) || card === (active && active.card)) continue;
+    startPreview(card);
+  }
+}
+
+function startPreview(card) {
+  const ch = card._channel;
+  const video = document.createElement('video');
+  video.muted = true;
+  video.playsInline = true;
+  video.autoplay = true;
+
+  const canvas = card.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+  const badge = card.querySelector('.badge');
+
+  const p = { video, hls: null, failTimer: null };
+  previews.set(card, p);
+  badge.textContent = 'Carregant...';
+
+  // Dibuixa un sol fotograma i atura el stream
+  const grab = () => {
+    if (card._done || !video.videoWidth || video.readyState < 2) return;
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    card._done = true;
+    badge.textContent = 'Captura';
+    stopPreview(card);
+    fillSlots();
+  };
+
+  video.addEventListener('playing', grab);
+  video.addEventListener('loadeddata', grab);
+  video.addEventListener('error', () => fail(card));
+
+  p.failTimer = setTimeout(() => fail(card), PLAY_TIMEOUT);
+  p.hls = attachSource(video, ch.url, () => fail(card));
+}
+
+function stopPreview(card) {
+  const p = previews.get(card);
+  if (!p) return;
+  clearTimeout(p.failTimer);
+  if (p.hls) p.hls.destroy();
+  p.video.pause();
+  p.video.removeAttribute('src');
+  p.video.load();
+  previews.delete(card);
+}
+
+function fail(card) {
+  if (!previews.has(card)) return;
+  stopPreview(card);
+  card._done = true; // marca definitiva: no es reintenta
+  card.querySelector('.badge').textContent = 'Sense senyal';
+  fillSlots();
+}
+
+// ---------- Reproducció en directe: només un canal alhora ----------
+function playChannel(card) {
+  // Si ja sona aquest, l'aturem (es queda la imatge fixa)
+  if (active && active.card === card) {
+    stopActive();
+    return;
+  }
+
+  stopActive();                 // l'anterior es queda com a imatge fixa
+  if (previews.has(card)) stopPreview(card); // aturem la captura en segon pla d'aquest canal
+
+  const preview = card.querySelector('.preview');
+  const badge = card.querySelector('.badge');
+  const video = document.createElement('video');
+  video.controls = true;
+  video.playsInline = true;
+  video.autoplay = true;
+  // No està silenciat: el clic de l'usuari permet el so
+  preview.insertBefore(video, badge);
+
+  card.classList.add('playing');
+  badge.textContent = 'Carregant...';
+
+  const state = { card, video, hls: null, timer: null };
+  active = state;
+
+  state.timer = setTimeout(() => playFail(card), PLAY_TIMEOUT);
+  video.addEventListener('playing', () => {
+    clearTimeout(state.timer);
+    badge.textContent = 'Reproduint';
+  });
+  video.addEventListener('error', () => playFail(card));
+
+  state.hls = attachSource(video, card._channel.url, () => playFail(card));
+}
+
+// Atura el canal que sona, deixa la imatge de l'últim fotograma
+function stopActive() {
+  if (!active) return;
+  const { card, video, hls, timer } = active;
+  const canvas = card.querySelector('canvas');
+  const badge = card.querySelector('.badge');
+
+  clearTimeout(timer);
+
+  let frameDrawn = false;
+  if (video.videoWidth && video.readyState >= 2) {
+    canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+    frameDrawn = true;
+  }
+
+  if (hls) hls.destroy();
+  video.pause();
+  video.removeAttribute('src');
+  video.load();
+  video.remove();
+
+  card.classList.remove('playing');
+  if (frameDrawn) {
+    card._done = true;
+    badge.textContent = 'Captura';
+  } else if (!card._done) {
+    badge.textContent = 'En cua...';
+    queue.push(card); // encara no té captura: tornarà a la cua
+  }
+
+  active = null;
+  fillSlots();
+}
+
+function playFail(card) {
+  if (!active || active.card !== card) return;
+  const badge = card.querySelector('.badge');
+  clearTimeout(active.timer);
+  if (active.hls) active.hls.destroy();
+  active.video.remove();
+  card.classList.remove('playing');
+  card._done = true;
+  badge.textContent = 'Sense senyal';
+  active = null;
+  fillSlots();
+}
+
+function stopAll() {
+  stopActive();
+  [...previews.keys()].forEach(stopPreview);
+  queue.length = 0;
+}
+
+// ---------- Selecció i exportació ----------
+function selectVisible() {
+  grid.querySelectorAll('.card').forEach(card => {
+    if (card.style.display === 'none') return;
+    card._channel.selected = true;
+    card._cb.checked = true;
+    card.classList.add('selected');
+  });
+  updateCount();
+}
+
+function clearSelection() {
+  channels.forEach(c => { c.selected = false; });
+  grid.querySelectorAll('.card').forEach(card => {
+    card._cb.checked = false;
+    card.classList.remove('selected');
+  });
+  updateCount();
+}
+
+function exportSelected() {
+  const sel = channels.filter(c => c.selected);
+  if (!sel.length) {
+    statusEl.textContent = 'No hi ha cap canal seleccionat.';
+    return;
+  }
+  const lines = ['#EXTM3U'];
+  sel.forEach(c => {
+    lines.push(c.extinf);
+    lines.push(c.url);
+  });
+  const blob = new Blob([lines.join('\n') + '\n'], { type: 'audio/x-mpegurl' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'canals_seleccionats.m3u';
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  statusEl.textContent = `Exportats ${sel.length} canals.`;
+}
+
+// ---------- Esdeveniments ----------
+document.getElementById('loadBtn').addEventListener('click', loadPlaylist);
+urlInput.addEventListener('keydown', e => { if (e.key === 'Enter') loadPlaylist(); });
+filterInput.addEventListener('input', applyFilter);
+document.getElementById('selVisBtn').addEventListener('click', selectVisible);
+document.getElementById('clearBtn').addEventListener('click', clearSelection);
+document.getElementById('stopPlayBtn').addEventListener('click', stopActive);
+document.getElementById('exportBtn').addEventListener('click', exportSelected);
+
+loadPlaylist();
+</script>
+</body>
+</html>
