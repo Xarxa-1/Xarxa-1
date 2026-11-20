@@ -469,3 +469,21 @@ https://live-manifest.production-public.tubi.io/live/d4c5e01e-75ff-4e1d-abb1-d24
 https://live-manifest.production-public.tubi.io/live/236f6c6f-2c44-496f-897e-6ea958233674/playlist.m3u8
 #EXTINF:-1 tvg-id="400000093" tvg-logo="https://canvas-lb.tubitv.com/opts/qqJAXtXP7TIolA==/0aa317c5-3f1c-4949-9e48-3f257c8293c4/CHgQeDoFMS4xLjlAAQ==" group-title="True Crime",World's Most Evil Killers
 https://live-manifest.production-public.tubi.io/live/8a3bfd19-8982-4a0a-b76c-14d02ea82fad/playlist.m3u8
+
+#EXTM3U
+#EXTINF:-1 tvg-id="3CatCameresdeltemps.es@SD" tvg-logo="https://i.imgur.com/zXy2kbe.png" group-title="Public;Weather",3Cat temps
+https://directes-tv-int.3catdirectes.cat/live-content/beauties-hls/master.m3u8
+#EXTINF:-1 tvg-id="Sky-News" tvg-name="Sky News" tvg-language="English" tvg-country="AU" tvg-logo="https://i.imgur.com/uFKLmbL.png" group-title="News",Sky News
+https://amg00663-skynews-skynewsau-samsungau-r7n40.amagi.tv/playlist1080p.m3u8
+#EXTINF:-1 tvg-id="" tvg-logo="" group-title="News",  Sky News
+https://amg00663-skynews-skynewsau-samsungau-r7n40.amagi.tv/playlist720p.m3u8
+#EXTINF:-1 tvg-id="Sky-News" tvg-name="Sky News" tvg-language="English" tvg-country="UK" tvg-logo="https://i.imgur.com/uFKLmbL.png" group-title="News",Sky News NOW
+https://amg00663-skynews-skynewsau-samsungau-r7n40.amagi.tv/playlist1080p.m3u8
+#EXTINF:-1 tvg-id="" tvg-url="https://www.bevy.be/bevyfiles/indonesia.xml"tvg-logo="https://static.wikia.nocookie.net/logopedia/images/b/b5/XTRA_2.png" group-title="Sports",BeinSport Xtra
+https://amg01334-beinsportsllc-beinxtra-localnow-kcy6r.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="bonappetit.us@SD" tvg-logo="https://i.imgur.com/YhFFxlE.png" group-title="Cooking",bon appÃ©tit (1080p)
+https://bonappetit-samsung.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="" tvg-logo="" group-title="",RakutenAA
+https://rakutenaa-tm-intl-aus-rakuten-eu-n1gtg.amagi.tv/playlist/rakutenAA-tm-intl-aus-rakuten-eu/playlist.m3u8
+#EXTINF:-1 tvg-id="SamsungMovieSphere.us@SD",MovieSphere (1080p)
+https://moviesphereuk-samsunguk.amagi.tv/playlist.m3u8
