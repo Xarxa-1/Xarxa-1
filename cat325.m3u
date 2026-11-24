@@ -470,10 +470,6 @@ https://ocko-live.ssl.cdn.cra.cz/channels/ocko_gold/playlist/cze/live_hq.m3u8
 https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/bein-sports-xtra-en-espanol/playlist.m3u8
 
 
-
-#EXTINF:-1 tvg-id="" tvg-name="SONY" tvg-logo="tvg-logo="https://static.wikia.nocookie.net/logopedia/images/c/c6/Sony_Channel_2023.png/revision/latest/scale-to-width-down/48?cb=20230828233601&path-prefix=es" group-title="Pel·lícules",SONY
-https://a-cdn.klowdtv.com/live1/cine_720p/playlist.m3u8
-
 #EXTINF:-1 tvg-id="" tvg-name="AYM SPORT" tvg-logo="https://pbs.twimg.com/profile_images/2014443059170189312/YAQSLtyI_400x400.jpg" group-title="Pel·lícules",AYM SPORT
 https://aym-as.otteravision.com/aym/as/as_720p_high.m3u8
 
@@ -491,7 +487,7 @@ https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tastemadehome-lgus/
 https://epg.provider.plex.tv/library/parts/643054b1fc3be59477853717-693cb1af58076a970420f591/?X-Plex-Token=hx25dEGAxAnejyrNi-Xs
 
 #EXTINF:-1 tvg-name="Sony Channel" group-title="Entreteniment" tvg-logo="https://static.wikia.nocookie.net/logopedia/images/c/c6/Sony_Channel_2023.png/revision/latest/scale-to-width-down/48?cb=20230828233601&path-prefix=es",Sony Channel
-https://fl1.moveonjoy.com/Sony_Movie_Channel/index.m3u8
+https://a-cdn.klowdtv.com/live1/cine_720p/playlist.m3u8
 
 #EXTINF:-1 tvg-name="Sony Channel" group-title="Entreteniment" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/b/b9/Sony_Channel_Logo.png",Sony Channel
 https://a-cdn.klowdtv.com/live1/cine_720p/chunks.m3u8
@@ -1210,153 +1206,6 @@ https://lotus.stingray.com/manifest/ose-190ads-montreal/samsungtvplus/master.m3u
 #EXTINF:-1 tvg-id="StingrayUrbanBeat.ca@SD" tvg-logo="https://i.imgur.com/Os3kRRP.png" group-title="Música",Stingray Urban Beat (1080p)
 https://lotus.stingray.com/manifest/ose-133ads-montreal/samsungtvplus/master.m3u8
 
-#EXTINF:0 tvg-id="Canal Trece.co",13 C
-http://181.78.79.131:8000/play/a0pm
-#EXTINF:0 tvg-id="A&E.co",A&E HD
-http://181.78.79.131:8000/play/a0mt
-#EXTINF:0 tvg-id="AMC HD.co",AMC HD
-http://181.78.79.131:8000/play/a0ud
-#EXTINF:0,ATV
-http://181.78.79.131:8000/play/a0sp
-#EXTINF:0 tvg-id="AXN.co",AXN HD
-http://181.78.79.131:8000/play/a0q0
-#EXTINF:0 tvg-id="AdultSwim.co",Adult Swim
-http://181.78.79.131:8000/play/a0pk
-#EXTINF:0 tvg-id="Animal Planet.co",Animal Planet
-http://181.78.79.131:8000/play/a0po
-#EXTINF:0,BETHEL TV
-http://181.78.79.131:8000/play/a0pn
-#EXTINF:0,Baby First
-http://181.78.79.131:8000/play/a0sw
-#EXTINF:0 tvg-id="CANAL 1.co",CANAL 1
-http://181.78.79.131:8000/play/a1s2
-#EXTINF:0 tvg-id="CANAL INSTITUCIONAL.co",CANAL INSTITUCIONAL
-http://181.78.79.131:8000/play/a1l8
-#EXTINF:0 tvg-id="Caracol.co",CARACOL TV HD
-http://181.78.79.131:8000/play/a1l0
-#EXTINF:0,CHV
-http://181.78.79.131:8000/play/a0r0
-#EXTINF:0 tvg-id="CNN Español.co",CNN Español
-http://181.78.79.131:8000/play/a0p3
-#EXTINF:0 tvg-id="Canal Trece.co",Canal 13 
-http://181.78.79.131:8000/play/a0n4
-#EXTINF:0,Canal 24 Horas
-http://181.78.79.131:8000/play/a0qr
-#EXTINF:0 tvg-id="Caracol.co",Canal Caracol
-http://181.78.79.131:8000/play/a0sb
-#EXTINF:0 tvg-id="RCN.co",Canal RCN
-http://181.78.79.131:8000/play/a0sc
-#EXTINF:0,Canal TUVES
-http://181.78.79.131:8000/play/a0q8
-#EXTINF:0 tvg-id="CANAL CONGRESO.co",Canal del Congreso
-http://181.78.79.131:8000/play/a0se
-#EXTINF:0 tvg-id="Canal Capital.co",Capital
-http://181.78.79.131:8000/play/a0sj
-#EXTINF:0 tvg-id="Cartoon Network.co",Cartoon Network HD
-http://181.78.79.131:8000/play/a0tj
-#EXTINF:0 tvg-id="Cinecanal.co",Cinecanal
-http://181.78.79.131:8000/play/a0pp
-#EXTINF:0 tvg-id="City TV.co",City TV
-http://181.78.79.131:8000/play/a0si
-#EXTINF:0 tvg-id="Comedy Central.co",Comedy Central HD
-http://181.78.79.131:8000/play/a0mu
-#EXTINF:0 tvg-id="De Película.co",De Pelicula
-http://181.78.79.131:8000/play/a0qb
-#EXTINF:0 tvg-id="DISCOVERY SCIENCE.co",Discovery Science
-http://181.78.79.131:8000/play/a0pb
-#EXTINF:0 tvg-id="Discovery Turbo.co",Discovery Turbo
-http://181.78.79.131:8000/play/a0p8
-#EXTINF:0 tvg-id="DISCOVERY WORLD HD.co",Discovery World HD
-http://181.78.79.131:8000/play/a0n8
-#EXTINF:0 tvg-id="DISNEY JUNIOR.co",Disney Jr.
-http://181.78.79.131:8000/play/a0p7
-
-#EXTINF:0 tvg-id="ESPN.co" group-title="Esport",ESPN
-http://181.78.79.131:8000/play/a0s7
-#EXTINF:0 tvg-id="ESPN 2 HD.co" group-title="Esport",ESPN 2 HD
-http://181.78.79.131:8000/play/a0qj
-#EXTINF:0 tvg-id="ESPN 3.co" group-title="Esport",ESPN 3 HD
-http://181.78.79.131:8000/play/a0s6
-#EXTINF:0 tvg-id="ESPN 4 HD.co" group-title="Esport",ESPN 4 HD
-http://181.78.79.131:8000/play/a0s9
-#EXTINF:0 tvg-id="ESPN 5 HD.co" group-title="Esport",ESPN 5 HD
-http://181.78.79.131:8000/play/a0s5
-#EXTINF:0 tvg-id="ESPN 6 HD.co" group-title="Esport",ESPN 6 HD
-http://181.78.79.131:8000/play/a0s3
-#EXTINF:0 tvg-id="ESPN 7 HD.co" group-title="Esport",ESPN 7 HD
-http://181.78.79.131:8000/play/a0s8
-#EXTINF:0 tvg-id="ENLACE.co",Enlace
-http://181.78.79.131:8000/play/a0pj
-#EXTINF:0  group-title="Esport",Espn Premium
-http://181.78.79.131:8000/play/a0r2
-#EXTINF:0  group-title="Esport",Eventos Deportivos
-http://181.78.79.131:8000/play/a0tr
-#EXTINF:0 tvg-id="HBO.co",HBO
-http://181.78.79.131:8000/play/a0qd
-#EXTINF:0 tvg-id="HBO XTREME.co",HBO Xtreme HD
-http://181.78.79.131:8000/play/a0qy
-#EXTINF:0 tvg-id="History Channel.co",History Channel
-http://181.78.79.131:8000/play/a0st
-#EXTINF:0 tvg-id="H&H.co",Home & Health HD
-http://181.78.79.131:8000/play/a0tm
-#EXTINF:0 tvg-id="ID - Investigation Discovery.co",ID
-http://181.78.79.131:8000/play/a0sl
-#EXTINF:0,LA KALLE
-http://181.78.79.131:8000/play/a1l3
-#EXTINF:0 tvg-id="Las Estrellas.co",Las Estrellas HD
-http://181.78.79.131:8000/play/a0qu
-#EXTINF:0 tvg-id="LIFETIME.co",Lifetime
-http://181.78.79.131:8000/play/a0pi
-#EXTINF:0,MEGA HD
-http://181.78.79.131:8000/play/a0qn
-#EXTINF:0 tvg-id="MTV.co",MTV HD
-http://181.78.79.131:8000/play/a0nc
-#EXTINF:0 tvg-id="NAT GEO HD.co",Nat Geo HD
-http://181.78.79.131:8000/play/a0pt
-#EXTINF:0 tvg-id="Nick.co",Nickelodeon HD
-http://181.78.79.131:8000/play/a0qm
-#EXTINF:0,Panamericana TV
-http://181.78.79.131:8000/play/a0so
-#EXTINF:0 tvg-id="PASIONES.co",Pasiones HD
-http://181.78.79.131:8000/play/a0qh
-#EXTINF:0 tvg-id="RCN.co",RCN HD
-http://181.78.79.131:8000/play/a1l4
-#EXTINF:0 tvg-id="RCN Novelas.co",RCN Novelas
-http://181.78.79.131:8000/play/a0sk
-#EXTINF:0 tvg-id="SEÑAL COLOMBIA.co",SEÑAL COLOMBIA
-http://181.78.79.131:8000/play/a1l7
-#EXTINF:0 tvg-id="Sony.co",Sony Movies
-http://181.78.79.131:8000/play/a0to
-#EXTINF:0 tvg-id="Space.co",Space HD
-http://181.78.79.131:8000/play/a0q2
-#EXTINF:0 tvg-id="Telecaribe.co",TELECARIBE
-http://181.78.79.131:8000/play/a1lb
-#EXTINF:0 tvg-id="TLC.co",TLC
-http://181.78.79.131:8000/play/a0t3
-#EXTINF:0 tvg-id="TNT Novelas.co",TNT Novelas HD
-http://181.78.79.131:8000/play/a0na
-#EXTINF:0,TNT SPORTS
-http://181.78.79.131:8000/play/a0mo
-#EXTINF:0,TNT Sports Premium SD
-http://181.78.79.131:8000/play/a0q9
-#EXTINF:0 tvg-id="Canal TRO.co",TRO
-http://181.78.79.131:8000/play/a0sh
-#EXTINF:0 tvg-id="TLNOVELAS.co",Tlnovelas 
-http://181.78.79.131:8000/play/a0t6
-#EXTINF:0 tvg-id="Universal TV.co",UNIVERSAL CHANNEL HD
-http://181.78.79.131:8000/play/a0mw
-#EXTINF:0,ViaX
-http://181.78.79.131:8000/play/a0t4
-#EXTINF:0 tvg-id="Warner Channel.co",Warner
-http://181.78.79.131:8000/play/a0sz
-#EXTINF:0 tvg-id="WARNER CHANNEL HD.co",Warner TV HD
-http://181.78.79.131:8000/play/a0pz
-#EXTINF:0 tvg-id="Win+Futbol.co",Win Sports+ HD
-http://181.78.79.131:8000/play/a0m1
-#EXTINF:0,Zona Latina
-http://181.78.79.131:8000/play/a0su
-#EXTINF:0 tvg-id="Canal Zoom.co",Zoom
-http://181.78.79.131:8000/play/a0sg
 
 #EXTINF:-1 channel-id="65ea8b928145cb0008509426-us" tvg-id="65ea8b928145cb0008509426" tvg-chno="2831" tvg-name="UEFA Champions League" tvg-logo="https://images.pluto.tv/channels/65ea8b928145cb0008509426/colorLogoPNG.png" group-title="United States",UEFA Champions League
 https://jmp2.uk/plu-65ea8b928145cb0008509426.m3u8
