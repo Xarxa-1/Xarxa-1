@@ -2447,5 +2447,9 @@ http://stream.bottledesk.net/p/AQNASgYGemc/index.m3u8
 #EXTINF:-1 tvg-id="SkySp.PL.HD.uk" tvg-logo="https://news.sky.com/resources/sky-spectrum-logo.png" group-title="Esport",UK | Sky Sports Premier League
 http://stream.bottledesk.net/p/AAxBRQEBc2c/index.m3u8
 
+#EXTINF:-1 tvg-id="0" tvg-name="Foc" tvg-logo="" group-title="",Llar de foc
+https://jmp2.uk/stvp-FR2200002HV
+
 #EXTINF:-1 tvg-id="0" tvg-name="Càmares0" tvg-logo="https://i.imgur.com/zXy2kbe.png" group-title="Catalunya",Càmares
 https://directes-tv-int.3catdirectes.cat/live-content/beauties-hls/master.m3u8
+
