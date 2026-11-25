@@ -2300,8 +2300,15 @@ http://stream.bottledesk.net/p/AAxBRQEBc2c/index.m3u8
 
 
 
-#EXTINF:-1 tvg-id="0" tvg-name="Foc" tvg-logo="" group-title="",Llar de foc
-https://jmp2.uk/stvp-FR2200002HV.m3u8
+#EXTINF:-1 tvg-id="0" tvg-name="Foc" tvg-logo="" group-title="Fons de pantalla",Llar de foc
+https://d21izs34d0y5tl.cloudfront.net/Fireplace_4K_SONO20.m3u8
+#EXTINF:-1 tvg-id="0" tvg-name="Peixera" tvg-logo="" group-title="Fons de pantalla",Peixera
+https://5ad79df289937.streamlock.net/Aquarium-WebCams/Secret-Reef.stream/chunklist.m3u8
+
+#EXTINF:-1 group-title="Carrer" group-title="Fons de pantalla",Carrer
+https://videos3.earthcam.com/fecnetwork/9974.flv/chunklist_w1802587375.m3u8
+
+
 
 #EXTM3U
 #EXTINF:-1 tvg-id="La2Catalunya" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Logo_TVE-2.svg/512px-Logo_TVE-2.svg.png" group-title="Documentary",La 2 Catalunya
