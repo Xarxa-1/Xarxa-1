@@ -31,6 +31,15 @@
   { "name": "Radio Marca", "playlist": "https://api.instant.audio/data/playlist/38/marca", "url": "https://radiomarcabcnmedia.dns-lcinternet.com:9000/stream", "logo": "https://static.mytuner.mobi/media/radios-150px/076/radio-marca.60356e7b.png" },
   { "name": "Fox News", "url": "https://live.amperwave.net/direct/foxnewsradio-foxnewsradioaac-imc?source=worldradiomap", "logo": "https://pbs.twimg.com/profile_images/1988465685639380992/PNFNFL7O_200x200.jpg" },
   { "name": "Chillout Antenne", "url": "http://stream.chillout.de/chillout/stream/mp3?aw_0_1st.playerid=tunein.com", "logo": "https://www.radio.es/300/antennechillout.png" },
+  { "name": "Chillout Ibiza", "url": "https://ais-edge89-dal02.cdnstream.com/b05055_128mp3", "logo": "https://static.mytuner.mobi/media/tvos_radios/915/chillout-ibiza-fm.0d76f6fb.png" },
+    { "name": "Chillout Lounge", "url": "https://strm112.1.fm/chilloutlounge_mobile_mp3", "logo": "https://co.radio.net/175/1fmchillout.png" },
+    { "name": "FM Deep House", "url": "https://strm112.1.fm/deephouse_mobile_mp3", "logo": "https://co.radio.net/175/1fmdeephouse.png" },
+    { "name": "", "url": "", "logo": "" },
+    { "name": "", "url": "", "logo": "" },
+    { "name": "", "url": "", "logo": "" },
+  
+  
+  
   { "name": "Costa del Mar", "url": "https://radio4.cdm-radio.com:18020/stream-mp3-Chill", "logo": "https://www.radio.es/300/costadelmar.png" },
   { "name": "Vaughan", "url": "https://cdn-peer021.streaming-pro.com:8058/vaughanradio.mp3", "logo": "https://www.radio.es/300/vaughan-radio.png" },
   { "name": "The Sound of Silence - Disturbed [Cyril Remix 2024]", "url": "https://xarxa-1.github.io/Xarxa-1/The Sound of Silence - Disturbed [Cyril Remix 2024].mp3", "logo": "https://pbs.twimg.com/profile_images/1847524452856184832/uP8bIUB7_400x400.jpg" },
